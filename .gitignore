@@ -1,0 +1,28 @@
+# Mac
+.DS_Store
+
+# Node
+node_modules
+*.debug
+
+# Gulp
+report
+coverage
+build
+tmp
+
+# Bower
+bower_components
+
+# Logging
+logs
+*.log
+
+# Runtime
+pids
+*.pid
+*.seed
+
+# IDEs
+.idea
+

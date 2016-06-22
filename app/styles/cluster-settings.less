@@ -1,0 +1,78 @@
+@import 'lib/shared.less';
+
+#clusterSettings {
+  background-color: @whitescale-4-a;
+}
+
+.cluster-settings-page {
+
+  .sf-page-details {
+    background-color: @whitescale-2;
+    border: 1px solid @whitescale-3;
+    border-radius: 3px;
+    margin-bottom: 25px;
+    padding: 0 10px;
+
+    > p {
+      margin: 5px 0;
+    }
+
+    > p span {
+      margin-right: 15px;
+    }
+
+    > p label {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  }
+
+  .cluster-settings {
+    label {
+      font-weight: 500;
+    }
+
+    .ensemble-label {
+      vertical-align: top;
+      margin-top: 3px;
+    }
+
+    .cluster-settings-input {
+      width: 60%;
+      text-align: right;
+      display: inline-block;
+
+      input,
+      select,
+      .textbox {
+        display: inline-block;
+        width: 375px;
+        font-size: 13px;
+        box-shadow:none;
+        margin-left: 5px;
+        text-align: left;
+      }
+
+      .textbox {
+        height: auto;
+        min-height: 30px;
+      }
+
+      &.-small {
+        width: 300px;
+
+        input {
+          width: 225px;
+        }
+      }
+    }
+
+    .messages {
+      display: inline-block;
+    }
+  }
+
+  .update-cluster-settings-btn {
+    margin-bottom: 25px;
+  }
+}

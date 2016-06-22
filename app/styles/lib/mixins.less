@@ -1,0 +1,83 @@
+.color(@background, @text) {
+  background-color: @background;
+  color: @text;
+}
+
+.circle(@height) {
+  width: @height;
+  height: @height;
+  border-radius: @height;
+}
+
+.oval(@height, @radius) {
+  height: @height;
+  border-radius: @radius;
+}
+
+.square(@height) {
+  width: @height;
+  height: @height;
+}
+
+.inset-shadow-top(@size, @color) {
+  -webkit-box-shadow: inset 0px 0px @size 0px @color;
+  -moz-box-shadow: inset 0px 0px @size 0px @color;
+  -ms-box-shadow: inset 0px 0px @size 0px @color;
+  -o-box-shadow: inset 0px 0px @size 0px @color;
+  box-shadow: inset 0px 0px @size 0px @color;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.icon(@icon, @size) {
+  background-repeat: no-repeat;
+  background-size: @size;
+  background-image: url(@icon);
+}
+
+/**
+ * Bootstrap adds 25px of top positioning to .form-control-feedback elements.
+ * This sets the top to -2px and right to -5px which places the icon in the right-center of a 30px tall textbox
+*/
+.form-control-feedback-position-patch() {
+  .form-control-feedback {
+    top: -2px;
+    right: -5px;
+  }
+}
+
+/**
+ * Bootstrap adds a blue box-shadow to inputs on focus, this patch removes
+ * it
+ */
+.input-box-shadow-patch() {
+  box-shadow: none;
+}
+
+/**
+ * Bootstrap adds a 15px margin to the bottom of form groups, this patch removes
+ * it
+ */
+.form-group-margin-bottom-patch() {
+  margin-bottom: 0;
+}
+
+.truncate-table-data(@max-width) {
+  .truncate {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap !important;
+    max-width: @max-width;
+    text-overflow: ellipsis;
+  }
+
+  tr:nth-child(2) {
+    .truncate {
+      border-top: none;
+    }
+  }
+}

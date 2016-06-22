@@ -1,0 +1,73 @@
+@import 'lib/shared.less';
+
+body {
+  min-width: 768px;
+  background-color: @app-background-color;
+  font-family: 'Avenir Next', Verdana, Arial, Helvetica, sans-serif;
+}
+
+/* JIRA issue collector */
+a.atlwdg-trigger, .aui-button-primary.submit-button {
+  background-color: @secondary-green;
+}
+
+
+::-webkit-input-placeholder {
+  color: @whitescale-9;
+  font-style: italic;
+  font-size: 13px;
+}
+:-moz-placeholder {
+  /* FF 4-18 */
+  color: @whitescale-9;
+  font-style: italic;
+  font-size: 13px;
+}
+::-moz-placeholder {
+  /* FF 19+ */
+  color: @whitescale-9;
+  font-style: italic;
+  font-size: 13px;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: @whitescale-9;
+  font-style: italic;
+  font-size: 13px;
+}
+
+/**
+ * Bootstrap makes cursor: not-allowed on disabled form-controls, this overrides that
+ */
+.form-control[disabled],
+.form-control[readonly], fieldset[disabled]
+.form-control {
+  cursor: auto;
+}
+
+/**
+ * Override Bootstrap navbar collapse
+ */
+.navbar-nav {
+  float: left !important;
+  margin: 0 !important;
+
+  > li {
+    float: left !important;
+
+    > a {
+      padding-top: 15px !important;
+      padding-bottom: 15px !important;
+    }
+  }
+}
+
+/*
+ * IE 10+ hacks for their lack of support for intrinsic sizing
+ */
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .nav-bar-shelf {
+    min-height: 100px !important;
+  }
+}

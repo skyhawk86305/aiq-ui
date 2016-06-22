@@ -1,0 +1,113 @@
+@import 'lib/shared.less';
+
+#networkSettings-bondOneG,
+#networkSettings-bondTenG {
+  background-color: @whitescale-4-a;
+}
+
+.network-settings-page {
+
+  .sf-page-details {
+    background-color: @whitescale-2;
+    border: 1px solid @whitescale-3;
+    border-radius: 3px;
+    margin-bottom: 25px;
+    padding: 0 10px;
+
+    > p {
+      margin: 5px 0;
+    }
+
+    > p span {
+      margin-right: 15px;
+    }
+
+    > p label {
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  }
+
+  .network-route-container {
+    background-color: @whitescale-1;
+    border: 1px solid @whitescale-5;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 5px 0px;
+    width: 654px;
+  }
+
+  .network-route-input-container {
+    text-align: right;
+    display: inline-block;
+    width: 75%;
+  }
+
+  .network-route-btn-container {
+    position: relative;
+    bottom: 65px;
+    display: inline-block;
+    width: 24%;
+    text-align: center;
+  }
+
+  .network-route-input {
+    label {
+      font-weight: 400;
+      margin: 13px 0px;
+    }
+
+    input {
+      display: inline-block;
+      width: 325px;
+      margin: 5px 10px;
+    }
+  }
+
+  .network-route-remove-btn {
+    color: @core-red;
+    cursor: pointer;
+  }
+
+  .network-add-route-btn {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .bond-mode-settings {
+    label {
+      font-weight: 500;
+    }
+
+    .network-settings-input {
+      width: 57%;
+      text-align: right;
+      display: inline-block;
+
+      input,
+      select {
+        display: inline-block;
+        width: 375px;
+        font-size: 13px;
+        box-shadow:none;
+        margin-left: 5px;
+      }
+
+      &.-small {
+        width: 300px;
+
+        input {
+          width: 225px;
+        }
+      }
+    }
+
+    .messages {
+      display: inline-block;
+    }
+  }
+
+  .update-network-settings-btn {
+    margin-bottom: 25px;
+  }
+}
