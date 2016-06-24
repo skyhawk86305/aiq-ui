@@ -1,42 +1,46 @@
 Running the Tests
 ============================
 
-Unit tests are run and configured with Karma via Gulp.
-
-Both e2e and acceptance test are run and configured with Protractor via Gulp.
-
 ## Unit Tests
+
+  - Are run and configured with Karma and executed via Gulp
+  - Run in a headless browser (PhantomJS)
+  - Output coverage reports to /report/coverage/PhantomJS/lcov-report/index.html
+  - Fail if coverage for any of the categories drop below 75
+  - Watermark thresholds are initially set at red: <80%, yellow: <90%, green: >90%
+  - Coverage goals: TBD
 
 `gulp test:unit`
 
-They can be run in verbose mode with the [--v, --verbose] flag
+ Text execution can be configured with:
 
-`gulp test:unit --v`
+`-a, --analyze // Run static analysis on code`
+
+`-v, --verbose // Run tests in verbose mode to output documentation`
 
 ## E2E & Acceptance Tests
 
-These tests run against an actual SolidFire API (the code must first be deployed to the physical device under test).
-The target endpoint can be configured via command line parameters (note: apiVersion requires a leading non-integer character):
+  - Are run and configured with Protractor via Gulp
+  - Run in an actual browser (configurable)
+  - Run against the current build served locally via express
+  - Use a mock backend to respond to API calls with text fixtures found at /test/fixtures
+  - Output coverage reports TBD
 
-`gulp test:e2e --ip 192.168.139.178 --port :442 --path node/develop --apiVersion _9.0 --authUsername admin --authPassword admin`
+`gulp test:e2e`
 
-`gulp test:acceptance --ip 172.26.66.85 --port :442  --path node/develop --apiVersion _9.0 --authUsername admin --authPassword admin`
+`gulp test:acceptance`
 
-Alternatively they can be configured with a preset config object:
+ Text execution can be configured with:
 
-`gulp test:e2e --config hulk`
+`-a, --analyze // Run static analysis on code`
 
-`gulp test:acceptance --config qe`
+`-v, --verbose // Run tests in verbose mode (this may impact reporting)`
 
-There are other alternative parameters for configuring how the tests run:
+`-t, --tags    // For running features/scenarios with a specific tag (acceptance tests only)`
 
-`--v, --verbose // Run tests in verbose mode (this may impact reporting)`
+`-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]`
 
-`--t, --tags    // For running features/scenarios with a specific tag (acceptance tests only)`
-
-`--b, --browser // Change the browser that the tests run in [chrome, firefox, phantomjs, safari]`
-
-`--l, --local   // To run the tests against a local instance of selenium (must first start server with: webdriver-manager start)`
+`-l, --local   // To run the tests with a local instance of selenium against the app being served locally (rather than on the selenium grid at http://192.168.129.176:4444/wd/hub running against the server running on jenkins)`
 
 Testing Guidelines
 ============================
@@ -70,8 +74,6 @@ works as intended. They use selenium to interact with the browser and take much 
   * Cover all edge cases not directly tested in the acceptance suite
   * Run independently at file level to allow them to be run in parallel
   * NOT have selectors (these belong in page objects)
-  * Use a mock backend for testing functionality that is destructive to the product
-  * Be placed in a path that matches the *general* location of the files being tested within the app
 
 ## Acceptance Testing
 
@@ -96,7 +98,7 @@ under test and are responsible of abstracting away its implementation details fr
 
   **Page Objects Should:**
   
-  * NOT contain assertions
+  * NOT contain assertions or expectations
   * Contain all selectors for the page or component being described
   * Should contain functions for complex interactions only (NOT one liners like clicking or inputing values)
   * Have selectors that prefer protractor locators over css and css over text

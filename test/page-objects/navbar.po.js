@@ -2,8 +2,22 @@
 
 var NavbarComponent = function () {
   this.el = element(by.css('.sf-navbar'));
-  this.mainNavbarItems = element.all(by.repeater('mainNavbarItem in config'));
-  this.subNavbarItems = element.all(by.repeater('subNavbarItem in subNavbarItems'));
+  this.mainNavbar = {
+    el: element(by.css('.sf-main-navbar')),
+    activeItem: element(by.css('.navbar-item.-main.active')),
+    items: element.all(by.repeater('mainNavbarItem in config')),
+    click: function(item) {
+      element(by.id('main-navbar-' + item.toLowerCase())).click();
+    }
+  };
+  this.subNavbar = {
+    el: element(by.css('.sf-sub-navbar')),
+    activeItem: element(by.css('.navbar-item.-sub.active')),
+    items: element.all(by.repeater('subNavbarItem in subNavbarItems')),
+    click: function(item) {
+      element(by.id('sub-navbar-' + item.toLowerCase())).click();
+    }
+  };
   this.apiLog = element(by.id('api-log-anchor'));
   this.menu = {
     button: element(by.id('navbar-menu')),
@@ -13,7 +27,6 @@ var NavbarComponent = function () {
         options: element.all(by.css('#navbar-menu-dropdown > .menu-option')),
         select: function(option) {
           switch(option) {
-            case('ActiveIQ'): element(by.id('active-iq-anchor')).click(); break;
             case('Support'): element(by.id('support-anchor')).click(); break;
             case('Logout'): element(by.id('logout-anchor')).click(); break;
           }

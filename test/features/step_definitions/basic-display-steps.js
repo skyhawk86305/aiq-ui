@@ -5,6 +5,11 @@ module.exports = function() {
     return this.expect(this.navbar.el.isPresent()).to.eventually.be.true;
   });
 
+  this.When(/^I click on the "(.*)" navbar item "(.*)"$/, function (nav, item) {
+    var navbar = nav === 'main' ? this.navbar.mainNavbar : this.navbar.subNavbar;
+    navbar.click(item);
+  });
+
   this.When(/^I click on the API log button$/, function () {
     this.navbar.apiLog.click();
   });
@@ -13,11 +18,11 @@ module.exports = function() {
     this.navbar.menu.expand().select('Logout');
   });
 
-  this.Then(/^I see the shared SolidFire API log$/, function () {
-    return this.expect(this.apiLog.el.isPresent()).to.eventually.be.true;
+  this.Then(/^I am navigated to the route "(.*)"$/, function (route) {
+    return this.expect(browser.getLocationAbsUrl()).to.eventually.contain(route);
   });
 
-  this.Then(/^I am taken to the logout page$/, function () {
-    return this.expect(this.logoutPage.isLoaded()).to.eventually.be.true;
+  this.Then(/^I see the shared SolidFire API log$/, function () {
+    return this.expect(this.apiLog.el.isPresent()).to.eventually.be.true;
   });
 };

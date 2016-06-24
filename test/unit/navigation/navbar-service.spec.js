@@ -3,7 +3,7 @@
 describe('NavbarService', function () {
   var service;
 
-  beforeEach(module('elementUiPerNode'));
+  beforeEach(module('aiqUi'));
 
   beforeEach(inject(function (NavbarService) {
     service = NavbarService;
@@ -11,7 +11,7 @@ describe('NavbarService', function () {
 
   describe('initialization', function() {
     it('should expose a config array of main and sub navbar items', function() {
-      expect(service.config.length).toEqual(2);
+      expect(service.config.length).toEqual(3);
     });
 
     it('should set the visibility flag of specific navbar items based on user settings', function() {

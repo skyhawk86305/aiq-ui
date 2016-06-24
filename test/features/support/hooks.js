@@ -1,3 +1,4 @@
+/*jshint unused:false*/
 'use strict';
 
 var Hooks = function () {
@@ -8,23 +9,9 @@ var Hooks = function () {
   this.After(function (scenario) {});
 
   // We can also build custom hooks for specific scenarios
-  this.Before({tags:['@getConfig']},function (scenario, callback) {
-    var self = this;
-    self.sdk.api.getConfig().then(function(response) {
-      self.responses.getConfig = response ? response.result : false;
-      callback();
-    });
-  });
+  this.Before({tags:['@myTag']},function (scenario) {});
+  this.After({tags:['@myTag']},function (scenario) {});
 
-  this.After({tags:['@setConfig']},function (scenario, callback) {
-    var originalConfig = this.responses.getConfig.config;
-    this.sdk.api.setConfig({cluster: originalConfig.cluster, network: originalConfig.network})
-    .then(function() { callback(); }).catch(callback);
-  });
-
-  this.After({tags:['@nonAngular']},function (scenario) {
-    browser.ignoreSynchronization = false;
-  });
 };
 
 module.exports = Hooks;

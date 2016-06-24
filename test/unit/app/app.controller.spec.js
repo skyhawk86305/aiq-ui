@@ -4,7 +4,7 @@ describe('AppController', function () {
   var rootScope,
       controller;
 
-  beforeEach(module('elementUiPerNode'));
+  beforeEach(module('aiqUi'));
 
   beforeEach(inject(function ($rootScope, $controller) {
     rootScope = $rootScope;
@@ -20,8 +20,8 @@ describe('AppController', function () {
 
   describe('route changes', function() {
     it('should update the currentPage variable used in the html title tag', function() {
-      rootScope.$broadcast('$stateChangeSuccess', {name:'networkSettings.bondOneG'});
-      expect(controller.currentPage).toEqual('networkSettings-bondOneG');
+      rootScope.$broadcast('$stateChangeSuccess', {name:'foo.bar'});
+      expect(controller.currentPage).toEqual('foo-bar');
     });
   });
 

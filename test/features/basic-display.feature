@@ -1,25 +1,30 @@
 Feature: Basic Display
-  As a user
-  I want an application with the new look and feel when interacting with a node
-  So that we can replace the legacy UI
+  As a User
+  I want a single page app (SPA) with a basic navigation bar
+  So that I can quickly navigate between views
 
 #  Assumptions:
-#    Given The user is authenticated
-#    Given The app successfully loads on a SolidFire node at port :442
+#    Given user is authenticated
 
-  Scenario: Default view with navbar (EU-1670)
-    Given I navigate to the 'cluster-settings' page
+  Scenario: Default view (CLOUD-2904)
+    Given The app is open in a browser
     Then I see the shared SolidFire navbar
 
-  Scenario: API log functionality (EU-1632)
-    Given I navigate to the 'cluster-settings' page
+  Scenario: Navbar functionality (CLOUD-2904)
+    Given The app is open in a browser
+    And I see the shared SolidFire navbar
+    When I click on the "main" navbar item "Cluster"
+    Then I am navigated to the route "/cluster"
+    When I click on the "sub" navbar item "Drives"
+    Then I am navigated to the route "/cluster/drives"
+
+  Scenario: API log functionality (CLOUD-2904)
+    Given The app is open in a browser
     And I see the shared SolidFire navbar
     When I click on the API log button
     Then I see the shared SolidFire API log
 
-  @nonAngular
-  Scenario: Logout functionality (EU-1665)
-    Given I navigate to the 'cluster-settings' page
-    And I see the shared SolidFire navbar
-    When I click on the logout menu option
-    Then I am taken to the logout page
+#  Scenario: Logout functionality (CLOUD-2891)
+#    Given The app is open in a browser
+#    And I see the shared SolidFire navbar
+#    When I click on the logout menu option
