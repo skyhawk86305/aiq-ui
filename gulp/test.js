@@ -1,6 +1,8 @@
 'use strict';
 var gulp = require('gulp')
   , path = require('path')
+  , cucumberConf = 'test/protractor-cucumber.config.js'
+  , e2eConf = 'test/protractor-e2e.config.js'
   , karmaConf = require('../test/karma.config.js')
   , $ = require('gulp-load-plugins')({
     pattern: [
@@ -25,7 +27,7 @@ var gulp = require('gulp')
   , unitTests = path.join(buildConfig.unitTestDir, '**/*.spec.js')
   , e2eTests = path.join(buildConfig.e2eTestDir, '**/*.spec.js')
   , acceptanceTests = path.join(buildConfig.acceptanceTestDir, '**/*.feature')
-  , argv = $.yargs.alias('v', 'verbose').argv;
+  , argv = $.yargs.alias('v', 'verbose').alias('t', 'tags').alias('b', 'browser').alias('l', 'local').argv;
 
 karmaConf.files = [];
 
@@ -61,79 +63,32 @@ gulp.task('test:unit', ['lint', 'karmaFiles'], function (done) {
   karmaServer.start();
 });
 
-gulp.task('test:e2e', [], function () {
-  var configFile = 'test/protractor-e2e.config.js';
-  var args = getProtractorArgs();
+gulp.task('test:e2e', ['serve:mock'], function () {
   return gulp.src([e2eTests])
-    .pipe($.protractor.protractor({configFile: configFile, args: args}))
-    .on('error', function (e) { console.log(e); });
+    .pipe($.protractor.protractor({configFile: e2eConf, args: getProtractorArgs()}))
+    .on('error', function (e) { console.log(e); })
+    .on('close', function(e) { process.exit(-1); });
 });
 
-gulp.task('test:acceptance', [], function () {
-  var configFile = 'test/protractor-cucumber.config.js';
-  var args = getProtractorArgs();
+gulp.task('test:acceptance', ['serve:mock'], function () {
   return gulp.src([acceptanceTests])
-    .pipe($.protractor.protractor({configFile: configFile, args: args}))
-    .on('error', function (e) { console.log(e); });
+    .pipe($.protractor.protractor({configFile: cucumberConf, args: getProtractorArgs()}))
+    .on('error', function (e) { console.log(e); })
+    .on('close', function(e) { process.exit(-1); });
 });
 
 function getProtractorArgs() {
   var protractorArgs = [];
-  var authUsername, authPassword, ip, port, path, apiVersion;
-  if(argv.config) {
-    switch(argv.config) {
-      case('qe'):
-        authUsername = 'admin';
-        authPassword = 'admin';
-        ip = '192.168.133.120';
-        port = ':442';
-        path = 'node/develop';
-        apiVersion = '9.0';
-        break;
-      case('hulk'):
-        authUsername = 'admin';
-        authPassword = 'admin';
-        ip = '172.26.66.85';
-        port = ':442';
-        path = 'node/develop';
-        apiVersion = '9.0';
-        break;
-      default:
-        throw 'invalid config param';
-    }
-  } else {
-    argv = $.yargs
-      .alias('v', 'verbose')
-      .alias('u', 'authUsername')
-      .alias('p', 'authPassword')
-      .alias('a', 'apiVersion')
-      .alias('t', 'tags')
-      .alias('b', 'browser')
-      .alias('l', 'local')
-      .demand(['authUsername', 'authPassword', 'ip', 'port', 'path', 'apiVersion'])
-      .argv;
-    authUsername = argv.authUsername;
-    authPassword = argv.authPassword;
-    ip = argv.ip;
-    port = argv.port;
-    path = argv.path;
-    apiVersion = argv.apiVersion.slice(1);
-  }
-  protractorArgs.push('--baseUrl', 'https://'+authUsername+':'+authPassword+'@'+ip+port+'/'+path+'/index.htm');
-  protractorArgs.push('--params.authUsername', authUsername);
-  protractorArgs.push('--params.authPassword', authPassword);
-  protractorArgs.push('--params.ip', ip);
-  protractorArgs.push('--params.port', port);
-  protractorArgs.push('--params.apiVersion', '#'+apiVersion);
-  if(argv.tags) { protractorArgs.push('--cucumberOpts.tags', argv.tags); }
-  if(argv.verbose) { protractorArgs.push('--cucumberOpts.format', 'pretty'); }
+  protractorArgs.push('--baseUrl', 'http://' + mockConfig.host + ':' + mockConfig.port);
   if(argv.browser) { protractorArgs.push('--capabilities.browserName', argv.browser); }
-  if (argv.local) {
-   // protractorArgs.push('--seleniumServerJar', true);
-  } else {
+  if(argv.tags) { protractorArgs.push('--cucumberOpts.tags', argv.tags); }
+  if(argv.verbose) {
+    protractorArgs.push('--cucumberOpts.format', 'pretty');
+    //ToDo: update the protractor-e2e config
+  }
+  if (!argv.local) {
     protractorArgs.push('--seleniumAddress', 'http://192.168.129.176:4444/wd/hub');
   }
-
   return protractorArgs
 }
 

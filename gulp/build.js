@@ -23,7 +23,7 @@ var gulp = require('gulp')
   , appMarkupFiles = path.join(appBase, '**/*.{htm,html}')
   , appScriptFiles = path.join(appBase, '**/*.{js,json}')
   , appStyleFiles = path.join(appBase, '**/*.{css,less}')
-  , isProd = $.yargs.argv.stage === 'prod';
+  , isProd = $.yargs.argv.prod;
 
 // delete build directory
 gulp.task('clean', function (cb) {
@@ -35,6 +35,7 @@ gulp.task('clean-debug', function (cb) {
 
 // compile markup files and copy into build directory
 gulp.task('markup', ['clean'], function () {
+  //ToDo:  if (isProd) { minify and convert to js } //need to resolve issue with relative pathing of templateUrls
   return gulp.src([appMarkupFiles])
     .pipe(gulp.dest(buildConfig.buildDir));
 });
@@ -68,8 +69,7 @@ gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
   return gulp.src([
     appScriptFiles,
-    '!**/*_test.*',
-    '!**/index.htm'
+    '!**/index.html'
   ])
     .pipe(jsFilter)
     .pipe($.if(isProd, $.angularFilesort()))
@@ -80,10 +80,10 @@ gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
     .pipe(gulp.dest(buildConfig.buildJs))
     .pipe(jsFilter.restore);
 });
-// inject custom CSS and JavaScript into index.htm
+// inject custom CSS and JavaScript into index.html
 gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
-    return gulp.src([buildConfig.buildDir + 'index.htm'])
+    return gulp.src([buildConfig.buildDir + 'index.html'])
     .pipe($.inject(gulp.src([
       buildConfig.buildCss + '**/*',
       buildConfig.buildJs + '**/*'
@@ -124,10 +124,10 @@ gulp.task('bowerCopy', ['inject'], function () {
     .pipe(gulp.dest(buildConfig.extJs))
     .pipe(jsFilter.restore);
 });
-// inject bower components into index.htm
+// inject bower components into index.html
 gulp.task('bowerInject', ['bowerCopy'], function () {
   if (isProd) {
-    return gulp.src([buildConfig.buildDir + 'index.htm'])
+    return gulp.src(buildConfig.buildDir + 'index.html')
       .pipe($.inject(gulp.src([
         buildConfig.extCss + 'vendor*.css',
         buildConfig.extJs + 'vendor*.js'
@@ -146,7 +146,7 @@ gulp.task('bowerInject', ['bowerCopy'], function () {
       }))
       .pipe(gulp.dest(buildConfig.buildDir));
   } else {
-    return gulp.src([buildConfig.buildDir + 'index.htm'])
+    return gulp.src([buildConfig.buildDir + 'index.html'])
       .pipe($.wiredep.stream({
         exclude: [/bootstrap[.]js/],
         fileTypes: {
@@ -167,6 +167,7 @@ gulp.task('bowerInject', ['bowerCopy'], function () {
       .pipe(gulp.dest(buildConfig.buildDir));
   }
 });
+
 // copy custom fonts into build directory
 gulp.task('fonts', ['fontsBower'], function () {
   var fontFilter = $.filter('**/*.{eot,otf,svg,ttf,woff,woff2}', {restore: true});
@@ -175,6 +176,7 @@ gulp.task('fonts', ['fontsBower'], function () {
     .pipe(gulp.dest(buildConfig.buildFonts))
     .pipe(fontFilter.restore);
 });
+
 // copy Bower fonts into build directory
 gulp.task('fontsBower', ['clean'], function () {
   var fontFilter = $.filter('**/*.{eot,otf,svg,ttf,woff,woff2}', {restore: true});
@@ -183,29 +185,25 @@ gulp.task('fontsBower', ['clean'], function () {
     .pipe(gulp.dest(buildConfig.extFonts))
     .pipe(fontFilter.restore);
 });
+
 // copy and optimize app images into build directory
 gulp.task('images', ['imagesBower'], function () {
   return gulp.src(appImages)
     .pipe($.if(isProd, $.imagemin()))
     .pipe(gulp.dest(buildConfig.buildImages));
 });
+
 // copy shared pages from sf-components
 gulp.task('extPages', ['clean'], function () {
   return gulp.src(extPages)
     .pipe(gulp.dest(buildConfig.buildDir));
 });
+
 // copy and optimize Bower images into build directory
 gulp.task('imagesBower', ['clean'], function () {
   return gulp.src(extImages)
     .pipe($.if(isProd, $.imagemin()))
     .pipe(gulp.dest(buildConfig.extImages));
 });
+
 gulp.task('build', ['bowerInject', 'images', 'fonts', 'extPages']);
-gulp.task('buildAndCopyToDebug',['build'],function(){
-  gulp.src([buildConfig.buildDir + '**/*'],{base: buildConfig.buildDir })
-    .pipe(gulp.dest(buildConfig.buildDebugDir));
-});
-gulp.task('moveDebugInsideBuild',function(){
-  gulp.src([buildConfig.buildDebugDir + '**/*'],{base: buildConfig.buildDebugDir })
-    .pipe(gulp.dest(buildConfig.buildDebugDirPath));
-});

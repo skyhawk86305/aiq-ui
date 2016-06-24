@@ -3,20 +3,19 @@
   'use strict';
 
   angular
-    .module('elementUiPerNode', [
+    .module('aiqUi', [
       'ui.router',
       'ui.select',
       'ui.bootstrap',
       'ngMessages',
       'ngSanitize',
-      'solidfire-sdk',
       'sfComponents'
     ]);
 
-  angular.module('elementUiPerNode')
-    .controller('AppController', ['$rootScope', 'NavbarService', 'ApiLogService', '$state', ctrl]);
+  angular.module('aiqUi')
+    .controller('AppController', ['$rootScope', 'NavbarService', 'ApiLogService', 'DataService', '$state', ctrl]);
 
-  function ctrl($rootScope, NavbarService, ApiLogService) {
+  function ctrl($rootScope, NavbarService, ApiLogService, DataService) {
     /* jshint validthis:true */
     var self = this;
 
@@ -26,6 +25,11 @@
 
     self.navbar = NavbarService;
     self.apiLog = ApiLogService;
+
+    // ToDo: remove this call. Only used for demo purposes
+    DataService.callAPI('ListActiveVolumes', {clusterID:1898714}).then(function(response) {
+      self.volumes = response.volumes;
+    });
   }
 
 })();

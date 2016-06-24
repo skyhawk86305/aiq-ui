@@ -3,18 +3,24 @@
   'use strict';
 
   angular
-    .module('elementUiPerNode')
+    .module('aiqUi')
     .service('NavbarService', [NavbarService]);
 
   function NavbarService() {
     this.config = [
-      {sref:'networkSettings', id:'main-navbar-network-settings', label:'Network Settings', visible: true,
+      {sref:'dashboard', id:'main-navbar-dashboard', label:'Dashboard', visible: true,
         subNavbarItems: [
-          {sref:'networkSettings.bondOneG', id:'sub-navbar-bond-one-g', label:'Bond 1G', visible: true},
-          {sref:'networkSettings.bondTenG', id:'sub-navbar-bond-ten-g', label:'Bond 10G', visible: true}
+          {sref:'dashboard.overview', id:'sub-navbar-overview', label:'Overview', visible: true}
         ]
       },
-      {sref:'clusterSettings', id:'main-navbar-cluster-settings', label:'Cluster Settings', visible: true}
+      {sref:'cluster', id:'main-navbar-cluster', label:'Cluster', visible: true,
+        subNavbarItems: [
+          {sref:'cluster.nodes', id:'sub-navbar-nodes', label:'Nodes', visible: true},
+          {sref:'cluster.drives', id:'sub-navbar-drives', label:'Drives', visible: true},
+          {sref:'cluster.volumes', id:'sub-navbar-volumes', label:'Volumes', visible: true}
+        ]
+      },
+      {sref:'users', id:'main-navbar-users', label:'Users', visible: true} //ToDo: make dynamic based off of user auth
     ];
   }
 })();

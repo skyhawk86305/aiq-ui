@@ -3,46 +3,56 @@
   'use strict';
 
   angular
-    .module('elementUiPerNode')
+    .module('aiqUi')
     .run(['$rootScope', '$state', routeConfig])
     .config(['$urlRouterProvider', '$stateProvider', stateConfig]);
 
   function routeConfig($rootScope, $state) {
     $rootScope.$on('$stateChangeStart', function (event, toState) {
       switch (toState.name) {
-        case ('networkSettings'):
+        case ('dashboard'):
           event.preventDefault();
-          $state.go('networkSettings.bondOneG');
+          $state.go('dashboard.overview');
+          break;
+        case ('cluster'):
+          event.preventDefault();
+          $state.go('cluster.nodes');
           break;
       }
     });
   }
 
   function stateConfig($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise('/network-settings/bond-one-g');
+    $urlRouterProvider.otherwise('/dashboard/overview');
 
     $stateProvider
-      .state('networkSettings', {
-        url: '/network-settings',
-        templateUrl: 'settings/network-settings.tpl.html'
+      .state('dashboard', {
+        url: '/dashboard',
+        templateUrl: 'dashboard/dashboard.tpl.html'
       })
-      .state('networkSettings.bondOneG', {
-        url: '/bond-one-g',
-        controllerAs: 'ctrl',
-        controller: 'SettingsController',
-        templateUrl: 'settings/bond-one-g.tpl.html'
+      .state('dashboard.overview', {
+        url: '/overview',
+        templateUrl: 'dashboard/overview/overview.tpl.html'
       })
-      .state('networkSettings.bondTenG', {
-        url: '/bond-ten-g',
-        controllerAs: 'ctrl',
-        controller: 'SettingsController',
-        templateUrl: 'settings/bond-ten-g.tpl.html'
+      .state('cluster', {
+        url: '/cluster',
+        templateUrl: 'cluster/cluster.tpl.html'
       })
-      .state('clusterSettings', {
-        url: '/cluster-settings',
-        controllerAs: 'ctrl',
-        controller: 'SettingsController',
-        templateUrl: 'settings/cluster-settings.tpl.html'
+      .state('cluster.nodes', {
+        url: '/nodes',
+        templateUrl: 'cluster/nodes/nodes.tpl.html'
+      })
+      .state('cluster.drives', {
+        url: '/drives',
+        templateUrl: 'cluster/drives/drives.tpl.html'
+      })
+      .state('cluster.volumes', {
+        url: '/volumes',
+        templateUrl: 'cluster/volumes/volumes.tpl.html'
+      })
+      .state('users', {
+        url: '/users',
+        templateUrl: 'users/users.tpl.html'
       });
   }
 })();

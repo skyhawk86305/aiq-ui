@@ -26,3 +26,7 @@ pids
 # IDEs
 .idea
 
+# local configs
+local.config.js
+test/protractor-qe-cucumber.config.js
+test/protractor-qe-e2e.config.js
