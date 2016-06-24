@@ -18,11 +18,6 @@ console.log("Node server started on " + localConfig.host + ':' + localConfig.por
  * Proxy API requests to AIQ server
  */
 server.use('/v2/api', function (req, res) {
-  console.log(Object.keys(req));
-  console.log("body: ", req.body);
-  console.log("foo: ", req.foo);
-  console.log("params: ", req.params);
-  console.log("query: ", req.query);
   var cookieJar = request.jar(),
       isAuthenticated = cookie,
       url = localConfig.apiServer + '/json-rpc/2.0',
