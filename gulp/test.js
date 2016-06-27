@@ -4,6 +4,7 @@ var gulp = require('gulp')
   , cucumberConf = 'test/protractor-cucumber.config.js'
   , e2eConf = 'test/protractor-e2e.config.js'
   , karmaConf = require('../test/karma.config.js')
+  , mockConfig = require('../mock.config.js')
   , $ = require('gulp-load-plugins')({
     pattern: [
       'del',
