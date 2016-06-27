@@ -28,6 +28,7 @@ pids
 
 # local configs
 local.config.js
+mock.config.js
 test/protractor-qe-cucumber.config.js
 test/protractor-qe-e2e.config.js
 
