@@ -6,7 +6,7 @@ An Angular.js application for interacting with the AIQ backend
  - Clone the repo
  
  ```
- git clone git@bitbucket.org:solidfire/solidfire-sdk-js.git
+ git clone git@bitbucket.org:solidfire/aiq-ui.git
  ```
  
  - Install dependencies
