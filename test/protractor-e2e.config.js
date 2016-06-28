@@ -4,8 +4,6 @@ exports.config = {
 
   allScriptsTimeout: 60000,
 
-  directConnect: true,
-
   capabilities: {
     'browserName': 'firefox'
   },
