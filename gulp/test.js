@@ -29,7 +29,7 @@ var gulp = require('gulp')
   , acceptanceTests = path.join(buildConfig.acceptanceTestDir, '**/*.feature')
   , argv = $.yargs.alias('v', 'verbose').alias('t', 'tags').alias('b', 'browser').alias('l', 'local').argv
   , localConfig = argv.local ? require('../local.config.js') : {}
-  , jenkinsConfig = {host: 'JENKINS IP', port: 'JENKINS PORT'} //ToDo: configure to run mock server on jenkins
+  , jenkinsConfig = {host: '192.168.138.155', port: '3000'}
   , mockConfig = argv.local ? localConfig : jenkinsConfig;
 
 karmaConf.files = [];
@@ -56,11 +56,13 @@ gulp.task('test:unit', ['lint', 'karmaFiles'], function (done) {
   }
   var karmaServer = new $.karma.Server(karmaConf, function(exitCode) {
     if (exitCode === 1) {
-      console.log('Karma unit test coverage is low',karmaConf.coverageReporter.check);
-      done('unit test coverage standards not met https://en.wikipedia.org/wiki/Code_coverage#Coverage_criteria');
+      console.log('Karma unit test coverage',karmaConf.coverageReporter.check);
+      done();
+      process.exit();
     } else {
       console.log('Karma has exited with ' + exitCode);
       done();
+      process.exit();
     }
   });
   karmaServer.start();
@@ -80,14 +82,14 @@ gulp.task('test:e2e', ['configure:mock', 'serve:mock'], function () {
   return gulp.src([e2eTests])
     .pipe($.protractor.protractor({configFile: e2eConf, args: getProtractorArgs()}))
     .on('error', function (e) { console.log(e); process.exit(-1); })
-    .on('close', function(e) { process.exit(-1); });
+    .on('close', function(e) { process.exit(); });
 });
 
 gulp.task('test:acceptance', ['configure:mock', 'serve:mock'], function () {
   return gulp.src([acceptanceTests])
     .pipe($.protractor.protractor({configFile: cucumberConf, args: getProtractorArgs()}))
     .on('error', function (e) { console.log(e); process.exit(-1); })
-    .on('close', function(e) { process.exit(-1); });
+    .on('close', function(e) { process.exit(); });
 });
 
 function getProtractorArgs() {
