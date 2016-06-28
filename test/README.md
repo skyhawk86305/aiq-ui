@@ -21,10 +21,13 @@ Running the Tests
 ## E2E & Acceptance Tests
 
   - Are run and configured with Protractor via Gulp
+  - Require you to first install and update selenium-standalone server
   - Run in an actual browser (configurable)
   - Run against the current build served locally via express
   - Use a mock backend to respond to API calls with text fixtures found at /test/fixtures
   - Output coverage reports TBD
+
+`gulp webdriverUpdate`
 
 `gulp test:e2e`
 
@@ -46,6 +49,7 @@ Testing Guidelines
 ============================
 
 Based directly off of https://github.com/CarmenPopoviciu/protractor-styleguide
+
 And framework patterns taken from https://github.com/bassman5/MickAngularSeed
 
 ## Unit Testing

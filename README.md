@@ -59,6 +59,8 @@ See README in /text directory
       
       NOTE: pass the flag -v, --verbose to perform static code analysis
 
+**gulp webdriverUpdate** - Installs and updates selenium-standalone and chromedriver within your local instance of protractor. REQUIRED before running e2e/acceptance tests.
+
 **gulp test:e2e** - Runs end-to-end tests via protractor.
 
 **gulp test:acceptance** - Runs acceptance tests via protractor and cucumber.
