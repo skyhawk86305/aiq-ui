@@ -29,6 +29,8 @@
     "expect": true,
     "inject": true,
     "it": true,
+    "fs": true,
+    "path": true,
     "browser": true
   }
 }

@@ -1,21 +1,27 @@
+'use strict';
+
+var Cucumber = require('cucumber'),
+    fs = require('fs-extra'),
+    path = require('path');
+
+var JsonFormatter = Cucumber.Listener.JsonFormatter();
+
+var reportsDir = path.join(__dirname, '../../../report/cucumber');
+var reportFile = path.join(reportsDir, 'cucumber-test-results.json');
+
 module.exports = function JsonOutputHook() {
-  'use strict';
-  var Cucumber = require('cucumber');
-  var JsonFormatter = Cucumber.Listener.JsonFormatter();
-  var fs = require('fs');
-  var path = require('path');
-  var reportOutputDirectory = 'report/cucumber/cucumber-test-results.json';
   JsonFormatter.log = function (json) {
-    var destination = path.join(__dirname, '../../../' + reportOutputDirectory);
-    console.log('***********************' + destination);
-    fs.open(destination, 'w+', function (err, fd) {
+    fs.open(reportFile, 'w+', function (err, fd) {
       if (err) {
-        fs.mkdirsSync(destination);
-        fd = fs.openSync(destination, 'w+');
+        fs.mkdirsSync(reportsDir);
+        fd = fs.openSync(reportFile, 'w+');
       }
+
       fs.writeSync(fd, json);
-      console.log('json file location: ' + destination);
+
+      console.log('json file location: ' + reportFile);
     });
   };
+
   this.registerListener(JsonFormatter);
 };
