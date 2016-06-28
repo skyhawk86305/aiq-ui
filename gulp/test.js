@@ -4,10 +4,9 @@ var gulp = require('gulp')
   , cucumberConf = 'test/protractor-cucumber.config.js'
   , e2eConf = 'test/protractor-e2e.config.js'
   , karmaConf = require('../test/karma.config.js')
-  , localConfig = require('../local.config.js')
+  , localConfig
   , mockConfig
-  , mockConfigLocal = {host: localConfig.host, port: localConfig.port}
-  , mockConfigJenkins = {host: 'JENKINS IP', port: 'JENKINS PORT'} //ToDo: configure to run mock server on jenkins
+  , jenkinsConfig = {host: 'JENKINS IP', port: 'JENKINS PORT'} //ToDo: configure to run mock server on jenkins
   , $ = require('gulp-load-plugins')({
     pattern: [
       'del',
@@ -69,7 +68,7 @@ gulp.task('test:unit', ['lint', 'karmaFiles'], function (done) {
 
 // Creates a gitignored mock.config.js with settings to run express either locally or on jenkins
 gulp.task('configure:mock', function () {
-  mockConfig = argv.local ? mockConfigLocal : mockConfigJenkins;
+  mockConfig = argv.local ? {host: localConfig.host, port: localConfig.port} : jenkinsConfig;
   return gulp.src('example.config.js')
     .pipe($.change(function(defaultConfig) {
       return defaultConfig.replace(/{([^}]*)}/, JSON.stringify(mockConfig));
@@ -79,16 +78,18 @@ gulp.task('configure:mock', function () {
 });
 
 gulp.task('test:e2e', ['configure:mock', 'serve:mock'], function () {
+  if (argv.local) { localConfig = require('../local.config.js'); }
   return gulp.src([e2eTests])
     .pipe($.protractor.protractor({configFile: e2eConf, args: getProtractorArgs()}))
-    .on('error', function (e) { console.log(e); })
+    .on('error', function (e) { console.log(e); process.exit(-1); })
     .on('close', function(e) { process.exit(-1); });
 });
 
 gulp.task('test:acceptance', ['configure:mock', 'serve:mock'], function () {
+  if (argv.local) { localConfig = require('../local.config.js'); }
   return gulp.src([acceptanceTests])
     .pipe($.protractor.protractor({configFile: cucumberConf, args: getProtractorArgs()}))
-    .on('error', function (e) { console.log(e); })
+    .on('error', function (e) { console.log(e); process.exit(-1); })
     .on('close', function(e) { process.exit(-1); });
 });
 
