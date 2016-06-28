@@ -4,9 +4,6 @@ var gulp = require('gulp')
   , cucumberConf = 'test/protractor-cucumber.config.js'
   , e2eConf = 'test/protractor-e2e.config.js'
   , karmaConf = require('../test/karma.config.js')
-  , localConfig
-  , mockConfig
-  , jenkinsConfig = {host: 'JENKINS IP', port: 'JENKINS PORT'} //ToDo: configure to run mock server on jenkins
   , $ = require('gulp-load-plugins')({
     pattern: [
       'del',
@@ -30,7 +27,10 @@ var gulp = require('gulp')
   , unitTests = path.join(buildConfig.unitTestDir, '**/*.spec.js')
   , e2eTests = path.join(buildConfig.e2eTestDir, '**/*.spec.js')
   , acceptanceTests = path.join(buildConfig.acceptanceTestDir, '**/*.feature')
-  , argv = $.yargs.alias('v', 'verbose').alias('t', 'tags').alias('b', 'browser').alias('l', 'local').argv;
+  , argv = $.yargs.alias('v', 'verbose').alias('t', 'tags').alias('b', 'browser').alias('l', 'local').argv
+  , localConfig = argv.local ? require('../local.config.js') : {}
+  , jenkinsConfig = {host: 'JENKINS IP', port: 'JENKINS PORT'} //ToDo: configure to run mock server on jenkins
+  , mockConfig = argv.local ? localConfig : jenkinsConfig;
 
 karmaConf.files = [];
 
@@ -68,7 +68,6 @@ gulp.task('test:unit', ['lint', 'karmaFiles'], function (done) {
 
 // Creates a gitignored mock.config.js with settings to run express either locally or on jenkins
 gulp.task('configure:mock', function () {
-  mockConfig = argv.local ? {host: localConfig.host, port: localConfig.port} : jenkinsConfig;
   return gulp.src('example.config.js')
     .pipe($.change(function(defaultConfig) {
       return defaultConfig.replace(/{([^}]*)}/, JSON.stringify(mockConfig));
@@ -78,7 +77,6 @@ gulp.task('configure:mock', function () {
 });
 
 gulp.task('test:e2e', ['configure:mock', 'serve:mock'], function () {
-  if (argv.local) { localConfig = require('../local.config.js'); }
   return gulp.src([e2eTests])
     .pipe($.protractor.protractor({configFile: e2eConf, args: getProtractorArgs()}))
     .on('error', function (e) { console.log(e); process.exit(-1); })
@@ -86,7 +84,6 @@ gulp.task('test:e2e', ['configure:mock', 'serve:mock'], function () {
 });
 
 gulp.task('test:acceptance', ['configure:mock', 'serve:mock'], function () {
-  if (argv.local) { localConfig = require('../local.config.js'); }
   return gulp.src([acceptanceTests])
     .pipe($.protractor.protractor({configFile: cucumberConf, args: getProtractorArgs()}))
     .on('error', function (e) { console.log(e); process.exit(-1); })
