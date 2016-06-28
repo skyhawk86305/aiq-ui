@@ -27,9 +27,18 @@ var gulp = require('gulp')
   , unitTests = path.join(buildConfig.unitTestDir, '**/*.spec.js')
   , e2eTests = path.join(buildConfig.e2eTestDir, '**/*.spec.js')
   , acceptanceTests = path.join(buildConfig.acceptanceTestDir, '**/*.feature')
-  , argv = $.yargs.alias('v', 'verbose').alias('t', 'tags').alias('b', 'browser').alias('l', 'local').argv
+  , argv = $.yargs
+              .alias('v', 'verbose')
+              .alias('t', 'tags')
+              .alias('b', 'browser')
+              .alias('h', 'jenkinsHost')
+              .alias('p', 'jenkinsPort')
+              .alias('l', 'local').argv
   , localConfig = argv.local ? require('../local.config.js') : {}
-  , jenkinsConfig = {host: '192.168.138.155', port: '3000'}
+  , jenkinsConfig = {
+      host: argv.jenkinsHost || 'jenkins.aiq.solidfire.net',
+      port: argv.jenkinsPort || '3000'
+    }
   , mockConfig = argv.local ? localConfig : jenkinsConfig;
 
 karmaConf.files = [];
