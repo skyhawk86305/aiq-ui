@@ -20,6 +20,7 @@ exports.config = {
   cucumberOpts: {
     require: [
       'features/step_definitions/**/*.js',
+      'features/cucumber-support/*.js',
       'features/support/**/*.js'
     ],
     format: "json",
