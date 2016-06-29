@@ -9,9 +9,7 @@ exports.config = {
     'browserName': 'firefox'
   },
 
-  params: {
-    withMocks: false
-  },
+  params: {},
 
   onPrepare: function() {
     browser.driver.manage().window().maximize();

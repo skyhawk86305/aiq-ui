@@ -29,7 +29,7 @@ gulp.task('serve', ['build'], function () {
 });
 
 // Start the mock server, which is dynamically configured to run on jenkins or locally
-gulp.task('serve:mock', ['build'], function () {
+gulp.task('serve:mock', ['build:dev'], function () {
   $.nodemon({
     script: 'mock.server.js',
     ignore: '*'

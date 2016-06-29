@@ -9,8 +9,13 @@ var Hooks = function () {
   this.After(function (scenario) {});
 
   // We can also build custom hooks for specific scenarios
-  this.Before({tags:['@myTag']},function (scenario) {});
-  this.After({tags:['@myTag']},function (scenario) {});
+  this.Before({tags:['@mockBackend']},function (scenario) {
+    this.mockBackend.enable(browser);
+  });
+
+  this.After({tags:['@mockBackend']},function (scenario) {
+    this.mockBackend.disable();
+  });
 
 };
 

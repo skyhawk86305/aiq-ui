@@ -8,9 +8,7 @@ exports.config = {
     'browserName': 'firefox'
   },
 
-  params: {
-    withMocks: false
-  },
+  params: {},
 
   onPrepare: function() {
     var SpecReporter = require('jasmine-spec-reporter');
