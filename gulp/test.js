@@ -108,7 +108,6 @@ function getProtractorArgs() {
   if(argv.tags) { protractorArgs.push('--cucumberOpts.tags', argv.tags); }
   if(argv.verbose) {
     protractorArgs.push('--cucumberOpts.format', 'pretty');
-    //ToDo: update the protractor-e2e config
   }
   if (!argv.local) {
     protractorArgs.push('--seleniumAddress', 'http://192.168.129.176:4444/wd/hub');

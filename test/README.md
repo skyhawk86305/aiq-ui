@@ -37,11 +37,15 @@ Running the Tests
 
 `-a, --analyze // Run static analysis on code`
 
-`-v, --verbose // Run tests in verbose mode (this may impact reporting)`
+`-v, --verbose // Run tests in verbose mode (acceptance tests only - this won't write results to .json file for reporting)`
 
 `-t, --tags    // For running features/scenarios with a specific tag (acceptance tests only)`
 
 `-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]`
+
+`-h, --jenkinsHost // Set the host name of the express server serving the UI on jenkins for the selenium grid to test against`
+
+`-p, --jenkinsPort // Set the port number of the express server serving the UI on jenkins for the selenium grid to test against`
 
 `-l, --local   // To run the tests with a local instance of selenium against the app being served locally (rather than on the selenium grid at http://192.168.129.176:4444/wd/hub running against the server running on jenkins)`
 
