@@ -65,6 +65,7 @@
     "plato": "^1.4.0",
     "protractor": "3.3.0",
     "protractor-cucumber-framework": "^0.6.0",
+    "protractor-jasmine2-html-reporter": "0.0.6",
     "q": "^1.4.1",
     "request": "^2.72.0",
     "require-dir": "^0.3.0",
