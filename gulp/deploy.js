@@ -29,8 +29,11 @@ function log(data) {
 }
 
 function rsyncCallback(error, stdout, stderr) {
-  gutil.log(error, stdout);
-  var message = error ? 'Failed:' + error.message : 'Successful';
-  console.log('\nRsync '+message+'\n');
-  process.exit(1);
+  if (error) {
+      gutil.log(error, stdout);
+      console.log('\nRsync Failed: '+ error.message + '\n');
+      process.exit(1);
+  } else {
+    console.log('\nRsync Successful\n')
+  }
 }
