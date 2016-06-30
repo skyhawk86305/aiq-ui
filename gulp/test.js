@@ -31,6 +31,7 @@ var gulp = require('gulp')
               .alias('v', 'verbose')
               .alias('t', 'tags')
               .alias('b', 'browser')
+              .alias('s', 'seleniumAddress')
               .alias('h', 'jenkinsHost')
               .alias('p', 'jenkinsPort')
               .alias('l', 'local').argv
@@ -111,6 +112,10 @@ function getProtractorArgs() {
   }
   if (!argv.local) {
     protractorArgs.push('--seleniumAddress', 'http://192.168.129.176:4444/wd/hub');
+  } else {
+    if (argv.seleniumAddress) {
+      protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub');
+    }
   }
   return protractorArgs
 }
