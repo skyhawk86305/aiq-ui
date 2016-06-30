@@ -30,6 +30,8 @@
     "inject": true,
     "it": true,
     "fs": true,
+    "element": true,
+    "by": true,
     "path": true,
     "browser": true
   }

@@ -6,12 +6,10 @@ exports.config = {
   allScriptsTimeout: 60000,
 
   capabilities: {
-    'browserName': 'firefox'
+    'browserName': 'chrome'
   },
 
-  params: {
-    withMocks: false
-  },
+  params: {},
 
   onPrepare: function() {
     browser.driver.manage().window().maximize();
