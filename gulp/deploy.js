@@ -1,7 +1,8 @@
 'use strict';
 
 var gulp = require('gulp'),
-    buildConfig = require('../build.config.js'),
+    rsync = require('rsyncwrapper'),
+    gutil = require('gulp-util'),
     $ = require('gulp-load-plugins')({
       pattern: [
         'gulp-*'
@@ -9,12 +10,28 @@ var gulp = require('gulp'),
     });
 
 gulp.task('deploy:dev', function () {
-  gulp.src(buildConfig.buildDir + '/**')
-    .pipe($.rsync({
-      root: 'build/',
-      hostname: 'activeiq.dev.aiq.solidfire.net',
-      destination: 'opt/solidfire/aiq-ui/current/',
-      username: 'solidfire',
-      progress: true
-    }));
+  rsync({
+    ssh: true,
+    syncDest: true,
+    recursive: true,
+    src: 'build/',
+    dest: 'solidfire@activeiq.dev.aiq.solidfire.net:/opt/solidfire/aiq-ui/current',
+    //privateKey: '/some/where',
+    onStdout: log,
+    onStderr: log,
+    compareMode: 'checksum',
+    args: ['--verbose']
+  }, rsyncCallback);
 });
+
+function log(data) {
+  var buffer = new Buffer(data);
+  console.log(buffer.toString());
+}
+
+function rsyncCallback(error, stdout, stderr) {
+  gutil.log(error, stdout);
+  var message = error ? 'Failed:' + error.message : 'Successful';
+  console.log('\nRsync '+message+'\n');
+  process.exit(1);
+}
