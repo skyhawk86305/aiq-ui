@@ -16,7 +16,6 @@ gulp.task('deploy:dev', function () {
     recursive: true,
     src: 'build/',
     dest: 'solidfire@activeiq.dev.aiq.solidfire.net:/opt/solidfire/aiq-ui/current',
-    privateKey: '~/.ssh/id_rsa',
     onStdout: log,
     onStderr: log,
     compareMode: 'checksum',
