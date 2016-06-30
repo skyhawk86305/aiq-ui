@@ -41,7 +41,9 @@ Running the Tests
 
 `-t, --tags    // For running features/scenarios with a specific tag (acceptance tests only)`
 
-`-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]`
+`-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
+
+`-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests (e2e & acceptance)`
 
 `-h, --jenkinsHost // Set the host name of the express server serving the UI on jenkins for the selenium grid to test against`
 
@@ -52,14 +54,12 @@ Running the Tests
 Testing Guidelines
 ============================
 
-Based directly off of https://github.com/CarmenPopoviciu/protractor-styleguide
-
-And framework patterns taken from https://github.com/bassman5/MickAngularSeed
-
 ## Unit Testing
 
 Unit tests are the first line of defense and ensure that the smallest parts of an application, the units, work as intended.
-They are tested in complete isolation from the rest of the application, and are the most efficient form of testing.
+They are tested in complete isolation from the rest of the application, and are the most efficient form of testing. Unit
+tests also track which lines (and what % of total) of source code are being executed. Reports are output 
+to /report/coverage/PhantomJS.../lcov-report/index.html
 
   **Unit Tests Should:**
   
@@ -73,8 +73,11 @@ They are tested in complete isolation from the rest of the application, and are 
 
 ## E2E Testing
 
-E2E tests ensure that all units of an application interact as expected with each other and if the system as a whole
-works as intended. They use selenium to interact with the browser and take much longer to run than unit tests.
+E2E tests ensure that all interactions with the UI work as intended. They use selenium to interact with the browser 
+and take much longer to run than unit tests. These tests run against a mock backend and do NOT test real data. This mock
+data (fixtures) is served via a local express server. These fixtures (which are returned by default) can also be overridden
+within the tests themselves using angular-mocks. These tests are configured to take screenshots on failures and generate
+reports that are output to /report/e2e/htmlReport.html
 
   **E2E Tests Should:**
   
@@ -87,7 +90,8 @@ works as intended. They use selenium to interact with the browser and take much 
 
 Acceptance tests are simply another flavor of e2e tests with a specific purpose. The intention of this test suite is to
 ensure all business requirements for a specific feature request are met before being *accepted* by the product owner.
-They are written in a Gherkin syntax (Given, When, Then), and are typically the most expensive set of tests.
+They are written in a Gherkin syntax (Given, When, Then), and are typically the most expensive set of tests. These tests 
+are configured to take screenshots on failures and generate reports that are output to /report/cucumber/output/cucumber-test-results.html
 
   **Acceptance Tests Should:**
   
@@ -102,7 +106,9 @@ They are written in a Gherkin syntax (Given, When, Then), and are typically the 
 ## Page Objects
 
 Page Objects are a testing design pattern largely used for reducing code duplication. They provide an API to the page 
-under test and are responsible of abstracting away its implementation details from the tests themselves.
+under test and are responsible of abstracting away its implementation details from the tests themselves. Page objects
+can either be components of the app (navbar.po) or entire pages within the app (volumes-page.po). These page objects
+should be shared between both e2e and acceptance tests.
 
   **Page Objects Should:**
   
@@ -119,8 +125,14 @@ under test and are responsible of abstracting away its implementation details fr
   * First look to use shared functions, step definitions or mocks before creating new ones
   * Do not change or remove existing classes or ids as they may be tied to styling
 
+## Credit
 
-## Useful Links
+Heavily influenced by both:
+
+  * https://github.com/CarmenPopoviciu/protractor-styleguide
+  * https://github.com/bassman5/MickAngularSeed
+
+## Helpful Links
 
   Karma - http://karma-runner.github.io/
 
