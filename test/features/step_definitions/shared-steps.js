@@ -26,14 +26,17 @@ module.exports = function() {
   this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, done) {
     var world = this,
         attrs = array.split(/,\s*/),
-        expectedData = this.fixture(type, method),
+        expectedData, actualData,
+        fixtureData = this.fixture(type, method),
         itemsPerPage = 20,
-        maxRows = expectedData.length > itemsPerPage ? itemsPerPage : expectedData.length,
+        maxRows = fixtureData.length > itemsPerPage ? itemsPerPage : fixtureData.length,
         randomIndex = Math.floor((Math.random() * maxRows)),
-        randomSample = expectedData[randomIndex];
+        randomSample = fixtureData[randomIndex];
 
     attrs.forEach(function(attr) {
-      world.expect(world.table(type).data(type, attr, randomIndex).getText()).to.eventually.equal(randomSample[attr].toString());
+      expectedData = world.format(randomSample[attr], type, attr);
+      actualData = world.table(type).data(type, attr, randomIndex);
+      world.expect(actualData.getText()).to.eventually.equal(expectedData);
     });
     world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows+1).notify(done);
   });

@@ -37,6 +37,18 @@ function World() {
       case ('node'): return fixture.result.nodes.sort(function(a, b) { return b.nodeID - a.nodeID; });
     }
   };
+
+  this.format = function(data, type, attr) {
+    switch(type) {
+      case ('node'):
+        switch(attr) {
+          case('nodeID'): return data.toString();
+          default: return data;
+        }
+      break;
+      default: return data;
+    }
+  };
 }
 module.exports = function () {
   // A new instance of World is created before each scenario
