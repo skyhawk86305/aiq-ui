@@ -40,7 +40,9 @@
       })
       .state('cluster.nodes', {
         url: '/nodes',
-        templateUrl: 'cluster/nodes/nodes.tpl.html'
+        templateUrl: 'cluster/nodes/nodes.tpl.html',
+        controller: 'NodesTableController',
+        controllerAs: 'ctrl'
       })
       .state('cluster.drives', {
         url: '/drives',
