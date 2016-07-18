@@ -39,15 +39,15 @@
     };
 
     self.properties = [
-      {key: 'nodeID', label: 'ID', data: {type: 'text', format: 'integer'}},
+      {key: 'nodeID', label: 'ID', filter: self.defaultIntegerOperators, data: {type: 'text', format: 'string'}},
       {key: 'name', label: 'Name', filter: self.defaultStringOperators, data: {type:'text', format: 'string'}},
       {key: 'nodeType', label: 'Type', filter: self.defaultStringOperators, data: {type:'text', format: 'string'}},
-      {key: 'softwareVersion', label: 'Version', data: {type:'text', format: 'string'}},
+      {key: 'softwareVersion', label: 'Version', filter: self.defaultStringOperators, data: {type:'text', format: 'string'}},
       {key: 'serviceTag', label: 'Service Tag', filter: self.defaultStringOperators, data: {type:'text', format: 'string'}},
-      {key: 'mip', label: 'Management IP', filter: self.defaultIntegerOperators, data: {type:'text', format: 'string'}},
-      {key: 'cip', label: 'Cluster IP', filter: self.defaultIntegerOperators, data: {type: 'text', format: 'string'}},
-      {key: 'sip', label: 'Storage IP', filter: self.defaultIntegerOperators, data: {type: 'text', format: 'string'}},
-      {key: 'ipcPort', label: 'Replication Port', filter: self.defaultStringOperators, data: {type:'text', format: 'string'}}
+      {key: 'mip', label: 'Management IP', filter: self.defaultStringOperators, data: {type:'text', format: 'string'}},
+      {key: 'cip', label: 'Cluster IP', filter: self.defaultStringOperators, data: {type: 'text', format: 'string'}},
+      {key: 'sip', label: 'Storage IP', filter: self.defaultStringOperators, data: {type: 'text', format: 'string'}},
+      {key: 'ipcPort', label: 'Replication Port', filter: self.defaultIntegerOperators, data: {type:'text', format: 'string'}}
     ];
   }
 })();
