@@ -35,7 +35,8 @@ module.exports = {
     ]
   },
   ngHtml2JsPreprocessor: {
-    stripPrefix: buildConfig.buildDir
+    stripPrefix: buildConfig.buildDir,
+    moduleName: 'componentTemplates'
   },
   singleRun: true
 };

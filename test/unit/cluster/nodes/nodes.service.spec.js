@@ -7,6 +7,7 @@ describe('NodesService', function () {
       apiFailure,
       service,
       dataService,
+      clusterSelectService,
       spy;
 
   beforeEach(module('aiqUi', function ($provide, $urlRouterProvider) {
@@ -14,11 +15,13 @@ describe('NodesService', function () {
     $provide.value('DataService', {callAPI: function() {} });
   }));
 
-  beforeEach(inject(function ($rootScope, $q, NodesService, DataService) {
+  beforeEach(inject(function ($rootScope, $q, NodesService, DataService, ClusterSelectService) {
     rootScope = $rootScope;
     deferred = $q.defer();
     service = NodesService;
     dataService = DataService;
+    clusterSelectService = ClusterSelectService;
+    clusterSelectService.selectedCluster = {clusterID: 5};
     spy = spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
   }));
 

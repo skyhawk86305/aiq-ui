@@ -22,6 +22,9 @@
         <shelf-content sf-navbar config="appCtrl.navbar.config">
             <main-navbar-right>
                 <ul class='navbar-nav nav'>
+                    <li class="navbar-item -main cluster-select">
+                        <cluster-select></cluster-select>
+                    </li>
                     <li class="navbar-item -main -left-divider" ng-hide="appCtrl.apiLog.visible">
                         <a id="api-log-anchor" ng-click="appCtrl.apiLog.visible = true">
                             <i class="fa fa-list"></i>
