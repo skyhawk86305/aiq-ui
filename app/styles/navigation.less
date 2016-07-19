@@ -7,10 +7,125 @@
 .navbar-brand {
   .icon('../../images/SolidFire-Gotham_WHITE.svg', @navbar-brand-icon-size);
   background-size: 90px;
+  background-color: #2a3448;
   background-position: center center;
   padding: 0;
   height: 55px;
   width: 100px;
+}
+
+.navbar-item.cluster-select {
+  margin-right: 300px;
+}
+
+cluster-select {
+  line-height: 51px;
+}
+
+#cluster-select-anchor {
+  padding: 21px 15px;
+  text-decoration: initial;
+
+  > span {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 190px;
+    text-overflow: ellipsis;
+    position: relative;
+    top: 8px;
+  }
+}
+
+.cluster-select.open {
+  background-color: #2a3448;
+}
+
+#cluster-select-menu {
+  background-color: #2a3448;
+  min-width: 300px;
+  margin-top: 0;
+  border: none;
+
+  .cluster-select-search-container {
+    margin: 5px;
+    border-radius: 25px;
+    line-height: 35px;
+    padding-left: 10px;
+    background-color: #333f56;
+
+    .fa-search {
+      color: #466c89;
+    }
+
+    #cluster-select-filter {
+      display: inline-block;
+      width: 250px;
+      color: #95bcd3;
+      border: none;
+      background-color: #333f56;
+      outline: none;
+    }
+
+    :-ms-input-placeholder {
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 300;
+      color: #95bcd3;
+    }
+    ::-moz-placeholder {
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 300;
+      color: #95bcd3;
+    }
+    ::-webkit-input-placeholder {
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 300;
+      color: #95bcd3;
+    }
+  }
+
+  .cluster-select-list-tab-container {
+    .cluster-select-list-tab {
+      width: 49%;
+      display: inline-block;
+      text-align: center;
+
+      > a {
+        font-size: 14px;
+        text-decoration: initial;
+        padding: 7px;
+      }
+
+      &.active > a {
+        color: #FCFCFD;
+        border-bottom: 2px solid #62B5DE;
+      }
+    }
+  }
+
+  .cluster-select-list {
+    padding: 0 10px;
+
+    .cluster-select-list-item {
+      color: #95bcd3;
+      list-style: none;
+      line-height: 30px;
+      border-top: 1px solid #242D40;
+      word-break: break-all;
+
+      &:hover, &:focus {
+        background-color: #232c3d;
+      }
+    }
+  }
+
+  .cluster-select-empty {
+    text-align: center;
+    color: #95bcd3;
+  }
 }
 
 #navbar-menu {

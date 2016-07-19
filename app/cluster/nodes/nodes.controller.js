@@ -4,11 +4,12 @@
   angular
     .module('aiqUi')
     .controller('NodesTableController', [
+      '$rootScope',
       'NodesService',
       TableController
     ]);
 
-  function TableController(NodesService) {
+  function TableController($rootScope, NodesService) {
     var self = this;
     self.service = NodesService;
 
@@ -21,5 +22,6 @@
     };
 
     self.refreshTable();
+    $rootScope.$on('selectedClusterUpdated', self.refreshTable);
   }
 })();

@@ -10,10 +10,11 @@
       '$filter',
       'SFService',
       'DataService',
+      'ClusterSelectService',
       NodesService
     ]);
 
-  function NodesService($q, $filter, SFService, DataService) {
+  function NodesService($q, $filter, SFService, DataService, ClusterSelectService) {
     var self = this;
     SFService.call(self);
     self.modelName = 'node';
@@ -23,18 +24,25 @@
 
     self.loadModels = function() {
       var deferred = $q.defer();
-      self.state = 'loading';
-      DataService.callAPI('ListActiveNodes', {clusterID:1898714})
-        .then(function(res) {
-          var vms = res.nodes;
-          self.state = vms && vms.length > 0 ? 'loaded' : 'empty';
-          self.setData($filter('orderBy')(vms, '-nodeID'));
-          deferred.resolve();
-        }).catch(function(err) {
-          self.errorObject = err;
-          self.state = 'error';
-          deferred.reject(err);
-        });
+
+      if(ClusterSelectService.selectedCluster) {
+        self.state = 'loading';
+        DataService.callAPI('ListActiveNodes', {clusterID:ClusterSelectService.selectedCluster.clusterID})
+          .then(function(res) {
+            var vms = res.nodes;
+            self.state = vms && vms.length > 0 ? 'loaded' : 'empty';
+            self.setData($filter('orderBy')(vms, '-nodeID'));
+            deferred.resolve();
+          }).catch(function(err) {
+            self.errorObject = err;
+            self.state = 'error';
+            deferred.reject(err);
+          });
+      } else {
+        self.errorObject = {message: 'You must first select a cluster'};
+        self.state = 'error';
+        deferred.reject('You must first select a cluster');
+      }
       return deferred.promise;
     };
 

@@ -1,0 +1,51 @@
+<div class="cluster-select" uib-dropdown is-open="$ctrl.isOpen" auto-close="outsideClick">
+  <a id="cluster-select-anchor" uib-dropdown-toggle>
+    <span>{{$ctrl.selectedClusterDisplay.clusterName || 'All Clusters'}}</span>
+    <i class="fa fa-chevron-down"></i>
+  </a>
+
+  <div id="cluster-select-menu" uib-dropdown-menu>
+    <div class="cluster-select-search-container">
+      <i class="fa fa-search"></i>
+      <input id="cluster-select-filter"
+             placeholder="type a cluster name to filter"
+             ng-change="$ctrl.filter()"
+             ng-model="filterInput">
+    </div>
+
+    <div ng-show="$ctrl.state === 'loading'" class="cluster-select-loading">
+      Loading List of Clusters...
+    </div>
+
+    <div ng-show="$ctrl.state === 'error'" class="cluster-select-error">
+      Error Loading Clusters: {{$ctrl.errorMsg}}
+    </div>
+
+    <div ng-show="$ctrl.state === 'loaded'" class="cluster-select-loaded">
+      <div class="cluster-select-list-tab-container">
+        <div class="cluster-select-list-tab all-clusters"
+           ng-class="{'active' : !recentlyViewed}"
+           ng-click="recentlyViewed = false">
+          <a>All Clusters</a>
+        </div>
+        <div class="cluster-select-list-tab recently-viewed"
+           ng-class="{'active' : recentlyViewed}"
+           ng-click="recentlyViewed = true">
+          <a>Recently Viewed</a>
+        </div>
+      </div>
+
+      <div ng-show="(recentlyViewed ? $ctrl.recentlyViewed : $ctrl.clusters).length === 0" class="cluster-select-empty">
+        No Clusters Found
+      </div>
+
+      <ul class="cluster-select-list">
+        <li class="cluster-select-list-item"
+            ng-repeat="cluster in (recentlyViewed ? $ctrl.recentlyViewed : $ctrl.clusters) | filter: filterInput"
+            ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;">
+          {{cluster.clusterName}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
