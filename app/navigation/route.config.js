@@ -1,60 +1,80 @@
-/* globals angular */
 (function () {
   'use strict';
 
   angular
     .module('aiqUi')
-    .run(['$rootScope', '$state', routeConfig])
-    .config(['$urlRouterProvider', '$stateProvider', stateConfig]);
+    .config(['$routeProvider', routeConfig]);
 
-  function routeConfig($rootScope, $state) {
-    $rootScope.$on('$stateChangeStart', function (event, toState) {
-      switch (toState.name) {
-        case ('dashboard'):
-          event.preventDefault();
-          $state.go('dashboard.overview');
-          break;
-        case ('cluster'):
-          event.preventDefault();
-          $state.go('cluster.nodes');
-          break;
-      }
-    });
-  }
-
-  function stateConfig($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise('/dashboard/overview');
-
-    $stateProvider
-      .state('dashboard', {
-        url: '/dashboard',
-        templateUrl: 'dashboard/dashboard.tpl.html'
+  function routeConfig($routeProvider) {
+    $routeProvider
+      .when('/dashboard/overview/sub1', {
+        templateUrl: 'sample-page.tpl.html'
       })
-      .state('dashboard.overview', {
-        url: '/overview',
-        templateUrl: 'dashboard/overview/overview.tpl.html'
+      .when('/dashboard/overview/sub2', {
+        templateUrl: 'sample-page.tpl.html'
       })
-      .state('cluster', {
-        url: '/cluster',
-        templateUrl: 'cluster/cluster.tpl.html'
+      .when('/dashboard/overview/sub3', {
+        templateUrl: 'sample-page.tpl.html'
       })
-      .state('cluster.nodes', {
-        url: '/nodes',
-        templateUrl: 'cluster/nodes/nodes.tpl.html',
-        controller: 'NodesTableController',
-        controllerAs: 'ctrl'
+      .when('/dashboard/health', {
+        templateUrl: 'sample-page.tpl.html'
       })
-      .state('cluster.drives', {
-        url: '/drives',
-        templateUrl: 'cluster/drives/drives.tpl.html'
+      .when('/dashboard/capacity', {
+        templateUrl: 'sample-page.tpl.html'
       })
-      .state('cluster.volumes', {
-        url: '/volumes',
+      .when('/dashboard/performance', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/dashboard/alerts', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/overview', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/capacity', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/efficiency', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/performance', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/errorLog', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/eventList', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/iscsiSessions', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/virtualNetworks', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/reporting/forecasting', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/nodes', {
+        template: '<node-table class="sf-layout-container -scroll-x"></node-table>'
+      })
+      .when('/cluster/:clusterID/drives', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/volumes', {
         templateUrl: 'cluster/volumes/volumes.tpl.html'
       })
-      .state('users', {
-        url: '/users',
-        templateUrl: 'users/users.tpl.html'
+      .when('/cluster/:clusterID/replication', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/cluster/:clusterID/alerts', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .when('/users', {
+        templateUrl: 'sample-page.tpl.html'
+      })
+      .otherwise({
+        redirectTo: '/dashboard/overview/sub1'
       });
   }
 })();

@@ -1,0 +1,76 @@
+(function () {
+  'use strict';
+
+  angular
+    .module('aiqUi')
+    .component('navbar', {
+      templateUrl: 'navigation/navbar.tpl.html',
+      controller: ['$rootScope', '$location', 'ApiLogService', 'ClusterSelectService', NavbarController]
+    });
+
+  function NavbarController($rootScope, $location, ApiLogService, ClusterSelectService) {
+    var self = this;
+    self.apiLog = ApiLogService;
+    self.clusterSelect = ClusterSelectService;
+    self.activeItems = {main: '', sub: '', menu: ''};
+
+    // Used to dynamically build the sub navbar and sub nav menu
+    self.subNavbarItems = {
+      dashboard: [
+        {
+          key:'overview',
+          href:'#/dashboard/overview/sub1',
+          label: 'Overview',
+          menuItems: [
+            {key:'sub1', href: '#/dashboard/overview/sub1', label: 'Sub1'},
+            {key:'sub2', href: '#/dashboard/overview/sub2', label: 'Sub2'},
+            {key:'sub3', href: '#/dashboard/overview/sub3', label: 'Sub3'}
+          ]
+        },
+        {key:'health', href:'#/dashboard/health', label: 'Health'},
+        {key:'capacity', href:'#/dashboard/capacity', label: 'Capacity'},
+        {key:'performance', href:'#/dashboard/performance', label: 'Performance'},
+        {key:'alerts', href:'#/dashboard/alerts', label: 'Alerts'}
+      ],
+      cluster: [
+        {
+          key:'reporting',
+          href:'#/cluster/:clusterID/reporting/overview',
+          label: 'Reporting',
+          menuItems: [
+            {key:'overview', href: '#/cluster/:clusterID/reporting/overview', label: 'Overview'},
+            {key:'capacity', href: '#/cluster/:clusterID/reporting/capacity', label: 'Capacity'},
+            {key:'efficiency', href: '#/cluster/:clusterID/reporting/efficiency', label: 'Efficiency'},
+            {key:'performance', href: '#/cluster/:clusterID/reporting/performance', label: 'Performance'},
+            {key:'errorLog', href: '#/cluster/:clusterID/reporting/errorLog', label: 'Error Log'},
+            {key:'eventList', href: '#/cluster/:clusterID/reporting/eventList', label: 'Event List'},
+            {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions'},
+            {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks'},
+            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting'}
+          ]
+        },
+        {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
+        {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
+        {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes'},
+        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication'},
+        {key:'alerts', href:'#/cluster/:clusterID/alerts', label: 'Alerts'}
+      ]
+    };
+
+    // Build the href using the selectedCluster's clusterID for the navbar anchors to bind to
+    self.getHref = function(subNavbarItem) {
+      var clusterID = self.clusterSelect.selectedCluster ? self.clusterSelect.selectedCluster.clusterID : '';
+      return subNavbarItem.href.replace(':clusterID', clusterID);
+    };
+
+    $rootScope.$on('$routeChangeSuccess', function() {
+      // Update the active items every route change (for styling)
+      var path = $location.path().slice(1).split('/');
+      self.activeItems.main = path.length ? path[0] : '';
+      self.activeItems.sub = self.activeItems.main === 'cluster' ? path[2] : (path.length > 1 ? path[1] : '');
+      self.activeItems.menu = self.activeItems.main === 'cluster' ? (path.length > 3 ? path[3] : '') : (path.length > 2 ? path[2] : '');
+      // Clear the cached selectedCluster when the user navigates to a non cluster-specific route
+      if(self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
+    });
+  }
+})();

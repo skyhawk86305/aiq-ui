@@ -1,0 +1,97 @@
+<div class="sf-navbar" role="navigation">
+  <div class="sf-main-navbar" ng-mouseenter="$ctrl.subNavMenuItems = false">
+    <div class="pull-left">
+      <ul class="navbar-nav nav">
+        <li class="navbar-item -main">
+          <a class='navbar-brand'></a>
+        </li>
+        <li class="navbar-item -main" ng-class="{'active':$ctrl.activeItems.main === 'dashboard'}">
+          <a href="#/dashboard/overview/sub1"
+             >
+            Dashboard
+          </a>
+        </li>
+        <li class="navbar-item -main cluster-select" ng-class="{'active':$ctrl.activeItems.main === 'cluster'}">
+          <cluster-select></cluster-select>
+        </li>
+        <li class="navbar-item -main" ng-class="{'active':$ctrl.activeItems.main === 'users'}">
+          <a href="#/users">Users</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pull-right">
+      <ul class="navbar-nav nav">
+        <li class="navbar-item -main -left-divider" ng-hide="$ctrl.apiLog.visible">
+          <a id="api-log-anchor" ng-click="$ctrl.apiLog.visible = true">
+            <i class="fa fa-list"></i>
+            <span>API Log</span>
+          </a>
+        </li>
+        <li class="navbar-item -main -left-divider" uib-dropdown>
+          <a id="navbar-menu" uib-dropdown-toggle>
+            <i class="fa fa-bars"></i>
+          </a>
+          <ul id="navbar-menu-dropdown" role="menu" uib-dropdown-menu>
+            <li class="menu-option" role="menuitem">
+              <a id="support-anchor" href="http://www.solidfire.com/support/" target="_blank"
+                 alt="Support">
+                <i class="fa fa-question-circle"></i>
+                <span>Support</span>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li class="menu-option" role="menuitem">
+              <a id="logout-anchor" href="#">
+                <i class="fa fa-sign-out"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sf-sub-navbar" ng-show="$ctrl.subNavbarItems[$ctrl.activeItems.main]">
+    <div class="pull-left">
+      <ul class="navbar-nav nav">
+        <li class="navbar-item -sub"
+            ng-class="{'active':$ctrl.activeItems.sub === subNavbarItem.key}"
+            ng-repeat="subNavbarItem in $ctrl.subNavbarItems[$ctrl.activeItems.main]">
+
+          <a href="{{$ctrl.getHref(subNavbarItem)}}"
+             ng-hide="subNavbarItem.menuItems"
+             ng-mouseenter="$ctrl.subNavMenuItems = false">
+            <span ng-bind="subNavbarItem.label"></span>
+          </a>
+
+          <a ng-show="subNavbarItem.menuItems"
+             ng-mouseenter="$ctrl.subNavMenuItems = subNavbarItem.menuItems">
+            <span ng-bind="subNavbarItem.label"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="sf-sub-nav-menu -overlay"
+       ng-mouseenter="$ctrl.inMenu = true"
+       ng-mouseleave="$ctrl.subNavMenuItems = false"
+       ng-show="$ctrl.subNavMenuItems">
+    <div class="pull-left">
+      <ul class="navbar-nav nav">
+        <li class="navbar-item -sub-menu"
+            ng-class="{'active':$ctrl.activeItems.menu === subNavMenuItem.key}"
+            ng-repeat="subNavMenuItem in $ctrl.subNavMenuItems">
+
+          <a href="{{$ctrl.getHref(subNavMenuItem)}}">
+            <span ng-bind="subNavMenuItem.label"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

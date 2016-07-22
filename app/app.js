@@ -1,30 +1,27 @@
-/* globals angular */
 (function () {
   'use strict';
 
   angular
     .module('aiqUi', [
-      'ui.router',
       'ui.select',
       'ui.bootstrap',
+      'ngRoute',
       'ngMessages',
       'ngSanitize',
       'sfComponents'
     ]);
 
   angular.module('aiqUi')
-    .controller('AppController', ['$rootScope', 'NavbarService', 'ApiLogService', 'DataService', '$state', ctrl]);
+    .controller('AppController', ['$rootScope', 'ApiLogService', 'DataService', '$location', '$route', ctrl]);
 
-  function ctrl($rootScope, NavbarService, ApiLogService, DataService) {
+  function ctrl($rootScope, ApiLogService, DataService, $location) {
     /* jshint validthis:true */
     var self = this;
-
-    $rootScope.$on('$stateChangeSuccess', function(event, toState) {
-      self.currentPage = toState.name.replace(/\./g, '-');
-    });
-
-    self.navbar = NavbarService;
     self.apiLog = ApiLogService;
+
+    $rootScope.$on('$routeChangeSuccess', function() {
+      self.currentPage = $location.path().slice(1).replace(':clusterID/', '').split('/').join('-');
+    });
 
     // ToDo: remove this call. Only used for demo purposes
     DataService.callAPI('ListActiveVolumes', {clusterID:1898714}).then(function(response) {
