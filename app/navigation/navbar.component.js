@@ -5,10 +5,17 @@
     .module('aiqUi')
     .component('navbar', {
       templateUrl: 'navigation/navbar.tpl.html',
-      controller: ['$rootScope', '$location', 'ApiLogService', 'ClusterSelectService', NavbarController]
+      controller: [
+        '$rootScope',
+        '$location',
+        '$timeout',
+        'ApiLogService',
+        'ClusterSelectService',
+        NavbarController
+      ]
     });
 
-  function NavbarController($rootScope, $location, ApiLogService, ClusterSelectService) {
+  function NavbarController($rootScope, $location, $timeout, ApiLogService, ClusterSelectService) {
     var self = this;
     self.apiLog = ApiLogService;
     self.clusterSelect = ClusterSelectService;
@@ -63,12 +70,22 @@
       return subNavbarItem.href.replace(':clusterID', clusterID);
     };
 
+    // UX feature to delay the hiding of the sub nav menu if the user temporarily hovers outside of it
+    self.delayMenuHide = function() {
+      $timeout(function() {
+        if (!self.inMenu) {
+          self.subNavMenuItems = false;
+        }
+      }, 500);
+    };
+
     $rootScope.$on('$routeChangeSuccess', function() {
       // Update the active items every route change (for styling)
-      var path = $location.path().slice(1).split('/');
-      self.activeItems.main = path.length ? path[0] : '';
-      self.activeItems.sub = self.activeItems.main === 'cluster' ? path[2] : (path.length > 1 ? path[1] : '');
-      self.activeItems.menu = self.activeItems.main === 'cluster' ? (path.length > 3 ? path[3] : '') : (path.length > 2 ? path[2] : '');
+      var path = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/');
+      console.log(path);
+      self.activeItems.main = path[0];
+      self.activeItems.sub = path.length > 1 ? path[1] : '';
+      self.activeItems.menu = path.length > 2 ? path[2] : '';
       // Clear the cached selectedCluster when the user navigates to a non cluster-specific route
       if(self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
     });

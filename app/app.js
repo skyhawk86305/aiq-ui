@@ -20,7 +20,7 @@
     self.apiLog = ApiLogService;
 
     $rootScope.$on('$routeChangeSuccess', function() {
-      self.currentPage = $location.path().slice(1).replace(':clusterID/', '').split('/').join('-');
+      self.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
     });
 
     // ToDo: remove this call. Only used for demo purposes

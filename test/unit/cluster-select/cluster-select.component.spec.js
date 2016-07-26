@@ -4,7 +4,8 @@ describe('Component: clusterSelect', function() {
   var el,
       scope,
       deferred,
-      state,
+      routeParams,
+      location,
       service,
       spy,
       element,
@@ -14,11 +15,12 @@ describe('Component: clusterSelect', function() {
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $q, $state, ClusterSelectService) {
+  beforeEach(inject(function($rootScope, $compile, $q, $routeParams, $location, ClusterSelectService) {
     el = '<cluster-select></cluster-select>';
     scope = $rootScope.$new();
     deferred = $q.defer();
-    state = $state;
+    routeParams = $routeParams;
+    location = $location;
     service = ClusterSelectService;
     service.selectedCluster = 'fooCluster';
     spy = spyOn(service, 'getClusters').and.returnValue(deferred.promise);
@@ -26,24 +28,45 @@ describe('Component: clusterSelect', function() {
     scope.$digest();
     controller = element.controller('clusterSelect');
     mockData = [
-      {foo: 1, bar: 2, baz: 3},
-      {foo: 4, bar: 5, baz: 6},
-      {foo: 7, bar: 8, baz: 9},
-      {foo: 10, bar: 11, baz: 12}
+      {clusterID: 13, foo: 1, bar: 2, baz: 3},
+      {clusterID: 14, foo: 4, bar: 5, baz: 6},
+      {clusterID: 15, foo: 7, bar: 8, baz: 9},
+      {clusterID: 16, foo: 10, bar: 11, baz: 12}
     ];
   }));
 
   describe('initialization', function() {
+    it('should expose services for templates to bind directly to', function() {
+      expect(controller.clusterSelect).toEqual(service);
+    });
+
     it('should set defaults for the public variables', function() {
       expect(controller.clusters).toBeDefined();
       expect(controller.recentlyViewed).toBeDefined();
-      expect(controller.selectedClusterDisplay).toEqual(service.selectedCluster);
+    });
+
+    describe('.init', function() {
+      it('should populate the list of clusters using the refresh method', function() {
+        spyOn(controller, 'refresh').and.returnValue(deferred.promise);
+        controller.init();
+        expect(controller.refresh).toHaveBeenCalled();
+      });
+
+      it('should update the selected cluster with the cluster matching the clusterID from the route', function() {
+        routeParams.clusterID = '14';
+        spyOn(service, 'updateSelectedCluster');
+        controller.init();
+        deferred.resolve(mockData);
+        scope.$apply();
+        expect(service.updateSelectedCluster).toHaveBeenCalledWith(mockData[1]);
+      });
     });
   });
 
   describe('.refresh', function() {
     it('updates the state to loading', function() {
       controller.refresh();
+      deferred.resolve(mockData);
       expect(controller.state).toEqual('loading');
     });
 
@@ -65,11 +88,6 @@ describe('Component: clusterSelect', function() {
   });
 
   describe('.select', function() {
-    it('updates the selected cluster displayed in the component', function() {
-      controller.select('foobar');
-      expect(controller.selectedClusterDisplay).toEqual('foobar');
-    });
-
     it('updates the cached selected cluster stored in the service', function() {
       spyOn(service, 'updateSelectedCluster');
       controller.select('foobar');
@@ -88,10 +106,16 @@ describe('Component: clusterSelect', function() {
       expect(controller.recentlyViewed).toEqual(['bar', 'foo', 'baz']);
     });
 
-    it('should reroute the user to /cluster', function() {
-      spyOn(state, 'go');
-      controller.select('bar');
-      expect(state.go).toHaveBeenCalledWith('cluster');
+    it('should reroute the user by default to /cluster/<clusterID>/reporting/overview if not already on a cluster-specific route', function() {
+      spyOn(location, 'path').and.returnValue('#/foo/bar');
+      controller.select({clusterID: 999});
+      expect(location.path).toHaveBeenCalledWith('/cluster/999/reporting/overview');
+    });
+
+    it('should reroute the user to /cluster/<new-clusterID>/<current-route> if the user is already on a cluster-specific route', function() {
+      spyOn(location, 'path').and.returnValue('#/cluster/999/foo/bar');
+      controller.select({clusterID: 12345});
+      expect(location.path).toHaveBeenCalledWith('/cluster/12345/foo/bar');
     });
   });
 });

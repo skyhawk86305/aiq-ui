@@ -78,7 +78,7 @@
 
   <div class="sf-sub-nav-menu -overlay"
        ng-mouseenter="$ctrl.inMenu = true"
-       ng-mouseleave="$ctrl.subNavMenuItems = false"
+       ng-mouseleave="$ctrl.inMenu = false; $ctrl.delayMenuHide()"
        ng-show="$ctrl.subNavMenuItems">
     <div class="pull-left">
       <ul class="navbar-nav nav">
