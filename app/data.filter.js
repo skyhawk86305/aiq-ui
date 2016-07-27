@@ -16,12 +16,6 @@
           return Math.round(data) + '%';
         case ('twoDecimalPercentage'):
           return data.toFixed(2) + '%';
-        case ('bytes'):
-          return $filter('bytes')(parseInt(data), false, 1);
-        case ('json'):
-          return $filter('json')(data, 0);
-        case ('access'):
-          return data ? $filter('access')(data) : '-';
         case ('date'):
           var formatString = 'yyyy-MM-dd HH:mm:ss';
           if (data) {
@@ -33,14 +27,8 @@
           break;
         case ('time'):
           return $filter('date')(Date.parse(data), 'hh:mm:ss a');
-        case ('attribute'):
-          return data ? $filter('attribute')(data) : '-';
         case ('string'):
           return data ? data : '-';
-        case ('list'):
-          return data && data.length ? $filter('list')(data) : '-';
-        case ('kiloCase'):
-          return data ? data%1000 ? $filter('kiloCase')(data, 1, false) : $filter('kiloCase')(data, 0, false) : '-';
         case ('capitalize'):
           return data ? data.charAt(0).toUpperCase() + data.slice(1) : '-';
         case ('arraySize'):

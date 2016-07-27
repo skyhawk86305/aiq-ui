@@ -14,57 +14,19 @@
     <!-- inject:css -->
     <!-- endinject -->
 </head>
-<body id="{{appCtrl.currentPage}}" ng-cloak>
+<body id="{{appCtrl.currentPage}}" class="sf-layout-container -flex-row body-container">
 
-<sf-layout shelf-position="right" shelf-class="'api-log-shelf'" shelf-visible="appCtrl.apiLog.visible" page-class="'layout-less-api-log'">
-    <shelf-content api-log></shelf-content>
-    <page-content sf-layout shelf-position="top" shelf-class="'nav-bar-shelf'">
-        <shelf-content sf-navbar config="appCtrl.navbar.config">
-            <main-navbar-right>
-                <ul class='navbar-nav nav'>
-                    <li class="navbar-item -main cluster-select">
-                        <cluster-select></cluster-select>
-                    </li>
-                    <li class="navbar-item -main -left-divider" ng-hide="appCtrl.apiLog.visible">
-                        <a id="api-log-anchor" ng-click="appCtrl.apiLog.visible = true">
-                            <i class="fa fa-list"></i>
-                            <span>API Log</span>
-                        </a>
-                    </li>
-                    <li class="navbar-item -main -left-divider" uib-dropdown>
-                        <a id="navbar-menu" uib-dropdown-toggle>
-                            <i class="fa fa-bars"></i>
-                        </a>
-                        <ul id="navbar-menu-dropdown" role="menu" uib-dropdown-menu>
-                            <li class="menu-option" role="menuitem">
-                                <a id='support-anchor' href='http://www.solidfire.com/support/' target="_blank"
-                                   alt='Support'>
-                                    <i class="fa fa-question-circle"></i>
-                                    <span>Support</span>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="menu-option" role="menuitem">
-                                <a id='logout-anchor' href="#">
-                                    <i class="fa fa-sign-out"></i>
-                                    <span>Logout</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </main-navbar-right>
-        </shelf-content>
+  <div class="sf-layout-page sf-layout-container">
+    <navbar class="sf-layout-shelf"></navbar>
+    <ng-view class="sf-layout-page"></ng-view>
+  </div>
 
-        <page-content ui-view></page-content>
-    </page-content>
-</sf-layout>
+  <api-log class="sf-layout-shelf api-log-shelf" ng-show="appCtrl.apiLog.visible"></api-log>
+
 <!-- bower:js -->
 <!-- endbower -->
 <!-- inject:js -->
 <!-- endinject -->
-<script type="text/javascript"
-        src="https://solidfire.atlassian.net/s/f854cdb069361040ccdd74988bb7959f-T/-e9m5hs/72002/8371fa342172a1b155d533ab6d1b553c/2.0.13/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=6f199caf"></script>
 </body>
 </html>
 

@@ -8,7 +8,7 @@ var mockBackend = require('../support.js').mockBackend;
 
 describe('An example of how to use the default fixture data for testing', function() {
   it('should display fixture data served from the mock server by default', function() {
-    browser.get('#/cluster/volumes');
+    browser.get('#/cluster/11/volumes');
     expect(element.all(by.repeater('volume in appCtrl.volumes')).count()).to.eventually.equal(2);
     expect(element.all(by.css('.volume-data')).get(0).getText()).to.eventually.contain('foobar');
     expect(element.all(by.css('.volume-data')).get(1).getText()).to.eventually.contain('barbaz');
@@ -44,7 +44,7 @@ describe('An example of how override default fixture data for a specific test', 
       }
     };
     mockBackend.http.whenPOST('/v2/api').respond(myMockData);
-    browser.get('#/cluster/volumes');
+    browser.get('#/cluster/11/volumes');
     expect(element.all(by.repeater('volume in appCtrl.volumes')).count()).to.eventually.equal(3);
     expect(element.all(by.css('.volume-data')).get(0).getText()).to.eventually.contain('myFoo');
     expect(element.all(by.css('.volume-data')).get(1).getText()).to.eventually.contain('myBar');
@@ -55,7 +55,7 @@ describe('An example of how override default fixture data for a specific test', 
 
 describe('An example of how the tests revert to using the default fixture data', function() {
   it('should display fixture data served from the mock server anywhere the mockBackend is not explicitly enabled', function() {
-    browser.get('#/cluster/volumes');
+    browser.get('#/cluster/11/volumes');
     expect(element.all(by.repeater('volume in appCtrl.volumes')).count()).to.eventually.equal(2);
     expect(element.all(by.css('.volume-data')).get(0).getText()).to.eventually.contain('foobar');
     expect(element.all(by.css('.volume-data')).get(1).getText()).to.eventually.contain('barbaz');

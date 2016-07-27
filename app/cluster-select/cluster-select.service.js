@@ -5,12 +5,11 @@
     .module('aiqUi')
     .service('ClusterSelectService', [
       '$q',
-      '$rootScope',
       'DataService',
       ClusterSelectService
     ]);
 
-  function ClusterSelectService($q, $rootScope, DataService) {
+  function ClusterSelectService($q, DataService) {
     var self = this;
     self.clusters = [];
     self.selectedCluster = null;
@@ -28,9 +27,9 @@
       return deferred.promise;
     };
 
+    // selectedCluster is used for display in the cluster select-component to build navbar-component hrefs
     self.updateSelectedCluster = function(cluster) {
       self.selectedCluster = cluster;
-      $rootScope.$broadcast('selectedClusterUpdated');
     };
   }
 })();

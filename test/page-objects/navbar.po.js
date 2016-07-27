@@ -5,17 +5,25 @@ var NavbarComponent = function () {
   this.mainNavbar = {
     el: element(by.css('.sf-main-navbar')),
     activeItem: element(by.css('.navbar-item.-main.active')),
-    items: element.all(by.repeater('mainNavbarItem in config')),
+    items: element.all(by.css('.navbar-item.-main')),
     click: function(item) {
-      element(by.id('main-navbar-' + item.toLowerCase())).click();
+      element(by.id('sf-main-navbar-item-' + item)).click();
     }
   };
   this.subNavbar = {
     el: element(by.css('.sf-sub-navbar')),
     activeItem: element(by.css('.navbar-item.-sub.active')),
-    items: element.all(by.repeater('subNavbarItem in subNavbarItems')),
+    items: element.all(by.css('.navbar-item.-sub')),
     click: function(item) {
-      element(by.id('sub-navbar-' + item.toLowerCase())).click();
+      element(by.id('sf-sub-navbar-item-' + item)).click();
+    }
+  };
+  this.subNavMenu = {
+    el: element(by.css('.sf-sub-nav-menu')),
+    activeItem: element(by.css('.navbar-item.-sub-menu.active')),
+    items: element.all(by.css('.navbar-item.-sub-menu')),
+    click: function(item) {
+      element(by.id('sf-sub-nav-menu-item-' + item)).click();
     }
   };
   this.apiLog = element(by.id('api-log-anchor'));

@@ -7,8 +7,7 @@ describe('Data Service', function () {
       http,
       response;
 
-  beforeEach(module('aiqUi', function ($provide, $urlRouterProvider) {
-    $urlRouterProvider.deferIntercept();
+  beforeEach(module('aiqUi', function ($provide) {
     $provide.value('ApiLogService', {
       appendRequest: jasmine.createSpy(),
       appendResponse: jasmine.createSpy(),

@@ -1,29 +1,11 @@
-@import 'lib/shared.less';
-
-#element-navigation {
-  display: block;
-}
-
-.navbar-brand {
-  .icon('../../images/SolidFire-Gotham_WHITE.svg', @navbar-brand-icon-size);
-  background-size: 90px;
-  background-color: #2a3448;
-  background-position: center center;
-  padding: 0;
-  height: 55px;
-  width: 100px;
-}
-
-.navbar-item.cluster-select {
-  margin-right: 300px;
-}
+@import '../styles/shared.less';
 
 cluster-select {
   line-height: 51px;
 }
 
 #cluster-select-anchor {
-  padding: 21px 15px;
+  padding: 17px 15px;
   text-decoration: initial;
 
   > span {
@@ -97,6 +79,7 @@ cluster-select {
         font-size: 14px;
         text-decoration: initial;
         padding: 7px;
+        border-bottom: none;
       }
 
       &.active > a {
@@ -126,80 +109,4 @@ cluster-select {
     text-align: center;
     color: #95bcd3;
   }
-}
-
-#navbar-menu {
-  font-size: @notification-icon-size;
-}
-
-#navbar-menu-dropdown {
-  top: 53px !important;
-  right: 0 !important;
-  left: auto !important;
-  background-color: @core-blue-lighter;
-  cursor: pointer;
-  border: none;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-
-  li > a {
-    color: white !important;
-
-    &:hover, &:focus {
-      background-color: transparent;
-    }
-  }
-
-  .divider {
-    background-color: @core-blue-dark;
-  }
-}
-
-.hide-api-log-btn() {
-  #api-log-anchor {
-    display: none;
-  }
-}
-
-.hide-navbar-right() {
-  .sf-main-navbar > .pull-right {
-    display: none;
-  }
-}
-
-.hide-navbar-icons() {
-  .sf-main-navbar > .pull-left {
-    a {
-      padding-right: 13px;
-      padding-left: 13px;
-    }
-
-    i {
-      display: none;
-    }
-  }
-}
-
-/*
- * Breakpoint Definitions
- */
-
-@media screen and (max-width: 1285px) {
-  .layout-less-api-log.-shelf-visible {
-    .hide-navbar-icons();
-  }
-}
-
-@media screen and (max-width: 1165px) {
-  .layout-less-api-log.-shelf-visible {
-    .hide-navbar-right();
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .hide-api-log-btn();
-}
-
-@media screen and (max-width: 768px) {
-  .hide-navbar-icons();
 }

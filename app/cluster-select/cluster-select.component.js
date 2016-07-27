@@ -5,43 +5,71 @@
     .module('aiqUi')
     .component('clusterSelect', {
       templateUrl: 'cluster-select/cluster-select.tpl.html',
-      controller: ['$state', 'ClusterSelectService', ClusterSelectController]
+      controller: [
+        '$location',
+        '$q',
+        '$routeParams',
+        'ClusterSelectService',
+        ClusterSelectController
+      ]
     });
 
-  function ClusterSelectController($state, ClusterSelectService) {
+  function ClusterSelectController($location, $q, $routeParams, ClusterSelectService) {
     var self = this;
     self.clusters = [];
     self.recentlyViewed = [];
-    self.selectedClusterDisplay = ClusterSelectService.selectedCluster;
+    self.clusterSelect = ClusterSelectService;
 
+    // Populate list of clusters and set the cached selected cluster using clusterID from route params
+    self.init = function() {
+      self.refresh().then(function() {
+        var clusterFromRoute = self.clusters.filter(function(cluster) {
+          return cluster.clusterID && cluster.clusterID.toString() === $routeParams.clusterID;
+        });
+        if (clusterFromRoute.length) {
+          updateSelectedCluster(clusterFromRoute[0]);
+        }
+      });
+    };
+
+    // Re-populate the list of clusters to select from
     self.refresh = function() {
+      var deferred = $q.defer();
       self.state = 'loading';
-      ClusterSelectService.getClusters()
+      self.clusterSelect.getClusters()
         .then(function(clusters) {
           self.state = 'loaded';
           self.clusters = clusters;
+          deferred.resolve();
         })
         .catch(function(error) {
           self.state = 'error';
           self.errorMsg = error;
+          deferred.reject();
         });
+      return deferred.promise;
     };
 
+    // Update the cached selected cluster and navigate to the new cluster-specific route
     self.select = function(cluster) {
-      self.selectedClusterDisplay = cluster;
-      updateRecentlyViewed();
-      ClusterSelectService.updateSelectedCluster(cluster);
-      $state.go('cluster');
+      var currentPath = $location.path(),
+          defaultPath = '/reporting/overview',
+          onClusterPath = currentPath.indexOf('/cluster/') >= 0,
+          newPath = onClusterPath ? currentPath.replace(/\/cluster\/([0-9]*)/, '') : defaultPath;
 
-      function updateRecentlyViewed() {
-        var index = self.recentlyViewed.indexOf(cluster);
-        if (index >= 0) {
-          self.recentlyViewed.splice(index, 1);
-        }
-        self.recentlyViewed.unshift(cluster);
-      }
+      updateSelectedCluster(cluster);
+      $location.path('/cluster/' + cluster.clusterID + newPath);
     };
 
-    self.refresh();
+    function updateSelectedCluster(cluster) {
+      var index = self.recentlyViewed.indexOf(cluster);
+      // deduplicate and push to front of recently viewed array
+      if (index >= 0) { self.recentlyViewed.splice(index, 1); }
+      self.recentlyViewed.unshift(cluster);
+      // update the selected cluster in the display and navbar hrefs
+      self.clusterSelect.updateSelectedCluster(cluster);
+    }
+
+    self.init();
   }
 })();

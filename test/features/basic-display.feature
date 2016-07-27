@@ -13,10 +13,12 @@ Feature: Basic Display
   Scenario: Navbar functionality (CLOUD-2904)
     Given The app is open in a browser
     And I see the shared SolidFire navbar
-    When I click on the "main" navbar item "Cluster"
-    Then I am navigated to the route "/cluster"
-    When I click on the "sub" navbar item "Drives"
-    Then I am navigated to the route "/cluster/drives"
+    When I click on the "main" navbar item "users"
+    Then I am navigated to the route "/users"
+    When I click on the "main" navbar item "dashboard"
+    Then I am navigated to the route "/dashboard"
+    When I click on the "sub" navbar item "dashboard-health"
+    Then I am navigated to the route "/dashboard/health"
 
   Scenario: API log functionality (CLOUD-2904)
     Given The app is open in a browser

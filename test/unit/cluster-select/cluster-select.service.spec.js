@@ -8,8 +8,7 @@ describe('ClusterSelectService', function () {
       service,
       dataService;
 
-  beforeEach(module('aiqUi', function ($provide, $urlRouterProvider) {
-    $urlRouterProvider.deferIntercept();
+  beforeEach(module('aiqUi', function ($provide) {
     $provide.value('DataService', {callAPI: function() {} });
   }));
 
@@ -57,12 +56,6 @@ describe('ClusterSelectService', function () {
       expect(service.selectedCluster).toEqual('foo');
       service.updateSelectedCluster('bar');
       expect(service.selectedCluster).toEqual('bar');
-    });
-
-    it('should broadcast selectedClusterUpdated', function() {
-      spyOn(rootScope, '$broadcast');
-      service.updateSelectedCluster('foo');
-      expect(rootScope.$broadcast).toHaveBeenCalledWith('selectedClusterUpdated');
     });
   });
 

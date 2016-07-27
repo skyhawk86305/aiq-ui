@@ -4,10 +4,10 @@
   "dependencies": {
     "angular": "1.5.7",
     "angular-bootstrap": "~1.3.3",
-    "angular-ui-router": "latest",
+    "angular-route": "^1.5.7",
     "angular-ui-select": "~0.14.2",
     "angular-messages": "~1.5.0",
-    "sf-components": "git@bitbucket.org:solidfire/sf-components.git#develop",
+    "sf-components-v2": "git@bitbucket.org:solidfire/sf-components-v2.git#master",
     "angular-sanitize": "~1.5.0",
     "bootstrap-css-only": "~3.3.6"
   },
