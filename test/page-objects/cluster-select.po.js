@@ -8,7 +8,14 @@ var ClusterSelectComponent = function () {
     return {
       el: element(by.id('cluster-select-menu')),
       filter: function(input) {
-        element(by.id('cluster-select-filter')).sendKeys(input);
+        var filterInput = element(by.id('cluster-select-filter'));
+        return filterInput.clear().then(function() { filterInput.sendKeys(input); });
+      },
+      viewHints: function() {
+        element(by.css('.cluster-select-hints')).click();
+        return {
+          menu: element(by.css('.cluster-select-hints-tooltip'))
+        }
       },
       activeTab: element(by.css('.cluster-select-list-tab.active')),
       allClustersTab: element(by.css('.cluster-select-list-tab.all-clusters')),
@@ -16,7 +23,7 @@ var ClusterSelectComponent = function () {
       emptyList: element(by.css('.cluster-select-empty')),
       clusterList: {
         el: element(by.css('ul.cluster-select-list')),
-        items: element.all(by.repeater('cluster in (recentlyViewed ? $ctrl.recentlyViewed : $ctrl.clusters) | filter: filterInput')),
+        items: element.all(by.repeater('cluster in (recentlyViewed ? $ctrl.recentlyViewed : $ctrl.clusters) | clusterSelectFilter : filterInput')),
         select: function(cluster) {
           this.items.filter(function(el) {
             return el.getText().then(function(text) {

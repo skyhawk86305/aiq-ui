@@ -16,9 +16,21 @@
 
     self.getClusters = function() {
       var deferred = $q.defer();
-      DataService.callAPI('ListActiveClusters')
+      DataService.callAPI('ListActiveClusters', {components: ['clusterVersionInfo', 'clusterInfo']})
         .then(function(response) {
-          self.clusters = response.clusters;
+          var clusters = response.clusters || [];
+
+          self.clusters = clusters.map(function(cluster) {
+            if (!cluster.clusterName) {
+              cluster.clusterName = 'Unnamed cluster';
+              cluster.isUnnamed = true;
+            }
+
+            cluster.uuid = cluster.clusterInfo && cluster.clusterInfo.uuid || null;
+            cluster.apiVersion = cluster.clusterVersionInfo && cluster.clusterVersionInfo.clusterAPIVersion || null;
+
+            return cluster;
+          });
           deferred.resolve(self.clusters);
         })
         .catch(function(error) {
