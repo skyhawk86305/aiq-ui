@@ -54,21 +54,47 @@ describe('Component: navbar', function() {
     });
   });
 
-  describe('.delayMenuHide', function() {
-    it('should clear the subNavMenuItems after 500ms if the user is no longer hovered over the menu', function() {
-      controller.inMenu = false;
-      controller.subNavMenuItems = [{foo:'bar'}];
-      controller.delayMenuHide();
+  describe('.delayMouseLeave', function() {
+    it('should reset the hoveredSubNavMenu state to false after 500ms if the user is not currently hovered over the menu', function() {
+      controller.currentlyInMenu = false;
+      controller.hoveredSubNavMenu = true;
+      controller.delayMouseLeave();
       timeout.flush();
-      expect(controller.subNavMenuItems).toEqual(false);
+      expect(controller.hoveredSubNavMenu).toEqual(false);
     });
 
-    it('should not clear the subNavMenuItems if the user hovers back over the menu within 500ms', function() {
-      controller.inMenu = true;
-      controller.subNavMenuItems = [{href:'foobar'}];
-      controller.delayMenuHide();
+    it('should not clear the subNavbarItem if the user hovers back over the menu within 500ms', function() {
+      controller.currentlyInMenu = true;
+      controller.hoveredSubNavMenu = true;
+      controller.delayMouseLeave();
       timeout.flush();
-      expect(controller.subNavMenuItems).not.toEqual(false);
+      expect(controller.hoveredSubNavMenu).toEqual(true);
+    });
+  });
+
+  describe('.displaySubNavMenu', function() {
+    it('should return true if the current sub navbar item has a sub menu and is currently hovered over', function() {
+      controller.subNavbarItem = {menuItems: []};
+      controller.hoveredSubNavMenu = true;
+      expect(controller.displaySubNavMenu()).toEqual(true);
+    });
+
+    it('should return true if the current sub navbar item has a sub menu and was clicked', function() {
+      controller.subNavbarItem = {menuItems: []};
+      controller.clickedSubNavMenu = true;
+      expect(controller.displaySubNavMenu()).toEqual(true);
+    });
+
+    it('should return false if the current sub navbar item doesnt have sub nav bar menu items', function() {
+      controller.subNavbarItem = false;
+      expect(controller.displaySubNavMenu()).toEqual(false);
+    });
+
+    it('should return false if the menu item is not hovered or clicked', function() {
+      controller.subNavbarItem = {menuItems: []};
+      controller.hoveredSubNavMenu = false;
+      controller.clickedSubNavMenu = false;
+      expect(controller.displaySubNavMenu()).toEqual(false);
     });
   });
 

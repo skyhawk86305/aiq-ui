@@ -1,20 +1,23 @@
 <div class="sf-navbar" role="navigation">
-  <div class="sf-main-navbar" ng-mouseenter="$ctrl.subNavMenuItems = false">
+  <div class="sf-main-navbar" ng-mouseenter="$ctrl.delayMouseLeave()">
     <div class="pull-left">
       <ul class="navbar-nav nav">
         <li class="navbar-item -main">
           <a class='navbar-brand'></a>
         </li>
-        <li class="navbar-item -main" ng-class="{'active':$ctrl.activeItems.main === 'dashboard'}">
-          <a href="#/dashboard/overview/sub1"
-             >
-            Dashboard
-          </a>
+        <li class="navbar-item -main"
+            id="sf-main-navbar-item-dashboard"
+            ng-class="{'active':$ctrl.activeItems.main === 'dashboard'}">
+          <a href="#/dashboard/overview/sub1">Dashboard</a>
         </li>
-        <li class="navbar-item -main cluster-select" ng-class="{'active':$ctrl.activeItems.main === 'cluster'}">
+        <li class="navbar-item -main cluster-select"
+            id="sf-main-navbar-item-cluster"
+            ng-class="{'active':$ctrl.activeItems.main === 'cluster'}">
           <cluster-select></cluster-select>
         </li>
-        <li class="navbar-item -main" ng-class="{'active':$ctrl.activeItems.main === 'users'}">
+        <li class="navbar-item -main"
+            id="sf-main-navbar-item-users"
+            ng-class="{'active':$ctrl.activeItems.main === 'users'}">
           <a href="#/users">Users</a>
         </li>
       </ul>
@@ -57,17 +60,21 @@
     <div class="pull-left">
       <ul class="navbar-nav nav">
         <li class="navbar-item -sub"
+            id="sf-sub-navbar-item-{{$ctrl.activeItems.main}}-{{subNavbarItem.key}}"
             ng-class="{'active':$ctrl.activeItems.sub === subNavbarItem.key}"
             ng-repeat="subNavbarItem in $ctrl.subNavbarItems[$ctrl.activeItems.main]">
 
           <a href="{{$ctrl.getHref(subNavbarItem)}}"
-             ng-hide="subNavbarItem.menuItems"
-             ng-mouseenter="$ctrl.subNavMenuItems = false">
+             ng-if="!subNavbarItem.menuItems"
+             ng-click="$ctrl.subNavbarItem = subNavbarItem; $ctrl.clickedSubNavMenu = false"
+             ng-mouseenter="$ctrl.subNavbarItem = subNavbarItem; $ctrl.clickedSubNavMenu = false">
             <span ng-bind="subNavbarItem.label"></span>
           </a>
 
-          <a ng-show="subNavbarItem.menuItems"
-             ng-mouseenter="$ctrl.subNavMenuItems = subNavbarItem.menuItems">
+          <a ng-if="subNavbarItem.menuItems"
+             ng-click="$ctrl.subNavbarItem = subNavbarItem; $ctrl.clickedSubNavMenu = !$ctrl.clickedSubNavMenu; $ctrl.currentlyInMenu = false"
+             ng-mouseenter="$ctrl.subNavbarItem = subNavbarItem; $ctrl.hoveredSubNavMenu = true; $ctrl.currentlyInMenu = true"
+             ng-mouseleave="$ctrl.currentlyInMenu = false; $ctrl.delayMouseLeave()">
             <span ng-bind="subNavbarItem.label"></span>
           </a>
         </li>
@@ -77,16 +84,18 @@
 
 
   <div class="sf-sub-nav-menu -overlay"
-       ng-mouseenter="$ctrl.inMenu = true"
-       ng-mouseleave="$ctrl.inMenu = false; $ctrl.delayMenuHide()"
-       ng-show="$ctrl.subNavMenuItems">
+       ng-mouseenter="$ctrl.hoveredSubNavMenu = true; $ctrl.currentlyInMenu = true"
+       ng-mouseleave="$ctrl.delayMouseLeave(); $ctrl.currentlyInMenu = false"
+       ng-show="$ctrl.displaySubNavMenu()">
     <div class="pull-left">
       <ul class="navbar-nav nav">
         <li class="navbar-item -sub-menu"
+            id="sf-sub-nav-menu-item-{{$ctrl.activeItems.main}}-{{$ctrl.subNavbarItem.key}}-{{subNavMenuItem.key}}"
             ng-class="{'active':$ctrl.activeItems.menu === subNavMenuItem.key}"
-            ng-repeat="subNavMenuItem in $ctrl.subNavMenuItems">
+            ng-repeat="subNavMenuItem in $ctrl.subNavbarItem.menuItems">
 
-          <a href="{{$ctrl.getHref(subNavMenuItem)}}">
+          <a href="{{$ctrl.getHref(subNavMenuItem)}}"
+             ng-click="$ctrl.hoveredSubNavMenu = false; $ctrl.clickedSubNavMenu = false;">
             <span ng-bind="subNavMenuItem.label"></span>
           </a>
         </li>

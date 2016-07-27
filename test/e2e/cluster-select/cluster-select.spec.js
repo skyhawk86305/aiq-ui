@@ -44,6 +44,10 @@ describe('The cluster select component', function() {
       expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');
     });
 
+    it('should navigate the user to the default /cluster route with the selected clusterID embedded in the url', function() {
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/reporting/overview');
+    });
+
     it('should add the selected cluster to the top of the recently viewed', function() {
       clusterSelect.open().clusterList.select('fooCluster');
       dropDownMenu = clusterSelect.open();

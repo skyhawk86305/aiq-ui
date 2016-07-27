@@ -71,18 +71,19 @@
     };
 
     // UX feature to delay the hiding of the sub nav menu if the user temporarily hovers outside of it
-    self.delayMenuHide = function() {
+    self.delayMouseLeave = function() {
       $timeout(function() {
-        if (!self.inMenu) {
-          self.subNavMenuItems = false;
-        }
+        if (!self.currentlyInMenu) { self.hoveredSubNavMenu = false; }
       }, 500);
+    };
+
+    self.displaySubNavMenu = function() {
+      return self.subNavbarItem && self.subNavbarItem.menuItems && (self.hoveredSubNavMenu || self.clickedSubNavMenu);
     };
 
     $rootScope.$on('$routeChangeSuccess', function() {
       // Update the active items every route change (for styling)
       var path = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/');
-      console.log(path);
       self.activeItems.main = path[0];
       self.activeItems.sub = path.length > 1 ? path[1] : '';
       self.activeItems.menu = path.length > 2 ? path[2] : '';

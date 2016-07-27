@@ -113,7 +113,7 @@ describe('Component: clusterSelect', function() {
     });
 
     it('should reroute the user to /cluster/<new-clusterID>/<current-route> if the user is already on a cluster-specific route', function() {
-      spyOn(location, 'path').and.returnValue('#/cluster/999/foo/bar');
+      spyOn(location, 'path').and.returnValue('/cluster/999/foo/bar');
       controller.select({clusterID: 12345});
       expect(location.path).toHaveBeenCalledWith('/cluster/12345/foo/bar');
     });

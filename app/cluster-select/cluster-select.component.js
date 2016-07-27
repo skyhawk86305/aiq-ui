@@ -25,8 +25,10 @@
       self.refresh().then(function() {
         var clusterFromRoute = self.clusters.filter(function(cluster) {
           return cluster.clusterID && cluster.clusterID.toString() === $routeParams.clusterID;
-        })[0];
-        updateSelectedCluster(clusterFromRoute);
+        });
+        if (clusterFromRoute.length) {
+          updateSelectedCluster(clusterFromRoute[0]);
+        }
       });
     };
 
@@ -52,8 +54,8 @@
     self.select = function(cluster) {
       var currentPath = $location.path(),
           defaultPath = '/reporting/overview',
-          onClusterPath = currentPath.indexOf('#/cluster/') >= 0,
-          newPath = onClusterPath ? currentPath.replace(/#\/cluster\/([0-9]*)/, '') : defaultPath;
+          onClusterPath = currentPath.indexOf('/cluster/') >= 0,
+          newPath = onClusterPath ? currentPath.replace(/\/cluster\/([0-9]*)/, '') : defaultPath;
 
       updateSelectedCluster(cluster);
       $location.path('/cluster/' + cluster.clusterID + newPath);
