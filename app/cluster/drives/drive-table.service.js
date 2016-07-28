@@ -10,23 +10,17 @@
       DriveTableService
     ]);
 
-  function DriveTableService($q, SFTableService, DataService) {
+  function DriveTableService(SFTableService, DataService) {
     var listDrives = function() {
-      var deferred = $q.defer();
-      DataService.callAPI('ListActiveDrives', {clusterID: this.selectedClusterID})
+      return DataService.callAPI('ListActiveDrives', {clusterID: this.selectedClusterID})
         .then(function(response) {
           var drives = response.drives;
           drives.forEach(function(drive){
             drive.lifeRemainingPercent = drive.driveStats ? drive.driveStats.lifeRemainingPercent :'';
             drive.reserveCapacityPercent  = drive.driveStats ? drive.driveStats.reserveCapacityPercent : '';
           });
-          deferred.resolve(drives);
-
-        }).catch(function(err) {
-        deferred.reject(err);
+          return drives;
       });
-
-      return deferred.promise;
     };
 
     var columns = [
