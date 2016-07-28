@@ -4,22 +4,15 @@
   angular
     .module('aiqUi')
     .service('NodeTableService', [
-      '$q',
       'SFTableService',
       'DataService',
       NodeTableService
     ]);
 
-  function NodeTableService($q, SFTableService, DataService) {
+  function NodeTableService(SFTableService, DataService) {
     var listActiveNodes = function() {
-      var deferred = $q.defer();
-      DataService.callAPI('ListActiveNodes', {clusterID: this.selectedClusterID})
-        .then(function(response) {
-          deferred.resolve(response.nodes);
-        }).catch(function(err) {
-          deferred.reject(err);
-        });
-      return deferred.promise;
+      return DataService.callAPI('ListActiveNodes', {clusterID: this.selectedClusterID})
+        .then(function(response) { return response.nodes; });
     };
 
     var columns = [

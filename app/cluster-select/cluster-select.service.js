@@ -4,19 +4,17 @@
   angular
     .module('aiqUi')
     .service('ClusterSelectService', [
-      '$q',
       'DataService',
       ClusterSelectService
     ]);
 
-  function ClusterSelectService($q, DataService) {
+  function ClusterSelectService(DataService) {
     var self = this;
     self.clusters = [];
     self.selectedCluster = null;
 
     self.getClusters = function() {
-      var deferred = $q.defer();
-      DataService.callAPI('ListActiveClusters', {components: ['clusterVersionInfo', 'clusterInfo']})
+      return DataService.callAPI('ListActiveClusters', {components: ['clusterVersionInfo', 'clusterInfo']})
         .then(function(response) {
           var clusters = response.clusters || [];
 
@@ -31,12 +29,8 @@
 
             return cluster;
           });
-          deferred.resolve(self.clusters);
-        })
-        .catch(function(error) {
-          deferred.reject(error);
+          return self.clusters;
         });
-      return deferred.promise;
     };
 
     // selectedCluster is used for display in the cluster select-component to build navbar-component hrefs

@@ -7,14 +7,13 @@
       templateUrl: 'cluster-select/cluster-select.tpl.html',
       controller: [
         '$location',
-        '$q',
         '$routeParams',
         'ClusterSelectService',
         ClusterSelectController
       ]
     });
 
-  function ClusterSelectController($location, $q, $routeParams, ClusterSelectService) {
+  function ClusterSelectController($location, $routeParams, ClusterSelectService) {
     var self = this;
     self.clusters = [];
     self.recentlyViewed = [];
@@ -34,20 +33,16 @@
 
     // Re-populate the list of clusters to select from
     self.refresh = function() {
-      var deferred = $q.defer();
       self.state = 'loading';
-      self.clusterSelect.getClusters()
+      return self.clusterSelect.getClusters()
         .then(function(clusters) {
           self.state = 'loaded';
           self.clusters = clusters;
-          deferred.resolve();
         })
         .catch(function(error) {
           self.state = 'error';
           self.errorMsg = error;
-          deferred.reject();
         });
-      return deferred.promise;
     };
 
     // Update the cached selected cluster and navigate to the new cluster-specific route
