@@ -59,7 +59,7 @@
         template: '<node-table class="sf-layout-container -scroll-x"></node-table>'
       })
       .when('/cluster/:clusterID/drives', {
-        templateUrl: 'sample-page.tpl.html'
+        template: '<drive-table class="sf-layout-container -scroll-x"></drive-table>'
       })
       .when('/cluster/:clusterID/volumes', {
         templateUrl: 'cluster/volumes/volumes.tpl.html'
