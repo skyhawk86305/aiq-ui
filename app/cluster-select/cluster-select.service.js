@@ -4,27 +4,33 @@
   angular
     .module('aiqUi')
     .service('ClusterSelectService', [
-      '$q',
       'DataService',
       ClusterSelectService
     ]);
 
-  function ClusterSelectService($q, DataService) {
+  function ClusterSelectService(DataService) {
     var self = this;
     self.clusters = [];
     self.selectedCluster = null;
 
     self.getClusters = function() {
-      var deferred = $q.defer();
-      DataService.callAPI('ListActiveClusters')
+      return DataService.callAPI('ListActiveClusters', {components: ['clusterVersionInfo', 'clusterInfo']})
         .then(function(response) {
-          self.clusters = response.clusters;
-          deferred.resolve(self.clusters);
-        })
-        .catch(function(error) {
-          deferred.reject(error);
+          var clusters = response.clusters || [];
+
+          self.clusters = clusters.map(function(cluster) {
+            if (!cluster.clusterName) {
+              cluster.clusterName = 'Unnamed cluster';
+              cluster.isUnnamed = true;
+            }
+
+            cluster.uuid = cluster.clusterInfo && cluster.clusterInfo.uuid || null;
+            cluster.apiVersion = cluster.clusterVersionInfo && cluster.clusterVersionInfo.clusterAPIVersion || null;
+
+            return cluster;
+          });
+          return self.clusters;
         });
-      return deferred.promise;
     };
 
     // selectedCluster is used for display in the cluster select-component to build navbar-component hrefs
