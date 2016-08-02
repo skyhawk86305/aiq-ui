@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('driveTable', {
-      template: '<sf-table id="drive-table" service="$ctrl.service"></sf-table>',
+      template: '<sf-table id="drive-table" service="$ctrl.service type="drive""></sf-table>',
       controller: ['$routeParams', 'DriveTableService', DriveTableController]
     });
 
