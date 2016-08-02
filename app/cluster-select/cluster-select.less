@@ -25,7 +25,7 @@ cluster-select {
 
 #cluster-select-menu {
   background-color: #2a3448;
-  min-width: 300px;
+  min-width: 310px;
   margin-top: 0;
   border: none;
 
@@ -35,14 +35,17 @@ cluster-select {
     line-height: 35px;
     padding-left: 10px;
     background-color: #333f56;
+    display: inline-block;
+    width: 250px;
 
     .fa-search {
       color: #466c89;
+      font-width: 500;
     }
 
     #cluster-select-filter {
       display: inline-block;
-      width: 250px;
+      width: 200px;
       color: #95bcd3;
       border: none;
       background-color: #333f56;
@@ -66,6 +69,36 @@ cluster-select {
       font-size: 14px;
       font-weight: 300;
       color: #95bcd3;
+    }
+  }
+
+  .cluster-select-hints {
+    color: #95bcd3;
+  }
+
+  .cluster-select-hints-tooltip {
+    width: 300px;
+    margin-left: 14px;
+    opacity: 1;
+
+    .tooltip-arrow {
+      border-right-color: #384661;
+    }
+
+    .tooltip-inner {
+      background-color: #384661;
+      max-width: 400px;
+      color: #95bcd3;
+      font-size: 12px;
+      padding: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+
+      pre {
+        background-color: #51617F;
+        border-width: 0;
+        color: #FFFFFF;
+        padding: 5px;
+      }
     }
   }
 

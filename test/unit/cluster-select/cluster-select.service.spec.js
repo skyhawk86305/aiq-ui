@@ -29,7 +29,7 @@ describe('ClusterSelectService', function () {
 
   describe('.getClusters', function() {
     it('should resolve and set the array of clusters from ListActiveClusters', function(done) {
-      apiResponse = {clusters:['foo', 'bar']};
+      apiResponse = {clusters:[{foo:'bar'}, {clusterName:'baz', clusterInfo:{uuid:'foo'}, clusterVersionInfo:{clusterAPIVersion:2}}]};
       deferred.resolve(apiResponse);
       service.getClusters().then(function(response) {
         expect(response).toEqual(apiResponse.clusters);
