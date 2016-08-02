@@ -13,12 +13,11 @@
     var listDrives = function() {
       return DataService.callAPI('ListActiveDrives', {clusterID: this.selectedClusterID})
         .then(function(response) {
-          var drives = response.drives;
-          drives.forEach(function(drive){
+          return response.drives.map(function(drive) {
             drive.lifeRemainingPercent = drive.driveStats ? drive.driveStats.lifeRemainingPercent :'';
             drive.reserveCapacityPercent  = drive.driveStats ? drive.driveStats.reserveCapacityPercent : '';
+            return drive;
           });
-          return drives;
       });
     };
 
