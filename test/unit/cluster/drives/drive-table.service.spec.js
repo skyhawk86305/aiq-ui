@@ -43,18 +43,18 @@ describe('DriveTableService', function () {
   describe('.getData (inherited from SFTableService)', function() {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
-      service.getData();
+      service.getData(true);
       expect(dataService.callAPI).toHaveBeenCalledWith('ListActiveDrives', {clusterID: 'foobar'});
     });
 
     it('should deserialize the response and resolve an array of data', function() {
       apiResponse = {drives: [{driveStats: {lifeRemainingPercent: 'foo', reserveCapacityPercent: 'bar'}}]};
-      deserializedResponse = apiResponse.drives;
-      deserializedResponse.forEach(function(drive){
+      deserializedResponse = apiResponse.drives.map(function(drive){
         drive.lifeRemainingPercent = drive.driveStats.lifeRemainingPercent;
         drive.reserveCapacityPercent = drive.driveStats.reserveCapacityPercent;
+        return drive;
       });
-      service.getData().then(function(response) {
+      service.getData(true).then(function(response) {
          expect(response).toEqual(deserializedResponse);
       });
       deferred.resolve(apiResponse);
@@ -63,7 +63,7 @@ describe('DriveTableService', function () {
 
     it('should reject the error message if the call fails', function() {
       apiFailure = 'FooError';
-      service.getData().catch(function(err) {
+      service.getData(true).catch(function(err) {
         expect(err).toEqual(apiFailure);
       });
       deferred.reject(apiFailure);

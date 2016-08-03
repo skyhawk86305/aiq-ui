@@ -42,13 +42,13 @@ describe('NodeTableService', function () {
   describe('.getData (inherited from SFTableService)', function() {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
-      service.getData();
+      service.getData(true);
       expect(dataService.callAPI).toHaveBeenCalledWith('ListActiveNodes', {clusterID: 'foobar'});
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {nodes: ['foo', 'bar']};
-      service.getData().then(function(response) {
+      apiResponse = {nodes: ['bar', 'foo']};
+      service.getData(true).then(function(response) {
         expect(response).toEqual(apiResponse.nodes);
       });
       deferred.resolve(apiResponse);
@@ -57,7 +57,7 @@ describe('NodeTableService', function () {
 
     it('should reject the error message if the call fails', function() {
       apiFailure = 'FooError';
-      service.getData().catch(function(err) {
+      service.getData(true).catch(function(err) {
         expect(err).toEqual(apiFailure);
       });
       deferred.reject(apiFailure);
