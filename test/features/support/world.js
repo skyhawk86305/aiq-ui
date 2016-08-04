@@ -26,10 +26,12 @@ function World() {
   this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
   this.nodesTable = new TableComponent('node');
+  this.drivesTable = new TableComponent('drive');
 
   this.table = function(type) {
     switch(type) {
       case ('node'): return this.nodesTable;
+      case ('drive'): return this.drivesTable;
     }
   };
 
@@ -38,6 +40,22 @@ function World() {
     switch(type) {
       case ('node'): return fixture.result.nodes.sort(function(a, b) { return b.nodeID - a.nodeID; });
     }
+  };
+
+  this.uniqueIdentifier = function(type) {
+    switch (type) {
+      case ('node') : return 'nodeID';
+    }
+  };
+
+  this.idValueFromUi = function (uniqueID, randomIndex) {
+      return this.nodesTable.data(uniqueID, randomIndex).getText();
+  };
+
+  this.idValueFromAPI = function (fixtureData, uniqueID, idValue) {
+    return fixtureData.filter(function(el){
+      return (el[uniqueID] === Number(idValue));
+    });
   };
 
   this.format = function(data, type, attr) {
