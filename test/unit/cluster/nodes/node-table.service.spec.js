@@ -17,6 +17,7 @@ describe('NodeTableService', function () {
     rootScope = $rootScope;
     deferred = $q.defer();
     service = NodeTableService;
+    service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);

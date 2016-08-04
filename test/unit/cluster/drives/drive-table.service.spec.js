@@ -18,6 +18,7 @@ describe('DriveTableService', function () {
     rootScope = $rootScope;
     deferred = $q.defer();
     service = DriveTableService;
+    service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
