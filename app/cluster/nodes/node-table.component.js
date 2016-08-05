@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('nodeTable', {
-      template: '<sf-table id="node-table" service="$ctrl.service" type="node"></sf-table>',
+      template: '<sf-table class="sf-layout-block" id="node-table" service="$ctrl.service" type="node"></sf-table>',
       controller: ['$routeParams', 'NodeTableService', NodeTableController]
     });
 
