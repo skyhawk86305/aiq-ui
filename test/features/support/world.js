@@ -39,17 +39,22 @@ function World() {
     var fixture = require('../../fixtures/'+method);
     switch(type) {
       case ('node'): return fixture.result.nodes.sort(function(a, b) { return b.nodeID - a.nodeID; });
+      case ('drive'): return fixture.result.drives.sort(function(a, b) { return b.nodeID - a.nodeID; });
     }
   };
 
   this.uniqueIdentifier = function(type) {
     switch (type) {
       case ('node') : return 'nodeID';
+      case ('drive') : return 'driveID';
     }
   };
 
-  this.idValueFromUi = function (uniqueID, randomIndex) {
-      return this.nodesTable.data(uniqueID, randomIndex).getText();
+  this.idValueFromUi = function (type, uniqueID, randomIndex) {
+    switch (type) {
+      case ('node') : return this.nodesTable.data(uniqueID, randomIndex).getText();
+      case ('drive') : return this.drivesTable.data(uniqueID, randomIndex).getText();
+    }
   };
 
   this.idValueFromAPI = function (fixtureData, uniqueID, idValue) {

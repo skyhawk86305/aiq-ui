@@ -23,7 +23,7 @@ module.exports = function() {
     world.expect(world.table(type).headers.count()).to.eventually.equal(columns.length).notify(done);
   });
 
-  this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, done) {
+  this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, callback) {
     var world = this,
         attrs = array.split(/,\s*/),
         expectedDataSet, expectedData, actualData,
@@ -33,14 +33,27 @@ module.exports = function() {
         randomIndex = Math.floor((Math.random() * maxRows)),
         uniqueIdentifier = world.uniqueIdentifier(type);
 
-      world.idValueFromUi(uniqueIdentifier, randomIndex).then(function(idValue){
+      world.idValueFromUi(type, uniqueIdentifier, randomIndex).then(function(idValue){
         expectedDataSet = world.idValueFromAPI(fixtureData, uniqueIdentifier, idValue);
         attrs.forEach(function(attr) {
-          expectedData = world.format(expectedDataSet[0][attr], type, attr);
-          actualData = world.table(type).data(attr, randomIndex);
-          world.expect(actualData.getText()).to.eventually.equal(expectedData);
+          world.table(type).data(attr, randomIndex).then(function(actualData){
+            var p = attr.indexOf('.');
+            //check to see if the parameter is part of a nested parameter and if it is break it down
+            if (p >= 0){
+              var attr1 = attr.substring(0, p),
+                attr2 = attr.substring(p + 1, attr.length);
+                expectedData = world.format(expectedDataSet[0][attr1][attr2], type, attr);
+            }
+            else {
+              expectedData = world.format(expectedDataSet[0][attr], type, attr);
+            }
+            world.expect(actualData).to.equal(expectedData.toString());
+          });
         });
        });
-    world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows+1).notify(done);
+    world.table(type).rows.count().then(function(actualRowCount){
+      world.expect(actualRowCount).to.equal(maxRows+1);
+      callback();
+    })
   });
 };
