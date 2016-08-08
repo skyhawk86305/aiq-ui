@@ -35,43 +35,40 @@ function World() {
     }
   };
 
-  this.fixture = function(type, method) {
-    var fixture = require('../../fixtures/'+method);
-    switch(type) {
-      case ('node'): return fixture.result.nodes.sort(function(a, b) { return b.nodeID - a.nodeID; });
-      case ('drive'): return fixture.result.drives.sort(function(a, b) { return b.nodeID - a.nodeID; });
-    }
-  };
-
-  this.uniqueIdentifier = function(type) {
+  this.getUniqueKey = function(type) {
     switch (type) {
       case ('node') : return 'nodeID';
       case ('drive') : return 'driveID';
     }
   };
 
-  this.idValueFromUi = function (type, uniqueID, randomIndex) {
-    switch (type) {
-      case ('node') : return this.nodesTable.data(uniqueID, randomIndex).getText();
-      case ('drive') : return this.drivesTable.data(uniqueID, randomIndex).getText();
+  this.getFixtureData = function(type, method) {
+    var fixture = require('../../fixtures/'+method);
+    switch(type) {
+      case ('node'):
+        return fixture.result.nodes.map(function(node) {
+          return node;
+        });
+      case ('drive'):
+        return fixture.result.drives.map(function(drive) {
+          drive.lifeRemainingPercent = drive.driveStats ? drive.driveStats.lifeRemainingPercent :'';
+          drive.reserveCapacityPercent  = drive.driveStats ? drive.driveStats.reserveCapacityPercent : '';
+          return drive;
+        });
+      default:
+        console.log('Invalid fixture type!');
+        return [];
     }
   };
 
-  this.idValueFromAPI = function (fixtureData, uniqueID, idValue) {
-    return fixtureData.filter(function(el){
-      return (el[uniqueID] === Number(idValue));
-    });
-  };
-
-  this.format = function(data, type, attr) {
+  this.formatFixtureData = function(data, type, attr) {
     switch(type) {
       case ('node'):
         switch(attr) {
-          case('nodeID'): return data.toString();
-          default: return data;
+          default: return data.toString();
         }
       break;
-      default: return data;
+      default: return data.toString();
     }
   };
 }

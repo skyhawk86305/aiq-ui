@@ -9,7 +9,7 @@ module.exports = {
         serviceTag: '450TDB2',
         mip: '32.50.33.201',
         cip: '32.50.33.201',
-        sip: '32.50.33.201	',
+        sip: '32.50.33.201',
         ipcPort: ''
       },
       {
