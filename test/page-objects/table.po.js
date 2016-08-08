@@ -1,12 +1,16 @@
 'use strict';
 
-var TableComponent = function (model) {
-  this.el = element(by.css('.sf-table-container-' + model));
-  this.headers = element.all(by.css('div[sf-headers] > .sf-header'));
-  this.data = function(type, key, row) {
-    return element.all(by.css('.' + type + '-' + key + '-data')).get(row);
+var TableComponent = function (type) {
+  this.el = element(by.css('.sf-table-container-' + type));
+  this.headers = element.all(by.css('.header-label'));
+  this.data = function(key, index) {
+    var p = key.indexOf('.');
+    if (p >= 0){
+      key = key.substring(p + 1, key.lenght)
+    }
+    return element.all(by.css('.sf-td-' + key)).get(index).getText();
   };
-  this.rows = element.all(by.css('.sf-table tr'));
+  this.rows = element.all(by.css('.sf-tr'));
 };
 
 module.exports = TableComponent;

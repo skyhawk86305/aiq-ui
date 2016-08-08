@@ -26,18 +26,23 @@ module.exports = function() {
   this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, done) {
     var world = this,
         attrs = array.split(/,\s*/),
-        expectedData, actualData,
-        fixtureData = this.fixture(type, method),
-        itemsPerPage = 20,
+        dataMatch, expectedData, actualData,
+        fixtureData = world.getFixtureData(type, method),
+        itemsPerPage = 25,
         maxRows = fixtureData.length > itemsPerPage ? itemsPerPage : fixtureData.length,
+        uniqueKey = world.getUniqueKey(type),
         randomIndex = Math.floor((Math.random() * maxRows)),
-        randomSample = fixtureData[randomIndex];
+        randomTableId = world.table(type).data(uniqueKey, randomIndex);
 
-    attrs.forEach(function(attr) {
-      expectedData = world.format(randomSample[attr], type, attr);
-      actualData = world.table(type).data(type, attr, randomIndex);
-      world.expect(actualData.getText()).to.eventually.equal(expectedData);
+    randomTableId.getText().then(function(id) {
+      dataMatch = fixtureData.find(function(data) { return data[uniqueKey].toString() === id; });
+      attrs.forEach(function(attr) {
+        expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
+        actualData = world.table(type).data(attr, randomIndex);
+        world.expect(actualData.getText()).to.eventually.equal(expectedData);
+      });
     });
+
     world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows+1).notify(done);
   });
 };

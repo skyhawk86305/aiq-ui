@@ -26,29 +26,49 @@ function World() {
   this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
   this.nodesTable = new TableComponent('node');
+  this.drivesTable = new TableComponent('drive');
 
   this.table = function(type) {
     switch(type) {
       case ('node'): return this.nodesTable;
+      case ('drive'): return this.drivesTable;
     }
   };
 
-  this.fixture = function(type, method) {
+  this.getUniqueKey = function(type) {
+    switch (type) {
+      case ('node') : return 'nodeID';
+      case ('drive') : return 'driveID';
+    }
+  };
+
+  this.getFixtureData = function(type, method) {
     var fixture = require('../../fixtures/'+method);
     switch(type) {
-      case ('node'): return fixture.result.nodes.sort(function(a, b) { return b.nodeID - a.nodeID; });
+      case ('node'):
+        return fixture.result.nodes.map(function(node) {
+          return node;
+        });
+      case ('drive'):
+        return fixture.result.drives.map(function(drive) {
+          drive.lifeRemainingPercent = drive.driveStats ? drive.driveStats.lifeRemainingPercent :'';
+          drive.reserveCapacityPercent  = drive.driveStats ? drive.driveStats.reserveCapacityPercent : '';
+          return drive;
+        });
+      default:
+        console.log('Invalid fixture type!');
+        return [];
     }
   };
 
-  this.format = function(data, type, attr) {
+  this.formatFixtureData = function(data, type, attr) {
     switch(type) {
       case ('node'):
         switch(attr) {
-          case('nodeID'): return data.toString();
-          default: return data;
+          default: return data.toString();
         }
       break;
-      default: return data;
+      default: return data.toString();
     }
   };
 }
