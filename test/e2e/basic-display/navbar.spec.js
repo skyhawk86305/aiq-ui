@@ -80,10 +80,6 @@ describe('The sub navbar', function() {
     navbar.subNavbar.click('dashboard-performance');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/performance');
     expect(navbar.subNavbar.activeItem.getText()).to.eventually.equal('Performance');
-
-    navbar.subNavbar.click('dashboard-alerts');
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/alerts');
-    expect(navbar.subNavbar.activeItem.getText()).to.eventually.equal('Alerts');
   });
 });
 
@@ -96,9 +92,13 @@ describe('The sub nav menu', function() {
 
     navbar.subNavbar.click('dashboard-health');
     expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.false;
+
+    navbar.subNavbar.click('dashboard-alerts');
+    expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.true;
+    expect(navbar.subNavMenu.items.count()).to.eventually.equal(2);
   });
 
-  it('should change the URL route and set the active state when clicking on sub navbar items', function() {
+  it('should change the URL route and set the active state when clicking on sub navbar items for overview', function() {
     navbar.mainNavbar.click('dashboard');
     navbar.subNavbar.click('dashboard-overview');
 
@@ -116,6 +116,23 @@ describe('The sub nav menu', function() {
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview/sub3');
     navbar.subNavbar.click('dashboard-overview');
     expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('Sub3');
+
+    navbar.subNavbar.click('dashboard-overview');
+  });
+
+  it('should change the URL route and set the active state when clicking on sub navbar items for alerts', function() {
+    navbar.mainNavbar.click('dashboard');
+    navbar.subNavbar.click('dashboard-alerts');
+
+    navbar.subNavMenu.click('dashboard-alerts-history');
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/alerts/history');
+    navbar.subNavbar.click('dashboard-alerts');
+    expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('History');
+
+    navbar.subNavMenu.click('dashboard-alerts-policies');
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/alerts/policies');
+    navbar.subNavbar.click('dashboard-alerts');
+    expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('Policies');
 
     navbar.subNavbar.click('dashboard-overview');
   });

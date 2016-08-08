@@ -1,43 +1,37 @@
 'use strict';
 
-describe('DriveTableService', function () {
+describe('AlertHistoryTableService', function () {
   var rootScope,
     deferred,
     apiResponse,
     deserializedResponse,
     apiFailure,
     service,
+    alertFilterSpy = jasmine.createSpy('alertFilter'),
     dataService,
     parentService;
 
   beforeEach(module('aiqUi', function ($provide) {
     $provide.value('DataService', {callAPI: function() {} });
+    $provide.value('alertFilter', alertFilterSpy);
   }));
 
-  beforeEach(inject(function ($q, $rootScope, DriveTableService, DataService, SFTableService) {
+  beforeEach(inject(function ($q, $rootScope, $filter, AlertHistoryTableService, DataService, SFTableService) {
     rootScope = $rootScope;
     deferred = $q.defer();
-    service = DriveTableService;
+    service = AlertHistoryTableService;
     service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
+    alertFilterSpy.and.callFake(function() {
+      return 'filtered';
+    });
   }));
 
   describe('initialization', function() {
     it('should inherit from SFTableService', function() {
       expect(service).toEqual(jasmine.any(parentService));
-    });
-
-    it('should keep track of the selectedClusterID to be used in data retrieval', function() {
-      expect(service.selectedClusterID).toBeNull();
-    });
-  });
-
-  describe('.update', function() {
-    it('should update the selectedClusterID to be used in data retrieval', function() {
-      service.update('999');
-      expect(service.selectedClusterID).toEqual(999);
     });
   });
 
@@ -45,38 +39,42 @@ describe('DriveTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callAPI).toHaveBeenCalledWith('ListActiveDrives', {clusterID: 'foobar'});
+      expect(dataService.callAPI).toHaveBeenCalledWith('ListAlerts');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {drives: [{driveStats: {lifeRemainingPercent: 'foo', reserveCapacityPercent: 'bar'}}]};
+      apiResponse = {alerts: [{notification: {notificationName: 'a name', destinationEmail: 'an email', notificationFields: []}}]};
       deserializedResponse = [
         {
-          driveStats: {
-            lifeRemainingPercent: 'foo',
-            reserveCapacityPercent: 'bar'
+          notification: {
+            notificationName: 'a name',
+            destinationEmail: 'an email',
+            notificationFields: []
           },
-          lifeRemainingPercent: 'foo',
-          reserveCapacityPercent: 'bar'
+          notificationName: 'a name',
+          destinationEmail: 'an email',
+          policyDescription: 'filtered'
         }
       ];
       service.getData(true).then(function(response) {
-         expect(response).toEqual(deserializedResponse);
+        expect(response).toEqual(deserializedResponse);
+        expect(alertFilterSpy).toHaveBeenCalledWith([], {type: 'condition'});
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();
     });
 
-    it('should populate empty strings in the event of a missing driveStats object', function() {
-      apiResponse = {drives: [{}]};
+    it('should populate empty strings in the event of a missing notification object', function() {
+      apiResponse = {alerts: [{}]};
       deserializedResponse = [
         {
-          lifeRemainingPercent: '',
-          reserveCapacityPercent: ''
+          notificationName: '',
+          destinationEmail: '',
+          policyDescription: ''
         }
       ];
       service.getData(true).then(function(response) {
-         expect(response).toEqual(deserializedResponse);
+        expect(response).toEqual(deserializedResponse);
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();

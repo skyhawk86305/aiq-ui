@@ -16,8 +16,8 @@
         .then(function(response) {
           return response.drives
             .map(function(drive) {
-              drive.lifeRemainingPercent = drive.driveStats ? drive.driveStats.lifeRemainingPercent :'';
-              drive.reserveCapacityPercent  = drive.driveStats ? drive.driveStats.reserveCapacityPercent : '';
+              drive.lifeRemainingPercent = drive.driveStats && drive.driveStats.lifeRemainingPercent || '';
+              drive.reserveCapacityPercent  = drive.driveStats && drive.driveStats.reserveCapacityPercent || '';
               return drive;
             });
       });

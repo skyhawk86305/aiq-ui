@@ -6,10 +6,13 @@
     .filter('aiqData', ['$filter', aiqData]);
 
   function aiqData($filter) {
-    return function (data, type) {
+    return function (data, params) {
+      var type = params && params.type || '';
       switch (type) {
         case ('integer'):
           return $filter('number')(data, 0);
+        case ('boolean'):
+          return data ? 'Yes' : 'No';
         case ('ratio'):
           return data ? typeof data === 'number' ? $filter('number')(data, 2) + 'x' : '-' : '-';
         case ('wholePercent'):
@@ -21,10 +24,8 @@
           if (data) {
             var parsedDate = Date.parse(data);
             return isNaN(parsedDate) ? data : $filter('date')(parsedDate, formatString);
-          } else {
-            return '-';
           }
-          break;
+          return '-';
         case ('time'):
           return $filter('date')(Date.parse(data), 'hh:mm:ss a');
         case ('string'):

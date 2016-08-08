@@ -9,6 +9,8 @@ var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
 var TableComponent = require('../../page-objects/table.po');
 
 function World() {
+  var formatDate;
+
   chai.use(chaiAsPromised);
   this.expect = chai.expect;
   this.mockBackend = {
@@ -27,11 +29,13 @@ function World() {
   this.clusterSelect = new ClusterSelectComponent();
   this.nodesTable = new TableComponent('node');
   this.drivesTable = new TableComponent('drive');
+  this.alertHistoryTable = new TableComponent('alert-history');
 
   this.table = function(type) {
     switch(type) {
       case ('node'): return this.nodesTable;
       case ('drive'): return this.drivesTable;
+      case ('alertHistory'): return this.alertHistoryTable;
     }
   };
 
@@ -39,6 +43,7 @@ function World() {
     switch (type) {
       case ('node') : return 'nodeID';
       case ('drive') : return 'driveID';
+      case ('alertHistory') : return 'id';
     }
   };
 
@@ -55,6 +60,14 @@ function World() {
           drive.reserveCapacityPercent  = drive.driveStats ? drive.driveStats.reserveCapacityPercent : '';
           return drive;
         });
+      case ('alertHistory'):
+        return fixture.result.alerts.map(function(history) {
+          history.notificationName = history.notification && history.notification.notificationName || '';
+          history.destinationEmail = history.notification && history.notification.destinationEmail || '';
+          history.policyDescription = history.notification && 'Fault Code is any value' || '';
+
+          return history;
+        });
       default:
         console.log('Invalid fixture type!');
         return [];
@@ -68,7 +81,31 @@ function World() {
           default: return data.toString();
         }
       break;
+      case ('alertHistory'):
+        switch(attr) {
+          case 'created': return formatDate(data);
+          case 'lastNotified': return formatDate(data);
+          case 'isResolved': return data ? 'Yes' : 'No';
+          case 'resolved': return formatDate(data);
+          default: return data.toString();
+        }
+      break;
       default: return data.toString();
+    }
+  };
+
+  formatDate = function(data) {
+    if (data) {
+      var date = new Date(Date.parse(data));
+      return isNaN(date) ? data :
+        date.getFullYear() + '-' +
+        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+        ('0' + date.getDate()).slice(-2) + ' ' +
+        date.getHours() + ':' +
+        date.getMinutes() + ':' +
+        date.getSeconds();
+    } else {
+      return '-';
     }
   };
 }

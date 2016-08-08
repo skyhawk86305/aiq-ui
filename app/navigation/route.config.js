@@ -26,6 +26,13 @@
         templateUrl: 'sample-page.tpl.html'
       })
       .when('/dashboard/alerts', {
+        redirectTo: '/dashboard/alerts/history'
+      })
+      .when('/dashboard/alerts/history', {
+        template: '<alert-history-table class="sf-layout-block"></alert-history-table>',
+        reloadOnSearch: false
+      })
+      .when('/dashboard/alerts/policies', {
         templateUrl: 'sample-page.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/overview', {
@@ -67,9 +74,6 @@
         templateUrl: 'cluster/volumes/volumes.tpl.html'
       })
       .when('/cluster/:clusterID/replication', {
-        templateUrl: 'sample-page.tpl.html'
-      })
-      .when('/cluster/:clusterID/alerts', {
         templateUrl: 'sample-page.tpl.html'
       })
       .when('/users', {

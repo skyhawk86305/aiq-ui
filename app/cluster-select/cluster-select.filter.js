@@ -5,6 +5,10 @@
     .module('aiqUi')
     .filter('clusterSelectFilter', [clusterSelectFilter]);
 
+  function regExpEscape(raw) {
+    return raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
   function clusterSelectFilter() {
     return function (clusters, input) {
       if (!input) { return clusters; }
@@ -46,10 +50,6 @@
         return token;
       });
 
-      function regExpEscape(raw) {
-        return raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      }
-
       return clusters.filter(function(cluster) {
         return tokens.filter(function(token) {
           if (token.type === 'version') {
@@ -63,8 +63,6 @@
           } else if (token.type === 'text') {
             return cluster.customerName.search(token.pattern) >= 0 ||
                    cluster.clusterName.search(token.pattern) >= 0;
-          } else {
-            return true;
           }
         }).length === tokens.length;
       });

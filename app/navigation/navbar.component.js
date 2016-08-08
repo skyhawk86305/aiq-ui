@@ -37,7 +37,15 @@
         {key:'health', href:'#/dashboard/health', label: 'Health'},
         {key:'capacity', href:'#/dashboard/capacity', label: 'Capacity'},
         {key:'performance', href:'#/dashboard/performance', label: 'Performance'},
-        {key:'alerts', href:'#/dashboard/alerts', label: 'Alerts'}
+        {
+          key:'alerts',
+          href:'#/dashboard/alerts/history',
+          label: 'Alerts',
+          menuItems: [
+            {key:'history', href: '#/dashboard/alerts/history', label: 'History'},
+            {key:'policies', href: '#/dashboard/alerts/policies', label: 'Policies'},
+          ]
+        }
       ],
       cluster: [
         {
@@ -59,8 +67,7 @@
         {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
         {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
         {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes'},
-        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication'},
-        {key:'alerts', href:'#/cluster/:clusterID/alerts', label: 'Alerts'}
+        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication'}
       ]
     };
 

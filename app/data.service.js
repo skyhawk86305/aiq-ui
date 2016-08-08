@@ -13,6 +13,7 @@
     var dataService = {};
 
     dataService.callAPI = function(method, params) {
+      params = params || {};
       var request = {method: method, params: params};
       ApiLogService.appendRequest(request);
       return $http.post('/v2/api', request)
