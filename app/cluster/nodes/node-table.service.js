@@ -17,15 +17,15 @@
     };
 
     var columns = [
-      {key: 'nodeID', label: 'ID', filter:SFFilterComparators.INTEGER_DEFAULT},
-      {key: 'name', label: 'Name', filter:SFFilterComparators.STRING_DEFAULT},
-      {key: 'nodeType', label: 'Type', filter:SFFilterComparators.STRING_DEFAULT},
-      {key: 'softwareVersion', label: 'Version', filter:SFFilterComparators.INTEGER_DEFAULT},
-      {key: 'serviceTag', label: 'Service Tag', filter:SFFilterComparators.STRING_DEFAULT},
-      {key: 'mip', label: 'Management IP'},
-      {key: 'cip', label: 'Cluster IP'},
-      {key: 'sip', label: 'Storage IP'},
-      {key: 'ipcPort', label: 'Replication Port', filter:SFFilterComparators.INTEGER_DEFAULT}
+      {key: 'nodeID', label: 'ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'integer'}}},
+      {key: 'name', label: 'Name', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'nodeType', label: 'Type', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'softwareVersion', label: 'Version', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'integer'}}},
+      {key: 'serviceTag', label: 'Service Tag', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'mip', label: 'Management IP', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'cip', label: 'Cluster IP', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'sip', label: 'Storage IP', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'ipcPort', label: 'Replication Port', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'integer'}}}
     ];
 
     var nodeTableService = new SFTableService(listActiveNodes, columns, false);
