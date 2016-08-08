@@ -81,14 +81,16 @@
       return self.subNavbarItem && self.subNavbarItem.menuItems && (self.hoveredSubNavMenu || self.clickedSubNavMenu);
     };
 
-    $rootScope.$on('$routeChangeSuccess', function() {
-      // Update the active items every route change (for styling)
+    self.updateActiveItems = function() {
       var path = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/');
       self.activeItems.main = path[0];
       self.activeItems.sub = path.length > 1 ? path[1] : '';
       self.activeItems.menu = path.length > 2 ? path[2] : '';
       // Clear the cached selectedCluster when the user navigates to a non cluster-specific route
       if(self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
-    });
+    };
+
+    $rootScope.$on('$routeChangeSuccess', self.updateActiveItems);
+    self.$onInit = self.updateActiveItems;
   }
 })();

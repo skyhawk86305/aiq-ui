@@ -56,11 +56,11 @@
         templateUrl: 'sample-page.tpl.html'
       })
       .when('/cluster/:clusterID/nodes', {
-        template: '<node-table class="sf-layout-container -scroll-x"></node-table>',
+        template: '<node-table class="sf-layout-block"></node-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/drives', {
-        template: '<drive-table class="sf-layout-container -scroll-x"></drive-table>',
+        template: '<drive-table class="sf-layout-block"></drive-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/volumes', {
