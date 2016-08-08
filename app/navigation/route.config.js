@@ -50,8 +50,9 @@
       .when('/cluster/:clusterID/reporting/errorLog', {
         templateUrl: 'sample-page.tpl.html'
       })
-      .when('/cluster/:clusterID/reporting/eventList', {
-        templateUrl: 'sample-page.tpl.html'
+      .when('/cluster/:clusterID/reporting/events', {
+        template: '<event-table class="sf-layout-block"></event-table>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/iscsiSessions', {
         templateUrl: 'sample-page.tpl.html'

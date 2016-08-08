@@ -28,6 +28,8 @@
           return '-';
         case ('time'):
           return $filter('date')(Date.parse(data), 'hh:mm:ss a');
+        case ('json'):
+          return data ? JSON.stringify(data, null , 2) : '-';
         case ('string'):
           return data ? data : '-';
         case ('capitalize'):

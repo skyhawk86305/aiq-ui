@@ -7,6 +7,7 @@ Feature: Alert History Table
 #    Given user is authenticated
 #    Given user has access to cluster X
 
+  @alerts
   Scenario: Feeding data from ListAlerts to sf-table (CLOUD-2902)
     When I navigate to the "dashboard/alerts/history/" page
     Then I see a SolidFire table with "alertHistory" data

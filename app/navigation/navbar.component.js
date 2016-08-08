@@ -58,7 +58,7 @@
             {key:'efficiency', href: '#/cluster/:clusterID/reporting/efficiency', label: 'Efficiency'},
             {key:'performance', href: '#/cluster/:clusterID/reporting/performance', label: 'Performance'},
             {key:'errorLog', href: '#/cluster/:clusterID/reporting/errorLog', label: 'Error Log'},
-            {key:'eventList', href: '#/cluster/:clusterID/reporting/eventList', label: 'Event List'},
+            {key:'events', href: '#/cluster/:clusterID/reporting/events', label: 'Events'},
             {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions'},
             {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks'},
             {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting'}
