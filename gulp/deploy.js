@@ -5,17 +5,24 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     $ = require('gulp-load-plugins')({
       pattern: [
-        'gulp-*'
+        'gulp-*',
+        'yargs'
       ]
-    });
+    }),
+    argv = $.yargs.alias('f', 'featureName').argv;
 
 gulp.task('deploy:dev', function () {
+  var deployDir = 'current';
+  if (argv.featureName) {
+    deployDir = 'feature/' + argv.featureName;
+  }
+
   rsync({
     ssh: true,
     syncDest: true,
     recursive: true,
     src: 'build/',
-    dest: 'solidfire@activeiq.dev.aiq.solidfire.net:/opt/solidfire/aiq-ui/current',
+    dest: 'solidfire@activeiq.dev.aiq.solidfire.net:/opt/solidfire/aiq-ui/' + deployDir,
     onStdout: log,
     onStderr: log,
     compareMode: 'checksum',
