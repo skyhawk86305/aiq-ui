@@ -33,7 +33,8 @@
         reloadOnSearch: false
       })
       .when('/dashboard/alerts/policies', {
-        templateUrl: 'sample-page.tpl.html'
+        template: '<alert-policy-table class="sf-layout-block"></alert-policy-table>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/overview', {
         templateUrl: 'sample-page.tpl.html'

@@ -30,45 +30,51 @@ function World() {
   this.nodesTable = new TableComponent('node');
   this.drivesTable = new TableComponent('drive');
   this.alertHistoryTable = new TableComponent('alert-history');
+  this.alertPolicyTable = new TableComponent('alert-policy');
   this.eventsTable = new TableComponent('event');
 
   this.table = function(type) {
     switch(type) {
-      case ('node'): return this.nodesTable;
-      case ('drive'): return this.drivesTable;
-      case ('alertHistory'): return this.alertHistoryTable;
-      case ('event'): return this.eventsTable;
+      case 'node': return this.nodesTable;
+      case 'drive': return this.drivesTable;
+      case 'alertHistory': return this.alertHistoryTable;
+      case 'alertPolicy': return this.alertPolicyTable;
+      case 'event': return this.eventsTable;
     }
   };
 
   this.getUniqueKey = function(type) {
     switch (type) {
-      case ('node') : return 'nodeID';
-      case ('drive') : return 'driveID';
-      case ('event') : return 'eventID';
-      case ('alertHistory') : return 'id';
+      case 'node': return 'nodeID';
+      case 'drive': return 'driveID';
+      case 'alertHistory': return 'id';
+      case 'alertPolicy': return 'notificationName';
+      case 'event' : return 'eventID';
     }
   };
 
   this.getFixtureData = function(type, method) {
     var fixture = require('../../fixtures/'+method);
     switch(type) {
-      case ('node'):
+      case 'node':
         return fixture.result.nodes.map(function(node) {
           return node;
         });
-      case ('drive'):
+
+      case 'drive':
         return fixture.result.drives.map(function(drive) {
           drive.lifeRemainingPercent = drive.driveStats ? drive.driveStats.lifeRemainingPercent :'';
           drive.reserveCapacityPercent  = drive.driveStats ? drive.driveStats.reserveCapacityPercent : '';
           return drive;
         });
-      case ('event'):
+
+      case 'event':
         return fixture.result.events.map(function(event) {
           event.detailsString = event.details ? JSON.stringify(event.details, null, 1) : '-';
           return event;
         });
-      case ('alertHistory'):
+
+      case 'alertHistory':
         return fixture.result.alerts.map(function(history) {
           history.notificationName = history.notification && history.notification.notificationName || '';
           history.destinationEmail = history.notification && history.notification.destinationEmail || '';
@@ -76,6 +82,14 @@ function World() {
 
           return history;
         });
+
+      case 'alertPolicy':
+        return fixture.result.notifications.map(function(policy) {
+          policy.policyDescription = 'Fault Code is any value';
+
+          return policy;
+        });
+
       default:
         console.log('Invalid fixture type!');
         return [];
@@ -83,15 +97,16 @@ function World() {
   };
 
   this.formatFixtureData = function(data, type, attr) {
-    switch(type) {
-      case ('node'):
-        switch(attr) {
+    switch (type) {
+      case 'node':
+        switch (attr) {
           case 'ipcPort': return data && data || '-';
           default: return data.toString();
         }
         break;
-      case ('alertHistory'):
-        switch(attr) {
+
+      case 'alertHistory':
+        switch (attr) {
           case 'created': return formatDate(data);
           case 'lastNotified': return formatDate(data);
           case 'isResolved': return data ? 'Yes' : 'No';
@@ -100,7 +115,16 @@ function World() {
           default: return data.toString();
         }
         break;
-      case ('event'):
+
+      case 'alertPolicy':
+        switch (attr) {
+          case 'customerName': return data || '-';
+          case 'clusterName': return data || '-';
+          default: return data.toString();
+        }
+        break;
+
+      case 'event':
         switch(attr) {
           case 'timeOfReport': return formatDate(data);
           case 'nodeID': return data && data.toString() || '-';
@@ -110,6 +134,7 @@ function World() {
           default: return data.toString();
         }
         break;
+
       default: return data.toString();
     }
   };

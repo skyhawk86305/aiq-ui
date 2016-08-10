@@ -9,32 +9,32 @@
     return function (data, params) {
       var type = params && params.type || '';
       switch (type) {
-        case ('integer'):
+        case 'integer':
           return $filter('number')(data, 0);
-        case ('boolean'):
+        case 'boolean':
           return data ? 'Yes' : 'No';
-        case ('ratio'):
+        case 'ratio':
           return data ? typeof data === 'number' ? $filter('number')(data, 2) + 'x' : '-' : '-';
-        case ('wholePercent'):
+        case 'wholePercent':
           return Math.round(data) + '%';
-        case ('twoDecimalPercentage'):
+        case 'twoDecimalPercentage':
           return data.toFixed(2) + '%';
-        case ('date'):
+        case 'date':
           var formatString = 'yyyy-MM-dd HH:mm:ss';
           if (data) {
             var parsedDate = Date.parse(data);
             return isNaN(parsedDate) ? data : $filter('date')(parsedDate, formatString);
           }
           return '-';
-        case ('time'):
+        case 'time':
           return $filter('date')(Date.parse(data), 'hh:mm:ss a');
-        case ('json'):
+        case 'json':
           return data ? JSON.stringify(data, null , 2) : '-';
-        case ('string'):
+        case 'string':
           return data ? data : '-';
-        case ('capitalize'):
+        case 'capitalize':
           return data ? data.charAt(0).toUpperCase() + data.slice(1) : '-';
-        case ('arraySize'):
+        case 'arraySize':
           return data ? data.length : '0';
         default:
           return data;

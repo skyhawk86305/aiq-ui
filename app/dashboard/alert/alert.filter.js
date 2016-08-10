@@ -9,7 +9,7 @@
     return function (data, params) {
       var type = params && params.type || '';
       switch (type) {
-        case ('condition'):
+        case 'condition':
           var conditions = '';
           if (Array.isArray(data)) {
             data.forEach(function(field) {
