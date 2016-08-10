@@ -78,6 +78,7 @@ function World() {
     switch(type) {
       case ('node'):
         switch(attr) {
+          case 'ipcPort': return data && data || '-';
           default: return data.toString();
         }
       break;

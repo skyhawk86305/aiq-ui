@@ -7,6 +7,7 @@ Feature: Node Table
 #    Given user is authenticated
 #    Given user has access to cluster X
 
+@nodes
   Scenario: Feeding data from ListActiveNodes to sf-table (CLOUD-2898)
     When I navigate to the "cluster/11/nodes/" page
     Then I see a SolidFire table with "node" data

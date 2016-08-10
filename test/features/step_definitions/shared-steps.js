@@ -39,7 +39,7 @@ module.exports = function() {
       attrs.forEach(function(attr) {
         expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
         actualData = world.table(type).data(attr, randomIndex);
-        world.expect(actualData.getText()).to.eventually.equal(expectedData);
+        world.expect(actualData.getText()).to.eventually.equal(expectedData, 'Attribute ' + attr + ' failed to match value');
       });
     });
 
