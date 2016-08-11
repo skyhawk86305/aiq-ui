@@ -23,10 +23,10 @@ module.exports = function() {
     world.expect(world.table(type).headers.count()).to.eventually.equal(columns.length).notify(done);
   });
 
-  this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, done) {
+  this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, callback) {
     var world = this,
         attrs = array.split(/,\s*/),
-        dataMatch, expectedData, actualData,
+        dataMatch, expectedData,
         fixtureData = world.getFixtureData(type, method),
         itemsPerPage = 25,
         maxRows = fixtureData.length > itemsPerPage ? itemsPerPage : fixtureData.length,
@@ -37,12 +37,16 @@ module.exports = function() {
     randomTableId.getText().then(function(id) {
       dataMatch = fixtureData.find(function(data) { return data[uniqueKey].toString() === id; });
       attrs.forEach(function(attr) {
-        expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
-        actualData = world.table(type).data(attr, randomIndex);
-        world.expect(actualData.getText()).to.eventually.equal(expectedData, 'Attribute ' + attr + ' failed to match value');
+        world.table(type).data(attr, randomIndex).then(function(actualData){
+          expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
+          world.expect(actualData).to.equal(expectedData, 'Attribute ' + attr + ' failed to match value');
+        });
       });
     });
 
-    world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows+1).notify(done);
+    world.table(type).rows.count().then(function(actualData){
+      world.expect(actualData).to.equal(maxRows+1);
+      callback();
+    });
   });
 };
