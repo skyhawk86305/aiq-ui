@@ -6,7 +6,7 @@ var TableComponent = function (type) {
   this.data = function(key, index) {
     var p = key.indexOf('.');
     if (p >= 0){
-      key = key.substring(p + 1, key.lenght)
+      key = key.substring(p + 1, key.length)
     }
     return element.all(by.css('.sf-td-' + key)).get(index).getText();
   };

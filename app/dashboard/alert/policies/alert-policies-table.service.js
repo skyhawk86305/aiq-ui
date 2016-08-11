@@ -24,12 +24,12 @@
     };
 
     var columns = [
-      {key: 'notificationName', label: 'Alert Policy Name', filter: SFFilterComparators.INTEGER_DEFAULT},
-      {key: 'destinationEmail', label: 'Destination', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'notificationSeverity', label: 'Severity', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'username', label: 'Creator', format: {filter: 'aiqData', params: {type: 'boolean'}}},
-      {key: 'customerName', label: 'Customer', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'clusterName', label: 'Cluster', format: {filter: 'aiqData', params: {type: 'date'}}},
+      {key: 'notificationName', label: 'Alert Policy Name', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'destinationEmail', label: 'Destination', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'notificationSeverity', label: 'Severity', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'username', label: 'Creator', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'customerName', label: 'Customer', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'clusterName', label: 'Cluster', format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'policyDescription', label: 'Alert Condition', filter:SFFilterComparators.STRING_DEFAULT}
     ];
 
