@@ -17,8 +17,10 @@ var gulp = require('gulp')
       'gulp-protractor-cucumber-html-report'
     ],
     rename: {
-    'gulp-protractor-cucumber-html-report': 'cucumberReports'
-  }
+      'gulp-protractor-cucumber-html-report': 'cucumberReports',
+      'gulp-shell': 'shell',
+      'gulp-cat': 'cat'
+    }
   }
 )
   , buildConfig = require('../build.config.js')
@@ -124,7 +126,8 @@ gulp.task('generateReport', [], function () {
 var cucumberJSONoutputPath = './report/cucumber/cucumber-test-results.json',
   prettyReportPath = './report/cucumber/output';
   return gulp.src(cucumberJSONoutputPath)
-    .pipe($.cucumberReports({dest: prettyReportPath }));
+    .pipe($.cucumberReports({dest: prettyReportPath }))
+    .pipe($.shell('cat <%= file.path %> | ./node_modules/.bin/cucumber-junit > ./report/junit/acceptance.xml'));
 });
 
 gulp.task('webdriverUpdate', $.protractor.webdriver_update);
