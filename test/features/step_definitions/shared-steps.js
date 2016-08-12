@@ -9,18 +9,28 @@ module.exports = function() {
     browser.get('#/' + page);
   });
 
-  this.Then(/^I see a SolidFire table with "(.*)" data$/, function (type) {
-    return this.expect(this.table(type).el.isDisplayed()).to.eventually.be.true;
+  this.Then(/^I see a SolidFire table with "(.*)" data$/, function (type, callback) {
+    var world = this;
+    world.table(type).el.isDisplayed().then(function(actualData){
+      world.expect(actualData).to.equal(true);
+      callback();
+    });
   });
 
-  this.Then(/^The "(.*)" table contains columns: "(.*)"$/, function (type, array, done) {
+  this.Then(/^The "(.*)" table contains columns: "(.*)"$/, function (type, array, callback) {
     var world = this,
         columns = array.split(/,\s*/);
 
     columns.forEach(function(column, i) {
-      world.expect(world.table(type).headers.get(i).getText()).to.eventually.equal(column);
+        world.table(type).headers.get(i).getText().then(function(actualData){
+          world.expect(actualData).to.equal(column);
+      });
     });
-    world.expect(world.table(type).headers.count()).to.eventually.equal(columns.length).notify(done);
+    world.table(type).headers.count().then(function(actualData){
+      world.expect(actualData).to.equal(columns.length);
+      callback();
+    });
+
   });
 
   this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, callback) {

@@ -11,7 +11,7 @@ var TableComponent = require('../../page-objects/table.po');
 function World() {
 
   chai.use(chaiAsPromised);
-  var formatDate;
+  var formatDate, formatBoolean;
   this.expect = chai.expect;
   this.mockBackend = {
     http: null,
@@ -32,6 +32,7 @@ function World() {
   this.alertHistoryTable = new TableComponent('alert-history');
   this.alertPolicyTable = new TableComponent('alert-policy');
   this.eventsTable = new TableComponent('event');
+  this.errorLogTable = new TableComponent('error-log');
 
   this.table = function(type) {
     switch(type) {
@@ -40,6 +41,7 @@ function World() {
       case 'alertHistory': return this.alertHistoryTable;
       case 'alertPolicy': return this.alertPolicyTable;
       case 'event': return this.eventsTable;
+      case 'error-log': return this.errorLogTable;
     }
   };
 
@@ -50,6 +52,7 @@ function World() {
       case 'alertHistory': return 'id';
       case 'alertPolicy': return 'notificationName';
       case 'event' : return 'eventID';
+      case 'error-log' : return 'id';
     }
   };
 
@@ -88,6 +91,10 @@ function World() {
           policy.policyDescription = 'Fault Code is any value';
 
           return policy;
+        });
+      case 'error-log':
+        return fixture.result.faults.map(function(faults) {
+          return faults;
         });
 
       default:
@@ -135,6 +142,17 @@ function World() {
         }
         break;
 
+      case 'error-log':
+        switch(attr) {
+          case 'created': return formatDate(data);
+          case 'resolvedDate': return formatDate(data);
+          case 'resolved': return formatBoolean(data);
+          case 'nodeID': return data && data.toString() || '-';
+          case 'driveID': return data && data.toString() || '-';
+          case 'details': return data && data.replace(/ +$/, '') || '-';
+          default: return data.toString();
+        }
+        break;
       default: return data.toString();
     }
   };
@@ -151,6 +169,14 @@ function World() {
         ('0' + date.getSeconds()).slice(-2);
     } else {
       return '-';
+    }
+  };
+
+  formatBoolean = function(data) {
+    if (data) {
+      return 'Yes';
+    } else {
+      return 'No';
     }
   };
 }
