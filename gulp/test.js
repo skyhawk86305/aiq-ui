@@ -18,8 +18,7 @@ var gulp = require('gulp')
     ],
     rename: {
       'gulp-protractor-cucumber-html-report': 'cucumberReports',
-      'gulp-shell': 'shell',
-      'gulp-cat': 'cat'
+      'gulp-shell': 'shell'
     }
   }
 )
