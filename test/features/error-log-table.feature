@@ -7,7 +7,7 @@ Feature: Error Log Table
 #    Given user is authenticated
 #    Given user has access to cluster X
 
-@errorlogs
+@test
   Scenario: Feeding data from ListClusterFaults to sf-table
     When I navigate to the "cluster/11/reporting/errorLog/" page
     Then I see a SolidFire table with "error-log" data
