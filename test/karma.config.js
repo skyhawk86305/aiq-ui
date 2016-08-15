@@ -8,8 +8,12 @@ preprocessors[buildConfig.buildDir + '**/*.tpl.html'] = ['ng-html2js'];
 module.exports = {
   browsers: ['PhantomJS'],
   frameworks: ['jasmine'],
-  reporters: ['failed', 'coverage'],
+  reporters: ['junit', 'failed', 'coverage'],
   preprocessors: preprocessors,
+  junitReporter: {
+    outputDir: 'report/junit',
+    useBrowserName: true
+  },
   coverageReporter: {
     type: 'lcov',
     dir: 'report/coverage/',

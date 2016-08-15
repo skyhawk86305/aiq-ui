@@ -17,8 +17,10 @@ var gulp = require('gulp')
       'gulp-protractor-cucumber-html-report'
     ],
     rename: {
-    'gulp-protractor-cucumber-html-report': 'cucumberReports'
-  }
+      'gulp-protractor-cucumber-html-report': 'cucumberReports',
+      'gulp-run': 'run',
+      'gulp-rename': 'rename'
+    }
   }
 )
   , buildConfig = require('../build.config.js')
@@ -85,7 +87,7 @@ gulp.task('configure:mock', function () {
       return defaultConfig.replace(/{([^}]*)}/, JSON.stringify(mockConfig));
     }))
     .pipe($.concat('mock.config.js'))
-    .pipe(gulp.dest('.'))
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('test:e2e', ['configure:mock', 'serve:mock'], function () {
@@ -117,14 +119,17 @@ function getProtractorArgs() {
       protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub');
     }
   }
-  return protractorArgs
+  return protractorArgs;
 }
 
 gulp.task('generateReport', [], function () {
 var cucumberJSONoutputPath = './report/cucumber/cucumber-test-results.json',
   prettyReportPath = './report/cucumber/output';
   return gulp.src(cucumberJSONoutputPath)
-    .pipe($.cucumberReports({dest: prettyReportPath }));
+    .pipe($.cucumberReports({dest: prettyReportPath }))
+    .pipe($.run('./node_modules/.bin/cucumber-junit', {verbosity: 0}))
+    .pipe($.rename('acceptance.xml'))
+    .pipe(gulp.dest('./report/junit'));
 });
 
 gulp.task('webdriverUpdate', $.protractor.webdriver_update);

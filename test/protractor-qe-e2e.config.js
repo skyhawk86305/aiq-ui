@@ -16,7 +16,13 @@ exports.config = {
   onPrepare: function() {
     console.log(__dirname);
     var SpecReporter = require('jasmine-spec-reporter');
+    var JasmineReporters = require('jasmine-reporters');
     jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: 'all'}));
+    jasmine.getEnv().addReporter(new JasmineReporters.JUnitXmlReporter({
+      consolidateAll: true,
+      savePath: 'report/junit',
+      filePrefix: 'e2e'
+    }));
     browser.driver.manage().window().maximize();
   },
 
