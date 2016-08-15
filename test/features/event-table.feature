@@ -12,3 +12,5 @@ Feature: Event Table
     Then I see a SolidFire table with "event" data
     And The "event" table contains columns: "ID, Event Time, Type, Message, Service ID, Node ID, Drive ID, Details"
     And The "event" table contains "ListEvents" data with attrs: "eventID, timeOfReport, eventInfoType, message, serviceID, nodeID, driveID, detailsString"
+    And The "event" table contains "ListEvents" data with attribute "timeOfReport" matching regex format "^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$"
+

@@ -23,6 +23,20 @@ module.exports = function() {
     world.expect(world.table(type).headers.count()).to.eventually.equal(columns.length).notify(done);
   });
 
+  this.Then(/^The "(.*)" table contains "(.*)" data with attribute "(.*)" matching regex format "(.*)"$/, function (type, method, attr, regexMatch, callback) {
+    var world = this,
+        fixtureData = world.getFixtureData(type, method),
+        itemsPerPage = 25,
+        maxRows = fixtureData.length > itemsPerPage ? itemsPerPage : fixtureData.length,
+        randomIndex = Math.floor((Math.random() * maxRows));
+
+    world.table(type).data(attr, randomIndex).then(function(actualData){
+      var regex = new RegExp(regexMatch);
+      world.expect(regex.test(actualData)).to.equal(true, attr + ' value: ' + actualData + ' failed to match regex: ' + regexMatch);
+      callback();
+    });
+  });
+
   this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, callback) {
     var world = this,
         attrs = array.split(/,\s*/),
