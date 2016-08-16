@@ -6,6 +6,7 @@ Feature: Event Table
 #  Assumptions:
 #    Given user is authenticated
 #    Given user has access to cluster X
+
   @events
   Scenario: Feeding data from ListEvents to sf-table (CLOUD-2897)
     When I navigate to the "cluster/11/reporting/events/" page
