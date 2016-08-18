@@ -9,45 +9,35 @@ module.exports = function() {
     browser.get('#/' + page);
   });
 
-  this.Then(/^I see a SolidFire table with "(.*)" data$/, function (type, callback) {
-    var world = this;
-    world.table(type).el.isDisplayed().then(function(actualData){
-      world.expect(actualData).to.equal(true);
-      callback();
-    });
+  this.Then(/^I see a SolidFire table with "(.*)" data$/, function (type) {
+    return this.expect(this.table(type).el.isDisplayed()).to.eventually.be.true;
   });
 
-  this.Then(/^The "(.*)" table contains columns: "(.*)"$/, function (type, array, callback) {
+  this.Then(/^The "(.*)" table contains columns: "(.*)"$/, function (type, array, done) {
     var world = this,
         columns = array.split(/,\s*/);
 
     columns.forEach(function(column, i) {
-        world.table(type).headers.get(i).getText().then(function(actualData){
-          world.expect(actualData).to.equal(column);
-      });
+      world.expect(world.table(type).headers.get(i).getText()).to.eventually.equal(column);
     });
-    world.table(type).headers.count().then(function(actualData){
-      world.expect(actualData).to.equal(columns.length);
-      callback();
-    });
-
+    world.expect(world.table(type).headers.count()).to.eventually.equal(columns.length).notify(done);
   });
 
-  this.Then(/^The "(.*)" table contains "(.*)" data with attribute "(.*)" matching regex format "(.*)"$/, function (type, method, attr, regexMatch, callback) {
+  this.Then(/^The "(.*)" table contains "(.*)" data with attribute "(.*)" matching regex format "(.*)"$/, function (type, method, attr, regexMatch, done) {
     var world = this,
         fixtureData = world.getFixtureData(type, method),
         itemsPerPage = 25,
         maxRows = fixtureData.length > itemsPerPage ? itemsPerPage : fixtureData.length,
-        randomIndex = Math.floor((Math.random() * maxRows));
+        randomIndex = Math.floor((Math.random() * maxRows)),
+        regex = new RegExp(regexMatch);
 
     world.table(type).data(attr, randomIndex).then(function(actualData){
-      var regex = new RegExp(regexMatch);
       world.expect(regex.test(actualData)).to.equal(true, attr + ' value: ' + actualData + ' failed to match regex: ' + regexMatch);
-      callback();
+      done();
     });
   });
 
-  this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, callback) {
+  this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, done) {
     var world = this,
         attrs = array.split(/,\s*/),
         dataMatch, expectedData,
@@ -68,9 +58,6 @@ module.exports = function() {
       });
     });
 
-    world.table(type).rows.count().then(function(actualData){
-      world.expect(actualData).to.equal(maxRows+1);
-      callback();
-    });
+    world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows+1).notify(done);
   });
 };

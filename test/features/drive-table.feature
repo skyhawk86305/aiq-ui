@@ -7,6 +7,7 @@ Feature: Drive Table
 #    Given user is authenticated
 #    Given user has access to cluster X
 
+  @drives
   Scenario: Feeding data from ListActiveNodes to sf-table (CLOUD-2898)
     When I navigate to the "cluster/11/drives/" page
     Then I see a SolidFire table with "drive" data

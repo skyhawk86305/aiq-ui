@@ -11,7 +11,6 @@ var TableComponent = require('../../page-objects/table.po');
 function World() {
 
   chai.use(chaiAsPromised);
-  var formatDate, formatBoolean;
   this.expect = chai.expect;
   this.mockBackend = {
     http: null,
@@ -41,7 +40,7 @@ function World() {
       case 'alertHistory': return this.alertHistoryTable;
       case 'alertPolicy': return this.alertPolicyTable;
       case 'event': return this.eventsTable;
-      case 'error-log': return this.errorLogTable;
+      case 'errorLog': return this.errorLogTable;
     }
   };
 
@@ -52,7 +51,7 @@ function World() {
       case 'alertHistory': return 'id';
       case 'alertPolicy': return 'notificationName';
       case 'event' : return 'eventID';
-      case 'error-log' : return 'id';
+      case 'errorLog' : return 'id';
     }
   };
 
@@ -92,9 +91,9 @@ function World() {
 
           return policy;
         });
-      case 'error-log':
-        return fixture.result.faults.map(function(faults) {
-          return faults;
+      case 'errorLog':
+        return fixture.result.faults.map(function(fault) {
+          return fault;
         });
 
       default:
@@ -107,7 +106,7 @@ function World() {
     switch (type) {
       case 'node':
         switch (attr) {
-          case 'ipcPort': return data && data || '-';
+          case 'ipcPort': return data ? data.toString() : '-';
           default: return data.toString();
         }
         break;
@@ -118,7 +117,6 @@ function World() {
           case 'lastNotified': return formatDate(data);
           case 'isResolved': return data ? 'Yes' : 'No';
           case 'resolved': return formatDate(data);
-          case 'ipcPort': return data || '-';
           default: return data.toString();
         }
         break;
@@ -134,21 +132,21 @@ function World() {
       case 'event':
         switch(attr) {
           case 'timeOfReport': return formatDate(data);
-          case 'nodeID': return data && data.toString() || '-';
-          case 'driveID': return data && data.toString() || '-';
-          case 'serviceID': return data && data.toString() || '-';
+          case 'nodeID': return data ? data.toString() : '-';
+          case 'driveID': return data ? data.toString() : '-';
+          case 'serviceID': return data ? data.toString() : '-';
           case 'detailsString': return data && data.replace(/\n |\n/g, ' ') || '-';
           default: return data.toString();
         }
         break;
 
-      case 'error-log':
+      case 'errorLog':
         switch(attr) {
           case 'created': return formatDate(data);
           case 'resolvedDate': return formatDate(data);
-          case 'resolved': return formatBoolean(data);
-          case 'nodeID': return data && data.toString() || '-';
-          case 'driveID': return data && data.toString() || '-';
+          case 'resolved': return data ? 'Yes' : 'No';
+          case 'nodeID': return data ? data.toString() : '-';
+          case 'driveID': return data ? data.toString() : '-';
           case 'details': return data && data.replace(/ +$/, '') || '-';
           default: return data.toString();
         }
@@ -157,7 +155,7 @@ function World() {
     }
   };
 
-  formatDate = function(data) {
+  function formatDate(data) {
     if (data) {
       var date = new Date(Date.parse(data));
       return isNaN(date) ? data :
@@ -170,15 +168,7 @@ function World() {
     } else {
       return '-';
     }
-  };
-
-  formatBoolean = function(data) {
-    if (data) {
-      return 'Yes';
-    } else {
-      return 'No';
-    }
-  };
+  }
 }
 module.exports = function () {
   // A new instance of World is created before each scenario

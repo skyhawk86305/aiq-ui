@@ -6,7 +6,7 @@ Feature: Alert Policy Table
 #  Assumptions:
 #    Given user is authenticated
 
-@alertPolicies
+  @alertPolicies
   Scenario: Feeding data from ListNotifications to sf-table (CLOUD-2900)
     When I navigate to the "dashboard/alerts/policies/" page
     Then I see a SolidFire table with "alertPolicy" data
