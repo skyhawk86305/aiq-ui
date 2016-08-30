@@ -15,19 +15,14 @@
     dataService.callAPI = function(method, params) {
       params = params || {};
       var request = {method: method, params: params};
-      ApiLogService.appendRequest(request);
+      var entry = ApiLogService.appendRequest(request);
       return $http.post('/v2/api', request)
         .then(function(response) {
-          if (response.data.hasOwnProperty('error')) {
-            ApiLogService.appendError(response.data.error);
-            return response.data.error.message;
-          } else {
-            ApiLogService.appendResponse(response.data);
-            return response.data.result;
-          }
+          ApiLogService.appendResponse(entry, response.data);
+          return response.data.result;
         })
         .catch(function(error) {
-          ApiLogService.appendError(error.data);
+          ApiLogService.appendResponse(entry, error.data, true);
           return error.data;
         });
     };

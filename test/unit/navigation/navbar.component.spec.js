@@ -29,7 +29,6 @@ describe('Component: navbar', function() {
 
   describe('initialization', function() {
     it('should expose services for templates to bind directly to', function() {
-      expect(controller.apiLog).toBeDefined();
       expect(controller.clusterSelect).toBeDefined();
     });
 

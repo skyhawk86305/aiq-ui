@@ -9,9 +9,8 @@ describe('Data Service', function () {
 
   beforeEach(module('aiqUi', function ($provide) {
     $provide.value('ApiLogService', {
-      appendRequest: jasmine.createSpy(),
-      appendResponse: jasmine.createSpy(),
-      appendError: jasmine.createSpy(),
+      appendRequest: jasmine.createSpy().and.returnValue('entry'),
+      appendResponse: jasmine.createSpy()
     });
   }));
 
@@ -46,15 +45,7 @@ describe('Data Service', function () {
       http.when('POST', '/v2/api', {method: 'foobar', params: {param: 'baz'}}).respond(response);
       service.callAPI('foobar', {param: 'baz'});
       http.flush();
-      expect(apiLogService.appendResponse).toHaveBeenCalledWith(response);
-    });
-
-    it('should make execute the error callback function if success response has error', function() {
-      response = {error: 'bar'};
-      http.when('POST', '/v2/api', {method: 'foobar', params: {param: 'baz'}}).respond(response);
-      service.callAPI('foobar', {param: 'baz'});
-      http.flush();
-      expect(apiLogService.appendError).toHaveBeenCalledWith('bar');
+      expect(apiLogService.appendResponse).toHaveBeenCalledWith('entry', response);
     });
 
     it('should make execute the error callback function if the call fails', function() {
@@ -62,7 +53,7 @@ describe('Data Service', function () {
       http.when('POST', '/v2/api', {method: 'foobar', params: {param: 'baz'}}).respond(500, response);
       service.callAPI('foobar', {param: 'baz'});
       http.flush();
-      expect(apiLogService.appendError).toHaveBeenCalledWith(response);
+      expect(apiLogService.appendResponse).toHaveBeenCalledWith('entry', response, true);
     });
   });
 

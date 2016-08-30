@@ -5,19 +5,20 @@
     .module('aiqUi')
     .component('navbar', {
       templateUrl: 'navigation/navbar.tpl.html',
+      bindings: {
+        onApiLogOpen: '&'
+      },
       controller: [
         '$rootScope',
         '$location',
         '$timeout',
-        'ApiLogService',
         'ClusterSelectService',
         NavbarController
       ]
     });
 
-  function NavbarController($rootScope, $location, $timeout, ApiLogService, ClusterSelectService) {
+  function NavbarController($rootScope, $location, $timeout, ClusterSelectService) {
     var self = this;
-    self.apiLog = ApiLogService;
     self.clusterSelect = ClusterSelectService;
     self.activeItems = {main: '', sub: '', menu: ''};
 

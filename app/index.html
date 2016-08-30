@@ -17,11 +17,15 @@
 <body id="{{appCtrl.currentPage}}" class="sf-layout-container -flex-row body-container">
 
   <div class="sf-layout-page sf-layout-container">
-    <navbar class="sf-layout-shelf"></navbar>
+    <navbar class="sf-layout-shelf" on-api-log-open="appCtrl.apiLogVisible = true"></navbar>
     <ng-view class="sf-layout-page"></ng-view>
   </div>
 
-  <api-log class="sf-layout-shelf api-log-shelf" ng-show="appCtrl.apiLog.visible"></api-log>
+  <sf-api-log class="sf-layout-shelf api-log-shelf"
+              ng-show="appCtrl.apiLogVisible"
+              service="appCtrl.apiLogService"
+              on-close="appCtrl.apiLogVisible = false">
+  </sf-api-log>
 
 <!-- bower:js -->
 <!-- endbower -->

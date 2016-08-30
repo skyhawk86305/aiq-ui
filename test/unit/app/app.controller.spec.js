@@ -15,7 +15,7 @@ describe('AppController', function () {
 
   describe('initialization', function() {
     it('should expose the navbar and apiLog services', function() {
-      expect(controller.apiLog).toBeDefined();
+      expect(controller.apiLogService).toBeDefined();
     });
   });
 

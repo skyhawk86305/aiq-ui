@@ -1,7 +1,7 @@
 'use strict';
 
 var ApiLogComponent = function () {
-  this.el = element(by.id('api-log-open'));
+  this.el = element(by.css('.sf-api-log'));
 };
 
 module.exports = ApiLogComponent;

@@ -17,7 +17,7 @@
   function ctrl($rootScope, ApiLogService, DataService, $location) {
     /* jshint validthis:true */
     var self = this;
-    self.apiLog = ApiLogService;
+    self.apiLogService = ApiLogService;
 
     $rootScope.$on('$routeChangeSuccess', function() {
       self.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
