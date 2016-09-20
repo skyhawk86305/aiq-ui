@@ -41,6 +41,6 @@ function rsyncCallback(error, stdout, stderr) {
       console.log('\nRsync Failed: '+ error.message + '\n');
       process.exit(1);
   } else {
-    console.log('\nRsync Successful\n')
+    console.log('\nRsync Successful\n');
   }
 }
