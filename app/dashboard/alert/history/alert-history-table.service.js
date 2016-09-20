@@ -26,18 +26,18 @@
     };
 
     var columns = [
-      {key: 'id', label: 'Alert ID', filter: SFFilterComparators.INTEGER_DEFAULT},
+      {key: 'id', label: 'Alert ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT},
       {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqData', params: {type: 'date'}}},
       {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqData', params: {type: 'date'}}},
       {key: 'isResolved', label: 'Resolved', format: {filter: 'aiqData', params: {type: 'boolean'}}},
       {key: 'resolved', label: 'Resolution Time', format: {filter: 'aiqData', params: {type: 'date'}}},
       {key: 'notificationName', label: 'Alert Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
-      {key: 'severity', label: 'Alert Severity', filter: SFFilterComparators.STRING_DEFAULT},
-      {key: 'value', label: 'Alert Value', filter: SFFilterComparators.STRING_DEFAULT},
-      {key: 'destinationEmail', label: 'Destination', filter:SFFilterComparators.STRING_DEFAULT},
-      {key: 'customerName', label: 'Customer', filter:SFFilterComparators.STRING_DEFAULT},
-      {key: 'clusterName', label: 'Cluster', filter:SFFilterComparators.STRING_DEFAULT},
-      {key: 'policyDescription', label: 'Alert Condition', filter:SFFilterComparators.STRING_DEFAULT}
+      {key: 'severity', label: 'Alert Severity', filterComparators: SFFilterComparators.STRING_DEFAULT},
+      {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},
+      {key: 'destinationEmail', label: 'Destination', filterComparators:SFFilterComparators.STRING_DEFAULT},
+      {key: 'customerName', label: 'Customer', filterComparators:SFFilterComparators.STRING_DEFAULT},
+      {key: 'clusterName', label: 'Cluster', filterComparators:SFFilterComparators.STRING_DEFAULT},
+      {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
     ];
 
     return new SFTableService(listAlerts, columns, false);

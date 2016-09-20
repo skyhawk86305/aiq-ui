@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('errorLogTable', {
-      template: '<sf-table id="error-log-table" class="sf-layout-block" service="$ctrl.service" type="error-log"></sf-table>',
+      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="error-log" control-bar="true" items-per-page="25"></sf-table>',
       controller: ['$routeParams', 'ErrorLogTableService', ErrorLogTableController]
     });
 

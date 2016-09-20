@@ -19,16 +19,16 @@
     };
 
     var columns = [
-      {key: 'id', label: 'ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'id', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'created', label: 'Date', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'severity', label: 'Severity', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'type', label: 'Type', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'nodeID', label: 'Node ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'driveID', label: 'Drive ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'severity', label: 'Severity', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'type', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'resolved', label: 'Resolved', format: {filter: 'aiqData', params: {type: 'boolean'}}},
       {key: 'resolvedDate', label: 'Resolution Time', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'code', label: 'Error Code', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'details', label: 'Details', filter: [SFFilterComparators.CONTAINS], format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'code', label: 'Error Code', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'aiqData', params: {type: 'string'}}}
     ];
 
     var errorLogTableService = new SFTableService(listClusterFaults, columns, false);

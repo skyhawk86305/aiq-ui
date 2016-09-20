@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('alertHistoryTable', {
-      template: '<sf-table class="sf-layout-block" id="alert-history" service="$ctrl.service" type="alert-history"></sf-table>',
+      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="alert-history" control-bar="true" items-per-page="25"></sf-table>',
       controller: ['AlertHistoryTableService', AlertHistoryTableController]
     });
 

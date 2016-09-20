@@ -24,13 +24,13 @@
     };
 
     var columns = [
-      {key: 'notificationName', label: 'Alert Policy Name', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'notificationName', label: 'Alert Policy Name', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'destinationEmail', label: 'Destination', format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'notificationSeverity', label: 'Severity', format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'username', label: 'Creator', format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'customerName', label: 'Customer', format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'clusterName', label: 'Cluster', format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'policyDescription', label: 'Alert Condition', filter:SFFilterComparators.STRING_DEFAULT}
+      {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
     ];
 
     return new SFTableService(listAlerts, columns, false);

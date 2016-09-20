@@ -50,6 +50,7 @@ module.exports = function() {
 
     randomTableId.getText().then(function(id) {
       dataMatch = fixtureData.find(function(data) { return data[uniqueKey].toString() === id; });
+      if (!dataMatch) { done('No fixture entry matching value: '+id+' on unique key: '+uniqueKey); }
       attrs.forEach(function(attr) {
         world.table(type).data(attr, randomIndex).then(function(actualData){
           expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
@@ -58,6 +59,6 @@ module.exports = function() {
       });
     });
 
-    world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows+1).notify(done);
+    world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows).notify(done);
   });
 };

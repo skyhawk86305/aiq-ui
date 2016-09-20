@@ -24,14 +24,14 @@
 
 
     var columns = [
-      {key: 'eventID', label: 'ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'eventID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
       {key: 'timeOfReport', label: 'Event Time', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'eventInfoType', label: 'Type', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'message', label: 'Message', filter: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'serviceID', label: 'Service ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'nodeID', label: 'Node ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'driveID', label: 'Drive ID', filter: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'detailsString', label: 'Details', filter: [SFFilterComparators.CONTAINS], format: {filter: 'aiqData', params: {type: 'string'}}}
+      {key: 'eventInfoType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'message', label: 'Message', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'serviceID', label: 'Service ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'detailsString', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'aiqData', params: {type: 'string'}}}
     ];
 
     var eventTableService = new SFTableService(listEvents, columns, false);
