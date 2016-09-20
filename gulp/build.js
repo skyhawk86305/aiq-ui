@@ -254,7 +254,12 @@ gulp.task('imagesBower', ['clean'], function () {
     .pipe(gulp.dest(buildConfig.extImages));
 });
 
-gulp.task('build', ['bowerInject', 'images', 'fonts', 'extPages']);
+gulp.task('build', ['bowerInject', 'images', 'fonts', 'extPages'], function() {
+  return gulp.src(buildConfig.buildDir)
+    .pipe($.zip('build.zip'))
+    .pipe(gulp.dest('.'));
+
+});
 
 //Injects bower devDependencies into html
 gulp.task('build:dev', ['bowerInject:dev', 'images', 'fonts', 'extPages']);
