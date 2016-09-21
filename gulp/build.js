@@ -255,7 +255,7 @@ gulp.task('imagesBower', ['clean'], function () {
 });
 
 gulp.task('build', ['bowerInject', 'images', 'fonts', 'extPages'], function() {
-  return gulp.src(buildConfig.buildDir)
+  return gulp.src(buildConfig.buildDir+'**/*')
     .pipe($.zip('build.zip'))
     .pipe(gulp.dest('.'));
 
