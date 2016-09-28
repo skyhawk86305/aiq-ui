@@ -3,10 +3,28 @@
 
   angular
     .module('aiqUi')
-    .config(['$routeProvider', routeConfig]);
+    .config(['$routeProvider', 'AuthServiceProvider', routeConfig]);
 
-  function routeConfig($routeProvider) {
-    $routeProvider
+  function routeConfig($routeProvider, AuthServiceProvider) {
+    var routeProvider = angular.extend({}, $routeProvider, {
+      when: function(path, route) {
+        if (path !== '/login') {
+          route.resolve = (route.resolve) ? route.resolve : {};
+          angular.extend(route.resolve, {
+            isAuthenticated: function() {
+              return AuthServiceProvider.$get().isAuthenticated();
+            }
+          });
+        }
+        $routeProvider.when(path, route);
+        return this;
+      }
+    });
+
+    routeProvider
+      .when('/login', {
+        template: '<login></login>'
+      })
       .when('/dashboard/overview/sub1', {
         templateUrl: 'sample-page.tpl.html'
       })

@@ -1,0 +1,31 @@
+<div class='login-page'>
+  <div class='login-container'>
+    <img class='solidfire-logo' src='/images/SolidFire-Gotham_WHITE.svg'>
+    <form class='login-form'
+          name='login-form'
+          ng-submit='$ctrl.login(credentials)' novalidate>
+      <span class='pull-left login-label'>Sign In to ActiveIQ</span>
+      <div class='form-group'>
+        <input type='text' id='username'
+               class='form-control'
+               placeholder='Username'
+               required
+               ng-model='credentials.username'>
+      </div>
+      <div class='form-group'>
+        <input type='password' id='password'
+               class='form-control'
+               placeholder='Password'
+               required
+               ng-model='credentials.password'>
+      </div>
+      <span class='pull-left error-message'
+            ng-bind='$ctrl.error'></span>
+      <button ng-disabled='!(credentials.username && credentials.password)'
+              class='pull-right login-btn button' 
+              type='submit'>
+        Sign In
+      </button>
+    </form>
+  </div>
+</div>

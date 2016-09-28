@@ -1,0 +1,58 @@
+@import '../styles/shared.less';
+
+.login-page {
+  height: 100%;
+  width: 100%;
+  background-color: @core-blue-lightest;
+}
+
+.login-container {
+  height:500px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+
+  .solidfire-logo {
+    height: 50px;
+    margin-bottom: 70px;
+  }
+}
+
+.login-form {
+  border-radius: 10px;
+  width: 450px;
+  height: 260px;
+  margin: auto;
+  background-color: @whitescale-4-a;
+  padding: 30px;
+  .box-shadow(0 -5px 0 @secondary-blue-2);
+
+  .login-label {
+    font-size: 25px;
+    margin-bottom: 25px;
+    color: @core-blue-light;
+  }
+  .login-btn {
+    border-radius: 4px;
+    background-color: @no-alert-color;
+    border: none;
+    height: 35px;
+    width: 130px;
+    color: @basic-white;
+    padding: 0 15px;
+    margin-top: 10px;
+  }
+
+  .login-btn:disabled {
+    opacity:.5;
+  }
+}
+
+.error-message {
+  color: @core-red;
+  font-style: italic;
+}
