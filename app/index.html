@@ -16,9 +16,9 @@
 </head>
 <body id="{{appCtrl.currentPage}}" ng-cloak class="sf-layout-container -flex-row body-container">
 
-  <div class="sf-layout-page sf-layout-container">
+  <div ng-cloak class="sf-layout-page sf-layout-container">
     <navbar ng-if="appCtrl.isUserAuthenticated" class="sf-layout-shelf" on-api-log-open="appCtrl.apiLogVisible = true"></navbar>
-    <ng-view ng-cloak class="sf-layout-page"></ng-view>
+    <ng-view class="sf-layout-page"></ng-view>
   </div>
 
   <sf-api-log class="sf-layout-shelf api-log-shelf"

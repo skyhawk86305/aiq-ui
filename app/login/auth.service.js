@@ -5,7 +5,7 @@
 
   angular
     .module('aiqUi')
-    .factory('AuthService', ['$http', AuthService]);
+    .service('AuthService', ['$http', AuthService]);
 
     function AuthService($http) {
       var authService = {};

@@ -4,7 +4,9 @@ describe('Component: navbar', function() {
   var el,
       rootScope,
       scope,
+      logoutDeferred,
       service,
+      authService,
       timeout,
       location,
       element,
@@ -14,12 +16,14 @@ describe('Component: navbar', function() {
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $httpBackend, $timeout, $location, ClusterSelectService) {
+  beforeEach(inject(function($rootScope, $compile, $httpBackend, $timeout, $location, $q, AuthService, ClusterSelectService) {
     el = '<navbar></navbar>';
     rootScope = $rootScope;
     scope = $rootScope.$new();
+    logoutDeferred = $q.defer();
     $httpBackend.when('POST', '/v2/api').respond();
     service = ClusterSelectService;
+    authService = AuthService;
     timeout = $timeout;
     location = $location;
     element = $compile(angular.element(el))(scope);
@@ -155,6 +159,17 @@ describe('Component: navbar', function() {
       spyOn(location, 'path').and.returnValue('/foo');
       rootScope.$broadcast('$routeChangeSuccess');
       expect(service.selectedCluster).toBeNull();
+    });
+  });
+
+  describe('logout', function() {
+    it('should go to the login page upon user logout', function() {
+      spyOn(authService, 'logout').and.returnValue(logoutDeferred.promise);
+      spyOn(location, 'path');
+      controller.logout();
+      logoutDeferred.resolve();
+      scope.$apply();
+      expect(location.path).toHaveBeenCalledWith('/login');
     });
   });
 });

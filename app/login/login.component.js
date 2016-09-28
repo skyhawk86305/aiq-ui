@@ -12,12 +12,13 @@
     var self = this;
 
     self.login = function(credentials) {
-      AuthService.login(credentials).then(function() {
-        self.error = null;
-        $location.path('/');
-      }, function() {
-        self.error = 'Invalid username or password';
-      });
+      AuthService.login(credentials)
+        .then(function() {
+          self.error = null;
+          $location.path('/');
+        }).catch(function() {
+          self.error = 'Invalid username or password';
+        });
     };
   }
 })();
