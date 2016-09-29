@@ -33,5 +33,3 @@ test/protractor-qe-cucumber.config.js
 test/protractor-qe-e2e.config.js
 
 local.config.js
-
-build.zip
