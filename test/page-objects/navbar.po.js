@@ -27,6 +27,7 @@ var NavbarComponent = function () {
     }
   };
   this.apiLog = element(by.id('api-log-anchor'));
+  this.logOut =  element(by.id('logout-anchor')).click();
   this.menu = {
     button: element(by.id('navbar-menu')),
     expand: function() {
