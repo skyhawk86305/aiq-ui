@@ -13,7 +13,7 @@ var Hooks = function () {
   this.Before({tags:['@unauthenticatedUser, @login']},function (scenario, callback) {
     request.delete(browser.baseUrl + '/sessions', function() {
       callback();
-    })
+    });
   });
 
   this.After({tags:['@unauthenticatedUser, @login, @logout']},function (scenario, callback) {
