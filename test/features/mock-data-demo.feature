@@ -5,6 +5,7 @@ Feature: Mock Backend
 
 #  Assumptions:
 #    Given user is authenticated
+
   Scenario: Fixture data served by default (CLOUD-2915)
     When I navigate to the "cluster/11/volumes" page
     Then I see default fixture data served by the mock server

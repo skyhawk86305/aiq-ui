@@ -5,6 +5,7 @@ Feature: Authentication
 
 #  Assumptions:
 #    Given user is not authenticated
+
   @authentication @login
   Scenario: Logging in with a valid login (CLOUD-2891)
     Given I am a user with a valid login
@@ -28,6 +29,7 @@ Feature: Authentication
 
 #  Assumptions:
 #    Given user is authenticated
+
   @authentication @logout
   Scenario: Logging out ()
     When I navigate to the "/" page

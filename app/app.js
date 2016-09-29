@@ -18,19 +18,19 @@
     /* jshint validthis:true */
     var self = this;
     self.apiLogService = ApiLogService;
-    self.isUserAuthenticated = false;
+    self.showNavbar = false;
 
     $rootScope.$on('$routeChangeSuccess', function() {
       if ($location.path() !== '/login') {
-        self.isUserAuthenticated = true;
+        self.showNavbar = true;
       } else {
-        self.isUserAuthenticated = false;
+        self.showNavbar = false;
       }
       self.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
     });
 
     $rootScope.$on('$routeChangeError', function() {
-        self.isUserAuthenticated = false;
+        self.showNavbar = false;
         $location.path('/login');
     });
 

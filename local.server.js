@@ -1,6 +1,5 @@
 var request = require('request'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
     localConfig = require('./local.config'),
     express = require('express'),
     server = express(),
