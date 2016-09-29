@@ -10,13 +10,13 @@ var Hooks = function () {
   this.After(function (scenario) {});
 
   // We can also build custom hooks for specific scenarios
-  this.Before({tags:['@unauthenticatedUser, @login']},function (scenario, callback) {
+  this.Before({tags:['@login']},function (scenario, callback) {
     request.delete(browser.baseUrl + '/sessions', function() {
       callback();
     });
   });
 
-  this.After({tags:['@unauthenticatedUser, @login, @logout']},function (scenario, callback) {
+  this.After({tags:['@login, @logout']},function (scenario, callback) {
     var params = {username: 'testuser@solidfire.com', password: new Buffer('password123').toString('base64')};
     return request({
       method: 'PUT',
