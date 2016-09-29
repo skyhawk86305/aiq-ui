@@ -6,6 +6,7 @@ var chaiAsPromised = require('chai-as-promised');
 var NavbarComponent = require('../../page-objects/navbar.po');
 var ApiLogComponent = require('../../page-objects/api-log.po');
 var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
+var LoginComponent = require('../../page-objects/login.po');
 var TableComponent = require('../../page-objects/table.po');
 
 function World() {
@@ -26,6 +27,7 @@ function World() {
   this.navbar = new NavbarComponent();
   this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
+  this.loginForm = new LoginComponent();
   this.nodesTable = new TableComponent('node');
   this.drivesTable = new TableComponent('drive');
   this.alertHistoryTable = new TableComponent('alert-history');
