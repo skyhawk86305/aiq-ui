@@ -1,25 +1,26 @@
 'use strict';
 
 describe('Component: alertHistoryTable', function() {
-  var el,
-    rootScope,
-    scope,
+  var scope,
     service,
-    element,
+    locals,
+    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $httpBackend, AlertHistoryTableService) {
-    el = '<alert-history-table></alert-history-table>';
-    rootScope = $rootScope;
+  beforeEach(inject(function($rootScope, $componentController, $httpBackend, AlertHistoryTableService) {
     scope = $rootScope.$new();
     $httpBackend.when('POST', '/v2/api').respond();
     service = AlertHistoryTableService;
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('alertHistoryTable');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service
+    };
+    controller = $componentController('alertHistoryTable', locals, bindings);
   }));
 
   describe('initialization', function() {

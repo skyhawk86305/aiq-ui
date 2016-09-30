@@ -1,30 +1,37 @@
 'use strict';
 
 describe('Component: navbar', function() {
-  var el,
+  var scope,
       rootScope,
-      scope,
+      logoutDeferred,
       service,
+      authService,
       timeout,
       location,
-      element,
+      locals,
+      bindings,
       controller,
       spy;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $httpBackend, $timeout, $location, ClusterSelectService) {
-    el = '<navbar></navbar>';
+  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $timeout, $location, $q, AuthService, ClusterSelectService) {
     rootScope = $rootScope;
     scope = $rootScope.$new();
+    logoutDeferred = $q.defer();
     $httpBackend.when('POST', '/v2/api').respond();
     service = ClusterSelectService;
+    authService = AuthService;
     timeout = $timeout;
     location = $location;
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('navbar');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service
+    };
+    controller = $componentController('navbar', locals, bindings);
   }));
 
   describe('initialization', function() {
@@ -155,6 +162,17 @@ describe('Component: navbar', function() {
       spyOn(location, 'path').and.returnValue('/foo');
       rootScope.$broadcast('$routeChangeSuccess');
       expect(service.selectedCluster).toBeNull();
+    });
+  });
+
+  describe('logout', function() {
+    it('should go to the login page upon user logout', function() {
+      spyOn(authService, 'logout').and.returnValue(logoutDeferred.promise);
+      spyOn(location, 'path');
+      controller.logout();
+      logoutDeferred.resolve();
+      scope.$apply();
+      expect(location.path).toHaveBeenCalledWith('/login');
     });
   });
 });

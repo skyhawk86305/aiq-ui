@@ -14,10 +14,10 @@
     <!-- inject:css -->
     <!-- endinject -->
 </head>
-<body id="{{appCtrl.currentPage}}" class="sf-layout-container -flex-row body-container">
+<body id="{{appCtrl.currentPage}}" ng-cloak class="sf-layout-container -flex-row body-container">
 
-  <div class="sf-layout-page sf-layout-container">
-    <navbar class="sf-layout-shelf" on-api-log-open="appCtrl.apiLogVisible = true"></navbar>
+  <div ng-cloak class="sf-layout-page sf-layout-container">
+    <navbar ng-if="appCtrl.showNavbar" class="sf-layout-shelf" on-api-log-open="appCtrl.apiLogVisible = true"></navbar>
     <ng-view class="sf-layout-page"></ng-view>
   </div>
 
