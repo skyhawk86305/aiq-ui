@@ -1,5 +1,3 @@
-/*globals btoa*/
-
 (function () {
   'use strict';
 
