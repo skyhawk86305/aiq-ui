@@ -1,31 +1,33 @@
 'use strict';
 
 describe('Component: navbar', function() {
-  var el,
-      rootScope,
-      scope,
+  var scope,
       service,
-      location,
       deferred,
-      element,
+      location,
+      locals,
+      bindings,
       controller,
       spy;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $location, $q, AuthService) {
-    el = '<login></login>';
-    rootScope = $rootScope;
+  beforeEach(inject(function($rootScope, $location, $q, $componentController, AuthService) {
     scope = $rootScope.$new();
     service = AuthService;
     deferred = $q.defer();
     spy = spyOn(service, 'login').and.returnValue(deferred.promise);
     location = $location;
     spyOn(location, 'path');
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('login');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service,
+      $location: location
+    };
+    controller = $componentController('login', locals, bindings);
   }));
 
   describe('.login', function() {
