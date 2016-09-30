@@ -16,7 +16,7 @@ describe('AppController', function () {
   describe('initialization', function() {
     it('should expose the navbar and apiLog services', function() {
       expect(controller.apiLogService).toBeDefined();
-      expect(controller.isUserAuthenticated).toBeFalsy();
+      expect(controller.showNavbar).toBeFalsy();
     });
   });
 
@@ -30,20 +30,20 @@ describe('AppController', function () {
       rootScope.$broadcast('$routeChangeSuccess');
       expect(controller.currentPage).toEqual('cluster-foo-bar');
     });
-    it('should set isUserAuthenticated to true if the path location is not \'/login\'', function() {
+    it('should set showNavbar to true if the path location is not \'/login\'', function() {
       location.path('/foo/bar');
       rootScope.$broadcast('$routeChangeSuccess');
-      expect(controller.isUserAuthenticated).toBeTruthy();
+      expect(controller.showNavbar).toBeTruthy();
     });
-    it('should set isUserAuthenticated to false if the path location is \'/login\'', function() {
+    it('should set showNavbar to false if the path location is \'/login\'', function() {
       location.path('login');
       rootScope.$broadcast('$routeChangeSuccess');
-      expect(controller.isUserAuthenticated).toBeFalsy();
+      expect(controller.showNavbar).toBeFalsy();
     });
-    it('should set isUserAuthenticated to false and redirect to the login page upon route change error', function() {
+    it('should set showNavbar to false and redirect to the login page upon route change error', function() {
       spyOn(location, 'path');
       rootScope.$broadcast('$routeChangeError');
-      expect(controller.isUserAuthenticated).toBeFalsy();
+      expect(controller.showNavbar).toBeFalsy();
       expect(location.path).toHaveBeenCalledWith('/login');
     });
   });
