@@ -1,22 +1,21 @@
 'use strict';
 
 describe('Component: clusterSelect', function() {
-  var el,
-      scope,
+  var scope,
       deferred,
       routeParams,
       location,
       service,
       spy,
-      element,
+      locals,
+      bindings,
       controller,
       mockData;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $q, $routeParams, $location, ClusterSelectService) {
-    el = '<cluster-select></cluster-select>';
+  beforeEach(inject(function($rootScope, $componentController, $q, $routeParams, $location, ClusterSelectService) {
     scope = $rootScope.$new();
     deferred = $q.defer();
     routeParams = $routeParams;
@@ -24,9 +23,13 @@ describe('Component: clusterSelect', function() {
     service = ClusterSelectService;
     service.selectedCluster = 'fooCluster';
     spy = spyOn(service, 'getClusters').and.returnValue(deferred.promise);
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('clusterSelect');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service
+    };
+    controller = $componentController('clusterSelect', locals, bindings);
     mockData = [
       {clusterID: 13, foo: 1, bar: 2, baz: 3},
       {clusterID: 14, foo: 4, bar: 5, baz: 6},

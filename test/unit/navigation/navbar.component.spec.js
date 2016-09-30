@@ -1,23 +1,22 @@
 'use strict';
 
 describe('Component: navbar', function() {
-  var el,
+  var scope,
       rootScope,
-      scope,
       logoutDeferred,
       service,
       authService,
       timeout,
       location,
-      element,
+      locals,
+      bindings,
       controller,
       spy;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $httpBackend, $timeout, $location, $q, AuthService, ClusterSelectService) {
-    el = '<navbar></navbar>';
+  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $timeout, $location, $q, AuthService, ClusterSelectService) {
     rootScope = $rootScope;
     scope = $rootScope.$new();
     logoutDeferred = $q.defer();
@@ -26,9 +25,13 @@ describe('Component: navbar', function() {
     authService = AuthService;
     timeout = $timeout;
     location = $location;
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('navbar');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service
+    };
+    controller = $componentController('navbar', locals, bindings);
   }));
 
   describe('initialization', function() {

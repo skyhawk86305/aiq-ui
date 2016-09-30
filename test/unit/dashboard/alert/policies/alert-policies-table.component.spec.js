@@ -1,25 +1,26 @@
 'use strict';
 
 describe('Component: alertPolicyTable', function() {
-  var el,
-    rootScope,
-    scope,
+  var scope,
     service,
-    element,
+    locals,
+    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $httpBackend, AlertPolicyTableService) {
-    el = '<alert-policy-table></alert-policy-table>';
-    rootScope = $rootScope;
+  beforeEach(inject(function($rootScope, $componentController, $httpBackend, AlertPolicyTableService) {
     scope = $rootScope.$new();
     $httpBackend.when('POST', '/v2/api').respond();
     service = AlertPolicyTableService;
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('alertPolicyTable');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service
+    };
+    controller = $componentController('alertPolicyTable', locals, bindings);
   }));
 
   describe('initialization', function() {

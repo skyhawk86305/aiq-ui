@@ -1,29 +1,30 @@
 'use strict';
 
 describe('Component: eventTable', function() {
-  var el,
-      rootScope,
-      scope,
-      routeParams,
-      service,
-      element,
-      controller;
+  var scope,
+    routeParams,
+    service,
+    locals,
+    bindings,
+    controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $httpBackend, $routeParams, EventTableService) {
-    el = '<event-table></event-table>';
-    rootScope = $rootScope;
+  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, EventTableService) {
     scope = $rootScope.$new();
     $httpBackend.when('POST', '/v2/api').respond();
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = EventTableService;
     spyOn(service, 'update');
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('eventTable');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service
+    };
+    controller = $componentController('eventTable', locals, bindings);
   }));
 
   describe('initialization', function() {
