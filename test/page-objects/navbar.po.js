@@ -15,7 +15,7 @@ var NavbarComponent = function () {
     activeItem: element(by.css('.navbar-item.-sub.active')),
     items: element.all(by.css('.navbar-item.-sub')),
     click: function(item) {
-      element(by.id('sf-sub-navbar-item-' + item)).click();
+      return element(by.id('sf-sub-navbar-item-' + item)).click();
     }
   };
   this.subNavMenu = {
