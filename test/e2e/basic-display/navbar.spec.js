@@ -15,8 +15,7 @@ describe('The main navbar', function() {
     expect(navbar.mainNavbar.items.count()).to.eventually.equal(5);
   });
 
-  it('should contain an api log button and menu with options', function() {
-    //expect(navbar.apiLog.isPresent()).to.eventually.be.true;
+  it('should contain a menu with options', function() {
     expect(navbar.menu.button.isPresent()).to.eventually.be.true;
     expect(navbar.menu.expand().options.count()).to.eventually.equal(2);
   });
