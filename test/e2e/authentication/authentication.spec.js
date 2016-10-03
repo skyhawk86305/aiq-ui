@@ -23,7 +23,7 @@ var login = function(callback) {
   }, callback());
 };
 
-fdescribe('Login Form', function() {
+describe('Login Form', function() {
   beforeEach(function(done) {
     logout(done);
   });
