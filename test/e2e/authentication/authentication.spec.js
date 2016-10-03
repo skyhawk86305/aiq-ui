@@ -23,7 +23,7 @@ var login = function(callback) {
   }, callback());
 };
 
-describe('Login Form', function() {
+fdescribe('Login Form', function() {
   beforeEach(function(done) {
     logout(done);
   });
@@ -57,9 +57,6 @@ describe('Login Form', function() {
 });
 
 describe('Navigation with Authentication', function() {
-  beforeEach(function(done) {
-    login(done);
-  });
   afterEach(function(done) {
     login(done);
   });
