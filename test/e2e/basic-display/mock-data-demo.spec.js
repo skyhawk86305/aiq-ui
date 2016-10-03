@@ -44,6 +44,7 @@ describe('An example of how override default fixture data for a specific test', 
       }
     };
     mockBackend.http.whenPOST('/v2/api').respond(myMockData);
+    mockBackend.http.whenGET('/sessions').respond();
     browser.get('#/cluster/11/volumes');
     expect(element.all(by.repeater('volume in appCtrl.volumes')).count()).to.eventually.equal(3);
     expect(element.all(by.css('.volume-data')).get(0).getText()).to.eventually.contain('myFoo');
