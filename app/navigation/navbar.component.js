@@ -13,11 +13,12 @@
         '$location',
         '$timeout',
         'ClusterSelectService',
+        'AuthService',
         NavbarController
       ]
     });
 
-  function NavbarController($rootScope, $location, $timeout, ClusterSelectService) {
+  function NavbarController($rootScope, $location, $timeout, ClusterSelectService, AuthService) {
     var self = this;
     self.clusterSelect = ClusterSelectService;
     self.activeItems = {main: '', sub: '', menu: ''};
@@ -96,6 +97,12 @@
       self.activeItems.menu = path.length > 2 ? path[2] : '';
       // Clear the cached selectedCluster when the user navigates to a non cluster-specific route
       if(self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
+    };
+
+    self.logout = function() {
+      AuthService.logout().then(function() {
+        $location.path('/login');
+      });
     };
 
     $rootScope.$on('$routeChangeSuccess', self.updateActiveItems);

@@ -21,6 +21,7 @@ module.exports = function() {
       }
     };
     this.mockBackend.http.whenPOST('/v2/api').respond(myMockData);
+    this.mockBackend.http.whenGET('/sessions').respond();
   });
 
   this.Then(/^I see default fixture data served by the mock server$/, function (done) {

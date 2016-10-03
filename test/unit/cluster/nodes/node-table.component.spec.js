@@ -1,29 +1,30 @@
 'use strict';
 
 describe('Component: nodeTable', function() {
-  var el,
-      rootScope,
-      scope,
-      routeParams,
-      service,
-      element,
-      controller;
+  var scope,
+    routeParams,
+    service,
+    locals,
+    bindings,
+    controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $compile, $httpBackend, $routeParams, NodeTableService) {
-    el = '<node-table></node-table>';
-    rootScope = $rootScope;
+  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, NodeTableService) {
     scope = $rootScope.$new();
     $httpBackend.when('POST', '/v2/api').respond();
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = NodeTableService;
     spyOn(service, 'update');
-    element = $compile(angular.element(el))(scope);
-    scope.$digest();
-    controller = element.controller('nodeTable');
+    locals = {
+      $scope: scope
+    };
+    bindings = {
+      AuthService: service
+    };
+    controller = $componentController('nodeTable', locals, bindings);
   }));
 
   describe('initialization', function() {

@@ -12,21 +12,33 @@
     ]);
 
   angular.module('aiqUi')
-    .controller('AppController', ['$rootScope', 'ApiLogService', 'DataService', '$location', '$route', ctrl]);
+    .controller('AppController', ['$rootScope', 'ApiLogService', 'DataService', '$location', ctrl]);
 
   function ctrl($rootScope, ApiLogService, DataService, $location) {
     /* jshint validthis:true */
     var self = this;
     self.apiLogService = ApiLogService;
+    self.showNavbar = false;
 
     $rootScope.$on('$routeChangeSuccess', function() {
+      if ($location.path() !== '/login') {
+        self.showNavbar = true;
+      } else {
+        self.showNavbar = false;
+      }
       self.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
     });
 
-    // ToDo: remove this call. Only used for demo purposes
-    DataService.callAPI('ListActiveVolumes', {clusterID:1898714}).then(function(response) {
-      self.volumes = response.volumes;
+    $rootScope.$on('$routeChangeError', function() {
+        self.showNavbar = false;
+        $location.path('/login');
     });
+
+     // ToDo: remove this call. Only used for demo purposes
+     DataService.callAPI('ListActiveVolumes', {clusterID:1898714}).then(function(response) {
+       self.volumes = response.volumes;
+     });
+
   }
 
 })();

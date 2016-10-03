@@ -33,6 +33,7 @@
     "element": true,
     "by": true,
     "path": true,
-    "browser": true
+    "browser": true,
+    "btoa": true
   }
 }

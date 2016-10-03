@@ -5,11 +5,12 @@
     .module('aiqUi')
     .service('DataService', [
       '$http',
+      '$location',
       'ApiLogService',
       DataService
     ]);
 
-  function DataService($http, ApiLogService) {
+  function DataService($http, $location, ApiLogService) {
     var dataService = {};
 
     dataService.callAPI = function(method, params) {
@@ -22,6 +23,9 @@
           return response.data.result;
         })
         .catch(function(error) {
+          if (error.status === 401) {
+            $location.path('/login');
+          }
           ApiLogService.appendResponse(entry, error.data, true);
           return error.data;
         });
