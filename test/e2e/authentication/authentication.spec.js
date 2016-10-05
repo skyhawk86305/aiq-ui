@@ -23,12 +23,13 @@ var login = function(callback) {
   }, callback());
 };
 
+afterEach(function(done) {
+  login(done);
+});
+
 describe('Login Form', function() {
   beforeEach(function(done) {
     logout(done);
-  });
-  afterEach(function(done) {
-    login(done);
   });
 
   it('should not let me click the login button if the fields are empty', function() {
