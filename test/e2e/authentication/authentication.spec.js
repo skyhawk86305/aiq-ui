@@ -30,27 +30,24 @@ afterEach(function(done) {
 describe('Login Form', function() {
   beforeEach(function(done) {
     logout(done);
+    browser.get('#');
   });
 
   it('should not let me click the login button if the fields are empty', function() {
-    browser.get('#');
     expect(loginForm.loginButton.el.isEnabled()).to.eventually.be.false;
   });
 
   it('should not let me click the login button if the password field is empty', function() {
-    browser.get('#');
     loginForm.usernameInput.enter('testUser@solidfire.com');
     expect(loginForm.loginButton.el.isEnabled()).to.eventually.be.false;
   });
 
   it('should not let me click the login button if the username field is empty', function() {
-    browser.get('#');
     loginForm.passwordInput.enter('Password123');
     expect(loginForm.loginButton.el.isEnabled()).to.eventually.be.false;
   });
 
   it('should let me click the login button if the fields are filled out', function() {
-    browser.get('#');
     loginForm.usernameInput.enter('testUser@solidfire.com');
     loginForm.passwordInput.enter('Password123');
     expect(loginForm.loginButton.el.isEnabled()).to.eventually.be.true;
