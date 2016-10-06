@@ -3,9 +3,12 @@ exports.config = {
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),
 
-  // seleniumAddress: 'http://192.168.129.176:4444/wd/hub',
+  seleniumAddress:"http://127.0.0.1:4444/wd/hub",
+
+  baseUrl:"http://localhost:3001",
+
   capabilities: {
-    'browserName': 'firefox'
+    'browserName': 'chrome'
   },
 
   params: {
@@ -17,8 +20,6 @@ exports.config = {
     apiVersion: '#9.0',
     path: 'node/develop'
   },
-   baseUrl : "https://admin:admin@192.168.139.178:442/node/develop/index.htm#",
-  // baseUrl : "https://"+ exports.config.params.authUsername+":"+ exports.config.params.authPassword+"@"+ exports.config.params.ip+"/"+ exports.config.params.path+"/index.htm#",
 
   onPrepare: function() {
     browser.driver.manage().window().setSize(1680, 1050);

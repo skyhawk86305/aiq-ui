@@ -2,10 +2,12 @@ exports.config = {
 
   framework: 'jasmine',
 
-  // seleniumAddress: 'http://192.168.129.176:4444/wd/hub',
-  baseUrl : "https://admin:admin@192.168.139.178:442/node/develop/index.htm#",
+  seleniumAddress:"http://127.0.0.1:4444/wd/hub",
+
+  baseUrl:"http://localhost:3001",
+
   capabilities: {
-    'browserName': 'firefox'
+    'browserName': 'chrome'
   },
   specs : ["e2e/*.js","e2e/**/*.js"],
 

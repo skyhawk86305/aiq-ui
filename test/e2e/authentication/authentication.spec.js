@@ -1,7 +1,8 @@
 /* jshint expr: true */
 'use strict';
 
-var expect = require('../support.js').expect;
+var support = require('../support.js');
+var expect = support.expect;
 var LoginComponent = require('../../page-objects/login.po');
 var NavbarComponent = require('../../page-objects/navbar.po');
 var request = require('request');
@@ -23,14 +24,12 @@ var login = function(callback) {
   }, callback());
 };
 
-afterEach(function(done) {
-  login(done);
-});
-
 describe('Login Form', function() {
   beforeEach(function(done) {
-    logout(done);
-    browser.get('#');
+    logout(function() {
+      browser.get('#');
+      done();
+    });
   });
 
   it('should not let me click the login button if the fields are empty', function() {
@@ -51,6 +50,24 @@ describe('Login Form', function() {
     loginForm.usernameInput.enter('testUser@solidfire.com');
     loginForm.passwordInput.enter('Password123');
     expect(loginForm.loginButton.el.isEnabled()).to.eventually.be.true;
+  });
+
+  it('should have a password input field type of password', function () {
+    expect(loginForm.passwordInput.el.getAttribute('type')).to.eventually.equal('password');
+  });
+
+  it('should have a default submit', function () {
+    loginForm.passwordInput.enter('password123');
+    loginForm.usernameInput.enter('testuser@solidfire.com');
+    loginForm.el.submit();
+    expect(navbar.el.isPresent()).to.eventually.be.true;
+  });
+
+  it('should get focus when selected', function () {
+    loginForm.usernameInput.click();
+    expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('username-input');
+    loginForm.passwordInput.click();
+    expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('password-input');
   });
 });
 

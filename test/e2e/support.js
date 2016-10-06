@@ -16,6 +16,9 @@ var supportObject = {
     disable: function() {
       this.http.clear();
     }
+  },
+  getActiveElement: function() {
+    return browser.driver.switchTo().activeElement();
   }
 };
 
