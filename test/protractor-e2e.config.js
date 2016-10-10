@@ -2,7 +2,7 @@ exports.config = {
 
   framework: 'jasmine',
 
-  allScriptsTimeout: 60000,
+  allScriptsTimeout: 5000000,
 
   capabilities: {
     'browserName': 'chrome'
