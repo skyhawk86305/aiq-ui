@@ -38,7 +38,6 @@ server.get('/sessions', function (req, res) {
 server.put('/sessions', function (req, res) {
   if (req.body.username === 'testuser@solidfire.com' &&
     req.body.password === new Buffer('password123').toString('base64')) {
-    console.log('YOUVE BEEN LOGGED IN');
     authenticated = true;
     res.status(200).send();
   } else {
@@ -51,7 +50,6 @@ server.put('/sessions', function (req, res) {
  * Catch API delete request to sessions and set authenticated to false
  */
 server.delete('/sessions', function (req, res) {
-    console.log('YOUVE BEEN LOGGED OUT');
   authenticated = false;
   res.status(200).send();
 });
