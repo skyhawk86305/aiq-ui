@@ -66,7 +66,7 @@ describe('Navigation with Authentication', function() {
         return [400, {}];
       });
 
-      browser.get('#/cluster/11/volumes');
+      browser.get('#/dashboard/health');
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/login');
     });
   });
