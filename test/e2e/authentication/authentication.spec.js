@@ -10,8 +10,10 @@ var loginForm = new LoginComponent();
 describe('Login Form', function() {
   beforeEach(function() {
     mockBackend.enable(browser);
+    mockBackend.http.whenGET('/sessions').respond(function() {
+      return [400, {}];
+    });
     browser.get('#');
-    mockBackend.http.whenGET('/sessions').respond(400);
   });
 
   afterEach(function() {
@@ -42,15 +44,31 @@ describe('Login Form', function() {
 describe('Navigation with Authentication', function() {
   beforeEach(function() {
     mockBackend.enable(browser);
-    browser.get('#');
-    mockBackend.http.whenGET('/sessions').respond(400);
+    mockBackend.http.whenPOST('/v2/api').passThrough();
   });
 
   afterEach(function() {
     mockBackend.disable();
   });
-  xit('should redirect me to the login page if my aiq session is invalid when I try to navigate to another page', function() {
-    //TODO: figure out a way to log out through the backend 
+
+  it('should redirect me to the login page if my aiq session is invalid when I try to navigate to another page', function() {
+    // Login to site.
+    var authMock = mockBackend.http.whenGET('/sessions');
+    authMock.respond(function() {
+      return [200, {}];
+    });
+
+    browser.get('#/dashboard/overview').then(function() {
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+
+      mockBackend.http.reset();
+      authMock.respond(function() {
+        return [400, {}];
+      });
+
+      browser.get('#/cluster/11/volumes');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/login');
+    });
   });
 
   it('should not let me navigate to an aiq page via URL if I\'m not unauthenticated', function() {
