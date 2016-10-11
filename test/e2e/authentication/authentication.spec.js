@@ -62,6 +62,15 @@ describe('Login Form', function() {
     loginForm.el.submit();
     expect(navbar.el.isPresent()).to.eventually.be.true;
   });
+});
+
+describe('Login form input field focus', function() {
+  beforeEach(function(done) {
+    logout(function() {
+      browser.get('#');
+      done();
+    });
+  });
 
   it('should get focus when selected', function () {
     loginForm.usernameInput.click();
