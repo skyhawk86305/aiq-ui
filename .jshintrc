@@ -30,6 +30,8 @@
     "xit": true,
     "beforeEach": true,
     "afterEach": true,
+    "afterAll": true,
+    "beforeAll": true,
     "expect": true,
     "inject": true,
     "it": true,
