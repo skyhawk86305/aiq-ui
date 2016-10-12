@@ -7,7 +7,7 @@ var NavbarComponent = function () {
     activeItem: element(by.css('.navbar-item.-main.active')),
     items: element.all(by.css('.navbar-item.-main')),
     click: function(item) {
-      element(by.id('sf-main-navbar-item-' + item)).click();
+      return element(by.id('sf-main-navbar-item-' + item)).click();
     }
   };
   this.subNavbar = {
@@ -39,7 +39,7 @@ var NavbarComponent = function () {
             case('Logout'): element(by.id('logout-anchor')).click(); break;
           }
         }
-      }
+      };
     },
     collapse: function() {
       element(by.css('#navbar-menu[aria-expanded="true"]')).isPresent().then(function(isPresent) {
