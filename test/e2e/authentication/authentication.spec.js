@@ -13,7 +13,12 @@ describe('Login Form', function() {
     mockBackend.http.whenGET('/sessions').respond(function() {
       return [400, {}];
     });
-    browser.get('#');
+    browser.get('#').then(function() {
+      // Sleep statement currently needed to get test to pass on Jenkins.
+      // Further investigation is needed to see if we can find the root
+      // of the problem.
+      browser.driver.sleep(200);
+    });
   });
 
   afterEach(function() {
