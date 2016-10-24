@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang='en' ng-app='aiqUi' ng-controller="AppController as appCtrl">
 <head>
-    <title ng-bind="'ActiveIQ | ' + appCtrl.currentPage"></title>
-    <meta name='viewport' content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes'>
-    <meta charset='UTF-8'>
-    <link rel="SHORTCUT ICON" href="images/favicon.ico"/>
-    <!-- inject:head:js -->
-    <!-- endinject -->
-    <!-- inject:html -->
-    <!-- endinject -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- inject:css -->
-    <!-- endinject -->
+  <title ng-bind="'ActiveIQ | ' + appCtrl.currentPage"></title>
+  <meta name='viewport' content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes'>
+  <meta charset='UTF-8'>
+  <link rel="SHORTCUT ICON" href="images/favicon.ico"/>
+  <!-- inject:head:js -->
+  <!-- endinject -->
+  <!-- inject:html -->
+  <!-- endinject -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- inject:jira -->
+  <!-- endinject -->
 </head>
 <body id="{{appCtrl.currentPage}}" ng-cloak class="sf-layout-container -flex-row body-container">
 
   <div ng-cloak class="sf-layout-page sf-layout-container">
     <navbar ng-if="appCtrl.showNavbar" class="sf-layout-shelf" on-api-log-open="appCtrl.apiLogVisible = true"></navbar>
     <ng-view class="sf-layout-page"></ng-view>
+    <a href="#" id="atlwdg-trigger" class="atlwdg-trigger atlwdg-RIGHT" ng-show="appCtrl.showNavbar">Feedback</a>
   </div>
 
   <sf-api-log class="sf-layout-shelf api-log-shelf"

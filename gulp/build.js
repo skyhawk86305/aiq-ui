@@ -96,7 +96,14 @@ gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
       addRootSlash: false,
       ignorePath: buildConfig.buildDir
     }))
-    .pipe(gulp.dest(buildConfig.buildDir));
+      .pipe($.inject(gulp.src([
+        path.join(buildConfig.buildDir, 'fragments/jira.html')
+      ]), {
+        starttag: '<!-- inject:jira -->',
+        addRootSlash: false,
+        ignorePath: buildConfig.buildDir
+      }))
+      .pipe(gulp.dest(buildConfig.buildDir));
 });
 
 // copy bower components into build directory
