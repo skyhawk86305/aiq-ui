@@ -30,22 +30,22 @@
         template: '<login></login>'
       })
       .when('/dashboard/overview/sub1', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/dashboard/overview/sub2', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/dashboard/overview/sub3', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/dashboard/health', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/dashboard/capacity', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/dashboard/performance', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/dashboard/alerts', {
         redirectTo: '/dashboard/alerts/history'
@@ -59,16 +59,16 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/overview', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/capacity', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/efficiency', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/performance', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/errorLog', {
         template: '<error-log-table class="sf-layout-block"></error-log-table>',
@@ -79,13 +79,13 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/iscsiSessions', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/virtualNetworks', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/forecasting', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/nodes', {
         template: '<node-table class="sf-layout-block"></node-table>',
@@ -99,10 +99,10 @@
         templateUrl: 'cluster/volumes/volumes.tpl.html'
       })
       .when('/cluster/:clusterID/replication', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/users', {
-        templateUrl: 'sample-page.tpl.html'
+        templateUrl: 'coming-soon.tpl.html'
       })
       .otherwise({
         redirectTo: '/dashboard/overview/sub1'
