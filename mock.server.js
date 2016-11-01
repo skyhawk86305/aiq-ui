@@ -1,6 +1,9 @@
+'use strict';
+
 var express = require('express'),
     bodyParser = require('body-parser'),
     mockConfig = require('./mock.config'),
+    MockData = require('./server/mock-data'),
     server = express(),
     authenticated = true;
 
@@ -52,4 +55,15 @@ server.put('/sessions', function (req, res) {
 server.delete('/sessions', function (req, res) {
   authenticated = false;
   res.status(200).send();
+});
+
+/**
+ * Catch graph data requests and respond with the matching fixture data
+ * after applying any aggregation
+ */
+server.get('/graph', function (req, res) {
+  var data = MockData.getTimeSeriesData(req.query.start, req.query.end, req.query.resolution, 0, 3),
+    response = data || {};
+
+  res.send(response);
 });
