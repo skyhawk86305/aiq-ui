@@ -9,17 +9,16 @@ var exports = module.exports = {},
  * @param resolution {number} The resolution of the data to provide, in milliseconds. Should
  * be a whole number.
  * @param graphIndex {number} A unique value for a graph to keep the chance variable the same
- * @param seriesCount {number} The number of time series data sets to include in the response
+ * @param seriesNames {Array} The set of time series names to include in the result
  * @returns {Object} If successful, returns an object with 'timestamps' and n number of 'seriesN' array
  * properties. Else returns an object with a 'status' property.
  */
-exports.getTimeSeriesData = function(start, end, resolution, graphIndex, seriesCount) {
+exports.getTimeSeriesData = function(start, end, resolution, graphIndex, seriesNames) {
   var i, j,
     startTime = Date.parse(start),
     endTime = Date.parse(end),
     res = parseInt(resolution),
     index = parseInt(graphIndex),
-    count = parseInt(seriesCount),
     random = new Chance(startTime + endTime + index),
     totalTime = Math.floor(endTime - startTime),
     timeSeriesData = {timestamps: []};
@@ -30,14 +29,10 @@ exports.getTimeSeriesData = function(start, end, resolution, graphIndex, seriesC
     };
   }
 
-  for(i = 0; i < count; i++) {
-    timeSeriesData['series' + i] = [];
-  }
-
   for (i = 0; i < totalTime; i += res) {
     timeSeriesData.timestamps.push(new Date(startTime + i).toISOString());
-    for(j = 0; j < count; j++) {
-      timeSeriesData['series' + j].push(random.integer({min:1, max: 9}));
+    for(j = 0; j < seriesNames.length; j++) {
+      timeSeriesData[seriesNames[j]].push(random.integer({min:1, max: 9}));
     }
   }
 

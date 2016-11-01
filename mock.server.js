@@ -58,11 +58,22 @@ server.delete('/sessions', function (req, res) {
 });
 
 /**
- * Catch graph data requests and respond with the matching fixture data
- * after applying any aggregation
+ * Catch used space graph data requests and respond with random data
+ * in the correct response format.
  */
-server.get('/graph', function (req, res) {
-  var data = MockData.getTimeSeriesData(req.query.start, req.query.end, req.query.resolution, 0, 3),
+server.get('/graph/cluster/:clusterId/usedSpace', function (req, res) {
+  var data = MockData.getTimeSeriesData(req.query.start, req.query.end, req.query.resolution, 0, ['usedSpace', 'maxUsedSpace', 'usedMetadataSpace', 'maxUsedMetadataSpace']),
+    response = data || {};
+
+  res.send(response);
+});
+
+/**
+ * Catch used space graph data requests and respond with random data
+ * in the correct response format.
+ */
+server.get('/graph/cluster/:clusterId/provisionedSpace', function (req, res) {
+  var data = MockData.getTimeSeriesData(req.query.start, req.query.end, req.query.resolution, 0, ['provisionedSpace', 'maxProvisionedSpace']),
     response = data || {};
 
   res.send(response);

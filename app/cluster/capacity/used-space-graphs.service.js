@@ -38,16 +38,16 @@
             return new Date(seconds * 1000).toISOString();
           });
           filteredResponse.usedSpace = response.data.usedSpace.map(function(bytes) {
-            return (bytes/1000000000000).toFixed(2);
+            return parseFloat((bytes/1000000000000).toFixed(2));
           });
           filteredResponse.maxUsedSpace = response.data.maxUsedSpace.map(function(bytes) {
-            return (bytes/1000000000000).toFixed(2);
+            return parseFloat((bytes/1000000000000).toFixed(2));
           });
           filteredResponse.usedMetadataSpace = response.data.usedMetadataSpace.map(function(bytes) {
-            return (bytes/1000000000000).toFixed(2);
+            return parseFloat((bytes/1000000000000).toFixed(2));
           });
           filteredResponse.maxUsedMetadataSpace = response.data.maxUsedMetadataSpace.map(function(bytes) {
-            return (bytes/1000000000000).toFixed(2);
+            return parseFloat((bytes/1000000000000).toFixed(2));
           });
 
           return filteredResponse;
