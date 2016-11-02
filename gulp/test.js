@@ -39,7 +39,7 @@ var gulp = require('gulp')
               .alias('l', 'local').argv
   , localConfig = argv.local ? require('../local.config.js') : {}
   , jenkinsConfig = {
-      host: argv.jenkinsHost || 'jenkins.aiq.solidfire.net',
+      host: argv.jenkinsHost || 'bdr-web-jenkins.den.solidfire.net',
       port: argv.jenkinsPort || '3000'
     }
   , mockConfig = argv.local ? localConfig : jenkinsConfig;

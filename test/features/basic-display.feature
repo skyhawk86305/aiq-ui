@@ -20,13 +20,8 @@ Feature: Basic Display
     When I click on the "sub" navbar item "dashboard-health"
     Then I am navigated to the route "/dashboard/health"
 
-  Scenario: API log functionality (CLOUD-2904)
-    Given The app is open in a browser
-    And I see the shared SolidFire navbar
-    When I click on the API log button
-    Then I see the shared SolidFire API log
-
-#  Scenario: Logout functionality (CLOUD-2891)
+#  Scenario: API log functionality (CLOUD-2904)
 #    Given The app is open in a browser
 #    And I see the shared SolidFire navbar
-#    When I click on the logout menu option
+#    When I click on the API log button
+#    Then I see the shared SolidFire API log

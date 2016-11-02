@@ -31,7 +31,7 @@ Feature: Authentication
 #    Given user is authenticated
 
   @authentication @logout
-  Scenario: Logging out ()
+  Scenario: Logging out (CLOUD-2891)
     When I navigate to the "/" page
     And I attempt to logout
     Then I am successfully logged out

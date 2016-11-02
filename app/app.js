@@ -19,6 +19,7 @@
     var self = this;
     self.apiLogService = ApiLogService;
     self.showNavbar = false;
+    self.host = $location.host();
 
     $rootScope.$on('$routeChangeSuccess', function() {
       if ($location.path() !== '/login') {
