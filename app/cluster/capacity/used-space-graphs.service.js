@@ -28,6 +28,7 @@
         res = 2592000;
       }*/
 
+      //TODO: This is currently the only resolution with data in giraffe. Remove later.
       res = 3600;
 
       return $http.get('/graph/cluster/'+this.selectedClusterID+'/usedSpace?start='+start+'&end='+end+'&resolution='+res)

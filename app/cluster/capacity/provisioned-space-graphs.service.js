@@ -11,7 +11,7 @@
 
 
   function ProvisionedSpaceGraphsService($http, SFGraphTimeSeriesService) {
-    var getUsedSpace = function(params) {
+    var getProvisionedSpace = function(params) {
       var start = params.start.toISOString(),
           end = params.end.toISOString(),
           res = params.resolution / 1000;
@@ -28,6 +28,7 @@
         res = 2592000;
       }*/
 
+      //TODO: This is currently the only resolution with data in giraffe. Remove later.
       res = 3600;
 
       return $http.get('/graph/cluster/'+this.selectedClusterID+'/provisionedSpace?start='+start+'&end='+end+'&resolution='+res)
@@ -38,7 +39,7 @@
             return new Date(seconds * 1000).toISOString();
           });
           filteredResponse.provisionedSpace = response.data.provisionedSpace.map(function(bytes) {
-            return (bytes/1000000000000).toFixed(2);
+            return parseFloat((bytes/1000000000000).toFixed(2));
           });
           filteredResponse.maxProvisionedSpace = response.data.maxProvisionedSpace.map(function(bytes) {
             return parseFloat((bytes/1000000000000).toFixed(2));
@@ -48,7 +49,7 @@
         });
     };
 
-    var provisionedGraphsService = new SFGraphTimeSeriesService(getUsedSpace);
+    var provisionedGraphsService = new SFGraphTimeSeriesService(getProvisionedSpace);
 
     provisionedGraphsService.selectedClusterID = null;
     provisionedGraphsService.update = function(clusterID) {

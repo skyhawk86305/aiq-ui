@@ -73,7 +73,7 @@ server.get('/graph/cluster/:clusterId/usedSpace', function (req, res) {
  * in the correct response format.
  */
 server.get('/graph/cluster/:clusterId/provisionedSpace', function (req, res) {
-  var data = MockData.getTimeSeriesData(req.query.start, req.query.end, req.query.resolution, 0, ['provisionedSpace', 'maxProvisionedSpace']),
+  var data = MockData.getTimeSeriesData(req.query.start, req.query.end, req.query.resolution, 1, ['provisionedSpace', 'maxProvisionedSpace']),
     response = data || {};
 
   res.send(response);

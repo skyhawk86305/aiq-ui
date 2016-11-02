@@ -1,19 +1,31 @@
 /* jshint expr: true */
 'use strict';
 
-var expect = require('../support.js').expect;
-var mockBackend = require('../support.js').mockBackend;
-var CapacityComponent = require('../../page-objects/capacity.po');
+var expect = require('../../support.js').expect;
+var mockBackend = require('../../support.js').mockBackend;
+var CapacityComponent = require('../../../page-objects/capacity.po');
+var NavbarComponent = require('../../../page-objects/navbar.po');
+var ClusterSelectComponent = require('../../../page-objects/cluster-select.po');
 
-var capacityPage = new CapacityComponent();
+var capacityPage;
+var navbar = new NavbarComponent();
+var clusterSelect = new ClusterSelectComponent();
 
-describe('Capacity Page Graphs', function () {
+fdescribe('Capacity Page Graphs', function () {
   beforeEach(function() {
     mockBackend.enable(browser);
     mockBackend.http.whenGET('/sessions').respond(function() {
       return [200, {}];
     });
-    mockBackend.http.whenPOST('/graph').passThrough();
+    mockBackend.http.whenGET(/\/graph/).passThrough();
+    mockBackend.http.whenPOST('/v2/api').passThrough();
+    browser.get('#').then(function () {
+      // Navigate to the correct page.
+      clusterSelect.open().clusterList.select('barCluster');
+      navbar.subNavbar.click('cluster-reporting');
+      navbar.subNavMenu.click('cluster-reporting-capacity');
+      capacityPage = new CapacityComponent();
+    });
   });
 
   afterEach(function() {
@@ -25,45 +37,45 @@ describe('Capacity Page Graphs', function () {
   });
 
   it('should have the correct context graph buttons', function () {
-    expect(capacityPage.contextGraph.buttons.count).eventually.toEqual(3);
-    expect(capacityPage.contextGraph.buttons.provisioned.isDisplayed()).to.eventually.equal.true;
-    expect(capacityPage.contextGraph.buttons.used.isDisplayed()).to.eventually.equal.true;
-    expect(capacityPage.contextGraph.buttons.metadata.isDisplayed()).to.eventually.equal.true;
+    expect(capacityPage.contextButtons().count).to.eventually.equal(3);
+    expect(capacityPage.contextButtons().provisioned.isDisplayed()).to.eventually.equal.true;
+    expect(capacityPage.contextButtons().used.isDisplayed()).to.eventually.equal.true;
+    expect(capacityPage.contextButtons().metadata.isDisplayed()).to.eventually.equal.true;
   });
 
   it('should have the correct child graphs', function () {
-    expect(capacityPage.provisionedGraph.el.isDisplayed()).to.eventually.be.true;
-    expect(capacityPage.usedGraph.el.isDisplayed()).to.eventually.be.true;
-    expect(capacityPage.metadataGraph.el.isDisplayed()).to.eventually.be.true;
+    expect(capacityPage.provisionedGraph().el.isDisplayed()).to.eventually.be.true;
+    expect(capacityPage.usedGraph().el.isDisplayed()).to.eventually.be.true;
+    expect(capacityPage.metadataGraph().el.isDisplayed()).to.eventually.be.true;
   });
 
   describe('Used Space Graph', function () {
     it('should have the correct badges displayed', function () {
-      expect(capacityPage.usedGraph.count).eventually.toEqual(5);
-      expect(capacityPage.usedGraph.usedCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph.warningThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph.errorThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph.totalCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph.currentState.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().badges.count).to.eventually.equal(5);
+      expect(capacityPage.usedGraph().badges.usedCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().badges.warningThreshold.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().badges.errorThreshold.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().badges.totalCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().badges.currentState.isDisplayed()).to.eventually.be.true;
     });
   });
 
   describe('Provisioned Space Graph', function () {
     it('should have the correct badges displayed', function () {
-      expect(capacityPage.provisionedGraph.count).eventually.toEqual(4);
-      expect(capacityPage.provisionedGraph.maxProvisionedSpace.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.provisionedGraph.warningThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.provisionedGraph.criticalThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.provisionedGraph.currentState.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.provisionedGraph().badges.count).to.eventually.equal(4);
+      expect(capacityPage.provisionedGraph().badges.maxProvisionedSpace.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.provisionedGraph().badges.warningThreshold.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.provisionedGraph().badges.criticalThreshold.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.provisionedGraph().badges.currentState.isDisplayed()).to.eventually.be.true;
     });
   });
 
   describe('Metadata Space Graph', function () {
     it('should have the correct badges displayed', function () {
-      expect(capacityPage.metadataGraph.count).eventually.toEqual(3);
-      expect(capacityPage.metadataGraph.usedCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.metadataGraph.totalCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.metadataGraph.currentState.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.metadataGraph().badges.count).to.eventually.equal(3);
+      expect(capacityPage.metadataGraph().badges.usedCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.metadataGraph().badges.totalCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.metadataGraph().badges.currentState.isDisplayed()).to.eventually.be.true;
     });
   });
 });
