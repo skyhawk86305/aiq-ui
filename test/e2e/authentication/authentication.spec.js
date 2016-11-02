@@ -47,6 +47,10 @@ describe('Login Form', function() {
     loginForm.passwordInput.enter('Password123');
     expect(loginForm.loginButton.el.isEnabled()).to.eventually.be.true;
   });
+
+  it('should have a password input field type of password', function () {
+    expect(loginForm.passwordInput.el.getAttribute('type')).to.eventually.equal('password');
+  });
 });
 
 describe('Navigation with Authentication', function() {
