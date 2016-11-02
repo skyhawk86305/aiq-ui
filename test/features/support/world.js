@@ -8,6 +8,7 @@ var ApiLogComponent = require('../../page-objects/api-log.po');
 var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
 var LoginComponent = require('../../page-objects/login.po');
 var TableComponent = require('../../page-objects/table.po');
+var ComingSoonComponent = require('../../page-objects/coming-soon.po');
 
 function World() {
 
@@ -28,12 +29,14 @@ function World() {
   this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
   this.loginForm = new LoginComponent();
+  this.comingSoonComponent = new ComingSoonComponent();
   this.nodesTable = new TableComponent('node');
   this.drivesTable = new TableComponent('drive');
   this.alertHistoryTable = new TableComponent('alert-history');
   this.alertPolicyTable = new TableComponent('alert-policy');
   this.eventsTable = new TableComponent('event');
   this.errorLogTable = new TableComponent('error-log');
+
 
   this.table = function(type) {
     switch(type) {
