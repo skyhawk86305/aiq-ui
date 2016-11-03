@@ -90,11 +90,16 @@ describe('Navigation with Authentication', function() {
 });
 
 describe('Input default and focus', function() {
-  beforeEach(function() {
-    browser.get('#/login');
+  beforeEach(function(done) {
+    support.logout(done);
+  });
+
+  afterEach(function(done) {
+    support.login(done);
   });
 
   it('should have a default submit', function () {
+    browser.get('#');
     loginForm.passwordInput.enter('password123');
     loginForm.usernameInput.enter('testuser@solidfire.com');
     loginForm.el.submit();
@@ -102,9 +107,10 @@ describe('Input default and focus', function() {
   });
 
   it('should get focus when selected', function () {
-    loginForm.usernameInput.click();
+    browser.get('#');
+    loginForm.usernameInput.enter('test');
     expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('username-input');
-    loginForm.passwordInput.click();
+    loginForm.passwordInput.enter('test2');
     expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('password-input');
   });
 });
