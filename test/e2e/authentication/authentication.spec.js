@@ -9,6 +9,7 @@ var NavbarComponent = require('../../page-objects/navbar.po');
 
 var loginForm = new LoginComponent();
 var navbar = new NavbarComponent();
+var request = require('request');
 
 describe('Login Form', function() {
   beforeEach(function() {
@@ -89,12 +90,17 @@ describe('Navigation with Authentication', function() {
   });
 });
 
-describe('Input default and focus', function() {
-  beforeEach(function() {
-    browser.get('#/login');
+fdescribe('Input default and focus', function() {
+  beforeEach(function(done) {
+    support.logout(done);
+  });
+
+  afterEach(function(done) {
+    support.login(done);
   });
 
   it('should have a default submit', function () {
+    browser.get('#');
     loginForm.passwordInput.enter('password123');
     loginForm.usernameInput.enter('testuser@solidfire.com');
     loginForm.el.submit();
@@ -102,6 +108,7 @@ describe('Input default and focus', function() {
   });
 
   it('should get focus when selected', function () {
+    browser.get('#');
     loginForm.usernameInput.click();
     expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('username-input');
     loginForm.passwordInput.click();
