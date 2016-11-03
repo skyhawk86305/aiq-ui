@@ -90,7 +90,7 @@ describe('Navigation with Authentication', function() {
   });
 });
 
-fdescribe('Input default and focus', function() {
+describe('Input default and focus', function() {
   beforeEach(function(done) {
     support.logout(done);
   });
