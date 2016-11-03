@@ -6,7 +6,6 @@
     .service('UsedSpaceGraphsService', [
       '$http',
       'SFGraphTimeSeriesService',
-      'DataService',
       UsedSpaceGraphsService
     ]);
 
