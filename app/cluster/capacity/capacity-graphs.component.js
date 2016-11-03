@@ -5,18 +5,27 @@
     .module('aiqUi')
     .component('capacityGraphs', {
       templateUrl: 'cluster/capacity/capacity-graphs-section.tpl.html',
-      controller: ['$routeParams', 'UsedSpaceGraphsService', 'ProvisionedSpaceGraphsService', CapacityGraphsController]
+      controller: ['$routeParams', '$filter', 'DataService', 'UsedSpaceGraphsService', 'ProvisionedSpaceGraphsService', CapacityGraphsController]
     });
 
-  function CapacityGraphsController($routeParams, UsedSpaceGraphsService, ProvisionedSpaceGraphsService) {
+  function CapacityGraphsController($routeParams, $filter, DataService, UsedSpaceGraphsService, ProvisionedSpaceGraphsService) {
     var usedSpaceGraphService = UsedSpaceGraphsService,
-        provisionedSpaceGraphService = ProvisionedSpaceGraphsService;
+        provisionedSpaceGraphService = ProvisionedSpaceGraphsService,
+        controller = this;
 
     usedSpaceGraphService.update($routeParams.clusterID);
     provisionedSpaceGraphService.update($routeParams.clusterID);
 
-    this.contextRange = null;
-    this.staticDateRangeOptions = [
+    controller.contextRange = null;
+    controller.blockUsedCapacity = null;
+    controller.blockWarningThreshold = null;
+    controller.blockErrorThreshold = null;
+    controller.blockTotalCapacity = null;
+    controller.blockCurrentState = null;
+    controller.metadataUsedCapacity = null;
+    controller.metadataTotalCapacity = null;
+    controller.metadataCurrentState = null;
+    controller.staticDateRangeOptions = [
       {milliseconds: 86400000, label: 'Last 24 Hours'},
       {milliseconds: 259200000, label: 'Last 3 Days'},
       {milliseconds: 604800000, label: 'Last 7 Days'},
@@ -314,5 +323,18 @@
         }
       }
     ];
+
+    DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID)})
+      .then(function(response) {
+        var result = response.clusterFullThreshold;
+        controller.blockTotalCapacity = parseFloat((result.sumTotalClusterBytes / 1000000000000).toFixed(2));
+        controller.blockUsedCapacity = parseFloat((result.sumUsedClusterBytes / 1000000000000).toFixed(2));
+        controller.metadataTotalCapacity = parseFloat((result.sumTotalMetadataClusterBytes / 1000000000000).toFixed(2));
+        controller.metadataUsedCapacity = parseFloat((result.sumUsedMetadataClusterBytes / 1000000000000).toFixed(2));
+        controller.blockWarningThreshold = parseFloat((result.stage3BlockThresholdBytes / 1000000000000).toFixed(2));
+        controller.blockErrorThreshold = parseFloat((result.stage4BlockThresholdBytes / 1000000000000).toFixed(2));
+        controller.blockCurrentState = $filter('aiqClusterStage')(result.blockFullness);
+        controller.metadataCurrentState = $filter('aiqClusterStage')(result.metadataFullness);
+      });
   }
 })();
