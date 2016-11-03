@@ -5,31 +5,19 @@
     .module('aiqUi')
     .service('ProvisionedSpaceGraphsService', [
       '$http',
+      '$filter',
       'SFGraphTimeSeriesService',
       ProvisionedSpaceGraphsService
     ]);
 
 
-  function ProvisionedSpaceGraphsService($http, SFGraphTimeSeriesService) {
+  function ProvisionedSpaceGraphsService($http, $filter, SFGraphTimeSeriesService) {
     var getProvisionedSpace = function(params) {
       var start = params.start.toISOString(),
-          end = params.end.toISOString(),
-          res = params.resolution / 1000;
-
-      /*if(res <= 60) {
-        res = 60;
-      } else if (res > 60 && res <=3600) {
-        res = 3600;
-      } else if (res > 3600 && res <= 43200) {
-        res = 43200;
-      } else if (res > 43200 && res <= 86400) {
-        res = 86400;
-      } else {
-        res = 2592000;
-      }*/
-
-      //TODO: This is currently the only resolution with data in giraffe. Remove later.
-      res = 3600;
+        end = params.end.toISOString(),
+        res = $filter('graphResolution')(params.resolution, 'provisionedSpace');
+      
+      res = 3600; //TODO: This is currently the only resolution with data in giraffe. Remove later.
 
       return $http.get('/graph/cluster/'+this.selectedClusterID+'/provisionedSpace?start='+start+'&end='+end+'&resolution='+res)
         .then(function(response) {

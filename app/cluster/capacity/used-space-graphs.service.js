@@ -5,31 +5,18 @@
     .module('aiqUi')
     .service('UsedSpaceGraphsService', [
       '$http',
+      '$filter',
       'SFGraphTimeSeriesService',
-      'DataService',
       UsedSpaceGraphsService
     ]);
 
-  function UsedSpaceGraphsService($http, SFGraphTimeSeriesService) {
+  function UsedSpaceGraphsService($http, $filter, SFGraphTimeSeriesService) {
     var getUsedSpace = function(params) {
       var start = params.start.toISOString(),
-          end = params.end.toISOString(),
-          res = params.resolution / 1000;
+        end = params.end.toISOString(),
+        res = $filter('graphResolution')(params.resolution, 'usedSpace');
 
-      /*if(res <= 60) {
-        res = 60;
-      } else if (res > 60 && res <=3600) {
-        res = 3600;
-      } else if (res > 3600 && res <= 43200) {
-        res = 43200;
-      } else if (res > 43200 && res <= 86400) {
-        res = 86400;
-      } else {
-        res = 2592000;
-      }*/
-
-      //TODO: This is currently the only resolution with data in giraffe. Remove later.
-      res = 3600;
+      res = 3600; //TODO: This is currently the only resolution with data in giraffe. Remove later.
 
       return $http.get('/graph/cluster/'+this.selectedClusterID+'/usedSpace?start='+start+'&end='+end+'&resolution='+res)
         .then(function(response) {
