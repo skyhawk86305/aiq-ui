@@ -25,6 +25,8 @@
     controller.metadataUsedCapacity = null;
     controller.metadataTotalCapacity = null;
     controller.metadataCurrentState = null;
+    controller.blockCurrentStateClass = '';
+    controller.metadataCurrentStateClass = '';
     controller.staticDateRangeOptions = [
       {milliseconds: 86400000, label: 'Last 24 Hours'},
       {milliseconds: 259200000, label: 'Last 3 Days'},
@@ -33,7 +35,7 @@
       {milliseconds: 2592000000, label: 'Last 30 Days', default: true}
     ];
 
-    this.syncGraphs = [
+    controller.syncGraphs = [
       {
         service: provisionedSpaceGraphService,
         id: 'sync-graph-1-service',
@@ -335,6 +337,18 @@
         controller.blockErrorThreshold = parseFloat((result.stage4BlockThresholdBytes / 1000000000000).toFixed(2));
         controller.blockCurrentState = $filter('aiqClusterStage')(result.blockFullness);
         controller.metadataCurrentState = $filter('aiqClusterStage')(result.metadataFullness);
+        controller.blockCurrentStateClass = getCurrentStateClass(controller.blockCurrentState);
+        controller.metadataCurrentStateClass = getCurrentStateClass(controller.metadataCurrentState);
       });
+
+    function getCurrentStateClass(state) {
+      switch(state) {
+        case 'Warning': return '-warning';
+        case 'Normal': return '-no-alert';
+        case 'Full': return '-critical';
+        case 'Error': return '-error';
+        default: return '';
+      }
+    }
   }
 })();
