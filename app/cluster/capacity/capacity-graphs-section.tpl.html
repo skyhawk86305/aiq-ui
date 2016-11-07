@@ -4,31 +4,31 @@
   <child-header-1 class="sync-child-header">
     <div class="info-box col-md-3">
       <div id="used-capacity-used-badge" class="info-box-content">
-        <span class="value -x-small">{{$ctrl.blockUsedCapacity}} TB</span>
+        <span class="value -medium">{{$ctrl.blockUsedCapacity}} TB</span>
         <span class="title">Used Capacity</span>
       </div>
     </div>
     <div class="info-box col-md-2">
       <div id="warning-threshold-used-badge" class="info-box-content">
-        <span class="value -x-small">{{$ctrl.blockWarningThreshold}} TB</span>
+        <span class="value -medium">{{$ctrl.blockWarningThreshold}} TB</span>
         <span class="title">Warning Threshold</span>
       </div>
     </div>
     <div class="info-box col-md-2">
       <div id="error-threshold-used-badge" class="info-box-content">
-        <span class="value -x-small">{{$ctrl.blockErrorThreshold}} TB</span>
+        <span class="value -medium">{{$ctrl.blockErrorThreshold}} TB</span>
         <span class="title">Error Threshold</span>
       </div>
     </div>
     <div class="info-box col-md-2">
       <div id="total-capacity-used-badge" class="info-box-content">
-        <span class="value -x-small">{{$ctrl.blockTotalCapacity}} TB</span>
+        <span class="value -medium">{{$ctrl.blockTotalCapacity}} TB</span>
         <span class="title">Total Capacity</span>
       </div>
     </div>
     <div class="info-box col-md-3">
       <div id="current-state-used-badge" class="info-box-content">
-        <span class="value -x-small" ng-class="{'-warning': $ctrl.blockCurrentState === 'Warning', '-no-alert': $ctrl.blockCurrentState === 'Normal', '-critical': $ctrl.blockCurrentState === 'Full', '-error': $ctrl.blockCurrentState === 'Error'}">{{$ctrl.blockCurrentState}}</span>
+        <span class="value -small" ng-class="{'-warning': $ctrl.blockCurrentState === 'Warning', '-no-alert': $ctrl.blockCurrentState === 'Normal', '-critical': $ctrl.blockCurrentState === 'Full', '-error': $ctrl.blockCurrentState === 'Error'}">{{$ctrl.blockCurrentState}}</span>
         <span class="title">Current State</span>
       </div>
     </div>
@@ -36,19 +36,19 @@
   <child-header-2 class="sync-child-header">
     <div class="info-box col-md-4">
       <div id="used-capacity-metadata-badge" class="info-box-content">
-        <span class="value -x-small">{{$ctrl.metadataUsedCapacity}} TB</span>
+        <span class="value -medium">{{$ctrl.metadataUsedCapacity}} TB</span>
         <span class="title">Used Capacity</span>
       </div>
     </div>
     <div class="info-box col-md-4">
       <div id="total-capacity-metadata-badge" class="info-box-content">
-        <span class="value -x-small">{{$ctrl.metadataTotalCapacity}} TB</span>
+        <span class="value -medium">{{$ctrl.metadataTotalCapacity}} TB</span>
         <span class="title">Total Capacity</span>
       </div>
     </div>
     <div class="info-box col-md-4">
       <div id="current-state-metadata-badge" class="info-box-content">
-        <span class="value -x-small" ng-class="{'-warning': $ctrl.metadataCurrentState === 'Warning', '-no-alert': $ctrl.metadataCurrentState === 'Normal', '-critical': $ctrl.metadataCurrentState === 'Full', '-error': $ctrl.metadataCurrentState === 'Error'}">{{$ctrl.metadataCurrentState}}</span>
+        <span class="value -small" ng-class="{'-warning': $ctrl.metadataCurrentState === 'Warning', '-no-alert': $ctrl.metadataCurrentState === 'Normal', '-critical': $ctrl.metadataCurrentState === 'Full', '-error': $ctrl.metadataCurrentState === 'Error'}">{{$ctrl.metadataCurrentState}}</span>
         <span class="title">Current State</span>
       </div>
     </div>

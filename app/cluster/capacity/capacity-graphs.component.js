@@ -40,7 +40,7 @@
         child: {
           title: 'Cluster Provisioned Space',
           id: 'sync-graph-1-service-child',
-          export: true,
+          export: false,
           legend: {
             position: 'top',
             items: {
@@ -232,7 +232,7 @@
         child: {
           title: 'Cluster Metadata Storage Space',
           id: 'sync-graph-3-service-child',
-          export: true,
+          export: false,
           legend: {
             position: 'top',
             items: {

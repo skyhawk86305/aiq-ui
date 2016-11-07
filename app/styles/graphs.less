@@ -1,0 +1,23 @@
+@import 'shared.less';
+
+.sync-child-header > .info-box {
+  height: 100px;
+
+  .info-box-content {
+    .justify-content(flex-end);
+
+    >.title {
+      margin: 0px;
+    }
+
+    >.value {
+      &.-small {
+        margin: -4px 0px;
+      }
+    }
+  }
+}
+
+@less-jumbo-font-size: 36px;
+@jumbo-font-size: 48px;
+@most-jumbo-font-size: 60px;
