@@ -1,13 +1,14 @@
 @import 'shared.less';
 
 .sync-child-header > .info-box {
-  height: 100px;
+  height: 106px;
 
   .info-box-content {
     .justify-content(flex-end);
 
     >.title {
       margin: 0px;
+      color: @core-blue-grey-light;
     }
 
     >.value {
@@ -16,6 +17,10 @@
       }
     }
   }
+}
+
+.-no-right-border {
+  border-right: none;
 }
 
 @less-jumbo-font-size: 36px;
