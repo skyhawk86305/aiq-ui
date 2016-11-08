@@ -4,22 +4,22 @@
   angular
     .module('aiqUi')
     .service('ProvisionedSpaceGraphsService', [
-      '$http',
       '$filter',
+      'DataService',
       'SFGraphTimeSeriesService',
       ProvisionedSpaceGraphsService
     ]);
 
 
-  function ProvisionedSpaceGraphsService($http, $filter, SFGraphTimeSeriesService) {
+  function ProvisionedSpaceGraphsService($filter, DataService,SFGraphTimeSeriesService) {
     var getProvisionedSpace = function(params) {
-      var start = params.start.toISOString(),
-        end = params.end.toISOString(),
-        res = $filter('graphResolution')(params.resolution, 'provisionedSpace');
-      
-      res = 3600; //TODO: This is currently the only resolution with data in giraffe. Remove later.
+      params.clusterID = this.selectedClusterID;
+      params.start = params.start.toISOString();
+      params.end = params.end.toISOString();
+      params.res = $filter('graphResolution')(params.resolution, 'provisionedSpace');
+      params.res = 3600; //TODO: This is currently the only resolution with data in giraffe. Remove later.
 
-      return $http.get('/graph/cluster/'+this.selectedClusterID+'/provisionedSpace?start='+start+'&end='+end+'&resolution='+res)
+      return DataService.callGraphAPI('provisionedSpace', params)
         .then(function(response) {
           var filteredResponse = {};
 

@@ -31,6 +31,22 @@
         });
     };
 
+    dataService.callGraphAPI = function(graph, params) {
+      var graphAPI = '/graph/cluster/' + params.selectedClusterID +
+        '/' + graph +
+        '?start='+ params.start +
+        '&end=' + params.end +
+        '&resolution=' + params.res;
+
+      return $http.get(graphAPI)
+        .catch(function(error) {
+          if (error.status === 401) {
+            $location.path('/login');
+          }
+          return error;
+        });
+    };
+
     return dataService;
   }
 }());

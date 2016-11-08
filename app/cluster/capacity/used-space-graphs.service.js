@@ -4,21 +4,21 @@
   angular
     .module('aiqUi')
     .service('UsedSpaceGraphsService', [
-      '$http',
       '$filter',
+      'DataService',
       'SFGraphTimeSeriesService',
       UsedSpaceGraphsService
     ]);
 
-  function UsedSpaceGraphsService($http, $filter, SFGraphTimeSeriesService) {
+  function UsedSpaceGraphsService($filter, DataService, SFGraphTimeSeriesService) {
     var getUsedSpace = function(params) {
-      var start = params.start.toISOString(),
-        end = params.end.toISOString(),
-        res = $filter('graphResolution')(params.resolution, 'usedSpace');
+      params.clusterID = this.selectedClusterID;
+      params.start = params.start.toISOString();
+      params.end = params.end.toISOString();
+      params.res = $filter('graphResolution')(params.resolution, 'provisionedSpace');
+      params.res = 3600; //TODO: This is currently the only resolution with data in giraffe. Remove later.
 
-      res = 3600; //TODO: This is currently the only resolution with data in giraffe. Remove later.
-
-      return $http.get('/graph/cluster/'+this.selectedClusterID+'/usedSpace?start='+start+'&end='+end+'&resolution='+res)
+      return DataService.callGraphAPI('usedSpace', params)
         .then(function(response) {
           var filteredResponse = {};
 
