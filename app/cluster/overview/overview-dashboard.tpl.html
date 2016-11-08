@@ -1,0 +1,61 @@
+<div class="overview-dashboard-page">
+  <div class="header">
+    <div class="cluster-name">
+      <span>{{$ctrl.clusterName}}</span>
+    </div>
+    <sf-static-date-range-selector class="sf-date-range-selector static-date-selector"
+                                   static-date-range-options="$ctrl.staticDateRangeOptions"
+                                   date-range="$ctrl.contextRange"
+                                   component-id="{{$ctrl.componentId}}-static-date-range-selector"
+                                   on-date-range-change="$ctrl.updateContextRange(dateRange)">
+    </sf-static-date-range-selector>
+  </div>
+  <div class="graph-row">
+    <div class="overview-dashboard-graph">
+      <sf-graph-time-series component-id="time-series-graph-2"
+                            service="$ctrl.lineGraphService"
+                            config="$ctrl.lineGraphConfig"
+                            limit="20"
+                            context-range="$ctrl.contextRange"
+                            title="Movies of the Last Decade"
+                            export="true"
+                            legend="$ctrl.lineGraphLegend">
+      </sf-graph-time-series>
+    </div>
+    <div class="overview-dashboard-graph">
+      <sf-graph-time-series component-id="time-series-graph-2"
+                            service="$ctrl.lineGraphService"
+                            config="$ctrl.lineGraphConfig"
+                            limit="20"
+                            context-range="$ctrl.contextRange"
+                            title="Movies of the Last Decade"
+                            export="true"
+                            legend="$ctrl.lineGraphLegend">
+      </sf-graph-time-series>
+    </div>
+  </div>
+  <div class="row sf-widget">
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="value -medium">$8.61</span>
+        <span class="title">Avg Ticket Price</span>
+      </div>
+    </div>
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="value -medium">$11.3B</span>
+        <span class="title">Movie Theatre Revenue</span>
+      </div>
+    </div>
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="value -medium -no-alert">82%</span>
+        <span class="title">Sully</span>
+      </div>
+    </div>
+  </div>
+  <div class="alerts-table">
+    <sf-table service="$ctrl.alertsTableService"></sf-table>
+  </div>
+
+</div>
