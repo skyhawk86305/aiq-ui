@@ -3,9 +3,13 @@
 
 var expect = require('../support.js').expect;
 var mockBackend = require('../support.js').mockBackend;
+var support = require('../support.js');
 var LoginComponent = require('../../page-objects/login.po');
+var NavbarComponent = require('../../page-objects/navbar.po');
 
 var loginForm = new LoginComponent();
+var navbar = new NavbarComponent();
+var request = require('request');
 
 describe('Login Form', function() {
   beforeEach(function() {
@@ -44,6 +48,10 @@ describe('Login Form', function() {
     loginForm.passwordInput.enter('Password123');
     expect(loginForm.loginButton.el.isEnabled()).to.eventually.be.true;
   });
+
+  it('should have a password input field type of password', function () {
+    expect(loginForm.passwordInput.el.getAttribute('type')).to.eventually.equal('password');
+  });
 });
 
 describe('Navigation with Authentication', function() {
@@ -79,5 +87,31 @@ describe('Navigation with Authentication', function() {
   it('should not let me navigate to an aiq page via URL if I\'m not unauthenticated', function() {
     browser.get('#/dashboard/overview');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/login');
+  });
+});
+
+describe('Input default and focus', function() {
+  beforeEach(function(done) {
+    support.logout(done);
+  });
+
+  afterEach(function(done) {
+    support.login(done);
+  });
+
+  it('should have a default submit', function () {
+    browser.get('#');
+    loginForm.passwordInput.enter('password123');
+    loginForm.usernameInput.enter('testuser@solidfire.com');
+    loginForm.el.submit();
+    expect(navbar.el.isPresent()).to.eventually.be.true;
+  });
+
+  it('should get focus when selected', function () {
+    browser.get('#');
+    loginForm.usernameInput.click();
+    expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('username-input');
+    loginForm.passwordInput.click();
+    expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('password-input');
   });
 });
