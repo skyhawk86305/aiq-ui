@@ -7,13 +7,13 @@
     .justify-content(flex-end);
 
     >.title {
-      margin: 0px;
+      margin: 0;
       color: @core-blue-grey-light;
     }
 
     >.value {
       &.-small {
-        margin: -4px 0px;
+        margin: -4px 0;
       }
     }
   }
@@ -21,6 +21,14 @@
 
 .-no-right-border {
   border-right: none;
+}
+
+.sf-sync-context-graph-container .sf-state-container {
+  height: 150px;
+}
+
+.sf-sync-child-graph-container  .sf-state-container {
+  height: 200px;
 }
 
 @less-jumbo-font-size: 36px;
