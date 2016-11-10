@@ -14,8 +14,11 @@ Feature: Per Single Cluster Overview
     # Do I use a mock cluster for this?
     When I navigate to the "cluster/reporting/overview" page
 
-    Then I see a sf-time-series graph component with "capacity use" data
-    And I see a sf-time-series graph component with "cluster efficiency" data
+    # Cluster performance has IOPS and bandwidth line graphs
+    Then I see a sf-time-series graph component with "cluster performance" data
+
+    # Performance utilization has utilization line graphs
+    And I see a sf-time-series graph component with "performance utilization" data
 
     # Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults
     And I see a sf-widget with "highLevel" stats
