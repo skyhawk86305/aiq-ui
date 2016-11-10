@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('overviewDashboard', {
-      templateUrl: 'cluster/capacity/capacity-graphs-section.tpl.html',
+      templateUrl: 'cluster/overview/overview-dashboard.tpl.html',
       controller: [
         '$routeParams',
         '$filter',
@@ -24,8 +24,8 @@
     ctrl.clusterName = '';
     ctrl.graphs = {
       contextRange: getContextRange(),
+      service: ClusterPerformanceGraphService,
       performance: {
-        service: ClusterPerformanceGraphService,
         graph: null,
         legend: {
           position: 'bottom',
@@ -33,7 +33,6 @@
         }
       },
       utilization: {
-        service: ClusterPerformanceGraphService,
         graph: null,
         legend: {
           position: 'bottom',
@@ -45,7 +44,7 @@
     ctrl.alertsTableService = AlertTableService;
 
     ctrl.$onInit = function() {
-      ctrl.clusterPerformanceGraph.service.update($routeParams.clusterID);
+      ctrl.graphs.service.update($routeParams.clusterID);
       ctrl.alertsTableService.update($routeParams.clusterID);
 
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
@@ -58,15 +57,17 @@
         });
 
       function initializeGraphs() {
-        Object.keys(ctrl.graphs).forEach(function(key) {
-          ctrl.graphs[key].graph = new SFD3LineGraph(graphConfigs[key]);
-        });
-        ctrl.graphs.utilization.legend.items[$routeParams.clusterID] = ctrl.clusterName;
+        ctrl.graphs.performance.graph = new SFD3LineGraph(graphConfigs.performance);
+        ctrl.graphs.utilization.graph = new SFD3LineGraph(graphConfigs.utilization);
+        ctrl.graphs.utilization.legend.items = {
+          utilization: 'Utilization'
+        };
         ctrl.graphs.performance.legend.items = {
           iops: 'IOPS',
           bandwidth: 'Bandwidth'
         };
       }
+
       function setInfobarData(clusterData) {
         ctrl.clusterInfoBar = {
           nodeCount: clusterData.result,
@@ -82,21 +83,29 @@
 
     function getGraphConfigs() {
       var graphConfigs = {
-        capacityUse: {},
-        clusterPerformance: {}
+        performance: {},
+        utilization: {}
       };
-      graphConfigs.capacityUse = {
-        bindTo: 'capacity-use-graph',
+
+      graphConfigs.utilization = {
+        bindTo: 'performance-utilization-graph',
         type: 'line',
-        height: 200,
-        showAxisLabels: true,
+        showAxisLabels: false,
         data: {
           x: 'timestampSec',
-          ids: [$routeParams.clusterID],
-          axes: {},
-          labels: {},
-          colors: {},
-          textures: {}
+          ids: ['utilization'],
+          axes: {
+            utilization: 'y0',
+          },
+          labels: {
+            utilization: 'Utilization'
+          },
+          colors: {
+            utilization: ['#13CCE8']
+          },
+          textures: {
+            utilization: ['solid']
+          }
         },
         axis: {
           x: {
@@ -106,38 +115,33 @@
             }
           },
           y0: {
-            label: 'TB',
+            label: 'Utilization',
             tick: {
-              format: '.2',
+              format: '.3',
               spacing: 30
             }
           }
         }
       };
-      graphConfigs.capacityUse.data.axes[$routeParams.clusterID] = 'y0';
-      graphConfigs.capacityUse.data.labels[$routeParams.clusterID] = ctrl.clusterName;
-      graphConfigs.capacityUse.data.colors[$routeParams.clusterID] = '#00A7C6';
-      graphConfigs.capacityUse.data.textures[$routeParams.clusterID] = ['solid'];
 
-      graphConfigs.clusterPerformance = {
+      graphConfigs.performance = {
         bindTo: 'cluster-performance-graph',
         type: 'line',
-        height: 200,
-        showAxisLabels: true,
+        showAxisLabels: false,
         data: {
           x: 'timestampSec',
           ids: ['iops', 'bandwidth'],
           axes: {
             iops: 'y0',
-            bandwidth: 'y0'
+            bandwidth: 'y1'
           },
           labels: {
             iops: 'IOPS',
             bandwidth: 'Bandwidth'
           },
           colors: {
-            iops: ['#ff0000'],
-            bandwidth: ['#10E8A5']
+            iops: ['#8372B5'],
+            bandwidth: ['#FFCC75']
           },
           textures: {
             iops: ['solid'],
@@ -152,7 +156,14 @@
             }
           },
           y0: {
-            label: 'TB',
+            label: 'IOPS',
+            tick: {
+              format: '.3',
+              spacing: 30
+            }
+          },
+          y1: {
+            label: 'Bandwidth',
             tick: {
               format: '.3',
               spacing: 30
@@ -166,7 +177,7 @@
       var now = Date.now(),
         fiveDaysMilliseconds = 432000000,
         range = {};
-        
+
       range.start = new Date(now - fiveDaysMilliseconds);
       range.end = new Date(now);
       return range;
