@@ -32,7 +32,7 @@
     };
 
     dataService.callGraphAPI = function(graph, params) {
-      var graphAPI = '/graph/cluster/' + params.selectedClusterID +
+      var graphAPI = '/graph/cluster/' + params.clusterID +
         '/' + graph +
         '?start='+ params.start +
         '&end=' + params.end +
