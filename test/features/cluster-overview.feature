@@ -24,5 +24,5 @@ Feature: Per Single Cluster Overview
     And I see a sf-widget with "highLevel" stats
     And the sf-widget contains "Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults"
 
-    And I see a SolidFire table with "activeIQAlert" data
-    And The "activeIQAlert" table contains columns: "Alert Triggered, Last Notified, Resolved, Policy Name, Severity, Alert Value, Destination, Alert Condition"
+    And I see a SolidFire table with "activeIQAlerts" data
+    And The "activeIQAlerts" table contains columns: "Alert Triggered, Last Notified, Resolved, Policy Name, Severity, Alert Value, Destination, Alert Condition"

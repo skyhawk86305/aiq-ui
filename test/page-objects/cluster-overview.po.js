@@ -1,43 +1,44 @@
 'use strict';
 
-var ClusterOverviewDashboardComponent = function () {
-  var component = this,
-      performanceGraph,
+var ClusterOverviewComponent = function () {
+  var performanceGraph,
       performanceUtilizationGraph,
       infoBar;
 
-  component.el = element(by.tagName('overview-dashboard-page'));
+  this.el = element(by.css("overview-dashboard-page"));
 
-  component.performanceGraph = function () {
-    performanceGraph = element(by.id('sync-graph-1-service'));
+  this.performanceGraph = function () {
+    performanceGraph = element(by.css("sf-graph-time-series[component-id=performance-graph]"));
     return {
       el: performanceGraph
     };
   };
-  component.performanceUtilizationGraph = function () {
-    performanceUtilizationGraph = element(by.id('sync-graph-2-service'));
+  this.performanceUtilizationGraph = function () {
+    performanceUtilizationGraph = element(by.css("sf-graph-time-series[component-id=utilization-graph]"));
     return {
       el: performanceUtilizationGraph
     };
   };
-  component.infoBar = function () {
-    infoBar = element(by.id('sync-graph-3-service'));
+  this.infoBar = function () {
+    infoBar = element(by.id('.sf-widget.info-bar'));
     return {
       el: infoBar,
       badges: {
-        count: usedGraph.all(by.css('.info-box-content')).count(),
-        blockCapacity: usedGraph.element(by.id('used-capacity-used-badge')),
-        metadataCapacity: usedGraph.element(by.id('warning-threshold-used-badge')),
-        efficiency: usedGraph.element(by.id('error-threshold-used-badge')),
-        utilization: usedGraph.element(by.id('total-capacity-used-badge')),
-        iops: usedGraph.element(by.id('current-state-used-badge')),
-        bandwidth: usedGraph.element(by.id('current-state-used-badge')),
-        // HOW TO HANDLE @ BADGES IN A BADGE CONTAINER
-        iops: usedGraph.element(by.id('current-state-used-badge')),
-        iops: usedGraph.element(by.id('current-state-used-badge'))
+        // Badge count = 8 (badges within clusterFault badge container not counted)
+        count: infoBar.all(by.css(".info-box-content")).count(),
+        nodeCount: infoBar.all(by.css(".info-box-content.-node-count")),
+        blockCapacity: infoBar.element(by.css(".info-box-content.-block-capacity")),
+        metadataCapacity: infoBar.element(by.css(".info-box-content.-metadata-capacity")),
+        efficiency: infoBar.element(by.css(".info-box-content.-efficiency")),
+        utilization: infoBar.element(by.css(".info-box-content.-utilization")),
+        iops: infoBar.element(by.css(".info-box-content.-iops")),
+        bandwidth: infoBar.element(by.css(".info-box-content.-bandwidth")),
+        clusterFaults: infoBar.element(by.css(".info-box-content.-clusterFaults")),
+        clusterFaultWarning: infoBar.element(by.css(".-clusterFaults > .badge-container > .-warning")),
+        clusterFaultError: infoBar.element(by.css(".-clusterFaults > .badge-container > .-warning"))
       }
     };
   };
 };
 
-module.exports = ClusterOverviewDashboardComponent;
+module.exports = ClusterOverviewComponent;

@@ -9,6 +9,7 @@ var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
 var LoginComponent = require('../../page-objects/login.po');
 var TableComponent = require('../../page-objects/table.po');
 var ComingSoonComponent = require('../../page-objects/coming-soon.po');
+var ClusterOverviewComponent = require('../../page-objects/cluster-overview.po.js');
 
 function World() {
 
@@ -29,6 +30,7 @@ function World() {
   this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
   this.loginForm = new LoginComponent();
+  this.clusterOverview = ClusterOverviewComponent();
   this.comingSoonComponent = new ComingSoonComponent();
   this.nodesTable = new TableComponent('node');
   this.drivesTable = new TableComponent('drive');
