@@ -11,27 +11,28 @@
         'DataService',
         'ClusterPerformanceGraphService',
         'CapacityUseGraphService',
-        'AlertsTableService',
+        'AlertTableService',
         'SFD3LineGraph',
         OverviewDashboardController
       ]
     });
 
-  function OverviewDashboardController($routeParams, $filter, DataService, ClusterPerformanceGraphService, CapacityUseGraphService, AlertsTableService, SFD3LineGraph) {
+  function OverviewDashboardController($routeParams, $filter, DataService, ClusterPerformanceGraphService, CapacityUseGraphService, AlertTableService, SFD3LineGraph) {
     var ctrl = this,
         graphConfigs = getGraphConfigs();
 
     ctrl.clusterName = '';
     ctrl.graphs = {
-      capacityUse: {
-        service: CapacityUseGraphService,
+      contextRange: getContextRange(),
+      performance: {
+        service: ClusterPerformanceGraphService,
         graph: null,
         legend: {
           position: 'bottom',
           items: {}
         }
       },
-      clusterPerformance: {
+      utilization: {
         service: ClusterPerformanceGraphService,
         graph: null,
         legend: {
@@ -40,22 +41,12 @@
         }
       }
     };
-    ctrl.staticDateRanges = [
-      {milliseconds: 86400000, label: 'Last 24 Hours'},
-      {milliseconds: 432000000, label: 'Last 5 Days'},
-      {milliseconds: 604800000, label: 'Last 7 Days'},
-      {milliseconds: 1209600000, label: 'Last 14 Days'},
-      {milliseconds: 2592000000, label: 'Last 30 Days', default: true}
-    ];
     ctrl.clusterInfoBar = {};
-    ctrl.alertsTable = { //do we want to keep this as an object for consistency sake or ? 
-      service: AlertsTableService
-    };
+    ctrl.alertsTableService = AlertTableService;
 
     ctrl.$onInit = function() {
       ctrl.clusterPerformanceGraph.service.update($routeParams.clusterID);
-      ctrl.capacityUseGraphService.service.update($routeParams.clusterID);
-      ctrl.alertsTable.service.update($routeParams.clusterID);
+      ctrl.alertsTableService.update($routeParams.clusterID);
 
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
         .then(function(response) {
@@ -70,8 +61,8 @@
         Object.keys(ctrl.graphs).forEach(function(key) {
           ctrl.graphs[key].graph = new SFD3LineGraph(graphConfigs[key]);
         });
-        ctrl.graphs.capacityUse.legend.items[$routeParams.clusterID] = ctrl.clusterName;
-        ctrl.graphs.clusterPerformance.legend.items = {
+        ctrl.graphs.utilization.legend.items[$routeParams.clusterID] = ctrl.clusterName;
+        ctrl.graphs.performance.legend.items = {
           iops: 'IOPS',
           bandwidth: 'Bandwidth'
         };
@@ -101,7 +92,11 @@
         showAxisLabels: true,
         data: {
           x: 'timestampSec',
-          ids: [$routeParams.clusterID]
+          ids: [$routeParams.clusterID],
+          axes: {},
+          labels: {},
+          colors: {},
+          textures: {}
         },
         axis: {
           x: {
@@ -167,5 +162,14 @@
       };
     }
 
+    function getContextRange() {
+      var now = Date.now(),
+        fiveDaysMilliseconds = 432000000,
+        range = {};
+        
+      range.start = new Date(now - fiveDaysMilliseconds);
+      range.end = new Date(now);
+      return range;
+    }
   }
 })();

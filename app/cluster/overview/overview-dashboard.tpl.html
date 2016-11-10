@@ -1,61 +1,104 @@
 <div class="overview-dashboard-page">
-  <div class="header">
-    <div class="cluster-name">
-      <span>{{$ctrl.clusterName}}</span>
-    </div>
-    <sf-static-date-range-selector class="sf-date-range-selector static-date-selector"
-                                   static-date-range-options="$ctrl.staticDateRangeOptions"
-                                   date-range="$ctrl.contextRange"
-                                   component-id="{{$ctrl.componentId}}-static-date-range-selector"
-                                   on-date-range-change="$ctrl.updateContextRange(dateRange)">
-    </sf-static-date-range-selector>
+  <div class="cluster-name">
+    <span>{{$ctrl.clusterName}}</span>
   </div>
   <div class="graph-row">
     <div class="overview-dashboard-graph">
-      <sf-graph-time-series component-id="time-series-graph-2"
-                            service="$ctrl.lineGraphService"
-                            config="$ctrl.lineGraphConfig"
+      <sf-graph-time-series component-id="cluster-performance-graph"
+                            service="$ctrl.graphs.performance.service"
+                            graph="$ctrl.performance.graph"
                             limit="20"
-                            context-range="$ctrl.contextRange"
-                            title="Movies of the Last Decade"
-                            export="true"
-                            legend="$ctrl.lineGraphLegend">
+                            context-range="$ctrl.graphs.contextRange"
+                            title="Cluster Performance"
+                            legend="$ctrl.graphs.performance.legend">
       </sf-graph-time-series>
     </div>
     <div class="overview-dashboard-graph">
-      <sf-graph-time-series component-id="time-series-graph-2"
-                            service="$ctrl.lineGraphService"
-                            config="$ctrl.lineGraphConfig"
+      <sf-graph-time-series component-id="cluster-performance-graph"
+                            service="$ctrl.graphs.utilization.service"
+                            graph="$ctrl.utilization.graph"
                             limit="20"
-                            context-range="$ctrl.contextRange"
-                            title="Movies of the Last Decade"
-                            export="true"
-                            legend="$ctrl.lineGraphLegend">
+                            context-range="$ctrl.graphs.contextRange"
+                            title="Performance Utilization"
+                            legend="$ctrl.graphs.utilization.legend">
       </sf-graph-time-series>
     </div>
   </div>
   <div class="row sf-widget">
     <div class="info-box col-md-4">
       <div class="info-box-content">
-        <span class="value -medium">$8.61</span>
-        <span class="title">Avg Ticket Price</span>
+        <span class="title">Nodes</span>
+        <span class="value -medium">{{$ctrl.clusterInfoBar.nodeCount}}</span>
       </div>
     </div>
     <div class="info-box col-md-4">
       <div class="info-box-content">
-        <span class="value -medium">$11.3B</span>
-        <span class="title">Movie Theatre Revenue</span>
+        <span class="title">Block Capacity</span>
+        <div class="badge-container">
+          <div class="badge"
+               ng-class="{'-warning' : $ctrl.clusterInfoBar.blockCapacity === 'warning',
+                          '-normal'  : $ctrl.clusterInfoBar.blockCapacity === 'normal',
+                          '-critical : $ctrl.clusterInfoBar.blockCapacity === 'error'}">
+            <span class="title">{{$ctrl.clusterInfoBar.blockCapacity}}</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="info-box col-md-4">
       <div class="info-box-content">
-        <span class="value -medium -no-alert">82%</span>
-        <span class="title">Sully</span>
+        <span class="title">Metadata Capacity</span>
+        <div class="badge-container">
+          <div class="badge"
+               ng-class="{'-warning' : $ctrl.clusterInfoBar.metadataCapacity === 'warning',
+                          '-normal'  : $ctrl.clusterInfoBar.metadataCapacity === 'normal',
+                          '-critical : $ctrl.clusterInfoBar.metadataCapacity === 'error'}">
+            <span class="title">{{$ctrl.clusterInfoBar.metadataCapacity}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="title">Efficiency</span>
+        <span class="value -medium">{{$ctrl.clusterInfoBar.efficiency}}</span>
+      </div>
+    </div>
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="title">Utilization</span>
+        <span class="value -medium">{{$ctrl.clusterInfoBar.utilization}}</span>
+      </div>
+    </div>
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="title">IOPS</span>
+        <span class="value -medium">{{$ctrl.clusterInfoBar.iops}}</span>
+      </div>
+    </div>
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="title">Bandwidth</span>
+        <span class="value -medium">{{$ctrl.clusterInfoBar.bandwidth}}</span>
+      </div>
+    </div>
+    <div class="info-box col-md-4">
+      <div class="info-box-content">
+        <span class="title">Cluster Faults</span>
+        <div class="badge-container">
+          <div class="badge -warning">
+            <span class="value">{{$ctrl.clusterInfoBar.clusterFaults.warning}}</span>
+            <span class="title">Warning</span>
+          </div>
+          <div class="badge -critical">
+            <span class="value">{{$ctrl.clusterInfoBar.clusterFaults.error}}</span>
+            <span class="title">Error</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="alerts-table">
-    <sf-table service="$ctrl.alertsTableService"></sf-table>
+    <sf-table service="$ctrl.alertsTableService" table-id="alerts-table"></sf-table>
   </div>
 
 </div>

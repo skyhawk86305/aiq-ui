@@ -59,7 +59,7 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/overview', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
       })
       .when('/cluster/:clusterID/reporting/capacity', {
         template: '<capacity-graphs class="sf-layout-block"></capacity-graphs>',
