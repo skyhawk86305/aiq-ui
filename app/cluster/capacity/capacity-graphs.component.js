@@ -5,29 +5,30 @@
     .module('aiqUi')
     .component('capacityGraphs', {
       templateUrl: 'cluster/capacity/capacity-graphs-section.tpl.html',
-      controller: ['$routeParams', '$filter', 'DataService', 'UsedSpaceGraphsService', 'ProvisionedSpaceGraphsService', CapacityGraphsController]
+      controller: [
+        '$routeParams',
+        '$filter',
+        'DataService',
+        'SFD3LineGraph',
+        'SFD3BarGraph',
+        'UsedSpaceGraphsService',
+        'ProvisionedSpaceGraphsService',
+        CapacityGraphsController
+      ]
     });
 
-  function CapacityGraphsController($routeParams, $filter, DataService, UsedSpaceGraphsService, ProvisionedSpaceGraphsService) {
-    var usedSpaceGraphService = UsedSpaceGraphsService,
-        provisionedSpaceGraphService = ProvisionedSpaceGraphsService,
-        controller = this;
+  function CapacityGraphsController($routeParams, $filter, DataService, SFD3LineGraph, SFD3BarGraph, UsedSpaceGraphsService, ProvisionedSpaceGraphsService) {
+    var ctrl = this;
 
-    usedSpaceGraphService.update($routeParams.clusterID);
-    provisionedSpaceGraphService.update($routeParams.clusterID);
+    ctrl.$onInit = function() {
+      UsedSpaceGraphsService.update($routeParams.clusterID);
+      ProvisionedSpaceGraphsService.update($routeParams.clusterID);
 
-    controller.contextRange = null;
-    controller.blockUsedCapacity = null;
-    controller.blockWarningThreshold = null;
-    controller.blockErrorThreshold = null;
-    controller.blockTotalCapacity = null;
-    controller.blockCurrentState = null;
-    controller.metadataUsedCapacity = null;
-    controller.metadataTotalCapacity = null;
-    controller.metadataCurrentState = null;
-    controller.blockCurrentStateClass = '';
-    controller.metadataCurrentStateClass = '';
-    controller.staticDateRangeOptions = [
+      DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID)})
+        .then(function(response) { ctrl.clusterFullThreshold = response.clusterFullThreshold; });
+    };
+
+    ctrl.staticDateRangeOptions = [
       {milliseconds: 86400000, label: 'Last 24 Hours'},
       {milliseconds: 259200000, label: 'Last 3 Days'},
       {milliseconds: 604800000, label: 'Last 7 Days'},
@@ -35,9 +36,9 @@
       {milliseconds: 2592000000, label: 'Last 30 Days', default: true}
     ];
 
-    controller.syncGraphs = [
+    ctrl.syncGraphs = [
       {
-        service: provisionedSpaceGraphService,
+        service: ProvisionedSpaceGraphsService,
         id: 'sync-graph-1-service',
         child: {
           title: 'Cluster Provisioned Space',
@@ -50,10 +51,9 @@
               provisionedSpace: 'Provisioned Space'
             }
           },
-          config: {
+          graph: new SFD3LineGraph({
             bindTo: 'cluster-provisioned-child',
             type: 'line',
-            height: 200,
             showAxisLabels: true,
             data: {
               x: 'timestampSec',
@@ -83,27 +83,25 @@
             axis: {
               x: {
                 tick: {
-                  format: '%m-%d-%Y',
+                  format: xAxisFormat,
                   spacing: 200
                 }
               },
               y0: {
-                label: 'TB',
                 tick: {
-                  format: '.3',
+                  format: yAxisFormat,
                   spacing: 30
                 }
               }
             }
-          }
+          })
         },
         context: {
           label: 'Cluster Provisioned Space',
           id: 'sync-graph-1-context',
-          config: {
+          graph: new SFD3BarGraph({
             bindTo: 'cluster-provisioned-context',
             type: 'bar',
-            height: 120,
             showAxisLabel: true,
             data: {
               x: 'timestampSec',
@@ -113,27 +111,27 @@
             margin: {
               top: 15,
               right: 10,
-              left: 25
+              left: 50
             },
             axis: {
               x: {
                 tick: {
-                  format: '%m-%d-%Y',
+                  format: xAxisFormat,
                   spacing: 150
                 }
               },
               y0: {
                 tick: {
-                  format: '.2',
+                  format: yAxisFormat,
                   spacing: 25
                 }
               }
             }
-          }
+          })
         }
       },
       {
-        service: usedSpaceGraphService,
+        service: UsedSpaceGraphsService,
         id: 'sync-graph-2-service',
         child: {
           title: 'Cluster Block Capacity',
@@ -146,10 +144,9 @@
               usedSpace: 'Used Space'
             }
           },
-          config: {
+          graph: new SFD3LineGraph({
             bindTo: 'cluster-block-child',
             type: 'line',
-            height: 200,
             showAxisLabels: true,
             data: {
               x: 'timestampSec',
@@ -179,27 +176,25 @@
             axis: {
               x: {
                 tick: {
-                  format: '%m-%d-%Y',
+                  format: xAxisFormat,
                   spacing: 200
                 }
               },
               y0: {
-                label: 'TB',
                 tick: {
-                  format: '.2',
+                  format: yAxisFormat,
                   spacing: 30
                 }
               }
             }
-          }
+          })
         },
         context: {
           label: 'Block Capacity',
           id: 'sync-graph-2-context',
-          config: {
+          graph: new SFD3BarGraph({
             bindTo: 'cluster-block-context',
             type: 'bar',
-            height: 120,
             showAxisLabel: true,
             data: {
               x: 'timestampSec',
@@ -209,27 +204,27 @@
             margin: {
               top: 15,
               right: 10,
-              left: 25
+              left: 50
             },
             axis: {
               x: {
                 tick: {
-                  format: '%m-%d-%Y',
+                  format: xAxisFormat,
                   spacing: 150
                 }
               },
               y0: {
                 tick: {
-                  format: '.2',
+                  format: yAxisFormat,
                   spacing: 25
                 }
               }
             }
-          }
+          })
         }
       },
       {
-        service: usedSpaceGraphService,
+        service: UsedSpaceGraphsService,
         id: 'sync-graph-3-service',
         child: {
           title: 'Cluster Metadata Storage Space',
@@ -242,10 +237,9 @@
               usedMetadataSpace: 'Used Metadata Space'
             }
           },
-          config: {
+          graph: new SFD3LineGraph({
             bindTo: 'cluster-metadata-child',
             type: 'line',
-            height: 200,
             showAxisLabels: true,
             data: {
               x: 'timestampSec',
@@ -275,27 +269,25 @@
             axis: {
               x: {
                 tick: {
-                  format: '%m-%d-%Y',
+                  format: xAxisFormat,
                   spacing: 200
                 }
               },
               y0: {
-                label: 'TB',
                 tick: {
-                  format: '.2',
+                  format: yAxisFormat,
                   spacing: 30
                 }
               }
             }
-          }
+          })
         },
         context: {
           label: 'Metadata Capacity',
           id: 'sync-graph-3-context',
-          config: {
+          graph: new SFD3BarGraph({
             bindTo: 'cluster-metadata-context',
             type: 'bar',
-            height: 120,
             showAxisLabel: true,
             data: {
               x: 'timestampSec',
@@ -305,50 +297,35 @@
             margin: {
               top: 15,
               right: 10,
-              left: 25
+              left: 50
             },
             axis: {
               x: {
                 tick: {
-                  format: '%m-%d-%Y',
+                  format: xAxisFormat,
                   spacing: 150
                 }
               },
               y0: {
                 tick: {
-                  format: '.2',
+                  format: yAxisFormat,
                   spacing: 25
                 }
               }
             }
-          }
+          })
         }
       }
     ];
 
-    DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID)})
-      .then(function(response) {
-        var result = response.clusterFullThreshold;
-        controller.blockTotalCapacity = parseFloat((result.sumTotalClusterBytes / 1000000000000).toFixed(2));
-        controller.blockUsedCapacity = parseFloat((result.sumUsedClusterBytes / 1000000000000).toFixed(2));
-        controller.metadataTotalCapacity = parseFloat((result.sumTotalMetadataClusterBytes / 1000000000000).toFixed(2));
-        controller.metadataUsedCapacity = parseFloat((result.sumUsedMetadataClusterBytes / 1000000000000).toFixed(2));
-        controller.blockWarningThreshold = parseFloat((result.stage3BlockThresholdBytes / 1000000000000).toFixed(2));
-        controller.blockErrorThreshold = parseFloat((result.stage4BlockThresholdBytes / 1000000000000).toFixed(2));
-        controller.blockCurrentState = $filter('aiqClusterStage')(result.blockFullness);
-        controller.metadataCurrentState = $filter('aiqClusterStage')(result.metadataFullness);
-        controller.blockCurrentStateClass = getCurrentStateClass(controller.blockCurrentState);
-        controller.metadataCurrentStateClass = getCurrentStateClass(controller.metadataCurrentState);
-      });
+    /***********************  Helper Functions  ************************/
 
-    function getCurrentStateClass(state) {
-      switch(state) {
-        case 'Warning': return '-warning';
-        case 'Normal': return '-no-alert';
-        case 'Full': return '-critical';
-        case 'Error': return '-error';
-        default: return '';
-      }
+    function xAxisFormat(seconds) {
+      return $filter('date')(new Date(seconds*1000), 'short');
+    }
+
+    function yAxisFormat(bytes) {
+      return $filter('bytes')(bytes, false, 0, false);
     }
   }
 })();
