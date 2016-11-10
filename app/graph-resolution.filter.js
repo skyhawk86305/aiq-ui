@@ -10,8 +10,7 @@
       var resolutionSec = resolutionMS / 1000;
 
       switch (graph) {
-        case 'provisionedSpace':    return getClusterCapacity(resolutionSec);
-        case 'usedSpace':           return getClusterCapacity(resolutionSec);
+        case 'capacity':            return getClusterCapacity(resolutionSec);
         case 'efficiency':          return getClusterCapacity(resolutionSec);
         case 'activeISCSISessions': return getClusterCapacity(resolutionSec);
         case 'iops':                return getClusterStats(resolutionSec);
@@ -22,7 +21,7 @@
         default: return resolutionSec;
       }
     };
-    
+
     function getClusterStats(resolutionSec) {
       switch (true) {
         case resolutionSec <= 10:    return 10;

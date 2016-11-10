@@ -62,11 +62,7 @@ describe('Capacity Page Graphs', function () {
 
   describe('Provisioned Space Graph', function () {
     it('should have the correct badges displayed', function () {
-      expect(capacityPage.provisionedGraph().badges.count).to.eventually.equal(4);
-      expect(capacityPage.provisionedGraph().badges.maxProvisionedSpace.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.provisionedGraph().badges.warningThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.provisionedGraph().badges.criticalThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.provisionedGraph().badges.currentState.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.provisionedGraph().badges.count).to.eventually.equal(0);
     });
   });
 

@@ -4,8 +4,7 @@ describe('Graph Resolution Filter', function () {
   beforeEach(module('aiqUi'));
 
   it('should user the appropriate bucketing method for a given graph', inject(function ($filter) {
-    expect($filter('graphResolution')(0, 'provisionedSpace')).toEqual(300);
-    expect($filter('graphResolution')(0, 'usedSpace')).toEqual(300);
+    expect($filter('graphResolution')(0, 'capacity')).toEqual(300);
     expect($filter('graphResolution')(0, 'efficiency')).toEqual(300);
     expect($filter('graphResolution')(0, 'activeISCSISessions')).toEqual(300);
     expect($filter('graphResolution')(0, 'iops')).toEqual(10);
@@ -43,15 +42,15 @@ describe('Graph Resolution Filter', function () {
   }));
 
   it('should return the bucket a given resolution falls into for a given method', inject(function ($filter) {
-    expect($filter('graphResolution')(0, 'usedSpace')).toEqual(300);
-    expect($filter('graphResolution')(301000, 'usedSpace')).toEqual(600);
-    expect($filter('graphResolution')(601000, 'usedSpace')).toEqual(1200);
-    expect($filter('graphResolution')(1201000, 'usedSpace')).toEqual(3600);
-    expect($filter('graphResolution')(3601000, 'usedSpace')).toEqual(7200);
-    expect($filter('graphResolution')(7201000, 'usedSpace')).toEqual(14400);
-    expect($filter('graphResolution')(14401000, 'usedSpace')).toEqual(28800);
-    expect($filter('graphResolution')(28801000, 'usedSpace')).toEqual(43200);
-    expect($filter('graphResolution')(43201000, 'usedSpace')).toEqual(86400);
+    expect($filter('graphResolution')(0, 'capacity')).toEqual(300);
+    expect($filter('graphResolution')(301000, 'capacity')).toEqual(600);
+    expect($filter('graphResolution')(601000, 'capacity')).toEqual(1200);
+    expect($filter('graphResolution')(1201000, 'capacity')).toEqual(3600);
+    expect($filter('graphResolution')(3601000, 'capacity')).toEqual(7200);
+    expect($filter('graphResolution')(7201000, 'capacity')).toEqual(14400);
+    expect($filter('graphResolution')(14401000, 'capacity')).toEqual(28800);
+    expect($filter('graphResolution')(28801000, 'capacity')).toEqual(43200);
+    expect($filter('graphResolution')(43201000, 'capacity')).toEqual(86400);
   }));
 
   it('should return the bucket a given resolution falls into for a given method', inject(function ($filter) {

@@ -11,18 +11,16 @@
         'DataService',
         'SFD3LineGraph',
         'SFD3BarGraph',
-        'UsedSpaceGraphsService',
-        'ProvisionedSpaceGraphsService',
+        'CapacityGraphsService',
         CapacityGraphsController
       ]
     });
 
-  function CapacityGraphsController($routeParams, $filter, DataService, SFD3LineGraph, SFD3BarGraph, UsedSpaceGraphsService, ProvisionedSpaceGraphsService) {
+  function CapacityGraphsController($routeParams, $filter, DataService, SFD3LineGraph, SFD3BarGraph, CapacityGraphsService) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
-      UsedSpaceGraphsService.update($routeParams.clusterID);
-      ProvisionedSpaceGraphsService.update($routeParams.clusterID);
+      CapacityGraphsService.update($routeParams.clusterID);
 
       DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID)})
         .then(function(response) { ctrl.clusterFullThreshold = response.clusterFullThreshold; });
@@ -38,7 +36,7 @@
 
     ctrl.syncGraphs = [
       {
-        service: ProvisionedSpaceGraphsService,
+        service: CapacityGraphsService,
         id: 'sync-graph-1-service',
         child: {
           title: 'Cluster Provisioned Space',
@@ -131,7 +129,7 @@
         }
       },
       {
-        service: UsedSpaceGraphsService,
+        service: CapacityGraphsService,
         id: 'sync-graph-2-service',
         child: {
           title: 'Cluster Block Capacity',
@@ -224,7 +222,7 @@
         }
       },
       {
-        service: UsedSpaceGraphsService,
+        service: CapacityGraphsService,
         id: 'sync-graph-3-service',
         child: {
           title: 'Cluster Metadata Storage Space',

@@ -10,8 +10,7 @@ describe('Component: capacityGraphs', function() {
     apiFailure,
     locals,
     service,
-    provisionedService,
-    usedService;
+    capacityService;
 
 
   beforeEach(module('aiqUi', function ($provide) {
@@ -20,23 +19,20 @@ describe('Component: capacityGraphs', function() {
   }));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $q, $componentController, $routeParams, DataService, ProvisionedSpaceGraphsService, UsedSpaceGraphsService) {
+  beforeEach(inject(function($rootScope, $q, $componentController, $routeParams, DataService, CapacityGraphsService) {
     scope = $rootScope;
     deferred = $q.defer();
     dataService = DataService;
     routeParams = $routeParams;
     routeParams.clusterID = '1';
-    provisionedService = ProvisionedSpaceGraphsService;
-    usedService = UsedSpaceGraphsService;
+    capacityService = CapacityGraphsService;
     service = DataService;
     locals = {
       $routeParams: routeParams,
       DataService: dataService,
-      UsedSpaceGraphsService: usedService,
-      ProvisionedSpaceGraphsService: provisionedService
+      CapacityGraphsService: capacityService
     };
-    spyOn(provisionedService, 'update');
-    spyOn(usedService, 'update');
+    spyOn(capacityService, 'update');
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
     controller = $componentController('capacityGraphs', locals);
   }));
@@ -51,8 +47,7 @@ describe('Component: capacityGraphs', function() {
   describe('.$onInit', function() {
     it('should update the provisioned and used graphs services with the clusterID from the route', function() {
       controller.$onInit();
-      expect(provisionedService.update).toHaveBeenCalledWith(routeParams.clusterID);
-      expect(usedService.update).toHaveBeenCalledWith(routeParams.clusterID);
+      expect(capacityService.update).toHaveBeenCalledWith(routeParams.clusterID);
     });
 
     describe('DataService', function () {
