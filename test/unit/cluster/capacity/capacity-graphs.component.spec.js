@@ -6,25 +6,18 @@ describe('Component: capacityGraphs', function() {
     dataService,
     controller,
     deferred,
-    apiResponse = {
-      clusterFullThreshold: {
-        sumTotalClusterBytes: 1000000000000,
-        sumUsedClusterBytes: 2000000000000,
-        sumTotalMetadataClusterBytes: 3000000000000,
-        sumUsedMetadataClusterBytes: 4000000000000,
-        stage3BlockThresholdBytes: 5000000000000,
-        stage4BlockThresholdBytes: 6000000000000,
-        blockFullness: 'stage1Happy',
-        metadataFullness: 'stage3'
-      }
-    },
+    apiResponse,
+    apiFailure,
     locals,
-    bindings,
     service,
     provisionedService,
     usedService;
 
-  beforeEach(module('aiqUi'));
+
+  beforeEach(module('aiqUi', function ($provide) {
+    $provide.value('SFD3LineGraph', function () {});
+    $provide.value('SFD3BarGraph', function () {});
+  }));
   beforeEach(module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $q, $componentController, $routeParams, DataService, ProvisionedSpaceGraphsService, UsedSpaceGraphsService) {
@@ -32,32 +25,61 @@ describe('Component: capacityGraphs', function() {
     deferred = $q.defer();
     dataService = DataService;
     routeParams = $routeParams;
-    routeParams.clusterID = 'foobar';
+    routeParams.clusterID = '1';
     provisionedService = ProvisionedSpaceGraphsService;
     usedService = UsedSpaceGraphsService;
     service = DataService;
     locals = {
-      $scope: scope
-    };
-    bindings = {
-      AuthService: service
+      $routeParams: routeParams,
+      DataService: dataService,
+      UsedSpaceGraphsService: usedService,
+      ProvisionedSpaceGraphsService: provisionedService
     };
     spyOn(provisionedService, 'update');
     spyOn(usedService, 'update');
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
-    controller = $componentController('capacityGraphs', locals, bindings);
-    deferred.resolve(apiResponse);
+    controller = $componentController('capacityGraphs', locals);
   }));
 
-  describe('initialization', function() {
+  describe('initialization', function () {
+    it('should expose date range options and sync graphs', function () {
+      expect(controller.staticDateRangeOptions).toBeDefined();
+      expect(controller.syncGraphs).toBeDefined();
+    });
+  });
+
+  describe('.$onInit', function() {
     it('should update the provisioned and used graphs services with the clusterID from the route', function() {
-      expect(provisionedService.update).toHaveBeenCalledWith('foobar');
-      expect(usedService.update).toHaveBeenCalledWith('foobar');
+      controller.$onInit();
+      expect(provisionedService.update).toHaveBeenCalledWith(routeParams.clusterID);
+      expect(usedService.update).toHaveBeenCalledWith(routeParams.clusterID);
     });
 
-    it('should update the static information from the API', function() {
-      expect(controller.blockTotalCapacity).toEqual(parseFloat((apiResponse.clusterFullThreshold.sumTotalClusterBytes / 1000000000000).toFixed(2)));
+    describe('DataService', function () {
+      it('should call the appropriate API method with the clusterID', function () {
+        controller.$onInit();
+        expect(dataService.callAPI).toHaveBeenCalledWith('GetClusterFullThreshold', {clusterID: 1});
+      });
+
+      it('should deserialize the response and resolve an array of data', function () {
+        apiResponse = {
+          clusterFullThreshold: 'foobar'
+        };
+        dataService.callAPI('GetClusterFullThreshold', {clusterID: routeParams.clusterID}).then(function(response) {
+          expect(response).toEqual(apiResponse);
+        });
+        deferred.resolve(apiResponse);
+      });
+
+      it('should reject the error message if the call fails', function () {
+        apiFailure = 'FooError';
+        dataService.callAPI('GetClusterFullThreshold', {clusterID: routeParams.clusterID}).catch(function(err) {
+          expect(err).toEqual(apiFailure);
+        });
+        deferred.reject(apiFailure);
+      });
     });
+
   });
 
 });

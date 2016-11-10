@@ -4,7 +4,6 @@ describe('ProvisionedSpaceGraphsService', function () {
   var rootScope,
     deferred,
     apiResponse,
-    filteredResponse,
     apiFailure,
     service,
     dataService,
@@ -45,14 +44,13 @@ describe('ProvisionedSpaceGraphsService', function () {
     it('should call the appropriate API method with the selectedClusterID', function () {
       service.selectedClusterID = 'foobar';
       service.getData(currentDate, currentDate, 300);
-      expect(dataService.callGraphAPI).toHaveBeenCalledWith('provisionedSpace', {resolution: 1, clusterID: 'foobar', start: currentDate.toISOString(), end: currentDate.toISOString(), res: 3600});
+      expect(dataService.callGraphAPI).toHaveBeenCalledWith('provisionedSpace', {resolution: 1, clusterID: 'foobar', start: currentDate.toISOString(), end: currentDate.toISOString(), res: 300});
     });
 
     it('should deserialize the response and resolve an array of data', function () {
       apiResponse = {data: {timestampSec: [1, 2, 3], provisionedSpace: [1000000000000, 2000000000000, 3000000000000], maxProvisionedSpace: [4000000000000, 5000000000000, 6000000000000]}};
-      filteredResponse = {timestampSec: [new Date(1000).toISOString(), new Date(2000).toISOString(), new Date(3000).toISOString()], provisionedSpace: [1, 2, 3], maxProvisionedSpace: [4, 5, 6]};
       service.getData(currentDate, currentDate, 300).then(function(response) {
-        expect(response).toEqual(filteredResponse);
+        expect(response).toEqual(apiResponse.data);
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();
