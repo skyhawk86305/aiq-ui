@@ -1,25 +1,28 @@
 'use strict';
 
 var ClusterOverviewComponent = function () {
-  var performanceGraph,
+  var component = this,
+      performanceGraph,
       performanceUtilizationGraph,
       infoBar;
 
-  this.el = element(by.css("overview-dashboard-page"));
+  component.el = element(by.css("overview-dashboard-page"));
 
-  this.performanceGraph = function () {
+  component.performanceGraph = function () {
     performanceGraph = element(by.css("sf-graph-time-series[component-id=performance-graph]"));
     return {
       el: performanceGraph
     };
   };
-  this.performanceUtilizationGraph = function () {
+
+  component.performanceUtilizationGraph = function () {
     performanceUtilizationGraph = element(by.css("sf-graph-time-series[component-id=utilization-graph]"));
     return {
       el: performanceUtilizationGraph
     };
   };
-  this.infoBar = function () {
+
+  component.infoBar = function () {
     infoBar = element(by.id('.sf-widget.info-bar'));
     return {
       el: infoBar,
