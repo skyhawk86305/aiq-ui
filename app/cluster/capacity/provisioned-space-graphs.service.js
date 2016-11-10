@@ -10,8 +10,7 @@
       ProvisionedSpaceGraphsService
     ]);
 
-
-  function ProvisionedSpaceGraphsService($filter, DataService,SFGraphTimeSeriesService) {
+  function ProvisionedSpaceGraphsService($filter, DataService, SFGraphTimeSeriesService) {
     var getProvisionedSpace = function(params) {
       params.clusterID = this.selectedClusterID;
       params.start = params.start.toISOString();

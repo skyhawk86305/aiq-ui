@@ -1,6 +1,6 @@
 'use strict';
 
-fdescribe('Graph Resolution Filter', function () {
+describe('Graph Resolution Filter', function () {
   beforeEach(module('aiqUi'));
 
   it('should user the appropriate bucketing method for a given graph', inject(function ($filter) {

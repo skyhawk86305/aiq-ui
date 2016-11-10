@@ -11,7 +11,7 @@ var capacityPage;
 var navbar = new NavbarComponent();
 var clusterSelect = new ClusterSelectComponent();
 
-fdescribe('Capacity Page Graphs', function () {
+describe('Capacity Page Graphs', function () {
   beforeEach(function() {
     mockBackend.enable(browser);
     mockBackend.http.whenGET('/sessions').respond(function() {
