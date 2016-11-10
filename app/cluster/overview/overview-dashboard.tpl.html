@@ -1,13 +1,13 @@
 <div class="overview-dashboard-page">
-  <div class="cluster-name">
+  <div class="heading -cluster-name">
     <span>{{$ctrl.clusterName}}</span>
   </div>
-  <div class="graphs row">
+  <div class="graph-row">
     <div class="graph-container col-md-6">
       <div class="overview-dashboard-graph sf-widget">
         <sf-graph-time-series component-id="performance-graph"
                               service="$ctrl.graphs.service"
-                              graph="$ctrl.performance.graph"
+                              graph="$ctrl.graphs.performance.graph"
                               limit="20"
                               context-range="$ctrl.graphs.contextRange"
                               title="Cluster Performance"
@@ -19,7 +19,7 @@
       <div class="overview-dashboard-graph sf-widget">
       <sf-graph-time-series component-id="utilization-graph"
                             service="$ctrl.graphs.service"
-                            graph="$ctrl.utilization.graph"
+                            graph="$ctrl.graphs.utilization.graph"
                             limit="20"
                             context-range="$ctrl.graphs.contextRange"
                             title="Performance Utilization"
@@ -28,82 +28,87 @@
       </div>
     </div>
   </div>
-  <div class="row sf-widget">
-    <div class="info-box col-md-4">
-      <div class="info-box-content -node-count">
-        <span class="title">Nodes</span>
-        <span class="value -medium">{{$ctrl.clusterInfoBar.nodeCount}}</span>
+<!--   <div class="sf-widget info-bar">
+    <div class="col-md-6">
+      <div class="info-box col-md-3">
+        <div class="info-box-content -node-count">
+          <span class="title">Nodes</span>
+          <span class="value -medium">{{$ctrl.clusterInfoBar.nodeCount}}</span>
+        </div>
+      </div>
+      <div class="info-box col-md-3">
+        <div class="info-box-content -block-capacity">
+          <span class="title">Block Capacity</span>
+          <div class="badge-container">
+            <div class="badge"
+                 ng-class="{'-warning' : $ctrl.clusterInfoBar.blockCapacity === 'warning',
+                            '-normal'  : $ctrl.clusterInfoBar.blockCapacity === 'normal',
+                            '-critical : $ctrl.clusterInfoBar.blockCapacity === 'error'}">
+              <span class="title">{{$ctrl.clusterInfoBar.blockCapacity}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info-box col-md-3">
+        <div class="info-box-content -metadata-capacity">
+          <span class="title">Metadata Capacity</span>
+          <div class="badge-container">
+            <div class="badge"
+                 ng-class="{'-warning' : $ctrl.clusterInfoBar.metadataCapacity === 'warning',
+                            '-normal'  : $ctrl.clusterInfoBar.metadataCapacity === 'normal',
+                            '-critical : $ctrl.clusterInfoBar.metadataCapacity === 'error'}">
+              <span class="title">{{$ctrl.clusterInfoBar.metadataCapacity}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info-box col-md-3">
+        <div class="info-box-content -efficiency">
+          <span class="title">Efficiency</span>
+          <span class="value -medium">{{$ctrl.clusterInfoBar.efficiency}}</span>
+        </div>
       </div>
     </div>
-    <div class="info-box col-md-4">
-      <div class="info-box-content -block-capacity">
-        <span class="title">Block Capacity</span>
-        <div class="badge-container">
-          <div class="badge"
-               ng-class="{'-warning' : $ctrl.clusterInfoBar.blockCapacity === 'warning',
-                          '-normal'  : $ctrl.clusterInfoBar.blockCapacity === 'normal',
-                          '-critical : $ctrl.clusterInfoBar.blockCapacity === 'error'}">
-            <span class="title">{{$ctrl.clusterInfoBar.blockCapacity}}</span>
+    <div class="col-md-6">
+      <div class="info-box col-md-3">
+        <div class="info-box-content -utilization">
+          <span class="title">Utilization</span>
+          <span class="value -medium">{{$ctrl.clusterInfoBar.utilization}}</span>
+        </div>
+      </div>
+      <div class="info-box col-md-3">
+        <div class="info-box-content -iops">
+          <span class="title">IOPS</span>
+          <span class="value -medium">{{$ctrl.clusterInfoBar.iops}}</span>
+        </div>
+      </div>
+      <div class="info-box col-md-3">
+        <div class="info-box-content -bandwidth">
+          <span class="title">Bandwidth</span>
+          <span class="value -medium">{{$ctrl.clusterInfoBar.bandwidth}}</span>
+        </div>
+      </div>
+      <div class="info-box col-md-3">
+        <div class="info-box-content -cluster-faults">
+          <span class="title">Cluster Faults</span>
+          <div class="badge-container">
+            <div class="badge -warning">
+              <span class="value">{{$ctrl.clusterInfoBar.clusterFaults.warning}}</span>
+              <span class="title">Warning</span>
+            </div>
+            <div class="badge -critical">
+              <span class="value">{{$ctrl.clusterInfoBar.clusterFaults.error}}</span>
+              <span class="title">Error</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="info-box col-md-4">
-      <div class="info-box-content -metadata-capacity">
-        <span class="title">Metadata Capacity</span>
-        <div class="badge-container">
-          <div class="badge"
-               ng-class="{'-warning' : $ctrl.clusterInfoBar.metadataCapacity === 'warning',
-                          '-normal'  : $ctrl.clusterInfoBar.metadataCapacity === 'normal',
-                          '-critical : $ctrl.clusterInfoBar.metadataCapacity === 'error'}">
-            <span class="title">{{$ctrl.clusterInfoBar.metadataCapacity}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="info-box col-md-4">
-      <div class="info-box-content -efficiency">
-        <span class="title">Efficiency</span>
-        <span class="value -medium">{{$ctrl.clusterInfoBar.efficiency}}</span>
-      </div>
-    </div>
-    <div class="info-box col-md-4">
-      <div class="info-box-content -utilization">
-        <span class="title">Utilization</span>
-        <span class="value -medium">{{$ctrl.clusterInfoBar.utilization}}</span>
-      </div>
-    </div>
-    <div class="info-box col-md-4">
-      <div class="info-box-content -iops">
-        <span class="title">IOPS</span>
-        <span class="value -medium">{{$ctrl.clusterInfoBar.iops}}</span>
-      </div>
-    </div>
-    <div class="info-box col-md-4">
-      <div class="info-box-content -bandwidth">
-        <span class="title">Bandwidth</span>
-        <span class="value -medium">{{$ctrl.clusterInfoBar.bandwidth}}</span>
-      </div>
-    </div>
-    <div class="info-box col-md-4">
-      <div class="info-box-content -cluster-faults">
-        <span class="title">Cluster Faults</span>
-        <div class="badge-container">
-          <div class="badge -warning">
-            <span class="value">{{$ctrl.clusterInfoBar.clusterFaults.warning}}</span>
-            <span class="title">Warning</span>
-          </div>
-          <div class="badge -critical">
-            <span class="value">{{$ctrl.clusterInfoBar.clusterFaults.error}}</span>
-            <span class="title">Error</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div> -->
+  <div class="heading">
+    <span>ActiveIQ Alerts</span>
   </div>
-
-  <div class="alerts-table sf-widget">
-    <sf-table service="$ctrl.alertsTableService" table-id="alerts-table"></sf-table>
+  <div class="alert-table sf-widget">
+    <sf-table class="sf-layout-block"  service="$ctrl.alertTableService" table-id="alert-table"></sf-table>
   </div>
-
 </div>

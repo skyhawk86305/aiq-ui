@@ -21,52 +21,16 @@
     var ctrl = this,
         graphConfigs = getGraphConfigs();
 
-    ctrl.clusterName = '';
-    ctrl.graphs = {
-      contextRange: getContextRange(),
-      service: ClusterPerformanceGraphService,
-      performance: {
-        graph: null,
-        legend: {
-          position: 'bottom',
-          items: {}
-        }
-      },
-      utilization: {
-        graph: null,
-        legend: {
-          position: 'bottom',
-          items: {}
-        }
-      }
-    };
-    ctrl.clusterInfoBar = {};
-    ctrl.alertsTableService = AlertTableService;
-
     ctrl.$onInit = function() {
-      ctrl.graphs.service.update($routeParams.clusterID);
-      ctrl.alertsTableService.update($routeParams.clusterID);
+      ClusterPerformanceGraphService.update($routeParams.clusterID);
+      AlertTableService.update($routeParams.clusterID);
 
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
         .then(function(response) {
           var result = response.cluster;
           ctrl.clusterName = result.clusterName;
-          initializeGraphs();
           setInfobarData(result);
-          //something with the table
         });
-
-      function initializeGraphs() {
-        ctrl.graphs.performance.graph = new SFD3LineGraph(graphConfigs.performance);
-        ctrl.graphs.utilization.graph = new SFD3LineGraph(graphConfigs.utilization);
-        ctrl.graphs.utilization.legend.items = {
-          utilization: 'Utilization'
-        };
-        ctrl.graphs.performance.legend.items = {
-          iops: 'IOPS',
-          bandwidth: 'Bandwidth'
-        };
-      }
 
       function setInfobarData(clusterData) {
         ctrl.clusterInfoBar = {
@@ -78,6 +42,31 @@
             error: clusterData.unresolvedFaults.error
           }
         };
+      }
+    };
+
+    ctrl.alertTableService = AlertTableService;
+    ctrl.graphs = {
+      contextRange: getContextRange(),
+      service: ClusterPerformanceGraphService,
+      performance: {
+        graph:  new SFD3LineGraph(graphConfigs.performance),
+        legend: {
+          position: 'bottom',
+          items: {
+            utilization: 'Utilization'
+          }
+        }
+      },
+      utilization: {
+        graph: new SFD3LineGraph(graphConfigs.utilization),
+        legend: {
+          position: 'bottom',
+            items: {
+            iops: 'IOPS',
+            bandwidth: 'Bandwidth'
+          }
+        }
       }
     };
 
@@ -171,6 +160,8 @@
           }
         }
       };
+
+      return graphConfigs;
     }
 
     function getContextRange() {

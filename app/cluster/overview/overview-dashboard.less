@@ -3,13 +3,48 @@
 .overview-dashboard-page {
   background-color: @whitescale-2;
   height: 100%;
+  overflow-y: auto;
+
+  .heading {
+    padding: 25px 0 0px 15px;
+    font-size: 25px;
+    color: @core-blue-grey;
+  }
+  .sf-widget {
+    margin: 15px;
+  }
 }
+.graph-row {
+  min-height:600px;
+}
+
 .graph-container {
   height: 600px;
+  padding: 15px;
+
+  .title {
+    font-size: 20px;
+    margin-top: 5px;
+    font-weight: 400;
+    color: @core-blue-grey;
+    line-height: 30px;
+  }
+  >.overview-dashboard-graph {
+    height: 100%;
+    margin: 0;
+  }
 }
-.graph-container:first-child > .sf-widget{
-  margin-right: 0;
+
+.info-bar {
+  min-height: 225px;
+  .col-md-6 {
+    padding: 0;
+  }
+  .info-box {
+    height: 225px;
+  }
 }
-.graph-container:last-child > .sf-widget{
-  margin-left: 0;
+.alert-table {
+  height: 500px;
+  position: relative;
 }
