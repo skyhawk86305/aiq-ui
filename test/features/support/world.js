@@ -40,7 +40,9 @@ function World() {
   this.alertTable = new TableComponent('alert-table');
   this.eventsTable = new TableComponent('event');
   this.errorLogTable = new TableComponent('error-log');
-  this.graphTimeSeries = new GraphTimeSeriesComponent()
+  this.clusterPerformanceGraph = new GraphTimeSeriesComponent(null,'performance-graph');
+  this.clusterPerformanceUtilizationGraph = new GraphTimeSeriesComponent(null,'utilization-graph');
+  this.clusterOverview = new clusterOverviewComponent(null,'utilization-graph');
 
 
   this.table = function(type) {
@@ -52,6 +54,13 @@ function World() {
       case 'alertTable': return this.alertTable;
       case 'event': return this.eventsTable;
       case 'errorLog': return this.errorLogTable;
+    }
+  };
+
+  this.timeSeriesGraph = function(type) {
+    switch(type) {
+      case 'clusterPerformance': return this.clusterPerformanceGraph;
+      case 'clusterPerformanceUtilization': return this.clusterPerformanceUtilizationGraph;
     }
   };
 

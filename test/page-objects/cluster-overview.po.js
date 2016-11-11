@@ -1,20 +1,9 @@
 'use strict';
 
-var GraphTimeSeries = require('./graph-time-series.po');
-var TableComponent = require('./table.po');
-
 var ClusterOverviewComponent = function () {
-  var performanceGraph,
-      performanceUtilizationGraph,
-      infoBar;
+  var infoBar;
 
   this.el = element(by.css("overview-dashboard-page"));
-
-  var performanceGraph = this.el.element(by.css("sf-graph-time-series[component-id=performance-graph]"));
-  this.performanceGraph = new GraphTimeSeries(null,performanceGraph);
-
-  var performanceUtilizationGraph = this.el.element(by.css("sf-graph-time-series[component-id=utilization-graph]"));
-  this.performanceUtilizationGraph = new GraphTimeSeries(null,performanceUtilizationGraph);
 
   this.infoBar = function () {
     infoBar = element(by.id('.sf-widget.info-bar'));
@@ -37,11 +26,7 @@ var ClusterOverviewComponent = function () {
     };
   };
 
-  var alertTable = this.el.element(by.css(".alert-table"));
-  this.alertTable = new TableComponent(null);
-
 };
-
 
 
 module.exports = ClusterOverviewComponent;

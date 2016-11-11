@@ -15,10 +15,10 @@ Feature: Per Single Cluster Overview
     When I navigate to the "cluster/reporting/overview" page
 
     # Cluster performance has IOPS and bandwidth line graphs
-    Then I see a sf-time-series graph component with "cluster performance" data
+    Then I see a sf-time-series graph component with "clusterPerformance" data
 
     # Performance utilization has utilization line graphs
-    And I see a sf-time-series graph component with "performance utilization" data
+    And I see a sf-time-series graph component with "clusterPerformanceUtilization" data
 
     # Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults
     And I see a sf-widget with "highLevel" stats
