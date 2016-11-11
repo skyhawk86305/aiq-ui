@@ -3,21 +3,21 @@
 
   angular
     .module('aiqUi')
-    .service('UsedSpaceGraphsService', [
+    .service('CapacityGraphsService', [
       '$filter',
       'DataService',
       'SFGraphTimeSeriesService',
-      UsedSpaceGraphsService
+      CapacityGraphsService
     ]);
 
-  function UsedSpaceGraphsService($filter, DataService, SFGraphTimeSeriesService) {
+  function CapacityGraphsService($filter, DataService, SFGraphTimeSeriesService) {
     var service = new SFGraphTimeSeriesService(function(params) {
       params.clusterID = this.selectedClusterID;
       params.start = params.start.toISOString();
       params.end = params.end.toISOString();
-      params.res = $filter('graphResolution')(params.resolution, 'usedSpace');
+      params.res = $filter('graphResolution')(params.resolution, 'capacity');
 
-      return DataService.callGraphAPI('usedSpace', params)
+      return DataService.callGraphAPI('capacity', params)
         .then(function(response) { return response.data; });
     });
 
