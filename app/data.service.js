@@ -34,8 +34,8 @@
     dataService.callGraphAPI = function(graph, params) {
       var graphAPI = '/graph/cluster/' + params.clusterID +
         '/' + graph +
-        '?start='+ params.start +
-        '&end=' + params.end +
+        '?startTime='+ params.start +
+        '&endTime=' + params.end +
         '&resolution=' + params.res;
 
       return $http.get(graphAPI)

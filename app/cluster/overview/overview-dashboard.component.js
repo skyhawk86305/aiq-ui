@@ -10,14 +10,13 @@
         '$filter',
         'DataService',
         'ClusterPerformanceGraphService',
-        'CapacityUseGraphService',
         'AlertTableService',
         'SFD3LineGraph',
         OverviewDashboardController
       ]
     });
 
-  function OverviewDashboardController($routeParams, $filter, DataService, ClusterPerformanceGraphService, CapacityUseGraphService, AlertTableService, SFD3LineGraph) {
+  function OverviewDashboardController($routeParams, $filter, DataService, ClusterPerformanceGraphService, AlertTableService, SFD3LineGraph) {
     var ctrl = this,
         graphConfigs = getGraphConfigs();
 
@@ -54,7 +53,8 @@
         legend: {
           position: 'bottom',
           items: {
-            utilization: 'Utilization'
+            totalOpsPerSec: 'IOPS',
+            totalBytesPerSec: 'Bandwidth'
           }
         }
       },
@@ -62,9 +62,8 @@
         graph: new SFD3LineGraph(graphConfigs.utilization),
         legend: {
           position: 'bottom',
-            items: {
-            iops: 'IOPS',
-            bandwidth: 'Bandwidth'
+          items: {
+            clusterUtilizationPct: 'Utilization'
           }
         }
       }
@@ -82,18 +81,18 @@
         showAxisLabels: false,
         data: {
           x: 'timestampSec',
-          ids: ['utilization'],
+          ids: ['clusterUtilizationPct'],
           axes: {
-            utilization: 'y0',
+            clusterUtilizationPct: 'y0',
           },
           labels: {
-            utilization: 'Utilization'
+            clusterUtilizationPct: 'Utilization'
           },
           colors: {
-            utilization: ['#13CCE8']
+            clusterUtilizationPct: ['#13CCE8']
           },
           textures: {
-            utilization: ['solid']
+            clusterUtilizationPct: ['solid']
           }
         },
         axis: {
@@ -119,22 +118,22 @@
         showAxisLabels: false,
         data: {
           x: 'timestampSec',
-          ids: ['iops', 'bandwidth'],
+          ids: ['totalOpsPerSec', 'totalBytesPerSec'],
           axes: {
-            iops: 'y0',
-            bandwidth: 'y1'
+            totalOpsPerSec: 'y0',
+            totalBytesPerSec: 'y1'
           },
           labels: {
-            iops: 'IOPS',
-            bandwidth: 'Bandwidth'
+            totalOpsPerSec: 'IOPS',
+            totalBytesPerSec: 'Bandwidth'
           },
           colors: {
-            iops: ['#8372B5'],
-            bandwidth: ['#FFCC75']
+            totalOpsPerSec: ['#8372B5'],
+            totalBytesPerSec: ['#FFCC75']
           },
           textures: {
-            iops: ['solid'],
-            bandwidth: ['solid']
+            totalOpsPerSec: ['solid'],
+            totalBytesPerSec: ['solid']
           }
         },
         axis: {
@@ -166,7 +165,7 @@
 
     function getContextRange() {
       var now = Date.now(),
-        fiveDaysMilliseconds = 432000000,
+        fiveDaysMilliseconds = 43200000,
         range = {};
 
       range.start = new Date(now - fiveDaysMilliseconds);

@@ -14,10 +14,10 @@
     var srvc,
       columns =  [
       {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqData', params: {type: 'date'}}},
+      {key: 'lastNotified', label: 'Last Notified', format: {filter: 'aiqData', params: {type: 'date'}}},
       {key: 'isResolved', label: 'Resolved', format: {filter: 'aiqData', params: {type: 'boolean'}}},
-      {key: 'notificationName', label: 'Alert Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
-      {key: 'severity', label: 'Alert Severity', filterComparators: SFFilterComparators.STRING_DEFAULT},
+      {key: 'notificationName', label: 'Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
+      {key: 'severity', label: 'Severity', filterComparators: SFFilterComparators.STRING_DEFAULT},
       {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},
       {key: 'destinationEmail', label: 'Destination', filterComparators:SFFilterComparators.STRING_DEFAULT},
       {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
