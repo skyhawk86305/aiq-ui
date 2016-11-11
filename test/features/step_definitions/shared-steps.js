@@ -76,10 +76,6 @@ module.exports = function() {
     this.expect(this.clusterOverview.performanceGraph.getText()).to.eventually.contain(text);
   });
 
-//   And I see a sf-widget with "highLevel" stats
-  this.Then(/^I see a sf-widget with "(.*)" stats/, function (text) {
-    this.expect(this.clusterOverview.performanceUtilizationGraph.getText()).to.eventually.contain(text);
-  });
 
 //   And I see a sf-widget with "highLevel" stats
   this.Then(/^I see a sf-widget with "(.*)" stats/, function (text) {

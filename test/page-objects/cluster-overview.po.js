@@ -1,28 +1,22 @@
 'use strict';
 
+var GraphTimeSeries = require('./graph-time-series.po');
+var TableComponent = require('./table.po');
+
 var ClusterOverviewComponent = function () {
-  var component = this,
-      performanceGraph,
+  var performanceGraph,
       performanceUtilizationGraph,
       infoBar;
 
-  component.el = element(by.css("overview-dashboard-page"));
+  this.el = element(by.css("overview-dashboard-page"));
 
-  component.performanceGraph = function () {
-    performanceGraph = element(by.css("sf-graph-time-series[component-id=performance-graph]"));
-    return {
-      el: performanceGraph
-    };
-  };
+  var performanceGraph = this.el.element(by.css("sf-graph-time-series[component-id=performance-graph]"));
+  this.performanceGraph = new GraphTimeSeries(null,performanceGraph);
 
-  component.performanceUtilizationGraph = function () {
-    performanceUtilizationGraph = element(by.css("sf-graph-time-series[component-id=utilization-graph]"));
-    return {
-      el: performanceUtilizationGraph
-    };
-  };
+  var performanceUtilizationGraph = this.el.element(by.css("sf-graph-time-series[component-id=utilization-graph]"));
+  this.performanceUtilizationGraph = new GraphTimeSeries(null,performanceUtilizationGraph);
 
-  component.infoBar = function () {
+  this.infoBar = function () {
     infoBar = element(by.id('.sf-widget.info-bar'));
     return {
       el: infoBar,
@@ -42,6 +36,12 @@ var ClusterOverviewComponent = function () {
       }
     };
   };
+
+  var alertTable = this.el.element(by.css(".alert-table"));
+  this.alertTable = new TableComponent(null);
+
 };
+
+
 
 module.exports = ClusterOverviewComponent;
