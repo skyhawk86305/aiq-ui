@@ -6,12 +6,19 @@ var LoginComponent = function () {
     enter: function(input) {
       var usernameInput = element(by.id('username-input'));
       return usernameInput.clear().then(function() { usernameInput.sendKeys(input); });
+    },
+    click: function() {
+      element(by.id('username-input')).click();
     }
   };
   this.passwordInput = {
+    el: element(by.id('password-input')),
     enter: function(input) {
       var passwordInput = element(by.id('password-input'));
       return passwordInput.clear().then(function() { passwordInput.sendKeys(input); });
+    },
+    click: function() {
+      element(by.id('password-input')).click();
     }
   };
   this.loginButton = {

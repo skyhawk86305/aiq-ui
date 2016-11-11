@@ -61,4 +61,15 @@ module.exports = function() {
 
     world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows).notify(done);
   });
+
+  this.Then(/^I see a "(.*)" message$/, function (text) {
+    this.expect(this.comingSoonComponent.errorMessage.getText()).to.eventually.contain(text);
+  });
+
+  this.Then(/^I see a "(.*)" link$/, function (text) {
+    this.expect(this.comingSoonComponent.legacyLink.getText()).to.eventually.contain(text);
+  });
+
 };
+
+
