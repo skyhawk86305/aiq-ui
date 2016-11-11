@@ -15,6 +15,7 @@ var ClusterOverviewComponent = function () {
     infoBox: function(name) {
       var box = element(by.css('.info-box.-' + name));
       return {
+        el: box,
         value: box.element(by.css('.value')),
         badge: function(name){
           var badge = name ? box.element(by.css('.badge.-' + name)) : box.element(by.css('.badge'));

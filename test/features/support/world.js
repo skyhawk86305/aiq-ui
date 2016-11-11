@@ -12,7 +12,9 @@ var ComingSoonComponent = require('../../page-objects/coming-soon.po');
 var CapacityComponent = require('../../page-objects/capacity.po');
 var ClusterOverviewComponent = require('../../page-objects/cluster-overview.po');
 var GraphTimeSeries = require('../../page-objects/graph-time-series.po');
+var CapacityComponent = require('../../page-objects/capacity.po');
 var PerformanceComponent = require('../../page-objects/performance.po');
+var EfficiencyComponent = require('../../page-objects/efficiency.po');
 
 function World() {
 
@@ -46,6 +48,7 @@ function World() {
   this.clusterPerformanceGraph = new GraphTimeSeries('performance-graph');
   this.clusterPerformanceUtilizationGraph = new GraphTimeSeries('utilization-graph');
   this.capacityComponent = new CapacityComponent();
+  this.efficiencyComponent = new EfficiencyComponent();
 
   this.table = function(type) {
     switch(type) {
@@ -134,6 +137,13 @@ function World() {
         }
         break;
 
+      case 'drive':
+        switch (attr) {
+          case 'capacity': return formatBytes(data);
+          default: return data.toString();
+        }
+        break;
+
       case 'alertHistory':
         switch (attr) {
           case 'created': return formatDate(data);
@@ -191,6 +201,28 @@ function World() {
     } else {
       return '-';
     }
+  }
+
+  function formatBytes(data, binary, decimalPlaces, throughput, forHtml) {
+    if(typeof data === 'number' || typeof data === 'string') {
+      var number = typeof data === 'number' ? Math.floor(data) : parseInt(data),
+        places = typeof decimalPlaces === 'number' ? decimalPlaces : 0,
+        absNumber = Math.abs(number),
+        isNegative = number < 0,
+        isZero = number === 0,
+        validNumber = !!(number || isZero),
+        binarySizes = ['B','KiB','MiB','GiB','TiB','PiB','EiB'],
+        decimalSizes = ['B','KB','MB','GB','TB','PB','EB'],
+        sizes = binary ? binarySizes : decimalSizes,
+        base = binary ? 1024 : 1000,
+        sizeIndex = validNumber && !isZero ? Math.floor(Math.log(absNumber) / Math.log(base)) : 0,
+        bytes = validNumber && !isZero ? parseFloat((absNumber / Math.pow(base, sizeIndex))) : 0,
+        units = throughput ? sizes[sizeIndex] + '/s' : sizes[sizeIndex];
+
+      if(forHtml) { units = '<span class="units">' + units + '</span>'; }
+      if(isNegative) { bytes *= -1; }
+      return validNumber ? bytes.toFixed(places) + units : '-';
+    } else { return '-'; }
   }
 }
 module.exports = function () {

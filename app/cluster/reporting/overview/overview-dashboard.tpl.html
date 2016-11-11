@@ -62,7 +62,7 @@
         <div class="info-box -efficiency-info col-lg-3  col-md-3">
           <div class="info-box-content -efficiency">
             <span class="title">Efficiency</span>
-            <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | percent:2:true:true }}</span>
+            <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | percent:1:true:false }}</span>
           </div>
         </div>
       </div>
@@ -70,13 +70,13 @@
         <div class="info-box -utilization col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Utilization</span>
-            <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | percent:0:false:true:true }}</span>
+            <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | percent:0:false:true }}</span>
           </div>
         </div>
         <div class="info-box -iops col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">IOPS</span>
-            <span class="value">{{$ctrl.performanceSnapshot.totalOpsPerSec | iops }}</span>
+            <span class="value">{{$ctrl.performanceSnapshot.totalOpsPerSec | iops:true:1:false }}</span>
           </div>
         </div>
         <div class="info-box -bandwidth col-lg-3  col-md-3">

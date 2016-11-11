@@ -23,9 +23,6 @@ pids
 *.pid
 *.seed
 
-# IDEs
-.idea
-
 # local configs
 local.config.js
 mock.config.js

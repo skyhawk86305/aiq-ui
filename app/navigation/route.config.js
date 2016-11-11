@@ -67,7 +67,8 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/efficiency', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: '<efficiency-graphs class="sf-layout-block"></efficiency-graphs>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/performance', {
         template: '<performance-graphs class="sf-layout-block"></performance-graphs>',

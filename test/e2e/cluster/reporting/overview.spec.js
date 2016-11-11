@@ -1,7 +1,7 @@
 /* jshint expr: true */
 'use strict';
 
-// var expect = require('../../support.js').expect;
+var expect = require('../../support.js').expect;
 var mockBackend = require('../../support.js').mockBackend;
 var ClusterOverviewComponent = require('../../../page-objects/cluster-overview.po');
 var NavbarComponent = require('../../../page-objects/navbar.po');
@@ -33,15 +33,15 @@ describe('Cluster Overview Page', function () {
   });
 
   it('should have the performance graph', function () {
-    expect(performancePage.graphs.clusterPerformance.isDisplayed()).to.eventually.be.true;
+    expect(clusterOverviewPage.graphs.clusterPerformance.el.isDisplayed()).to.eventually.be.true;
   });
 
   it('should have the utilization graph', function () {
-    expect(performancePage.graphs.performanceUtilization.isDisplayed()).to.eventually.be.true;
+    expect(clusterOverviewPage.graphs.performanceUtilization.el.isDisplayed()).to.eventually.be.true;
   });
 
   it('should display the infobar', function() {
-    expect(clusterOverviewPage.infoBar.isDisplayed()).to.eventually.be.true;
+    expect(clusterOverviewPage.infoBar.el.isPresent()).to.eventually.be.true;
   });
 
   it('should have 8 info-boxes', function() {
@@ -97,7 +97,7 @@ describe('Cluster Overview Page', function () {
   });
 
   it('should have the alerts table', function () {
-    expect(performancePage.alertTable.isDisplayed()).to.eventually.be.true;
+    expect(clusterOverviewPage.clusterAlertTable.el.isDisplayed()).to.eventually.be.true;
   });
 
 });
