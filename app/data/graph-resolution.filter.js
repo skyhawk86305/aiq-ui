@@ -13,9 +13,7 @@
         case 'capacity':            return getClusterCapacity(resolutionSec);
         case 'efficiency':          return getClusterCapacity(resolutionSec);
         case 'activeISCSISessions': return getClusterCapacity(resolutionSec);
-        case 'iops':                return getClusterStats(resolutionSec);
-        case 'utilization':         return getClusterStats(resolutionSec);
-        case 'bandwidth':           return getClusterStats(resolutionSec);
+        case 'performance':         return getClusterStats(resolutionSec);
         case 'volumeIops':          return listVolumeStatsByVolume(resolutionSec); // ToDo: Replace - placeholder for test coverage
         case 'thresholds':          return getClusterFullThreshold(resolutionSec); // ToDo: Replace - placeholder for test coverage
         default: return resolutionSec;

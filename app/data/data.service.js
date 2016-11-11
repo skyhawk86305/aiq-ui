@@ -4,6 +4,7 @@
   angular
     .module('aiqUi')
     .service('DataService', [
+      '$q',
       '$http',
       '$filter',
       '$location',
@@ -11,7 +12,7 @@
       DataService
     ]);
 
-  function DataService($http, $filter, $location, ApiLogService) {
+  function DataService($q, $http, $filter, $location, ApiLogService) {
     var dataService = {};
 
     dataService.callAPI = function(method, params) {
@@ -48,7 +49,7 @@
           if (error.status === 401) {
             $location.path('/login');
           }
-          return error;
+          return $q.reject(error);
         });
     };
 
