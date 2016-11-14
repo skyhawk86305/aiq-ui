@@ -1,9 +1,18 @@
 'use strict';
+var GraphTimeSeries = require('./graph-time-series.po');
+var Table = require('./table.po');
 
 var ClusterOverviewComponent = function () {
   var infoBar;
 
-  this.el = element(by.css("overview-dashboard-page"));
+  this.el = element(by.css(".overview-dashboard-page"));
+
+  this.graphs = {
+    clusterPerformance: new GraphTimeSeries('performance-graph'),
+    performanceUtilization: new GraphTimeSeries('utilization-graph')
+  };
+
+
 
   this.infoBar = function () {
     infoBar = element(by.css('.sf-widget.info-bar'));
@@ -29,6 +38,8 @@ var ClusterOverviewComponent = function () {
 
 // node-count-info-box, block-capacity-info-box, metadata-capacity-info-box, efficiency-info-bx, utilization-info-box,
 // iops-info-box, bandwidth-info-box, cluster-faults-info-box
+
+this.alertTable = new Table('alert-table')
 
 module.exports = ClusterOverviewComponent;
 
