@@ -23,7 +23,7 @@
 
     service.selectedClusterID = null;
     service.update = function(clusterID) {
-      this.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID);
     };
 
     return service;

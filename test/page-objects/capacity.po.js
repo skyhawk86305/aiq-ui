@@ -25,12 +25,8 @@ var CapacityComponent = function () {
     provisionedGraph = element(by.id('sync-graph-1-service'));
     return {
       el: provisionedGraph,
-      badges: {
-        count: provisionedGraph.all(by.css('.info-box-content')).count(),
-        maxProvisionedSpace: provisionedGraph.element(by.id('max-provisioned-space-provisioned-badge')),
-        warningThreshold: provisionedGraph.element(by.id('warning-threshold-provisioned-badge')),
-        criticalThreshold: provisionedGraph.element(by.id('critical-threshold-provisioned-badge')),
-        currentState: provisionedGraph.element(by.id('current-state-provisioned-badge'))
+      infoBox: {
+        count: provisionedGraph.all(by.css('.info-box-content')).count()
       }
     };
   };
@@ -38,13 +34,13 @@ var CapacityComponent = function () {
     usedGraph = element(by.id('sync-graph-2-service'));
     return {
       el: usedGraph,
-      badges: {
+      infoBox: {
         count: usedGraph.all(by.css('.info-box-content')).count(),
-        usedCapacity: usedGraph.element(by.id('used-capacity-used-badge')),
-        warningThreshold: usedGraph.element(by.id('warning-threshold-used-badge')),
-        errorThreshold: usedGraph.element(by.id('error-threshold-used-badge')),
-        totalCapacity: usedGraph.element(by.id('total-capacity-used-badge')),
-        currentState: usedGraph.element(by.id('current-state-used-badge'))
+        usedCapacity: usedGraph.element(by.id('used-capacity-used-info-box')),
+        warningThreshold: usedGraph.element(by.id('warning-threshold-used-info-box')),
+        errorThreshold: usedGraph.element(by.id('error-threshold-used-info-box')),
+        totalCapacity: usedGraph.element(by.id('total-capacity-used-info-box')),
+        currentState: usedGraph.element(by.id('current-state-used-info-box'))
       }
     };
   };
@@ -52,11 +48,11 @@ var CapacityComponent = function () {
     metadataGraph = element(by.id('sync-graph-3-service'));
     return {
       el: metadataGraph,
-      badges: {
+      infoBox: {
         count: metadataGraph.all(by.css('.info-box-content')).count(),
-        usedCapacity: metadataGraph.element(by.id('used-capacity-metadata-badge')),
-        totalCapacity: metadataGraph.element(by.id('total-capacity-metadata-badge')),
-        currentState: metadataGraph.element(by.id('current-state-metadata-badge'))
+        usedCapacity: metadataGraph.element(by.id('used-capacity-metadata-info-box')),
+        totalCapacity: metadataGraph.element(by.id('total-capacity-metadata-info-box')),
+        currentState: metadataGraph.element(by.id('current-state-metadata-info-box'))
       }
     };
   };
