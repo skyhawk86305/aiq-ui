@@ -4,14 +4,13 @@
   angular
     .module('aiqUi')
     .service('ClusterPerformanceGraphService', [
-      '$filter',
       'DataService',
       'SFGraphTimeSeriesService',
       ClusterPerformanceGraphService
     ]);
 
 
-  function ClusterPerformanceGraphService($filter, DataService,SFGraphTimeSeriesService) {
+  function ClusterPerformanceGraphService(DataService,SFGraphTimeSeriesService) {
     /*jshint validthis:true*/
     var self = new SFGraphTimeSeriesService(getClusterPerformance);
 
