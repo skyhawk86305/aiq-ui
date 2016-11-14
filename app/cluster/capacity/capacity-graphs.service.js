@@ -11,7 +11,14 @@
     ]);
 
   function CapacityGraphsService($filter, DataService, SFGraphTimeSeriesService) {
-    var service = new SFGraphTimeSeriesService(function(params) {
+    var service = new SFGraphTimeSeriesService(getClusterCapacity);
+    service.selectedClusterID = null;
+    service.update = update;
+    return service;
+    
+    /**********************************/
+    
+    function getClusterCapacity(params) {
       params.clusterID = this.selectedClusterID;
       params.start = params.start.toISOString();
       params.end = params.end.toISOString();
@@ -19,13 +26,10 @@
 
       return DataService.callGraphAPI('capacity', params)
         .then(function(response) { return response.data; });
-    });
+    }
 
-    service.selectedClusterID = null;
-    service.update = function(clusterID) {
+    function update(clusterID) {
       this.selectedClusterID = parseInt(clusterID);
-    };
-
-    return service;
+    }
   }
 })();
