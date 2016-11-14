@@ -62,7 +62,8 @@
         templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/capacity', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: '<capacity-graphs class="sf-layout-block"></capacity-graphs>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/efficiency', {
         templateUrl: 'coming-soon.tpl.html'

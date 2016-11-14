@@ -5,12 +5,13 @@
     .module('aiqUi')
     .service('DataService', [
       '$http',
+      '$filter',
       '$location',
       'ApiLogService',
       DataService
     ]);
 
-  function DataService($http, $location, ApiLogService) {
+  function DataService($http, $filter, $location, ApiLogService) {
     var dataService = {};
 
     dataService.callAPI = function(method, params) {
@@ -28,6 +29,26 @@
           }
           ApiLogService.appendResponse(entry, error.data, true);
           return error.data;
+        });
+    };
+
+    dataService.callGraphAPI = function(graph, params) {
+      var graphAPI = '/graph/cluster/' + params.clusterID +
+        '/' + graph +
+        '?startTime='+ params.start.toISOString() +
+        '&endTime=' + params.end.toISOString() +
+        '&resolution=' + $filter('graphResolution')(params.res, graph);
+
+      return $http.get(graphAPI)
+        .then(function(response) {
+          response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });
+          return response;
+        })
+        .catch(function(error) {
+          if (error.status === 401) {
+            $location.path('/login');
+          }
+          return error;
         });
     };
 

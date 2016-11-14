@@ -1,0 +1,36 @@
+@import 'shared.less';
+
+.sync-child-header > .info-box {
+  height: 106px;
+
+  .info-box-content {
+    .justify-content(flex-end);
+
+    >.title {
+      margin: 0;
+      color: @core-blue-grey-light;
+    }
+
+    >.value {
+      &.-small {
+        margin: -4px 0;
+      }
+    }
+  }
+}
+
+.-no-right-border {
+  border-right: none;
+}
+
+.sf-sync-context-graph-container .sf-state-container {
+  height: 150px;
+}
+
+.sf-sync-child-graph-container  .sf-state-container {
+  height: 200px;
+}
+
+@less-jumbo-font-size: 36px;
+@jumbo-font-size: 48px;
+@most-jumbo-font-size: 60px;

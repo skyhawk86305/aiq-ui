@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     ]
     }),
     buildConfig = require('../build.config.js'),
-    appFiles = path.join(buildConfig.appDir, '**/*')
+    appFiles = path.join(buildConfig.appDir, '**/*');
 
 // Start your local server and setup browserSync to reload your browser whenever src files change
 gulp.task('serve', ['build'], function () {

@@ -9,7 +9,6 @@ var NavbarComponent = require('../../page-objects/navbar.po');
 
 var loginForm = new LoginComponent();
 var navbar = new NavbarComponent();
-var request = require('request');
 
 describe('Login Form', function() {
   beforeEach(function() {
