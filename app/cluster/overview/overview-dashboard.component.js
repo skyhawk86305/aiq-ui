@@ -21,11 +21,7 @@
         graphConfigs = getGraphConfigs();
 
     ctrl.$onInit = function() {
-      ctrl.infoBar = {
-        getClusterSummaryState: 'loading',
-        capacityState: 'loading',
-        performanceState: 'loading'
-      };
+      ctrl.infoBar = {};
       ClusterPerformanceGraphService.update($routeParams.clusterID);
       AlertTableService.update($routeParams.clusterID);
 
@@ -40,18 +36,12 @@
             warning: result.unresolvedFaults.warning ? result.unresolvedFaults.warning : 0,
             error: result.unresolvedFaults.error ? result.unresolvedFaults.error : 0
           };
-          ctrl.infoBar.getClusterSummaryState = 'loaded'; 
-        }).catch(function() {
-          ctrl.infoBar.getClusterSummaryState = 'error'; 
         });
 
       DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
         .then(function(response) {
           var result = response.data;
           ctrl.infoBar.efficiency = result.efficiencyFactor;
-          ctrl.infoBar.capacityState = 'loaded'; 
-        }).catch(function() {
-          ctrl.infoBar.capacityState = 'error'; 
         });
 
       DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
@@ -60,9 +50,6 @@
           ctrl.infoBar.utilization = result.clusterUtilizationPct;
           ctrl.infoBar.iops = result.totalOpsPerSec;
           ctrl.infoBar.throughput = result.totalBytesPerSec;
-          ctrl.infoBar.performanceState = 'loaded'; 
-        }).catch(function() {
-          ctrl.infoBar.performanceState = 'error'; 
         });
     };
 

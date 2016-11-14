@@ -14,7 +14,7 @@
         case 'boolean':
           return data ? 'Yes' : 'No';
         case 'ratio':
-          return data ? typeof data === 'number' ? $filter('number')(data, 2) + 'x' : '-' : '-';
+          return data ? typeof data === 'number' ? $filter('number')(data, 1) + 'x' : '-' : '-';
         case 'wholePercent':
           return Math.round(data) + '%';
         case 'twoDecimalPercentage':
