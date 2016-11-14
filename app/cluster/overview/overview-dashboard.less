@@ -32,7 +32,7 @@
   >.overview-dashboard-graph {
     height: 100%;
     margin: 0;
-    #performance-graph .sf-state-container {
+    .sf-state-container {
       height: 500px;
     }
   }
@@ -45,9 +45,25 @@
   }
   .info-box {
     height: 225px;
+
+    .value {
+      font-size: 70px;
+      margin: 15px 0;
+    }
+    .title {
+      font-size: 18px;
+    }
+    .badge {
+      height: 125px;
+      .justify-content(center);
+
+      .title {
+        font-size: 20px;
+      }
+    }
   }
 }
 .alert-table {
-  height: 500px;
+  height: 700px;
   position: relative;
 }

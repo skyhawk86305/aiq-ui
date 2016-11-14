@@ -4,13 +4,14 @@
   angular
     .module('aiqUi')
     .service('AlertTableService', [
+      '$filter',
       'SFTableService',
       'SFFilterComparators',
       'DataService',
       AlertTableService
     ]);
 
-  function AlertTableService(SFTableService, SFFilterComparators, DataService) {
+  function AlertTableService($filter, SFTableService, SFFilterComparators, DataService) {
     var srvc,
       columns =  [
       {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqData', params: {type: 'date'}}},
@@ -23,7 +24,7 @@
       {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
     ];
 
-    srvc = new SFTableService(listActiveNodes, columns, false);
+    srvc = new SFTableService(listAlertsByCluster, columns, false);
     srvc.selectedClusterID = null;
     srvc.update = function(clusterID) {
       this.selectedClusterID = parseInt(clusterID);
@@ -32,10 +33,18 @@
 
     /**********************************/
 
-    function listActiveNodes() {
+    function listAlertsByCluster() {
       /*jshint validthis:true*/
-      return DataService.callAPI('ListActiveNodes', {clusterID: this.selectedClusterID})
-        .then(function(response) { return response.nodes; });
+      return DataService.callAPI('ListAlertsByCluster', {clusterID: this.selectedClusterID})
+        .then(function(response) {
+          return response.alerts.map(function(alert) {
+            alert.notificationName = alert.notification && alert.notification.notificationName || '';
+            alert.destinationEmail = alert.notification && alert.notification.destinationEmail || '';
+            alert.policyDescription = alert.notification && $filter('alert')(alert.notification.notificationFields, {type: 'condition'}) || '';
+
+            return alert;
+          });
+        });
     }
   }
 })();

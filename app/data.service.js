@@ -33,10 +33,14 @@
 
     dataService.callGraphAPI = function(graph, params) {
       var graphAPI = '/graph/cluster/' + params.clusterID +
-        '/' + graph +
-        '?startTime='+ params.start +
+        '/' + graph;
+      if (params.snapshot) {
+        graphAPI += '/snapshot';
+      } else {
+        graphAPI += '?startTime='+ params.start +
         '&endTime=' + params.end +
         '&resolution=' + params.res;
+      }
 
       return $http.get(graphAPI)
         .catch(function(error) {
