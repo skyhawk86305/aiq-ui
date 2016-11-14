@@ -44,7 +44,9 @@
 
       return $http.get(graphAPI)
         .then(function(response) {
-          response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });
+          if (!params.snapshot) {
+            response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });
+          }
           return response;
         })
         .catch(function(error) {

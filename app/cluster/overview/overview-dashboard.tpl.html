@@ -1,8 +1,8 @@
 <div class="overview-dashboard-page">
-  <div class="heading -cluster-name">
+  <div id="cluster-name" class="heading">
     <span>{{$ctrl.clusterName}}</span>
   </div>
-  <div class="graph-row">
+<!--   <div class="graph-row">
     <div class="graph-container col-md-6">
       <div class="overview-dashboard-graph sf-widget">
         <sf-graph-time-series component-id="performance-graph"
@@ -27,78 +27,83 @@
       </sf-graph-time-series>
       </div>
     </div>
-  </div>
-  <div class="sf-widget info-bar">
-    <div class="col-md-6">
-      <div id="node-count-info-box" class="info-box col-md-3">
-        <div class="info-box-content">
-          <span class="title">Nodes</span>
-          <span class="value">{{$ctrl.infoBar.nodeCount}}</span>
+  </div> -->
+  <div class="sf-widget container-fluid">
+    <div class="info-bar-row">
+      <div class="info-bar col-lg-6 col-md-12">
+        <div id="node-count-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content">
+            <span class="title">Nodes</span>
+            <span class="value">{{$ctrl.infoBar.nodeCount}}</span>
+          </div>
         </div>
-      </div>
-      <div id="block-capacity-info-box" class="info-box col-md-3">
-        <div class="info-box-content">
-          <span class="title">Block Capacity</span>
-          <div class="badge-container">
-            <div class="badge"
-              ng-class="$ctrl.infoBar.blockCapacity | clusterStage:true">
-              <span class="title">{{$ctrl.infoBar.blockCapacity | clusterStage}}</span>
+        <div id="block-capacity-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content">
+            <span class="title">Block Capacity</span>
+            <div class="badge-container">
+              <div class="badge"
+                ng-class="$ctrl.infoBar.blockCapacity | clusterStage:true">
+                <span class="title -large">{{$ctrl.infoBar.blockCapacity | clusterStage}}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="metadata-capacity-info-box" class="info-box col-md-3">
-        <div class="info-box-content">
-          <span class="title">Metadata Capacity</span>
-          <div class="badge-container">
-            <div class="badge"
-              ng-class="$ctrl.infoBar.metadataCapacity | clusterStage:true">
-              <span class="title">{{$ctrl.infoBar.metadataCapacity | clusterStage}}</span>
+        <div id="metadata-capacity-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content">
+            <span class="title">Metadata Capacity</span>
+            <div class="badge-container">
+              <div class="badge"
+                ng-class="$ctrl.infoBar.metadataCapacity | clusterStage:true">
+                <span class="title -large">{{$ctrl.infoBar.metadataCapacity | clusterStage}}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="efficiency-info-box" class="info-box col-md-3">
-        <div class="info-box-content -efficiency">
-          <span class="title">Efficiency</span>
-          <span class="value">{{$ctrl.infoBar.efficiency | aiqData:{type:'ratio'} }}</span>
+        <div id="efficiency-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content -efficiency">
+            <span class="title">Efficiency</span>
+            <span class="value">{{$ctrl.infoBar.efficiency | aiqData:{type:'ratio'} }}</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div id="utilization-info-box" class="info-box col-md-3">
-        <div class="info-box-content">
-          <span class="title">Utilization</span>
-          <span class="value">{{$ctrl.infoBar.utilization | aiqData:{type:'wholePercent'} }}</span>
+      <div class="info-bar col-lg-6 col-md-12">
+        <div id="utilization-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content">
+            <span class="title">Utilization</span>
+            <span class="value">{{$ctrl.infoBar.utilization | aiqData:{type:'wholePercent'} }}</span>
+          </div>
         </div>
-      </div>
-      <div id="iops-info-box" class="info-box col-md-3">
-        <div class="info-box-content">
-          <span class="title">IOPS</span>
-          <span class="value">{{$ctrl.infoBar.iops}}</span>
+        <div id="iops-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content">
+            <span class="title">IOPS</span>
+            <span class="value">{{$ctrl.infoBar.iops | iops }}</span>
+          </div>
         </div>
-      </div>
-      <div id="bandwidth-info-box" class="info-box col-md-3">
-        <div class="info-box-content">
-          <span class="title">Bandwidth</span>
-          <span class="value">{{$ctrl.infoBar.throughput | bytes:null:0}}</span>
-        </div>
-      </div>
-      <div id="cluster-faults-info-box" class="info-box col-md-3">
-        <div class="info-box-content">
-          <span class="title">Cluster Faults</span>
-          <div class="badge-container">
-            <div class="badge"
-              ng-class="{'-error': $ctrl.infoBar.clustersFaults.warning,
-                '-empty-alert' : !$ctrl.infoBar.clusterFaults.warning }">
-              <span class="value">{{$ctrl.infoBar.clusterFaults.warning}}</span>
-              <span class="title">Warning</span>
+        <div id="bandwidth-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content">
+            <span class="title">Throughput</span>
+            <div class="throughput-value">
+              <span class="value">{{$ctrl.infoBar.throughput.value}}</span>
+              <span class="label">{{$ctrl.infoBar.throughput.unit}}</span>
             </div>
-            <div class="badge"
-              ng-class="{'-error': $ctrl.infoBar.clustersFaults.error,
-                '-empty-alert' : !$ctrl.infoBar.clusterFaults.error }">
-              <span class="value">{{$ctrl.infoBar.clusterFaults.error}}</span>
-              <span class="title">Error</span>
+          </div>
+        </div>
+        <div id="cluster-faults-info-box" class="info-box col-lg-3  col-md-3">
+          <div class="info-box-content">
+            <span class="title">Cluster Faults</span>
+            <div class="badge-container">
+              <div class="badge"
+                ng-class="{'-warning': $ctrl.infoBar.clusterFaults.warning,
+                  '-empty-alert' : !$ctrl.infoBar.clusterFaults.warning }">
+                <span class="value">{{$ctrl.infoBar.clusterFaults.warning}}</span>
+                <span class="title">Warning</span>
+              </div>
+              <div class="badge"
+                ng-class="{'-critical': $ctrl.infoBar.clusterFaults.error,
+                  '-empty-alert' : !$ctrl.infoBar.clusterFaults.error }">
+                <span class="value">{{$ctrl.infoBar.clusterFaults.error}}</span>
+                <span class="title">Error</span>
+              </div>
             </div>
           </div>
         </div>
