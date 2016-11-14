@@ -5,12 +5,13 @@
     .module('aiqUi')
     .service('DataService', [
       '$http',
+      '$filter',
       '$location',
       'ApiLogService',
       DataService
     ]);
 
-  function DataService($http, $location, ApiLogService) {
+  function DataService($http, $filter, $location, ApiLogService) {
     var dataService = {};
 
     dataService.callAPI = function(method, params) {
@@ -34,9 +35,9 @@
     dataService.callGraphAPI = function(graph, params) {
       var graphAPI = '/graph/cluster/' + params.clusterID +
         '/' + graph +
-        '?startTime='+ params.start +
-        '&endTime=' + params.end +
-        '&resolution=' + params.res;
+        '?startTime='+ params.start.toISOString() +
+        '&endTime=' + params.end.toISOString() +
+        '&resolution=' + $filter('graphResolution')(params.res, graph);
 
       return $http.get(graphAPI)
         .then(function(response) {
