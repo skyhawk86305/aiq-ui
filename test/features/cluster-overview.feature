@@ -21,8 +21,16 @@ Feature: Per Single Cluster Overview
     And I see a sf-time-series graph component with "clusterPerformanceUtilization" data
 
     # Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults
-    And I see a sf-widget with "highLevel" stats
-    And the sf-widget contains "Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults"
+    And I see a sf-infobar-widget
+    And the "-node-count" widget contains the title "Nodes"
+    And the "-block-capacity" widget contains the title "Block Capacity"
+    And the "-metadata-capacity" widget contains the title "Metadata Capacity"
+    And the "-efficiency" widget contains the title "Efficiency"
+    And the "-utilization" widget contains the title "Utilization"
+    And the "-iops" widget contains the title "IOPS"
+    And the "-bandwidth" widget contains the title "Bandwidth"
+    And the "-cluster-faults" widget contains the title "Cluster Faults"
+    And the "Cluster Gaults" widget contains "Critical" and Error"
 
     And I see a SolidFire table with "activeIQAlerts" data
     And The "activeIQAlert" table contains columns: "Alert Triggered, Last Notified, Resolved, Policy Name, Severity, Alert Value, Destination, Alert Condition"

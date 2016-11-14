@@ -20,8 +20,8 @@ var ClusterOverviewComponent = function () {
         iops: infoBar.element(by.css(".info-box-content.-iops")),
         bandwidth: infoBar.element(by.css(".info-box-content.-bandwidth")),
         clusterFaults: infoBar.element(by.css(".info-box-content.-clusterFaults")),
-        clusterFaultWarning: infoBar.element(by.css(".-clusterFaults > .badge-container > .-warning")),
-        clusterFaultError: infoBar.element(by.css(".-clusterFaults > .badge-container > .-warning"))
+        clusterFaultError: infoBar.element(by.css(".-clusterFaults > .badge-container > .-error")),
+        clusterFaultWarning: infoBar.element(by.css(".-clusterFaults > .badge-container > .-warning"))
       }
     };
   };

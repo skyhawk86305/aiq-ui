@@ -1,11 +1,14 @@
-//   And I see a sf-widget with "highLevel" stats
+'use strict';
 
-//   And I see a sf-widget with "highLevel" stats
-this.Then(/^I see a sf-widget with "(.*)" stats/, function (text) {
-  this.expect(this.clusterOverview.infoBar.getText()).to.eventually.contain(text);
-});
+module.exports = function() {
+  this.Then(/^I see a sf-infobar-widget with (.*) widgets:"$/, function (count) {
+    return this.expect(this.clusterOverview.infoBar.el.isDisplayed()).to.eventually.be.true;
+    this.expect(this.clusterOverview.infobar.badges.count).toEqual(count);
 
-//   And the sf-widget contains "Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults"
-this.Then(/^the sf-widget contains "(.*)"/, function (text) {
-  return this.expect(this.clusterOverview.infoBar.el.isDisplayed()).to.eventually.be.true;
-});
+  });
+
+  //   And the sf-widget contains "Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults"
+  this.Then(/^the "(.*)" sf-widget contains the title "(.*)"/, function (id, text) {
+    this.expect(this.clusterOverview.infoBar.getText()).to.eventually.contain(text);
+  });
+};
