@@ -20,52 +20,7 @@
     var ctrl = this,
         graphConfigs = getGraphConfigs();
 
-    ctrl.$onInit = function() {
-      ClusterPerformanceGraphService.update($routeParams.clusterID);
-      AlertTableService.update($routeParams.clusterID);
-      ctrl.alertTableService = AlertTableService;
-      setInfoBarData();
-
-      function setInfoBarData() {
-        ctrl.infoBar = {};
-        DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
-          .then(function(response) {
-            var result = response.cluster;
-            ctrl.clusterName = result.clusterName;
-            ctrl.infoBar.nodeCount = result.nodeCount;
-            ctrl.infoBar.blockCapacity = result.clusterFull.blockFullness;
-            ctrl.infoBar.metadataCapacity = result.clusterFull.metadataFullness;
-            ctrl.infoBar.clusterFaults =  {
-              warning: result.unresolvedFaults.warning ? result.unresolvedFaults.warning : 0,
-              error: result.unresolvedFaults.error ? result.unresolvedFaults.error : 0
-            };
-          });
-
-        DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
-          .then(function(response) {
-            var result = response.data;
-            ctrl.infoBar.efficiency = result.efficiencyFactor;
-          });
-
-        DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
-          .then(function(response) {
-            var result = response.data;
-            ctrl.infoBar.utilization = result.clusterUtilizationPct;
-            ctrl.infoBar.iops = result.totalOpsPerSec;
-            ctrl.infoBar.throughput = formatThroughputResponse(result.totalBytesPerSec);
-
-            function formatThroughputResponse(totalBytes) {
-              var throughput = {},
-                formattedThroughput = '';
-
-              formattedThroughput = $filter('bytes')(totalBytes);
-              throughput.value = formattedThroughput.slice(0, formattedThroughput.length-3);
-              throughput.unit = formattedThroughput.slice(formattedThroughput.length-2) + '/s';
-              return throughput;
-            }
-          });
-      }
-    };
+    ctrl.$onInit = initializeOverviewDashboard();
     ctrl.graphs = {
       contextRange: getContextRange(),
       service: ClusterPerformanceGraphService,
@@ -190,7 +145,52 @@
       return graphConfigs;
     }
 
-    // function initializeOverviewDashboard() 
+    function initializeOverviewDashboard(){
+      ClusterPerformanceGraphService.update($routeParams.clusterID);
+      AlertTableService.update($routeParams.clusterID);
+      ctrl.alertTableService = AlertTableService;
+      setInfoBarData();
+
+      function setInfoBarData() {
+        ctrl.infoBar = {};
+        DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
+          .then(function(response) {
+            var result = response.cluster;
+            ctrl.clusterName = result.clusterName;
+            ctrl.infoBar.nodeCount = result.nodeCount;
+            ctrl.infoBar.blockCapacity = result.clusterFull.blockFullness;
+            ctrl.infoBar.metadataCapacity = result.clusterFull.metadataFullness;
+            ctrl.infoBar.clusterFaults =  {
+              warning: result.unresolvedFaults.warning ? result.unresolvedFaults.warning : 0,
+              error: result.unresolvedFaults.error ? result.unresolvedFaults.error : 0
+            };
+          });
+
+        DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
+          .then(function(response) {
+            var result = response.data;
+            ctrl.infoBar.efficiency = result.efficiencyFactor;
+          });
+
+        DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
+          .then(function(response) {
+            var result = response.data;
+            ctrl.infoBar.utilization = result.clusterUtilizationPct;
+            ctrl.infoBar.iops = result.totalOpsPerSec;
+            ctrl.infoBar.throughput = formatThroughputResponse(result.totalBytesPerSec);
+
+            function formatThroughputResponse(totalBytes) {
+              var throughput = {},
+                formattedThroughput = '';
+
+              formattedThroughput = $filter('bytes')(totalBytes);
+              throughput.value = formattedThroughput.slice(0, formattedThroughput.length-3);
+              throughput.unit = formattedThroughput.slice(formattedThroughput.length-2) + '/s';
+              return throughput;
+            }
+          });
+      }
+    }
 
     function getContextRange() {
       var now = Date.now(),

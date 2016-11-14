@@ -35,6 +35,7 @@
         {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
       ];
     }
+
     function listAlertsByCluster() {
       /*jshint validthis:true*/
       return DataService.callAPI('ListAlertsByCluster', {clusterID: this.selectedClusterID})
