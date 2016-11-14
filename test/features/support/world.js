@@ -42,7 +42,7 @@ function World() {
   this.errorLogTable = new TableComponent('error-log');
   this.clusterPerformanceGraph = new GraphTimeSeriesComponent(null,'performance-graph');
   this.clusterPerformanceUtilizationGraph = new GraphTimeSeriesComponent(null,'utilization-graph');
-  this.clusterOverview = new clusterOverviewComponent(null,'utilization-graph');
+  this.clusterOverview = new clusterOverviewComponent();
 
 
   this.table = function(type) {
