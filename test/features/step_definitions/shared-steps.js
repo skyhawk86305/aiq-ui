@@ -70,7 +70,6 @@ module.exports = function() {
     this.expect(this.comingSoonComponent.legacyLink.getText()).to.eventually.contain(text);
   });
 
-
   this.Then(/^I see a sf-time-series graph component with "(.*)" data/, function (type) {
     return this.expect(this.timeSeriesGraph(type).el.isDisplayed()).to.eventually.be.true;
   });

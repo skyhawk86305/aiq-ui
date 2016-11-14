@@ -1,6 +1,6 @@
 'use strict';
 
-var GraphTimeSeriesComponent = function (componentId, thisElement) {
+var GraphTimeSeries = function (componentId, thisElement) {
 
   var component = this;
   component.el = thisElement || element(by.id(componentId));

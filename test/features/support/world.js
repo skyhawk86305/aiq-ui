@@ -31,7 +31,7 @@ function World() {
   this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
   this.loginForm = new LoginComponent();
-  this.clusterOverview = ClusterOverviewComponent();
+  this.clusterOverview = new ClusterOverviewComponent();
   this.comingSoonComponent = new ComingSoonComponent();
   this.nodesTable = new TableComponent('node');
   this.drivesTable = new TableComponent('drive');
@@ -42,7 +42,6 @@ function World() {
   this.errorLogTable = new TableComponent('error-log');
   this.clusterPerformanceGraph = new GraphTimeSeriesComponent(null,'performance-graph');
   this.clusterPerformanceUtilizationGraph = new GraphTimeSeriesComponent(null,'utilization-graph');
-  this.clusterOverview = new clusterOverviewComponent();
 
 
   this.table = function(type) {
