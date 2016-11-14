@@ -60,6 +60,7 @@
       })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/capacity', {
         template: '<capacity-graphs class="sf-layout-block"></capacity-graphs>',
