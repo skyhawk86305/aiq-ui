@@ -12,27 +12,29 @@
     ]);
 
   function AlertTableService($filter, SFTableService, SFFilterComparators, DataService) {
-    var srvc,
-      columns =  [
-      {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'lastNotified', label: 'Last Notified', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'isResolved', label: 'Resolved', format: {filter: 'aiqData', params: {type: 'boolean'}}},
-      {key: 'notificationName', label: 'Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
-      {key: 'severity', label: 'Severity', filterComparators: SFFilterComparators.STRING_DEFAULT},
-      {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},
-      {key: 'destinationEmail', label: 'Destination', filterComparators:SFFilterComparators.STRING_DEFAULT},
-      {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
-    ];
+    /*jshint validthis:true*/
+    var self,
+      columns =  getColumns();
 
-    srvc = new SFTableService(listAlertsByCluster, columns, false);
-    srvc.selectedClusterID = null;
-    srvc.update = function(clusterID) {
-      this.selectedClusterID = parseInt(clusterID);
-    };
-    return srvc;
+    self = new SFTableService(listAlertsByCluster, columns, false);
+    self.selectedClusterID = null;
+    self.update = update;
+    return self;
 
     /**********************************/
 
+    function getColumns() {
+      return [
+        {key: 'created', label: 'Alert Triggered', width: 200, format: {filter: 'aiqData', params: {type: 'date'}}},
+        {key: 'lastNotified', label: 'Last Notified', width: 200, format: {filter: 'aiqData', params: {type: 'date'}}},
+        {key: 'isResolved', label: 'Resolved', width: 120, format: {filter: 'booleanDataBlock'}},
+        {key: 'severity', label: 'Severity', width: 120, filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'alertSeverityDataBlock'}},
+        {key: 'notificationName', label: 'Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
+        {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},
+        {key: 'destinationEmail', label: 'Destination', filterComparators:SFFilterComparators.STRING_DEFAULT},
+        {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
+      ];
+    }
     function listAlertsByCluster() {
       /*jshint validthis:true*/
       return DataService.callAPI('ListAlertsByCluster', {clusterID: this.selectedClusterID})
@@ -45,6 +47,10 @@
             return alert;
           });
         });
+    }
+
+    function update(clusterID) {
+      this.selectedClusterID = parseInt(clusterID);
     }
   }
 })();

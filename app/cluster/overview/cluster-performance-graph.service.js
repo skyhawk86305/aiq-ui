@@ -13,11 +13,11 @@
 
   function ClusterPerformanceGraphService($filter, DataService,SFGraphTimeSeriesService) {
     /*jshint validthis:true*/
-    var service = new SFGraphTimeSeriesService(getClusterPerformance);
+    var self = new SFGraphTimeSeriesService(getClusterPerformance);
 
-    service.selectedClusterID = null;
-    service.update = update;
-    return service;
+    self.selectedClusterID = null;
+    self.update = update;
+    return self;
 
     /**********************************/
 

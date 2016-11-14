@@ -20,53 +20,7 @@
     var ctrl = this,
         graphConfigs = getGraphConfigs();
 
-    ctrl.$onInit = function() {
-      ctrl.infoBar = {
-        getClusterSummaryState: 'loading',
-        capacityState: 'loading',
-        performanceState: 'loading'
-      };
-      ClusterPerformanceGraphService.update($routeParams.clusterID);
-      AlertTableService.update($routeParams.clusterID);
-
-      DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
-        .then(function(response) {
-          var result = response.cluster;
-          ctrl.clusterName = result.clusterName;
-          ctrl.infoBar.nodeCount = result.nodeCount;
-          ctrl.infoBar.blockCapacity = result.clusterFull.blockFullness;
-          ctrl.infoBar.metadataCapacity = result.clusterFull.metadataFullness;
-          ctrl.infoBar.clusterFaults =  {
-            warning: result.unresolvedFaults.warning ? result.unresolvedFaults.warning : 0,
-            error: result.unresolvedFaults.error ? result.unresolvedFaults.error : 0
-          };
-          ctrl.infoBar.getClusterSummaryState = 'loaded'; 
-        }).catch(function() {
-          ctrl.infoBar.getClusterSummaryState = 'error'; 
-        });
-
-      DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
-        .then(function(response) {
-          var result = response.data;
-          ctrl.infoBar.efficiency = result.efficiencyFactor;
-          ctrl.infoBar.capacityState = 'loaded'; 
-        }).catch(function() {
-          ctrl.infoBar.capacityState = 'error'; 
-        });
-
-      DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
-        .then(function(response) {
-          var result = response.data;
-          ctrl.infoBar.utilization = result.clusterUtilizationPct;
-          ctrl.infoBar.iops = result.totalOpsPerSec;
-          ctrl.infoBar.throughput = result.totalBytesPerSec;
-          ctrl.infoBar.performanceState = 'loaded'; 
-        }).catch(function() {
-          ctrl.infoBar.performanceState = 'error'; 
-        });
-    };
-
-    ctrl.alertTableService = AlertTableService;
+    ctrl.$onInit = initializeOverviewDashboard();
     ctrl.graphs = {
       contextRange: getContextRange(),
       service: ClusterPerformanceGraphService,
@@ -91,6 +45,8 @@
       }
     };
 
+    /**********************************/
+
     function getGraphConfigs() {
       var graphConfigs = {
         performance: {},
@@ -101,6 +57,9 @@
         bindTo: 'performance-utilization-graph',
         type: 'line',
         showAxisLabels: false,
+        margin: {
+          left: 50
+        },
         data: {
           x: 'timestampSec',
           ids: ['clusterUtilizationPct'],
@@ -120,15 +79,14 @@
         axis: {
           x: {
             tick: {
-              format: '%m-%d-%Y',
+              format: xAxisFormat,
               spacing: 200
             }
           },
           y0: {
-            label: 'Utilization',
             tick: {
-              format: '.3',
-              spacing: 30
+              format: utilizationFormat,
+              spacing: 100
             }
           }
         }
@@ -138,6 +96,10 @@
         bindTo: 'cluster-performance-graph',
         type: 'line',
         showAxisLabels: false,
+        margin: {
+          left: 50,
+          right: 60
+        },
         data: {
           x: 'timestampSec',
           ids: ['totalOpsPerSec', 'totalBytesPerSec'],
@@ -147,7 +109,7 @@
           },
           labels: {
             totalOpsPerSec: 'IOPS',
-            totalBytesPerSec: 'Bandwidth'
+            totalBytesPerSec: 'Throughput'
           },
           colors: {
             totalOpsPerSec: ['#8372B5'],
@@ -161,28 +123,73 @@
         axis: {
           x: {
             tick: {
-              format: '%m-%d-%Y',
+              format: xAxisFormat,
               spacing: 200
             }
           },
           y0: {
-            label: 'IOPS',
             tick: {
-              format: '.3',
-              spacing: 30
+              format: iopsFormat,
+              spacing: 100
             }
           },
           y1: {
-            label: 'Bandwidth',
             tick: {
-              format: '.3',
-              spacing: 30
+              format: bytesFormat,
+              spacing: 100
             }
           }
         }
       };
 
       return graphConfigs;
+    }
+
+    function initializeOverviewDashboard() {
+      ClusterPerformanceGraphService.update($routeParams.clusterID);
+      AlertTableService.update($routeParams.clusterID);
+      ctrl.alertTableService = AlertTableService;
+      setInfoBarData();
+
+      function setInfoBarData() {
+        ctrl.infoBar = {};
+        DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
+          .then(function(response) {
+            var result = response.cluster;
+            ctrl.clusterName = result.clusterName;
+            ctrl.infoBar.nodeCount = result.nodeCount;
+            ctrl.infoBar.blockCapacity = result.clusterFull.blockFullness;
+            ctrl.infoBar.metadataCapacity = result.clusterFull.metadataFullness;
+            ctrl.infoBar.clusterFaults =  {
+              warning: result.unresolvedFaults.warning ? result.unresolvedFaults.warning : 0,
+              error: result.unresolvedFaults.error ? result.unresolvedFaults.error : 0
+            };
+          });
+
+        DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
+          .then(function(response) {
+            var result = response.data;
+            ctrl.infoBar.efficiency = result.efficiencyFactor;
+          });
+
+        DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
+          .then(function(response) {
+            var result = response.data;
+            ctrl.infoBar.utilization = result.clusterUtilizationPct;
+            ctrl.infoBar.iops = result.totalOpsPerSec;
+            ctrl.infoBar.throughput = formatThroughputResponse(result.totalBytesPerSec);
+
+            function formatThroughputResponse(totalBytes) {
+              var throughput = {},
+                formattedThroughput = '';
+
+              formattedThroughput = $filter('bytes')(totalBytes);
+              throughput.value = formattedThroughput.slice(0, formattedThroughput.length-3);
+              throughput.unit = formattedThroughput.slice(formattedThroughput.length-2) + '/s';
+              return throughput;
+            }
+          });
+      }
     }
 
     function getContextRange() {
@@ -193,6 +200,21 @@
       range.start = new Date(now - fiveDaysMilliseconds);
       range.end = new Date(now);
       return range;
+    }
+
+    /***********************  Helper Functions  ************************/
+
+    function xAxisFormat(milliseconds) {
+      return $filter('date')(new Date(milliseconds), 'short');
+    }
+    function utilizationFormat(utilization) {
+      return $filter('aiqData')(utilization, {type: 'wholePercent'});
+    }
+    function iopsFormat(iops) {
+      return $filter('iops')(iops, 0);
+    }
+    function bytesFormat(bytes) {
+      return $filter('bytes')(bytes, false, 0, false);
     }
   }
 })();

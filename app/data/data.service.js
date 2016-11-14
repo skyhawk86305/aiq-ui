@@ -43,6 +43,12 @@
       }
 
       return $http.get(graphAPI)
+        .then(function(response) {
+          if (!params.snapshot) {
+            response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });
+          }
+          return response;
+        })
         .catch(function(error) {
           if (error.status === 401) {
             $location.path('/login');
