@@ -12,18 +12,16 @@
 
 
   function ClusterPerformanceGraphService($filter, DataService,SFGraphTimeSeriesService) {
-    var srvc = new SFGraphTimeSeriesService(getClusterPerformance);
+    /*jshint validthis:true*/
+    var service = new SFGraphTimeSeriesService(getClusterPerformance);
 
-    srvc.selectedClusterID = null;
-    srvc.update = function(clusterID) {
-      this.selectedClusterID = parseInt(clusterID);
-    };
-    return srvc;
+    service.selectedClusterID = null;
+    service.update = update;
+    return service;
 
     /**********************************/
 
     function getClusterPerformance(params) {
-      /*jshint validthis:true*/
       params.clusterID = this.selectedClusterID;
       params.start = params.start.toISOString();
       params.end = params.end.toISOString();
@@ -33,6 +31,10 @@
         .then(function(response) {
           return response.data;
         });
+    }
+
+    function update(clusterID) {
+      this.selectedClusterID = parseInt(clusterID);
     }
   }
 })();
