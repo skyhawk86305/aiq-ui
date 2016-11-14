@@ -1,0 +1,69 @@
+@import '../../styles/shared.less';
+
+.overview-dashboard-page {
+  background-color: @whitescale-2;
+  height: 100%;
+  overflow-y: auto;
+
+  .heading {
+    padding: 25px 0 0px 15px;
+    font-size: 25px;
+    color: @core-blue-grey;
+  }
+  .sf-widget {
+    margin: 15px;
+  }
+}
+.graph-row {
+  min-height:600px;
+}
+
+.graph-container {
+  height: 600px;
+  padding: 15px;
+
+  .title {
+    font-size: 20px;
+    margin-top: 5px;
+    font-weight: 400;
+    color: @core-blue-grey;
+    line-height: 30px;
+  }
+  >.overview-dashboard-graph {
+    height: 100%;
+    margin: 0;
+    .sf-state-container {
+      height: 500px;
+    }
+  }
+}
+
+.info-bar {
+  min-height: 225px;
+  .col-md-6 {
+    padding: 0;
+  }
+  .info-box {
+    height: 225px;
+
+    .value {
+      font-size: 70px;
+      margin: 15px 0;
+    }
+    .title {
+      font-size: 18px;
+    }
+    .badge {
+      height: 125px;
+      .justify-content(center);
+
+      .title {
+        font-size: 20px;
+      }
+    }
+  }
+}
+.alert-table {
+  height: 700px;
+  position: relative;
+}

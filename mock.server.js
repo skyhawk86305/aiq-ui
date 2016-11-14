@@ -1,6 +1,9 @@
+'use strict';
+
 var express = require('express'),
     bodyParser = require('body-parser'),
     mockConfig = require('./mock.config'),
+    MockData = require('./server/mock-data'),
     server = express(),
     authenticated = true;
 
@@ -53,3 +56,16 @@ server.delete('/sessions', function (req, res) {
   authenticated = false;
   res.status(200).send();
 });
+
+/**
+ * Catch capacity page graph data requests and respond with random data
+ * in the correct response format.
+ */
+server.get('/graph/cluster/:clusterId/capacity', function (req, res) {
+  var data = MockData.getTimeSeriesData(req.query.startTime, req.query.endTime, req.query.resolution, 0, ['usedSpace', 'maxUsedSpace', 'usedMetadataSpace', 'maxUsedMetadataSpace', 'provisionedSpace', 'maxProvisionedSpace']),
+    response = data || {};
+
+  res.send(response);
+});
+
+
