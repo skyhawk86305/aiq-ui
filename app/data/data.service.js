@@ -5,12 +5,13 @@
     .module('aiqUi')
     .service('DataService', [
       '$http',
+      '$filter',
       '$location',
       'ApiLogService',
       DataService
     ]);
 
-  function DataService($http, $location, ApiLogService) {
+  function DataService($http, $filter, $location, ApiLogService) {
     var dataService = {};
 
     dataService.callAPI = function(method, params) {
@@ -37,9 +38,9 @@
       if (params.snapshot) {
         graphAPI += '/snapshot';
       } else {
-        graphAPI += '?startTime='+ params.start +
-        '&endTime=' + params.end +
-        '&resolution=' + params.res;
+        graphAPI += '?startTime='+ params.start.toISOString() +
+        '&endTime=' + params.end.toISOString() +
+        '&resolution=' + $filter('graphResolution')(params.resolution, graph);
       }
 
       return $http.get(graphAPI)
