@@ -54,7 +54,7 @@
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               ids: ['maxProvisionedSpace', 'provisionedSpace'],
               axes: {
                 maxProvisionedSpace: 'y0',
@@ -102,7 +102,7 @@
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               y: 'provisionedSpace',
               color: '#0FAEE7'
             },
@@ -147,7 +147,7 @@
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               ids: ['maxUsedSpace', 'usedSpace'],
               axes: {
                 maxUsedSpace: 'y0',
@@ -195,7 +195,7 @@
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               y: 'usedSpace',
               color: '#0FAEE7'
             },
@@ -240,7 +240,7 @@
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               ids: ['maxUsedMetadataSpace', 'usedMetadataSpace'],
               axes: {
                 maxUsedMetadataSpace: 'y0',
@@ -288,7 +288,7 @@
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               y: 'usedMetadataSpace',
               color: '#0FAEE7'
             },
@@ -318,8 +318,8 @@
 
     /***********************  Helper Functions  ************************/
 
-    function xAxisFormat(seconds) {
-      return $filter('date')(new Date(seconds*1000), 'short');
+    function xAxisFormat(milliseconds) {
+      return $filter('date')(new Date(milliseconds), 'short');
     }
 
     function yAxisFormat(bytes) {
