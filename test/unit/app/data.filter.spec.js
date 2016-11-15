@@ -10,7 +10,7 @@ describe('AIQ Data Filter', function () {
   it('should format ratios', inject(function ($filter) {
     expect($filter('aiqData')(null, {type: 'ratio'})).toEqual('-');
     expect($filter('aiqData')('5', {type: 'ratio'})).toEqual('-');
-    expect($filter('aiqData')(5, {type: 'ratio'})).toEqual('5.00x');
+    expect($filter('aiqData')(5, {type: 'ratio'})).toEqual('5.0x');
   }));
 
   it('should format percentages (rounding to nearest whole number)', inject(function ($filter) {

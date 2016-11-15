@@ -82,10 +82,7 @@
         <div id="bandwidth-info-box" class="info-box col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Throughput</span>
-            <div class="throughput-value">
-              <span class="value">{{$ctrl.infoBar.throughput.value}}</span>
-              <span class="label">{{$ctrl.infoBar.throughput.unit}}</span>
-            </div>
+            <span class="value">{{$ctrl.infoBar.throughput | bytes}}/s</span>
           </div>
         </div>
         <div id="cluster-faults-info-box" class="info-box col-lg-3  col-md-3">
@@ -114,6 +111,6 @@
     <span>ActiveIQ Alerts</span>
   </div>
   <div class="alert-table sf-widget">
-    <sf-table class="sf-layout-block"  service="$ctrl.alertTableService" table-id="alert-table"></sf-table>
+    <sf-table class="sf-layout-block"  service="$ctrl.clusterAlertTableService" table-id="alert-table"></sf-table>
   </div>
 </div>

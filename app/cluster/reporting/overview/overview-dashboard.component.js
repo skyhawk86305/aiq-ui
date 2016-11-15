@@ -10,19 +10,19 @@
         '$filter',
         'DataService',
         'PerformanceGraphsService',
-        'AlertTableService',
+        'ClusterAlertTableService',
         'SFD3LineGraph',
         OverviewDashboardController
       ]
     });
 
-  function OverviewDashboardController($routeParams, $filter, DataService, PerformanceGraphsService, AlertTableService, SFD3LineGraph) {
+  function OverviewDashboardController($routeParams, $filter, DataService, PerformanceGraphsService, ClusterAlertTableService, SFD3LineGraph) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
       PerformanceGraphsService.update($routeParams.clusterID);
-      AlertTableService.update($routeParams.clusterID);
-      ctrl.alertTableService = AlertTableService;
+      ClusterAlertTableService.update($routeParams.clusterID);
+      ctrl.clusterAlertTableService = ClusterAlertTableService;
       setInfoBarData();
     };
 
@@ -78,17 +78,7 @@
           var result = response.data;
           ctrl.infoBar.utilization = result.clusterUtilizationPct;
           ctrl.infoBar.iops = result.totalOpsPerSec;
-          ctrl.infoBar.throughput = formatThroughputResponse(result.totalBytesPerSec);
-
-          function formatThroughputResponse(totalBytes) {
-            var throughput = {},
-              formattedThroughput = '';
-
-            formattedThroughput = $filter('bytes')(totalBytes);
-            throughput.value = formattedThroughput.slice(0, formattedThroughput.length-3);
-            throughput.unit = formattedThroughput.slice(formattedThroughput.length-2) + '/s';
-            return throughput;
-          }
+          ctrl.infoBar.throughput = result.totalBytesPerSec;
         });
     }
 

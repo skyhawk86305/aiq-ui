@@ -3,15 +3,15 @@
 
   angular
     .module('aiqUi')
-    .service('AlertTableService', [
+    .service('ClusterAlertTableService', [
       '$filter',
       'SFTableService',
       'SFFilterComparators',
       'DataService',
-      AlertTableService
+      ClusterAlertTableService
     ]);
 
-  function AlertTableService($filter, SFTableService, SFFilterComparators, DataService) {
+  function ClusterAlertTableService($filter, SFTableService, SFFilterComparators, DataService) {
     var columns = getColumns(),
       service = new SFTableService(listAlertsByCluster, columns, false);
 
