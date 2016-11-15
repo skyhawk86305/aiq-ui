@@ -38,7 +38,7 @@
         '/' + graph +
         '?startTime='+ params.start.toISOString() +
         '&endTime=' + params.end.toISOString() +
-        '&resolution=' + $filter('graphResolution')(params.res, graph);
+        '&resolution=' + $filter('graphResolution')(params.resolution, graph);
 
       return $http.get(graphAPI)
         .then(function(response) {
