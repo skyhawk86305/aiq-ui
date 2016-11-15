@@ -27,11 +27,11 @@
     };
 
     ctrl.staticDateRangeOptions = [
-      {milliseconds: 86400000, label: 'Last 24 Hours'},
-      {milliseconds: 259200000, label: 'Last 3 Days'},
-      {milliseconds: 604800000, label: 'Last 7 Days'},
-      {milliseconds: 1209600000, label: 'Last 14 Days'},
-      {milliseconds: 2592000000, label: 'Last 30 Days', default: true}
+      {milliseconds: 86400000, label: '24 Hours'},
+      {milliseconds: 259200000, label: '3 Days'},
+      {milliseconds: 604800000, label: '7 Days'},
+      {milliseconds: 1209600000, label: '14 Days'},
+      {milliseconds: 2592000000, label: '30 Days', default: true}
     ];
 
     ctrl.syncGraphs = [
@@ -49,83 +49,12 @@
               provisionedSpace: 'Provisioned Space'
             }
           },
-          graph: new SFD3LineGraph({
-            bindTo: 'cluster-provisioned-child',
-            type: 'line',
-            showAxisLabels: true,
-            data: {
-              x: 'timestamps',
-              ids: ['maxProvisionedSpace', 'provisionedSpace'],
-              axes: {
-                maxProvisionedSpace: 'y0',
-                provisionedSpace: 'y0'
-              },
-              labels: {
-                maxProvisionedSpace: 'Max Provisioned Space',
-                provisionedSpace: 'Provisioned Space'
-              },
-              colors: {
-                maxProvisionedSpace: ['#ff0000'],
-                provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
-              },
-              textures: {
-                maxProvisionedSpace: ['dashed'],
-                provisionedSpace: ['solid']
-              }
-            },
-            margin: {
-              top: 15,
-              right: 20,
-              bottom: 30
-            },
-            axis: {
-              x: {
-                tick: {
-                  format: xAxisFormat,
-                  spacing: 200
-                }
-              },
-              y0: {
-                tick: {
-                  format: yAxisFormat,
-                  spacing: 30
-                }
-              }
-            }
-          })
+          graph: new SFD3LineGraph(getGraphConfig('provisionedChild'))
         },
         context: {
           label: 'Cluster Provisioned Space',
           id: 'sync-graph-1-context',
-          graph: new SFD3BarGraph({
-            bindTo: 'cluster-provisioned-context',
-            type: 'bar',
-            showAxisLabel: true,
-            data: {
-              x: 'timestamps',
-              y: 'provisionedSpace',
-              color: '#0FAEE7'
-            },
-            margin: {
-              top: 15,
-              right: 10,
-              left: 50
-            },
-            axis: {
-              x: {
-                tick: {
-                  format: xAxisFormat,
-                  spacing: 150
-                }
-              },
-              y0: {
-                tick: {
-                  format: yAxisFormat,
-                  spacing: 25
-                }
-              }
-            }
-          })
+          graph: new SFD3BarGraph(getGraphConfig('provisionedContext'))
         }
       },
       {
@@ -142,83 +71,12 @@
               usedSpace: 'Used Space'
             }
           },
-          graph: new SFD3LineGraph({
-            bindTo: 'cluster-block-child',
-            type: 'line',
-            showAxisLabels: true,
-            data: {
-              x: 'timestamps',
-              ids: ['maxUsedSpace', 'usedSpace'],
-              axes: {
-                maxUsedSpace: 'y0',
-                usedSpace: 'y0'
-              },
-              labels: {
-                maxUsedSpace: 'Max Used Space',
-                usedSpace: 'Used Space'
-              },
-              colors: {
-                maxUsedSpace: ['#ff0000'],
-                usedSpace: ['#E16482', '#00A7C6', '#10E8A5']
-              },
-              textures: {
-                maxUsedSpace: ['dashed'],
-                usedSpace: ['solid']
-              }
-            },
-            margin: {
-              top: 15,
-              right: 20,
-              bottom: 30
-            },
-            axis: {
-              x: {
-                tick: {
-                  format: xAxisFormat,
-                  spacing: 200
-                }
-              },
-              y0: {
-                tick: {
-                  format: yAxisFormat,
-                  spacing: 30
-                }
-              }
-            }
-          })
+          graph: new SFD3LineGraph(getGraphConfig('blockChild'))
         },
         context: {
           label: 'Block Capacity',
           id: 'sync-graph-2-context',
-          graph: new SFD3BarGraph({
-            bindTo: 'cluster-block-context',
-            type: 'bar',
-            showAxisLabel: true,
-            data: {
-              x: 'timestamps',
-              y: 'usedSpace',
-              color: '#0FAEE7'
-            },
-            margin: {
-              top: 15,
-              right: 10,
-              left: 50
-            },
-            axis: {
-              x: {
-                tick: {
-                  format: xAxisFormat,
-                  spacing: 150
-                }
-              },
-              y0: {
-                tick: {
-                  format: yAxisFormat,
-                  spacing: 25
-                }
-              }
-            }
-          })
+          graph: new SFD3BarGraph(getGraphConfig('blockContext'))
         }
       },
       {
@@ -235,87 +93,241 @@
               usedMetadataSpace: 'Used Metadata Space'
             }
           },
-          graph: new SFD3LineGraph({
-            bindTo: 'cluster-metadata-child',
-            type: 'line',
-            showAxisLabels: true,
-            data: {
-              x: 'timestamps',
-              ids: ['maxUsedMetadataSpace', 'usedMetadataSpace'],
-              axes: {
-                maxUsedMetadataSpace: 'y0',
-                usedMetadataSpace: 'y0'
-              },
-              labels: {
-                maxUsedMetadataSpace: 'Total Capacity',
-                usedMetadataSpace: 'Used Metadata Space'
-              },
-              colors: {
-                maxUsedMetadataSpace: ['#ff0000'],
-                usedMetadataSpace: ['#E16482', '#00A7C6', '#10E8A5']
-              },
-              textures: {
-                maxUsedMetadataSpace: ['dashed'],
-                usedMetadataSpace: ['solid']
-              }
-            },
-            margin: {
-              top: 15,
-              right: 20,
-              bottom: 30
-            },
-            axis: {
-              x: {
-                tick: {
-                  format: xAxisFormat,
-                  spacing: 200
-                }
-              },
-              y0: {
-                tick: {
-                  format: yAxisFormat,
-                  spacing: 30
-                }
-              }
-            }
-          })
+          graph: new SFD3LineGraph(getGraphConfig('metadataChild'))
         },
         context: {
           label: 'Metadata Capacity',
           id: 'sync-graph-3-context',
-          graph: new SFD3BarGraph({
-            bindTo: 'cluster-metadata-context',
-            type: 'bar',
-            showAxisLabel: true,
-            data: {
-              x: 'timestamps',
-              y: 'usedMetadataSpace',
-              color: '#0FAEE7'
-            },
-            margin: {
-              top: 15,
-              right: 10,
-              left: 50
-            },
-            axis: {
-              x: {
-                tick: {
-                  format: xAxisFormat,
-                  spacing: 150
-                }
-              },
-              y0: {
-                tick: {
-                  format: yAxisFormat,
-                  spacing: 25
-                }
-              }
-            }
-          })
+          graph: new SFD3BarGraph(getGraphConfig('metadataContext'))
         }
       }
     ];
 
+    function getGraphConfig(graph) {
+      var graphConfigs = {
+        provisionedChild: {
+          bindTo: 'cluster-provisioned-child',
+          type: 'line',
+          showAxisLabels: true,
+          data: {
+            x: 'timestamps',
+            ids: ['maxProvisionedSpace', 'provisionedSpace'],
+            axes: {
+              maxProvisionedSpace: 'y0',
+              provisionedSpace: 'y0'
+            },
+            labels: {
+              maxProvisionedSpace: 'Max Provisioned Space',
+              provisionedSpace: 'Provisioned Space'
+            },
+            colors: {
+              maxProvisionedSpace: ['#ff0000'],
+              provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
+            },
+            textures: {
+              maxProvisionedSpace: ['dashed'],
+              provisionedSpace: ['solid']
+            }
+          },
+          margin: {
+            top: 15,
+            right: 20,
+            bottom: 30
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 200
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 30
+              }
+            }
+          }
+        },
+        provisionedContext: {
+          bindTo: 'cluster-provisioned-context',
+          type: 'bar',
+          showAxisLabel: true,
+          data: {
+            x: 'timestamps',
+            y: 'provisionedSpace',
+            color: '#0FAEE7'
+          },
+          margin: {
+            top: 15,
+            right: 10,
+            left: 50
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 150
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 25
+              }
+            }
+          }
+        },
+        blockChild: {
+          bindTo: 'cluster-block-child',
+          type: 'line',
+          showAxisLabels: true,
+          data: {
+            x: 'timestamps',
+            ids: ['maxUsedSpace', 'usedSpace'],
+            axes: {
+              maxUsedSpace: 'y0',
+              usedSpace: 'y0'
+            },
+            labels: {
+              maxUsedSpace: 'Max Used Space',
+              usedSpace: 'Used Space'
+            },
+            colors: {
+              maxUsedSpace: ['#ff0000'],
+              usedSpace: ['#E16482', '#00A7C6', '#10E8A5']
+            },
+            textures: {
+              maxUsedSpace: ['dashed'],
+              usedSpace: ['solid']
+            }
+          },
+          margin: {
+            top: 15,
+            right: 20,
+            bottom: 30
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 200
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 30
+              }
+            }
+          }
+        },
+        blockContext: {
+          bindTo: 'cluster-block-context',
+          type: 'bar',
+          showAxisLabel: true,
+          data: {
+            x: 'timestamps',
+            y: 'usedSpace',
+            color: '#0FAEE7'
+          },
+          margin: {
+            top: 15,
+            right: 10,
+            left: 50
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 150
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 25
+              }
+            }
+          }
+        },
+        metadataChild: {
+          bindTo: 'cluster-metadata-child',
+          type: 'line',
+          showAxisLabels: true,
+          data: {
+            x: 'timestamps',
+            ids: ['maxUsedMetadataSpace', 'usedMetadataSpace'],
+            axes: {
+              maxUsedMetadataSpace: 'y0',
+              usedMetadataSpace: 'y0'
+            },
+            labels: {
+              maxUsedMetadataSpace: 'Total Capacity',
+              usedMetadataSpace: 'Used Metadata Space'
+            },
+            colors: {
+              maxUsedMetadataSpace: ['#ff0000'],
+              usedMetadataSpace: ['#E16482', '#00A7C6', '#10E8A5']
+            },
+            textures: {
+              maxUsedMetadataSpace: ['dashed'],
+              usedMetadataSpace: ['solid']
+            }
+          },
+          margin: {
+            top: 15,
+            right: 20,
+            bottom: 30
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 200
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 30
+              }
+            }
+          }
+        },
+        metadataContext: {
+          bindTo: 'cluster-metadata-context',
+          type: 'bar',
+          showAxisLabel: true,
+          data: {
+            x: 'timestamps',
+            y: 'usedMetadataSpace',
+            color: '#0FAEE7'
+          },
+          margin: {
+            top: 15,
+            right: 10,
+            left: 50
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 150
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 25
+              }
+            }
+          }
+        }
+      };
+
+      return graphConfigs[graph];
+    }
     /***********************  Helper Functions  ************************/
 
     function xAxisFormat(milliseconds) {

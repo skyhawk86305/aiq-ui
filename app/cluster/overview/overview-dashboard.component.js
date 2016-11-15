@@ -9,18 +9,18 @@
         '$routeParams',
         '$filter',
         'DataService',
-        'ClusterPerformanceGraphService',
+        'PerformanceGraphsService',
         'AlertTableService',
         'SFD3LineGraph',
         OverviewDashboardController
       ]
     });
 
-  function OverviewDashboardController($routeParams, $filter, DataService, ClusterPerformanceGraphService, AlertTableService, SFD3LineGraph) {
+  function OverviewDashboardController($routeParams, $filter, DataService, PerformanceGraphsService, AlertTableService, SFD3LineGraph) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
-      ClusterPerformanceGraphService.update($routeParams.clusterID);
+      PerformanceGraphsService.update($routeParams.clusterID);
       AlertTableService.update($routeParams.clusterID);
       ctrl.alertTableService = AlertTableService;
       setInfoBarData();
@@ -28,7 +28,7 @@
 
     ctrl.graphs = {
       contextRange: getFiveDayRange(),
-      service: ClusterPerformanceGraphService,
+      service: PerformanceGraphsService,
       performance: {
         graph:  new SFD3LineGraph(getGraphConfig('performance')),
         legend: {
@@ -198,8 +198,8 @@
 
     /***********************  Helper Functions  ************************/
 
-    function xAxisFormat(milliseconds) {
-      return $filter('date')(new Date(milliseconds), 'short');
+    function xAxisFormat(seconds) {
+      return $filter('date')(new Date(seconds*1000), 'short');
     }
     function utilizationFormat(utilization) {
       return $filter('aiqData')(utilization, {type: 'wholePercent'});
