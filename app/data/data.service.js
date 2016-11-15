@@ -35,14 +35,20 @@
 
     dataService.callGraphAPI = function(graph, params) {
       var graphAPI = '/graph/cluster/' + params.clusterID +
-        '/' + graph +
-        '?startTime='+ params.start.toISOString() +
+        '/' + graph;
+      if (params.snapshot) {
+        graphAPI += '/snapshot';
+      } else {
+        graphAPI += '?startTime='+ params.start.toISOString() +
         '&endTime=' + params.end.toISOString() +
         '&resolution=' + $filter('graphResolution')(params.resolution, graph);
+      }
 
       return $http.get(graphAPI)
         .then(function(response) {
-          response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });
+          if (!params.snapshot) {
+            response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });
+          }
           return response;
         })
         .catch(function(error) {

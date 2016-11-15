@@ -1,0 +1,121 @@
+@import '../../../styles/shared.less';
+
+.overview-dashboard-page {
+  background-color: @whitescale-2;
+  height: 100%;
+  overflow-y: auto;
+
+  .heading {
+    padding: 25px 0 0px 15px;
+    font-size: 25px;
+    color: @core-blue-grey;
+  }
+  .sf-widget {
+    margin: 15px;
+    padding: 0;
+  }
+}
+
+.graph-row {
+  min-height:600px;
+}
+
+.graph-container {
+  height: 600px;
+  padding: 15px;
+
+  .title {
+    font-size: 20px;
+    font-weight: 400;
+    color: @core-blue-grey;
+    line-height: 50px;
+  }
+  >.overview-dashboard-graph {
+    height: 100%;
+    margin: 0;
+    .sf-state-container {
+      height: 500px;
+    }
+  }
+}
+
+.info-bar-row {
+  padding: 0;
+
+  .info-bar {
+    padding: 0;
+  }
+
+  .info-box {
+    height: 200px;
+    
+    .throughput-value {
+      margin: 15px 0;
+
+      .label {
+        font-size: 25px;
+        padding: 0;
+      }
+    }
+    .value {
+      font-size: 70px;
+      margin: 15px 0;
+    }
+    .title {
+      font-size: 18px;
+      white-space: nowrap;
+    }
+    .badge {
+      height: 125px;
+      .justify-content(center);
+
+      .title {
+        font-size: 16px;
+
+        &.-large {
+          font-size: 25px;
+        }
+      }
+
+      .value {
+        font-size: 60px;
+      }
+    }
+  }
+}
+
+.alert-table {
+  height: 700px;
+  position: relative;
+
+  .table-badge {
+    display: block;
+    color: #FFF;
+    border-radius: 3px;
+    max-height: 30px;
+    width: 100%;
+    max-width: 100px;
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 30px;
+    background-color: #333;
+  }
+  .-normal {
+    background-color: @no-alert-color;
+  }
+  .-warning {
+    background-color: @warning-color;
+  }
+  .-error {
+    background-color: @error-color;
+  }
+  .-info{
+    background-color: @tasks-color;
+  }
+  .-critical {
+    background-color: @critical-color;
+  }
+}
