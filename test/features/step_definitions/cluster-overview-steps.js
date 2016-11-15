@@ -6,7 +6,7 @@ module.exports = function() {
   });
 
     this.Then(/^the sf-infobar-widget has (.*) widgets$/, function (count) {
-      this.expect(this.clusterOverview.infobar.badges.count).toEqual(count);
+      this.expect(this.clusterOverview.infobar.infoBoxes.count()).toEqual(count);
     });
 
 

@@ -16,29 +16,6 @@ var GraphTimeSeries = function (componentId, thisElement) {
     }
   };
 
-  var svg = component.el.element(by.css('.sf-graph > svg'));
-  component.svg = {
-    el: svg,
-    lines: svg.all(by.css('path.line')),
-    line: function(key) {
-      return svg.element(by.css('path#'+key));
-    },
-    bars: svg.all(by.css('g')).get(0).all(by.css('.bar')),
-    brushedBars: svg.all(by.css('g')).get(0).all(by.css('.bar.selected')),
-    brush: {
-      el: svg.element(by.css('g.brush')).element(by.css('rect.selection')),
-      move: function(x, y) {
-        var bar1 = component.svg.bars.get(x),
-          bar2 = component.svg.bars.get(y);
-        browser.actions().dragAndDrop(bar1, bar2).mouseUp().perform();
-      }
-    }
-  };
-
-  component.brushedRange = {
-    start: element(by.css('.brush-range-start')),
-    end: element(by.css('.brush-range-end'))
-  };
 };
 
 module.exports = GraphTimeSeries;

@@ -89,13 +89,13 @@
           <div class="info-box-content">
             <span class="title">Cluster Faults</span>
             <div class="badge-container">
-              <div class="badge"
+              <div class="badge -first"
                 ng-class="{'-warning': $ctrl.infoBar.clusterFaults.warning,
                   '-empty-alert' : !$ctrl.infoBar.clusterFaults.warning }">
                 <span class="value">{{$ctrl.infoBar.clusterFaults.warning}}</span>
                 <span class="title">Warning</span>
               </div>
-              <div class="badge"
+              <div class="badge -second"
                 ng-class="{'-critical': $ctrl.infoBar.clusterFaults.error,
                   '-empty-alert' : !$ctrl.infoBar.clusterFaults.error }">
                 <span class="value">{{$ctrl.infoBar.clusterFaults.error}}</span>

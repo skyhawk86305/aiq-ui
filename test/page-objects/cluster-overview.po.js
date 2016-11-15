@@ -3,7 +3,6 @@ var GraphTimeSeries = require('./graph-time-series.po');
 var Table = require('./table.po');
 
 var ClusterOverviewComponent = function () {
-  var infoBar;
 
   this.el = element(by.css(".overview-dashboard-page"));
 
@@ -12,45 +11,30 @@ var ClusterOverviewComponent = function () {
     performanceUtilization: new GraphTimeSeries('utilization-graph')
   };
 
+  var infoBar = element(by.css('.sf-widget > .info-bar-row'));
 
-  this.infoBar = function () {
-    infoBar = element(by.css('.sf-widget > .info-bar-row'));
-    return {
-      el: infoBar,
-      infoBoxestemp: {
-        count: infoBar.all(by.id(".info-box-content")).count(),
-        nodeCount: infoBar.element(by.id("node-count-info-box")),
-        blockCapacity: infoBar.element(by.id("block-capacity-info-bo")),
-        metadataCapacity: infoBar.element(by.id("metadata-capacity-info-box")),
-        efficiency: infoBar.element(by.id("efficiency-info-box")),
-        utilization: infoBar.element(by.id(".utilization-info-box")),
-        iops: infoBar.element(by.id("iops-info-box")),
-        bandwidth: infoBar.element(by.id("bandwidth-info-box")),
-        clusterFaults: infoBar.element(by.id("cluster-faults-info-box")),
-        clusterFaultError: infoBar.element(by.css(".info-box-content > .badge-container > .-error")),
-        clusterFaultWarning: infoBar.element(by.css(".info-box-content  > .badge > .-warning"))
-      },
-      infoBoxes: infoBar.all(by.css(".info-box")),
-      infoBox: function(name) {
-        var box = element(by.css(".info-box.-" + name));
-        return {
-          title: box.element(by.css(".title")),
-          value: box.element(by.css(".value")),
-        };
+  this.infoBar = {
+    el: infoBar,
+    infoBoxes: infoBar.all(by.css(".info-box")),
+    infoBox: function(name) {
+      var box = element(by.css(".info-box.-" + name));
+      return {
+        value: box.element(by.css(".value")),
+        badge: function(name){
+          var badge = name ? box.element(by.css(".badge.-" + name)) : box.element(by.css(".badge"));
+          return {
+            value: badge.element(by.css(".value")),
+            el: badge
+          }
+        }
+      };
 
-      }
     }
-
-
-    };
   };
 
-}
+  this.alertTable = new Table('alert-table')
+};
 
-// node-count-info-box, block-capacity-info-box, metadata-capacity-info-box, efficiency-info-bx, utilization-info-box,
-// iops-info-box, bandwidth-info-box, cluster-faults-info-box
-
-this.alertTable = new Table('alert-table')
 
 module.exports = ClusterOverviewComponent;
 
