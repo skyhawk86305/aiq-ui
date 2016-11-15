@@ -12,7 +12,7 @@ var capacityPage;
 var navbar = new NavbarComponent();
 var clusterSelect = new ClusterSelectComponent();
 
-describe('Capacity Page Graphs', function () {
+fdescribe('Capacity Page Graphs', function () {
   beforeEach(function() {
     mockBackend.enable(browser);
     mockBackend.http.whenGET('/sessions').respond(function() {
@@ -34,6 +34,7 @@ describe('Capacity Page Graphs', function () {
   });
 
   it('should have the static date selector', function () {
+    browser.sleep(60000);
     expect(capacityPage.staticDateSelector().el.isDisplayed()).to.eventually.be.true;
   });
 
@@ -63,7 +64,7 @@ describe('Capacity Page Graphs', function () {
     });
 
     it ('should default to 30 days', function() {
-      expect(capacityPage.staticDateSelector().range(4).getText()).to.eventually.equal('Last Last 30 Days');
+      expect(capacityPage.staticDateSelector().range(4).getText()).to.eventually.equal('Last 30 Days');
     });
   });
 
