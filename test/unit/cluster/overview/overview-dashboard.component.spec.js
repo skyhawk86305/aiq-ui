@@ -10,12 +10,9 @@ describe('Component: overviewDashboard', function() {
     callGraphAPIDeferred,
     locals,
     filter,
-    dataServiceSpy,
-    dataServiceGraphSpy,
     performanceService,
     clusterAlertTableService,
     dataService;
-
 
   beforeEach(module('aiqUi', function ($provide) {
     $provide.value('SFD3LineGraph', function () {});
@@ -41,8 +38,8 @@ describe('Component: overviewDashboard', function() {
     };
     spyOn(performanceService, 'update');
     spyOn(clusterAlertTableService, 'update');
-    dataServiceSpy = spyOn(dataService, 'callAPI').and.returnValue(callAPIDeferred.promise);
-    dataServiceGraphSpy = spyOn(dataService, 'callGraphAPI').and.returnValue(callGraphAPIDeferred.promise);
+    spyOn(dataService, 'callAPI').and.returnValue(callAPIDeferred.promise);
+    spyOn(dataService, 'callGraphAPI').and.returnValue(callGraphAPIDeferred.promise);
     controller = $componentController('overviewDashboard', locals);
   }));
 
@@ -120,5 +117,4 @@ describe('Component: overviewDashboard', function() {
       });
     });
   });
-
 });
