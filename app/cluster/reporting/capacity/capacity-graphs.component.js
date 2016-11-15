@@ -29,9 +29,9 @@
     ctrl.staticDateRangeOptions = [
       {milliseconds: 86400000, label: '24 Hours'},
       {milliseconds: 259200000, label: '3 Days'},
-      {milliseconds: 604800000, label: '7 Days'},
+      {milliseconds: 604800000, label: '7 Days', default: true},
       {milliseconds: 1209600000, label: '14 Days'},
-      {milliseconds: 2592000000, label: '30 Days', default: true}
+      {milliseconds: 2592000000, label: '30 Days'}
     ];
 
     ctrl.syncGraphs = [
@@ -49,11 +49,13 @@
               provisionedSpace: 'Provisioned Space'
             }
           },
+          dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('provisionedChild'))
         },
         context: {
           label: 'Cluster Provisioned Space',
           id: 'sync-graph-1-context',
+          dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('provisionedContext'))
         }
       },
@@ -71,11 +73,13 @@
               usedSpace: 'Used Space'
             }
           },
+          dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('blockChild'))
         },
         context: {
           label: 'Block Capacity',
           id: 'sync-graph-2-context',
+          dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('blockContext'))
         }
       },
@@ -93,11 +97,13 @@
               usedMetadataSpace: 'Used Metadata Space'
             }
           },
+          dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('metadataChild'))
         },
         context: {
           label: 'Metadata Capacity',
           id: 'sync-graph-3-context',
+          dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('metadataContext'))
         }
       }
@@ -121,7 +127,7 @@
               provisionedSpace: 'Provisioned Space'
             },
             colors: {
-              maxProvisionedSpace: ['#ff0000'],
+              maxProvisionedSpace: ['#D07983'],
               provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
             },
             textures: {
@@ -153,6 +159,7 @@
           bindTo: 'cluster-provisioned-context',
           type: 'bar',
           showAxisLabel: true,
+          barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'provisionedSpace',
@@ -194,7 +201,7 @@
               usedSpace: 'Used Space'
             },
             colors: {
-              maxUsedSpace: ['#ff0000'],
+              maxUsedSpace: ['#D07983'],
               usedSpace: ['#E16482', '#00A7C6', '#10E8A5']
             },
             textures: {
@@ -226,6 +233,7 @@
           bindTo: 'cluster-block-context',
           type: 'bar',
           showAxisLabel: true,
+          barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'usedSpace',
@@ -267,7 +275,7 @@
               usedMetadataSpace: 'Used Metadata Space'
             },
             colors: {
-              maxUsedMetadataSpace: ['#ff0000'],
+              maxUsedMetadataSpace: ['#D07983'],
               usedMetadataSpace: ['#E16482', '#00A7C6', '#10E8A5']
             },
             textures: {
@@ -299,6 +307,7 @@
           bindTo: 'cluster-metadata-context',
           type: 'bar',
           showAxisLabel: true,
+          barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'usedMetadataSpace',
