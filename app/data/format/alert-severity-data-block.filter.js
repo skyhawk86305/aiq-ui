@@ -3,17 +3,17 @@
   
   angular
     .module('aiqUi')
-    .filter('alertSeverityDataBlock', function() {
+    .filter('alertSeverityBadge', function() {
       return function (data) {
         switch (data) {
           case 'Info':
-            return '<div class="data-block -info">INFO</div>';
+            return '<div class="table-badge -info">INFO</div>';
           case 'Warning':
-            return '<div class="data-block -warning">WARNING</div>';
+            return '<div class="table-badge -warning">WARNING</div>';
           case 'Error':
-            return '<div class="data-block -error">ERROR</div>';
+            return '<div class="table-badge -error">ERROR</div>';
           case 'Critical':
-            return '<div class="data-block -critical">CRITICAL</div>';
+            return '<div class="table-badge -critical">CRITICAL</div>';
         }
       };
     });

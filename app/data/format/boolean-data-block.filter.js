@@ -3,12 +3,12 @@
   
   angular
     .module('aiqUi')
-    .filter('booleanDataBlock', function() {
+    .filter('booleanBadge', function() {
       return function (data) {
         if (data) {
-          return '<div class="data-block -normal">YES</div>';
+          return '<div class="table-badge -normal">YES</div>';
         } else {
-          return '<div class="data-block -critical">NO</div>';
+          return '<div class="table-badge -critical">NO</div>';
         }
       };
     });

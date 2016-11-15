@@ -145,7 +145,7 @@
       return graphConfigs;
     }
 
-    function initializeOverviewDashboard() {
+    function initializeOverviewDashboard(){
       ClusterPerformanceGraphService.update($routeParams.clusterID);
       AlertTableService.update($routeParams.clusterID);
       ctrl.alertTableService = AlertTableService;

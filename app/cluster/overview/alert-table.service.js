@@ -27,14 +27,15 @@
       return [
         {key: 'created', label: 'Alert Triggered', width: 200, format: {filter: 'aiqData', params: {type: 'date'}}},
         {key: 'lastNotified', label: 'Last Notified', width: 200, format: {filter: 'aiqData', params: {type: 'date'}}},
-        {key: 'isResolved', label: 'Resolved', width: 120, format: {filter: 'booleanDataBlock'}},
-        {key: 'severity', label: 'Severity', width: 120, filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'alertSeverityDataBlock'}},
+        {key: 'isResolved', label: 'Resolved', width: 120, format: {filter: 'booleanBadge'}},
+        {key: 'severity', label: 'Severity', width: 120, filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'alertSeverityBadge'}},
         {key: 'notificationName', label: 'Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
         {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},
         {key: 'destinationEmail', label: 'Destination', filterComparators:SFFilterComparators.STRING_DEFAULT},
         {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
       ];
     }
+
     function listAlertsByCluster() {
       /*jshint validthis:true*/
       return DataService.callAPI('ListAlertsByCluster', {clusterID: this.selectedClusterID})
