@@ -49,7 +49,7 @@
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               ids: ['clusterUtilizationPct'],
               axes: {
                 clusterUtilizationPct: 'y0'
@@ -93,7 +93,7 @@
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               y: 'clusterUtilizationPct',
               color: '#0FAEE7'
             },
@@ -139,7 +139,7 @@
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               ids: ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec'],
               axes: {
                 readOpsPerSec: 'y0',
@@ -190,7 +190,7 @@
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               y: 'totalOpsPerSec',
               color: '#0FAEE7'
             },
@@ -235,7 +235,7 @@
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               ids: ['readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec'],
               axes: {
                 readBytesPerSec: 'y0',
@@ -287,7 +287,7 @@
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
+              x: 'timestamps',
               y: 'totalBytesPerSec',
               color: '#0FAEE7'
             },
