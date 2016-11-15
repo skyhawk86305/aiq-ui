@@ -44,7 +44,7 @@ describe('CapacityGraphsService', function () {
     it('should call the appropriate API method with the selectedClusterID', function () {
       service.selectedClusterID = 'foobar';
       service.getData(currentDate, currentDate, 300);
-      expect(dataService.callGraphAPI).toHaveBeenCalledWith('capacity', {resolution: 1, clusterID: 'foobar', start: currentDate.toISOString(), end: currentDate.toISOString(), res: 300});
+      expect(dataService.callGraphAPI).toHaveBeenCalledWith('capacity', {resolution: 1, clusterID: 'foobar', start: currentDate, end: currentDate});
     });
 
     it('should deserialize the response and resolve an array of data', function () {

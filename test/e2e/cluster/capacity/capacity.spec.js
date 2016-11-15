@@ -50,28 +50,28 @@ describe('Capacity Page Graphs', function () {
   });
 
   describe('Used Space Graph', function () {
-    it('should have the correct badges displayed', function () {
-      expect(capacityPage.usedGraph().badges.count).to.eventually.equal(5);
-      expect(capacityPage.usedGraph().badges.usedCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().badges.warningThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().badges.errorThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().badges.totalCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().badges.currentState.isDisplayed()).to.eventually.be.true;
+    it('should have the correct info boxes displayed', function () {
+      expect(capacityPage.usedGraph().infoBox.count).to.eventually.equal(5);
+      expect(capacityPage.usedGraph().infoBox.usedCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().infoBox.warningThreshold.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().infoBox.errorThreshold.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().infoBox.totalCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.usedGraph().infoBox.currentState.isDisplayed()).to.eventually.be.true;
     });
   });
 
   describe('Provisioned Space Graph', function () {
-    it('should have the correct badges displayed', function () {
-      expect(capacityPage.provisionedGraph().badges.count).to.eventually.equal(0);
+    it('should have the correct info boxes displayed', function () {
+      expect(capacityPage.provisionedGraph().infoBox.count).to.eventually.equal(0);
     });
   });
 
   describe('Metadata Space Graph', function () {
-    it('should have the correct badges displayed', function () {
-      expect(capacityPage.metadataGraph().badges.count).to.eventually.equal(3);
-      expect(capacityPage.metadataGraph().badges.usedCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.metadataGraph().badges.totalCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.metadataGraph().badges.currentState.isDisplayed()).to.eventually.be.true;
+    it('should have the correct info boxes displayed', function () {
+      expect(capacityPage.metadataGraph().infoBox.count).to.eventually.equal(3);
+      expect(capacityPage.metadataGraph().infoBox.usedCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.metadataGraph().infoBox.totalCapacity.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.metadataGraph().infoBox.currentState.isDisplayed()).to.eventually.be.true;
     });
   });
 });
