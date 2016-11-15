@@ -3,23 +3,21 @@
 
   angular
     .module('aiqUi')
-    .service('AlertTableService', [
+    .service('ClusterAlertTableService', [
       '$filter',
       'SFTableService',
       'SFFilterComparators',
       'DataService',
-      AlertTableService
+      ClusterAlertTableService
     ]);
 
-  function AlertTableService($filter, SFTableService, SFFilterComparators, DataService) {
-    /*jshint validthis:true*/
-    var self,
-      columns =  getColumns();
+  function ClusterAlertTableService($filter, SFTableService, SFFilterComparators, DataService) {
+    var columns = getColumns(),
+      service = new SFTableService(listAlertsByCluster, columns, false);
 
-    self = new SFTableService(listAlertsByCluster, columns, false);
-    self.selectedClusterID = null;
-    self.update = update;
-    return self;
+    service.selectedClusterID = null;
+    service.update = update;
+    return service;
 
     /**********************************/
 
@@ -37,21 +35,19 @@
     }
 
     function listAlertsByCluster() {
-      /*jshint validthis:true*/
-      return DataService.callAPI('ListAlertsByCluster', {clusterID: this.selectedClusterID})
+      return DataService.callAPI('ListAlertsByCluster', {clusterID: service.selectedClusterID})
         .then(function(response) {
           return response.alerts.map(function(alert) {
             alert.notificationName = alert.notification && alert.notification.notificationName || '';
             alert.destinationEmail = alert.notification && alert.notification.destinationEmail || '';
             alert.policyDescription = alert.notification && $filter('alert')(alert.notification.notificationFields, {type: 'condition'}) || '';
-
             return alert;
           });
         });
     }
 
     function update(clusterID) {
-      this.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID);
     }
   }
 })();

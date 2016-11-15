@@ -45,7 +45,7 @@ describe('Component: capacityGraphs', function() {
   });
 
   describe('.$onInit', function() {
-    it('should update the provisioned and used graphs services with the clusterID from the route', function() {
+    it('should update the capacity graphs service with the clusterID from the route', function() {
       controller.$onInit();
       expect(capacityService.update).toHaveBeenCalledWith(routeParams.clusterID);
     });
