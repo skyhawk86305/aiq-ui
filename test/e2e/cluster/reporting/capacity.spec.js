@@ -32,6 +32,10 @@ describe('Capacity Page Graphs', function () {
     mockBackend.disable();
   });
 
+  it('should have the static date selector', function () {
+    expect(capacityPage.staticDateSelector().el.isDisplayed()).to.eventually.be.true;
+  });
+
   it('should have the context graph', function () {
     expect(capacityPage.contextGraph.el.isDisplayed()).to.eventually.be.true;
   });
@@ -47,6 +51,21 @@ describe('Capacity Page Graphs', function () {
     expect(capacityPage.provisionedGraph().el.isDisplayed()).to.eventually.be.true;
     expect(capacityPage.usedGraph().el.isDisplayed()).to.eventually.be.true;
     expect(capacityPage.metadataGraph().el.isDisplayed()).to.eventually.be.true;
+  });
+
+  describe('Static Date Selector', function() {
+    var expectedDateRanges = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'];
+
+    it ('should have the correct static date ranges', function(done) {
+      for (var i = 0; i < expectedDateRanges.length; i++) {
+        expect(capacityPage.staticDateSelector().range(i).getText()).to.eventually.equal(expectedDateRanges[i]);
+      }
+      expect(capacityPage.staticDateSelector().ranges.count).to.eventually.equal(5).notify(done);
+    });
+
+    it('should have a default static date range selected on page load', function () {
+      expect(capacityPage.staticDateSelector().activeDateRangeOption.getText()).to.eventually.equal('Last 30 Days');
+    });
   });
 
   describe('Used Space Graph', function () {
