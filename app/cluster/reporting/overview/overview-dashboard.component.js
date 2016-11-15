@@ -53,32 +53,19 @@
     /**********************************/
 
     function setInfoBarData() {
-      ctrl.infoBar = {};
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
         .then(function(response) {
-          var result = response.cluster;
-          ctrl.clusterName = result.clusterName;
-          ctrl.infoBar.nodeCount = result.nodeCount;
-          ctrl.infoBar.blockCapacity = result.clusterFull.blockFullness;
-          ctrl.infoBar.metadataCapacity = result.clusterFull.metadataFullness;
-          ctrl.infoBar.clusterFaults =  {
-            warning: result.unresolvedFaults.warning ? result.unresolvedFaults.warning : 0,
-            error: result.unresolvedFaults.error ? result.unresolvedFaults.error : 0
-          };
+          ctrl.clusterSummary = response.cluster;
         });
 
       DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
         .then(function(response) {
-          var result = response.data;
-          ctrl.infoBar.efficiency = result.efficiencyFactor;
+          ctrl.capacitySnapshot = response.data;
         });
 
       DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
         .then(function(response) {
-          var result = response.data;
-          ctrl.infoBar.utilization = result.clusterUtilizationPct;
-          ctrl.infoBar.iops = result.totalOpsPerSec;
-          ctrl.infoBar.throughput = result.totalBytesPerSec;
+          ctrl.performanceSnapshot = response.data;
         });
     }
 

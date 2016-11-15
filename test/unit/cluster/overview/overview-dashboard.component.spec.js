@@ -4,10 +4,7 @@ describe('Component: overviewDashboard', function() {
   var scope,
     routeParams,
     controller,
-    callAPIResponse,
-    callGraphAPIResponse,
-    callAPIDeferred,
-    callGraphAPIDeferred,
+    deferred,
     locals,
     filter,
     performanceService,
@@ -21,8 +18,7 @@ describe('Component: overviewDashboard', function() {
 
   beforeEach(inject(function($rootScope, $q, $filter, $componentController, $routeParams, PerformanceGraphsService, ClusterAlertTableService, DataService) {
     scope = $rootScope;
-    callAPIDeferred = $q.defer();
-    callGraphAPIDeferred = $q.defer();
+    deferred = $q.defer();
     routeParams = $routeParams;
     routeParams.clusterID = '1';
     performanceService = PerformanceGraphsService;
@@ -38,8 +34,8 @@ describe('Component: overviewDashboard', function() {
     };
     spyOn(performanceService, 'update');
     spyOn(clusterAlertTableService, 'update');
-    spyOn(dataService, 'callAPI').and.returnValue(callAPIDeferred.promise);
-    spyOn(dataService, 'callGraphAPI').and.returnValue(callGraphAPIDeferred.promise);
+    spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
+    spyOn(dataService, 'callGraphAPI').and.returnValue(deferred.promise);
     controller = $componentController('overviewDashboard', locals);
   }));
 
@@ -50,31 +46,6 @@ describe('Component: overviewDashboard', function() {
   });
 
   describe('.$onInit', function() {
-    beforeEach(function() {
-      callAPIResponse = {
-        cluster: {
-          clusterName: 'foo',
-          nodeCount: 1,
-          clusterFull: {
-            blockFullness: 'bar',
-            metadataFullness: 'baz'
-          },
-          unresolvedFaults: {
-            warning: 2,
-            error:3
-          }
-        }
-      };
-      callGraphAPIResponse = {
-        data: {
-          clusterUtilizationPct: 1,
-          totalOpsPerSec: 2,
-          totalBytesPerSec: 3,
-          efficiencyFactor: 2
-        }
-      };
-    });
-
     it('should update the performance graphs service and clsuter alert table service with the clusterID from the route', function() {
       controller.$onInit();
       expect(performanceService.update).toHaveBeenCalledWith(routeParams.clusterID);
@@ -84,37 +55,13 @@ describe('Component: overviewDashboard', function() {
       controller.$onInit();
       expect(controller.clusterAlertTableService).toBeDefined();
     });
-    it('should set cluster name and infobar data', function() {
+    it('should set controller data', function() {
       controller.$onInit();
-      callAPIDeferred.resolve(callAPIResponse);
-      callGraphAPIDeferred.resolve(callGraphAPIResponse);
+      deferred.resolve({data: 'foo', cluster: 'bar'});
       scope.$apply();
-      expect(controller.clusterName).toBe('foo');
-      expect(controller.infoBar).toEqual({
-        nodeCount: 1,
-        blockCapacity: 'bar',
-        metadataCapacity: 'baz',
-        clusterFaults: {
-          warning: 2,
-          error: 3
-        },
-        efficiency: 2,
-        utilization: 1,
-        iops: 2,
-        throughput:3
-      });
-    });
-    it('should set clustersFaults warning and error to 0 if unresolved faults warning or error is undefined', function() {
-      controller.$onInit();
-      callAPIResponse.cluster.unresolvedFaults = {};
-      callAPIDeferred.resolve(callAPIResponse);
-      callGraphAPIDeferred.resolve(callGraphAPIResponse);
-      scope.$apply();
-      expect(controller.clusterName).toBe('foo');
-      expect(controller.infoBar.clusterFaults).toEqual({
-          warning: 0,
-          error: 0
-      });
+      expect(controller.clusterSummary).toEqual('bar');
+      expect(controller.capacitySnapshot).toEqual('foo');
+      expect(controller.performanceSnapshot).toEqual('foo');
     });
   });
 });

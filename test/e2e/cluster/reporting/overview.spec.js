@@ -1,7 +1,7 @@
 /* jshint expr: true */
 'use strict';
 
-var expect = require('../../support.js').expect;
+// var expect = require('../../support.js').expect;
 var mockBackend = require('../../support.js').mockBackend;
 var ClusterOverviewComponent = require('../../../page-objects/cluster-overview.po');
 var NavbarComponent = require('../../../page-objects/navbar.po');

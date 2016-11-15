@@ -1,4 +1,4 @@
-maybe /* jshint expr: true */
+/* jshint expr: true */
 'use strict';
 
 var expect = require('../support.js').expect;

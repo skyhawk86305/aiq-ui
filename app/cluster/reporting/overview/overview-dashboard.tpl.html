@@ -8,7 +8,7 @@
         <sf-graph-time-series component-id="performance-graph"
                               service="$ctrl.graphs.service"
                               graph="$ctrl.graphs.performance.graph"
-                              limit="20"
+                              limit="100"
                               context-range="$ctrl.graphs.contextRange"
                               title="Cluster Performance"
                               legend="$ctrl.graphs.performance.legend">
@@ -20,7 +20,7 @@
       <sf-graph-time-series component-id="utilization-graph"
                             service="$ctrl.graphs.service"
                             graph="$ctrl.graphs.utilization.graph"
-                            limit="20"
+                            limit="100"
                             context-range="$ctrl.graphs.contextRange"
                             title="Performance Utilization"
                             legend="$ctrl.graphs.utilization.legend">
@@ -34,7 +34,7 @@
         <div class="info-box -node-count col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Nodes</span>
-            <span class="value">{{$ctrl.infoBar.nodeCount}}</span>
+            <span class="value">{{$ctrl.clusterSummary.nodeCount}}</span>
           </div>
         </div>
         <div class="info-box -block-capacity col-lg-3  col-md-3">
@@ -42,8 +42,8 @@
             <span class="title">Block Capacity</span>
             <div class="badge-container">
               <div class="badge"
-                ng-class="$ctrl.infoBar.blockCapacity | clusterStage:true">
-                <span class="title -large">{{$ctrl.infoBar.blockCapacity | clusterStage}}</span>
+                ng-class="$ctrl.clusterSummary.clusterFull.blockFullness | clusterStage:true">
+                <span class="title -large">{{$ctrl.clusterSummary.clusterFull.blockFullness | clusterStage}}</span>
               </div>
             </div>
           </div>
@@ -53,8 +53,8 @@
             <span class="title">Metadata Capacity</span>
             <div class="badge-container">
               <div class="badge"
-                ng-class="$ctrl.infoBar.metadataCapacity | clusterStage:true">
-                <span class="title -large">{{$ctrl.infoBar.metadataCapacity | clusterStage}}</span>
+                ng-class="$ctrl.clusterSummary.clusterFull.metadataFullness | clusterStage:true">
+                <span class="title -large">{{$ctrl.clusterSummary.clusterFull.metadataFullness | clusterStage}}</span>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
         <div class="info-box -efficiency-info col-lg-3  col-md-3">
           <div class="info-box-content -efficiency">
             <span class="title">Efficiency</span>
-            <span class="value">{{$ctrl.infoBar.efficiency | aiqData:{type:'ratio'} }}</span>
+            <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | aiqData:{type:'ratio'} }}</span>
           </div>
         </div>
       </div>
@@ -70,19 +70,19 @@
         <div class="info-box -utilization col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Utilization</span>
-            <span class="value">{{$ctrl.infoBar.utilization | aiqData:{type:'wholePercent'} }}</span>
+            <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | aiqData:{type:'wholePercent'} }}</span>
           </div>
         </div>
         <div class="info-box -iops col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">IOPS</span>
-            <span class="value">{{$ctrl.infoBar.iops | iops }}</span>
+            <span class="value">{{$ctrl.performanceSnapshot.totalOpsPerSec | iops }}</span>
           </div>
         </div>
         <div class="info-box -bandwidth col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Throughput</span>
-            <span class="value">{{$ctrl.infoBar.throughput | bytes}}/s</span>
+            <span class="value">{{$ctrl.performanceSnapshot.totalBytesPerSec | bytes}}/s</span>
           </div>
         </div>
         <div class="info-box -cluster-faults col-lg-3  col-md-3">
@@ -92,13 +92,13 @@
               <div class="badge -first"
                 ng-class="{'-warning': $ctrl.infoBar.clusterFaults.warning,
                   '-empty-alert' : !$ctrl.infoBar.clusterFaults.warning }">
-                <span class="value">{{$ctrl.infoBar.clusterFaults.warning}}</span>
+                <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.warning || 0}}</span>
                 <span class="title">Warning</span>
               </div>
               <div class="badge -second"
                 ng-class="{'-critical': $ctrl.infoBar.clusterFaults.error,
                   '-empty-alert' : !$ctrl.infoBar.clusterFaults.error }">
-                <span class="value">{{$ctrl.infoBar.clusterFaults.error}}</span>
+                <span class="value">{{$ctrl.infoBar.unresolvedFaults.error || 0}}</span>
                 <span class="title">Error</span>
               </div>
             </div>
