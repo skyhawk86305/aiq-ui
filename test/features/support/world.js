@@ -9,6 +9,8 @@ var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
 var LoginComponent = require('../../page-objects/login.po');
 var TableComponent = require('../../page-objects/table.po');
 var ComingSoonComponent = require('../../page-objects/coming-soon.po');
+var ClusterOverviewComponent = require('../../page-objects/cluster-overview.po');
+var GraphTimeSeries = require('../../page-objects/graph-time-series.po');
 
 function World() {
 
@@ -29,13 +31,17 @@ function World() {
   this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
   this.loginForm = new LoginComponent();
+  this.clusterOverview = new ClusterOverviewComponent();
   this.comingSoonComponent = new ComingSoonComponent();
   this.nodesTable = new TableComponent('node');
   this.drivesTable = new TableComponent('drive');
   this.alertHistoryTable = new TableComponent('alert-history');
   this.alertPolicyTable = new TableComponent('alert-policy');
+  this.alertTable = new TableComponent('alert-table');
   this.eventsTable = new TableComponent('event');
   this.errorLogTable = new TableComponent('error-log');
+  this.clusterPerformanceGraph = new GraphTimeSeries(null,'performance-graph');
+  this.clusterPerformanceUtilizationGraph = new GraphTimeSeries(null,'utilization-graph');
 
 
   this.table = function(type) {
@@ -44,8 +50,16 @@ function World() {
       case 'drive': return this.drivesTable;
       case 'alertHistory': return this.alertHistoryTable;
       case 'alertPolicy': return this.alertPolicyTable;
+      case 'alertTable': return this.alertTable;
       case 'event': return this.eventsTable;
       case 'errorLog': return this.errorLogTable;
+    }
+  };
+
+  this.timeSeriesGraph = function(type) {
+    switch(type) {
+      case 'clusterPerformance': return this.clusterPerformanceGraph;
+      case 'clusterPerformanceUtilization': return this.clusterPerformanceUtilizationGraph;
     }
   };
 
@@ -55,6 +69,7 @@ function World() {
       case 'drive': return 'driveID';
       case 'alertHistory': return 'id';
       case 'alertPolicy': return 'notificationName';
+      case 'alertTable': return 'id';
       case 'event' : return 'eventID';
       case 'errorLog' : return 'id';
     }
