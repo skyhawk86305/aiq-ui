@@ -13,9 +13,8 @@ var ClusterOverviewComponent = function () {
   };
 
 
-
   this.infoBar = function () {
-    infoBar = element(by.css('.sf-widget.info-bar'));
+    infoBar = element(by.css('.sf-widget > .info-bar-row'));
     return {
       el: infoBar,
       infoBoxes: {
@@ -28,8 +27,8 @@ var ClusterOverviewComponent = function () {
         iops: infoBar.element(by.id("iops-info-box")),
         bandwidth: infoBar.element(by.id("bandwidth-info-box")),
         clusterFaults: infoBar.element(by.id("cluster-faults-info-box")),
-        clusterFaultError: infoBar.element(by.id(".-clusterFaults > .badge-container > .-error")),
-        clusterFaultWarning: infoBar.element(by.id(".-clusterFaults > .badge-container > .-warning"))
+        clusterFaultError: infoBar.element(by.css(".info-box-content > .badge-container > .-error")),
+        clusterFaultWarning: infoBar.element(by.css(".info-box-content  > .badge > .-warning"))
       }
     };
   };

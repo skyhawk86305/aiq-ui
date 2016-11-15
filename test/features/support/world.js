@@ -10,7 +10,7 @@ var LoginComponent = require('../../page-objects/login.po');
 var TableComponent = require('../../page-objects/table.po');
 var ComingSoonComponent = require('../../page-objects/coming-soon.po');
 var ClusterOverviewComponent = require('../../page-objects/cluster-overview.po');
-var GraphTimeSeriesComponent = require('../../page-objects/graph-time-series.po');
+var GraphTimeSeries = require('../../page-objects/graph-time-series.po');
 
 function World() {
 
@@ -40,8 +40,8 @@ function World() {
   this.alertTable = new TableComponent('alert-table');
   this.eventsTable = new TableComponent('event');
   this.errorLogTable = new TableComponent('error-log');
-  this.clusterPerformanceGraph = new GraphTimeSeriesComponent(null,'performance-graph');
-  this.clusterPerformanceUtilizationGraph = new GraphTimeSeriesComponent(null,'utilization-graph');
+  this.clusterPerformanceGraph = new GraphTimeSeries(null,'performance-graph');
+  this.clusterPerformanceUtilizationGraph = new GraphTimeSeries(null,'utilization-graph');
 
 
   this.table = function(type) {
