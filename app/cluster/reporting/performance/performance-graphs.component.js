@@ -330,8 +330,8 @@
     }
     /***********************  Helper Functions  ************************/
 
-    function xAxisFormat(seconds) {
-      return $filter('date')(new Date(seconds*1000), 'short');
+    function xAxisFormat(milliseconds) {
+      return $filter('date')(new Date(milliseconds), 'short');
     }
     function utilizationFormat(utilization) {
       return $filter('aiqData')(utilization, {type: 'wholePercent'});
