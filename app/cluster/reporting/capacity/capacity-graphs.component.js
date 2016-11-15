@@ -3,23 +3,27 @@
 
   angular
     .module('aiqUi')
-    .component('performanceGraphs', {
-      templateUrl: 'cluster/performance-graphs-section.tpl.html',
+    .component('capacityGraphs', {
+      templateUrl: 'cluster/reporting/capacity/capacity-graphs-section.tpl.html',
       controller: [
         '$routeParams',
         '$filter',
+        'DataService',
         'SFD3LineGraph',
         'SFD3BarGraph',
-        'PerformanceGraphsService',
-        PerformanceGraphsController
+        'CapacityGraphsService',
+        CapacityGraphsController
       ]
     });
 
-  function PerformanceGraphsController($routeParams, $filter, SFD3LineGraph, SFD3BarGraph, PerformanceGraphsService) {
+  function CapacityGraphsController($routeParams, $filter, DataService, SFD3LineGraph, SFD3BarGraph, CapacityGraphsService) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
-      PerformanceGraphsService.update($routeParams.clusterID);
+      CapacityGraphsService.update($routeParams.clusterID);
+
+      DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID)})
+        .then(function(response) { ctrl.clusterFullThreshold = response.clusterFullThreshold; });
     };
 
     ctrl.staticDateRangeOptions = [
@@ -32,36 +36,41 @@
 
     ctrl.syncGraphs = [
       {
-        service: PerformanceGraphsService,
+        service: CapacityGraphsService,
         id: 'sync-graph-1-service',
         child: {
-          title: 'Cluster Utilization',
+          title: 'Cluster Provisioned Space',
           id: 'sync-graph-1-service-child',
           export: false,
           legend: {
             position: 'top',
             items: {
-              clusterUtilizationPct: 'Cluster Utilization'
+              maxProvisionedSpace: 'Max Provisioned Space',
+              provisionedSpace: 'Provisioned Space'
             }
           },
           graph: new SFD3LineGraph({
-            bindTo: 'cluster-utilization-child',
+            bindTo: 'cluster-provisioned-child',
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
-              ids: ['clusterUtilizationPct'],
+              x: 'timestamps',
+              ids: ['maxProvisionedSpace', 'provisionedSpace'],
               axes: {
-                clusterUtilizationPct: 'y0'
+                maxProvisionedSpace: 'y0',
+                provisionedSpace: 'y0'
               },
               labels: {
-                clusterUtilizationPct: 'Cluster Utilization'
+                maxProvisionedSpace: 'Max Provisioned Space',
+                provisionedSpace: 'Provisioned Space'
               },
               colors: {
-                clusterUtilizationPct: ['#ff0000']
+                maxProvisionedSpace: ['#ff0000'],
+                provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
               },
               textures: {
-                clusterUtilizationPct: ['solid']
+                maxProvisionedSpace: ['dashed'],
+                provisionedSpace: ['solid']
               }
             },
             margin: {
@@ -78,7 +87,7 @@
               },
               y0: {
                 tick: {
-                  format: yAxisFormatPct,
+                  format: yAxisFormat,
                   spacing: 30
                 }
               }
@@ -86,15 +95,15 @@
           })
         },
         context: {
-          label: 'Cluster Utilization',
+          label: 'Cluster Provisioned Space',
           id: 'sync-graph-1-context',
           graph: new SFD3BarGraph({
-            bindTo: 'cluster-utilization-context',
+            bindTo: 'cluster-provisioned-context',
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
-              y: 'clusterUtilizationPct',
+              x: 'timestamps',
+              y: 'provisionedSpace',
               color: '#0FAEE7'
             },
             margin: {
@@ -111,7 +120,7 @@
               },
               y0: {
                 tick: {
-                  format: yAxisFormatPct,
+                  format: yAxisFormat,
                   spacing: 25
                 }
               }
@@ -120,46 +129,41 @@
         }
       },
       {
-        service: PerformanceGraphsService,
+        service: CapacityGraphsService,
         id: 'sync-graph-2-service',
         child: {
-          title: 'Cluster IOPS',
+          title: 'Cluster Block Capacity',
           id: 'sync-graph-2-service-child',
           export: false,
           legend: {
             position: 'top',
             items: {
-              readOpsPerSec: 'Read IOPS',
-              writeOpsPerSec: 'Write IOPS',
-              totalOpsPerSec: 'Total IOPS'
+              maxUsedSpace: 'Max Used Space',
+              usedSpace: 'Used Space'
             }
           },
           graph: new SFD3LineGraph({
-            bindTo: 'cluster-iops-child',
+            bindTo: 'cluster-block-child',
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
-              ids: ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec'],
+              x: 'timestamps',
+              ids: ['maxUsedSpace', 'usedSpace'],
               axes: {
-                readOpsPerSec: 'y0',
-                writeOpsPerSec: 'y0',
-                totalOpsPerSec: 'y0'
+                maxUsedSpace: 'y0',
+                usedSpace: 'y0'
               },
               labels: {
-                readOpsPerSec: 'Read IOPS',
-                writeOpsPerSec: 'Write IOPS',
-                totalOpsPerSec: 'Total IOPS'
+                maxUsedSpace: 'Max Used Space',
+                usedSpace: 'Used Space'
               },
               colors: {
-                readOpsPerSec: ['#ff0000'],
-                writeOpsPerSec: ['#00ff00'],
-                totalOpsPerSec: ['#0000ff']
+                maxUsedSpace: ['#ff0000'],
+                usedSpace: ['#E16482', '#00A7C6', '#10E8A5']
               },
               textures: {
-                readOpsPerSec: ['solid'],
-                writeOpsPerSec: ['solid'],
-                totalOpsPerSec: ['solid']
+                maxUsedSpace: ['dashed'],
+                usedSpace: ['solid']
               }
             },
             margin: {
@@ -176,6 +180,7 @@
               },
               y0: {
                 tick: {
+                  format: yAxisFormat,
                   spacing: 30
                 }
               }
@@ -183,15 +188,15 @@
           })
         },
         context: {
-          label: 'Cluster IOPS',
+          label: 'Block Capacity',
           id: 'sync-graph-2-context',
           graph: new SFD3BarGraph({
-            bindTo: 'cluster-iops-context',
+            bindTo: 'cluster-block-context',
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
-              y: 'totalOpsPerSec',
+              x: 'timestamps',
+              y: 'usedSpace',
               color: '#0FAEE7'
             },
             margin: {
@@ -208,6 +213,7 @@
               },
               y0: {
                 tick: {
+                  format: yAxisFormat,
                   spacing: 25
                 }
               }
@@ -216,46 +222,41 @@
         }
       },
       {
-        service: PerformanceGraphsService,
+        service: CapacityGraphsService,
         id: 'sync-graph-3-service',
         child: {
-          title: 'Cluster Bandwidth',
+          title: 'Cluster Metadata Storage Space',
           id: 'sync-graph-3-service-child',
           export: false,
           legend: {
             position: 'top',
             items: {
-              readBytesPerSec: 'Read Bytes',
-              writeBytesPerSec: 'Write Bytes',
-              totalBytesPerSec: 'Total Bytes'
+              maxUsedMetadataSpace: 'Total Capacity',
+              usedMetadataSpace: 'Used Metadata Space'
             }
           },
           graph: new SFD3LineGraph({
-            bindTo: 'cluster-bandwidth-child',
+            bindTo: 'cluster-metadata-child',
             type: 'line',
             showAxisLabels: true,
             data: {
-              x: 'timestampSec',
-              ids: ['readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec'],
+              x: 'timestamps',
+              ids: ['maxUsedMetadataSpace', 'usedMetadataSpace'],
               axes: {
-                readBytesPerSec: 'y0',
-                writeBytesPerSec: 'y0',
-                totalBytesPerSec: 'y0'
+                maxUsedMetadataSpace: 'y0',
+                usedMetadataSpace: 'y0'
               },
               labels: {
-                readBytesPerSec: 'Read Bytes',
-                writeBytesPerSec: 'Write Bytes',
-                totalBytesPerSec: 'Total Bytes'
+                maxUsedMetadataSpace: 'Total Capacity',
+                usedMetadataSpace: 'Used Metadata Space'
               },
               colors: {
-                readBytesPerSec: ['#ff0000'],
-                writeBytesPerSec: ['#00ff00'],
-                totalBytesPerSec: ['#0000ff']
+                maxUsedMetadataSpace: ['#ff0000'],
+                usedMetadataSpace: ['#E16482', '#00A7C6', '#10E8A5']
               },
               textures: {
-                readBytesPerSec: ['solid'],
-                writeBytesPerSec: ['solid'],
-                totalBytesPerSec: ['solid']
+                maxUsedMetadataSpace: ['dashed'],
+                usedMetadataSpace: ['solid']
               }
             },
             margin: {
@@ -272,7 +273,7 @@
               },
               y0: {
                 tick: {
-                  format: yAxisFormatBytes,
+                  format: yAxisFormat,
                   spacing: 30
                 }
               }
@@ -280,15 +281,15 @@
           })
         },
         context: {
-          label: 'Cluster Bandwidth',
+          label: 'Metadata Capacity',
           id: 'sync-graph-3-context',
           graph: new SFD3BarGraph({
-            bindTo: 'cluster-bandwidth-context',
+            bindTo: 'cluster-metadata-context',
             type: 'bar',
             showAxisLabel: true,
             data: {
-              x: 'timestampSec',
-              y: 'totalBytesPerSec',
+              x: 'timestamps',
+              y: 'usedMetadataSpace',
               color: '#0FAEE7'
             },
             margin: {
@@ -305,7 +306,7 @@
               },
               y0: {
                 tick: {
-                  format: yAxisFormatBytes,
+                  format: yAxisFormat,
                   spacing: 25
                 }
               }
@@ -317,16 +318,12 @@
 
     /***********************  Helper Functions  ************************/
 
-    function xAxisFormat(seconds) {
-      return $filter('date')(new Date(seconds*1000), 'short');
+    function xAxisFormat(milliseconds) {
+      return $filter('date')(new Date(milliseconds), 'short');
     }
 
-    function yAxisFormatBytes(bytes) {
+    function yAxisFormat(bytes) {
       return $filter('bytes')(bytes, false, 0, false);
-    }
-
-    function yAxisFormatPct(pct) {
-      return $filter('aiqData')(pct, {type: 'wholePercent'});
     }
   }
 })();
