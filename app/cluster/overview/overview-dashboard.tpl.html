@@ -31,13 +31,13 @@
   <div class="sf-widget container-fluid">
     <div class="info-bar-row">
       <div class="info-bar col-lg-6 col-md-12">
-        <div id="node-count-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -node-count col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Nodes</span>
             <span class="value">{{$ctrl.infoBar.nodeCount}}</span>
           </div>
         </div>
-        <div id="block-capacity-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -block-capacity col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Block Capacity</span>
             <div class="badge-container">
@@ -48,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div id="metadata-capacity-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -metadata-capacity col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Metadata Capacity</span>
             <div class="badge-container">
@@ -59,7 +59,7 @@
             </div>
           </div>
         </div>
-        <div id="efficiency-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -efficiency-info col-lg-3  col-md-3">
           <div class="info-box-content -efficiency">
             <span class="title">Efficiency</span>
             <span class="value">{{$ctrl.infoBar.efficiency | aiqData:{type:'ratio'} }}</span>
@@ -67,19 +67,19 @@
         </div>
       </div>
       <div class="info-bar col-lg-6 col-md-12">
-        <div id="utilization-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -utilization col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Utilization</span>
             <span class="value">{{$ctrl.infoBar.utilization | aiqData:{type:'wholePercent'} }}</span>
           </div>
         </div>
-        <div id="iops-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -iops col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">IOPS</span>
             <span class="value">{{$ctrl.infoBar.iops | iops }}</span>
           </div>
         </div>
-        <div id="bandwidth-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -bandwidth col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Throughput</span>
             <div class="throughput-value">
@@ -88,7 +88,7 @@
             </div>
           </div>
         </div>
-        <div id="cluster-faults-info-box" class="info-box col-lg-3  col-md-3">
+        <div class="info-box -cluster-faults col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Cluster Faults</span>
             <div class="badge-container">

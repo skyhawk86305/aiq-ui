@@ -6,7 +6,7 @@ Feature: Per Single Cluster Overview
 #  Assumptions:
 #    Given user is authenticated
 #    And I have access to cluster barCluster
-
+  @clusteroverview
   Scenario: Per Single Cluster Overview (CLOUD-3142)
     Given The app is open in a browser
 

@@ -17,7 +17,7 @@ var ClusterOverviewComponent = function () {
     infoBar = element(by.css('.sf-widget > .info-bar-row'));
     return {
       el: infoBar,
-      infoBoxes: {
+      infoBoxestemp: {
         count: infoBar.all(by.id(".info-box-content")).count(),
         nodeCount: infoBar.element(by.id("node-count-info-box")),
         blockCapacity: infoBar.element(by.id("block-capacity-info-bo")),
@@ -29,7 +29,19 @@ var ClusterOverviewComponent = function () {
         clusterFaults: infoBar.element(by.id("cluster-faults-info-box")),
         clusterFaultError: infoBar.element(by.css(".info-box-content > .badge-container > .-error")),
         clusterFaultWarning: infoBar.element(by.css(".info-box-content  > .badge > .-warning"))
+      },
+      infoBoxes: infoBar.all(by.css(".info-box")),
+      infoBox: function(name) {
+        var box = element(by.css(".info-box.-" + name));
+        return {
+          title: box.element(by.css(".title")),
+          value: box.element(by.css(".value")),
+        };
+
       }
+    }
+
+
     };
   };
 
