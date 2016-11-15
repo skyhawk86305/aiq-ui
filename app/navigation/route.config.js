@@ -70,7 +70,8 @@
         templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/reporting/performance', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: '<performance-graphs class="sf-layout-block"></performance-graphs>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/errorLog', {
         template: '<error-log-table class="sf-layout-block"></error-log-table>',
