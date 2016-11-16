@@ -5,14 +5,18 @@ module.exports = function() {
     return this.expect(this.clusterOverview.infoBar.el.isDisplayed()).to.eventually.be.true;
   });
 
-    this.Then(/^the sf-infobar-widget has (.*) widgets$/, function (count) {
-      this.expect(this.clusterOverview.infobar.infoBoxes.count()).toEqual(count);
+  this.Then(/^The sf-infobar-widget has "(.*)" widgets$/, function (count) {
+    this.expect(this.clusterOverview.infoBar.infoBoxes.count()).to.eventually.equal(parseInt(count));
+  });
+
+  this.Then(/^The sf-infobar-widget contains infoboxes: "(.*)"$/, function (array, done) {
+    var world = this,
+        columns = array.split(/,\s*/);
+
+    columns.forEach(function(column, i) {
+      world.expect(world.clusterOverview.infoBar.infoBoxHeaders.get(i).getText()).to.eventually.equal(column);
     });
-
-
-  //   And the sf-widget contains "Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Bandwidth, Cluster Faults"
-  this.Then(/^the "(.*)" sf-widget contains the title "(.*)"/, function (id, text) {
-    this.expect(this.clusterOverview.infoBar.getText()).to.eventually.contain(text);
+    world.expect(world.clusterOverview.infoBar.infoBoxHeaders.count()).to.eventually.equal(columns.length).notify(done);
   });
 };
 

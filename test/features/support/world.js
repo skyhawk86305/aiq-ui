@@ -37,11 +37,11 @@ function World() {
   this.drivesTable = new TableComponent('drive');
   this.alertHistoryTable = new TableComponent('alert-history');
   this.alertPolicyTable = new TableComponent('alert-policy');
-  this.alertTable = new TableComponent('alert-table');
+  this.clusterAlertTable = new TableComponent('alert-table');
   this.eventsTable = new TableComponent('event');
   this.errorLogTable = new TableComponent('error-log');
-  this.clusterPerformanceGraph = new GraphTimeSeries(null,'performance-graph');
-  this.clusterPerformanceUtilizationGraph = new GraphTimeSeries(null,'utilization-graph');
+  this.clusterPerformanceGraph = new GraphTimeSeries('performance-graph');
+  this.clusterPerformanceUtilizationGraph = new GraphTimeSeries('utilization-graph');
 
 
   this.table = function(type) {
@@ -50,7 +50,7 @@ function World() {
       case 'drive': return this.drivesTable;
       case 'alertHistory': return this.alertHistoryTable;
       case 'alertPolicy': return this.alertPolicyTable;
-      case 'alertTable': return this.alertTable;
+      case 'clusterAlert': return this.clusterAlertTable;
       case 'event': return this.eventsTable;
       case 'errorLog': return this.errorLogTable;
     }
@@ -69,7 +69,7 @@ function World() {
       case 'drive': return 'driveID';
       case 'alertHistory': return 'id';
       case 'alertPolicy': return 'notificationName';
-      case 'alertTable': return 'id';
+      case 'clusterAlert': return 'id';
       case 'event' : return 'eventID';
       case 'errorLog' : return 'id';
     }
