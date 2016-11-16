@@ -90,15 +90,15 @@
             <span class="title">Cluster Faults</span>
             <div class="badge-container">
               <div class="badge -first"
-                ng-class="{'-warning': $ctrl.infoBar.clusterFaults.warning,
-                  '-empty-alert' : !$ctrl.infoBar.clusterFaults.warning }">
+                ng-class="{'-warning': $ctrl.clusterSummary.unresolvedFaults.warning,
+                  '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.warning }">
                 <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.warning || 0}}</span>
                 <span class="title">Warning</span>
               </div>
               <div class="badge -second"
-                ng-class="{'-critical': $ctrl.infoBar.clusterFaults.error,
-                  '-empty-alert' : !$ctrl.infoBar.clusterFaults.error }">
-                <span class="value">{{$ctrl.infoBar.unresolvedFaults.error || 0}}</span>
+                ng-class="{'-critical': $ctrl.clusterSummary.unresolvedFaults.error,
+                  '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.error }">
+                <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.error || 0}}</span>
                 <span class="title">Error</span>
               </div>
             </div>

@@ -79,7 +79,7 @@
             left: 50
           },
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             ids: ['clusterUtilizationPct'],
             axes: {
               clusterUtilizationPct: 'y0',
@@ -118,7 +118,7 @@
             right: 60
           },
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             ids: ['totalOpsPerSec', 'totalBytesPerSec'],
             axes: {
               totalOpsPerSec: 'y0',
@@ -165,7 +165,7 @@
 
     function getFiveDayRange() {
       var now = Date.now(),
-        fiveDaysMilliseconds = 43200000,
+        fiveDaysMilliseconds = 432000000,
         range = {};
 
       range.start = new Date(now - fiveDaysMilliseconds);
@@ -175,8 +175,8 @@
 
     /***********************  Helper Functions  ************************/
 
-    function xAxisFormat(seconds) {
-      return $filter('date')(new Date(seconds*1000), 'short');
+    function xAxisFormat(milliseconds) {
+      return $filter('date')(new Date(milliseconds), 'short');
     }
     function utilizationFormat(utilization) {
       return $filter('aiqData')(utilization, {type: 'wholePercent'});
