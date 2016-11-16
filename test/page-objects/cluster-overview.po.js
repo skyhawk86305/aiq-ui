@@ -1,6 +1,6 @@
 'use strict';
 var GraphTimeSeries = require('./graph-time-series.po');
-var TableComponent = require('../../page-objects/table.po');
+var TableComponent = require('./table.po');
 
 var ClusterOverviewComponent = function () {
   this.el = element(by.css('.overview-dashboard-page'));
