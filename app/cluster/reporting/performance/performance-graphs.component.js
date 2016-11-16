@@ -25,9 +25,9 @@
     ctrl.staticDateRangeOptions = [
       {milliseconds: 86400000, label: '24 Hours'},
       {milliseconds: 259200000, label: '3 Days'},
-      {milliseconds: 604800000, label: '7 Days'},
+      {milliseconds: 604800000, label: '7 Days', default: true},
       {milliseconds: 1209600000, label: '14 Days'},
-      {milliseconds: 2592000000, label: '30 Days', default: true}
+      {milliseconds: 2592000000, label: '30 Days'}
     ];
 
     ctrl.syncGraphs = [
@@ -44,11 +44,13 @@
               clusterUtilizationPct: 'Cluster Utilization'
             }
           },
+          dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('utilizationChild'))
         },
         context: {
           label: 'Cluster Utilization',
           id: 'sync-graph-1-context',
+          dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('utilizationContext'))
         }
       },
@@ -67,11 +69,13 @@
               totalOpsPerSec: 'Total IOPS'
             }
           },
+          dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('iopsChild'))
         },
         context: {
           label: 'Cluster IOPS',
           id: 'sync-graph-2-context',
+          dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('iopsContext'))
         }
       },
@@ -90,11 +94,13 @@
               totalBytesPerSec: 'Total Bytes'
             }
           },
+          dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('bandwidthChild'))
         },
         context: {
           label: 'Cluster Bandwidth',
           id: 'sync-graph-3-context',
+          dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('bandwidthContext'))
         }
       }
@@ -107,7 +113,7 @@
           type: 'line',
           showAxisLabels: true,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             ids: ['clusterUtilizationPct'],
             axes: {
               clusterUtilizationPct: 'y0'
@@ -116,7 +122,7 @@
               clusterUtilizationPct: 'Cluster Utilization'
             },
             colors: {
-              clusterUtilizationPct: ['#ff0000']
+              clusterUtilizationPct: ['#50E3C2']
             },
             textures: {
               clusterUtilizationPct: ['solid']
@@ -146,8 +152,9 @@
           bindTo: 'cluster-utilization-context',
           type: 'bar',
           showAxisLabel: true,
+          barSpacing: 80,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             y: 'clusterUtilizationPct',
             color: '#0FAEE7'
           },
@@ -176,7 +183,7 @@
           type: 'line',
           showAxisLabels: true,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             ids: ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec'],
             axes: {
               readOpsPerSec: 'y0',
@@ -189,9 +196,9 @@
               totalOpsPerSec: 'Total IOPS'
             },
             colors: {
-              readOpsPerSec: ['#ff0000'],
-              writeOpsPerSec: ['#00ff00'],
-              totalOpsPerSec: ['#0000ff']
+              readOpsPerSec: ['#E35090'],
+              writeOpsPerSec: ['#FECD4D'],
+              totalOpsPerSec: ['#00A7C6']
             },
             textures: {
               readOpsPerSec: ['solid'],
@@ -223,8 +230,9 @@
           bindTo: 'cluster-iops-context',
           type: 'bar',
           showAxisLabel: true,
+          barSpacing: 80,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             y: 'totalOpsPerSec',
             color: '#0FAEE7'
           },
@@ -253,7 +261,7 @@
           type: 'line',
           showAxisLabels: true,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             ids: ['readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec'],
             axes: {
               readBytesPerSec: 'y0',
@@ -266,9 +274,9 @@
               totalBytesPerSec: 'Total Bytes'
             },
             colors: {
-              readBytesPerSec: ['#ff0000'],
-              writeBytesPerSec: ['#00ff00'],
-              totalBytesPerSec: ['#0000ff']
+              readBytesPerSec: ['#E35090'],
+              writeBytesPerSec: ['#FECD4D'],
+              totalBytesPerSec: ['#00A7C6']
             },
             textures: {
               readBytesPerSec: ['solid'],
@@ -300,8 +308,9 @@
           bindTo: 'cluster-bandwidth-context',
           type: 'bar',
           showAxisLabel: true,
+          barSpacing: 80,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             y: 'totalBytesPerSec',
             color: '#0FAEE7'
           },
