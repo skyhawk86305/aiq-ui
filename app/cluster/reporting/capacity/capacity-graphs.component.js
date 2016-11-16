@@ -174,7 +174,7 @@
             x: {
               tick: {
                 format: xAxisFormat,
-                spacing: 150
+                spacing: 290
               }
             },
             y0: {
