@@ -1,9 +1,8 @@
 'use strict';
 
-var GraphTimeSeries = function (componentId, thisElement) {
-
+var GraphTimeSeries = function (componentId) {
   var component = this;
-  component.el = thisElement || element(by.id(componentId));
+  component.el = element(by.id(componentId));
   component.title = component.el.element(by.css('.title'));
   component.exportButton = component.el.element(by.css('.export'));
 

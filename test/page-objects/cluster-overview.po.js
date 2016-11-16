@@ -1,21 +1,17 @@
 'use strict';
 var GraphTimeSeries = require('./graph-time-series.po');
-var Table = require('./table.po');
+var TableComponent = require('./table.po');
 
 var ClusterOverviewComponent = function () {
-
   this.el = element(by.css('.overview-dashboard-page'));
-
   this.graphs = {
     clusterPerformance: new GraphTimeSeries('performance-graph'),
     performanceUtilization: new GraphTimeSeries('utilization-graph')
   };
-
-  var infoBar = element(by.css('.sf-widget > .info-bar-row'));
-
   this.infoBar = {
-    el: infoBar,
-    infoBoxes: infoBar.all(by.css('.info-box')),
+    el: element(by.css('.sf-widget > .info-bar-row')),
+    infoBoxes: element.all(by.css('.info-box')),
+    infoBoxHeaders: element.all(by.css('.info-box-content > .title')),
     infoBox: function(name) {
       var box = element(by.css('.info-box.-' + name));
       return {
@@ -28,11 +24,9 @@ var ClusterOverviewComponent = function () {
           };
         }
       };
-
     }
   };
-
-  this.alertTable = new Table('alert-table');
+  this.clusterAlertTable = new TableComponent('alert-table');
 };
 
 

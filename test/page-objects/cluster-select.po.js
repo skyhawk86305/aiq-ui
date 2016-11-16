@@ -15,7 +15,7 @@ var ClusterSelectComponent = function () {
         element(by.css('.cluster-select-hints')).click();
         return {
           menu: element(by.css('.cluster-select-hints-tooltip'))
-        }
+        };
       },
       activeTab: element(by.css('.cluster-select-list-tab.active')),
       allClustersTab: element(by.css('.cluster-select-list-tab.all-clusters')),
