@@ -137,6 +137,9 @@
               totalBytesPerSec: ['solid']
             }
           },
+          tooltipFormat: {
+            y0: function(d) { return d; }
+          },
           axis: {
             x: {
               tick: {

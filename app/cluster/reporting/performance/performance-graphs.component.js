@@ -211,6 +211,9 @@
             right: 20,
             bottom: 30
           },
+          tooltipFormat: {
+            y0: function(d) { return d; }
+          },
           axis: {
             x: {
               tick: {
