@@ -9,8 +9,10 @@ var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
 var LoginComponent = require('../../page-objects/login.po');
 var TableComponent = require('../../page-objects/table.po');
 var ComingSoonComponent = require('../../page-objects/coming-soon.po');
+var CapacityComponent = require('../../page-objects/capacity.po');
 var ClusterOverviewComponent = require('../../page-objects/cluster-overview.po');
 var GraphTimeSeries = require('../../page-objects/graph-time-series.po');
+var CapacityComponent = require('../../page-objects/capacity.po');
 
 function World() {
 
@@ -40,9 +42,10 @@ function World() {
   this.clusterAlertTable = new TableComponent('alert-table');
   this.eventsTable = new TableComponent('event');
   this.errorLogTable = new TableComponent('error-log');
+  this.capacityComponent = new CapacityComponent();
   this.clusterPerformanceGraph = new GraphTimeSeries('performance-graph');
   this.clusterPerformanceUtilizationGraph = new GraphTimeSeries('utilization-graph');
-
+  this.capacityComponent = new CapacityComponent();
 
   this.table = function(type) {
     switch(type) {
