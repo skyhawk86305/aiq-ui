@@ -3,10 +3,6 @@ var GraphTimeSeries = require('./graph-time-series.po');
 
 var ClusterOverviewComponent = function () {
   this.el = element(by.css('.overview-dashboard-page'));
-  this.graphs = {
-    clusterPerformance: new GraphTimeSeries('performance-graph'),
-    performanceUtilization: new GraphTimeSeries('utilization-graph')
-  };
   this.infoBar = {
     el: element(by.css('.sf-widget > .info-bar-row')),
     infoBoxes: element.all(by.css('.info-box')),
