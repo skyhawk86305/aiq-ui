@@ -5,8 +5,10 @@
     .module('aiqUi')
     .filter('string', function() {
       return function (data, capitalize) {
-        var string = typeof data === 'string' ? data : typeof data === 'number' ? data.toString() : '-';
-        return capitalize ? string.charAt(0).toUpperCase() + string.slice(1) : string;
+        if(typeof data === 'number' || typeof data === 'string') {
+          var string = typeof data === 'string' ? data : data.toString();
+          return capitalize && string.length > 0 ? string.charAt(0).toUpperCase() + string.slice(1) : string;
+        } else { return '-'; }
       };
     });
 })();

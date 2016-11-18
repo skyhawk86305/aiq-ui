@@ -3,7 +3,7 @@
   
   angular
     .module('aiqUi')
-    .filter('booleanBadge', function() {
+    .filter('tableBadgeBoolean', function() {
       return function (data) {
         if (data) {
           return '<div class="table-badge -normal">YES</div>';
