@@ -6,7 +6,6 @@ var mockBackend = require('../../support.js').mockBackend;
 var CapacityComponent = require('../../../page-objects/capacity.po');
 var NavbarComponent = require('../../../page-objects/navbar.po');
 var ClusterSelectComponent = require('../../../page-objects/cluster-select.po');
-var expectedDateRanges = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'];
 
 var capacityPage;
 var navbar = new NavbarComponent();
@@ -55,6 +54,8 @@ describe('Capacity Page Graphs', function () {
   });
 
   describe('Static Date Selector', function() {
+    var expectedDateRanges = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'];
+
     it ('should have the correct static date ranges', function() {
       expect(capacityPage.staticDateSelector().ranges.count).to.eventually.equal(5);
       for (var i = 0; i < expectedDateRanges.length; i++) {
