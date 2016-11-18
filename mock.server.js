@@ -96,3 +96,16 @@ server.get('/graph/cluster/:clusterId/performance', function (req, res) {
 });
 
 
+server.get('/graph/cluster/:clusterId/capacity/snapshot', function (req, res) {
+  var response = {"timestampSec":1479401909,"usedSpace":2935990947150,"maxUsedSpace":42805052899328,"usedMetadataSpace":180152187904,"maxUsedMetadataSpace":2080115870926,"provisionedSpace":59728017932288,"maxProvisionedSpace":138254831476736,"thinProvisioningFactor":7.833951255671171,"deDuplicationFactor":1.808344330383057,"compressionFactor":2.8194204035516706,"efficiencyFactor":15.76773144525874,"activeSessions":80,"peakActiveSessions":100};
+  res.send(response);
+
+});
+
+server.get('/graph/cluster/:clusterId/performance/snapshot', function (req, res) {
+  var response ={"timestampSec":1479495910,"readOpsPerSec":2020,"writeOpsPerSec":7890,"totalOpsPerSec":8765,"readBytesPerSec":22973537,"writeBytesPerSec":153109641,"totalBytesPerSec":176083178,"clusterUtilizationPct":10.747204393148422};
+  res.send(response);
+
+});
+
+
