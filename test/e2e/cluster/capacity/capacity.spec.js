@@ -12,7 +12,7 @@ var capacityPage;
 var navbar = new NavbarComponent();
 var clusterSelect = new ClusterSelectComponent();
 
-fdescribe('Capacity Page Graphs', function () {
+describe('Capacity Page Graphs', function () {
   beforeEach(function() {
     mockBackend.enable(browser);
     mockBackend.http.whenGET('/sessions').respond(function() {
@@ -34,7 +34,6 @@ fdescribe('Capacity Page Graphs', function () {
   });
 
   it('should have the static date selector', function () {
-    browser.sleep(60000);
     expect(capacityPage.staticDateSelector().el.isDisplayed()).to.eventually.be.true;
   });
 
