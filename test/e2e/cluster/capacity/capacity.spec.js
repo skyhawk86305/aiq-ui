@@ -56,11 +56,11 @@ describe('Capacity Page Graphs', function () {
   describe('Static Date Selector', function() {
     var expectedDateRanges = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'];
 
-    it ('should have the correct static date ranges', function() {
-      expect(capacityPage.staticDateSelector().ranges.count).to.eventually.equal(5);
+    it ('should have the correct static date ranges', function(done) {
       for (var i = 0; i < expectedDateRanges.length; i++) {
         expect(capacityPage.staticDateSelector().range(i).getText()).to.eventually.equal(expectedDateRanges[i]);
       }
+      expect(capacityPage.staticDateSelector().ranges.count).to.eventually.equal(5).notify(done);
     });
 
     it ('should default to 30 days', function() {
