@@ -28,7 +28,7 @@ module.exports = {
         "clusterID": 1898714,
         "blockFullness": "stage1Happy",
         "fullness": "stage1Happy",
-        "metadataFullness": "stage1Happy",
+        "metadataFullness": "stage3",
         "maxMetadataOverProvisionFactor": 5,
         "sliceReserveUsedThresholdPct": 5,
         "stage2AwareThreshold": 2,

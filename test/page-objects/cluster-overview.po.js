@@ -20,6 +20,7 @@ var ClusterOverviewComponent = function () {
           var badge = name ? box.element(by.css('.badge.-' + name)) : box.element(by.css('.badge'));
           return {
             value: badge.element(by.css('.value')),
+            title: badge.element(by.css('.title')),
             el: badge
           };
         }
