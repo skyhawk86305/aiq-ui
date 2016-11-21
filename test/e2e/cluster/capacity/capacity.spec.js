@@ -63,8 +63,8 @@ describe('Capacity Page Graphs', function () {
       expect(capacityPage.staticDateSelector().ranges.count).to.eventually.equal(5).notify(done);
     });
 
-    it ('should default to 30 days', function() {
-      expect(capacityPage.staticDateSelector().range(4).getText()).to.eventually.equal('Last 30 Days');
+    it('should have a default static date range selected on page load', function () {
+      expect(capacityPage.staticDateSelector().activeDateRangeOption.getText()).to.eventually.equal('Last 30 Days');
     });
   });
 

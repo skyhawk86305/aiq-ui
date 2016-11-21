@@ -61,6 +61,7 @@ var CapacityComponent = function () {
     staticDateSelector = element(by.id('sync-graphs-static-date-range-selector'));
     return {
       el: staticDateSelector,
+      activeDateRangeOption: staticDateSelector.element(by.css('.active')),
       ranges: {
         count: staticDateSelector.all(by.css('a')).count()
       },
