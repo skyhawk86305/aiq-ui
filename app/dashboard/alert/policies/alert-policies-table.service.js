@@ -24,12 +24,12 @@
     };
 
     var columns = [
-      {key: 'notificationName', label: 'Alert Policy Name', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'destinationEmail', label: 'Destination', format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'notificationSeverity', label: 'Severity', format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'username', label: 'Creator', format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'customerName', label: 'Customer', format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'clusterName', label: 'Cluster', format: {filter: 'aiqData', params: {type: 'string'}}},
+      {key: 'notificationName', label: 'Alert Policy Name', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+      {key: 'destinationEmail', label: 'Destination', format: {filter:'string'}},
+      {key: 'notificationSeverity', label: 'Severity', format: {filter:'string'}},
+      {key: 'username', label: 'Creator', format: {filter:'string'}},
+      {key: 'customerName', label: 'Customer', format: {filter:'string'}},
+      {key: 'clusterName', label: 'Cluster', format: {filter:'string'}},
       {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
     ];
 

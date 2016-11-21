@@ -346,7 +346,7 @@
       return $filter('date')(new Date(milliseconds), 'short');
     }
     function utilizationFormat(utilization) {
-      return $filter('aiqData')(utilization, {type: 'wholePercent'});
+      return $filter('percent')(utilization, 0, false, true);
     }
     function iopsFormat(iops) {
       return $filter('iops')(iops, 0);

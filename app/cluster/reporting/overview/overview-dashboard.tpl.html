@@ -62,7 +62,7 @@
         <div class="info-box -efficiency-info col-lg-3  col-md-3">
           <div class="info-box-content -efficiency">
             <span class="title">Efficiency</span>
-            <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | aiqData:{type:'ratio'} }}</span>
+            <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | percent:2:true:true }}</span>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@
         <div class="info-box -utilization col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Utilization</span>
-            <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | aiqData:{type:'wholePercent'} }}</span>
+            <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | percent:0:false:true:true }}</span>
           </div>
         </div>
         <div class="info-box -iops col-lg-3  col-md-3">
