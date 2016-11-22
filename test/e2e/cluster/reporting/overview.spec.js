@@ -11,7 +11,7 @@ var clusterOverviewPage;
 var navbar = new NavbarComponent();
 var clusterSelect = new ClusterSelectComponent();
 
-fdescribe('Cluster Overview Page', function () {
+describe('Cluster Overview Page', function () {
   beforeEach(function() {
     mockBackend.enable(browser);
     mockBackend.http.whenGET('/sessions').respond(function() {
@@ -33,11 +33,11 @@ fdescribe('Cluster Overview Page', function () {
   });
 
   it('should have the performance graph', function () {
-    expect(clusterOverviewPage.graphs.clusterPerformance.isDisplayed()).to.eventually.be.true;
+    expect(performancePage.graphs.clusterPerformance.isDisplayed()).to.eventually.be.true;
   });
 
   it('should have the utilization graph', function () {
-    expect(clusterOverviewPage.graphs.performanceUtilization.isDisplayed()).to.eventually.be.true;
+    expect(performancePage.graphs.performanceUtilization.isDisplayed()).to.eventually.be.true;
   });
 
   it('should display the infobar', function() {
@@ -97,7 +97,7 @@ fdescribe('Cluster Overview Page', function () {
   });
 
   it('should have the alerts table', function () {
-    expect(clusterOverviewPage.alertTable.isDisplayed()).to.eventually.be.true;
+    expect(performancePage.alertTable.isDisplayed()).to.eventually.be.true;
   });
 
 });
