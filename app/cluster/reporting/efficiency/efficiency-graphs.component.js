@@ -23,11 +23,11 @@
     };
 
     ctrl.staticDateRangeOptions = [
-      {milliseconds: 86400000, label: 'Last 24 Hours'},
-      {milliseconds: 259200000, label: 'Last 3 Days'},
-      {milliseconds: 604800000, label: 'Last 7 Days', default: true},
-      {milliseconds: 1209600000, label: 'Last 14 Days'},
-      {milliseconds: 2592000000, label: 'Last 30 Days'}
+      {milliseconds: 86400000, label: '24 Hours'},
+      {milliseconds: 259200000, label: '3 Days'},
+      {milliseconds: 604800000, label: '7 Days', default: true},
+      {milliseconds: 1209600000, label: '14 Days'},
+      {milliseconds: 2592000000, label: '30 Days'}
     ];
 
     ctrl.syncGraphs = [
