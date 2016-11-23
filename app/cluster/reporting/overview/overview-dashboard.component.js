@@ -24,7 +24,7 @@
       ClusterAlertTableService.update($routeParams.clusterID);
       ctrl.clusterAlertTableService = ClusterAlertTableService;
       ctrl.getClusterSummaryState = 'loading';
-      ctrl.getCapacitySnapshotStatus = 'loading';
+      ctrl.getCapacitySnapshotState = 'loading';
       ctrl.getPerformanceSnapshotState = 'loading';
       setInfoBarData();
     };
