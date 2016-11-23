@@ -23,6 +23,9 @@
       PerformanceGraphsService.update($routeParams.clusterID);
       ClusterAlertTableService.update($routeParams.clusterID);
       ctrl.clusterAlertTableService = ClusterAlertTableService;
+      ctrl.getClusterSummaryState = 'loading';
+      ctrl.getCapacitySnapshotStatus = 'loading';
+      ctrl.getPerformanceSnapshotState = 'loading';
       setInfoBarData();
     };
 
@@ -56,16 +59,25 @@
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
         .then(function(response) {
           ctrl.clusterSummary = response.cluster;
+          ctrl.getClusterSummaryState = 'loaded';
+        }).catch(function() {
+          ctrl.getClusterSummaryState = 'error';
         });
 
       DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
         .then(function(response) {
           ctrl.capacitySnapshot = response.data;
+          ctrl.getCapacitySnapshotState = 'loaded';
+        }).catch(function() {
+          ctrl.getCapacitySnapshotState = 'error';
         });
 
       DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
         .then(function(response) {
           ctrl.performanceSnapshot = response.data;
+          ctrl.getPerformanceSnapshotState = 'loaded';
+        }).catch(function() {
+          ctrl.getPerformanceSnapshotState = 'error';
         });
     }
 
