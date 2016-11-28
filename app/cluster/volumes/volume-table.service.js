@@ -32,7 +32,7 @@
         {key: 'maxIOPS', label: 'Max IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
         {key: 'paired', label: 'Paired', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'boolean', args: ['Yes', 'No']}},
-        {key: 'configuredAccessProtocols', filterComparators: SFFilterComparators.STRING_DEFAULT, label: 'Configured Access Protocols'}
+        {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}}
       ];
     }
 
@@ -44,6 +44,7 @@
             volume.maxIOPS = volume.qos.maxIOPS;
             volume.burstIOPS = volume.qos.burstIOPS;
             volume.paired = volume.volumePairs.length ? true : false;
+            volume.configuredAccessProtocols = ['foo','bar','baz'];
             return volume;
           });
         });
