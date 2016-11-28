@@ -1,4 +1,4 @@
-Feature: Drive Table
+Feature: Volume Table
   As an AIQ user
   I want to see the active volumes in my cluster
   So that I can see GCCompleted
