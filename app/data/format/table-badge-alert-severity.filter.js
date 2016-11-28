@@ -3,7 +3,7 @@
   
   angular
     .module('aiqUi')
-    .filter('alertSeverityBadge', function() {
+    .filter('tableBadgeAlertSeverity', function() {
       return function (data) {
         switch (data) {
           case 'Info':
@@ -14,6 +14,8 @@
             return '<div class="table-badge -error">ERROR</div>';
           case 'Critical':
             return '<div class="table-badge -critical">CRITICAL</div>';
+          default:
+            return data;
         }
       };
     });

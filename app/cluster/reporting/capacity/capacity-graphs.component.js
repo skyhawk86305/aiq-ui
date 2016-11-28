@@ -21,9 +21,14 @@
 
     ctrl.$onInit = function() {
       CapacityGraphsService.update($routeParams.clusterID);
-
+      ctrl.getClusterFullThresholdState = 'loading';
       DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID)})
-        .then(function(response) { ctrl.clusterFullThreshold = response.clusterFullThreshold; });
+        .then(function(response) {
+          ctrl.clusterFullThreshold = response.clusterFullThreshold;
+          ctrl.getClusterFullThresholdState = 'loaded';
+        }).catch(function() {
+          ctrl.getClusterFullThresholdState = 'error';
+        });
     };
 
     ctrl.staticDateRangeOptions = [

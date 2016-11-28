@@ -23,6 +23,9 @@
       PerformanceGraphsService.update($routeParams.clusterID);
       ClusterAlertTableService.update($routeParams.clusterID);
       ctrl.clusterAlertTableService = ClusterAlertTableService;
+      ctrl.getClusterSummaryState = 'loading';
+      ctrl.getCapacitySnapshotState = 'loading';
+      ctrl.getPerformanceSnapshotState = 'loading';
       setInfoBarData();
     };
 
@@ -56,16 +59,25 @@
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
         .then(function(response) {
           ctrl.clusterSummary = response.cluster;
+          ctrl.getClusterSummaryState = 'loaded';
+        }).catch(function() {
+          ctrl.getClusterSummaryState = 'error';
         });
 
       DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
         .then(function(response) {
           ctrl.capacitySnapshot = response.data;
+          ctrl.getCapacitySnapshotState = 'loaded';
+        }).catch(function() {
+          ctrl.getCapacitySnapshotState = 'error';
         });
 
       DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
         .then(function(response) {
           ctrl.performanceSnapshot = response.data;
+          ctrl.getPerformanceSnapshotState = 'loaded';
+        }).catch(function() {
+          ctrl.getPerformanceSnapshotState = 'error';
         });
     }
 
@@ -182,7 +194,7 @@
       return $filter('date')(new Date(milliseconds), 'short');
     }
     function utilizationFormat(utilization) {
-      return $filter('aiqData')(utilization, {type: 'wholePercent'});
+      return $filter('percent')(utilization, 0, false, true);
     }
     function iopsFormat(iops) {
       return $filter('iops')(iops, 0);

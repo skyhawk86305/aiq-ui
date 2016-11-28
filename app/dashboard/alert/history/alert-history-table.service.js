@@ -27,10 +27,10 @@
 
     var columns = [
       {key: 'id', label: 'Alert ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT},
-      {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'isResolved', label: 'Resolved', format: {filter: 'aiqData', params: {type: 'boolean'}}},
-      {key: 'resolved', label: 'Resolution Time', format: {filter: 'aiqData', params: {type: 'date'}}},
+      {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+      {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+      {key: 'isResolved', label: 'Resolved', format: {filter: 'boolean', args:['Yes', 'No']}},
+      {key: 'resolved', label: 'Resolution Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'notificationName', label: 'Alert Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
       {key: 'severity', label: 'Alert Severity', filterComparators: SFFilterComparators.STRING_DEFAULT},
       {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},

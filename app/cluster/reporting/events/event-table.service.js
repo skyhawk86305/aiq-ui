@@ -16,7 +16,7 @@
       return DataService.callAPI('ListEvents', {clusterID: this.selectedClusterID})
         .then(function(response) {
           return response.events.map(function(event) {
-            event.detailsString = $filter('aiqData')(event.details, {type: 'json'});
+            event.detailsString = $filter('json')(event.details);
             return event;
           });
         });
@@ -24,14 +24,14 @@
 
 
     var columns = [
-      {key: 'eventID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'timeOfReport', label: 'Event Time', format: {filter: 'aiqData', params: {type: 'date'}}},
-      {key: 'eventInfoType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'message', label: 'Message', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'serviceID', label: 'Service ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqData', params: {type: 'string'}}},
-      {key: 'detailsString', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'aiqData', params: {type: 'string'}}}
+      {key: 'eventID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+      {key: 'timeOfReport', label: 'Event Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+      {key: 'eventInfoType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+      {key: 'message', label: 'Message', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+      {key: 'serviceID', label: 'Service ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+      {key: 'detailsString', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'string'}}
     ];
 
     var eventTableService = new SFTableService(listEvents, columns, false);

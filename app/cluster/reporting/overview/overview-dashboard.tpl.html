@@ -31,13 +31,13 @@
   <div class="sf-widget container-fluid">
     <div class="info-bar-row">
       <div class="info-bar col-lg-6 col-md-12">
-        <div class="info-box -node-count col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Nodes</span>
             <span class="value">{{$ctrl.clusterSummary.nodeCount}}</span>
           </div>
         </div>
-        <div class="info-box -block-capacity col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -block-capacity col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Block Capacity</span>
             <div class="badge-container">
@@ -48,7 +48,7 @@
             </div>
           </div>
         </div>
-        <div class="info-box -metadata-capacity col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -metadata-capacity col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Metadata Capacity</span>
             <div class="badge-container">
@@ -59,33 +59,33 @@
             </div>
           </div>
         </div>
-        <div class="info-box -efficiency-info col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getCapacitySnapshotState" class="info-box -efficiency-info col-lg-3  col-md-3">
           <div class="info-box-content -efficiency">
             <span class="title">Efficiency</span>
-            <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | aiqData:{type:'ratio'} }}</span>
+            <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | percent:1:true:false }}</span>
           </div>
         </div>
       </div>
       <div class="info-bar col-lg-6 col-md-12">
-        <div class="info-box -utilization col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -utilization col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Utilization</span>
-            <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | aiqData:{type:'wholePercent'} }}</span>
+            <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | percent:0:false:true }}</span>
           </div>
         </div>
-        <div class="info-box -iops col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -iops col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">IOPS</span>
-            <span class="value">{{$ctrl.performanceSnapshot.totalOpsPerSec | iops }}</span>
+            <span class="value">{{$ctrl.performanceSnapshot.totalOpsPerSec | iops:true:1:false }}</span>
           </div>
         </div>
-        <div class="info-box -bandwidth col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -bandwidth col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Throughput</span>
             <span ng-bind-html="$ctrl.performanceSnapshot.totalBytesPerSec | bytes:false:0:true:true" class="value"></span>
           </div>
         </div>
-        <div class="info-box -cluster-faults col-lg-3  col-md-3">
+        <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-3  col-md-3">
           <div class="info-box-content">
             <span class="title">Cluster Faults</span>
             <div class="badge-container">
