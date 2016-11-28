@@ -100,7 +100,8 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/volumes', {
-        templateUrl: 'cluster/volumes/volumes.tpl.html'
+        template: '<volume-table class="sf-layout-block"></volume-table>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/replication', {
         templateUrl: 'coming-soon.tpl.html'

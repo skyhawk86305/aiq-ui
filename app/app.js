@@ -35,11 +35,6 @@
         $location.path('/login');
     });
 
-     // ToDo: remove this call. Only used for demo purposes
-     DataService.callAPI('ListActiveVolumes', {clusterID:1898714}).then(function(response) {
-       self.volumes = response.volumes;
-     });
-
   }
 
 })();

@@ -44,6 +44,7 @@ function World() {
   this.clusterAlertTable = new TableComponent('alert-table');
   this.eventsTable = new TableComponent('event');
   this.errorLogTable = new TableComponent('error-log');
+  this.volumeTable = new TableComponent('volume');
   this.performanceComponent = new PerformanceComponent();
   this.clusterPerformanceGraph = new GraphTimeSeries('performance-graph');
   this.clusterPerformanceUtilizationGraph = new GraphTimeSeries('utilization-graph');
@@ -59,6 +60,7 @@ function World() {
       case 'clusterAlert': return this.clusterAlertTable;
       case 'event': return this.eventsTable;
       case 'errorLog': return this.errorLogTable;
+      case 'volume': return this.volumeTable;
     }
   };
 
@@ -78,6 +80,7 @@ function World() {
       case 'clusterAlert': return 'id';
       case 'event' : return 'eventID';
       case 'errorLog' : return 'id';
+      case 'volume' : return 'volumeID';
     }
   };
 
@@ -120,6 +123,14 @@ function World() {
       case 'errorLog':
         return fixture.result.faults.map(function(fault) {
           return fault;
+        });
+      case 'volume':
+        return fixture.result.volumes.map(function(volume) {
+          volume.minIOPS = volume.qos.minIOPS;
+          volume.maxIOPS = volume.qos.maxIOPS;
+          volume.burstIOPS = volume.qos.burstIOPS;
+          volume.paired = volume.volumePairs.length ? true: false;
+          return volume;
         });
 
       default:
@@ -181,6 +192,15 @@ function World() {
           case 'nodeID': return data ? data.toString() : '-';
           case 'driveID': return data ? data.toString() : '-';
           case 'details': return data && data.replace(/ +$/, '') || '-';
+          default: return data.toString();
+        }
+        break;
+
+      case 'volume':
+        switch (attr) {
+          case 'totalSize': return formatBytes(data);
+          case 'enable512e': return data ? 'Yes' : 'No';
+          case 'paired': return data ? 'Yes' : 'No';
           default: return data.toString();
         }
         break;
