@@ -7,7 +7,6 @@
       'SFTableService',
       'SFFilterComparators',
       'DataService',
-      '$filter',
       VolumeTableService
     ]);
 
