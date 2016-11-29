@@ -17,7 +17,7 @@
     };
 
     var columns = [
-      {key: 'nodeID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+      {key: 'nodeID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'number', args: [0, true]}},
       {key: 'name', label: 'Name', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'nodeType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'softwareVersion', label: 'Version', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
@@ -25,7 +25,7 @@
       {key: 'mip', label: 'Management IP', format: {filter: 'string'}},
       {key: 'cip', label: 'Cluster IP', format: {filter: 'string'}},
       {key: 'sip', label: 'Storage IP', format: {filter: 'string'}},
-      {key: 'ipcPort', label: 'Replication Port', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}}
+      {key: 'ipcPort', label: 'Replication Port', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'number', args: [0, true]}}
     ];
 
     var nodeTableService = new SFTableService(listActiveNodes, columns, false);

@@ -39,6 +39,7 @@ module.exports = function() {
 
   this.Then(/^The "(.*)" table contains "(.*)" data with attrs: "(.*)"$/, function (type, method, array, done) {
     var world = this,
+        expectations = [],
         attrs = array.split(/,\s*/),
         dataMatch, expectedData,
         fixtureData = world.getFixtureData(type, method),
@@ -52,14 +53,13 @@ module.exports = function() {
       dataMatch = fixtureData.find(function(data) { return data[uniqueKey].toString() === id; });
       if (!dataMatch) { done('No fixture entry matching value: '+id+' on unique key: '+uniqueKey); }
       attrs.forEach(function(attr) {
-        world.table(type).data(attr, randomIndex).then(function(actualData){
-          expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
-          world.expect(actualData).to.equal(expectedData, 'Attribute ' + attr + ' failed to match value');
-        });
+        expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
+        expectations.push(world.expect(world.table(type).data(attr, randomIndex)).to.eventually.equal(expectedData, 'Attribute ' + attr + ' failed to match value'));
       });
     });
 
-    world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows).notify(done);
+    expectations.push(world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows));
+    world.expect(Promise.all(expectations)).to.be.fulfilled.notify(done);
   });
 
   this.Then(/^I see a "(.*)" message$/, function (text) {

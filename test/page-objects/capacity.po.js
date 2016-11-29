@@ -58,7 +58,7 @@ var CapacityComponent = function () {
     };
   };
   component.staticDateSelector = function() {
-    staticDateSelector = element(by.id('sync-graphs-static-date-range-selector'));
+    staticDateSelector = element(by.id('capacity-sync-graphs-static-date-range-selector'));
     return {
       el: staticDateSelector,
       activeDateRangeOption: staticDateSelector.element(by.css('.active')),

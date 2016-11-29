@@ -64,7 +64,7 @@ describe('Capacity Page Graphs', function () {
     });
 
     it('should have a default static date range selected on page load', function () {
-      expect(capacityPage.staticDateSelector().activeDateRangeOption.getText()).to.eventually.equal('Last 30 Days');
+      expect(capacityPage.staticDateSelector().activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
     });
   });
 
