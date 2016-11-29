@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Component: nodeTable', function() {
+describe('Component: volumeTable', function() {
   var routeParams,
     service,
     controller;
@@ -8,12 +8,12 @@ describe('Component: nodeTable', function() {
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($componentController, $routeParams, NodeTableService) {
+  beforeEach(inject(function($componentController, $routeParams, VolumeTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
-    service = NodeTableService;
+    service = VolumeTableService;
     spyOn(service, 'update');
-    controller = $componentController('nodeTable');
+    controller = $componentController('volumeTable');
   }));
 
   describe('initialization', function() {

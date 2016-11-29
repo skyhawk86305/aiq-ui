@@ -1,30 +1,19 @@
 'use strict';
 
 describe('Component: driveTable', function() {
-  var scope,
-    routeParams,
+  var routeParams,
     service,
-    locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $httpBackend, $componentController, $routeParams, DriveTableService) {
-    scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
+  beforeEach(inject(function($componentController, $routeParams, DriveTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = DriveTableService;
     spyOn(service, 'update');
-    locals = {
-      $scope: scope
-    };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('driveTable', locals, bindings);
+    controller = $componentController('driveTable');
   }));
 
   describe('initialization', function() {

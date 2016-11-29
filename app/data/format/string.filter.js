@@ -8,6 +8,11 @@
         if(typeof data === 'number' || typeof data === 'string') {
           var string = typeof data === 'string' ? data : data.toString();
           return capitalize && string.length > 0 ? string.charAt(0).toUpperCase() + string.slice(1) : string;
+        } else if(typeof data === 'object' && data.length) {
+          var formattedArray = data.map(function(d) {
+            return ' ' + d;
+          });
+          return formattedArray.toString();
         } else { return '-'; }
       };
     });

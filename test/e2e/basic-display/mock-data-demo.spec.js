@@ -6,7 +6,7 @@ var mockBackend = require('../support.js').mockBackend;
 
 // THIS IS A DEMO FILE ONLY, IT SHOULD EVENTUALLY BE REMOVED.
 
-describe('An example of how to use the default fixture data for testing', function() {
+xdescribe('An example of how to use the default fixture data for testing', function() {
   it('should display fixture data served from the mock server by default', function() {
     browser.get('#/cluster/11/volumes');
     expect(element.all(by.repeater('volume in appCtrl.volumes')).count()).to.eventually.equal(2);
@@ -15,7 +15,7 @@ describe('An example of how to use the default fixture data for testing', functi
   });
 });
 
-describe('An example of how override default fixture data for a specific test', function() {
+xdescribe('An example of how override default fixture data for a specific test', function() {
   beforeEach(function() {
     mockBackend.enable(browser);
   });
@@ -54,7 +54,7 @@ describe('An example of how override default fixture data for a specific test', 
 });
 
 
-describe('An example of how the tests revert to using the default fixture data', function() {
+xdescribe('An example of how the tests revert to using the default fixture data', function() {
   it('should display fixture data served from the mock server anywhere the mockBackend is not explicitly enabled', function() {
     browser.get('#/cluster/11/volumes');
     expect(element.all(by.repeater('volume in appCtrl.volumes')).count()).to.eventually.equal(2);
