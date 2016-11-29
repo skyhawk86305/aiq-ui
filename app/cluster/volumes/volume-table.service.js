@@ -43,7 +43,6 @@
             volume.maxIOPS = volume.qos.maxIOPS;
             volume.burstIOPS = volume.qos.burstIOPS;
             volume.paired = volume.volumePairs.length ? true : false;
-            volume.configuredAccessProtocols = ['foo','bar','baz'];
             return volume;
           });
         });

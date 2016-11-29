@@ -5,7 +5,6 @@ describe('Component: eventTable', function() {
     routeParams,
     service,
     locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
@@ -13,7 +12,6 @@ describe('Component: eventTable', function() {
 
   beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, EventTableService) {
     scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = EventTableService;
@@ -21,10 +19,7 @@ describe('Component: eventTable', function() {
     locals = {
       $scope: scope
     };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('eventTable', locals, bindings);
+    controller = $componentController('eventTable', locals);
   }));
 
   describe('initialization', function() {

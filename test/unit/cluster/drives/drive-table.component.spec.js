@@ -5,7 +5,6 @@ describe('Component: driveTable', function() {
     routeParams,
     service,
     locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
@@ -13,7 +12,6 @@ describe('Component: driveTable', function() {
 
   beforeEach(inject(function($rootScope, $httpBackend, $componentController, $routeParams, DriveTableService) {
     scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = DriveTableService;
@@ -21,10 +19,7 @@ describe('Component: driveTable', function() {
     locals = {
       $scope: scope
     };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('driveTable', locals, bindings);
+    controller = $componentController('driveTable', locals);
   }));
 
   describe('initialization', function() {

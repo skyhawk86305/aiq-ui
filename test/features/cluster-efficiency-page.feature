@@ -11,6 +11,6 @@ Feature: Cluster Efficiency Reporting Page
     Given The app is open in a browser
     And I see the shared SolidFire navbar
     When I navigate to the "cluster/11/reporting/efficiency/" page
-    Then I see a SolidFire sf-sync-graphs component
+    Then I see a SolidFire sf-sync-graphs component with efficiency data
     And I see a Cluster Efficiency graph
 

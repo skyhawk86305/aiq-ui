@@ -4,7 +4,6 @@ describe('Component: alertPolicyTable', function() {
   var scope,
     service,
     locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
@@ -17,10 +16,7 @@ describe('Component: alertPolicyTable', function() {
     locals = {
       $scope: scope
     };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('alertPolicyTable', locals, bindings);
+    controller = $componentController('alertPolicyTable', locals);
   }));
 
   describe('initialization', function() {

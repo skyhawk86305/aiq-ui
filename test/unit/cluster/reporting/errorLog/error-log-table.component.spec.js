@@ -5,7 +5,6 @@ describe('Component: errorLogTable', function() {
     routeParams,
     service,
     locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
@@ -13,7 +12,6 @@ describe('Component: errorLogTable', function() {
 
   beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, ErrorLogTableService) {
     scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = ErrorLogTableService;
@@ -21,10 +19,7 @@ describe('Component: errorLogTable', function() {
     locals = {
       $scope: scope
     };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('errorLogTable', locals, bindings);
+    controller = $componentController('errorLogTable', locals);
   }));
 
   describe('initialization', function() {

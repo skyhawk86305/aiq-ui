@@ -5,7 +5,6 @@ describe('Component: nodeTable', function() {
     routeParams,
     service,
     locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
@@ -13,7 +12,6 @@ describe('Component: nodeTable', function() {
 
   beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, NodeTableService) {
     scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = NodeTableService;
@@ -21,10 +19,7 @@ describe('Component: nodeTable', function() {
     locals = {
       $scope: scope
     };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('nodeTable', locals, bindings);
+    controller = $componentController('nodeTable', locals);
   }));
 
   describe('initialization', function() {

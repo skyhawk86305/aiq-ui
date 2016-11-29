@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function() {
-  this.Then(/^I see a SolidFire sf-sync-graphs component$/, function () {
+  this.Then(/^I see a SolidFire sf-sync-graphs component with capacity data$/, function () {
     return this.expect(this.capacityComponent.el.isDisplayed()).to.eventually.be.true;
   });
 

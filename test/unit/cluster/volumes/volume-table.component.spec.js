@@ -5,7 +5,6 @@ describe('Component: volumeTable', function() {
     routeParams,
     service,
     locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
@@ -13,7 +12,6 @@ describe('Component: volumeTable', function() {
 
   beforeEach(inject(function($rootScope, $httpBackend, $componentController, $routeParams, VolumeTableService) {
     scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = VolumeTableService;
@@ -21,10 +19,7 @@ describe('Component: volumeTable', function() {
     locals = {
       $scope: scope
     };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('volumeTable', locals, bindings);
+    controller = $componentController('volumeTable', locals);
   }));
 
   describe('initialization', function() {

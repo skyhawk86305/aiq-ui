@@ -9,7 +9,6 @@ var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
 var LoginComponent = require('../../page-objects/login.po');
 var TableComponent = require('../../page-objects/table.po');
 var ComingSoonComponent = require('../../page-objects/coming-soon.po');
-var CapacityComponent = require('../../page-objects/capacity.po');
 var ClusterOverviewComponent = require('../../page-objects/cluster-overview.po');
 var GraphTimeSeries = require('../../page-objects/graph-time-series.po');
 var CapacityComponent = require('../../page-objects/capacity.po');
@@ -49,6 +48,7 @@ function World() {
   this.clusterPerformanceGraph = new GraphTimeSeries('performance-graph');
   this.clusterPerformanceUtilizationGraph = new GraphTimeSeries('utilization-graph');
   this.capacityComponent = new CapacityComponent();
+  this.performanceComponent = new PerformanceComponent();
   this.efficiencyComponent = new EfficiencyComponent();
 
   this.table = function(type) {
@@ -144,14 +144,14 @@ function World() {
       case 'node':
         switch (attr) {
           case 'ipcPort': return data ? data.toString() : '-';
-          default: return data.toString();
+          default: return data ? data.toString() : '';
         }
         break;
 
       case 'drive':
         switch (attr) {
           case 'capacity': return formatBytes(data);
-          default: return data.toString();
+          default: return data ? data.toString() : '';
         }
         break;
 
@@ -161,7 +161,7 @@ function World() {
           case 'lastNotified': return formatDate(data);
           case 'isResolved': return data ? 'Yes' : 'No';
           case 'resolved': return formatDate(data);
-          default: return data.toString();
+          default: return data ? data.toString() : '';
         }
         break;
 
@@ -169,7 +169,7 @@ function World() {
         switch (attr) {
           case 'customerName': return data || '-';
           case 'clusterName': return data || '-';
-          default: return data.toString();
+          default: return data ? data.toString() : '';
         }
         break;
 
@@ -180,7 +180,7 @@ function World() {
           case 'driveID': return data ? data.toString() : '-';
           case 'serviceID': return data ? data.toString() : '-';
           case 'detailsString': return data && data.replace(/\n |\n/g, ' ') || '-';
-          default: return data.toString();
+          default: return data ? data.toString() : '';
         }
         break;
 
@@ -192,7 +192,7 @@ function World() {
           case 'nodeID': return data ? data.toString() : '-';
           case 'driveID': return data ? data.toString() : '-';
           case 'details': return data && data.replace(/ +$/, '') || '-';
-          default: return data.toString();
+          default: return data ? data.toString() : '';
         }
         break;
 
@@ -204,7 +204,7 @@ function World() {
           default: return data.toString();
         }
         break;
-      default: return data.toString();
+      default: return data ? data.toString() : '';
     }
   };
 

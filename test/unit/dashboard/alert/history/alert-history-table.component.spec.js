@@ -4,7 +4,6 @@ describe('Component: alertHistoryTable', function() {
   var scope,
     service,
     locals,
-    bindings,
     controller;
 
   beforeEach(module('aiqUi'));
@@ -12,15 +11,11 @@ describe('Component: alertHistoryTable', function() {
 
   beforeEach(inject(function($rootScope, $componentController, $httpBackend, AlertHistoryTableService) {
     scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
     service = AlertHistoryTableService;
     locals = {
       $scope: scope
     };
-    bindings = {
-      AuthService: service
-    };
-    controller = $componentController('alertHistoryTable', locals, bindings);
+    controller = $componentController('alertHistoryTable', locals);
   }));
 
   describe('initialization', function() {

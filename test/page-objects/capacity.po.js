@@ -5,7 +5,8 @@ var CapacityComponent = function () {
       contextButtons,
       provisionedGraph,
       usedGraph,
-      metadataGraph;
+      metadataGraph,
+      staticDateSelector;
 
   component.el = element(by.tagName('sf-sync-graphs'));
   component.contextGraph = {
@@ -53,6 +54,19 @@ var CapacityComponent = function () {
         usedCapacity: metadataGraph.element(by.id('used-capacity-metadata-info-box')),
         totalCapacity: metadataGraph.element(by.id('total-capacity-metadata-info-box')),
         currentState: metadataGraph.element(by.id('current-state-metadata-info-box'))
+      }
+    };
+  };
+  component.staticDateSelector = function() {
+    staticDateSelector = element(by.id('capacity-sync-graphs-static-date-range-selector'));
+    return {
+      el: staticDateSelector,
+      activeDateRangeOption: staticDateSelector.element(by.css('.active')),
+      ranges: {
+        count: staticDateSelector.all(by.css('a')).count()
+      },
+      range: function (index) {
+        return staticDateSelector.all(by.css('a')).get(index);
       }
     };
   };
