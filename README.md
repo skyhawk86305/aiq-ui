@@ -3,7 +3,7 @@
 An Angular.js application for interacting with the AIQ backend
 
 ## Getting Started
- - Install node v4.x
+ - Install NodeJS v6.9.x (Latest LTS release)
 
  - Clone the repo
  
