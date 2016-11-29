@@ -12,7 +12,7 @@ describe('The main navbar', function() {
   it('should display on initial page load', function() {
     browser.get('#');
     expect(navbar.mainNavbar.el.isPresent()).to.eventually.be.true;
-    expect(navbar.mainNavbar.items.count()).to.eventually.equal(5);
+    expect(navbar.mainNavbar.items.count()).to.eventually.equal(4);
   });
 
   it('should contain a menu with options', function() {
@@ -21,9 +21,10 @@ describe('The main navbar', function() {
   });
 
   it('should change the URL route and set the active state when clicking on main navbar items', function() {
-    navbar.mainNavbar.click('users');
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/users');
-    expect(navbar.mainNavbar.activeItem.getText()).to.eventually.equal('Users');
+    // ToDo: uncomment once Users page is complete
+    //navbar.mainNavbar.click('users');
+    //expect(browser.getLocationAbsUrl()).to.eventually.contain('/users');
+    //expect(navbar.mainNavbar.activeItem.getText()).to.eventually.equal('Users');
 
     navbar.mainNavbar.click('dashboard');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard');
@@ -61,11 +62,13 @@ describe('The sub navbar', function() {
     expect(navbar.subNavbar.el.isDisplayed()).to.eventually.be.true;
     expect(navbar.subNavbar.items.count()).to.eventually.equal(5);
 
-    navbar.mainNavbar.click('users');
-    expect(navbar.subNavbar.el.isDisplayed()).to.eventually.be.false;
+    // ToDo: uncomment once Users page is complete
+    //navbar.mainNavbar.click('users');
+    //expect(navbar.subNavbar.el.isDisplayed()).to.eventually.be.false;
   });
 
-  it('should change the URL route and set the active state when clicking on sub navbar items', function() {
+  // ToDo: include test after pages are built and become enabled in the navbar
+  xit('should change the URL route and set the active state when clicking on sub navbar items', function() {
     navbar.mainNavbar.click('dashboard');
 
     navbar.subNavbar.click('dashboard-health');
@@ -85,38 +88,12 @@ describe('The sub navbar', function() {
 describe('The sub nav menu', function() {
   it('should only be displayed if the active sub navbar item has sub nav menu items', function() {
     navbar.mainNavbar.click('dashboard');
-    navbar.subNavbar.click('dashboard-overview');
-    expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.true;
-    expect(navbar.subNavMenu.items.count()).to.eventually.equal(3);
-
     navbar.subNavbar.click('dashboard-health');
     expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.false;
 
     navbar.subNavbar.click('dashboard-alerts');
     expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.true;
     expect(navbar.subNavMenu.items.count()).to.eventually.equal(2);
-  });
-
-  it('should change the URL route and set the active state when clicking on sub navbar items for overview', function() {
-    navbar.mainNavbar.click('dashboard');
-    navbar.subNavbar.click('dashboard-overview');
-
-    navbar.subNavMenu.click('dashboard-overview-sub1');
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview/sub1');
-    navbar.subNavbar.click('dashboard-overview');
-    expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('Sub1');
-
-    navbar.subNavMenu.click('dashboard-overview-sub2');
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview/sub2');
-    navbar.subNavbar.click('dashboard-overview');
-    expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('Sub2');
-
-    navbar.subNavMenu.click('dashboard-overview-sub3');
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview/sub3');
-    navbar.subNavbar.click('dashboard-overview');
-    expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('Sub3');
-
-    navbar.subNavbar.click('dashboard-overview');
   });
 
   it('should change the URL route and set the active state when clicking on sub navbar items for alerts', function() {

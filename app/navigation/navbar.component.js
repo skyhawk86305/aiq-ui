@@ -27,26 +27,17 @@
     // Used to dynamically build the sub navbar and sub nav menu
     self.subNavbarItems = {
       dashboard: [
-        {
-          key:'overview',
-          href:'#/dashboard/overview/sub1',
-          label: 'Overview',
-          menuItems: [
-            {key:'sub1', href: '#/dashboard/overview/sub1', label: 'Sub1'},
-            {key:'sub2', href: '#/dashboard/overview/sub2', label: 'Sub2'},
-            {key:'sub3', href: '#/dashboard/overview/sub3', label: 'Sub3'}
-          ]
-        },
-        {key:'health', href:'#/dashboard/health', label: 'Health'},
-        {key:'capacity', href:'#/dashboard/capacity', label: 'Capacity'},
-        {key:'performance', href:'#/dashboard/performance', label: 'Performance'},
+        {key:'overview', href:'#/dashboard/overview', label: 'Overview', disabled: true},
+        {key:'health', href:'#/dashboard/health', label: 'Health', disabled: true},
+        {key:'capacity', href:'#/dashboard/capacity', label: 'Capacity', disabled: true},
+        {key:'performance', href:'#/dashboard/performance', label: 'Performance', disabled: true},
         {
           key:'alerts',
           href:'#/dashboard/alerts/history',
           label: 'Alerts',
           menuItems: [
             {key:'history', href: '#/dashboard/alerts/history', label: 'History'},
-            {key:'policies', href: '#/dashboard/alerts/policies', label: 'Policies'},
+            {key:'policies', href: '#/dashboard/alerts/policies', label: 'Policies'}
           ]
         }
       ],
@@ -62,15 +53,15 @@
             {key:'performance', href: '#/cluster/:clusterID/reporting/performance', label: 'Performance'},
             {key:'errorLog', href: '#/cluster/:clusterID/reporting/errorLog', label: 'Error Log'},
             {key:'events', href: '#/cluster/:clusterID/reporting/events', label: 'Events'},
-            {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions'},
-            {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks'},
-            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting'}
+            {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions', disabled: true},
+            {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks', disabled: true},
+            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting', disabled: true}
           ]
         },
         {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
         {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
-        {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes'},
-        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication'}
+        {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes', disabled: true},
+        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true}
       ]
     };
 

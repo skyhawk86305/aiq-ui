@@ -47,11 +47,13 @@
               efficiencyFactor: 'Overall Efficiency'
             }
           },
+          dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('efficiencyChild'))
         },
         context: {
           label: 'Cluster Efficiency',
           id: 'sync-graph-1-context',
+          dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('efficiencyContext'))
         }
       }

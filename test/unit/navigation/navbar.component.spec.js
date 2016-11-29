@@ -49,8 +49,8 @@ describe('Component: navbar', function() {
 
   describe('.getHref', function() {
     it('should lookup and return the href from the input subNavbarItem', function() {
-      var subNavbarItem = controller.subNavbarItems.dashboard[0];
-      expect(controller.getHref(subNavbarItem)).toEqual('#/dashboard/overview/sub1');
+      var subNavbarItem = controller.subNavbarItems.dashboard[4];
+      expect(controller.getHref(subNavbarItem)).toEqual('#/dashboard/alerts/history');
     });
 
     it('should replace the :clusterID route variable with the cached selectedCluster clusterID from the ClusterSelectService', function() {
