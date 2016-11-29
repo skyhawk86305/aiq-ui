@@ -1,25 +1,19 @@
 'use strict';
 
 describe('Component: volumeTable', function() {
-  var scope,
-    routeParams,
+  var routeParams,
     service,
-    locals,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $httpBackend, $componentController, $routeParams, VolumeTableService) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function($componentController, $routeParams, VolumeTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = VolumeTableService;
     spyOn(service, 'update');
-    locals = {
-      $scope: scope
-    };
-    controller = $componentController('volumeTable', locals);
+    controller = $componentController('volumeTable');
   }));
 
   describe('initialization', function() {

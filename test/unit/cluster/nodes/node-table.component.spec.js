@@ -1,25 +1,19 @@
 'use strict';
 
 describe('Component: nodeTable', function() {
-  var scope,
-    routeParams,
+  var routeParams,
     service,
-    locals,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, NodeTableService) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function($componentController, $routeParams, NodeTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = NodeTableService;
     spyOn(service, 'update');
-    locals = {
-      $scope: scope
-    };
-    controller = $componentController('nodeTable', locals);
+    controller = $componentController('nodeTable');
   }));
 
   describe('initialization', function() {

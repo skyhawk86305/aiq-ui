@@ -1,25 +1,19 @@
 'use strict';
 
 describe('Component: errorLogTable', function() {
-  var scope,
-    routeParams,
+  var routeParams,
     service,
-    locals,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, ErrorLogTableService) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function($componentController, $routeParams, ErrorLogTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = ErrorLogTableService;
     spyOn(service, 'update');
-    locals = {
-      $scope: scope
-    };
-    controller = $componentController('errorLogTable', locals);
+    controller = $componentController('errorLogTable');
   }));
 
   describe('initialization', function() {

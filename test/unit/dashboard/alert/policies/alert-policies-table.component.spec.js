@@ -1,22 +1,15 @@
 'use strict';
 
 describe('Component: alertPolicyTable', function() {
-  var scope,
-    service,
-    locals,
+  var service,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $componentController, $httpBackend, AlertPolicyTableService) {
-    scope = $rootScope.$new();
-    $httpBackend.when('POST', '/v2/api').respond();
+  beforeEach(inject(function($componentController, AlertPolicyTableService) {
     service = AlertPolicyTableService;
-    locals = {
-      $scope: scope
-    };
-    controller = $componentController('alertPolicyTable', locals);
+    controller = $componentController('alertPolicyTable');
   }));
 
   describe('initialization', function() {

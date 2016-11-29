@@ -1,25 +1,19 @@
 'use strict';
 
 describe('Component: eventTable', function() {
-  var scope,
-    routeParams,
+  var routeParams,
     service,
-    locals,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $routeParams, EventTableService) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function($componentController, $routeParams, EventTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
     service = EventTableService;
     spyOn(service, 'update');
-    locals = {
-      $scope: scope
-    };
-    controller = $componentController('eventTable', locals);
+    controller = $componentController('eventTable');
   }));
 
   describe('initialization', function() {

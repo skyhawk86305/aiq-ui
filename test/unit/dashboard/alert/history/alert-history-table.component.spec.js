@@ -1,21 +1,15 @@
 'use strict';
 
 describe('Component: alertHistoryTable', function() {
-  var scope,
-    service,
-    locals,
+  var service,
     controller;
 
   beforeEach(module('aiqUi'));
   beforeEach(module('componentTemplates'));
 
-  beforeEach(inject(function($rootScope, $componentController, $httpBackend, AlertHistoryTableService) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function($componentController, AlertHistoryTableService) {
     service = AlertHistoryTableService;
-    locals = {
-      $scope: scope
-    };
-    controller = $componentController('alertHistoryTable', locals);
+    controller = $componentController('alertHistoryTable');
   }));
 
   describe('initialization', function() {
