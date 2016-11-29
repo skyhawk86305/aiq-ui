@@ -8,18 +8,19 @@
         <li class="navbar-item -main"
             id="sf-main-navbar-item-dashboard"
             ng-class="{'active':$ctrl.activeItems.main === 'dashboard'}">
-          <a href="#/dashboard/overview/sub1">Dashboard</a>
+          <a href="#/dashboard/overview">Dashboard</a>
         </li>
         <li class="navbar-item -main cluster-select"
             id="sf-main-navbar-item-cluster"
             ng-class="{'active':$ctrl.activeItems.main === 'cluster'}">
           <cluster-select></cluster-select>
         </li>
-        <li class="navbar-item -main"
+
+        <!--<li class="navbar-item -main"
             id="sf-main-navbar-item-users"
             ng-class="{'active':$ctrl.activeItems.main === 'users'}">
           <a href="#/users">Users</a>
-        </li>
+        </li>-->
       </ul>
     </div>
 
@@ -64,6 +65,7 @@
         <li class="navbar-item -sub"
             id="sf-sub-navbar-item-{{$ctrl.activeItems.main}}-{{subNavbarItem.key}}"
             ng-class="{'active':$ctrl.activeItems.sub === subNavbarItem.key}"
+            ng-disabled="subNavbarItem.disabled"
             ng-repeat="subNavbarItem in $ctrl.subNavbarItems[$ctrl.activeItems.main]">
 
           <a href="{{$ctrl.getHref(subNavbarItem)}}"
@@ -93,6 +95,7 @@
         <li class="navbar-item -sub-menu"
             id="sf-sub-nav-menu-item-{{$ctrl.activeItems.main}}-{{$ctrl.subNavbarItem.key}}-{{subNavMenuItem.key}}"
             ng-class="{'active':$ctrl.activeItems.menu === subNavMenuItem.key}"
+            ng-disabled="subNavMenuItem.disabled"
             ng-repeat="subNavMenuItem in $ctrl.subNavbarItem.menuItems">
 
           <a href="{{$ctrl.getHref(subNavMenuItem)}}"

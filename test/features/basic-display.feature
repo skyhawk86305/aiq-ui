@@ -10,15 +10,16 @@ Feature: Basic Display
     Given The app is open in a browser
     Then I see the shared SolidFire navbar
 
+  # ToDo: include tests after pages are built and become enabled in the navbar
   Scenario: Navbar functionality (CLOUD-2904)
     Given The app is open in a browser
     And I see the shared SolidFire navbar
-    When I click on the "main" navbar item "users"
-    Then I am navigated to the route "/users"
+    # When I click on the "main" navbar item "users"
+    # Then I am navigated to the route "/users"
     When I click on the "main" navbar item "dashboard"
     Then I am navigated to the route "/dashboard"
-    When I click on the "sub" navbar item "dashboard-health"
-    Then I am navigated to the route "/dashboard/health"
+    # When I click on the "sub" navbar item "dashboard-health"
+    # Then I am navigated to the route "/dashboard/health"
 
 #  Scenario: API log functionality (CLOUD-2904)
 #    Given The app is open in a browser

@@ -29,13 +29,7 @@
       .when('/login', {
         template: '<login></login>'
       })
-      .when('/dashboard/overview/sub1', {
-        templateUrl: 'coming-soon.tpl.html'
-      })
-      .when('/dashboard/overview/sub2', {
-        templateUrl: 'coming-soon.tpl.html'
-      })
-      .when('/dashboard/overview/sub3', {
+      .when('/dashboard/overview', {
         templateUrl: 'coming-soon.tpl.html'
       })
       .when('/dashboard/health', {
@@ -109,7 +103,7 @@
         templateUrl: 'coming-soon.tpl.html'
       })
       .otherwise({
-        redirectTo: '/dashboard/overview/sub1'
+        redirectTo: '/dashboard/overview'
       });
   }
 })();
