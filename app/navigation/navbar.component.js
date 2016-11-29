@@ -60,7 +60,7 @@
         },
         {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
         {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
-        {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes', disabled: true},
+        {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes'},
         {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true}
       ]
     };
