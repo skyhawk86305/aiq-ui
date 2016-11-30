@@ -44,32 +44,8 @@
         service: CapacityGraphsService,
         id: 'sync-graph-1-service',
         child: {
-          title: 'Cluster Provisioned Space',
-          id: 'sync-graph-1-service-child',
-          export: false,
-          legend: {
-            position: 'top',
-            items: {
-              maxProvisionedSpace: 'Max Provisioned Space',
-              provisionedSpace: 'Provisioned Space'
-            }
-          },
-          dataLimit: 500,
-          graph: new SFD3LineGraph(getGraphConfig('provisionedChild'))
-        },
-        context: {
-          label: 'Cluster Provisioned Space',
-          id: 'sync-graph-1-context',
-          dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('provisionedContext'))
-        }
-      },
-      {
-        service: CapacityGraphsService,
-        id: 'sync-graph-2-service',
-        child: {
           title: 'Cluster Block Capacity',
-          id: 'sync-graph-2-service-child',
+          id: 'sync-graph-1-service-child',
           export: false,
           legend: {
             position: 'top',
@@ -83,17 +59,17 @@
         },
         context: {
           label: 'Block Capacity',
-          id: 'sync-graph-2-context',
+          id: 'sync-graph-1-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('blockContext'))
         }
       },
       {
         service: CapacityGraphsService,
-        id: 'sync-graph-3-service',
+        id: 'sync-graph-2-service',
         child: {
           title: 'Cluster Metadata Storage Space',
-          id: 'sync-graph-3-service-child',
+          id: 'sync-graph-2-service-child',
           export: false,
           legend: {
             position: 'top',
@@ -107,89 +83,38 @@
         },
         context: {
           label: 'Metadata Capacity',
-          id: 'sync-graph-3-context',
+          id: 'sync-graph-2-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('metadataContext'))
+        }
+      },
+      {
+        service: CapacityGraphsService,
+        id: 'sync-graph-3-service',
+        child: {
+          title: 'Cluster Provisioned Space',
+          id: 'sync-graph-3-service-child',
+          export: false,
+          legend: {
+            position: 'top',
+            items: {
+              provisionedSpace: 'Provisioned Space'
+            }
+          },
+          dataLimit: 500,
+          graph: new SFD3LineGraph(getGraphConfig('provisionedChild'))
+        },
+        context: {
+          label: 'Cluster Provisioned Space',
+          id: 'sync-graph-3-context',
+          dataLimit: 200,
+          graph: new SFD3BarGraph(getGraphConfig('provisionedContext'))
         }
       }
     ];
 
     function getGraphConfig(graph) {
       var graphConfigs = {
-        provisionedChild: {
-          bindTo: 'cluster-provisioned-child',
-          type: 'line',
-          showAxisLabels: true,
-          data: {
-            x: 'timestamps',
-            ids: ['maxProvisionedSpace', 'provisionedSpace'],
-            axes: {
-              maxProvisionedSpace: 'y0',
-              provisionedSpace: 'y0'
-            },
-            labels: {
-              maxProvisionedSpace: 'Max Provisioned Space',
-              provisionedSpace: 'Provisioned Space'
-            },
-            colors: {
-              maxProvisionedSpace: ['#D07983'],
-              provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
-            },
-            textures: {
-              maxProvisionedSpace: ['dashed'],
-              provisionedSpace: ['solid']
-            }
-          },
-          margin: {
-            top: 15,
-            right: 20,
-            bottom: 30
-          },
-          axis: {
-            x: {
-              tick: {
-                format: xAxisFormat,
-                spacing: 200
-              }
-            },
-            y0: {
-              tick: {
-                format: yAxisFormat,
-                spacing: 30
-              }
-            }
-          }
-        },
-        provisionedContext: {
-          bindTo: 'cluster-provisioned-context',
-          type: 'bar',
-          showAxisLabel: true,
-          barSpacing: 80,
-          data: {
-            x: 'timestamps',
-            y: 'provisionedSpace',
-            color: '#0FAEE7'
-          },
-          margin: {
-            top: 15,
-            right: 10,
-            left: 50
-          },
-          axis: {
-            x: {
-              tick: {
-                format: xAxisFormat,
-                spacing: 290
-              }
-            },
-            y0: {
-              tick: {
-                format: yAxisFormat,
-                spacing: 25
-              }
-            }
-          }
-        },
         blockChild: {
           bindTo: 'cluster-block-child',
           type: 'line',
@@ -328,6 +253,76 @@
               tick: {
                 format: xAxisFormat,
                 spacing: 150
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 25
+              }
+            }
+          }
+        },
+        provisionedChild: {
+          bindTo: 'cluster-provisioned-child',
+          type: 'line',
+          showAxisLabels: true,
+          data: {
+            x: 'timestamps',
+            ids: ['provisionedSpace'],
+            axes: {
+              provisionedSpace: 'y0'
+            },
+            labels: {
+              provisionedSpace: 'Provisioned Space'
+            },
+            colors: {
+              provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
+            },
+            textures: {
+              provisionedSpace: ['solid']
+            }
+          },
+          margin: {
+            top: 15,
+            right: 20,
+            bottom: 30
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 200
+              }
+            },
+            y0: {
+              tick: {
+                format: yAxisFormat,
+                spacing: 30
+              }
+            }
+          }
+        },
+        provisionedContext: {
+          bindTo: 'cluster-provisioned-context',
+          type: 'bar',
+          showAxisLabel: true,
+          barSpacing: 80,
+          data: {
+            x: 'timestamps',
+            y: 'provisionedSpace',
+            color: '#0FAEE7'
+          },
+          margin: {
+            top: 15,
+            right: 10,
+            left: 50
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 290
               }
             },
             y0: {
