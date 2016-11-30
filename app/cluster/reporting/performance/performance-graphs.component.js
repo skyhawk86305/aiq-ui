@@ -189,8 +189,8 @@
             }
           }
         },
-        throughputCHild: {
-          bindTo: 'cluster-bandwidth-child',
+        throughputChild: {
+          bindTo: 'cluster-throughput-child',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -238,7 +238,7 @@
           }
         },
         throughputContext: {
-          bindTo: 'cluster-bandwidth-context',
+          bindTo: 'cluster-throughput-context',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
