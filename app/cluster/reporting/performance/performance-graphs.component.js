@@ -35,7 +35,7 @@
         service: PerformanceGraphsService,
         id: 'sync-graph-1-service',
         child: {
-          title: 'Cluster IOPS',
+          title: 'IOPS',
           id: 'sync-graph-1-service-child',
           export: false,
           legend: {
@@ -50,7 +50,7 @@
           graph: new SFD3LineGraph(getGraphConfig('iopsChild'))
         },
         context: {
-          label: 'Cluster IOPS',
+          label: 'IOPS',
           id: 'sync-graph-1-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('iopsContext'))
@@ -60,7 +60,7 @@
         service: PerformanceGraphsService,
         id: 'sync-graph-2-service',
         child: {
-          title: 'Cluster Bandwidth',
+          title: 'Bandwidth',
           id: 'sync-graph-2-service-child',
           export: false,
           legend: {
@@ -75,7 +75,7 @@
           graph: new SFD3LineGraph(getGraphConfig('bandwidthChild'))
         },
         context: {
-          label: 'Cluster Bandwidth',
+          label: 'Bandwidth',
           id: 'sync-graph-2-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('bandwidthContext'))
@@ -85,20 +85,20 @@
         service: PerformanceGraphsService,
         id: 'sync-graph-3-service',
         child: {
-          title: 'Cluster Utilization',
+          title: 'Utilization',
           id: 'sync-graph-3-service-child',
           export: false,
           legend: {
             position: 'top',
             items: {
-              clusterUtilizationPct: 'Cluster Utilization'
+              clusterUtilizationPct: 'Utilization'
             }
           },
           dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('utilizationChild'))
         },
         context: {
-          label: 'Cluster Utilization',
+          label: 'Utilization',
           id: 'sync-graph-3-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('utilizationContext'))
@@ -278,7 +278,7 @@
               clusterUtilizationPct: 'y0'
             },
             labels: {
-              clusterUtilizationPct: 'Cluster Utilization'
+              clusterUtilizationPct: 'Utilization'
             },
             colors: {
               clusterUtilizationPct: ['#50E3C2']
