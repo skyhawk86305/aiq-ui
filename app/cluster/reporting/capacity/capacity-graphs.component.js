@@ -277,7 +277,7 @@
               provisionedSpace: 'Provisioned Space'
             },
             colors: {
-              provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
+              provisionedSpace: ['#FECD4D']
             },
             textures: {
               provisionedSpace: ['solid']
