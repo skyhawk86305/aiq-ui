@@ -10,7 +10,7 @@
                               graph="$ctrl.graphs.performance.graph"
                               limit="100"
                               context-range="$ctrl.graphs.contextRange"
-                              title="Cluster Performance"
+                              title="Performance"
                               legend="$ctrl.graphs.performance.legend">
         </sf-graph-time-series>
       </div>
@@ -22,7 +22,7 @@
                             graph="$ctrl.graphs.utilization.graph"
                             limit="100"
                             context-range="$ctrl.graphs.contextRange"
-                            title="Performance Utilization"
+                            title="Utilization"
                             legend="$ctrl.graphs.utilization.legend">
       </sf-graph-time-series>
       </div>
@@ -87,7 +87,7 @@
         </div>
         <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-3  col-md-3">
           <div class="info-box-content">
-            <span class="title">Cluster Faults</span>
+            <span class="title">Faults</span>
             <div class="badge-container">
               <div class="badge -first"
                 ng-class="{'-warning': $ctrl.clusterSummary.unresolvedFaults.warning,

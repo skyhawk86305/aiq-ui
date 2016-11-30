@@ -126,8 +126,8 @@
           type: 'line',
           showAxisLabels: false,
           margin: {
-            left: 50,
-            right: 60
+            left: 65,
+            right: 65
           },
           data: {
             x: 'timestamps',
@@ -200,7 +200,7 @@
       return $filter('iops')(iops, 0);
     }
     function bytesFormat(bytes) {
-      return $filter('bytes')(bytes, false, 0, false);
+      return $filter('bytes')(bytes, false, 0, true);
     }
   }
 })();

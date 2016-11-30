@@ -35,7 +35,7 @@
         service: EfficiencyGraphsService,
         id: 'sync-graph-1-service',
         child: {
-          title: 'Cluster Efficiency',
+          title: 'Efficiency',
           id: 'sync-graph-1-service-child',
           export: false,
           legend: {
@@ -51,7 +51,7 @@
           graph: new SFD3LineGraph(getGraphConfig('efficiencyChild'))
         },
         context: {
-          label: 'Cluster Efficiency',
+          label: 'Efficiency',
           id: 'sync-graph-1-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('efficiencyContext'))

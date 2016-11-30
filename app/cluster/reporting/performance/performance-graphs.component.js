@@ -35,20 +35,20 @@
         service: PerformanceGraphsService,
         id: 'sync-graph-1-service',
         child: {
-          title: 'Cluster Utilization',
+          title: 'Utilization',
           id: 'sync-graph-1-service-child',
           export: false,
           legend: {
             position: 'top',
             items: {
-              clusterUtilizationPct: 'Cluster Utilization'
+              clusterUtilizationPct: 'Utilization'
             }
           },
           dataLimit: 500,
           graph: new SFD3LineGraph(getGraphConfig('utilizationChild'))
         },
         context: {
-          label: 'Cluster Utilization',
+          label: 'Utilization',
           id: 'sync-graph-1-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('utilizationContext'))
@@ -58,7 +58,7 @@
         service: PerformanceGraphsService,
         id: 'sync-graph-2-service',
         child: {
-          title: 'Cluster IOPS',
+          title: 'IOPS',
           id: 'sync-graph-2-service-child',
           export: false,
           legend: {
@@ -73,7 +73,7 @@
           graph: new SFD3LineGraph(getGraphConfig('iopsChild'))
         },
         context: {
-          label: 'Cluster IOPS',
+          label: 'IOPS',
           id: 'sync-graph-2-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('iopsContext'))
@@ -83,25 +83,25 @@
         service: PerformanceGraphsService,
         id: 'sync-graph-3-service',
         child: {
-          title: 'Cluster Bandwidth',
+          title: 'Throughput',
           id: 'sync-graph-3-service-child',
           export: false,
           legend: {
             position: 'top',
             items: {
-              readBytesPerSec: 'Read Bytes',
-              writeBytesPerSec: 'Write Bytes',
-              totalBytesPerSec: 'Total Bytes'
+              readBytesPerSec: 'Read Throughput',
+              writeBytesPerSec: 'Write Throughput',
+              totalBytesPerSec: 'Total Throughput'
             }
           },
           dataLimit: 500,
-          graph: new SFD3LineGraph(getGraphConfig('bandwidthChild'))
+          graph: new SFD3LineGraph(getGraphConfig('throughputChild'))
         },
         context: {
-          label: 'Cluster Bandwidth',
+          label: 'Throughput',
           id: 'sync-graph-3-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('bandwidthContext'))
+          graph: new SFD3BarGraph(getGraphConfig('throughputContext'))
         }
       }
     ];
@@ -119,7 +119,7 @@
               clusterUtilizationPct: 'y0'
             },
             labels: {
-              clusterUtilizationPct: 'Cluster Utilization'
+              clusterUtilizationPct: 'Utilization'
             },
             colors: {
               clusterUtilizationPct: ['#50E3C2']
@@ -259,8 +259,8 @@
             }
           }
         },
-        bandwidthChild: {
-          bindTo: 'cluster-bandwidth-child',
+        throughputChild: {
+          bindTo: 'cluster-throughput-child',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -272,9 +272,9 @@
               totalBytesPerSec: 'y0'
             },
             labels: {
-              readBytesPerSec: 'Read Bytes',
-              writeBytesPerSec: 'Write Bytes',
-              totalBytesPerSec: 'Total Bytes'
+              readBytesPerSec: 'Read Throughput',
+              writeBytesPerSec: 'Write Throughput',
+              totalBytesPerSec: 'Total Throughput'
             },
             colors: {
               readBytesPerSec: ['#E35090'],
@@ -290,7 +290,8 @@
           margin: {
             top: 15,
             right: 20,
-            bottom: 30
+            bottom: 30,
+            left: 70
           },
           axis: {
             x: {
@@ -307,8 +308,8 @@
             }
           }
         },
-        bandwidthContext: {
-          bindTo: 'cluster-bandwidth-context',
+        throughputContext: {
+          bindTo: 'cluster-throughput-context',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
@@ -349,10 +350,10 @@
       return $filter('percent')(utilization, 0, false, true);
     }
     function iopsFormat(iops) {
-      return $filter('iops')(iops, 0);
+      return $filter('iops')(iops, 0, true);
     }
     function bytesFormat(bytes) {
-      return $filter('bytes')(bytes, false, 0, false);
+      return $filter('bytes')(bytes, false, 0, true);
     }
   }
 })();

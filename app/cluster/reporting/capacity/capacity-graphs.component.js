@@ -44,7 +44,7 @@
         service: CapacityGraphsService,
         id: 'sync-graph-1-service',
         child: {
-          title: 'Cluster Provisioned Space',
+          title: 'Provisioned Space',
           id: 'sync-graph-1-service-child',
           export: false,
           legend: {
@@ -58,7 +58,7 @@
           graph: new SFD3LineGraph(getGraphConfig('provisionedChild'))
         },
         context: {
-          label: 'Cluster Provisioned Space',
+          label: 'Provisioned Space',
           id: 'sync-graph-1-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('provisionedContext'))
@@ -68,7 +68,7 @@
         service: CapacityGraphsService,
         id: 'sync-graph-2-service',
         child: {
-          title: 'Cluster Block Capacity',
+          title: 'Block Capacity',
           id: 'sync-graph-2-service-child',
           export: false,
           legend: {
@@ -92,7 +92,7 @@
         service: CapacityGraphsService,
         id: 'sync-graph-3-service',
         child: {
-          title: 'Cluster Metadata Storage Space',
+          title: 'Metadata Capacity',
           id: 'sync-graph-3-service-child',
           export: false,
           legend: {
