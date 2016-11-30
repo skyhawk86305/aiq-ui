@@ -16,7 +16,7 @@ Feature: Per Single Cluster Overview
 
     Then I see a sf-infobar-widget
     And The sf-infobar-widget has "8" widgets
-    And The sf-infobar-widget contains infoboxes: "Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Throughput, Cluster Faults"
+    And The sf-infobar-widget contains infoboxes: "Nodes, Block Capacity, Metadata Capacity, Efficiency, Utilization, IOPS, Throughput, Faults"
 
     Then I see a SolidFire table with "clusterAlert" data
     And The "clusterAlert" table contains columns: "Alert Triggered, Last Notified, Resolved, Severity, Policy Name, Alert Value, Destination, Alert Condition"
