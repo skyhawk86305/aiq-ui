@@ -58,7 +58,7 @@
           graph: new SFD3LineGraph(getGraphConfig('blockChild'))
         },
         context: {
-          label: 'Block Capacity',
+          label: 'Cluster Block Capacity',
           id: 'sync-graph-1-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('blockContext'))
@@ -82,7 +82,7 @@
           graph: new SFD3LineGraph(getGraphConfig('metadataChild'))
         },
         context: {
-          label: 'Metadata Capacity',
+          label: 'Cluster Metadata Capacity',
           id: 'sync-graph-2-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('metadataContext'))
