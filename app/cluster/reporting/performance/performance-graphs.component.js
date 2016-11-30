@@ -35,31 +35,8 @@
         service: PerformanceGraphsService,
         id: 'sync-graph-1-service',
         child: {
-          title: 'Utilization',
-          id: 'sync-graph-1-service-child',
-          export: false,
-          legend: {
-            position: 'top',
-            items: {
-              clusterUtilizationPct: 'Utilization'
-            }
-          },
-          dataLimit: 500,
-          graph: new SFD3LineGraph(getGraphConfig('utilizationChild'))
-        },
-        context: {
-          label: 'Utilization',
-          id: 'sync-graph-1-context',
-          dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('utilizationContext'))
-        }
-      },
-      {
-        service: PerformanceGraphsService,
-        id: 'sync-graph-2-service',
-        child: {
           title: 'IOPS',
-          id: 'sync-graph-2-service-child',
+          id: 'sync-graph-1-service-child',
           export: false,
           legend: {
             position: 'top',
@@ -74,17 +51,17 @@
         },
         context: {
           label: 'IOPS',
-          id: 'sync-graph-2-context',
+          id: 'sync-graph-1-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('iopsContext'))
         }
       },
       {
         service: PerformanceGraphsService,
-        id: 'sync-graph-3-service',
+        id: 'sync-graph-2-service',
         child: {
           title: 'Throughput',
-          id: 'sync-graph-3-service-child',
+          id: 'sync-graph-2-service-child',
           export: false,
           legend: {
             position: 'top',
@@ -99,85 +76,38 @@
         },
         context: {
           label: 'Throughput',
-          id: 'sync-graph-3-context',
+          id: 'sync-graph-2-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('throughputContext'))
+        }
+      },
+      {
+        service: PerformanceGraphsService,
+        id: 'sync-graph-3-service',
+        child: {
+          title: 'Utilization',
+          id: 'sync-graph-3-service-child',
+          export: false,
+          legend: {
+            position: 'top',
+            items: {
+              clusterUtilizationPct: 'Utilization'
+            }
+          },
+          dataLimit: 500,
+          graph: new SFD3LineGraph(getGraphConfig('utilizationChild'))
+        },
+        context: {
+          label: 'Utilization',
+          id: 'sync-graph-3-context',
+          dataLimit: 200,
+          graph: new SFD3BarGraph(getGraphConfig('utilizationContext'))
         }
       }
     ];
 
     function getGraphConfig(graph) {
       var graphConfigs = {
-        utilizationChild: {
-          bindTo: 'cluster-utilization-child',
-          type: 'line',
-          showAxisLabels: true,
-          data: {
-            x: 'timestamps',
-            ids: ['clusterUtilizationPct'],
-            axes: {
-              clusterUtilizationPct: 'y0'
-            },
-            labels: {
-              clusterUtilizationPct: 'Utilization'
-            },
-            colors: {
-              clusterUtilizationPct: ['#50E3C2']
-            },
-            textures: {
-              clusterUtilizationPct: ['solid']
-            }
-          },
-          margin: {
-            top: 15,
-            right: 20,
-            bottom: 30
-          },
-          axis: {
-            x: {
-              tick: {
-                format: xAxisFormat,
-                spacing: 200
-              }
-            },
-            y0: {
-              tick: {
-                format: utilizationFormat,
-                spacing: 30
-              }
-            }
-          }
-        },
-        utilizationContext: {
-          bindTo: 'cluster-utilization-context',
-          type: 'bar',
-          showAxisLabel: true,
-          barSpacing: 80,
-          data: {
-            x: 'timestamps',
-            y: 'clusterUtilizationPct',
-            color: '#0FAEE7'
-          },
-          margin: {
-            top: 15,
-            right: 10,
-            left: 50
-          },
-          axis: {
-            x: {
-              tick: {
-                format: xAxisFormat,
-                spacing: 200
-              }
-            },
-            y0: {
-              tick: {
-                format: utilizationFormat,
-                spacing: 25
-              }
-            }
-          }
-        },
         iopsChild: {
           bindTo: 'cluster-iops-child',
           type: 'line',
@@ -259,8 +189,8 @@
             }
           }
         },
-        throughputChild: {
-          bindTo: 'cluster-throughput-child',
+        throughputCHild: {
+          bindTo: 'cluster-bandwidth-child',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -272,9 +202,9 @@
               totalBytesPerSec: 'y0'
             },
             labels: {
-              readBytesPerSec: 'Read Throughput',
-              writeBytesPerSec: 'Write Throughput',
-              totalBytesPerSec: 'Total Throughput'
+              readBytesPerSec: 'Read Bytes',
+              writeBytesPerSec: 'Write Bytes',
+              totalBytesPerSec: 'Total Bytes'
             },
             colors: {
               readBytesPerSec: ['#E35090'],
@@ -290,8 +220,7 @@
           margin: {
             top: 15,
             right: 20,
-            bottom: 30,
-            left: 70
+            bottom: 30
           },
           axis: {
             x: {
@@ -309,7 +238,7 @@
           }
         },
         throughputContext: {
-          bindTo: 'cluster-throughput-context',
+          bindTo: 'cluster-bandwidth-context',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
@@ -337,7 +266,78 @@
               }
             }
           }
-        }
+        },
+        utilizationChild: {
+          bindTo: 'cluster-utilization-child',
+          type: 'line',
+          showAxisLabels: true,
+          data: {
+            x: 'timestamps',
+            ids: ['clusterUtilizationPct'],
+            axes: {
+              clusterUtilizationPct: 'y0'
+            },
+            labels: {
+              clusterUtilizationPct: 'Utilization'
+            },
+            colors: {
+              clusterUtilizationPct: ['#50E3C2']
+            },
+            textures: {
+              clusterUtilizationPct: ['solid']
+            }
+          },
+          margin: {
+            top: 15,
+            right: 20,
+            bottom: 30,
+            left: 70
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 200
+              }
+            },
+            y0: {
+              tick: {
+                format: utilizationFormat,
+                spacing: 30
+              }
+            }
+          }
+        },
+        utilizationContext: {
+          bindTo: 'cluster-utilization-context',
+          type: 'bar',
+          showAxisLabel: true,
+          barSpacing: 80,
+          data: {
+            x: 'timestamps',
+            y: 'clusterUtilizationPct',
+            color: '#0FAEE7'
+          },
+          margin: {
+            top: 15,
+            right: 10,
+            left: 50
+          },
+          axis: {
+            x: {
+              tick: {
+                format: xAxisFormat,
+                spacing: 200
+              }
+            },
+            y0: {
+              tick: {
+                format: utilizationFormat,
+                spacing: 25
+              }
+            }
+          }
+        },
       };
       return graphConfigs[graph];
     }

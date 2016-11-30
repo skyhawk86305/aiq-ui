@@ -151,6 +151,7 @@ function World() {
       case 'drive':
         switch (attr) {
           case 'capacity': return formatBytes(data);
+          case 'slot': return data.toString();
           default: return data ? data.toString() : '';
         }
         break;

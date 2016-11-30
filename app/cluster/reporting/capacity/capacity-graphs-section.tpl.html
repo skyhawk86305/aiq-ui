@@ -1,7 +1,11 @@
+<div class="beta-disclaimer">
+  <div><b>ActiveIQ Beta:</b> Supports historical data back to November 19th, 2016.</div>
+</div>
+
 <sf-sync-graphs component-id="capacity-sync-graphs"
                 graphs="$ctrl.syncGraphs"
                 static-date-range-options="$ctrl.staticDateRangeOptions">
-  <child-header-1 class="sync-child-header">
+  <child-header-0 class="sync-child-header">
     <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box col-md-3">
       <div id="used-capacity-used-info-box" class="info-box-content">
         <span class="value -medium">{{$ctrl.clusterFullThreshold.sumUsedClusterBytes | bytes:false:2}}</span>
@@ -32,8 +36,8 @@
         <span class="title">Current State</span>
       </div>
     </div>
-  </child-header-1>
-  <child-header-2 class="sync-child-header">
+  </child-header-0>
+  <child-header-1 class="sync-child-header">
     <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box col-md-4">
       <div id="used-capacity-metadata-info-box" class="info-box-content">
         <span class="value -medium">{{$ctrl.clusterFullThreshold.sumUsedMetadataClusterBytes | bytes:false:2}}</span>
@@ -52,5 +56,5 @@
         <span class="title">Current State</span>
       </div>
     </div>
-  </child-header-2>
+  </child-header-1>
 </sf-sync-graphs>
