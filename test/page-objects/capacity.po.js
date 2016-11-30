@@ -10,20 +10,29 @@ var CapacityComponent = function () {
 
   component.el = element(by.tagName('sf-sync-graphs'));
   component.contextGraph = {
-    el: element(by.id('cluster-block-context'))
+    el: element(by.id('cluster-provisioned-context'))
   };
   component.contextButtons = function () {
     contextButtons = element(by.css('.selection-buttons'));
     return {
       el: contextButtons,
       count: contextButtons.all(by.css('.button')).count(),
-      used: contextButtons.element(by.css('.-sync-graph-1-service')),
-      metadata: contextButtons.element(by.css('.-sync-graph-2-service')),
-      provisioned: contextButtons.element(by.css('.-sync-graph-3-service'))
+      provisioned: contextButtons.element(by.css('.-sync-graph-1-service')),
+      used: contextButtons.element(by.css('.-sync-graph-2-service')),
+      metadata: contextButtons.element(by.css('.-sync-graph-3-service'))
+    };
+  };
+  component.provisionedGraph = function () {
+    provisionedGraph = element(by.id('sync-graph-1-service'));
+    return {
+      el: provisionedGraph,
+      infoBox: {
+        count: provisionedGraph.all(by.css('.info-box-content')).count()
+      }
     };
   };
   component.usedGraph = function () {
-    usedGraph = element(by.id('sync-graph-1-service'));
+    usedGraph = element(by.id('sync-graph-2-service'));
     return {
       el: usedGraph,
       infoBox: {
@@ -37,7 +46,7 @@ var CapacityComponent = function () {
     };
   };
   component.metadataGraph = function () {
-    metadataGraph = element(by.id('sync-graph-2-service'));
+    metadataGraph = element(by.id('sync-graph-3-service'));
     return {
       el: metadataGraph,
       infoBox: {
@@ -45,15 +54,6 @@ var CapacityComponent = function () {
         usedCapacity: metadataGraph.element(by.id('used-capacity-metadata-info-box')),
         totalCapacity: metadataGraph.element(by.id('total-capacity-metadata-info-box')),
         currentState: metadataGraph.element(by.id('current-state-metadata-info-box'))
-      }
-    };
-  };
-  component.provisionedGraph = function () {
-    provisionedGraph = element(by.id('sync-graph-3-service'));
-    return {
-      el: provisionedGraph,
-      infoBox: {
-        count: provisionedGraph.all(by.css('.info-box-content')).count()
       }
     };
   };

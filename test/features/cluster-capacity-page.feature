@@ -12,6 +12,6 @@ Feature: Cluster Capacity Reporting Page
     And I see the shared SolidFire navbar
     When I navigate to the "cluster/11/reporting/capacity/" page
     Then I see a SolidFire sf-sync-graphs component with capacity data
+    And I see a Cluster Provisioned Space graph
     And I see a Cluster Block Capacity graph
     And I see a Cluster Metadata Storage Space graph
-    And I see a Cluster Provisioned Space graph

@@ -79,18 +79,18 @@ describe('Capacity Page Graphs', function () {
     });
   });
 
+  describe('Provisioned Space Graph', function () {
+    it('should have the correct info boxes displayed', function () {
+      expect(capacityPage.provisionedGraph().infoBox.count).to.eventually.equal(0);
+    });
+  });
+
   describe('Metadata Space Graph', function () {
     it('should have the correct info boxes displayed', function () {
       expect(capacityPage.metadataGraph().infoBox.count).to.eventually.equal(3);
       expect(capacityPage.metadataGraph().infoBox.usedCapacity.isDisplayed()).to.eventually.be.true;
       expect(capacityPage.metadataGraph().infoBox.totalCapacity.isDisplayed()).to.eventually.be.true;
       expect(capacityPage.metadataGraph().infoBox.currentState.isDisplayed()).to.eventually.be.true;
-    });
-  });
-
-  describe('Provisioned Space Graph', function () {
-    it('should have the correct info boxes displayed', function () {
-      expect(capacityPage.provisionedGraph().infoBox.count).to.eventually.equal(0);
     });
   });
 });
