@@ -26,7 +26,7 @@ describe('The Cluster Performance Page', function () {
   });
 
   it('should have 3 child graphs', function (done) {
-    var childGraphIds = ['utilization-child', 'iops-child', 'bandwidth-child'];
+    var childGraphIds = ['utilization-child', 'iops-child', 'throughput-child'];
 
     for (var i = 0; i < childGraphIds.length; i++) {
       expect(performanceGraphs.childGraph(childGraphIds[i]).el.isDisplayed()).to.eventually.be.true;
@@ -58,7 +58,7 @@ describe('The Cluster Performance Page', function () {
 
   describe('Cluster Bandwidth Graph', function () {
     it('should have the correct data series plotted', function () {
-      var graph = performanceGraphs.childGraph('bandwidth-child');
+      var graph = performanceGraphs.childGraph('throughput-child');
       expect(graph.svg.lines.count()).to.eventually.equal(3);
       expect(graph.svg.line('readBytesPerSec').isDisplayed()).to.eventually.be.true;
       expect(graph.svg.line('writeBytesPerSec').isDisplayed()).to.eventually.be.true;

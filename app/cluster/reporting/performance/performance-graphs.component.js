@@ -58,10 +58,10 @@
       },
       {
         service: PerformanceGraphsService,
-        id: 'bandwidth',
+        id: 'throughput',
         child: {
-          title: 'Bandwidth',
-          id: 'bandwidth-child',
+          title: 'Throughput',
+          id: 'throughput-child',
           export: false,
           legend: {
             position: 'top',
@@ -72,13 +72,13 @@
             }
           },
           dataLimit: 500,
-          graph: new SFD3LineGraph(getGraphConfig('bandwidthChild'))
+          graph: new SFD3LineGraph(getGraphConfig('throughputChild'))
         },
         context: {
-          label: 'Bandwidth',
-          id: 'bandwidth-context',
+          label: 'Throughput',
+          id: 'throughput-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('bandwidthContext'))
+          graph: new SFD3BarGraph(getGraphConfig('throughputContext'))
         }
       },
       {
@@ -189,8 +189,8 @@
             }
           }
         },
-        bandwidthChild: {
-          bindTo: 'bandwidth-child-graph',
+        throughputChild: {
+          bindTo: 'throughput-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -237,8 +237,8 @@
             }
           }
         },
-        bandwidthContext: {
-          bindTo: 'bandwidth-context-graph',
+        throughputContext: {
+          bindTo: 'throughput-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
