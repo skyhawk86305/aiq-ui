@@ -178,13 +178,13 @@
             x: {
               tick: {
                 format: xAxisFormat,
-                spacing: 150
+                spacing: 200
               }
             },
             y0: {
               tick: {
                 format: iopsFormat,
-                spacing: 25
+                spacing: 30
               }
             }
           }
@@ -257,13 +257,13 @@
             x: {
               tick: {
                 format: xAxisFormat,
-                spacing: 150
+                spacing: 200
               }
             },
             y0: {
               tick: {
                 format: bytesFormat,
-                spacing: 25
+                spacing: 30
               }
             }
           }
@@ -334,7 +334,7 @@
             y0: {
               tick: {
                 format: utilizationFormat,
-                spacing: 25
+                spacing: 30
               }
             }
           }
