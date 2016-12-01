@@ -202,9 +202,9 @@
               totalBytesPerSec: 'y0'
             },
             labels: {
-              readBytesPerSec: 'Read Bytes',
-              writeBytesPerSec: 'Write Bytes',
-              totalBytesPerSec: 'Total Bytes'
+              readBytesPerSec: 'Read Throughput',
+              writeBytesPerSec: 'Write Throughput',
+              totalBytesPerSec: 'Total Throughput'
             },
             colors: {
               readBytesPerSec: ['#E35090'],
@@ -220,7 +220,8 @@
           margin: {
             top: 15,
             right: 20,
-            bottom: 30
+            bottom: 30,
+            left: 70
           },
           axis: {
             x: {
@@ -250,7 +251,7 @@
           margin: {
             top: 15,
             right: 10,
-            left: 50
+            left: 70
           },
           axis: {
             x: {
