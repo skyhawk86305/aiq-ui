@@ -1,8 +1,10 @@
 'use strict';
 
-var LoginComponent = function () {
-  this.el = element(by.css('.login-form'));
-  this.usernameInput = {
+var LoginPage = function () {
+  var page = this;
+  
+  page.el = element(by.css('.login-form'));
+  page.usernameInput = {
     enter: function(input) {
       var usernameInput = element(by.id('username-input'));
       return usernameInput.clear().then(function() { usernameInput.sendKeys(input); });
@@ -11,7 +13,7 @@ var LoginComponent = function () {
       element(by.id('username-input')).click();
     }
   };
-  this.passwordInput = {
+  page.passwordInput = {
     el: element(by.id('password-input')),
     enter: function(input) {
       var passwordInput = element(by.id('password-input'));
@@ -21,13 +23,13 @@ var LoginComponent = function () {
       element(by.id('password-input')).click();
     }
   };
-  this.loginButton = {
+  page.loginButton = {
     el: element(by.css('.login-btn')),
     click: function() {
       element(by.css('.login-btn')).click();
     }
   };
-  this.errorMessage = element(by.css('.login-error.error-message'));
+  page.errorMessage = element(by.css('.login-error.error-message'));
 };
 
-module.exports = LoginComponent;
+module.exports = LoginPage;

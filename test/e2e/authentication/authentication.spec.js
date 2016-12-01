@@ -1,16 +1,16 @@
 /* jshint expr: true */
 'use strict';
 
-var expect = require('../support.js').expect;
-var mockBackend = require('../support.js').mockBackend;
 var support = require('../support.js');
-var LoginComponent = require('../../page-objects/login.po');
-var NavbarComponent = require('../../page-objects/navbar.po');
+var expect = support.expect;
+var mockBackend = support.mockBackend;
+var LoginPage = require('../../page-objects/login.po');
+var NavbarComponent = require('../../page-objects/components/navbar.po');
 
-var loginForm = new LoginComponent();
+var loginForm = new LoginPage();
 var navbar = new NavbarComponent();
 
-describe('Login Form', function() {
+describe('Login Page', function() {
   beforeEach(function() {
     mockBackend.enable(browser);
     mockBackend.http.whenGET('/sessions').respond(function() {

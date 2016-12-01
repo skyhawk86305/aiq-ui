@@ -2,7 +2,7 @@
 'use strict';
 
 var expect = require('../support.js').expect;
-var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
+var ClusterSelectComponent = require('../../page-objects/components/cluster-select.po');
 
 var clusterSelect = new ClusterSelectComponent();
 

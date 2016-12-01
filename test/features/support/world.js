@@ -3,17 +3,12 @@
 var HttpBackend = require('httpbackend');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
-var NavbarComponent = require('../../page-objects/navbar.po');
-var ApiLogComponent = require('../../page-objects/api-log.po');
-var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
-var LoginComponent = require('../../page-objects/login.po');
-var TableComponent = require('../../page-objects/table.po');
-var ComingSoonComponent = require('../../page-objects/coming-soon.po');
-var ClusterOverviewComponent = require('../../page-objects/cluster-overview.po');
-var GraphTimeSeries = require('../../page-objects/graph-time-series.po');
-var CapacityComponent = require('../../page-objects/capacity.po');
-var PerformanceComponent = require('../../page-objects/performance.po');
-var EfficiencyComponent = require('../../page-objects/efficiency.po');
+var NavbarComponent = require('../../page-objects/components/navbar.po');
+var ClusterSelectComponent = require('../../page-objects/components/cluster-select.po');
+var SFComponents = require('../../page-objects/components/sf-components.po');
+var LoginPage = require('../../page-objects/login.po');
+var ComingSoonPage = require('../../page-objects/coming-soon.po');
+var OverviewPage = require('../../page-objects/cluster/reporting/overview.po');
 
 function World() {
 
@@ -31,26 +26,22 @@ function World() {
   };
 
   this.navbar = new NavbarComponent();
-  this.apiLog = new ApiLogComponent();
   this.clusterSelect = new ClusterSelectComponent();
-  this.loginForm = new LoginComponent();
-  this.clusterOverview = new ClusterOverviewComponent();
-  this.comingSoonComponent = new ComingSoonComponent();
-  this.nodesTable = new TableComponent('node');
-  this.drivesTable = new TableComponent('drive');
-  this.alertHistoryTable = new TableComponent('alert-history');
-  this.alertPolicyTable = new TableComponent('alert-policy');
-  this.clusterAlertTable = new TableComponent('alert-table');
-  this.eventsTable = new TableComponent('event');
-  this.errorLogTable = new TableComponent('error-log');
-  this.volumeTable = new TableComponent('volume');
-  this.performanceComponent = new PerformanceComponent();
-  this.clusterPerformanceGraph = new GraphTimeSeries('performance-graph');
-  this.clusterPerformanceUtilizationGraph = new GraphTimeSeries('utilization-graph');
-  this.capacityComponent = new CapacityComponent();
-  this.performanceComponent = new PerformanceComponent();
-  this.efficiencyComponent = new EfficiencyComponent();
+  this.apiLog = new SFComponents.apiLog();
 
+  this.loginPage = new LoginPage();
+  this.comingSoonPage = new ComingSoonPage();
+  this.overviewPage = new OverviewPage();
+
+  this.nodesTable = new SFComponents.table('node');
+  this.drivesTable = new SFComponents.table('drive');
+  this.alertHistoryTable = new SFComponents.table('alert-history');
+  this.alertPolicyTable = new SFComponents.table('alert-policy');
+  this.clusterAlertTable = new SFComponents.table('alert-table');
+  this.eventsTable = new SFComponents.table('event');
+  this.errorLogTable = new SFComponents.table('error-log');
+  this.volumeTable = new SFComponents.table('volume');
+  
   this.table = function(type) {
     switch(type) {
       case 'node': return this.nodesTable;
@@ -61,13 +52,6 @@ function World() {
       case 'event': return this.eventsTable;
       case 'errorLog': return this.errorLogTable;
       case 'volume': return this.volumeTable;
-    }
-  };
-
-  this.timeSeriesGraph = function(type) {
-    switch(type) {
-      case 'clusterPerformance': return this.clusterPerformanceGraph;
-      case 'clusterPerformanceUtilization': return this.clusterPerformanceUtilizationGraph;
     }
   };
 
