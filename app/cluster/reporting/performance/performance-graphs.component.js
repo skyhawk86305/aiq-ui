@@ -66,9 +66,9 @@
           legend: {
             position: 'top',
             items: {
-              readBytesPerSec: 'Read Bytes',
-              writeBytesPerSec: 'Write Bytes',
-              totalBytesPerSec: 'Total Bytes'
+              readBytesPerSec: 'Read Throughput',
+              writeBytesPerSec: 'Write Throughput',
+              totalBytesPerSec: 'Total Throughput'
             }
           },
           dataLimit: 500,
@@ -202,9 +202,9 @@
               totalBytesPerSec: 'y0'
             },
             labels: {
-              readBytesPerSec: 'Read Bytes',
-              writeBytesPerSec: 'Write Bytes',
-              totalBytesPerSec: 'Total Bytes'
+              readBytesPerSec: 'Read Throughput',
+              writeBytesPerSec: 'Write Throughput',
+              totalBytesPerSec: 'Total Throughput'
             },
             colors: {
               readBytesPerSec: ['#E35090'],
@@ -278,7 +278,7 @@
               clusterUtilizationPct: 'y0'
             },
             labels: {
-              clusterUtilizationPct: 'Cluster Utilization'
+              clusterUtilizationPct: 'Utilization'
             },
             colors: {
               clusterUtilizationPct: ['#50E3C2']
