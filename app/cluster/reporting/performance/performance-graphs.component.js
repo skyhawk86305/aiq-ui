@@ -290,7 +290,8 @@
           margin: {
             top: 15,
             right: 20,
-            bottom: 30
+            bottom: 30,
+            left: 70
           },
           axis: {
             x: {
