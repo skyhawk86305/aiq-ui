@@ -2,8 +2,8 @@
 'use strict';
 
 var expect = require('../support.js').expect;
-var NavbarComponent = require('../../page-objects/navbar.po');
-var ClusterSelectComponent = require('../../page-objects/cluster-select.po');
+var NavbarComponent = require('../../page-objects/components/navbar.po');
+var ClusterSelectComponent = require('../../page-objects/components/cluster-select.po');
 
 var navbar = new NavbarComponent();
 var clusterSelect = new ClusterSelectComponent();

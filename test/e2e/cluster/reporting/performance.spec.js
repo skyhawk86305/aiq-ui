@@ -2,50 +2,67 @@
 'use strict';
 
 var expect = require('../../support.js').expect;
-var mockBackend = require('../../support.js').mockBackend;
-var PerformanceComponent = require('../../../page-objects/performance.po');
-var NavbarComponent = require('../../../page-objects/navbar.po');
-var ClusterSelectComponent = require('../../../page-objects/cluster-select.po');
+var SyncGraphsComponent = require('../../../page-objects/components/sf-components.po').syncGraphs;
+var performanceGraphs = new SyncGraphsComponent('performance-sync-graphs');
 
-var performancePage;
-var navbar = new NavbarComponent();
-var clusterSelect = new ClusterSelectComponent();
+describe('The Cluster Performance Page', function () {
+  it('should display a sync-graphs component on page load', function () {
+    browser.get('#/cluster/26/reporting/performance');
+    expect(performanceGraphs.el.isDisplayed()).to.eventually.be.true;
+  });
 
-describe('Performance Page Graphs', function () {
-  beforeEach(function() {
-    mockBackend.enable(browser);
-    mockBackend.http.whenGET('/sessions').respond(function() {
-      return [200, {}];
+  it('should have custom static date range options', function (done) {
+    var expectedDateRangeOptions = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'],
+      actualDateRangeOptions = performanceGraphs.dateRangeSelectors.static.staticDateRangeOptions;
+
+    for (var i = 0; i < expectedDateRangeOptions.length; i++) {
+      expect(actualDateRangeOptions.get(i).getText()).to.eventually.equal(expectedDateRangeOptions[i]);
+    }
+    expect(actualDateRangeOptions.count()).to.eventually.equal(5).notify(done);
+  });
+
+  it('should have a default date range selected', function () {
+    expect(performanceGraphs.dateRangeSelectors.static.activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
+  });
+
+  it('should have 3 child graphs', function (done) {
+    var childGraphIds = ['utilization-child', 'iops-child', 'throughput-child'];
+
+    for (var i = 0; i < childGraphIds.length; i++) {
+      expect(performanceGraphs.childGraph(childGraphIds[i]).el.isDisplayed()).to.eventually.be.true;
+    }
+    expect(performanceGraphs.childrenGraphs.count()).to.eventually.equal(3).notify(done);
+  });
+
+  it('should have a specific graph selected as the initial context', function () {
+    expect(performanceGraphs.contextGraph.el.getAttribute('component-id')).to.eventually.equal('iops-context');
+  });
+
+  describe('Cluster Utilization Graph', function () {
+    it('should have the correct data series plotted', function () {
+      var graph = performanceGraphs.childGraph('utilization-child');
+      expect(graph.svg.lines.count()).to.eventually.equal(1);
+      expect(graph.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
     });
-    mockBackend.http.whenGET(/\/graph/).passThrough();
-    mockBackend.http.whenPOST('/v2/api').passThrough();
-    browser.get('#').then(function () {
-      // Navigate to the correct page.
-      clusterSelect.open().clusterList.select('barCluster');
-      navbar.subNavbar.click('cluster-reporting');
-      navbar.subNavMenu.click('cluster-reporting-performance');
-      performancePage = new PerformanceComponent();
+  });
+
+  describe('Cluster IOPS Graph', function () {
+    it('should have the correct data series plotted', function () {
+      var graph = performanceGraphs.childGraph('iops-child');
+      expect(graph.svg.lines.count()).to.eventually.equal(3);
+      expect(graph.svg.line('readOpsPerSec').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('writeOpsPerSec').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('totalOpsPerSec').isDisplayed()).to.eventually.be.true;
     });
   });
 
-  afterEach(function() {
-    mockBackend.disable();
-  });
-
-  it('should have the context graph', function () {
-    expect(performancePage.contextGraph.el.isDisplayed()).to.eventually.be.true;
-  });
-
-  it('should have the correct context graph buttons', function () {
-    expect(performancePage.contextButtons().count).to.eventually.equal(3);
-    expect(performancePage.contextButtons().utilization.isDisplayed()).to.eventually.equal.true;
-    expect(performancePage.contextButtons().iops.isDisplayed()).to.eventually.equal.true;
-    expect(performancePage.contextButtons().bandwidth.isDisplayed()).to.eventually.equal.true;
-  });
-
-  it('should have the correct child graphs', function () {
-    expect(performancePage.utilizationGraph().el.isDisplayed()).to.eventually.be.true;
-    expect(performancePage.iopsGraph().el.isDisplayed()).to.eventually.be.true;
-    expect(performancePage.bandwidthGraph().el.isDisplayed()).to.eventually.be.true;
+  describe('Cluster Bandwidth Graph', function () {
+    it('should have the correct data series plotted', function () {
+      var graph = performanceGraphs.childGraph('throughput-child');
+      expect(graph.svg.lines.count()).to.eventually.equal(3);
+      expect(graph.svg.line('readBytesPerSec').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('writeBytesPerSec').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('totalBytesPerSec').isDisplayed()).to.eventually.be.true;
+    });
   });
 });

@@ -2,95 +2,83 @@
 'use strict';
 
 var expect = require('../../support.js').expect;
-var mockBackend = require('../../support.js').mockBackend;
-var CapacityComponent = require('../../../page-objects/capacity.po');
-var NavbarComponent = require('../../../page-objects/navbar.po');
-var ClusterSelectComponent = require('../../../page-objects/cluster-select.po');
+var CapacityPage = require('../../../page-objects/cluster/reporting/capacity.po');
+var capacityPage = new CapacityPage();
 
-var capacityPage;
-var navbar = new NavbarComponent();
-var clusterSelect = new ClusterSelectComponent();
-
-describe('Capacity Page Graphs', function () {
-  beforeEach(function() {
-    mockBackend.enable(browser);
-    mockBackend.http.whenGET('/sessions').respond(function() {
-      return [200, {}];
-    });
-    mockBackend.http.whenGET(/\/graph/).passThrough();
-    mockBackend.http.whenPOST('/v2/api').passThrough();
-    browser.get('#').then(function () {
-      // Navigate to the correct page.
-      clusterSelect.open().clusterList.select('barCluster');
-      navbar.subNavbar.click('cluster-reporting');
-      navbar.subNavMenu.click('cluster-reporting-capacity');
-      capacityPage = new CapacityComponent();
-    });
+describe('The Cluster Capacity Page', function () {
+  it('should display a sync-graphs component on page load', function () {
+    browser.get('#/cluster/26/reporting/capacity');
+    expect(capacityPage.syncGraphs.el.isDisplayed()).to.eventually.be.true;
   });
 
-  afterEach(function() {
-    mockBackend.disable();
+  it('should have custom static date range options', function (done) {
+    var expectedDateRangeOptions = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'],
+      actualDateRangeOptions = capacityPage.syncGraphs.dateRangeSelectors.static.staticDateRangeOptions;
+
+    for (var i = 0; i < expectedDateRangeOptions.length; i++) {
+      expect(actualDateRangeOptions.get(i).getText()).to.eventually.equal(expectedDateRangeOptions[i]);
+    }
+    expect(actualDateRangeOptions.count()).to.eventually.equal(5).notify(done);
   });
 
-  it('should have the static date selector', function () {
-    expect(capacityPage.staticDateSelector().el.isDisplayed()).to.eventually.be.true;
+  it('should have a default date range selected', function () {
+    expect(capacityPage.syncGraphs.dateRangeSelectors.static.activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
   });
 
-  it('should have the context graph', function () {
-    expect(capacityPage.contextGraph.el.isDisplayed()).to.eventually.be.true;
+  it('should have 3 child graphs', function (done) {
+    var childGraphIds = ['provisioned-space-child', 'block-capacity-child', 'metadata-capacity-child'];
+
+    for (var i = 0; i < childGraphIds.length; i++) {
+      expect(capacityPage.syncGraphs.childGraph(childGraphIds[i]).el.isDisplayed()).to.eventually.be.true;
+    }
+    expect(capacityPage.syncGraphs.childrenGraphs.count()).to.eventually.equal(3).notify(done);
   });
 
-  it('should have the correct context graph buttons', function () {
-    expect(capacityPage.contextButtons().count).to.eventually.equal(3);
-    expect(capacityPage.contextButtons().provisioned.isDisplayed()).to.eventually.equal.true;
-    expect(capacityPage.contextButtons().used.isDisplayed()).to.eventually.equal.true;
-    expect(capacityPage.contextButtons().metadata.isDisplayed()).to.eventually.equal.true;
-  });
-
-  it('should have the correct child graphs', function () {
-    expect(capacityPage.provisionedGraph().el.isDisplayed()).to.eventually.be.true;
-    expect(capacityPage.usedGraph().el.isDisplayed()).to.eventually.be.true;
-    expect(capacityPage.metadataGraph().el.isDisplayed()).to.eventually.be.true;
-  });
-
-  describe('Static Date Selector', function() {
-    var expectedDateRanges = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'];
-
-    it ('should have the correct static date ranges', function(done) {
-      for (var i = 0; i < expectedDateRanges.length; i++) {
-        expect(capacityPage.staticDateSelector().range(i).getText()).to.eventually.equal(expectedDateRanges[i]);
-      }
-      expect(capacityPage.staticDateSelector().ranges.count).to.eventually.equal(5).notify(done);
-    });
-
-    it('should have a default static date range selected on page load', function () {
-      expect(capacityPage.staticDateSelector().activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
-    });
-  });
-
-  describe('Used Space Graph', function () {
-    it('should have the correct info boxes displayed', function () {
-      expect(capacityPage.usedGraph().infoBox.count).to.eventually.equal(5);
-      expect(capacityPage.usedGraph().infoBox.usedCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().infoBox.warningThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().infoBox.errorThreshold.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().infoBox.totalCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.usedGraph().infoBox.currentState.isDisplayed()).to.eventually.be.true;
-    });
+  it('should have a specific graph selected as the initial context', function () {
+    expect(capacityPage.syncGraphs.contextGraph.el.getAttribute('component-id')).to.eventually.equal('block-capacity-context');
   });
 
   describe('Provisioned Space Graph', function () {
-    it('should have the correct info boxes displayed', function () {
-      expect(capacityPage.provisionedGraph().infoBox.count).to.eventually.equal(0);
+    it('should have the correct data series plotted', function () {
+      var graph = capacityPage.syncGraphs.childGraph('provisioned-space-child');
+      expect(graph.svg.lines.count()).to.eventually.equal(1);
+      expect(graph.svg.line('provisionedSpace').isDisplayed()).to.eventually.be.true;
     });
   });
 
-  describe('Metadata Space Graph', function () {
+  describe('Block Capacity Graph', function () {
+    it('should have the correct data series plotted', function () {
+      var graph = capacityPage.syncGraphs.childGraph('block-capacity-child');
+      expect(graph.svg.lines.count()).to.eventually.equal(2);
+      expect(graph.svg.line('maxUsedSpace').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('usedSpace').isDisplayed()).to.eventually.be.true;
+    });
+    
     it('should have the correct info boxes displayed', function () {
-      expect(capacityPage.metadataGraph().infoBox.count).to.eventually.equal(3);
-      expect(capacityPage.metadataGraph().infoBox.usedCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.metadataGraph().infoBox.totalCapacity.isDisplayed()).to.eventually.be.true;
-      expect(capacityPage.metadataGraph().infoBox.currentState.isDisplayed()).to.eventually.be.true;
+      var infoBar = capacityPage.infoBars.blockCapacity;
+      expect(infoBar.infoBoxes.count()).to.eventually.equal(5);
+      expect(infoBar.infoBox('used-capacity').el.isDisplayed()).to.eventually.be.true;
+      expect(infoBar.infoBox('warning-threshold').el.isDisplayed()).to.eventually.be.true;
+      expect(infoBar.infoBox('error-threshold').el.isDisplayed()).to.eventually.be.true;
+      expect(infoBar.infoBox('total-capacity').el.isDisplayed()).to.eventually.be.true;
+      expect(infoBar.infoBox('current-state').el.isDisplayed()).to.eventually.be.true;
+    });
+  });
+
+  describe('Metadata Capacity Graph', function () {
+    it('should have the correct data series plotted', function () {
+      var graph = capacityPage.syncGraphs.childGraph('metadata-capacity-child');
+      expect(graph.svg.lines.count()).to.eventually.equal(2);
+      expect(graph.svg.line('maxUsedMetadataSpace').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('usedMetadataSpace').isDisplayed()).to.eventually.be.true;
+    });
+    
+    it('should have the correct info boxes displayed', function () {
+      var infoBar = capacityPage.infoBars.metadataCapacity;
+      expect(infoBar.infoBoxes.count()).to.eventually.equal(3);
+      expect(infoBar.infoBox('used-capacity').el.isDisplayed()).to.eventually.be.true;
+      expect(infoBar.infoBox('total-capacity').el.isDisplayed()).to.eventually.be.true;
+      expect(infoBar.infoBox('current-state').el.isDisplayed()).to.eventually.be.true;
     });
   });
 });

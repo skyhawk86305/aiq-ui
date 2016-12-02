@@ -15,9 +15,9 @@ module.exports = function() {
   });
 
   this.When(/^I attempt to login$/, function () {
-    this.loginForm.usernameInput.enter(user.username);
-    this.loginForm.passwordInput.enter(user.password);
-    this.loginForm.loginButton.click();
+    this.loginPage.usernameInput.enter(user.username);
+    this.loginPage.passwordInput.enter(user.password);
+    this.loginPage.loginButton.click();
   });
 
   this.When(/^I attempt to logout$/, function () {
@@ -29,10 +29,10 @@ module.exports = function() {
   });
 
   this.Then(/^I am successfully logged out$/, function () {
-    return this.expect(this.loginForm.el.isPresent()).to.eventually.be.true;
+    return this.expect(this.loginPage.el.isPresent()).to.eventually.be.true;
   });
 
   this.Then(/^I see I am unsuccessfully logged in$/, function () {
-    return this.expect(this.loginForm.errorMessage.getText()).to.eventually.contain('Invalid username or password');
+    return this.expect(this.loginPage.errorMessage.getText()).to.eventually.contain('Invalid username or password');
   });
 };
