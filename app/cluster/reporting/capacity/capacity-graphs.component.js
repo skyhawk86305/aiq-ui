@@ -42,10 +42,10 @@
     ctrl.syncGraphs = [
       {
         service: CapacityGraphsService,
-        id: 'sync-graph-1-service',
+        id: 'block-capacity',
         child: {
           title: 'Block Capacity',
-          id: 'sync-graph-1-service-child',
+          id: 'block-capacity-child',
           export: false,
           legend: {
             position: 'top',
@@ -59,17 +59,17 @@
         },
         context: {
           label: 'Block Capacity',
-          id: 'sync-graph-1-context',
+          id: 'block-capacity-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('blockContext'))
         }
       },
       {
         service: CapacityGraphsService,
-        id: 'sync-graph-2-service',
+        id: 'metadata-capacity',
         child: {
           title: 'Metadata Capacity',
-          id: 'sync-graph-2-service-child',
+          id: 'metadata-capacity-child',
           export: false,
           legend: {
             position: 'top',
@@ -83,17 +83,17 @@
         },
         context: {
           label: 'Metadata Capacity',
-          id: 'sync-graph-2-context',
+          id: 'metadata-capacity-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('metadataContext'))
         }
       },
       {
         service: CapacityGraphsService,
-        id: 'sync-graph-3-service',
+        id: 'provisioned-space',
         child: {
           title: 'Provisioned Space',
-          id: 'sync-graph-3-service-child',
+          id: 'provisioned-space-child',
           export: false,
           legend: {
             position: 'top',
@@ -106,7 +106,7 @@
         },
         context: {
           label: 'Provisioned Space',
-          id: 'sync-graph-3-context',
+          id: 'provisioned-space-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('provisionedContext'))
         }
@@ -116,7 +116,7 @@
     function getGraphConfig(graph) {
       var graphConfigs = {
         blockChild: {
-          bindTo: 'cluster-block-child',
+          bindTo: 'block-capacity-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -160,7 +160,7 @@
           }
         },
         blockContext: {
-          bindTo: 'cluster-block-context',
+          bindTo: 'block-capacity-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
@@ -190,7 +190,7 @@
           }
         },
         metadataChild: {
-          bindTo: 'cluster-metadata-child',
+          bindTo: 'metadata-capacity-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -234,7 +234,7 @@
           }
         },
         metadataContext: {
-          bindTo: 'cluster-metadata-context',
+          bindTo: 'metadata-capacity-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
@@ -264,7 +264,7 @@
           }
         },
         provisionedChild: {
-          bindTo: 'cluster-provisioned-child',
+          bindTo: 'provisioned-space-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -304,7 +304,7 @@
           }
         },
         provisionedContext: {
-          bindTo: 'cluster-provisioned-context',
+          bindTo: 'provisioned-space-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,

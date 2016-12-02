@@ -1,10 +1,12 @@
 'use strict';
 
 var ClusterSelectComponent = function () {
-  this.el = element(by.css('.cluster-select[uib-dropdown]'));
-  this.selectedCluster = element(by.css('#cluster-select-anchor > span'));
-  this.open = function() {
-    this.el.click();
+  var component = this;
+
+  component.el = element(by.css('.cluster-select[uib-dropdown]'));
+  component.selectedCluster = element(by.css('#cluster-select-anchor > span'));
+  component.open = function() {
+    component.el.click();
     return {
       el: element(by.id('cluster-select-menu')),
       filter: function(input) {
@@ -34,10 +36,10 @@ var ClusterSelectComponent = function () {
       }
     };
   };
-  this.close = function() {
+  component.close = function() {
     element(by.css('.cluster-select[aria-expanded="true"]')).isPresent().then(function(isPresent) {
       if(isPresent) {
-        this.el.click();
+        component.el.click();
       }
     });
   };

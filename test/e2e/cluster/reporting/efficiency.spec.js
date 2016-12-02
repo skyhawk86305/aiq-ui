@@ -2,46 +2,46 @@
 'use strict';
 
 var expect = require('../../support.js').expect;
-var mockBackend = require('../../support.js').mockBackend;
-var EfficiencyComponent = require('../../../page-objects/efficiency.po');
-var NavbarComponent = require('../../../page-objects/navbar.po');
-var ClusterSelectComponent = require('../../../page-objects/cluster-select.po');
+var SyncGraphsComponent = require('../../../page-objects/components/sf-components.po').syncGraphs;
+var efficiencyGraphs = new SyncGraphsComponent('efficiency-sync-graphs');
 
-var efficiencyPage;
-var navbar = new NavbarComponent();
-var clusterSelect = new ClusterSelectComponent();
+describe('The Cluster Efficiency Page', function () {
+  it('should display a sync-graphs component on page load', function () {
+    browser.get('#/cluster/26/reporting/efficiency');
+    expect(efficiencyGraphs.el.isDisplayed()).to.eventually.be.true;
+  });
 
-describe('Efficiency Page Graphs', function () {
-  beforeEach(function() {
-    mockBackend.enable(browser);
-    mockBackend.http.whenGET('/sessions').respond(function() {
-      return [200, {}];
+  it('should have custom static date range options', function (done) {
+    var expectedDateRangeOptions = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'],
+      actualDateRangeOptions = efficiencyGraphs.dateRangeSelectors.static.staticDateRangeOptions;
+
+    for (var i = 0; i < expectedDateRangeOptions.length; i++) {
+      expect(actualDateRangeOptions.get(i).getText()).to.eventually.equal(expectedDateRangeOptions[i]);
+    }
+    expect(actualDateRangeOptions.count()).to.eventually.equal(5).notify(done);
+  });
+
+  it('should have a default date range selected', function () {
+    expect(efficiencyGraphs.dateRangeSelectors.static.activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
+  });
+
+  it('should have 1 child graph', function () {
+    expect(efficiencyGraphs.childGraph('efficiency-child').el.isDisplayed()).to.eventually.be.true;
+    expect(efficiencyGraphs.childrenGraphs.count()).to.eventually.equal(1);
+  });
+
+  it('should have a specific graph selected as the initial context', function () {
+    expect(efficiencyGraphs.contextGraph.el.getAttribute('component-id')).to.eventually.equal('efficiency-context');
+  });
+
+  describe('Efficiency Graph', function () {
+    it('should have the correct data series plotted', function () {
+      var graph = efficiencyGraphs.childGraph('efficiency-child');
+      expect(graph.svg.lines.count()).to.eventually.equal(4);
+      expect(graph.svg.line('thinProvisioningFactor').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('deDuplicationFactor').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('compressionFactor').isDisplayed()).to.eventually.be.true;
+      expect(graph.svg.line('efficiencyFactor').isDisplayed()).to.eventually.be.true;
     });
-    mockBackend.http.whenGET(/\/graph/).passThrough();
-    mockBackend.http.whenPOST('/v2/api').passThrough();
-    browser.get('#').then(function () {
-      // Navigate to the correct page.
-      clusterSelect.open().clusterList.select('barCluster');
-      navbar.subNavbar.click('cluster-reporting');
-      navbar.subNavMenu.click('cluster-reporting-efficiency');
-      efficiencyPage = new EfficiencyComponent();
-    });
-  });
-
-  afterEach(function() {
-    mockBackend.disable();
-  });
-
-  it('should have the context graph', function () {
-    expect(efficiencyPage.contextGraph.el.isDisplayed()).to.eventually.be.true;
-  });
-
-  it('should have the correct context graph buttons', function () {
-    expect(efficiencyPage.contextButtons().count).to.eventually.equal(1);
-    expect(efficiencyPage.contextButtons().efficiency.isDisplayed()).to.eventually.equal.true;
-  });
-
-  it('should have the correct child graphs', function () {
-    expect(efficiencyPage.graphs.efficiencyGraph.el.isDisplayed()).to.eventually.be.true;
   });
 });

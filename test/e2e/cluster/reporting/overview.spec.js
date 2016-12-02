@@ -2,37 +2,12 @@
 'use strict';
 
 var expect = require('../../support.js').expect;
-var mockBackend = require('../../support.js').mockBackend;
-var ClusterOverviewComponent = require('../../../page-objects/cluster-overview.po');
-var NavbarComponent = require('../../../page-objects/navbar.po');
-var ClusterSelectComponent = require('../../../page-objects/cluster-select.po');
-
-var clusterOverviewPage;
-var navbar = new NavbarComponent();
-var clusterSelect = new ClusterSelectComponent();
+var ClusterOverviewComponent = require('../../../page-objects/cluster/reporting/overview.po');
+var clusterOverviewPage = new ClusterOverviewComponent();
 
 describe('Cluster Overview Page', function () {
-  beforeEach(function() {
-    mockBackend.enable(browser);
-    mockBackend.http.whenGET('/sessions').respond(function() {
-      return [200, {}];
-    });
-    mockBackend.http.whenGET(/\/graph/).passThrough();
-    mockBackend.http.whenPOST('/v2/api').passThrough();
-    browser.get('#').then(function () {
-      // Navigate to the correct page.
-      clusterSelect.open().clusterList.select('barCluster');
-      navbar.subNavbar.click('cluster-reporting');
-      navbar.subNavMenu.click('cluster-reporting-overview');
-      clusterOverviewPage = new ClusterOverviewComponent();
-    });
-  });
-
-  afterEach(function() {
-    mockBackend.disable();
-  });
-
   it('should have the performance graph', function () {
+    browser.get('#/cluster/26/reporting/overview');
     expect(clusterOverviewPage.graphs.clusterPerformance.el.isDisplayed()).to.eventually.be.true;
   });
 

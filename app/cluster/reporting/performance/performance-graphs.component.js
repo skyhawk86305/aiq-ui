@@ -33,10 +33,10 @@
     ctrl.syncGraphs = [
       {
         service: PerformanceGraphsService,
-        id: 'sync-graph-1-service',
+        id: 'iops',
         child: {
           title: 'IOPS',
-          id: 'sync-graph-1-service-child',
+          id: 'iops-child',
           export: false,
           legend: {
             position: 'top',
@@ -51,17 +51,17 @@
         },
         context: {
           label: 'IOPS',
-          id: 'sync-graph-1-context',
+          id: 'iops-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('iopsContext'))
         }
       },
       {
         service: PerformanceGraphsService,
-        id: 'sync-graph-2-service',
+        id: 'throughput',
         child: {
           title: 'Throughput',
-          id: 'sync-graph-2-service-child',
+          id: 'throughput-child',
           export: false,
           legend: {
             position: 'top',
@@ -76,17 +76,17 @@
         },
         context: {
           label: 'Throughput',
-          id: 'sync-graph-2-context',
+          id: 'throughput-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('throughputContext'))
         }
       },
       {
         service: PerformanceGraphsService,
-        id: 'sync-graph-3-service',
+        id: 'utilization',
         child: {
           title: 'Utilization',
-          id: 'sync-graph-3-service-child',
+          id: 'utilization-child',
           export: false,
           legend: {
             position: 'top',
@@ -99,7 +99,7 @@
         },
         context: {
           label: 'Utilization',
-          id: 'sync-graph-3-context',
+          id: 'utilization-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('utilizationContext'))
         }
@@ -109,7 +109,7 @@
     function getGraphConfig(graph) {
       var graphConfigs = {
         iopsChild: {
-          bindTo: 'cluster-iops-child',
+          bindTo: 'iops-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -160,7 +160,7 @@
           }
         },
         iopsContext: {
-          bindTo: 'cluster-iops-context',
+          bindTo: 'iops-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
@@ -190,7 +190,7 @@
           }
         },
         throughputChild: {
-          bindTo: 'cluster-throughput-child',
+          bindTo: 'throughput-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -239,7 +239,7 @@
           }
         },
         throughputContext: {
-          bindTo: 'cluster-throughput-context',
+          bindTo: 'throughput-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
@@ -269,7 +269,7 @@
           }
         },
         utilizationChild: {
-          bindTo: 'cluster-utilization-child',
+          bindTo: 'utilization-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -310,7 +310,7 @@
           }
         },
         utilizationContext: {
-          bindTo: 'cluster-utilization-context',
+          bindTo: 'utilization-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
@@ -338,7 +338,7 @@
               }
             }
           }
-        },
+        }
       };
       return graphConfigs[graph];
     }
