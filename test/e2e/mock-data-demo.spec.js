@@ -1,8 +1,9 @@
 /* jshint expr: true */
 'use strict';
 
-var expect = require('../support.js').expect;
-var mockBackend = require('../support.js').mockBackend;
+var support = require('./support.js');
+var expect = support.expect;
+var mockBackend = support.mockBackend;
 
 // THIS IS A DEMO FILE ONLY, IT SHOULD EVENTUALLY BE REMOVED.
 

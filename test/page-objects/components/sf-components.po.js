@@ -1,0 +1,1 @@
+module.exports = require('sf-components-v2/test/page-objects');

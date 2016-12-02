@@ -33,10 +33,10 @@
     ctrl.syncGraphs = [
       {
         service: EfficiencyGraphsService,
-        id: 'sync-graph-1-service',
+        id: 'efficiency',
         child: {
           title: 'Efficiency',
-          id: 'sync-graph-1-service-child',
+          id: 'efficiency-child',
           export: false,
           legend: {
             position: 'top',
@@ -52,7 +52,7 @@
         },
         context: {
           label: 'Efficiency',
-          id: 'sync-graph-1-context',
+          id: 'efficiency-context',
           dataLimit: 200,
           graph: new SFD3BarGraph(getGraphConfig('efficiencyContext'))
         }
@@ -62,7 +62,7 @@
     function getGraphConfig(graph) {
       var graphConfigs = {
         efficiencyChild: {
-          bindTo: 'cluster-efficiency-child',
+          bindTo: 'efficiency-child-graph',
           type: 'line',
           showAxisLabels: true,
           data: {
@@ -114,7 +114,7 @@
           }
         },
         efficiencyContext: {
-          bindTo: 'cluster-efficiency-context',
+          bindTo: 'efficiency-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,

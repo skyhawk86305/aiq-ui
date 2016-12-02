@@ -18,9 +18,9 @@ module.exports = function() {
         columns = array.split(/,\s*/);
 
     columns.forEach(function(column, i) {
-      world.expect(world.table(type).headers.get(i).getText()).to.eventually.equal(column);
+      world.expect(world.table(type).content.headers.get(i).getText()).to.eventually.equal(column);
     });
-    world.expect(world.table(type).headers.count()).to.eventually.equal(columns.length).notify(done);
+    world.expect(world.table(type).content.columns.count()).to.eventually.equal(columns.length).notify(done);
   });
 
   this.Then(/^The "(.*)" table contains "(.*)" data with attribute "(.*)" matching regex format "(.*)"$/, function (type, method, attr, regexMatch, done) {
@@ -31,7 +31,7 @@ module.exports = function() {
         randomIndex = Math.floor((Math.random() * maxRows)),
         regex = new RegExp(regexMatch);
 
-    world.table(type).data(attr, randomIndex).then(function(actualData){
+    world.table(type).content.row(randomIndex).data(attr).getText().then(function(actualData){
       world.expect(regex.test(actualData)).to.equal(true, attr + ' value: ' + actualData + ' failed to match regex: ' + regexMatch);
       done();
     });
@@ -47,35 +47,28 @@ module.exports = function() {
         maxRows = fixtureData.length > itemsPerPage ? itemsPerPage : fixtureData.length,
         uniqueKey = world.getUniqueKey(type),
         randomIndex = Math.floor((Math.random() * maxRows)),
-        randomTableId = world.table(type).data(uniqueKey, randomIndex);
+        randomTableId = world.table(type).content.row(randomIndex).data(uniqueKey);
 
     randomTableId.getText().then(function(id) {
       dataMatch = fixtureData.find(function(data) { return data[uniqueKey].toString() === id; });
       if (!dataMatch) { done('No fixture entry matching value: '+id+' on unique key: '+uniqueKey); }
       attrs.forEach(function(attr) {
         expectedData = world.formatFixtureData(dataMatch[attr], type, attr);
-        expectations.push(world.expect(world.table(type).data(attr, randomIndex)).to.eventually.equal(expectedData, 'Attribute ' + attr + ' failed to match value'));
+        expectations.push(world.expect(world.table(type).content.row(randomIndex).data(attr).getText()).to.eventually.equal(expectedData, 'Attribute ' + attr + ' failed to match value'));
       });
     });
 
-    expectations.push(world.expect(world.table(type).rows.count()).to.eventually.equal(maxRows));
+    expectations.push(world.expect(world.table(type).content.rows.count()).to.eventually.equal(maxRows));
     world.expect(Promise.all(expectations)).to.be.fulfilled.notify(done);
   });
 
   this.Then(/^I see a "(.*)" message$/, function (text) {
-    this.expect(this.comingSoonComponent.errorMessage.getText()).to.eventually.contain(text);
+    this.expect(this.comingSoonPage.errorMessage.getText()).to.eventually.contain(text);
   });
 
   this.Then(/^I see a "(.*)" link$/, function (text) {
-    this.expect(this.comingSoonComponent.legacyLink.getText()).to.eventually.contain(text);
+    this.expect(this.comingSoonPage.legacyLink.getText()).to.eventually.contain(text);
   });
-
-  this.Then(/^I see a sf-time-series graph component with "(.*)" data/, function (type) {
-    return this.expect(this.timeSeriesGraph(type).el.isDisplayed()).to.eventually.be.true;
-  });
-
-
-
 };
 
 
