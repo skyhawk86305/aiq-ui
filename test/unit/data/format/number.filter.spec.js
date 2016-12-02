@@ -4,7 +4,7 @@ describe('Number Filter', function () {
   var filter;
   beforeEach(module('aiqUi'));
   beforeEach(inject(function($filter) {
-    filter = $filter('number');
+    filter = $filter('aiqNumber');
   }));
 
   it('should display the default value if data is not of type number or string', function() {
@@ -26,9 +26,10 @@ describe('Number Filter', function () {
 
   it('should handle negative values', function() {
     expect(filter(-0)).toEqual('0');
-    expect(filter(-4582)).toEqual('-4582');
+    expect(filter(-4582)).toEqual('-4,582');
     expect(filter('-0')).toEqual('0');
-    expect(filter('-4582')).toEqual('-4582');
+    expect(filter('-4582')).toEqual('-4,582');
+    expect(filter('-4582', 0, true)).toEqual('-4582');
   });
 
   it('should handle rounding to N number of decimal places', function() {

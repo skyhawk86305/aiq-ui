@@ -3,7 +3,7 @@
 
   angular
     .module('aiqUi')
-    .filter('number', ['$filter', function($filter) {
+    .filter('aiqNumber', ['$filter', function($filter) {
       return function (data, decimalPlaces, hideCommas, dashZero) {
         if(typeof data === 'number' || typeof data === 'string') {
           var number = typeof data === 'number' ? data : parseFloat(data),
@@ -14,7 +14,7 @@
           if(!validNumber || (dashZero && number === 0)) { return '-'; }
           else {
             rounded = number.toFixed(places);
-            return hideCommas ? $filter('number')(rounded) : rounded;
+            return hideCommas ? rounded : $filter('number')(rounded);
           }
         } else { return '-'; }
       };

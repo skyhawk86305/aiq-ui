@@ -26,7 +26,7 @@
     };
 
     var columns = [
-      {key: 'id', label: 'Alert ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'number', args: [0, true]}},
+      {key: 'id', label: 'Alert ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
       {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'isResolved', label: 'Resolved', format: {filter: 'boolean', args:['Yes', 'No']}},

@@ -41,7 +41,7 @@ function World() {
   this.eventsTable = new SFComponents.table('event');
   this.errorLogTable = new SFComponents.table('error-log');
   this.volumeTable = new SFComponents.table('volume');
-  
+
   this.table = function(type) {
     switch(type) {
       case 'node': return this.nodesTable;
@@ -186,6 +186,9 @@ function World() {
           case 'totalSize': return formatBytes(data);
           case 'enable512e': return data ? 'Yes' : 'No';
           case 'paired': return data ? 'Yes' : 'No';
+          case 'minIOPS': return data.toLocaleString();
+          case 'maxIOPS': return data.toLocaleString();
+          case 'burstIOPS': return data.toLocaleString();
           default: return data.toString();
         }
         break;

@@ -24,13 +24,13 @@
 
 
     var columns = [
-      {key: 'eventID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'number', args: [0, true]}},
+      {key: 'eventID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
       {key: 'timeOfReport', label: 'Event Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'eventInfoType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'message', label: 'Message', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'serviceID', label: 'Service ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
-      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'number', args: [0, true, true]}},
-      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'number', args: [0, true, true]}},
+      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true, true]}},
+      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true, true]}},
       {key: 'detailsString', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'string'}}
     ];
 

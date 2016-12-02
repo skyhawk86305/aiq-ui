@@ -19,12 +19,12 @@
     };
 
     var columns = [
-      {key: 'id', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'number', args: [0, true]}},
+      {key: 'id', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true]}},
       {key: 'created', label: 'Date', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'severity', label: 'Severity', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter:'string'}},
       {key: 'type', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter:'string'}},
-      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'number', args: [0, true, true]}},
-      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'number', args: [0, true, true]}},
+      {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true, true]}},
+      {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true, true]}},
       {key: 'resolved', label: 'Resolved', format: {filter: 'boolean', args:['Yes', 'No']}},
       {key: 'resolvedDate', label: 'Resolution Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'code', label: 'Error Code', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter:'string'}},
