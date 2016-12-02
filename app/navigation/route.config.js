@@ -30,7 +30,7 @@
         template: '<login></login>'
       })
       .when('/dashboard/overview', {
-        templateUrl: 'coming-soon.tpl.html'
+        templateUrl: 'welcome-beta.tpl.html'
       })
       .when('/dashboard/health', {
         templateUrl: 'coming-soon.tpl.html'
