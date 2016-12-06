@@ -11,4 +11,4 @@ Feature: Alert Policy Table
     When I navigate to the "dashboard/alerts/policies/" page
     Then I see a SolidFire table with "alertPolicy" data
     And The "alertPolicy" table contains columns: "Alert Policy Name, Destination, Severity, Creator, Customer, Cluster, Alert Condition"
-    And The "alertPolicy" table contains "ListNotifications" data with attrs: "notificationName, destinationEmail, notificationSeverity, username, customerName, clusterName, policyDescription"
+#    And The "alertPolicy" table contains "ListNotifications" data with attrs: "notificationName, destinationEmail, notificationSeverity, username, customerName, clusterName, policyDescription"

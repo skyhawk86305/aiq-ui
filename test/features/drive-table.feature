@@ -12,4 +12,4 @@ Feature: Drive Table
     When I navigate to the "cluster/11/drives/" page
     Then I see a SolidFire table with "drive" data
     And The "drive" table contains columns: "ID, Node ID, Slot, Capacity, Serial, Wear, Reserve, Type"
-    And The "drive" table contains "ListActiveDrives" data with attrs: "driveID, nodeID, slot, capacity, serial, lifeRemainingPercent, reserveCapacityPercent, type"
+#    And The "drive" table contains "ListActiveDrives" data with attrs: "driveID, nodeID, slot, capacity, serial, lifeRemainingPercent, reserveCapacityPercent, type"

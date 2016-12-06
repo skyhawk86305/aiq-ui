@@ -11,4 +11,4 @@ Feature: Volume Table
     When I navigate to the "cluster/11/volumes/" page
     Then I see a SolidFire table with "volume" data
     And The "volume" table contains columns: "ID, Account ID, Volume Size, 512e, Access, Min IOPS, Max IOPS, Burst IOPS, Paired, Configured Access Protocols"
-    And The "volume" table contains "ListActiveVolumes" data with attrs: "volumeID, accountID, totalSize, enable512e, access, minIOPS, maxIOPS, burstIOPS, paired, configuredAccessProtocols"
+#    And The "volume" table contains "ListActiveVolumes" data with attrs: "volumeID, accountID, totalSize, enable512e, access, minIOPS, maxIOPS, burstIOPS, paired, configuredAccessProtocols"

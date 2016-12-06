@@ -34,4 +34,6 @@ console.log('\n\n');
 console.log('Node server started on: ' + host + ':' + port);
 if(useMock) { console.log('Using fixture: ' + fixture); }
 else { console.log('Using proxy end point: ' + require('./proxy.config').endPoint); }
-console.log('\n\n');
+console.log('\n');
+console.log('Use ctrl+C to kill the server');
+console.log('\n');

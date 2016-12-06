@@ -12,5 +12,5 @@ Feature: Error Log Table
     When I navigate to the "cluster/11/reporting/errorLog/" page
     Then I see a SolidFire table with "errorLog" data
     And The "errorLog" table contains columns: "ID, Date, Severity, Type, Node ID, Drive ID, Resolved, Resolution Time, Error Code, Details"
-    And The "errorLog" table contains "ListClusterFaults" data with attrs: "id, created, severity, nodeID, driveID, resolved, resolvedDate, code, details"
-    And The "errorLog" table contains "ListClusterFaults" data with attribute "resolvedDate" matching regex format "^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$"
+#    And The "errorLog" table contains "ListClusterFaults" data with attrs: "id, created, severity, nodeID, driveID, resolved, resolvedDate, code, details"
+#    And The "errorLog" table contains "ListClusterFaults" data with attribute "resolvedDate" matching regex format "^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$"

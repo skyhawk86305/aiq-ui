@@ -12,4 +12,4 @@ Feature: Alert History Table
     When I navigate to the "dashboard/alerts/history/" page
     Then I see a SolidFire table with "alertHistory" data
     And The "alertHistory" table contains columns: "Alert ID, Alert Triggered, Last Notification, Resolved, Resolution Time, Alert Policy Name, Alert Severity, Alert Value, Destination, Customer, Cluster, Alert Condition"
-    And The "alertHistory" table contains "ListAlerts" data with attrs: "id, created, lastNotified, isResolved, resolved, notificationName, severity, value, destinationEmail, customerName, clusterName, policyDescription"
+#    And The "alertHistory" table contains "ListAlerts" data with attrs: "id, created, lastNotified, isResolved, resolved, notificationName, severity, value, destinationEmail, customerName, clusterName, policyDescription"

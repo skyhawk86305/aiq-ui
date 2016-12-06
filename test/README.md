@@ -24,10 +24,8 @@ Running the Tests
   - Require you to first install and update selenium-standalone server
   - Run in an actual browser (configurable)
   - Run against the current build served locally via express
-  - Use a mock backend to respond to API calls with text fixtures found at /test/fixtures
+  - Use a mock backend to respond to API calls with text fixtures found at /server/fixtures/<fixture-name>
   - Output coverage reports TBD
-
-`gulp webdriverUpdate`
 
 `gulp test:e2e`
 
@@ -43,13 +41,15 @@ Running the Tests
 
 `-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
 
+`-m, --mock // Change the fixture to something other than default`
+
 `-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests (e2e & acceptance)`
 
-`-h, --jenkinsHost // Set the host name of the express server serving the UI on jenkins for the selenium grid to test against`
+`-h, --host // Set the host name of the express server serving the UI`
 
-`-p, --jenkinsPort // Set the port number of the express server serving the UI on jenkins for the selenium grid to test against`
+`-p, --port // Set the port number of the express server serving the UI`
 
-`-l, --local   // To run the tests with a local instance of selenium against the app being served locally (rather than on the selenium grid at http://192.168.129.176:4444/wd/hub running against the server running on jenkins)`
+`-j, --jenkins   // Configure the express server using jenkins default set in /server/server.config (also configures test to run against selenium grid)`
 
 Testing Guidelines
 ============================

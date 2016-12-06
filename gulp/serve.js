@@ -30,8 +30,8 @@ gulp.task('serve', ['build:dev'], function(done) {
 // Watch for changes and reload browser
 gulp.task('watch', ['serve'], function () {
   var browserSync = browserSync.create(),
-    host = argv.jenkins ? serverConfig.jenkinsHost : argv.host || serverConfig.defaultHost,
-    port = argv.jenkins ? serverConfig.jenkinsPort : argv.port || serverConfig.defaultPort;
+    host = argv.host || serverConfig.defaultHost,
+    port = argv.port || serverConfig.defaultPort;
 
   browserSync.init({
     proxy: 'http://' + host + ':' + port
