@@ -1,10 +1,11 @@
 'use strict';
-var gulp = require('gulp')
-  , path = require('path')
-  , cucumberConf = 'test/protractor-cucumber.config.js'
-  , e2eConf = 'test/protractor-e2e.config.js'
-  , karmaConf = require('../test/karma.config.js')
-  , $ = require('gulp-load-plugins')({
+
+var gulp = require('gulp'),
+  path = require('path'),
+  cucumberConf = 'test/protractor-cucumber.config.js',
+  e2eConf = 'test/protractor-e2e.config.js',
+  karmaConf = require('../test/karma.config.js'),
+  $ = require('gulp-load-plugins')({
     pattern: [
       'del',
       'gulp-*',
@@ -21,28 +22,22 @@ var gulp = require('gulp')
       'gulp-run': 'run',
       'gulp-rename': 'rename'
     }
-  }
-)
-  , buildConfig = require('../build.config.js')
-  , buildTemplateFiles = path.join(buildConfig.buildDir, '**/*.tpl.html')
-  , buildJsFiles = path.join(buildConfig.buildJs, '**/*.js')
-  , unitTests = path.join(buildConfig.unitTestDir, '**/*.spec.js')
-  , e2eTests = path.join(buildConfig.e2eTestDir, '**/*.spec.js')
-  , acceptanceTests = path.join(buildConfig.acceptanceTestDir, '**/*.feature')
-  , argv = $.yargs
-              .alias('v', 'verbose')
-              .alias('t', 'tags')
-              .alias('b', 'browser')
-              .alias('s', 'seleniumAddress')
-              .alias('h', 'jenkinsHost')
-              .alias('p', 'jenkinsPort')
-              .alias('l', 'local').argv
-  , localConfig = argv.local ? require('../local.config.js') : {}
-  , jenkinsConfig = {
-      host: argv.jenkinsHost || 'bdr-web-jenkins.den.solidfire.net',
-      port: argv.jenkinsPort || '3000'
-    }
-  , mockConfig = argv.local ? localConfig : jenkinsConfig;
+  }),
+  serverConfig = require('../server/server.config.js'),
+  buildConfig = require('../build.config.js'),
+  buildTemplateFiles = path.join(buildConfig.buildDir, '**/*.tpl.html'),
+  buildJsFiles = path.join(buildConfig.buildJs, '**/*.js'),
+  unitTests = path.join(buildConfig.unitTestDir, '**/*.spec.js'),
+  e2eTests = path.join(buildConfig.e2eTestDir, '**/*.spec.js'),
+  acceptanceTests = path.join(buildConfig.acceptanceTestDir, '**/*.feature'),
+  argv = $.yargs
+    .alias('v', 'verbose')
+    .alias('t', 'tags')
+    .alias('b', 'browser')
+    .alias('s', 'seleniumAddress')
+    .alias('h', 'host')
+    .alias('p', 'port')
+    .alias('j', 'jenkins').argv;
 
 karmaConf.files = [];
 
@@ -80,51 +75,37 @@ gulp.task('test:unit', ['lint', 'karmaFiles'], function (done) {
   karmaServer.start();
 });
 
-// Creates a gitignored mock.config.js with settings to run express either locally or on jenkins
-gulp.task('configure:mock', function () {
-  return gulp.src('example.config.js')
-    .pipe($.change(function(defaultConfig) {
-      return defaultConfig.replace(/{([^}]*)}/, JSON.stringify(mockConfig));
-    }))
-    .pipe($.concat('mock.config.js'))
-    .pipe(gulp.dest('.'));
-});
-
-gulp.task('test:e2e', ['configure:mock', 'serve:mock'], function () {
+gulp.task('test:e2e', ['webdriverUpdate', 'serve'], function () {
   return gulp.src([e2eTests])
     .pipe($.protractor.protractor({configFile: e2eConf, args: getProtractorArgs()}))
     .on('error', function (e) { console.log(e); process.exit(-1); })
-    .on('close', function(e) { process.exit(); });
+    .on('close', function() { process.exit(); });
 });
 
-gulp.task('test:acceptance', ['configure:mock', 'serve:mock'], function () {
+gulp.task('test:acceptance', ['webdriverUpdate', 'serve'], function () {
   return gulp.src([acceptanceTests])
     .pipe($.protractor.protractor({configFile: cucumberConf, args: getProtractorArgs()}))
     .on('error', function (e) { console.log(e); process.exit(-1); })
-    .on('close', function(e) { process.exit(); });
+    .on('close', function() { process.exit(); });
 });
 
 function getProtractorArgs() {
-  var protractorArgs = [];
-  protractorArgs.push('--baseUrl', 'http://' + mockConfig.host + ':' + mockConfig.port);
-  if(argv.browser) { protractorArgs.push('--capabilities.browserName', argv.browser); }
-  if(argv.tags) { protractorArgs.push('--cucumberOpts.tags', argv.tags); }
-  if(argv.verbose) {
-    protractorArgs.push('--cucumberOpts.format', 'pretty');
-  }
-  if (!argv.local) {
-    protractorArgs.push('--seleniumAddress', 'http://192.168.129.176:4444/wd/hub');
-  } else {
-    if (argv.seleniumAddress) {
-      protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub');
-    }
-  }
+  var protractorArgs = [],
+    seleniumAddress = argv.jenkins ? serverConfig.seleniumGrid : argv.seleniumAddress,
+    host = argv.jenkins ? serverConfig.jenkinsHost : argv.host || serverConfig.defaultHost,
+    port = argv.jenkins ? serverConfig.jenkinsPort : argv.port || serverConfig.defaultPort;
+
+  protractorArgs.push('--baseUrl', 'http://' + host + ':' + port);
+  if (argv.browser) { protractorArgs.push('--capabilities.browserName', argv.browser); }
+  if (argv.tags) { protractorArgs.push('--cucumberOpts.tags', argv.tags); }
+  if (argv.verbose) { protractorArgs.push('--cucumberOpts.format', 'pretty'); }
+  if (seleniumAddress) { protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub'); }
   return protractorArgs;
 }
 
 gulp.task('generateReport', [], function () {
-var cucumberJSONoutputPath = './report/cucumber/cucumber-test-results.json',
-  prettyReportPath = './report/cucumber/output';
+  var cucumberJSONoutputPath = './report/cucumber/cucumber-test-results.json',
+    prettyReportPath = './report/cucumber/output';
   return gulp.src(cucumberJSONoutputPath)
     .pipe($.cucumberReports({dest: prettyReportPath }))
     .pipe($.run('./node_modules/.bin/cucumber-junit', {verbosity: 0}))

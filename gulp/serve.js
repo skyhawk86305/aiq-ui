@@ -1,37 +1,46 @@
 'use strict';
 
 var gulp = require('gulp'),
-    path = require('path'),
-    $ = require('gulp-load-plugins')({
-        pattern: [
+  path = require('path'),
+  $ = require('gulp-load-plugins')({
+    pattern: [
       'gulp-*',
-      'browser-sync'
+      'browser-sync',
+      'yargs'
     ]
-    }),
-    buildConfig = require('../build.config.js'),
-    appFiles = path.join(buildConfig.appDir, '**/*');
+  }),
+  serverConfig = require('../server/server.config.js'),
+  buildConfig = require('../build.config.js'),
+  appFiles = path.join(buildConfig.appDir, '**/*'),
+  argv = $.yargs
+    .alias('h', 'host')
+    .alias('p', 'port')
+    .alias('j', 'jenkins').argv;
 
-// Start your local server and setup browserSync to reload your browser whenever src files change
-gulp.task('serve', ['build'], function () {
-  var browserSync = $.browserSync.create(),
-      localConfig = require('../local.config.js');
-
-  $.nodemon({
-    script: 'local.server.js',
+// Start the mock server
+gulp.task('serve', ['build:dev'], function(done) {
+  var started = false;
+  return $.nodemon({
+    script: 'server/server.js',
+    args: process.argv.slice(3),
     ignore: '*'
+  }).on('start', function() {
+    if (!started) {
+      started = true;
+      done();
+    }
   });
+});
+
+// Watch for changes and reload browser
+gulp.task('watch', ['serve'], function () {
+  var browserSync = $.browserSync.create(),
+    host = argv.jenkins ? serverConfig.jenkinsHost : argv.host || serverConfig.defaultHost,
+    port = argv.jenkins ? serverConfig.jenkinsPort : argv.port || serverConfig.defaultPort;
 
   browserSync.init({
-    proxy: 'http://' + localConfig.host + ':' + localConfig.port
+    proxy: 'http://' + host + ':' + port
   });
 
   gulp.watch([appFiles], ['build', browserSync.reload]);
-});
-
-// Start the mock server, which is dynamically configured to run on jenkins or locally
-gulp.task('serve:mock', ['build:dev'], function () {
-  $.nodemon({
-    script: 'mock.server.js',
-    ignore: '*'
-  });
 });
