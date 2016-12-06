@@ -11,22 +11,27 @@ var express = require('express'),
     .alias('m', 'mock').argv,
   host = argv.jenkins ? serverConfig.jenkinsHost : argv.host || serverConfig.defaultHost,
   port = argv.jenkins ? serverConfig.jenkinsPort : argv.port || serverConfig.defaultPort,
-  useProxy = !argv.hasOwnProperty('mock'),
-  routes = useProxy ? require('./proxy.routes') : require('./mock.routes'),
+  testingTask = argv._[0] === 'test:e2e' || argv._[0] === 'test:acceptance',
+  useMock = testingTask || argv.hasOwnProperty('mock'),
+  routes = useMock ? require('./mock.routes') : require('./proxy.routes'),
   fixture = typeof argv.mock === 'string' ? argv.mock : serverConfig.defaultFixture,
   server = express();
 
 /**
  * Configure and start local server
  */
-if (useProxy) { server.use(cookieParser()); }
-else {
+if (useMock) {
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({extended: true}));
+} else {
+  server.use(cookieParser());
 }
 server.use(express.static('build'));
 server.use('/', routes);
 server.listen(port, host);
+
+console.log('\n\n');
 console.log('Node server started on: ' + host + ':' + port);
-if(useProxy) { console.log('Using proxy end point: ' + require('./proxy.config').endPoint); }
-else { console.log('Using fixture: ' + fixture); }
+if(useMock) { console.log('Using fixture: ' + fixture); }
+else { console.log('Using proxy end point: ' + require('./proxy.config').endPoint); }
+console.log('\n\n');
