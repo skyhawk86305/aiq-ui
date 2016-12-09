@@ -18,7 +18,7 @@ Running the Tests
 
 `-v, --verbose // Run tests in verbose mode to output documentation`
 
-## E2E & Acceptance Tests
+## E2E Tests
 
   - Are run and configured with Protractor via Gulp
   - Require you to first install and update selenium-standalone server
@@ -29,21 +29,15 @@ Running the Tests
 
 `gulp test:e2e`
 
-`gulp test:acceptance`
-
  Text execution can be configured with:
 
 `-a, --analyze // Run static analysis on code`
-
-`-v, --verbose // Run tests in verbose mode (acceptance tests only - this won't write results to .json file for reporting)`
-
-`-t, --tags    // For running features/scenarios with a specific tag (acceptance tests only)`
 
 `-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
 
 `-m, --mock // Change the fixture to something other than default`
 
-`-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests (e2e & acceptance)`
+`-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests`
 
 `-h, --host // Set the host name of the express server serving the UI`
 
@@ -63,7 +57,7 @@ to /report/coverage/PhantomJS.../lcov-report/index.html
 
   **Unit Tests Should:**
   
-  * Always be preferred over e2e and acceptance tests
+  * Always be preferred to e2e tests
   * At a minimum have a test for each public function in the file
   * Attempt to cover edge cases for complex functions
   * Initially be written to fail, tests that always pass are not valuable
@@ -82,33 +76,15 @@ reports that are output to /report/e2e/htmlReport.html
   **E2E Tests Should:**
   
   * NOT test what has already been unit tested
-  * Cover all edge cases not directly tested in the acceptance suite
   * Run independently at file level to allow them to be run in parallel
   * NOT have selectors (these belong in page objects)
-
-## Acceptance Testing
-
-Acceptance tests are simply another flavor of e2e tests with a specific purpose. The intention of this test suite is to
-ensure all business requirements for a specific feature request are met before being *accepted* by the product owner.
-They are written in a Gherkin syntax (Given, When, Then), and are typically the most expensive set of tests. These tests 
-are configured to take screenshots on failures and generate reports that are output to /report/cucumber/output/cucumber-test-results.html
-
-  **Acceptance Tests Should:**
-  
-  * Be the the first e2e test written, and be passing before the task, ticket or feature request is accepted
-  * Only test the minimum required functionality of the feature being developed
-  * Be placed in a .feature file that is a 1:1 mapping to the task, ticket or feature request being developed
-  * Have a matching step-definition file that contains only the steps that are unique to the feature
-  * Always seek to use generic flexible step definitions from a shared location
-  * Use before and after hooks for any feature setup and tear down
 
 
 ## Page Objects
 
 Page Objects are a testing design pattern largely used for reducing code duplication. They provide an API to the page 
 under test and are responsible of abstracting away its implementation details from the tests themselves. Page objects
-can either be components of the app (navbar.po) or entire pages within the app (volumes-page.po). These page objects
-should be shared between both e2e and acceptance tests.
+can either be components of the app (navbar.po) or entire pages within the app (volumes-page.po).
 
   **Page Objects Should:**
   

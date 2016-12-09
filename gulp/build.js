@@ -146,27 +146,6 @@ gulp.task('bowerCopy', ['inject'], function () {
     .pipe(jsFilter.restore);
 });
 
-// copy all bower components into build directory (including devDependencies)
-gulp.task('bowerCopy:dev', ['inject'], function () {
-  var cssFilter = $.filter('**/*.css', {restore: true})
-    , jsFilter = $.filter('**/*.js', {restore: true})
-    , stream = $.streamqueue({objectMode: true})
-    , wiredep = $.wiredep({devDependencies: true});
-  if (wiredep.js) {
-    stream.queue(gulp.src(wiredep.js));
-  }
-  if (wiredep.css) {
-    stream.queue(gulp.src(wiredep.css));
-  }
-  return stream.done()
-    .pipe(cssFilter)
-    .pipe(gulp.dest(buildConfig.extCss))
-    .pipe(cssFilter.restore)
-    .pipe(jsFilter)
-    .pipe(gulp.dest(buildConfig.extJs))
-    .pipe(jsFilter.restore);
-});
-
 // inject bower components into index.html
 gulp.task('bowerInject', ['bowerCopy'], function () {
   if (isProd) {
@@ -209,29 +188,6 @@ gulp.task('bowerInject', ['bowerCopy'], function () {
       }))
       .pipe(gulp.dest(buildConfig.buildDir));
   }
-});
-
-// inject all bower components into index.html (including devDependencies)
-gulp.task('bowerInject:dev', ['bowerCopy:dev'], function () {
-  return gulp.src([buildConfig.buildDir + 'index.html'])
-    .pipe($.wiredep.stream({
-      devDependencies: true,
-      fileTypes: {
-        html: {
-          replace: {
-            css: function (filePath) {
-              return '<link rel="stylesheet" href="' + buildConfig.extCss.replace(buildConfig.buildDir, '') +
-                filePath.split('/').pop() + '">';
-            },
-            js: function (filePath) {
-              return '<script src="' + buildConfig.extJs.replace(buildConfig.buildDir, '') +
-                filePath.split('/').pop() + '"></script>';
-            }
-          }
-        }
-      }
-    }))
-    .pipe(gulp.dest(buildConfig.buildDir));
 });
 
 // copy custom fonts into build directory
@@ -278,6 +234,3 @@ gulp.task('build', ['bowerInject', 'images', 'fonts', 'extPages'], function() {
     .pipe(gulp.dest('.'));
 
 });
-
-//Injects bower devDependencies into html
-gulp.task('build:dev', ['bowerInject:dev', 'images', 'fonts', 'extPages']);

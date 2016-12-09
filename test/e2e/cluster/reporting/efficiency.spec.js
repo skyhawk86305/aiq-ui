@@ -2,7 +2,7 @@
 'use strict';
 
 var expect = require('../../support.js').expect;
-var SyncGraphsComponent = require('../../../page-objects/components/sf-components.po').syncGraphs;
+var SyncGraphsComponent = require('../../page-objects/components/sf-components.po').syncGraphs;
 var efficiencyGraphs = new SyncGraphsComponent('efficiency-sync-graphs');
 
 describe('The Cluster Efficiency Page', function () {

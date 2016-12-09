@@ -13,7 +13,7 @@ var gulp = require('gulp'),
   appFiles = path.join(buildConfig.appDir, '**/*');
 
 // Start the mock server
-gulp.task('serve', ['build:dev'], function(done) {
+gulp.task('serve', ['build'], function(done) {
   var started = false;
   return nodemon({
     script: 'server/server.js',
@@ -29,13 +29,13 @@ gulp.task('serve', ['build:dev'], function(done) {
 
 // Watch for changes and reload browser
 gulp.task('watch', ['serve'], function () {
-  var browserSync = browserSync.create(),
+  var browser = browserSync.create(),
     host = argv.host || serverConfig.defaultHost,
     port = argv.port || serverConfig.defaultPort;
 
-  browserSync.init({
+  browser.init({
     proxy: 'http://' + host + ':' + port
   });
 
-  gulp.watch([appFiles], ['build', browserSync.reload]);
+  gulp.watch([appFiles], ['build', browser.reload]);
 });

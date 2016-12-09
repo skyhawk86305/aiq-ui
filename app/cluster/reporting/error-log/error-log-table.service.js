@@ -14,7 +14,9 @@
     var listClusterFaults = function() {
       return DataService.callAPI('ListClusterFaults', {clusterID: this.selectedClusterID})
         .then(function(response) {
-          return response.faults;
+          return response.faults.map(function(fault) {
+            return fault;
+          });
         });
     };
 

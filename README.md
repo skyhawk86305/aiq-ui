@@ -81,21 +81,15 @@ Run end-to-end tests via protractor.
 
 `gulp test:e2e`
 
-`gulp test:acceptance`
-
  Text execution can be configured with:
 
 `-a, --analyze // Run static analysis on code`
-
-`-v, --verbose // Run tests in verbose mode (acceptance tests only - this won't write results to .json file for reporting)`
-
-`-t, --tags    // For running features/scenarios with a specific tag (acceptance tests only)`
 
 `-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
 
 `-m, --mock // Change the fixture to something other than default`
 
-`-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests (e2e & acceptance)`
+`-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests`
 
 `-h, --host // Set the host name of the express server serving the UI`
 

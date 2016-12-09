@@ -1,7 +1,7 @@
 'use strict';
-var gulp = require('gulp')
-  , path = require('path')
-  , $ = require('gulp-load-plugins')({
+var gulp = require('gulp'),
+  path = require('path'),
+  $ = require('gulp-load-plugins')({
     pattern: [
       'del',
       'gulp-*',
@@ -14,13 +14,12 @@ var gulp = require('gulp')
       'yargs',
       'multi-glob'
     ]
-  })
-  , buildConfig = require('../build.config.js')
-  , appScriptFiles = path.join(buildConfig.appDir, '**/*.js')
-  , unitTestFiles = path.join(buildConfig.unitTestDir, '**/*.js')
-  , e2eTestFiles = path.join(buildConfig.e2eTestDir, '**/*.js')
-  , acceptanceTestFiles = path.join(buildConfig.acceptanceTestDir, '**/*.js')
-  , analyze = $.yargs.alias('a', 'analyze').argv.analyze;
+  }),
+  buildConfig = require('../build.config.js'),
+  appScriptFiles = path.join(buildConfig.appDir, '**/*.js'),
+  unitTestFiles = path.join(buildConfig.unitTestDir, '**/*.js'),
+  e2eTestFiles = path.join(buildConfig.e2eTestDir, '**/*.js'),
+  analyze = $.yargs.alias('a', 'analyze').argv.analyze;
 
 gulp.task('lint', function () {
   var onError = function (err) {
@@ -35,8 +34,7 @@ gulp.task('lint', function () {
   return gulp.src([
     appScriptFiles,
     unitTestFiles,
-    e2eTestFiles,
-    acceptanceTestFiles
+    e2eTestFiles
   ])
     .pipe($.plumber({errorHandler: onError}))
     .pipe($.jshint())
@@ -47,7 +45,7 @@ gulp.task('lint', function () {
 
 gulp.task('staticAnalysis', function (done) {
   if (analyze) {
-    $.multiGlob.glob([appScriptFiles, unitTestFiles, e2eTestFiles, acceptanceTestFiles], function (err, matches) {
+    $.multiGlob.glob([appScriptFiles, unitTestFiles, e2eTestFiles], function (err, matches) {
       if (err) { throw new Error('Couldn\'t find files.'); }
       matches = matches.filter(function (file) { return file.match(/.*[.]js/); });
 
