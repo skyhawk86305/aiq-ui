@@ -20,7 +20,7 @@ module.exports = function() {
         ]
       }
     };
-    this.mockBackend.http.whenPOST('/v2/api').respond(myMockData);
+    this.mockBackend.http.whenPOST('/json-rpc/2.0').respond(myMockData);
     this.mockBackend.http.whenGET('/sessions').respond();
   });
 

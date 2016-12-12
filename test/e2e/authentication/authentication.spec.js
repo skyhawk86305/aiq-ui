@@ -56,7 +56,7 @@ describe('Login Page', function() {
 describe('Navigation with Authentication', function() {
   beforeEach(function() {
     mockBackend.enable(browser);
-    mockBackend.http.whenPOST('/v2/api').passThrough();
+    mockBackend.http.whenPOST('/json-rpc/2.0').passThrough();
   });
 
   afterEach(function() {

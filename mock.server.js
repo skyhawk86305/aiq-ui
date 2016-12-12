@@ -18,7 +18,7 @@ server.listen(mockConfig.port, mockConfig.host);
 /**
  * Catch API requests and respond with the matching fixture data
  */
-server.post('/v2/api', function (req, res) {
+server.post('/json-rpc/2.0', function (req, res) {
   var fixture = require('./test/fixtures/' + req.body.method),
       response = fixture || {};
   res.send(response);

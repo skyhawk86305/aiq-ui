@@ -22,7 +22,7 @@ server.use('/sessions', function (req, res) {
   })).pipe(res);
 });
 
-server.use(/\/v2\/api$/, function (req, res) {
+server.use(/\/json-rpc\/2\.0$/, function (req, res) {
   var url = localConfig.apiServer + '/json-rpc/2.0';
   req.pipe(request({
     method: req.method,
