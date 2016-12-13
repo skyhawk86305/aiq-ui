@@ -1,6 +1,6 @@
 # aiq-ui
 
-An Angular.js application for interacting with the AIQ backend
+An Angular.js application written in TypeScript for interacting with the AIQ backend
 
 ## Getting Started
  - Install NodeJS v6.9.x (Latest LTS release)
@@ -14,6 +14,8 @@ An Angular.js application for interacting with the AIQ backend
 `npm install`
  
 `bower install`
+
+`tsd install`
 
  - Serve the app locally with mock data
  

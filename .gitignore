@@ -1,6 +1,11 @@
 # Mac
 .DS_Store
 
+# TypeScript
+typings
+app/**/*.js
+app/**/*.js.map
+
 # Node
 node_modules
 *.debug

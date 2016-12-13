@@ -1,14 +1,13 @@
 (function () {
-  'use strict';
-
-  angular
-    .module('aiqUi')
-    .component('alertHistoryTable', {
-      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="alert-history" multi-column-sort="true" control-bar="true" items-per-page="25"></sf-table>',
-      controller: ['AlertHistoryTableService', AlertHistoryTableController]
+    'use strict';
+    angular
+        .module('aiqUi')
+        .component('alertHistoryTable', {
+        template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="alert-history" multi-column-sort="true" control-bar="true" items-per-page="25"></sf-table>',
+        controller: ['AlertHistoryTableService', AlertHistoryTableController]
     });
-
-  function AlertHistoryTableController(AlertHistoryTableService) {
-    this.service = AlertHistoryTableService;
-  }
+    function AlertHistoryTableController(AlertHistoryTableService) {
+        this.service = AlertHistoryTableService;
+    }
 })();
+//# sourceMappingURL=alert-history-table.component.js.map
