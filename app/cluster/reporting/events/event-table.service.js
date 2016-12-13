@@ -4,19 +4,17 @@
   angular
     .module('aiqUi')
     .service('EventTableService', [
-      '$filter',
       'SFTableService',
       'SFFilterComparators',
       'DataService',
       EventTableService
     ]);
 
-  function EventTableService($filter, SFTableService, SFFilterComparators, DataService) {
+  function EventTableService(SFTableService, SFFilterComparators, DataService) {
     var listEvents = function() {
       return DataService.callAPI('ListEvents', {clusterID: this.selectedClusterID})
         .then(function(response) {
           return response.events.map(function(event) {
-            event.detailsString = $filter('json')(event.details);
             return event;
           });
         });
@@ -31,7 +29,7 @@
       {key: 'serviceID', label: 'Service ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true, true]}},
       {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true, true]}},
-      {key: 'detailsString', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'string'}}
+      {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'json'}}
     ];
 
     var eventTableService = new SFTableService(listEvents, columns, false);

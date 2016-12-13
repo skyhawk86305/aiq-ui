@@ -16,8 +16,7 @@
       return DataService.callAPI('ListNotifications')
         .then(function(response) {
           return response.notifications.map(function(policy) {
-            policy.policyDescription = $filter('alert')(policy.notificationFields, {type: 'condition'});
-
+            policy.policyDescription = $filter('alert')(policy.notificationFields, 'condition');
             return policy;
           });
         });

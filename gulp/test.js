@@ -2,8 +2,7 @@
 
 var gulp = require('gulp'),
   path = require('path'),
-  cucumberConf = 'test/protractor-cucumber.config.js',
-  e2eConf = 'test/protractor-e2e.config.js',
+  protractorConf = 'test/protractor.config.js',
   karmaConf = require('../test/karma.config.js'),
   $ = require('gulp-load-plugins')({
     pattern: [
@@ -13,12 +12,9 @@ var gulp = require('gulp'),
       'run-sequence',
       'streamqueue',
       'wiredep',
-      'yargs',
-      'gulp-protractor-cucumber-html-cucumber-support',
-      'gulp-protractor-cucumber-html-report'
+      'yargs'
     ],
     rename: {
-      'gulp-protractor-cucumber-html-report': 'cucumberReports',
       'gulp-run': 'run',
       'gulp-rename': 'rename'
     }
@@ -29,14 +25,13 @@ var gulp = require('gulp'),
   buildJsFiles = path.join(buildConfig.buildJs, '**/*.js'),
   unitTests = path.join(buildConfig.unitTestDir, '**/*.spec.js'),
   e2eTests = path.join(buildConfig.e2eTestDir, '**/*.spec.js'),
-  acceptanceTests = path.join(buildConfig.acceptanceTestDir, '**/*.feature'),
   argv = $.yargs
     .alias('v', 'verbose')
-    .alias('t', 'tags')
     .alias('b', 'browser')
     .alias('s', 'seleniumAddress')
     .alias('h', 'host')
     .alias('p', 'port')
+    .alias('m', 'mock')
     .alias('j', 'jenkins').argv;
 
 karmaConf.files = [];
@@ -77,41 +72,25 @@ gulp.task('test:unit', ['lint', 'karmaFiles'], function (done) {
 
 gulp.task('test:e2e', ['webdriverUpdate', 'serve'], function () {
   return gulp.src([e2eTests])
-    .pipe($.protractor.protractor({configFile: e2eConf, args: getProtractorArgs()}))
-    .on('error', function (e) { console.log(e); process.exit(-1); })
-    .on('close', function() { process.exit(); });
-});
-
-gulp.task('test:acceptance', ['webdriverUpdate', 'serve'], function () {
-  return gulp.src([acceptanceTests])
-    .pipe($.protractor.protractor({configFile: cucumberConf, args: getProtractorArgs()}))
+    .pipe($.protractor.protractor({configFile: protractorConf, args: getProtractorArgs()}))
     .on('error', function (e) { console.log(e); process.exit(-1); })
     .on('close', function() { process.exit(); });
 });
 
 function getProtractorArgs() {
   var protractorArgs = [],
+    fixture = typeof argv.mock === 'string' ? argv.mock : serverConfig.defaultFixture,
     seleniumAddress = argv.jenkins ? serverConfig.seleniumGrid : argv.seleniumAddress,
     host = argv.jenkins ? serverConfig.jenkinsHost : argv.host || serverConfig.defaultHost,
     port = argv.jenkins ? serverConfig.jenkinsPort : argv.port || serverConfig.defaultPort;
 
   protractorArgs.push('--baseUrl', 'http://' + host + ':' + port);
+  protractorArgs.push('--fixture', fixture);
+  if (argv.jenkins) { protractorArgs.push('--jenkins'); }
   if (argv.browser) { protractorArgs.push('--capabilities.browserName', argv.browser); }
-  if (argv.tags) { protractorArgs.push('--cucumberOpts.tags', argv.tags); }
-  if (argv.verbose) { protractorArgs.push('--cucumberOpts.format', 'pretty'); }
   if (seleniumAddress) { protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub'); }
   return protractorArgs;
 }
-
-gulp.task('generateReport', [], function () {
-  var cucumberJSONoutputPath = './report/cucumber/cucumber-test-results.json',
-    prettyReportPath = './report/cucumber/output';
-  return gulp.src(cucumberJSONoutputPath)
-    .pipe($.cucumberReports({dest: prettyReportPath }))
-    .pipe($.run('./node_modules/.bin/cucumber-junit', {verbosity: 0}))
-    .pipe($.rename('acceptance.xml'))
-    .pipe(gulp.dest('./report/junit'));
-});
 
 gulp.task('webdriverUpdate', $.protractor.webdriver_update);
 

@@ -6,8 +6,7 @@
     .filter('alert', [alertFilter]);
 
   function alertFilter() {
-    return function (data, params) {
-      var type = params && params.type || '';
+    return function (data, type) {
       switch (type) {
         case 'condition':
           var conditions = '';

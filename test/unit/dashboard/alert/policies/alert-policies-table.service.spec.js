@@ -52,7 +52,7 @@ describe('AlertPolicyTableService', function () {
       ];
       service.getData(true).then(function(response) {
         expect(response).toEqual(deserializedResponse);
-        expect(alertFilterSpy).toHaveBeenCalledWith([], {type: 'condition'});
+        expect(alertFilterSpy).toHaveBeenCalledWith([], 'condition');
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();

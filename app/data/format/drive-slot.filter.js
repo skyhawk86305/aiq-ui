@@ -3,13 +3,16 @@
 
   angular
     .module('aiqUi')
-    .filter('driveSlot', function() {
-      return function (slot) {
-        if (slot && slot.toString() === '-1') {
-          return 'internal';
-        } else {
-          return slot;
-        }
+    .filter('driveSlot', ['$filter', function($filter) {
+      return function (data) {
+        if(typeof data === 'number' || typeof data === 'string') {
+          var number = typeof data === 'number' ? data : parseInt(data),
+            validNumber = number || number === 0;
+
+          if(data === -1) { return 'internal'; }
+          else if(validNumber) { return $filter('number')(number); }
+          else { return '-'; }
+        } else { return '-'; }
       };
-    });
+    }]);
 })();
