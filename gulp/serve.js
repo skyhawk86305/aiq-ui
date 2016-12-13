@@ -7,7 +7,7 @@ var gulp = require('gulp'),
   argv = require('yargs')
     .alias('h', 'host')
     .alias('p', 'port')
-    .alias('tr', 'tableRows').argv,
+    .alias('t', 'tableRows').argv,
   serverConfig = require('../server/server.config.js'),
   buildConfig = require('../build.config.js'),
   appFiles = path.join(buildConfig.appDir, '**/*');

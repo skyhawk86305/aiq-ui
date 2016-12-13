@@ -32,7 +32,7 @@ var gulp = require('gulp'),
     .alias('h', 'host')
     .alias('p', 'port')
     .alias('m', 'mock')
-    .alias('tr', 'tableRows').argv;
+    .alias('t', 'tableRows').argv;
 
 karmaConf.files = [];
 

@@ -43,7 +43,7 @@ Running the Tests
 
 `-p, --port // Set the port number of the express server serving the UI`
 
-`-tr, --tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
+`-t, --tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
 
 Testing Guidelines
 ============================
