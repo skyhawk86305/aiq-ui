@@ -19,7 +19,7 @@
       params = params || {};
       var request = {method: method, params: params};
       var entry = ApiLogService.appendRequest(request);
-      return $http.post('/v2/api', request)
+      return $http.post('/json-rpc/2.0', request)
         .then(function(response) {
           ApiLogService.appendResponse(entry, response.data);
           return response.data.result;

@@ -44,7 +44,7 @@ xdescribe('An example of how override default fixture data for a specific test',
         ]
       }
     };
-    mockBackend.http.whenPOST('/v2/api').respond(myMockData);
+    mockBackend.http.whenPOST('/json-rpc/2.0').respond(myMockData);
     mockBackend.http.whenGET('/sessions').respond();
     browser.get('#/cluster/11/volumes');
     expect(element.all(by.repeater('volume in appCtrl.volumes')).count()).to.eventually.equal(3);
