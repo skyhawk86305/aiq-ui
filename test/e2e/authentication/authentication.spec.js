@@ -21,7 +21,7 @@ describe('Authentication', function() {
         // Sleep statement currently needed to get test to pass on Jenkins.
         // Further investigation is needed to see if we can find the root
         // of the problem.
-        browser.driver.sleep(200);
+        browser.driver.sleep(400);
       });
     });
 

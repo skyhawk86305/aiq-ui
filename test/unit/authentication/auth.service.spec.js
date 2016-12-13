@@ -5,14 +5,20 @@ describe('Auth Service', function () {
   var rootScope,
       service,
       http,
-      apiHandler;
+      userInfoService,
+      apiHandler,
+      getSpy,
+      clearSpy;
 
   beforeEach(module('aiqUi'));
 
-  beforeEach(inject(function ($rootScope, AuthService, $httpBackend) {
+  beforeEach(inject(function ($rootScope, AuthService, UserInfoService, $httpBackend) {
     rootScope = $rootScope;
     service = AuthService;
     http = $httpBackend;
+    userInfoService = UserInfoService;
+    getSpy = spyOn(userInfoService, 'getUserInfo');
+    clearSpy = spyOn(userInfoService, 'clearUserInfo');
   }));
 
   afterEach(function() {
@@ -26,6 +32,7 @@ describe('Auth Service', function () {
     });
     it('should make an $http PUT request to /sessions', function () {
       service.login({username: 'foo', password: 'bar'});
+      expect(userInfoService.getUserInfo).toHaveBeenCalled();
       http.expectPUT('/sessions').respond('success');
       http.flush();
     });
@@ -34,6 +41,7 @@ describe('Auth Service', function () {
       var testCredentials = {username: 'foo', password: 'bar'},
         expectedEncodedPassword = btoa(testCredentials.password);
       service.login(testCredentials);
+      expect(userInfoService.getUserInfo).toHaveBeenCalled();
       http.expectPUT('/sessions', {username: 'foo', password: expectedEncodedPassword}).respond('success');
       http.flush();
     });
@@ -43,6 +51,7 @@ describe('Auth Service', function () {
     it('should make an $http GET request to /sessions', function () {
       apiHandler = http.when('GET', '/sessions').respond('success');
       service.isAuthenticated();
+      expect(userInfoService.getUserInfo).toHaveBeenCalled();
       http.expectGET('/sessions').respond('success');
       http.flush();
     });
@@ -52,6 +61,7 @@ describe('Auth Service', function () {
     it('should make an $http DELETE request to /sessions', function () {
       apiHandler = http.when('DELETE', '/sessions').respond('success');
       service.logout();
+      expect(userInfoService.clearUserInfo).toHaveBeenCalled();
       http.expectDELETE('/sessions').respond('success');
       http.flush();
     });
