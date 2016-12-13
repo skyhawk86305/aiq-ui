@@ -11,12 +11,9 @@ var express = require('express'),
 /**
  * Catch API requests and respond with the matching fixture data
  */
-mockRoutes.post('/v2/api', function (req, res) {
+mockRoutes.post('/json-rpc/2.0', function (req, res) {
   var fixture = require('./fixtures/' + fixtureDir + '/' + req.body.method),
     response = fixture || {};
-server.post('/json-rpc/2.0', function (req, res) {
-  var fixture = require('./test/fixtures/' + req.body.method),
-      response = fixture || {};
   res.send(response);
 });
 

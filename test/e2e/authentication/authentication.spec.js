@@ -59,11 +59,6 @@ describe('Authentication', function() {
       mockBackend.enable(browser);
       mockBackend.http.whenPOST('/json-rpc/2.0').passThrough();
     });
-describe('Navigation with Authentication', function() {
-  beforeEach(function() {
-    mockBackend.enable(browser);
-    mockBackend.http.whenPOST('/json-rpc/2.0').passThrough();
-  });
 
     afterEach(function() {
       mockBackend.disable();

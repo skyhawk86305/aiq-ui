@@ -22,7 +22,7 @@ proxyRoutes.use('/sessions', function (req, res) {
   })).pipe(res);
 });
 
-proxyRoutes.use(/\/v2\/api$/, function (req, res) {
+proxyRoutes.use(/\/json-rpc\/2\.0$/, function (req, res) {
   req.pipe(request({
     method: req.method,
     uri: proxyConfig.endPoint + '/json-rpc/2.0'
