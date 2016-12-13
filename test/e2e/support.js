@@ -49,7 +49,7 @@ support = {
   $filter: function(name) {
     return function() {
       return browser.executeScript(function(name, args) {
-        return angular.injector(['ng', 'aiqUi']).get('$filter')(name).apply(null, args);
+        return angular.element(document.documentElement).injector().get('$filter')(name).apply(null, args);
       }, name, Array.from(arguments));
     };
   },
