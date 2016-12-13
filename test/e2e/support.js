@@ -56,7 +56,8 @@ support = {
   testTableData: function(table, columns, maxRows, uniqueKey, fixture) {
     var rowIndex, rowIndex2 = 0, colIndex = 0,
       defaultRows = maxRows > 5 ? 5 : maxRows,
-      rowsToTest = argv.jenkins ? maxRows : defaultRows;
+      customRowCount = maxRows > argv.tableRows ? argv.tableRows : maxRows,
+      rowsToTest = argv.tableRows ? customRowCount : defaultRows;
 
     // Loop through a subset of all visible rows on the given table
     for(rowIndex=0; rowIndex<rowsToTest; rowIndex++) {

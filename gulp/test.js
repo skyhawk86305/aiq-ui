@@ -32,7 +32,7 @@ var gulp = require('gulp'),
     .alias('h', 'host')
     .alias('p', 'port')
     .alias('m', 'mock')
-    .alias('j', 'jenkins').argv;
+    .alias('tr', 'tableRows').argv;
 
 karmaConf.files = [];
 
@@ -80,15 +80,14 @@ gulp.task('test:e2e', ['webdriverUpdate', 'serve'], function () {
 function getProtractorArgs() {
   var protractorArgs = [],
     fixture = typeof argv.mock === 'string' ? argv.mock : serverConfig.defaultFixture,
-    seleniumAddress = argv.jenkins ? serverConfig.seleniumGrid : argv.seleniumAddress,
-    host = argv.jenkins ? serverConfig.jenkinsHost : argv.host || serverConfig.defaultHost,
-    port = argv.jenkins ? serverConfig.jenkinsPort : argv.port || serverConfig.defaultPort;
+    host = argv.host || serverConfig.defaultHost,
+    port = argv.port || serverConfig.defaultPort;
 
   protractorArgs.push('--baseUrl', 'http://' + host + ':' + port);
   protractorArgs.push('--fixture', fixture);
-  if (argv.jenkins) { protractorArgs.push('--jenkins'); }
+  if (argv.tableRows) { protractorArgs.push('--tableRows', argv.tableRows); }
   if (argv.browser) { protractorArgs.push('--capabilities.browserName', argv.browser); }
-  if (seleniumAddress) { protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub'); }
+  if (argv.seleniumAddress) { protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub'); }
   return protractorArgs;
 }
 

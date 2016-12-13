@@ -95,7 +95,7 @@ Run end-to-end tests via protractor.
 
 `-p, --port // Set the port number of the express server serving the UI`
 
-`-j, --jenkins   // Configure the express server using jenkins default set in /server/server.config (also configures test to run against selenium grid)`
+`-tr, --tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
 
 
 ## License

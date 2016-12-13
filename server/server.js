@@ -7,10 +7,9 @@ var express = require('express'),
   argv = require('yargs')
     .alias('h', 'host')
     .alias('p', 'port')
-    .alias('j', 'jenkins')
     .alias('m', 'mock').argv,
-  host = argv.jenkins ? serverConfig.jenkinsHost : argv.host || serverConfig.defaultHost,
-  port = argv.jenkins ? serverConfig.jenkinsPort : argv.port || serverConfig.defaultPort,
+  host = argv.host || serverConfig.defaultHost,
+  port = argv.port || serverConfig.defaultPort,
   testingTask = argv._[0] === 'test:e2e' || argv._[0] === 'test:acceptance',
   useMock = testingTask || argv.hasOwnProperty('mock'),
   routes = useMock ? require('./mock.routes') : require('./proxy.routes'),
