@@ -1,3 +1,5 @@
+/*global document */
+
 'use strict';
 
 var support,
@@ -41,7 +43,7 @@ support = {
       uri: browser.baseUrl + '/sessions',
       json: true,
       body: params
-    }, callback());
+    }, callback);
   },
   fixture: function(method) {
     return require('../../server/fixtures/' + argv.fixture + '/' + method);
@@ -49,14 +51,15 @@ support = {
   $filter: function(name) {
     return function() {
       return browser.executeScript(function(name, args) {
-        return angular.injector(['ng', 'aiqUi']).get('$filter')(name).apply(null, args);
+        return angular.element(document.documentElement).injector().get('$filter')(name).apply(null, args);
       }, name, Array.from(arguments));
     };
   },
-  testTableData: function(table, columns, maxRows, uniqueKey, fixture) {
+  testTableData: function(table, columns, maxRows, uniqueKey, fixture, done) {
     var rowIndex, rowIndex2 = 0, colIndex = 0,
       defaultRows = maxRows > 5 ? 5 : maxRows,
-      rowsToTest = argv.jenkins ? maxRows : defaultRows;
+      customRowCount = maxRows > argv.tableRows ? argv.tableRows : maxRows,
+      rowsToTest = argv.tableRows ? customRowCount : defaultRows;
 
     // Loop through a subset of all visible rows on the given table
     for(rowIndex=0; rowIndex<rowsToTest; rowIndex++) {
@@ -86,7 +89,12 @@ support = {
             //console.log(errorMsg, '  Value:', formattedFixtureData); // For debugging only
             support.expect(table.content.row(rowIndex2).data(column.key).getText()).to.eventually.equal(formattedFixtureData, errorMsg);
           }
-          colIndex++; if(colIndex >= columns.length) { colIndex=0; rowIndex2++; }
+          colIndex++;
+          if(colIndex >= columns.length) {
+            colIndex=0;
+            rowIndex2++;
+            if(rowIndex2 >= rowsToTest) { browser.sleep(500); done(); } // Delay and signal done to prevent stale element reference 
+          }
         }
       });
     }

@@ -20,7 +20,7 @@ describe('Component: navbar', function() {
     rootScope = $rootScope;
     scope = $rootScope.$new();
     logoutDeferred = $q.defer();
-    $httpBackend.when('POST', '/v2/api').respond();
+    $httpBackend.when('POST', '/json-rpc/2.0').respond();
     service = ClusterSelectService;
     authService = AuthService;
     timeout = $timeout;
