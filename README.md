@@ -7,73 +7,95 @@ An Angular.js application for interacting with the AIQ backend
 
  - Clone the repo
  
- ```
- git clone git@bitbucket.org:solidfire/aiq-ui.git
- ```
+`git clone git@bitbucket.org:solidfire/aiq-ui.git`
  
  - Install dependencies
  
- ```
- npm install
- ```
+`npm install`
  
- ```
- bower install
- ```
- 
- - Configure your local environment
-    - Copy example.config.js and rename as local.config.js
-    - Update the file with your AIQ credentials
-    - Optional: Update the proxy by changing the apiServer field
- - Serve the app locally to see it in a browser
- 
- ```
- gulp serve
- ```
- 
+`bower install`
 
-      NOTE: Local express server is setup to handle basic auth and proxy requests. If session expires, it 
-            will resend credentials on the next API call. Close the basic auth prompt and continue using the app.
+ - Serve the app locally with mock data
+ 
+`gulp serve --mock`
+
+ - Check it out in a browser at http://localhost:3000 (Use ctrl+C to kill the server)
+
+ - You may also configure the server to proxy requests to an actual end point. To do this:
+    - Copy <project-root>/server/proxy.example.config.js into a new file called <project-root>/server/proxy.config.js
+    - Update the file with your own AIQ credentials for the specific environment end point you want configured
+
+`gulp serve`
  
 ## Development
 
-TBD: commit messages, branching, curring releases, deploying, etc.
+ - Follow the steps above in 'Getting Started'
+
+ - Enable browser reload on changes to app files using:
+
+`gulp watch`
 
 ## Testing
 
-See README in /text directory
+See <project-root>/test/README.md
 
 ## Gulp Commands
 
-**gulp build** - Compiles markup files, scripts, and styles and places them into the build directory.
+Compile markup files, scripts, and styles and place them into the build directory.
 
-      NOTE: pass the flag --prod to minify and mangle
+`gulp build`
 
-**gulp serve** - Builds the project, starts the express server (proxies request to configured instance of AIQ), and watches source file changes to trigger browser reload.
+ - Text execution can be configured with:
 
-**gulp serve:mock** - Builds the project, starts the express server (responds to all API requests with /test/fixture data), and watches source file changes to trigger browser reload.
+`--prod // Minify and mangle source code for production`
 
-**gulp test:unit** - Runs unit tests via karma.
+Build the project and start the express server (proxy server by default).
 
-      NOTE: pass the flag -a, --analyze to run static analysis
-      
-      NOTE: pass the flag -v, --verbose to perform static code analysis
+`gulp serve`
 
-**gulp webdriverUpdate** - Installs and updates selenium-standalone and chromedriver within your local instance of protractor. REQUIRED before running e2e/acceptance tests.
+ - Text execution can be configured with:
 
-**gulp test:e2e** - Runs end-to-end tests via protractor.
+`-m, --mock // Replace the proxy end point with a mock backend that serves fixture data. Accepts fixture name as parameter`
 
-**gulp test:acceptance** - Runs acceptance tests via protractor and cucumber.
+`-h, --host // Set the host name of the express server serving the UI`
 
-      NOTE: pass the flag -a, --analyze to run static analysis
-      
-      NOTE: pass the flag -v, --verbose to perform static code analysis
-      
-      NOTE: pass the flag -t, --tags to run features/scenarios with a specific tag (acceptance tests only)
-      
-      NOTE: pass the flag -b, --browser to change the browser that the tests run in [chrome, firefox, safari]
-      
-      NOTE: pass the flag -l, --local to run the tests with a local instance of selenium against the app being served locally (vs. selenium grid / jenkins)
+`-p, --port // Set the port number of the express server serving the UI`
+
+Serve the application locally, watch source files for changes and reload the browser on changes.
+
+`gulp watch`
+
+ - Text execution can be configured with the same arguments for the serve task above.
+
+Run unit tests via karma.
+
+`gulp test:unit`
+
+ Text execution can be configured with:
+
+`-a, --analyze // Run static analysis on code`
+
+`-v, --verbose // Run tests in verbose mode to output documentation`
+
+Run end-to-end tests via protractor.
+
+`gulp test:e2e`
+
+ Text execution can be configured with:
+
+`-a, --analyze // Run static analysis on code`
+
+`-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
+
+`-m, --mock // Change the fixture to something other than default`
+
+`-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests`
+
+`-h, --host // Set the host name of the express server serving the UI`
+
+`-p, --port // Set the port number of the express server serving the UI`
+
+`-t, --tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
 
 
 ## License

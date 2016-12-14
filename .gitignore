@@ -10,6 +10,8 @@ report
 coverage
 build
 tmp
+server/proxy.config.js
+build.zip
 
 # Bower
 bower_components
@@ -22,13 +24,3 @@ logs
 pids
 *.pid
 *.seed
-
-# local configs
-local.config.js
-mock.config.js
-test/protractor-qe-cucumber.config.js
-test/protractor-qe-e2e.config.js
-
-local.config.js
-
-build.zip

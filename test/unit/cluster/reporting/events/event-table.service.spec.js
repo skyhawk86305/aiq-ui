@@ -53,8 +53,7 @@ describe('EventTableService', function () {
       expectedResponse = [
         {
           foo:'bar',
-          details:{bar:'foo'},
-          detailsString: JSON.stringify({bar:'foo'}, null, 2)
+          details:{bar:'foo'}
         }
       ];
       service.getData(true).then(function(response) {

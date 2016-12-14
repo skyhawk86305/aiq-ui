@@ -2,7 +2,7 @@
 'use strict';
 
 var expect = require('../../support.js').expect;
-var CapacityPage = require('../../../page-objects/cluster/reporting/capacity.po');
+var CapacityPage = require('../../page-objects/cluster/reporting/capacity.po');
 var capacityPage = new CapacityPage();
 
 describe('The Cluster Capacity Page', function () {

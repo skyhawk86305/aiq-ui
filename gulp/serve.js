@@ -1,37 +1,41 @@
 'use strict';
 
 var gulp = require('gulp'),
-    path = require('path'),
-    $ = require('gulp-load-plugins')({
-        pattern: [
-      'gulp-*',
-      'browser-sync'
-    ]
-    }),
-    buildConfig = require('../build.config.js'),
-    appFiles = path.join(buildConfig.appDir, '**/*');
+  path = require('path'),
+  browserSync = require('browser-sync'),
+  nodemon = require('gulp-nodemon'),
+  argv = require('yargs')
+    .alias('h', 'host')
+    .alias('p', 'port')
+    .alias('t', 'tableRows').argv,
+  serverConfig = require('../server/server.config.js'),
+  buildConfig = require('../build.config.js'),
+  appFiles = path.join(buildConfig.appDir, '**/*');
 
-// Start your local server and setup browserSync to reload your browser whenever src files change
-gulp.task('serve', ['build'], function () {
-  var browserSync = $.browserSync.create(),
-      localConfig = require('../local.config.js');
-
-  $.nodemon({
-    script: 'local.server.js',
+// Start the mock server
+gulp.task('serve', ['build'], function(done) {
+  var started = false;
+  return nodemon({
+    script: 'server/server.js',
+    args: process.argv.slice(2),
     ignore: '*'
+  }).on('start', function() {
+    if (!started) {
+      started = true;
+      done();
+    }
   });
-
-  browserSync.init({
-    proxy: 'http://' + localConfig.host + ':' + localConfig.port
-  });
-
-  gulp.watch([appFiles], ['build', browserSync.reload]);
 });
 
-// Start the mock server, which is dynamically configured to run on jenkins or locally
-gulp.task('serve:mock', ['build:dev'], function () {
-  $.nodemon({
-    script: 'mock.server.js',
-    ignore: '*'
+// Watch for changes and reload browser
+gulp.task('watch', ['serve'], function () {
+  var browser = browserSync.create(),
+    host = argv.host || serverConfig.defaultHost,
+    port = argv.port || serverConfig.defaultPort;
+
+  browser.init({
+    proxy: 'http://' + host + ':' + port
   });
+
+  gulp.watch([appFiles], ['build', browser.reload]);
 });

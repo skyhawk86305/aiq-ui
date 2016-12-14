@@ -1,9 +1,33 @@
 /* jshint expr: true */
 'use strict';
 
-var expect = require('../../support.js').expect;
-var ClusterOverviewComponent = require('../../../page-objects/cluster/reporting/overview.po');
+var support = require('../../support.js');
+var expect = support.expect;
+var ClusterOverviewComponent = require('../../page-objects/cluster/reporting/overview.po');
 var clusterOverviewPage = new ClusterOverviewComponent();
+var fixture = mapFixture(support.fixture('ListAlertsByCluster'));
+var uniqueKey = 'id';
+var itemsPerPage = 25;
+var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
+var columns = [
+  {key: 'id', label: 'Alert ID', format: {filter: 'aiqNumber', args: [0, true]}},
+  {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'lastNotified', label: 'Last Notified', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'isResolved', label: 'Resolved', format: {filter: 'boolean', args:['YES', 'NO']}},
+  {key: 'severity', label: 'Severity', exclude: true}, // UI value is wrapped in a colored badge
+  {key: 'notificationName', label: 'Policy Name'},
+  {key: 'value', label: 'Alert Value'},
+  {key: 'destinationEmail', label: 'Destination'},
+  {key: 'policyDescription', label: 'Alert Condition', exclude: true} // Data is manipulated using custom alert filter
+];
+
+function mapFixture(rawFixture) {
+  return rawFixture.result.alerts.map(function(history) {
+    history.notificationName = history.notification && history.notification.notificationName || '';
+    history.destinationEmail = history.notification && history.notification.destinationEmail || '';
+    return history;
+  });
+}
 
 describe('Cluster Overview Page', function () {
   it('should have the performance graph', function () {
@@ -71,8 +95,20 @@ describe('Cluster Overview Page', function () {
     expect(clusterOverviewPage.infoBar.infoBox('cluster-faults').badge('second').value.getText()).to.eventually.equal('2');
   });
 
-  it('should have the alerts table', function () {
-    expect(clusterOverviewPage.clusterAlertTable.el.isDisplayed()).to.eventually.be.true;
-  });
+  describe('Alerts Table', function () {
+    it('should display a table component on initial load', function () {
+      expect(clusterOverviewPage.clusterAlertTable.el.isDisplayed()).to.eventually.be.true;
+    });
 
+    it('should have the correct columns and headers', function () {
+      expect(clusterOverviewPage.clusterAlertTable.content.columns.count()).to.eventually.equal(columns.length);
+      columns.forEach(function(column) {
+        expect(clusterOverviewPage.clusterAlertTable.content.header(column.key).title.getText()).to.eventually.equal(column.label);
+      });
+    });
+
+    it('should display data from the correct API and properly format it in the table', function (done) {
+      support.testTableData(clusterOverviewPage.clusterAlertTable, columns, maxRows, uniqueKey, fixture, done);
+    });
+  });
 });

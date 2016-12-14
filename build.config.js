@@ -7,7 +7,6 @@ module.exports = {
   // test directories
   unitTestDir: 'test/unit',
   e2eTestDir: 'test/e2e',
-  acceptanceTestDir: 'test/features',
 
   // build directories
   buildDir: 'build/',

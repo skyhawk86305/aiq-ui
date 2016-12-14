@@ -18,8 +18,7 @@
           return response.alerts.map(function(history) {
             history.notificationName = history.notification && history.notification.notificationName || '';
             history.destinationEmail = history.notification && history.notification.destinationEmail || '';
-            history.policyDescription = history.notification && $filter('alert')(history.notification.notificationFields, {type: 'condition'}) || '';
-
+            history.policyDescription = history.notification && $filter('alert')(history.notification.notificationFields, 'condition') || '';
             return history;
           });
         });
@@ -31,13 +30,13 @@
       {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'isResolved', label: 'Resolved', format: {filter: 'boolean', args:['Yes', 'No']}},
       {key: 'resolved', label: 'Resolution Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
-      {key: 'notificationName', label: 'Alert Policy Name', filter: SFFilterComparators.STRING_DEFAULT},
+      {key: 'notificationName', label: 'Alert Policy Name', filterComparators: SFFilterComparators.STRING_DEFAULT},
       {key: 'severity', label: 'Alert Severity', filterComparators: SFFilterComparators.STRING_DEFAULT},
       {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},
-      {key: 'destinationEmail', label: 'Destination', filterComparators:SFFilterComparators.STRING_DEFAULT},
-      {key: 'customerName', label: 'Customer', filterComparators:SFFilterComparators.STRING_DEFAULT},
-      {key: 'clusterName', label: 'Cluster', filterComparators:SFFilterComparators.STRING_DEFAULT},
-      {key: 'policyDescription', label: 'Alert Condition', filterComparators:SFFilterComparators.STRING_DEFAULT}
+      {key: 'destinationEmail', label: 'Destination', filterComparators: SFFilterComparators.STRING_DEFAULT},
+      {key: 'customerName', label: 'Customer', filterComparators: SFFilterComparators.STRING_DEFAULT},
+      {key: 'clusterName', label: 'Cluster', filterComparators: SFFilterComparators.STRING_DEFAULT},
+      {key: 'policyDescription', label: 'Alert Condition', filterComparators: SFFilterComparators.STRING_DEFAULT}
     ];
 
     return new SFTableService(listAlerts, columns, false);
