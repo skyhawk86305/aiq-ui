@@ -43,25 +43,27 @@ function infoBoxSizeCheck(name){
 describe('Cluster Overview Page', function () {
   it('should have the performance graph with the correct title, series and legend items', function () {
     browser.get('#/cluster/26/reporting/overview');
-    expect(clusterOverviewPage.graphs.clusterPerformance.el.isDisplayed()).to.eventually.be.true;
-    expect(clusterOverviewPage.graphs.clusterPerformance.title.getText()).to.eventually.equal('Performance');
+    var graph = clusterOverviewPage.graphs.clusterPerformance;
+    expect(graph.el.isDisplayed()).to.eventually.be.true;
+    expect(graph.title.getText()).to.eventually.equal('Performance');
 
-    expect(clusterOverviewPage.graphs.clusterPerformance.svg.lines.count()).to.eventually.equal(2);
+    expect(graph.svg.lines.count()).to.eventually.equal(2);
     var expectedSeries = ['totalOpsPerSec','totalBytesPerSec'],
       expectedLabels = ['IOPS','Throughput'];
     for (var i=0; i < expectedSeries.length; i++) {
-      expect(clusterOverviewPage.graphs.clusterPerformance.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
-      expect(clusterOverviewPage.graphs.clusterPerformance.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+      expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+      expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
     }
 
   });
 
   it('should have the utilization graph with the correct title, series and legend items', function () {
-    expect(clusterOverviewPage.graphs.performanceUtilization.el.isDisplayed()).to.eventually.be.true;
-    expect(clusterOverviewPage.graphs.performanceUtilization.title.getText()).to.eventually.equal('Utilization');
-    expect(clusterOverviewPage.graphs.performanceUtilization.svg.lines.count()).to.eventually.equal(1);
-    expect(clusterOverviewPage.graphs.performanceUtilization.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
-    expect(clusterOverviewPage.graphs.performanceUtilization.legend.legendItem('clusterUtilizationPct').label.getText()).to.eventually.equal('Utilization');
+    var graph = clusterOverviewPage.graphs.performanceUtilization;
+    expect(graph.el.isDisplayed()).to.eventually.be.true;
+    expect(graph.title.getText()).to.eventually.equal('Utilization');
+    expect(graph.svg.lines.count()).to.eventually.equal(1);
+    expect(graph.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
+    expect(graph.legend.legendItem('clusterUtilizationPct').label.getText()).to.eventually.equal('Utilization');
 
   });
 
