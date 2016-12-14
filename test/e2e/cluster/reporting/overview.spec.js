@@ -29,6 +29,7 @@ function mapFixture(rawFixture) {
   });
 }
 
+// Verify that the text fits inside the infobox. name is the infobox name
 function infoBoxSizeCheck(name){
   clusterOverviewPage.infoBar.infoBox(name).el.getSize().then(function(boxSize){
     clusterOverviewPage.infoBar.infoBox(name).value.getSize().then(function(dataSize) {
@@ -39,7 +40,7 @@ function infoBoxSizeCheck(name){
 };
 
 
-fdescribe('Cluster Overview Page', function () {
+describe('Cluster Overview Page', function () {
   it('should have the performance graph', function () {
     browser.get('#/cluster/26/reporting/overview');
     expect(clusterOverviewPage.graphs.clusterPerformance.el.isDisplayed()).to.eventually.be.true;
