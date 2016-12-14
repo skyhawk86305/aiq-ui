@@ -35,13 +35,15 @@ describe('The Cluster Efficiency Page', function () {
   });
 
   describe('Efficiency Graph', function () {
-    it('should have the correct data series plotted', function () {
+    it('should have the correct data series plotted, with the correct legends', function () {
       var graph = efficiencyGraphs.childGraph('efficiency-child');
       expect(graph.svg.lines.count()).to.eventually.equal(4);
-      expect(graph.svg.line('thinProvisioningFactor').isDisplayed()).to.eventually.be.true;
-      expect(graph.svg.line('deDuplicationFactor').isDisplayed()).to.eventually.be.true;
-      expect(graph.svg.line('compressionFactor').isDisplayed()).to.eventually.be.true;
-      expect(graph.svg.line('efficiencyFactor').isDisplayed()).to.eventually.be.true;
+      var expectedSeries = ['thinProvisioningFactor','deDuplicationFactor','compressionFactor','efficiencyFactor'];
+      var expectedLabels = ['Thin Provisioning Efficiency','Deduplication Efficiency','Compression Efficiency','Overall Efficiency'];
+      for (var i = 0; i < expectedSeries.length; i++) {
+        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
   });
 });

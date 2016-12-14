@@ -12,9 +12,9 @@ function infoBoxSizeCheck(infobar,name){
     infobar.infoBox(name).value.getSize().then(function(dataSize) {
       expect(boxSize.width).to.be.at.least(dataSize.width);
       expect(boxSize.height).to.be.at.least(dataSize.height);
-    })
-  })
-};
+    });
+  });
+}
 
 describe('The Cluster Capacity Page', function () {
   it('should display a sync-graphs component on page load', function () {
@@ -50,55 +50,70 @@ describe('The Cluster Capacity Page', function () {
   });
 
   describe('Provisioned Space Graph', function () {
-    it('should have the correct data series plotted', function () {
+    it('should have the correct data series plotted with the appropriate legend', function () {
       var graph = capacityPage.syncGraphs.childGraph('provisioned-space-child');
       expect(graph.svg.lines.count()).to.eventually.equal(1);
       expect(graph.svg.line('provisionedSpace').isDisplayed()).to.eventually.be.true;
+      expect(graph.legend.legendItem('provisionedSpace').label.getText()).to.eventually.equal('Provisioned Space');
     });
   });
 
   describe('Block Capacity Graph', function () {
-    it('should have the correct data series plotted', function () {
+    it('should have the correct data series plotted, with the appropriate legends', function () {
       var graph = capacityPage.syncGraphs.childGraph('block-capacity-child');
       expect(graph.svg.lines.count()).to.eventually.equal(2);
-      expect(graph.svg.line('maxUsedSpace').isDisplayed()).to.eventually.be.true;
-      expect(graph.svg.line('usedSpace').isDisplayed()).to.eventually.be.true;
+
+      var expectedSeries = ['maxUsedSpace','usedSpace'],
+        expectedLabels = ['Max Used Space','Used Space'];
+      for (var i = 0; i < expectedSeries.length; i++) {
+        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
 
-    it('should have the correct info boxes displayed', function () {
+    it('should have the correct info boxes displayed with the correct labels', function () {
       var infoBar = capacityPage.infoBars.blockCapacity;
       expect(infoBar.infoBoxes.count()).to.eventually.equal(5);
-      expect(infoBar.infoBox('used-capacity').el.isDisplayed()).to.eventually.be.true;
-      expect(infoBar.infoBox('warning-threshold').el.isDisplayed()).to.eventually.be.true;
-      expect(infoBar.infoBox('error-threshold').el.isDisplayed()).to.eventually.be.true;
-      expect(infoBar.infoBox('total-capacity').el.isDisplayed()).to.eventually.be.true;
-      expect(infoBar.infoBox('current-state').el.isDisplayed()).to.eventually.be.true;
+      var expectedBoxes = ['used-capacity','warning-threshold','error-threshold','total-capacity','current-state'];
+      var expectedLabels = ['Used Capacity','Warning Threshold','Error Threshold','Total Capacity','Current State'];
+      for (var i = 0; i < expectedBoxes.length; i++) {
+        expect(infoBar.infoBox(expectedBoxes[i]).el.isDisplayed()).to.eventually.be.true;
+        expect(infoBar.infoBox(expectedBoxes[i]).title.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
+
 
     it('The info-boxes must be wider than their value text', function(){
       var infoBar = capacityPage.infoBars.blockCapacity;
       var boxNames = ['used-capacity','warning-threshold','error-threshold','total-capacity','current-state'];
       for (var i=0; i < boxNames.length; i++) {
         infoBoxSizeCheck(infoBar, boxNames[i]);
-      };
+      }
     });
 
   });
 
   describe('Metadata Capacity Graph', function () {
-    it('should have the correct data series plotted', function () {
+    it('should have the correct data series plotted, with the appropriate legends', function () {
       var graph = capacityPage.syncGraphs.childGraph('metadata-capacity-child');
       expect(graph.svg.lines.count()).to.eventually.equal(2);
-      expect(graph.svg.line('maxUsedMetadataSpace').isDisplayed()).to.eventually.be.true;
-      expect(graph.svg.line('usedMetadataSpace').isDisplayed()).to.eventually.be.true;
+      var expectedSeries = ['maxUsedMetadataSpace','usedMetadataSpace'],
+        expectedLabels = ['Total Capacity','Used Metadata Space'];
+      for (var i = 0; i < expectedSeries.length; i++) {
+        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
 
-    it('should have the correct info boxes displayed', function () {
+    it('should have the correct info boxes displayed, with the appropriate titles', function () {
       var infoBar = capacityPage.infoBars.metadataCapacity;
       expect(infoBar.infoBoxes.count()).to.eventually.equal(3);
-      expect(infoBar.infoBox('used-capacity').el.isDisplayed()).to.eventually.be.true;
-      expect(infoBar.infoBox('total-capacity').el.isDisplayed()).to.eventually.be.true;
-      expect(infoBar.infoBox('current-state').el.isDisplayed()).to.eventually.be.true;
+      var expectedBoxes = ['used-capacity','total-capacity','current-state'];
+      var expectedLabels = ['Used Capacity','Total Capacity','Current State'];
+      for (var i = 0; i < expectedBoxes.length; i++) {
+        expect(infoBar.infoBox(expectedBoxes[i]).el.isDisplayed()).to.eventually.be.true;
+        expect(infoBar.infoBox(expectedBoxes[i]).title.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
 
     it('The info-boxes must be wider than their value text', function(){
@@ -106,7 +121,7 @@ describe('The Cluster Capacity Page', function () {
       var boxNames = ['used-capacity','total-capacity','current-state'];
       for (var i=0; i < boxNames.length; i++) {
         infoBoxSizeCheck(infoBar, boxNames[i]);
-      };
+      }
     });
 
   });

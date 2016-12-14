@@ -39,30 +39,45 @@ describe('The Cluster Performance Page', function () {
   });
 
   describe('Cluster Utilization Graph', function () {
-    it('should have the correct data series plotted', function () {
+    it('should have the correct data series plotted, with the correct legend items', function () {
       var graph = performanceGraphs.childGraph('utilization-child');
       expect(graph.svg.lines.count()).to.eventually.equal(1);
       expect(graph.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
+      expect(graph.legend.legendItem('clusterUtilizationPct').label.getText()).to.eventually.equal('Utilization');
     });
   });
 
   describe('Cluster IOPS Graph', function () {
-    it('should have the correct data series plotted', function () {
+    it('should have the correct data series plotted, with the correct legend items', function () {
       var graph = performanceGraphs.childGraph('iops-child');
       expect(graph.svg.lines.count()).to.eventually.equal(3);
       expect(graph.svg.line('readOpsPerSec').isDisplayed()).to.eventually.be.true;
       expect(graph.svg.line('writeOpsPerSec').isDisplayed()).to.eventually.be.true;
       expect(graph.svg.line('totalOpsPerSec').isDisplayed()).to.eventually.be.true;
+
+      var expectedSeries = ['readOpsPerSec','writeOpsPerSec','totalOpsPerSec'],
+        expectedLabels = ['Read IOPS','Write IOPS','Total IOPS'];
+      for (var i = 0; i < expectedSeries.length; i++) {
+        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
   });
 
   describe('Cluster Bandwidth Graph', function () {
-    it('should have the correct data series plotted', function () {
+    it('should have the correct data series plotted, with the correct legend items', function () {
       var graph = performanceGraphs.childGraph('throughput-child');
       expect(graph.svg.lines.count()).to.eventually.equal(3);
       expect(graph.svg.line('readBytesPerSec').isDisplayed()).to.eventually.be.true;
       expect(graph.svg.line('writeBytesPerSec').isDisplayed()).to.eventually.be.true;
       expect(graph.svg.line('totalBytesPerSec').isDisplayed()).to.eventually.be.true;
+
+      var expectedSeries = ['readBytesPerSec','writeBytesPerSec','totalBytesPerSec'],
+        expectedLabels = ['Read Throughput','Write Throughput','Total Throughput'];
+      for (var i = 0; i < expectedSeries.length; i++) {
+        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
   });
 });
