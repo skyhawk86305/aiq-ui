@@ -17,7 +17,7 @@
             sizes = binary ? binarySizes : decimalSizes,
             base = binary ? 1024 : 1000,
             sizeIndex = validNumber && !isZero ? Math.floor(Math.log(absNumber) / Math.log(base)) : 0,
-            bytes = validNumber && !isZero ? parseFloat((absNumber / Math.pow(base, sizeIndex))) : 0,
+            bytes = validNumber && !isZero ? absNumber / Math.pow(base, sizeIndex) : 0,
             units = throughput ? sizes[sizeIndex] + '/s' : sizes[sizeIndex];
 
           if(forHtml) { units = '<span class="units">' + units + '</span>'; }

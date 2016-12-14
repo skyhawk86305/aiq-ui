@@ -94,14 +94,13 @@
     };
 
     self.sendGoogleAnalyticsPageView = function() {
-      var pageView = {};
+      var pageView = {
+        page: $location.path(),
+        title: $window.document.title
+      };
 
-      if(!$window.ga) {
-        return;
-      }
+      if(!$window.ga) { return; }
 
-      pageView.page = $location.path();
-      pageView.title = $window.document.title;
       $window.ga('send', 'pageView', pageView);
     };
 

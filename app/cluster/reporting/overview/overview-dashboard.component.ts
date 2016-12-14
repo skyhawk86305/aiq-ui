@@ -180,12 +180,12 @@
 
     function getFiveDayRange() {
       var now = Date.now(),
-        fiveDaysMilliseconds = 432000000,
-        range = {};
+        fiveDaysMilliseconds = 432000000;
 
-      range.start = new Date(now - fiveDaysMilliseconds);
-      range.end = new Date(now);
-      return range;
+      return {
+        start: new Date(now - fiveDaysMilliseconds),
+        end: new Date(now)
+      };
     }
 
     /***********************  Helper Functions  ************************/

@@ -1,8 +1,8 @@
 'use strict';
-var gulp = require('gulp')
-  , path = require('path')
-  , rebaseUrls = require('gulp-css-rebase-urls')
-  , $ = require('gulp-load-plugins')({
+var gulp = require('gulp'),
+  path = require('path'),
+  rebaseUrls = require('gulp-css-rebase-urls'),
+  $ = require('gulp-load-plugins')({
     pattern: [
       'del',
       'gulp-*',
@@ -13,38 +13,41 @@ var gulp = require('gulp')
       'wiredep',
       'yargs'
     ]
-  })
-  , buildConfig = require('../build.config.js')
-  , appBase = buildConfig.appDir
-  , appFontFiles = path.join(appBase, 'fonts/**/*')
-  , appImages = path.join(appBase, 'images/**/*')
-  , extImages = 'bower_components/sf-components/dist/images/**/*'
-  , extPages = 'bower_components/sf-components/dist/*.html'
-  , appMarkupFiles = path.join(appBase, '**/*.{htm,html}')
-  , appScriptFiles = path.join(appBase, '**/*.{js,json}')
-  , appStyleFiles = path.join(appBase, '**/*.{css,less}')
-  , isProd = $.yargs.argv.prod
-  , googleAnalyticsToken = $.yargs.argv.googleAnalyticsToken || '';
+  }),
+  buildConfig = require('../build.config.js'),
+  tsProject = $.typescript.createProject('./app/tsconfig.json'),
+  appBase = buildConfig.appDir,
+  appFontFiles = path.join(appBase, 'fonts/**/*'),
+  appImages = path.join(appBase, 'images/**/*'),
+  extImages = 'bower_components/sf-components/dist/images/**/*',
+  extPages = 'bower_components/sf-components/dist/*.html',
+  appMarkupFiles = path.join(appBase, '**/*.html'),
+  appScriptFiles = path.join(appBase, '**/*.ts'),
+  appStyleFiles = path.join(appBase, '**/*.less'),
+  isProd = $.yargs.argv.prod,
+  googleAnalyticsToken = $.yargs.argv.googleAnalyticsToken || '';
 
 // delete build directory
 gulp.task('clean', function (cb) {
   return $.del(buildConfig.buildDir, cb);
 });
+
 gulp.task('clean-debug', function (cb) {
   return $.del(buildConfig.buildDebugDir, cb);
 });
 
 // compile markup files and copy into build directory
 gulp.task('markup', ['clean'], function () {
-  //ToDo:  if (isProd) { minify and convert to js } //need to resolve issue with relative pathing of templateUrls
   return gulp.src([appMarkupFiles])
     .pipe(gulp.dest(buildConfig.buildDir));
 });
 
 // compile styles and copy into build directory
 gulp.task('styles', ['clean'], function () {
-  var lessFilter = $.filter('**/*.less', {restore: true})
-    , onError = function (err) {
+  var lessFilter = $.filter('**/*.less', {restore: true});
+
+  return gulp.src([appStyleFiles])
+    .pipe($.plumber({errorHandler: function (err) {
       $.notify.onError({
         title: 'Error linting at ' + err.plugin,
         subtitle: ' ', //overrides defaults
@@ -52,9 +55,7 @@ gulp.task('styles', ['clean'], function () {
         sound: ' ' //overrides defaults
       })(err);
       this.emit('end');
-    };
-  return gulp.src([appStyleFiles])
-    .pipe($.plumber({errorHandler: onError}))
+    }}))
     .pipe(lessFilter)
     .pipe($.less())
     .pipe(lessFilter.restore)
@@ -68,17 +69,21 @@ gulp.task('styles', ['clean'], function () {
 
 // compile scripts and copy into build directory
 gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
-  var jsFilter = $.filter('**/*.js', {restore: true});
-  return gulp.src([
-    appScriptFiles,
-    '!**/index.html'
-  ])
+  var jsFilter = $.filter('**/*.js', {restore: true}),
+    tsFilter = $.filter('**/*.ts', {restore: true});
+
+  return gulp.src([appScriptFiles])
+    .pipe($.sourcemaps.init())
+    .pipe(tsFilter)
+    .pipe(tsProject())
+    .pipe(tsFilter.restore)
     .pipe(jsFilter)
     .pipe($.if(isProd, $.angularFilesort()))
     .pipe($.if(isProd, $.concat('app.js')))
     .pipe($.if(isProd, $.ngAnnotate()))
     .pipe($.if(isProd, $.uglify()))
     .pipe($.if(isProd, $.rev()))
+    .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest(buildConfig.buildJs))
     .pipe(jsFilter.restore);
 });
@@ -86,7 +91,8 @@ gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
 // inject custom CSS and JavaScript into index.html
 gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
-  var googleAnalyticsStream = gulp.src([path.join(buildConfig.buildDir, 'fragments/google-analytics.html')]).pipe($.if(isProd, $.replace('{googleAnalyticsToken}', googleAnalyticsToken)));
+  var googleAnalyticsStream = gulp.src([path.join(buildConfig.buildDir, 'fragments/google-analytics.html')])
+    .pipe($.if(isProd, $.replace('{googleAnalyticsToken}', googleAnalyticsToken)));
 
   return gulp.src([buildConfig.buildDir + 'index.html'])
     .pipe($.inject(gulp.src([
@@ -119,10 +125,10 @@ gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
 
 // copy bower components into build directory
 gulp.task('bowerCopy', ['inject'], function () {
-  var cssFilter = $.filter('**/*.css', {restore: true})
-    , jsFilter = $.filter('**/*.js', {restore: true})
-    , stream = $.streamqueue({objectMode: true})
-    , wiredep = $.wiredep({exclude: [/bootstrap[.]js/]});
+  var cssFilter = $.filter('**/*.css', {restore: true}),
+    jsFilter = $.filter('**/*.js', {restore: true}),
+    stream = $.streamqueue({objectMode: true}),
+    wiredep = $.wiredep();
   if (wiredep.js) {
     stream.queue(gulp.src(wiredep.js));
   }
@@ -170,7 +176,6 @@ gulp.task('bowerInject', ['bowerCopy'], function () {
   } else {
     return gulp.src([buildConfig.buildDir + 'index.html'])
       .pipe($.wiredep.stream({
-        exclude: [/bootstrap[.]js/],
         fileTypes: {
           html: {
             replace: {

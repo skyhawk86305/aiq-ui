@@ -1,16 +1,6 @@
 (function () {
   'use strict';
 
-  angular
-    .module('aiqUi', [
-      'ui.select',
-      'ui.bootstrap',
-      'ngRoute',
-      'ngMessages',
-      'ngSanitize',
-      'sfComponents'
-    ]);
-
   angular.module('aiqUi')
     .controller('AppController', ['$rootScope', 'ApiLogService', 'DataService', '$location', ctrl]);
 
@@ -36,5 +26,4 @@
     });
 
   }
-
 })();

@@ -2,13 +2,13 @@
   'use strict';
 
   angular
-    .module('aiqUi')
-    .service('VolumeTableService', [
-      'SFTableService',
-      'SFFilterComparators',
-      'DataService',
-      VolumeTableService
-    ]);
+  .module('aiqUi')
+  .service('VolumeTableService', [
+    'SFTableService',
+    'SFFilterComparators',
+    'DataService',
+    VolumeTableService
+  ]);
 
   function VolumeTableService(SFTableService, SFFilterComparators, DataService) {
     var columns = getColumns(),
@@ -37,15 +37,15 @@
 
     function listActiveVolumes() {
       return DataService.callAPI('ListActiveVolumes', {clusterID: service.selectedClusterID})
-        .then(function(response) {
-          return response.volumes.map(function(volume) {
-            volume.minIOPS = volume.qos.minIOPS;
-            volume.maxIOPS = volume.qos.maxIOPS;
-            volume.burstIOPS = volume.qos.burstIOPS;
-            volume.paired = volume.volumePairs.length ? true : false;
-            return volume;
-          });
+      .then(function(response) {
+        return response.volumes.map(function(volume) {
+          volume.minIOPS = volume.qos.minIOPS;
+          volume.maxIOPS = volume.qos.maxIOPS;
+          volume.burstIOPS = volume.qos.burstIOPS;
+          volume.paired = volume.volumePairs.length ? true : false;
+          return volume;
         });
+      });
     }
 
     function update(clusterID) {
