@@ -1,6 +1,6 @@
 /* jshint expr: true */
 'use strict';
-
+;
 var support = require('../../support.js');
 var expect = support.expect;
 var ClusterOverviewComponent = require('../../page-objects/cluster/reporting/overview.po');
@@ -29,7 +29,17 @@ function mapFixture(rawFixture) {
   });
 }
 
-describe('Cluster Overview Page', function () {
+function infoBoxSizeCheck(name){
+  clusterOverviewPage.infoBar.infoBox(name).el.getSize().then(function(boxSize){
+    clusterOverviewPage.infoBar.infoBox(name).value.getSize().then(function(dataSize) {
+      expect(boxSize.width).to.be.at.least(dataSize.width);
+      expect(boxSize.height).to.be.at.least(dataSize.height);
+    })
+  })
+};
+
+
+fdescribe('Cluster Overview Page', function () {
   it('should have the performance graph', function () {
     browser.get('#/cluster/26/reporting/overview');
     expect(clusterOverviewPage.graphs.clusterPerformance.el.isDisplayed()).to.eventually.be.true;
@@ -52,6 +62,9 @@ describe('Cluster Overview Page', function () {
     expect(clusterOverviewPage.infoBar.infoBox('node-count').value.getText()).to.eventually.equal('6');
   });
 
+  it('The Node Count info-box must be wider than its value text', function(){
+    infoBoxSizeCheck('node-count');
+  });
 
   it('should have a block capacity info-box with a badge showing a status of Normal', function() {
     expect(clusterOverviewPage.infoBar.infoBox('block-capacity').el.isDisplayed()).to.eventually.be.true;
@@ -65,10 +78,13 @@ describe('Cluster Overview Page', function () {
     expect(clusterOverviewPage.infoBar.infoBox('metadata-capacity').badge().title.getText()).to.eventually.equal('Warning');
   });
 
-
   it('should have an efficiency info-box showing 25.3x', function() {
     expect(clusterOverviewPage.infoBar.infoBox('efficiency-info').el.isDisplayed()).to.eventually.be.true;
     expect(clusterOverviewPage.infoBar.infoBox('efficiency-info').value.getText()).to.eventually.equal('25.3x');
+  });
+
+  it('The Efficiency info-box must be wider than its value text', function(){
+    infoBoxSizeCheck('efficiency-info');
   });
 
   it('should have an utilization info-box showing 11%', function() {
@@ -76,16 +92,27 @@ describe('Cluster Overview Page', function () {
     expect(clusterOverviewPage.infoBar.infoBox('utilization').value.getText()).to.eventually.equal('11%');
   });
 
+  it('The Utilization info-box must be wider than its value text', function(){
+    infoBoxSizeCheck('utilization');
+  });
+
   it('should have an bandwidth info-box showing 178MB/s', function() {
     expect(clusterOverviewPage.infoBar.infoBox('bandwidth').el.isDisplayed()).to.eventually.be.true;
     expect(clusterOverviewPage.infoBar.infoBox('bandwidth').value.getText()).to.eventually.equal('178MB/s');
   });
 
-  it('should have an bandwidth info box showing 8.8k', function() {
+  it('The Bandwidth info-box must be wider than its value text', function(){
+    infoBoxSizeCheck('bandwidth');
+  });
+
+  it('should have an iops info box showing 8.8k', function() {
     expect(clusterOverviewPage.infoBar.infoBox('iops').el.isDisplayed()).to.eventually.be.true;
     expect(clusterOverviewPage.infoBar.infoBox('iops').value.getText()).to.eventually.equal('8.8k');
   });
 
+  it('The IOPS info-box must be wider than its value text', function(){
+    infoBoxSizeCheck('iops');
+  });
 
   it('should have a cluster fault info-box with a warning badge showing 3, and an error badge showing 2', function() {
     expect(clusterOverviewPage.infoBar.infoBox('cluster-faults').el.isDisplayed()).to.eventually.be.true;
