@@ -45,7 +45,7 @@ describe('The Alert History Page', function () {
     });
   });
 
-  it('should display data from the correct API and properly format it in the table', function () {
-    support.testTableData(table, columns, maxRows, uniqueKey, fixture);
+  it('should display data from the correct API and properly format it in the table', function (done) {
+    support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
   });
 });
