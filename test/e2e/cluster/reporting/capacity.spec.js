@@ -1,20 +1,10 @@
 /* jshint expr: true */
 'use strict';
 
+var support = require('../../support.js');
 var expect = require('../../support.js').expect;
 var CapacityPage = require('../../page-objects/cluster/reporting/capacity.po');
 var capacityPage = new CapacityPage();
-
-
-// Verify that the text fits inside the infobox. name is the infobox name
-function infoBoxSizeCheck(infobar,name){
-  infobar.infoBox(name).el.getSize().then(function(boxSize){
-    infobar.infoBox(name).value.getSize().then(function(dataSize) {
-      expect(boxSize.width).to.be.at.least(dataSize.width);
-      expect(boxSize.height).to.be.at.least(dataSize.height);
-    });
-  });
-}
 
 describe('The Cluster Capacity Page', function () {
   it('should display a sync-graphs component on page load', function () {
@@ -87,7 +77,7 @@ describe('The Cluster Capacity Page', function () {
       var infoBar = capacityPage.infoBars.blockCapacity;
       var boxNames = ['used-capacity','warning-threshold','error-threshold','total-capacity','current-state'];
       for (var i=0; i < boxNames.length; i++) {
-        infoBoxSizeCheck(infoBar, boxNames[i]);
+        support.infoBoxSizeCheck(infoBar, boxNames[i]);
       }
     });
 
@@ -120,7 +110,7 @@ describe('The Cluster Capacity Page', function () {
       var infoBar = capacityPage.infoBars.metadataCapacity;
       var boxNames = ['used-capacity','total-capacity','current-state'];
       for (var i=0; i < boxNames.length; i++) {
-        infoBoxSizeCheck(infoBar, boxNames[i]);
+        support.infoBoxSizeCheck(infoBar, boxNames[i]);
       }
     });
 

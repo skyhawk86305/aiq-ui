@@ -29,17 +29,6 @@ function mapFixture(rawFixture) {
   });
 }
 
-// Verify that the text fits inside the infobox. name is the infobox name
-function infoBoxSizeCheck(name){
-  clusterOverviewPage.infoBar.infoBox(name).el.getSize().then(function(boxSize){
-    clusterOverviewPage.infoBar.infoBox(name).value.getSize().then(function(dataSize) {
-      expect(boxSize.width).to.be.at.least(dataSize.width);
-      expect(boxSize.height).to.be.at.least(dataSize.height);
-    });
-  });
-}
-
-
 describe('Cluster Overview Page', function () {
   it('should have the performance graph with the correct title, series and legend items', function () {
     browser.get('#/cluster/26/reporting/overview');
@@ -81,7 +70,7 @@ describe('Cluster Overview Page', function () {
   });
 
   it('The Node Count info-box must be wider than its value text', function(){
-    infoBoxSizeCheck('node-count');
+    support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'node-count');
   });
 
   it('should have a block capacity info-box with a badge showing a status of Normal', function() {
@@ -108,7 +97,7 @@ describe('Cluster Overview Page', function () {
   });
 
   it('The Efficiency info-box must be wider than its value text', function(){
-    infoBoxSizeCheck('efficiency-info');
+    support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'efficiency-info');
   });
 
   it('should have an utilization info-box showing 11%', function() {
@@ -119,7 +108,7 @@ describe('Cluster Overview Page', function () {
   });
 
   it('The Utilization info-box must be wider than its value text', function(){
-    infoBoxSizeCheck('utilization');
+    support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'utilization');
   });
 
   it('should have an bandwidth info-box showing 178MB/s', function() {
@@ -130,7 +119,7 @@ describe('Cluster Overview Page', function () {
   });
 
   it('The Bandwidth info-box must be wider than its value text', function(){
-    infoBoxSizeCheck('bandwidth');
+    support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'bandwidth');
   });
 
   it('should have an iops info box showing 8.8k', function() {
@@ -141,7 +130,7 @@ describe('Cluster Overview Page', function () {
   });
 
   it('The IOPS info-box must be wider than its value text', function(){
-    infoBoxSizeCheck('iops');
+    support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'iops');
   });
 
   it('should have a cluster fault info-box with a warning badge showing 3, and an error badge showing 2', function() {

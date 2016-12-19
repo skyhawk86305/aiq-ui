@@ -93,12 +93,22 @@ support = {
           if(colIndex >= columns.length) {
             colIndex=0;
             rowIndex2++;
-            if(rowIndex2 >= rowsToTest) { browser.sleep(500); done(); } // Delay and signal done to prevent stale element reference 
+            if(rowIndex2 >= rowsToTest) { browser.sleep(500); done(); } // Delay and signal done to prevent stale element reference
           }
         }
       });
     }
+  },
+
+  infoBoxSizeCheck: function infoBoxSizeCheck(infobar,name){
+    infobar.infoBox(name).el.getSize().then(function(boxSize){
+      infobar.infoBox(name).value.getSize().then(function(dataSize) {
+        support.expect(boxSize.width).to.be.at.least(dataSize.width);
+        support.expect(boxSize.height).to.be.at.least(dataSize.height);
+      });
+    });
   }
+
 };
 
 module.exports = support;
