@@ -6,11 +6,11 @@ var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('error-log');
 var fixture = mapFixture(support.fixture('ListClusterFaults'));
-var uniqueKey = 'id';
+var uniqueKey = 'clusterFaultID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
-  {key: 'id', label: 'ID', format: {filter:'aiqNumber', args: [0, true]}},
+  {key: 'clusterFaultID', label: 'Cluster Fault ID', format: {filter:'aiqNumber', args: [0, true]}},
   {key: 'created', label: 'Date', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
   {key: 'severity', label: 'Severity', format: {filter:'string'}},
   {key: 'type', label: 'Type', format: {filter:'string'}},
@@ -33,7 +33,7 @@ describe('The Cluster Error Log Page', function () {
     browser.get('#/cluster/26/reporting/errorLog');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
-  
+
   it('should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {

@@ -4,7 +4,7 @@ module.exports = {
       {
         "id": 97399,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397399,
         "nodeID": 4,
         "driveID": 35,
         "serviceID": 8,
@@ -22,7 +22,7 @@ module.exports = {
       {
         "id": 97400,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397400,
         "nodeID": 1,
         "driveID": 11,
         "serviceID": 24,
@@ -40,7 +40,7 @@ module.exports = {
       {
         "id": 97401,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397401,
         "nodeID": 1,
         "driveID": 3,
         "serviceID": 48,
@@ -58,7 +58,7 @@ module.exports = {
       {
         "id": 97402,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397402,
         "nodeID": 1,
         "driveID": 10,
         "serviceID": 52,
@@ -76,7 +76,7 @@ module.exports = {
       {
         "id": 97402,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397402,
         "nodeID": 1,
         "driveID": 10,
         "serviceID": 52,
@@ -94,7 +94,7 @@ module.exports = {
       {
         "id": 97403,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397403,
         "nodeID": 1,
         "driveID": 7,
         "serviceID": 57,
@@ -112,7 +112,7 @@ module.exports = {
       {
         "id": 97404,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397404,
         "nodeID": 1,
         "driveID": 6,
         "serviceID": 58,
@@ -130,7 +130,7 @@ module.exports = {
       {
         "id": 97405,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397405,
         "nodeID": 1,
         "driveID": 5,
         "serviceID": 60,
@@ -148,7 +148,7 @@ module.exports = {
       {
         "id": 97406,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397406,
         "nodeID": 1,
         "driveID": 4,
         "serviceID": 62,
@@ -166,7 +166,7 @@ module.exports = {
       {
         "id": 97407,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397407,
         "nodeID": 1,
         "driveID": 9,
         "serviceID": 63,
@@ -184,7 +184,7 @@ module.exports = {
       {
         "id": 97408,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397408,
         "nodeID": 1,
         "driveID": 8,
         "serviceID": 64,
@@ -202,7 +202,7 @@ module.exports = {
       {
         "id": 97415,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397415,
         "nodeID": 0,
         "driveID": 0,
         "serviceID": 0,
@@ -220,7 +220,7 @@ module.exports = {
       {
         "id": 97410,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397410,
         "nodeID": 0,
         "driveID": 0,
         "serviceID": 0,
@@ -238,7 +238,7 @@ module.exports = {
       {
         "id": 97411,
         "clusterID": 1898729,
-        "clusterFaultID": null,
+        "clusterFaultID": 12397411,
         "nodeID": 1,
         "driveID": 1,
         "serviceID": 55,
