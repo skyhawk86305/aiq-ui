@@ -82,7 +82,7 @@ describe('Cluster Overview Page', function () {
   });
 
   it('should have a metadata capacity info-box with a badge showing a status of Warning', function() {
-    var box = clusterOverviewPage.infoBar.infoBox('metadata-capacity')
+    var box = clusterOverviewPage.infoBar.infoBox('metadata-capacity');
     expect(box.el.isDisplayed()).to.eventually.be.true;
     expect(box.title.getText()).to.eventually.equal('Metadata Capacity');
     expect(box.badge().el.isDisplayed()).to.eventually.be.true;

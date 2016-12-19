@@ -54,6 +54,25 @@ describe('The main navbar', function() {
     clusterSelect.open().clusterList.select('fooCluster');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/11/nodes');
   });
+
+
+});
+
+describe('The dropdown menu', function() {
+  it('should go to the SF Support page when the Support item is selected from the dropdown menu', function() {
+    browser.get('#');
+    navbar.menu.expand().select('Support');
+      browser.getAllWindowHandles().then(function(handles) {
+        browser.ignoreSynchronization = true; // disable temporarily since this page is not Angular
+        browser.switchTo().window(handles[1]).then(function () {
+          browser.driver.getCurrentUrl().then(function(url) {
+            expect(url).to.contain('www.solidfire.com/platform/support/');
+          });
+        });
+        browser.ignoreSynchronization = false;
+        browser.switchTo().window(handles[0]);
+      });
+  });
 });
 
 describe('The sub navbar', function() {
@@ -112,4 +131,7 @@ describe('The sub nav menu', function() {
 
     navbar.subNavbar.click('dashboard-overview');
   });
+
+
+
 });
