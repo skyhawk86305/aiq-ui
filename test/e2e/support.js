@@ -107,6 +107,10 @@ support = {
         support.expect(boxSize.height).to.be.at.least(dataSize.height);
       });
     });
+  },
+
+  pressEnterKey: function() {
+    browser.actions().sendKeys(protractor.Key.ENTER).perform();
   }
 
 };

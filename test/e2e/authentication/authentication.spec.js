@@ -115,6 +115,13 @@ describe('Authentication', function() {
       expect(navbar.el.isPresent()).to.eventually.be.true;
     });
 
+    it('should login when pressing the enter key if a valid username and password are entered', function () {
+      loginPage.passwordInput.enter('password123');
+      loginPage.usernameInput.enter('testuser@solidfire.com');
+      support.pressEnterKey();
+      expect(navbar.el.isPresent()).to.eventually.be.true;
+    });
+
     it('should display an error if invalid username', function () {
       loginPage.passwordInput.enter('password123');
       loginPage.usernameInput.enter('testInvalidUser@solidfire.com');

@@ -25,6 +25,7 @@
     "spyOn": true,
     "describe": true,
     "xdescribe": true,
+    "protractor": true,
     "xit": true,
     "beforeEach": true,
     "afterEach": true,
