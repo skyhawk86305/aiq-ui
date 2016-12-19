@@ -103,6 +103,148 @@
       .when('/users', {
         templateUrl: 'coming-soon.tpl.html'
       })
+      /* Legacy UI URLs */
+      .when('/Admin/Nodes', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Admin/Nodes/Add', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Alerts/Add', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Alerts/History', {
+        redirectTo: '/dashboard/alerts/history'
+      })
+      .when('/Alerts/Manage', {
+        redirectTo: '/dashboard/alerts/policies'
+      })
+      .when('/Alerts/Suppress', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Cluster/Graphs/Capacity', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/reporting/capacity';
+        }
+      })
+      .when('/Cluster/Graphs/Performance', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/reporting/performance';
+        }
+      })
+      .when('/Cluster/Graphs/Efficiency', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/reporting/efficiency';
+        }
+      })
+      .when('/Clusters/Archived', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Clusters/Capacity/Forecast', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Clusters/Details', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Clusters/Stats', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Clusters/Overview', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Clusters/Graph/Sessions', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Clusters/VirtualNetworks', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Customers/Add', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Customers/Edit', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Customers/List', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/DelegateGroups/Add', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/DelegateGroups/List', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/DelegateGroups/Manage', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Drives/Active/List', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/drives';
+        }
+      })
+      .when('/Drives/Available/List', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/drives';
+        }
+      })
+      .when('/Drives/Failed/List', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/drives';
+        }
+      })
+      .when('/Errors/List', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/reporting/errorLog';
+        }
+      })
+      .when('/Events/List', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Licensing/Capacity/Adjust', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Licensing/Capacity/List', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Licensing/Capacity/View', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Nodes/Active', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/nodes';
+        }
+      })
+      .when('/Replication/Clusters', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Replication/Volumes', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Settings/Password', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Volumes/Active/List', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/volumes';
+        }
+      })
+      .when('/Volumes/Snapshots/Schedules/List', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Volumes/Snapshots/List', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Volumes/Stats', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Users/Add', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Users/Edit', {
+        redirectTo: '/dashboard/overview'
+      })
+      .when('/Users/List', {
+        redirectTo: '/dashboard/overview'
+      })
       .otherwise({
         redirectTo: '/dashboard/overview'
       });

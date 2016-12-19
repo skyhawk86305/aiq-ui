@@ -3,14 +3,20 @@
 describe('AppController', function () {
   var rootScope,
       location,
-      controller;
+      controller,
+      route,
+      http;
 
   beforeEach(module('aiqUi'));
 
-  beforeEach(inject(function ($rootScope, $location, $controller) {
+  beforeEach(inject(function ($rootScope, $location, $controller, $route, $httpBackend) {
     rootScope = $rootScope;
     location = $location;
     controller = $controller('AppController');
+    route = $route;
+    http = $httpBackend;
+    http.when('GET', '/sessions').respond('success');
+    http.when('GET', 'welcome-beta.tpl.html').respond(200);
   }));
 
   describe('initialization', function() {
@@ -45,6 +51,139 @@ describe('AppController', function () {
       rootScope.$broadcast('$routeChangeError');
       expect(controller.showNavbar).toBeFalsy();
       expect(location.path).toHaveBeenCalledWith('/login');
+    });
+
+    describe('implemented legacy UI pages', function() {
+      it('should route to the corresponding UI page', function() {
+        location.path('/Alerts/History');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/alerts/history');
+        location.path('/Alerts/Manage');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/alerts/policies');
+        location.path('/Cluster/Graphs/Capacity').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/reporting/capacity');
+        location.path('/Cluster/Graphs/Performance').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/reporting/performance');
+        location.path('/Cluster/Graphs/Efficiency').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/reporting/efficiency');
+        location.path('/Drives/Active/List').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/drives');
+        location.path('/Drives/Available/List').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/drives');
+        location.path('/Drives/Failed/List').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/drives');
+        location.path('/Errors/List').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/reporting/errorLog');
+        location.path('/Nodes/Active').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/nodes');
+        location.path('/Volumes/Active/List').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/volumes');
+      });
+    });
+
+    describe('unimplemented legacy UI pages', function() {
+      it('should route to the welcome page', function() {
+        location.path('/Admin/Nodes');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Admin/Nodes/Add');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Alerts/Add');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Alerts/Suppress');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Clusters/Archived');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Clusters/Capacity/Forecast');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Clusters/Details');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Clusters/Stats');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Clusters/Overview');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Clusters/Graph/Sessions');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Clusters/VirtualNetworks');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Customers/Add');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Customers/Edit');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Customers/List');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/DelegateGroups/Add');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/DelegateGroups/List');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/DelegateGroups/Manage');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Events/List');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Licensing/Capacity/Adjust');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Licensing/Capacity/List');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Licensing/Capacity/View');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Replication/Clusters');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Replication/Volumes');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Settings/Password');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Volumes/Snapshots/Schedules/List');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Volumes/Snapshots/List');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Volumes/Stats');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Users/Add');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Users/Edit');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+        location.path('/Users/List');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/overview');
+      });
     });
   });
 
