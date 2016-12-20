@@ -77,16 +77,16 @@ describe('Cluster Overview Page', function () {
     var box = clusterOverviewPage.infoBar.infoBox('block-capacity');
     expect(box.el.isDisplayed()).to.eventually.be.true;
     expect(box.title.getText()).to.eventually.equal('Block Capacity');
-    expect(box.badge().el.isDisplayed()).to.eventually.be.true;
-    expect(box.badge().title.getText()).to.eventually.equal('Normal');
+    expect(box.badge('no-alert').el.isDisplayed()).to.eventually.be.true;
+    expect(box.badge('no-alert').title.getText()).to.eventually.equal('Normal');
   });
 
   it('should have a metadata capacity info-box with a badge showing a status of Warning', function() {
     var box = clusterOverviewPage.infoBar.infoBox('metadata-capacity');
     expect(box.el.isDisplayed()).to.eventually.be.true;
     expect(box.title.getText()).to.eventually.equal('Metadata Capacity');
-    expect(box.badge().el.isDisplayed()).to.eventually.be.true;
-    expect(box.badge().title.getText()).to.eventually.equal('Warning');
+    expect(box.badge('warning').el.isDisplayed()).to.eventually.be.true;
+    expect(box.badge('warning').title.getText()).to.eventually.equal('Warning');
   });
 
   it('should have an efficiency info-box showing 25.3x', function() {
@@ -137,10 +137,10 @@ describe('Cluster Overview Page', function () {
     var box = clusterOverviewPage.infoBar.infoBox('cluster-faults');
     expect(box.el.isDisplayed()).to.eventually.be.true;
     expect(box.title.getText()).to.eventually.equal('Faults');
-    expect(box.badge('first').el.isDisplayed()).to.eventually.be.true;
-    expect(box.badge('first').value.getText()).to.eventually.equal('3');
-    expect(box.badge('second').el.isDisplayed()).to.eventually.be.true;
-    expect(box.badge('second').value.getText()).to.eventually.equal('2');
+    expect(box.badge('first.-warning').el.isDisplayed()).to.eventually.be.true;
+    expect(box.badge('first.-warning').value.getText()).to.eventually.equal('3');
+    expect(box.badge('second.-critical').el.isDisplayed()).to.eventually.be.true;
+    expect(box.badge('second.-critical').value.getText()).to.eventually.equal('2');
   });
 
   describe('Alerts Table', function () {
