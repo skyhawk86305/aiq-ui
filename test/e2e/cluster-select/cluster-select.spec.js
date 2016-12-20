@@ -96,8 +96,8 @@ describe('The cluster select component', function() {
           expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('bazCluster');
         });
 
-        dropDownMenu.filter('uuid:333').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('bazCluster');
+        dropDownMenu.filter('uuid:111').then(function() {
+          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fooCluster');
         });
       });
 
