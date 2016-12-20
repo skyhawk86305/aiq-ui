@@ -54,8 +54,6 @@ describe('The main navbar', function() {
     clusterSelect.open().clusterList.select('fooCluster');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/11/nodes');
   });
-
-
 });
 
 describe('The dropdown menu', function() {
@@ -131,7 +129,4 @@ describe('The sub nav menu', function() {
 
     navbar.subNavbar.click('dashboard-overview');
   });
-
-
-
 });
