@@ -102,6 +102,7 @@ describe('The cluster select component', function() {
       });
 
       it('should allow combining more than one filter type',function() {
+        // filters are version and customer/cluster name(no prefix necessary for customer/cluster)
         dropDownMenu.filter('version:8.1.2 ba').then(function() {
           expect(dropDownMenu.clusterList.items.count()).to.eventually.equal(1);
           expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('bazCluster');
