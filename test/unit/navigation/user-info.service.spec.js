@@ -32,7 +32,7 @@ describe('UserInfoService', function () {
         customerID: 'customerID',
         groups: ['group1', 'group2']
       }
-    }
+    };
   }));
 
   describe('.getUserInfo', function () {

@@ -17,6 +17,7 @@ describe('AppController', function () {
     http = $httpBackend;
     http.when('GET', '/sessions').respond('success');
     http.when('GET', 'welcome-beta.tpl.html').respond(200);
+    http.when('POST', '/json-rpc/2.0').respond(200);
   }));
 
   describe('initialization', function() {
