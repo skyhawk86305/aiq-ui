@@ -24,6 +24,11 @@
         return this;
       }
     });
+    const defaultRedirect = {
+      redirectTo: function () {
+        return '/dashboard/overview';
+      }
+    };
 
     routeProvider
       .when('/login', {
@@ -104,24 +109,16 @@
         templateUrl: 'coming-soon.tpl.html'
       })
       /* Legacy UI URLs */
-      .when('/Admin/Nodes', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Admin/Nodes/Add', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Alerts/Add', {
-        redirectTo: '/dashboard/overview'
-      })
+      .when('/Admin/Nodes', defaultRedirect)
+      .when('/Admin/Nodes/Add', defaultRedirect)
+      .when('/Alerts/Add', defaultRedirect)
       .when('/Alerts/History', {
         redirectTo: '/dashboard/alerts/history'
       })
       .when('/Alerts/Manage', {
         redirectTo: '/dashboard/alerts/policies'
       })
-      .when('/Alerts/Suppress', {
-        redirectTo: '/dashboard/overview'
-      })
+      .when('/Alerts/Suppress', defaultRedirect)
       .when('/Cluster/Graphs/Capacity', {
         redirectTo: function (params, path, search) {
           return '/cluster/' + search.clusterID + '/reporting/capacity';
@@ -137,45 +134,19 @@
           return '/cluster/' + search.clusterID + '/reporting/efficiency';
         }
       })
-      .when('/Clusters/Archived', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Clusters/Capacity/Forecast', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Clusters/Details', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Clusters/Stats', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Clusters/Overview', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Clusters/Graph/Sessions', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Clusters/VirtualNetworks', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Customers/Add', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Customers/Edit', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Customers/List', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/DelegateGroups/Add', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/DelegateGroups/List', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/DelegateGroups/Manage', {
-        redirectTo: '/dashboard/overview'
-      })
+      .when('/Clusters/Archived', defaultRedirect)
+      .when('/Clusters/Capacity/Forecast', defaultRedirect)
+      .when('/Clusters/Details', defaultRedirect)
+      .when('/Clusters/Stats', defaultRedirect)
+      .when('/Clusters/Overview', defaultRedirect)
+      .when('/Clusters/Graph/Sessions', defaultRedirect)
+      .when('/Clusters/VirtualNetworks', defaultRedirect)
+      .when('/Customers/Add', defaultRedirect)
+      .when('/Customers/Edit', defaultRedirect)
+      .when('/Customers/List', defaultRedirect)
+      .when('/DelegateGroups/Add', defaultRedirect)
+      .when('/DelegateGroups/List', defaultRedirect)
+      .when('/DelegateGroups/Manage', defaultRedirect)
       .when('/Drives/Active/List', {
         redirectTo: function (params, path, search) {
           return '/cluster/' + search.clusterID + '/drives';
@@ -196,55 +167,29 @@
           return '/cluster/' + search.clusterID + '/reporting/errorLog';
         }
       })
-      .when('/Events/List', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Licensing/Capacity/Adjust', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Licensing/Capacity/List', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Licensing/Capacity/View', {
-        redirectTo: '/dashboard/overview'
-      })
+      .when('/Events/List', defaultRedirect)
+      .when('/Licensing/Capacity/Adjust', defaultRedirect)
+      .when('/Licensing/Capacity/List', defaultRedirect)
+      .when('/Licensing/Capacity/View', defaultRedirect)
       .when('/Nodes/Active', {
         redirectTo: function (params, path, search) {
           return '/cluster/' + search.clusterID + '/nodes';
         }
       })
-      .when('/Replication/Clusters', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Replication/Volumes', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Settings/Password', {
-        redirectTo: '/dashboard/overview'
-      })
+      .when('/Replication/Clusters', defaultRedirect)
+      .when('/Replication/Volumes', defaultRedirect)
+      .when('/Settings/Password', defaultRedirect)
       .when('/Volumes/Active/List', {
         redirectTo: function (params, path, search) {
           return '/cluster/' + search.clusterID + '/volumes';
         }
       })
-      .when('/Volumes/Snapshots/Schedules/List', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Volumes/Snapshots/List', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Volumes/Stats', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Users/Add', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Users/Edit', {
-        redirectTo: '/dashboard/overview'
-      })
-      .when('/Users/List', {
-        redirectTo: '/dashboard/overview'
-      })
+      .when('/Volumes/Snapshots/Schedules/List', defaultRedirect)
+      .when('/Volumes/Snapshots/List', defaultRedirect)
+      .when('/Volumes/Stats', defaultRedirect)
+      .when('/Users/Add', defaultRedirect)
+      .when('/Users/Edit', defaultRedirect)
+      .when('/Users/List', defaultRedirect)
       .otherwise({
         redirectTo: '/dashboard/overview'
       });
