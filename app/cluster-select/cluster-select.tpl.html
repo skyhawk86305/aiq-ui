@@ -45,7 +45,7 @@
         No Clusters Found
       </div>
 
-      <ul class="cluster-select-list">
+      <ul class="cluster-select-list scrollable-menu">
         <li class="cluster-select-list-item"
             ng-repeat="cluster in (recentlyViewed ? $ctrl.recentlyViewed : $ctrl.clusters) | clusterSelectFilter : filterInput"
             ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;">
