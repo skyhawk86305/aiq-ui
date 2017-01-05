@@ -23,11 +23,44 @@ var ClusterSelectComponent = function () {
       allClustersTab: element(by.css('.cluster-select-list-tab.all-clusters')),
       recentlyViewedTab: element(by.css('.cluster-select-list-tab.recently-viewed')),
       emptyList: element(by.css('.cluster-select-empty')),
-      clusterList: {
-        el: element(by.css('ul.cluster-select-list')),
-        items: element.all(by.repeater('cluster in (recentlyViewed ? $ctrl.recentlyViewed : $ctrl.clusters) | clusterSelectFilter : filterInput')),
-        select: function(cluster) {
-          this.items.filter(function(el) {
+      allClustersList: function () {
+        var list = element(by.css('div.cluster-select-list')),
+            customerList = list.all(by.css('div.cluster-select-list-group'));
+        return {
+          el: list,
+          customers: customerList,
+          customer: function(customerName) {
+            return customerList.filter(function (el) {
+              return el.element(by.css('span')).getText().then(function (text) {
+                return customerName === text;
+              });
+            }).then(function(list) {
+              if(list.length > 0) {
+                return {
+                  name: customerName,
+                  clusters: list[0].all(by.css('div.cluster-select-list-item')),
+                  selectCluster: function (clusterName) {
+                    return {
+                      cluster: this.clusters.filter(function (el) {
+                        return el.getText().then(function (text) {
+                          return clusterName === text;
+                        });
+                      }).first().click()
+                    };
+                  }
+                };
+              } else {
+                return null;
+              }
+            });
+          }
+        };
+      },
+      recentlyViewedList: {
+        el: element(by.css('div.cluster-select-list')),
+        clusters: element.all(by.css('div.cluster-select-list-item')),
+        selectCluster: function(cluster) {
+          this.clusters.filter(function(el) {
             return el.getText().then(function(text) {
               return cluster === text;
             });
