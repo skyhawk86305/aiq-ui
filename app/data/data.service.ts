@@ -9,10 +9,21 @@
       '$filter',
       '$location',
       'ApiLogService',
+      'CacheFactory',
       DataService
     ]);
 
-  function DataService($q, $http, $filter, $location, ApiLogService) {
+  function DataService($q, $http, $filter, $location, ApiLogService, CacheFactory) {
+    // Check to make sure the cache doesn't already exist
+    if (!CacheFactory.get('defaultCache')) {
+      $http.defaults.cache = new CacheFactory('defaultCache', {
+        maxAge: 10 * 1000, // Items added to this cache expire after 10 seconds
+        deleteOnExpire: 'aggressive' // Items will be deleted from this cache when they expire
+      });
+    } else {
+      $http.defaults.cache = CacheFactory.get('defaultCache');
+    }
+
     return {
       callAPI: function(method, params) {
         params = params || {};
@@ -44,7 +55,7 @@
             '&resolution=' + $filter('graphResolution')(params.resolution, graph);
         }
 
-        return $http.get(graphAPI)
+        return $http.get(graphAPI, {cache: true})
         .then(function(response) {
           if (!params.snapshot) {
             response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });

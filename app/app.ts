@@ -8,6 +8,7 @@
       'ngRoute',
       'ngMessages',
       'ngSanitize',
+      'angular-cache',
       'sfComponents'
     ]);
 })();

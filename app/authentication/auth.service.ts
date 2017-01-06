@@ -18,7 +18,7 @@
 
         isAuthenticated: function() {
           UserInfoService.getUserInfo();
-          return $http.get('/sessions');
+          return $http.get('/sessions', {cache: false});
         },
 
         logout: function() {
