@@ -15,7 +15,12 @@
       AuthService.login(credentials)
         .then(function() {
           self.error = null;
-          $location.path('/');
+          let queryParams = $location.search();
+          if(queryParams && queryParams.url) {
+            $location.url(queryParams.url);
+          } else {
+            $location.path('/');
+          }
         }).catch(function() {
           self.error = 'Invalid username or password';
         });

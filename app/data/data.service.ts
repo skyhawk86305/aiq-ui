@@ -25,7 +25,8 @@
         })
         .catch(function(error) {
           if (error.status === 401) {
-            $location.path('/login');
+            let oldUrl = $location.url();
+            $location.path('/login').search({url: oldUrl});
           }
           ApiLogService.appendResponse(entry, error.data, true);
           return error.data;

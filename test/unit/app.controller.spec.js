@@ -48,10 +48,13 @@ describe('AppController', function () {
       expect(controller.showNavbar).toBeFalsy();
     });
     it('should set showNavbar to false and redirect to the login page upon route change error', function() {
-      spyOn(location, 'path');
+      var pathSpy = jasmine.createSpyObj('path', ['search']);
+      location.url('/foo/bar?baz=fuz');
+      spyOn(location, 'path').and.returnValue(pathSpy);
       rootScope.$broadcast('$routeChangeError');
       expect(controller.showNavbar).toBeFalsy();
       expect(location.path).toHaveBeenCalledWith('/login');
+      expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
     });
 
     describe('implemented legacy UI pages', function() {

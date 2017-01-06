@@ -21,8 +21,9 @@
     });
 
     $rootScope.$on('$routeChangeError', function() {
-        self.showNavbar = false;
-        $location.path('/login');
+      let oldUrl = $location.url();
+      self.showNavbar = false;
+      $location.path('/login').search({url: oldUrl});
     });
 
   }

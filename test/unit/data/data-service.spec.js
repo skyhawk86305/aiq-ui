@@ -5,6 +5,7 @@ describe('Data Service', function () {
       service,
       apiLogService,
       http,
+      location,
       response;
 
   beforeEach(module('aiqUi', function ($provide) {
@@ -14,11 +15,12 @@ describe('Data Service', function () {
     });
   }));
 
-  beforeEach(inject(function ($rootScope, DataService, ApiLogService, $httpBackend) {
+  beforeEach(inject(function ($rootScope, DataService, ApiLogService, $httpBackend, $location) {
     rootScope = $rootScope;
     service = DataService;
     apiLogService = ApiLogService;
     http = $httpBackend;
+    location = $location;
   }));
 
   afterEach(function() {
@@ -54,6 +56,19 @@ describe('Data Service', function () {
       service.callAPI('foobar', {param: 'baz'});
       http.flush();
       expect(apiLogService.appendResponse).toHaveBeenCalledWith('entry', response, true);
+    });
+
+    it('should make execute the error callback function and route to the login page if the call is unauthenticated', function() {
+      var pathSpy = jasmine.createSpyObj('path', ['search']);
+      location.url('/foo/bar?baz=fuz');
+      spyOn(location, 'path').and.returnValue(pathSpy);
+      response = {message: 'bar'};
+      http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(401, response);
+      service.callAPI('foobar', {param: 'baz'});
+      http.flush();
+      expect(apiLogService.appendResponse).toHaveBeenCalledWith('entry', response, true);
+      expect(location.path).toHaveBeenCalledWith('/login');
+      expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
     });
   });
 
