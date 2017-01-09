@@ -3,7 +3,7 @@ module.exports = {
     nodes: [
       {
         nodeID: 1,
-        name: 'ALPSGADTSSF95-00005-N9-mgmt',
+        name: 'ALPSGADTSSF95-00005-N9-mgmt(x_y)',
         nodeType: 'SF-A044',
         softwareVersion: '8.4.0.79',
         serviceTag: '450TDB2',
@@ -104,12 +104,12 @@ module.exports = {
         nodeID: 53,
         name: 'ALPSGADTSSF95-00005-N2-mgmt',
         nodeType: 'SF9605',
-        softwareVersion: '10.4.0.73',
+        softwareVersion: '8.4.0.73',
         serviceTag: '454TDB2',
-        mip: '192.100.133.220',
-        cip: '192.100.133.222',
-        sip: '192.100.133.225',
-        ipcPort: '14004'
+        mip: '32.50.33.220',
+        cip: '32.50.33.220',
+        sip: '32.50.33.220',
+        ipcPort: '4004'
       }
     ]
   }

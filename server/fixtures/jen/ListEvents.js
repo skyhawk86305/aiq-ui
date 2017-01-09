@@ -20,34 +20,53 @@ module.exports = {
       {
         timeOfReport: '2016-02-16T17:07:38.304606Z',
         timeOfPublish: '2016-02-16T17:07:38.304718Z',
-        details: '',
+        details: {
+          flippingVolumes: [ 814, 226308, 261131 ],
+          movingVolumes: [ 214049 ]
+        },
         driveID: 0,
         eventID: 1205417,
-        eventInfoType: 'binSyncEvent',
-        message: 'Cascading Bin Sync',
+        eventInfoType: 'gcEvent',
+        message: 'GCCompleted',
         nodeID: 0,
-        serviceID: 0,
+        serviceID: 252,
         severity: 0
       },
       {
         timeOfReport: '2016-02-16T17:07:38.305656Z',
         timeOfPublish: '2016-02-16T17:07:38.305799Z',
-        details: '',
-        driveID: 40,
+        details: {
+          nonceValue: 762233706,
+          generation: 1455642000,
+          discardedBlocks: 1118169
+        },
+        driveID: 0,
         eventID: 1205416,
-        eventInfoType: 'serviceEvent',
-        message: 'BlockService Started',
-        nodeID: 4,
-        serviceID: 43,
+        eventInfoType: 'gcEvent',
+        message: 'GCCompleted',
+        nodeID: 0,
+        serviceID: 106,
         severity: 0
       },
       {
         timeOfReport: '2016-02-16T17:07:38.307036Z',
         timeOfPublish: '2016-02-16T17:07:38.307190Z',
         details: {
-          nonceValue: 762233706,
-          generation: 1455642000,
-          discardedBlocks: 1117978
+          success: true,
+          params: {
+          attributes: {
+            src_uuid: '1d83f8e2-7afc-46bb-a28f-b9d0c6c530ed',
+              created_at: '2016-12-21T19:32:27+00:00',
+              uuid: 'cfc123dc-9bb6-4565-97e1-e60dad8c7896',
+              is_clone: 'True'
+           },
+            volumeID: 445928
+          },
+          method: 'ModifyVolume',
+          context:
+           { ip: '10.188.31.20',
+             user: 'openstack'
+            }
         },
         driveID: 0,
         eventID: 1205415,
@@ -61,31 +80,16 @@ module.exports = {
         timeOfReport: '2016-02-16T17:07:38.306008Z',
         timeOfPublish: '2016-02-16T17:07:38.306090Z',
         details: {
-          "success": true,
-          "params":
-            { "totalSize": 500000000000,
-              "enable512e": true,
-              "qos":
-                {
-                  "burstIOPS": 15000,
-                  "minIOPS": 3000,
-                  "maxIOPS": 15000
-                },
-              "name": "STAGE",
-              "accountID": 2
-            },
-          "method": "CreateVolume",
-          "context": {
-            "ip": "172.17.21.2",
-            "user": "admin"
-          }
+          nonceValue: 762233706,
+          generation: 1455642000,
+          discardedBlocks: 1117431
         },
         driveID: 0,
         eventID: 1205414,
-        eventInfoType: 'apiEvent',
-        message: 'API Call (CreateVolume)',
-        nodeID: 2,
-        serviceID: 0,
+        eventInfoType: 'gcEvent',
+        message: 'GCCompleted',
+        nodeID: 0,
+        serviceID: 171,
         severity: 0
       },
       {
@@ -108,36 +112,32 @@ module.exports = {
         timeOfReport: '2016-02-16T17:07:38.307688Z',
         timeOfPublish: '2016-02-16T17:07:38.307792Z',
         details: {
-          "replay":6.685609138564494
+          nonceValue: 762233706,
+          generation: 1455642000,
+          discardedBlocks: 1118946
         },
-        driveID: 34,
+        driveID: 0,
         eventID: 1205412,
-        eventInfoType: 'serviceEvent',
-        message: 'SliceServiceStarted',
-        nodeID: 3,
-        serviceID: 20,
+        eventInfoType: 'gcEvent',
+        message: 'GCCompleted',
+        nodeID: 0,
+        serviceID: 122,
         severity: 0
       },
       {
         timeOfReport: '2016-02-16T17:07:38.306877Z',
         timeOfPublish: '2016-02-16T17:07:38.307003Z',
         details: {
-          "name": "SF-POC3",
-          "sliceRepCount": 2,
-          "blockRepCount": 2,
-          "uniqueID": "nlir",
-          "authCallback": "",
-          "svip": "10.3.10.10",
-          "attributes": {},
-          "mvip": "10.3.1.10",
-          "uuid": "e5016ca1-ef59-4e0b-8f77-eadc3bbda89f"
+          nonceValue: 762233706,
+          generation: 1455642000,
+          discardedBlocks: 1119940
         },
         driveID: 0,
         eventID: 1205411,
-        eventInfoType: 'clusterMasterEvent',
-        message: 'Releasing ClusterMaster',
-        nodeID: 1,
-        serviceID: 1,
+        eventInfoType: 'gcEvent',
+        message: 'GCCompleted',
+        nodeID: 0,
+        serviceID: 112,
         severity: 0
       },
       {
@@ -160,16 +160,16 @@ module.exports = {
         timeOfReport: '2016-02-16T17:07:38.306762Z',
         timeOfPublish: '2016-02-16T17:07:38.306872Z',
         details: {
-          "returnCode": 0,
-          "stderr": "",
-          "stdout": "12 Oct 20:37:18 ntpdate[11900]: step time server 97.107.128.58 offset 0.374510 sec"
+          nonceValue: 762233706,
+          generation: 1455642000,
+          discardedBlocks: 1119117
         },
         driveID: 0,
         eventID: 1205409,
-        eventInfoType: 'serviceEvent',
-        message: 'Time Service Updated',
-        nodeID: 4,
-        serviceID: 0,
+        eventInfoType: 'gcEvent',
+        message: 'GCCompleted',
+        nodeID: 0,
+        serviceID: 169,
         severity: 0
       }
     ]
