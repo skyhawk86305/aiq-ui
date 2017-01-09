@@ -76,7 +76,7 @@ module.exports = {
       {
         "id": 97412,
         "clusterID": 1898729,
-        "clusterFaultID": 12397402,
+        "clusterFaultID": 12397234,
         "nodeID": 1,
         "driveID": 10,
         "serviceID": 52,
@@ -219,8 +219,8 @@ module.exports = {
       },
       {
         "id": 97410,
-        "clusterID": 1898729,
-        "clusterFaultID": 12397410,
+        "clusterID": 1898439,
+        "clusterFaultID": 12397510,
         "nodeID": 0,
         "driveID": 0,
         "serviceID": 0,
