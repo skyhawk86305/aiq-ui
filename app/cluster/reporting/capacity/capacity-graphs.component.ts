@@ -98,6 +98,7 @@
           legend: {
             position: 'top',
             items: {
+              maxProvisionedSpace: 'Max Provisioned Space',
               provisionedSpace: 'Provisioned Space'
             }
           },
@@ -269,17 +270,21 @@
           showAxisLabels: true,
           data: {
             x: 'timestamps',
-            ids: ['provisionedSpace'],
+            ids: ['maxProvisionedSpace', 'provisionedSpace'],
             axes: {
+              maxProvisionedSpace: 'y0',
               provisionedSpace: 'y0'
             },
             labels: {
+              maxProvisionedSpace: 'Max Provisioned Space',
               provisionedSpace: 'Provisioned Space'
             },
             colors: {
-              provisionedSpace: ['#FECD4D']
+              maxProvisionedSpace: ['#D07983'],
+              provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
             },
             textures: {
+              maxProvisionedSpace: ['dashed'],
               provisionedSpace: ['solid']
             }
           },

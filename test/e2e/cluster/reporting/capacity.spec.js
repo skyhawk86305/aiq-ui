@@ -42,9 +42,14 @@ describe('The Cluster Capacity Page', function () {
   describe('Provisioned Space Graph', function () {
     it('should have the correct data series plotted with the appropriate legend', function () {
       var graph = capacityPage.syncGraphs.childGraph('provisioned-space-child');
-      expect(graph.svg.lines.count()).to.eventually.equal(1);
-      expect(graph.svg.line('provisionedSpace').isDisplayed()).to.eventually.be.true;
-      expect(graph.legend.legendItem('provisionedSpace').label.getText()).to.eventually.equal('Provisioned Space');
+      expect(graph.svg.lines.count()).to.eventually.equal(2);
+
+      var expectedSeries = ['maxProvisionedSpace','provisionedSpace'],
+        expectedLabels = ['Max Provisioned Space','Provisioned Space'];
+      for (var i = 0; i < expectedSeries.length; i++) {
+        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+      }
     });
   });
 
