@@ -52,6 +52,4 @@ describe('The Alert History Page', function () {
   it('should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
-
-  /* it should */
 });
