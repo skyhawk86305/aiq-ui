@@ -36,6 +36,7 @@
         })
         .catch(function(error) {
           if (error.status === 401) {
+            CacheFactory.get('defaultCache').removeAll();
             let oldUrl = $location.url();
             $location.path('/login').search({url: oldUrl});
           }
@@ -64,7 +65,9 @@
         })
         .catch(function(error) {
           if (error.status === 401) {
-            $location.path('/login');
+            CacheFactory.get('defaultCache').removeAll();
+            let oldUrl = $location.url();
+            $location.path('/login').search({url: oldUrl});
           }
           return $q.reject(error);
         });
