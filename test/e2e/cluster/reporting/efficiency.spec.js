@@ -27,6 +27,7 @@ describe('The Cluster Efficiency Page', function () {
 
   it('should have 1 child graph', function () {
     expect(efficiencyGraphs.childGraph('efficiency-child').el.isDisplayed()).to.eventually.be.true;
+    expect(efficiencyGraphs.childGraphTitle('efficiency').getText()).to.eventually.equal('Efficiency');
     expect(efficiencyGraphs.childrenGraphs.count()).to.eventually.equal(1);
   });
 
