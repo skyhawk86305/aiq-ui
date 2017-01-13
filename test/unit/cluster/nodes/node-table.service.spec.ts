@@ -9,7 +9,7 @@ describe('NodeTableService', function () {
       dataService,
       parentService;
 
-  beforeEach(module('aiqUi', function ($provide) {
+  beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('DataService', {callAPI: function() {} });
   }));
 

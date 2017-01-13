@@ -11,10 +11,10 @@ describe('Component: overviewDashboard', function() {
     clusterAlertTableService,
     dataService;
 
-  beforeEach(module('aiqUi', function ($provide) {
+  beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('SFD3LineGraph', function () {});
   }));
-  beforeEach(module('componentTemplates'));
+  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $q, $filter, $componentController, $routeParams, PerformanceGraphsService, ClusterAlertTableService, DataService) {
     scope = $rootScope;

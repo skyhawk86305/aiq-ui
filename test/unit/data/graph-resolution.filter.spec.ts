@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Graph Resolution Filter', function () {
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
 
   it('should user the appropriate bucketing method for a given graph', inject(function ($filter) {
     expect($filter('graphResolution')(0, 'capacity')).toEqual(300);

@@ -5,8 +5,8 @@ describe('Component: eventTable', function() {
     service,
     controller;
 
-  beforeEach(module('aiqUi'));
-  beforeEach(module('componentTemplates'));
+  beforeEach(angular.mock.module('aiqUi'));
+  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($componentController, $routeParams, EventTableService) {
     routeParams = $routeParams;

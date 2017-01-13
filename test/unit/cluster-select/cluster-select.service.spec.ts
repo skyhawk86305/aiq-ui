@@ -8,7 +8,7 @@ describe('ClusterSelectService', function () {
       service,
       dataService;
 
-  beforeEach(module('aiqUi', function ($provide) {
+  beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('DataService', {callAPI: function() {} });
   }));
 

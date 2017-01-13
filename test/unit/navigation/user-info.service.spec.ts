@@ -10,7 +10,7 @@ describe('UserInfoService', function () {
       apiResponseUser,
       window;
 
-  beforeEach(module('aiqUi', function ($provide) {
+  beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('DataService', {callAPI: function() {} });
     $provide.value('$window', {ga: function(){}});
   }));

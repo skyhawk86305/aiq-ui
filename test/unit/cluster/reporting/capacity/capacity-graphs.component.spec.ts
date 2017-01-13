@@ -13,11 +13,11 @@ describe('Component: capacityGraphs', function() {
     capacityService;
 
 
-  beforeEach(module('aiqUi', function ($provide) {
+  beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('SFD3LineGraph', function () {});
     $provide.value('SFD3BarGraph', function () {});
   }));
-  beforeEach(module('componentTemplates'));
+  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $q, $componentController, $routeParams, DataService, CapacityGraphsService) {
     scope = $rootScope;

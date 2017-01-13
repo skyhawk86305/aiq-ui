@@ -7,7 +7,7 @@ describe('AppController', function () {
       route,
       http;
 
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
 
   beforeEach(inject(function ($rootScope, $location, $controller, $route, $httpBackend) {
     rootScope = $rootScope;

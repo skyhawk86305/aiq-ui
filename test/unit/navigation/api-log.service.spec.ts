@@ -4,7 +4,7 @@ describe('ApiLogService', function () {
   var service,
       parentService;
 
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
 
   beforeEach(inject(function (ApiLogService, SFApiLogService) {
     service = ApiLogService;

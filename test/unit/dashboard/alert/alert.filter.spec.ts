@@ -1,7 +1,7 @@
 'use strict';
 
 describe('AIQ Alert Filter', function () {
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
 
   it('should format an empty condition', inject(function ($filter) {
     expect($filter('alert')([], 'condition')).toEqual('');

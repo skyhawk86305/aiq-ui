@@ -10,7 +10,7 @@ describe('PerformanceGraphsService', function () {
     parentService,
     currentDate = new Date();
 
-  beforeEach(module('aiqUi', function ($provide) {
+  beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('DataService', {callGraphAPI: function () {} });
   }));
 

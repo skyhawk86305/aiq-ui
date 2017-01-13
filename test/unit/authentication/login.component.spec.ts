@@ -10,8 +10,8 @@ describe('Component: navbar', function() {
       controller,
       spy;
 
-  beforeEach(module('aiqUi'));
-  beforeEach(module('componentTemplates'));
+  beforeEach(angular.mock.module('aiqUi'));
+  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $location, $q, $componentController, AuthService) {
     scope = $rootScope.$new();

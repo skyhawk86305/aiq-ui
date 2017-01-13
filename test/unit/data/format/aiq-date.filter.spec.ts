@@ -4,7 +4,7 @@ describe('AIQ Date Filter', function () {
   var aiqFilter,
       angularFilter,
       dateFormat = 'yyyy-MM-dd HH:mm:ss';
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
   beforeEach(inject(function($filter) {
     aiqFilter = $filter('aiqDate');
     angularFilter = $filter('date');

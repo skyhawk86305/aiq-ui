@@ -22,7 +22,7 @@ var gulp = require('gulp'),
   analyze = $.yargs.alias('a', 'analyze').argv.analyze;
 
 gulp.task('tslint', function () {
-  return gulp.src([appScriptFiles])
+  return gulp.src([appScriptFiles, unitTestFiles])
     .pipe($.tslint({formatter: "verbose"}))
     .pipe($.tslint.report({emitError: false}));
 });
@@ -38,7 +38,6 @@ gulp.task('lint', ['tslint'], function () {
     this.emit('end');
   };
   return gulp.src([
-    unitTestFiles,
     e2eTestFiles
   ])
     .pipe($.plumber({errorHandler: onError}))

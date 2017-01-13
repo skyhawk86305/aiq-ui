@@ -10,7 +10,7 @@ describe('Auth Service', function () {
       getSpy,
       clearSpy;
 
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
 
   beforeEach(inject(function ($rootScope, AuthService, UserInfoService, $httpBackend) {
     rootScope = $rootScope;

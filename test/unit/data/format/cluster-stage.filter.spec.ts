@@ -2,7 +2,7 @@
 
 describe('Cluster Stage Filter', function () {
   var filter;
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
   beforeEach(inject(function($filter) {
     filter = $filter('clusterStage');
   }));

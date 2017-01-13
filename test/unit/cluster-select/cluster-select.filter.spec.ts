@@ -6,7 +6,7 @@ describe('Cluster Select Filter', function () {
       input,
       expectedClusters;
 
-  beforeEach(module('aiqUi'));
+  beforeEach(angular.mock.module('aiqUi'));
 
   beforeEach(inject(function($filter) {
     filter = $filter('clusterSelectFilter');

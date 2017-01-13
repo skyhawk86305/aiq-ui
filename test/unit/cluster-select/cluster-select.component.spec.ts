@@ -12,8 +12,8 @@ describe('Component: clusterSelect', function() {
       controller,
       mockData;
 
-  beforeEach(module('aiqUi'));
-  beforeEach(module('componentTemplates'));
+  beforeEach(angular.mock.module('aiqUi'));
+  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $componentController, $q, $routeParams, $location, ClusterSelectService) {
     scope = $rootScope.$new();

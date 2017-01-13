@@ -8,10 +8,10 @@ describe('Data Service', function () {
       location,
       response;
 
-  beforeEach(module('aiqUi', function ($provide) {
+  beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('ApiLogService', {
-      appendRequest: jasmine.createSpy().and.returnValue('entry'),
-      appendResponse: jasmine.createSpy()
+      appendRequest: jasmine.createSpy('appendRequest').and.returnValue('entry'),
+      appendResponse: jasmine.createSpy('appendResponse')
     });
   }));
 
