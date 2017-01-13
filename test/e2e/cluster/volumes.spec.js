@@ -37,7 +37,7 @@ describe('The Cluster Volumes Page', function () {
     browser.get('#/cluster/26/volumes');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
-  
+
   it('should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
@@ -47,5 +47,9 @@ describe('The Cluster Volumes Page', function () {
 
   it('should display data from the correct API and properly format it in the table', function (done) {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
+  });
+
+  it('should have an export button for the table', function() {
+    expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
 });

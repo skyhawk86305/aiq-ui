@@ -3,9 +3,9 @@
 
   angular
     .module('aiqUi')
-    .service('UserInfoService', ['$window', 'DataService', UserInfoService]);
+    .service('UserInfoService', ['$q', '$window', 'DataService', UserInfoService]);
 
-  function UserInfoService($window, DataService) {
+  function UserInfoService($q, $window, DataService) {
     var userInfoRetrieved = false;
 
     return {
@@ -48,7 +48,11 @@
                 $window.ga('set', 'dimension4', null);
                 $window.ga('set', 'dimension5', null);
               }
+
+              return response;
             });
+        } else {
+          return $q.resolve();
         }
       },
 
