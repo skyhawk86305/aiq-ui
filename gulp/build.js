@@ -15,7 +15,7 @@ var gulp = require('gulp'),
     ]
   }),
   buildConfig = require('../build.config.js'),
-  tsProject = $.typescript.createProject('./app/tsconfig.json'),
+  tsProject = $.typescript.createProject('./tsconfig.json'),
   appBase = buildConfig.appDir,
   appFontFiles = path.join(appBase, 'fonts/**/*'),
   appImages = path.join(appBase, 'images/**/*'),

@@ -15,8 +15,6 @@ An Angular.js application written in TypeScript for interacting with the AIQ bac
  
 `bower install`
 
-`tsd install`
-
  - Serve the app locally with mock data
  
 `gulp serve --mock`
