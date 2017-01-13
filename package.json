@@ -5,7 +5,7 @@
   "repository": "bitbucket.org:solidfire/aiq-ui",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@types/angular": "^1.5.8",
+    "@types/angular": "~1.5.8",
     "angular-mocks": "1.5.8",
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
