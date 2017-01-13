@@ -19,6 +19,7 @@ var gulp = require('gulp'),
       'gulp-rename': 'rename'
     }
   }),
+  tsProject = $.typescript.createProject('./tsconfig.json'),
   serverConfig = require('../server/server.config.js'),
   buildConfig = require('../build.config.js'),
   buildTemplateFiles = path.join(buildConfig.buildDir, '**/*.tpl.html'),
@@ -42,7 +43,8 @@ gulp.task('karmaFiles', ['build'], function () {
   stream.queue(gulp.src([buildTemplateFiles]));
   stream.queue(gulp.src([buildJsFiles])
     .pipe($.angularFilesort()));
-  stream.queue(gulp.src([unitTests]));
+  stream.queue(gulp.src([unitTests])
+    .pipe(tsProject()));
   return stream.done()
     .on('data', function (file) {
       karmaConf.files.push(file.path);
