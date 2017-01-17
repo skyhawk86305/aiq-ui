@@ -21,6 +21,7 @@ var ClusterSelectComponent = function () {
       },
       activeTab: element(by.css('.cluster-select-list-tab.active')),
       allClustersTab: element(by.css('.cluster-select-list-tab.all-clusters')),
+      scrollableMenu: element(by.css('.cluster-select-list.scrollable-menu')),
       recentlyViewedTab: element(by.css('.cluster-select-list-tab.recently-viewed')),
       emptyList: element(by.css('.cluster-select-empty')),
       allClustersList: function () {

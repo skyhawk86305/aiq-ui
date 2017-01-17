@@ -2,6 +2,7 @@
 'use strict';
 
 var expect = require('../support.js').expect;
+var support = require('../support.js');
 var ClusterSelectComponent = require('../page-objects/components/cluster-select.po');
 
 var clusterSelect = new ClusterSelectComponent();
@@ -29,6 +30,10 @@ describe('The cluster select component', function() {
       expect(dropDownMenu.allClustersList().customers.count()).to.eventually.equal(21);
     });
 
+    it('should have a scrollbar if there are too many clusters to display on the page', function() {
+      support.checkScroll(dropDownMenu.scrollableMenu,true);
+    });
+
     it('should allow the user to view a list of recently viewed clusters', function() {
       dropDownMenu.recentlyViewedTab.click();
       expect(dropDownMenu.activeTab.getText()).to.eventually.equal('Recently Viewed');
@@ -39,6 +44,8 @@ describe('The cluster select component', function() {
       it('should display hints in a tooltip', function() {
         hintsTooltip = dropDownMenu.viewHints();
         expect(hintsTooltip.menu.isDisplayed()).to.eventually.be.true;
+        hintsTooltip = dropDownMenu.viewHints();
+        expect(hintsTooltip.menu.getText()).to.eventually.contain('Search for cluster');
       });
 
       it('should filter by text (clusterName OR customerName) AND (single word OR multi word)', function() {
@@ -80,6 +87,15 @@ describe('The cluster select component', function() {
             { customer: 'Bill', clusters: ['barCluster'] }
           ];
 
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
+        });
+
+        // This one should have one result for customer name and one hit for cluster name
+        dropDownMenu.filter('rkxv').then(function() {
+          var expectedClusters = [
+            { customer: 'RKXV', clusters: ['ny-sfcluster1'] },
+            { customer: 'Zebra Media, Inc.', clusters: ['RKXV-SF01'] }
+          ];
           compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
@@ -175,6 +191,10 @@ describe('The cluster select component', function() {
 
           compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
+      });
+
+      it('should not have a scrollbar if the clusters fit on one page', function() {
+        support.checkScroll(dropDownMenu.scrollableMenu,false);
       });
 
       it('should allow combining more than one filter type',function() {
