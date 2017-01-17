@@ -21,7 +21,13 @@ var gulp = require('gulp'),
   e2eTestFiles = path.join(buildConfig.e2eTestDir, '**/*.js'),
   analyze = $.yargs.alias('a', 'analyze').argv.analyze;
 
-gulp.task('lint', function () {
+gulp.task('tslint', function () {
+  return gulp.src([appScriptFiles])
+    .pipe($.tslint({formatter: "verbose"}))
+    .pipe($.tslint.report({emitError: false}));
+});
+
+gulp.task('lint', ['tslint'], function () {
   var onError = function (err) {
     $.notify.onError({
       title: 'Error linting at ' + err.plugin,
@@ -32,7 +38,6 @@ gulp.task('lint', function () {
     this.emit('end');
   };
   return gulp.src([
-    appScriptFiles,
     unitTestFiles,
     e2eTestFiles
   ])
