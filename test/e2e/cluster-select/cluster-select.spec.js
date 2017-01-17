@@ -26,7 +26,7 @@ describe('The cluster select component', function() {
   describe('it\'s drop down menu', function() {
     it('should display a list of all clusters', function() {
       expect(dropDownMenu.activeTab.getText()).to.eventually.equal('All Clusters');
-      expect(dropDownMenu.clusterList.items.count()).to.eventually.equal(4);
+      expect(dropDownMenu.allClustersList().customers.count()).to.eventually.equal(21);
     });
 
     it('should allow the user to view a list of recently viewed clusters', function() {
@@ -45,90 +45,190 @@ describe('The cluster select component', function() {
         dropDownMenu.allClustersTab.click();
 
         dropDownMenu.filter('foo').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fooCluster');
+          var expectedClusters = [
+            { customer: 'Bob', clusters: ['fooCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
 
         dropDownMenu.filter('f cluster').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fooCluster');
+          var expectedClusters = [
+            { customer: 'ACME', clusters: ['sxzysf-cluster-01'] },
+            { customer: 'Bob', clusters: ['fooCluster'] },
+            { customer: 'John', clusters: ['fizCluster'] },
+            { customer: 'RKXV', clusters: ['ny-sfcluster1'] },
+            { customer: 'xiWeb', clusters: ['SolidFire-Cluster01'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
 
         dropDownMenu.filter('ba').then(function() {
-          expect(dropDownMenu.clusterList.items.count()).to.eventually.equal(2);
+          var expectedClusters = [
+            { customer: 'Bill', clusters: ['barCluster'] },
+            { customer: 'Cloud Cluster (Technical Solutions Inc)', clusters: ['CBA-MYSQL-1'] },
+            { customer: 'Jim', clusters: ['bazCluster'] },
+            { customer: 'Something.com', clusters: ['COBALT-SA03.CMS.NET'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
 
         dropDownMenu.filter('Bill').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('barCluster');
+          var expectedClusters = [
+            { customer: 'Bill', clusters: ['barCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
 
       it('should filter by id', function() {
         dropDownMenu.filter('id:26').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('barCluster');
+          var expectedClusters = [
+            { customer: 'Bill', clusters: ['barCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
 
         dropDownMenu.filter('id:9').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('bazCluster');
+          var expectedClusters = [
+            { customer: 'Jim', clusters: ['bazCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
 
       it('should filter by version', function() {
         dropDownMenu.filter('version:8').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fooCluster');
+          var expectedClusters = [
+            { customer: 'ACME', clusters: ['p-a-c_m+n&o-cluster-01', 'sxzysf-cluster-01'] },
+            { customer: 'ATSC (ABCD Technical Solutions Corporation)', clusters: ['ABCDEFGHIJKLMNOP95-00010'] },
+            { customer: 'Bill', clusters: ['barCluster'] },
+            { customer: 'Bob', clusters: ['fooCluster'] },
+            { customer: 'Cloud Cluster (Technical Solutions Inc)', clusters: ['CBA-MYSQL-1'] },
+            { customer: 'Jim', clusters: ['bazCluster'] },
+            { customer: 'John', clusters: ['fizCluster'] },
+            { customer: 'NetApp-Internal-Vienna-demolab-6th-floor', clusters: ['wok1sucpiqnsfx2000.oamp.sgns.net'] },
+            { customer: 'PMPX Network Enterprises', clusters: ['solidfire-tr-iscsi', 'VA7-R25-SFIRE-CL02'] },
+            { customer: 'Random Cloud Services', clusters: ['XYZSFIRECLUS02'] },
+            { customer: 'RKXV', clusters: ['ny-sfcluster1'] },
+            { customer: 'Smith Jones Anderson Associates, Inc.', clusters: ['sf-dc2.345.web.co.za'] },
+            { customer: 'SmithCorp (Green)', clusters: ['s01infoclst01'] },
+            { customer: 'SmithCorp (Yellow)', clusters: ['cdefg-sa05.cms.net'] },
+            { customer: 'Some Random State Federal Credit Union', clusters: ['PD4OiJ7fXxfKwo2000.snmp.acme.net'] },
+            { customer: 'Something.com', clusters: ['COBALT-SA03.CMS.NET'] },
+            { customer: 'Zebra Media, Inc.', clusters: ['RKXV-SF01'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
 
         dropDownMenu.filter('version:8.1.2.3').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fizCluster');
+          var expectedClusters = [
+            { customer: 'John', clusters: ['fizCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
 
       it('should filter by uid', function() {
         dropDownMenu.filter('uid:b').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('barCluster');
+          var expectedClusters = [
+            { customer: 'ATSC (ABCD Technical Solutions Corporation)', clusters: ['ABCDEFGHIJKLMNOP95-00010'] },
+            { customer: 'Bill', clusters: ['barCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
 
         dropDownMenu.filter('uid:d').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fizCluster');
+          var expectedClusters = [
+            { customer: 'ACME', clusters: ['p-a-c_m+n&o-cluster-01'] },
+            { customer: 'John', clusters: ['fizCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
 
       it('should filter by uuid', function() {
         dropDownMenu.filter('uuid:333').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('bazCluster');
+          var expectedClusters = [
+            { customer: 'ABC-Cloud R&D_Americas.com', clusters: ['AB-DC1-Cluster01'] },
+            { customer: 'Jim', clusters: ['bazCluster'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
 
         dropDownMenu.filter('uuid:111').then(function() {
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fooCluster');
+          var expectedClusters = [
+            { customer: 'Bob', clusters: ['fooCluster'] },
+            { customer: 'SmithCorp (Yellow)', clusters: ['cdefg-sa05.cms.net'] },
+            { customer: 'Some Random State Federal Credit Union', clusters: ['PD4OiJ7fXxfKwo2000.snmp.acme.net'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
 
       it('should allow combining more than one filter type',function() {
         dropDownMenu.filter('version:8.1.2 ba').then(function() {
-          expect(dropDownMenu.clusterList.items.count()).to.eventually.equal(1);
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('bazCluster');
-        });
-      });
+          var expectedClusters = [
+            { customer: 'Jim', clusters: ['bazCluster'] }
+          ];
 
-      it('should allow combining more than one filter type',function() {
-        // filters are version and customer/cluster name(no prefix necessary for customer/cluster)
-        dropDownMenu.filter('version:8.1.2 ba').then(function() {
-          expect(dropDownMenu.clusterList.items.count()).to.eventually.equal(1);
-          expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('bazCluster');
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
 
       it('should reset with an empty filter', function() {
         dropDownMenu.filter('').then(function() {
-          expect(dropDownMenu.clusterList.items.count()).to.eventually.equal(4);
+          var expectedClusters = [
+            { customer: 'ABC-Cloud R&D_Americas.com', clusters: ['AB-DC1-Cluster01'] },
+            { customer: 'ACME', clusters: ['p-a-c_m+n&o-cluster-01', 'sxzysf-cluster-01'] },
+            { customer: 'ATSC (ABCD Technical Solutions Corporation)', clusters: ['ABCDEFGHIJKLMNOP95-00010'] },
+            { customer: 'Bill', clusters: ['barCluster'] },
+            { customer: 'Bob', clusters: ['fooCluster'] },
+            { customer: 'Cloud Cluster (Technical Solutions Inc)', clusters: ['CBA-MYSQL-1'] },
+            { customer: 'Haßermaaß (Haß)', clusters: ['c-storage-002'] },
+            { customer: 'Jim', clusters: ['bazCluster'] },
+            { customer: 'John', clusters: ['fizCluster'] },
+            { customer: 'NetApp-Internal-Vienna-demolab-6th-floor', clusters: ['wok1sucpiqnsfx2000.oamp.sgns.net'] },
+            { customer: 'PMPX Network Enterprises', clusters: ['solidfire-tr-iscsi', 'VA7-R25-SFIRE-CL02'] },
+            { customer: 'Random Cloud Services', clusters: ['XYZSFIRECLUS02'] },
+            { customer: 'RKXV', clusters: ['ny-sfcluster1'] },
+            { customer: 'Smith Jones Anderson Associates, Inc.', clusters: ['sf-dc2.345.web.co.za'] },
+            { customer: 'SmithCorp (Green)', clusters: ['cmszb-sa', 's01infoclst01'] },
+            { customer: 'SmithCorp (Yellow)', clusters: ['cdefg-sa05.cms.net', 'cmssp-sa03'] },
+            { customer: 'Some Random State Federal Credit Union', clusters: ['PD4OiJ7fXxfKwo2000.snmp.acme.net'] },
+            { customer: 'Something.com', clusters: ['COBALT-SA03.CMS.NET'] },
+            { customer: 'Xenon Temp Humidity Sensors (c/o Neon)', clusters: ['Petabytesolid01'] },
+            { customer: 'xiWeb', clusters: ['SolidFire-Cluster01'] },
+            { customer: 'Zebra Media, Inc.', clusters: ['RKXV-SF01'] }
+          ];
+
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
     });
 
     describe('selecting clusters', function() {
       it('should close the drop down and update the selected cluster', function() {
+        var list = dropDownMenu.allClustersList();
+
         dropDownMenu.allClustersTab.click();
-        dropDownMenu.clusterList.select('barCluster');
-        expect(dropDownMenu.el.isDisplayed()).to.eventually.be.false;
-        expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');
+        expect(list.customers.count()).to.eventually.equal(21);
+        list.customer('Bill').then(function(customer) {
+          customer.selectCluster('barCluster');
+          expect(dropDownMenu.el.isDisplayed()).to.eventually.be.false;
+          expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');
+        });
       });
 
       it('should navigate the user to the default /cluster route with the selected clusterID embedded in the url', function() {
@@ -136,12 +236,45 @@ describe('The cluster select component', function() {
       });
 
       it('should add the selected cluster to the top of the recently viewed', function() {
-        clusterSelect.open().clusterList.select('fooCluster');
+        var list,
+            expectedClusters = [
+              'fooCluster',
+              'barCluster'
+            ];
+
         dropDownMenu = clusterSelect.open();
-        dropDownMenu.recentlyViewedTab.click();
-        expect(dropDownMenu.clusterList.items.count()).to.eventually.equal(2);
-        expect(dropDownMenu.clusterList.items.get(0).getText()).to.eventually.equal('fooCluster');
+        list = dropDownMenu.allClustersList();
+
+        list.customer('Bob').then(function(customer) {
+          customer.selectCluster('fooCluster');
+          dropDownMenu = clusterSelect.open();
+          dropDownMenu.recentlyViewedTab.click();
+
+          compareExpectedRecentlyViewedList(dropDownMenu.recentlyViewedList.clusters, expectedClusters);
+        });
       });
     });
   });
 });
+
+function compareExpectedAllClustersList(clusterList, expectedClustersArr) {
+  expect(clusterList.customers.count()).to.eventually.equal(expectedClustersArr.length);
+  clusterList.customers.each(function (customerElem, customerIndex) {
+    customerElem.element(by.css('span')).getText().then(function (name) {
+      clusterList.customer(name).then(function(customer) {
+        expect(customer.name).to.equal(expectedClustersArr[customerIndex].customer);
+        expect(customer.clusters.count()).to.eventually.equal(expectedClustersArr[customerIndex].clusters.length);
+        customer.clusters.each(function (clusterElem, clusterIndex) {
+          expect(clusterElem.getText()).to.eventually.equal(expectedClustersArr[customerIndex].clusters[clusterIndex]);
+        });
+      });
+    });
+  });
+}
+
+function compareExpectedRecentlyViewedList(clusterList, expectedClustersArr) {
+  expect(clusterList.count()).to.eventually.equal(expectedClustersArr.length);
+  clusterList.each(function (clusterElem, clusterIndex) {
+    expect(clusterElem.getText()).to.eventually.equal(expectedClustersArr[clusterIndex]);
+  });
+}

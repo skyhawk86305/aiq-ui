@@ -45,13 +45,26 @@
         No Clusters Found
       </div>
 
-      <ul class="cluster-select-list scrollable-menu">
-        <li class="cluster-select-list-item"
-            ng-repeat="cluster in (recentlyViewed ? $ctrl.recentlyViewed : $ctrl.clusters) | clusterSelectFilter : filterInput"
-            ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;">
+      <div class="cluster-select-list scrollable-menu">
+        <div ng-if="!recentlyViewed"
+             class="cluster-select-list-group"
+             ng-repeat="customer in $ctrl.clusters | clusterSelectFilter: filterInput | groupBy: 'customerName' | toArray: true | orderBy: '$key'">
+          <span title="{{customer.$key}}">{{customer.$key}}</span>
+          <div class="cluster-select-list-item"
+                ng-repeat="cluster in customer | orderBy: 'clusterName'"
+                ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;"
+                title="{{cluster.clusterName}}">
+              {{cluster.clusterName}}
+          </div>
+        </div>
+        <div ng-if="recentlyViewed"
+             class="cluster-select-list-item"
+             ng-repeat="cluster in $ctrl.recentlyViewed | clusterSelectFilter : filterInput"
+             ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;"
+             title="{{cluster.clusterName}}">
           {{cluster.clusterName}}
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -37,10 +37,14 @@ describe('The main navbar', function() {
   });
 
   it('should contain a cluster select component for navigating to cluster specific pages', function() {
+    var dropDownMenu = clusterSelect.open(),
+        list = dropDownMenu.allClustersList();
     expect(clusterSelect.el.isPresent()).to.eventually.be.true;
-    clusterSelect.open().clusterList.select('barCluster');
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26');
-    expect(navbar.mainNavbar.activeItem.getText()).to.eventually.equal('barCluster');
+    list.customer('Bill').then(function(customer) {
+      customer.selectCluster('barCluster');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26');
+      expect(navbar.mainNavbar.activeItem.getText()).to.eventually.equal('barCluster');
+    });
   });
 
   it('should maintain the selected clusterID in the route when navigating to other cluster specific pages', function() {
@@ -50,9 +54,14 @@ describe('The main navbar', function() {
   });
 
   it('should keep the user on the same cluster specific page when changing the cluster', function() {
+    var dropDownMenu = clusterSelect.open(),
+      list = dropDownMenu.allClustersList();
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/nodes');
-    clusterSelect.open().clusterList.select('fooCluster');
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/11/nodes');
+    list.customer('Bob').then(function(customer) {
+      customer.selectCluster('fooCluster');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/11/nodes');
+      expect(navbar.mainNavbar.activeItem.getText()).to.eventually.equal('fooCluster');
+    });
   });
 });
 
