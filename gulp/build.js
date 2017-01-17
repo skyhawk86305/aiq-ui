@@ -16,6 +16,7 @@ var gulp = require('gulp'),
   }),
   buildConfig = require('../build.config.js'),
   tsProject = $.typescript.createProject('./tsconfig.json'),
+  tsProjectTest = $.typescript.createProject('./tsconfig.json'),
   appBase = buildConfig.appDir,
   appFontFiles = path.join(appBase, 'fonts/**/*'),
   appImages = path.join(appBase, 'images/**/*'),
@@ -24,6 +25,7 @@ var gulp = require('gulp'),
   appMarkupFiles = path.join(appBase, '**/*.html'),
   appScriptFiles = path.join(appBase, '**/*.ts'),
   appStyleFiles = path.join(appBase, '**/*.less'),
+  unitTestFiles = path.join(buildConfig.unitTestDir, '**/*.spec.ts'),
   isProd = $.yargs.argv.prod,
   googleAnalyticsToken = $.yargs.argv.googleAnalyticsToken || '';
 
@@ -65,6 +67,22 @@ gulp.task('styles', ['clean'], function () {
     .pipe($.if(isProd, $.cssmin()))
     .pipe($.if(isProd, $.rev()))
     .pipe(gulp.dest(buildConfig.buildCss));
+});
+
+// compile tests and copy into build directory
+gulp.task('tests', function () {
+  var jsFilter = $.filter('**/*.js', {restore: true}),
+    tsFilter = $.filter('**/*.ts', {restore: true});
+
+  return gulp.src([unitTestFiles])
+    .pipe($.sourcemaps.init())
+    .pipe(tsFilter)
+    .pipe(tsProjectTest())
+    .pipe(tsFilter.restore)
+    .pipe(jsFilter)
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest(buildConfig.buildTest))
+    .pipe(jsFilter.restore);
 });
 
 // compile scripts and copy into build directory

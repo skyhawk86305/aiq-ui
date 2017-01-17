@@ -5,6 +5,8 @@
 typings
 app/**/*.js
 app/**/*.js.map
+test/unit/**/*.js
+test/unit/**/*.js.map
 
 # Node
 node_modules

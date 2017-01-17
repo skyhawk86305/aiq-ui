@@ -23,7 +23,7 @@ var gulp = require('gulp'),
   buildConfig = require('../build.config.js'),
   buildTemplateFiles = path.join(buildConfig.buildDir, '**/*.tpl.html'),
   buildJsFiles = path.join(buildConfig.buildJs, '**/*.js'),
-  unitTests = path.join(buildConfig.unitTestDir, '**/*.spec.js'),
+  unitTests = path.join(buildConfig.buildTest, '**/*.spec.js'),
   e2eTests = path.join(buildConfig.e2eTestDir, '**/*.spec.js'),
   argv = $.yargs
     .alias('v', 'verbose')
@@ -36,7 +36,7 @@ var gulp = require('gulp'),
 
 karmaConf.files = [];
 
-gulp.task('karmaFiles', ['build'], function () {
+gulp.task('karmaFiles', ['build', 'tests'], function () {
   var stream = $.streamqueue({objectMode: true});
   stream.queue(gulp.src($.wiredep({devDependencies: true}).js));
   stream.queue(gulp.src([buildTemplateFiles]));

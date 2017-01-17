@@ -6,6 +6,8 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@types/angular": "~1.5.8",
+    "@types/angular-mocks": "~1.5.8",
+    "@types/jasmine": "^2.4.1",
     "angular-mocks": "1.5.8",
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
