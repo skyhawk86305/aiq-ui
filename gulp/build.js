@@ -16,6 +16,7 @@ var gulp = require('gulp'),
   }),
   buildConfig = require('../build.config.js'),
   tsProject = $.typescript.createProject('./tsconfig.json'),
+  tsProjectTest = $.typescript.createProject('./tsconfig.json'),
   appBase = buildConfig.appDir,
   appFontFiles = path.join(appBase, 'fonts/**/*'),
   appImages = path.join(appBase, 'images/**/*'),
@@ -76,7 +77,7 @@ gulp.task('tests', function () {
   return gulp.src([unitTestFiles])
     .pipe($.sourcemaps.init())
     .pipe(tsFilter)
-    .pipe(tsProject())
+    .pipe(tsProjectTest())
     .pipe(tsFilter.restore)
     .pipe(jsFilter)
     .pipe($.sourcemaps.write('.'))
