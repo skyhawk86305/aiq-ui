@@ -46,6 +46,10 @@ describe('Cluster Overview Page', function () {
 
   });
 
+  it('should have an export button for the Performance Graph', function() {
+    expect(clusterOverviewPage.graphs.clusterPerformance.exportButton.isDisplayed()).to.eventually.be.true;
+  });
+
   it('should have the utilization graph with the correct title, series and legend items', function () {
     var graph = clusterOverviewPage.graphs.performanceUtilization;
     expect(graph.el.isDisplayed()).to.eventually.be.true;
@@ -54,6 +58,10 @@ describe('Cluster Overview Page', function () {
     expect(graph.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
     expect(graph.legend.legendItem('clusterUtilizationPct').label.getText()).to.eventually.equal('Utilization');
 
+  });
+
+  it('should have an export button for the Utilization Graph', function() {
+    expect(clusterOverviewPage.graphs.performanceUtilization.exportButton.isDisplayed()).to.eventually.be.true;
   });
 
   it('should display the infobar with 8 infoboxes', function() {

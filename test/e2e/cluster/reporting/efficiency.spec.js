@@ -45,5 +45,10 @@ describe('The Cluster Efficiency Page', function () {
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
     });
+
+
+    it('should have an export button for the Efficiency Graph', function() {
+      expect(efficiencyGraphs.childGraph('efficiency-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
   });
 });

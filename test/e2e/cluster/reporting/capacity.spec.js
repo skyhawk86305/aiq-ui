@@ -66,6 +66,10 @@ describe('The Cluster Capacity Page', function () {
       }
     });
 
+    it('should have an export button for the Block Capacity Graph', function() {
+      expect(capacityPage.syncGraphs.childGraph('block-capacity-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
+
     it('should have the correct info boxes displayed with the correct labels', function () {
       var infoBar = capacityPage.infoBars.blockCapacity;
       expect(infoBar.infoBoxes.count()).to.eventually.equal(5);
@@ -98,6 +102,11 @@ describe('The Cluster Capacity Page', function () {
         expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
+    });
+
+
+    it('should have an export button for the Metadata Capacity Graph', function() {
+      expect(capacityPage.syncGraphs.childGraph('metadata-capacity-child').exportButton.isDisplayed()).to.eventually.be.true;
     });
 
     it('should have the correct info boxes displayed, with the appropriate titles', function () {

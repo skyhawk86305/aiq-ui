@@ -45,6 +45,10 @@ describe('The Cluster Performance Page', function () {
       expect(graph.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
       expect(graph.legend.legendItem('clusterUtilizationPct').label.getText()).to.eventually.equal('Utilization');
     });
+
+    it('should have an export button for the Cluster Utilization Graph', function() {
+      expect(performanceGraphs.childGraph('utilization-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
   });
 
   describe('Cluster IOPS Graph', function () {
@@ -59,6 +63,11 @@ describe('The Cluster Performance Page', function () {
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
     });
+
+    it('should have an export button for theCluster IOPS Graph', function() {
+      expect(performanceGraphs.childGraph('iops-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
+
   });
 
   describe('Cluster Bandwidth Graph', function () {
@@ -73,5 +82,10 @@ describe('The Cluster Performance Page', function () {
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
     });
+
+    it('should have an export button for the Cluster Bandwidth Graph', function() {
+      expect(performanceGraphs.childGraph('throughput-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
+
   });
 });
