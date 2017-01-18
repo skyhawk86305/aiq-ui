@@ -111,6 +111,22 @@ support = {
 
   pressEnterKey: function() {
     browser.actions().sendKeys(protractor.Key.ENTER).perform();
+  },
+
+  checkScroll: function (item, expectScroll) { // is a scrollbar expected? true or false
+    //var el = element(by.css('.cluster-select-list.scrollable-menu'));
+    // Get scroll height (height of the entire list, clientHeight (height of the dropdown), and browser height
+    var promises = [item.getAttribute('scrollHeight'),item.getAttribute('clientHeight'),browser.manage().window().getSize()];
+    protractor.promise.all(promises).then(function (results) {
+      var scrollHeight = results[0], clientHeight = results[1], browserHeight = results[2].height;
+      if(expectScroll) {
+        support.expect(scrollHeight).to.be.at.least(0.80 * (browserHeight - 160));
+        support.expect(clientHeight).to.be.at.most(0.80 * (browserHeight - 160));
+      }
+      else {
+        support.expect(clientHeight).to.equal(scrollHeight);
+      }
+    });
   }
 
 };

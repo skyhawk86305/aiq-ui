@@ -15,7 +15,8 @@ var gulp = require('gulp'),
     ]
   }),
   buildConfig = require('../build.config.js'),
-  tsProject = $.typescript.createProject('./app/tsconfig.json'),
+  tsProject = $.typescript.createProject('./tsconfig.json'),
+  tsProjectTest = $.typescript.createProject('./tsconfig.json'),
   appBase = buildConfig.appDir,
   appFontFiles = path.join(appBase, 'fonts/**/*'),
   appImages = path.join(appBase, 'images/**/*'),
@@ -24,6 +25,7 @@ var gulp = require('gulp'),
   appMarkupFiles = path.join(appBase, '**/*.html'),
   appScriptFiles = path.join(appBase, '**/*.ts'),
   appStyleFiles = path.join(appBase, '**/*.less'),
+  unitTestFiles = path.join(buildConfig.unitTestDir, '**/*.spec.ts'),
   isProd = $.yargs.argv.prod,
   googleAnalyticsToken = $.yargs.argv.googleAnalyticsToken || '';
 
@@ -67,6 +69,22 @@ gulp.task('styles', ['clean'], function () {
     .pipe(gulp.dest(buildConfig.buildCss));
 });
 
+// compile tests and copy into build directory
+gulp.task('tests', function () {
+  var jsFilter = $.filter('**/*.js', {restore: true}),
+    tsFilter = $.filter('**/*.ts', {restore: true});
+
+  return gulp.src([unitTestFiles])
+    .pipe($.sourcemaps.init())
+    .pipe(tsFilter)
+    .pipe(tsProjectTest())
+    .pipe(tsFilter.restore)
+    .pipe(jsFilter)
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest(buildConfig.buildTest))
+    .pipe(jsFilter.restore);
+});
+
 // compile scripts and copy into build directory
 gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
   var jsFilter = $.filter('**/*.js', {restore: true}),
@@ -91,8 +109,6 @@ gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
 // inject custom CSS and JavaScript into index.html
 gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
-  var googleAnalyticsStream = gulp.src([path.join(buildConfig.buildDir, 'fragments/google-analytics.html')])
-    .pipe($.if(isProd, $.replace('{googleAnalyticsToken}', googleAnalyticsToken)));
 
   return gulp.src([buildConfig.buildDir + 'index.html'])
     .pipe($.inject(gulp.src([
@@ -105,22 +121,8 @@ gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
       addRootSlash: false,
       ignorePath: buildConfig.buildDir
     }))
-      .pipe($.inject(gulp.src([
-        path.join(buildConfig.buildDir, 'fragments/jira.html')
-      ]), {
-        starttag: '<!-- inject:jira -->',
-        addRootSlash: false,
-        ignorePath: buildConfig.buildDir
-      }))
-      .pipe($.inject(googleAnalyticsStream, {
-        starttag: '<!-- inject:google-analytics -->',
-        addRootSlash: false,
-        ignorePath: buildConfig.buildDir,
-        transform: function (filePath, file) {
-          return file.contents.toString('utf8');
-        }
-      }))
-      .pipe(gulp.dest(buildConfig.buildDir));
+    .pipe($.if(isProd, $.replace('{googleAnalyticsToken}', googleAnalyticsToken)))
+    .pipe(gulp.dest(buildConfig.buildDir));
 });
 
 // copy bower components into build directory

@@ -9,6 +9,7 @@
       'ngMessages',
       'ngSanitize',
       'angular-cache',
+      'angular.filter',
       'sfComponents'
     ]);
 })();
