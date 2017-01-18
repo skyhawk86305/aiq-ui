@@ -12,7 +12,7 @@
 
   function NodeTableService(SFTableService, SFFilterComparators, DataService) {
     var listActiveNodes = function() {
-      return DataService.callAPI('ListActiveNodes', {clusterID: this.selectedClusterID})
+      return DataService.callGuzzleAPI('ListActiveNodes', {clusterID: this.selectedClusterID})
         .then(function(response) { return response.nodes; });
     };
 

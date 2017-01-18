@@ -36,7 +36,7 @@
     }
 
     function listActiveVolumes() {
-      return DataService.callAPI('ListActiveVolumes', {clusterID: service.selectedClusterID})
+      return DataService.callGuzzleAPI('ListActiveVolumes', {clusterID: service.selectedClusterID})
       .then(function(response) {
         return response.volumes.map(function(volume) {
           volume.minIOPS = volume.qos.minIOPS;
