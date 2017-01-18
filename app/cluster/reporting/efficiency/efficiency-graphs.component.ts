@@ -37,7 +37,7 @@
         child: {
           title: 'Efficiency',
           id: 'efficiency-child',
-          export: false,
+          export: true,
           legend: {
             position: 'top',
             items: {
@@ -94,7 +94,7 @@
             }
           },
           margin: {
-            top: 15,
+            top: 20,
             right: 20,
             bottom: 30
           },

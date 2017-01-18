@@ -37,7 +37,7 @@
         child: {
           title: 'IOPS',
           id: 'iops-child',
-          export: false,
+          export: true,
           legend: {
             position: 'top',
             items: {
@@ -62,7 +62,7 @@
         child: {
           title: 'Throughput',
           id: 'throughput-child',
-          export: false,
+          export: true,
           legend: {
             position: 'top',
             items: {
@@ -87,7 +87,7 @@
         child: {
           title: 'Utilization',
           id: 'utilization-child',
-          export: false,
+          export: true,
           legend: {
             position: 'top',
             items: {
@@ -137,7 +137,7 @@
             }
           },
           margin: {
-            top: 15,
+            top: 20,
             right: 20,
             bottom: 30
           },
@@ -218,7 +218,7 @@
             }
           },
           margin: {
-            top: 15,
+            top: 20,
             right: 20,
             bottom: 30,
             left: 70
@@ -289,7 +289,7 @@
             }
           },
           margin: {
-            top: 15,
+            top: 20,
             right: 20,
             bottom: 30,
             left: 70
