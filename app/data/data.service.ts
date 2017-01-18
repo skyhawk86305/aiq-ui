@@ -45,6 +45,24 @@
         });
       },
 
+      callGuzzleAPI: function(method, params) {
+        let guzzleAPI = '/state/cluster/' + params.clusterID +
+            '/' + method;
+
+        return $http.get(guzzleAPI, {cache: true})
+          .then(function(response) {
+            return response.data;
+          })
+          .catch(function(error) {
+            if (error.status === 401) {
+              CacheFactory.get('defaultCache').removeAll();
+              let oldUrl = $location.url();
+              $location.path('/login').search({url: oldUrl});
+            }
+            return $q.reject(error);
+          });
+      },
+
       callGraphAPI: function(graph, params) {
         var graphAPI = '/graph/cluster/' + params.clusterID +
           '/' + graph;

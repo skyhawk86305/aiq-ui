@@ -19,6 +19,16 @@ describe('Component: driveTable', function() {
   describe('initialization', function() {
     it('should expose the table service to be used in the sf-table component', function() {
       expect(controller.service).toEqual(service);
+      expect(controller.quickFilter).toEqual({
+        column: 'status',
+        values: ['active', 'available', 'failed'],
+        labels: {
+          active: 'Active',
+          available: 'Available',
+          failed: 'Failed'
+        },
+        default: 'active'
+      })
     });
 
     it('should update the table service with the clusterID from the route', function() {
