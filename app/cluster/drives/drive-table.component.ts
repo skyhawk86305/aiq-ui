@@ -14,7 +14,7 @@
     this.quickFilter = {
       column: 'status',
       values: ['active', 'available', 'failed'],
-      display: {
+      labels: {
         active: 'Active',
         available: 'Available',
         failed: 'Failed'
