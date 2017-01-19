@@ -12,7 +12,7 @@
 
   function EventTableService(SFTableService, SFFilterComparators, DataService) {
     var listEvents = function() {
-      return DataService.callGuzzleAPI('ListEvents', {clusterID: this.selectedClusterID})
+      return DataService.callAPI('ListEvents', {clusterID: this.selectedClusterID})
         .then(function(response) {
           return response.events.map(function(event) {
             return event;
