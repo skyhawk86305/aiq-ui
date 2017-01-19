@@ -44,7 +44,6 @@
           return error.data;
         });
       },
- 
       callGraphAPI: function(graph, params) {
         var graphAPI = '/graph/cluster/' + params.clusterID +
           '/' + graph;
