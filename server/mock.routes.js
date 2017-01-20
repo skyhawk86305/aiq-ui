@@ -17,6 +17,12 @@ mockRoutes.post('/json-rpc/2.0', function (req, res) {
   res.send(response);
 });
 
+mockRoutes.get('/state/cluster/:clusterId/:method', function (req, res) {
+  var fixture = require('./fixtures/' + fixtureDir + '/' + req.params.method),
+    response = fixture || {};
+  res.send(response);
+});
+
 /**
  * Catch API get request to sessions and return status based on user authentication status
  */
