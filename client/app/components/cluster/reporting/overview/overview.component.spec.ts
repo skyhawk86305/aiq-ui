@@ -45,14 +45,9 @@ describe('Component: overviewDashboard', function() {
   });
 
   describe('.$onInit', function() {
-    it('should update the performance graphs service and clsuter alert table service with the clusterID from the route', function() {
+    it('should update the performance graphs service with the clusterID from the route', function() {
       controller.$onInit();
       expect(performanceService.update).toHaveBeenCalledWith(routeParams.clusterID);
-      expect(clusterAlertTableService.update).toHaveBeenCalledWith(routeParams.clusterID);
-    });
-    it('should expose cluster alert table service', function() {
-      controller.$onInit();
-      expect(controller.clusterAlertTableService).toBeDefined();
     });
     it('should set controller data', function() {
       controller.$onInit();

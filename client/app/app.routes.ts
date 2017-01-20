@@ -81,6 +81,10 @@
         template: '<event-table class="sf-layout-block"></event-table>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID/reporting/alerts', {
+        template: '<cluster-alert-table class="sf-layout-block"></cluster-alert-table>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/reporting/iscsiSessions', {
         template: require('./coming-soon.tpl.html')
       })

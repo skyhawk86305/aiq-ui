@@ -1,13 +1,13 @@
 'use strict';
 
 describe('ClusterAlertTableService', function () {
-  var rootScope,
-      deferred,
-      apiResponse,
-      apiFailure,
-      service,
-      dataService,
-      parentService;
+  let rootScope,
+    deferred,
+    apiResponse,
+    apiFailure,
+    service,
+    dataService,
+    parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('DataService', {callAPI: function() {} });
@@ -51,7 +51,7 @@ describe('ClusterAlertTableService', function () {
       apiResponse = {
         alerts: [{notification: {}}, {notification: {}}]
       };
-      var expectedResponse = [
+      let expectedResponse = [
         {notification: {}, notificationName: '', destinationEmail: '', policyDescription: ''},
         {notification: {}, notificationName: '', destinationEmail: '', policyDescription: ''}
       ];

@@ -10,19 +10,16 @@
         '$filter',
         'DataService',
         'PerformanceGraphsService',
-        'ClusterAlertTableService',
         'SFD3LineGraph',
         OverviewDashboardController
       ]
     });
 
-  function OverviewDashboardController($routeParams, $filter, DataService, PerformanceGraphsService, ClusterAlertTableService, SFD3LineGraph) {
+  function OverviewDashboardController($routeParams, $filter, DataService, PerformanceGraphsService, SFD3LineGraph) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
       PerformanceGraphsService.update($routeParams.clusterID);
-      ClusterAlertTableService.update($routeParams.clusterID);
-      ctrl.clusterAlertTableService = ClusterAlertTableService;
       ctrl.getClusterSummaryState = 'loading';
       ctrl.getCapacitySnapshotState = 'loading';
       ctrl.getPerformanceSnapshotState = 'loading';
