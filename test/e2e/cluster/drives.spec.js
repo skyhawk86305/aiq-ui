@@ -5,13 +5,14 @@ var support = require('../support.js');
 var expect = support.expect;
 var TableComponent = require('../page-objects/components/sf-components.po').table;
 var table = new TableComponent('drive');
-var fixture = mapFixture(support.fixture('ListActiveDrives'));
+var fixture = mapFixture(support.fixture('ListDrives'));
 var uniqueKey = 'driveID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'driveID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'nodeID', label: 'Node ID', format: {filter: 'aiqNumber', args: [0, true]}},
+  {key: 'status', label: 'Status', format: {filter: 'string'}},
   {key: 'slot', label: 'Slot', format: {filter: 'driveSlot'}},
   {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
   {key: 'serial', label: 'Serial', format: {filter: 'string'}},
@@ -21,7 +22,7 @@ var columns = [
 ];
 
 function mapFixture(rawFixture) {
-  return rawFixture.result.drives.map(function(drive) {
+  return rawFixture.drives.map(function(drive) {
     drive.lifeRemainingPercent = drive.driveStats && drive.driveStats.lifeRemainingPercent || '';
     drive.reserveCapacityPercent  = drive.driveStats && drive.driveStats.reserveCapacityPercent || '';
     return drive;
