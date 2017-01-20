@@ -17,7 +17,7 @@ describe('The main navbar', function() {
 
   it('should contain a menu with options', function() {
     expect(navbar.menu.button.isPresent()).to.eventually.be.true;
-    expect(navbar.menu.expand().options.count()).to.eventually.equal(2);
+    expect(navbar.menu.expand().options.count()).to.eventually.equal(3);
   });
 
   it('should change the URL route and set the active state when clicking on main navbar items', function() {
