@@ -31,4 +31,3 @@ logs
 pids
 *.pid
 *.seed
-local.config.js
