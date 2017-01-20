@@ -39,7 +39,14 @@
       },
 
       callGuzzleAPI(clusterID, method) {
-        const guzzleAPI = `/state/cluster/${clusterID}/${method}`;
+        let guzzleAPI;
+        if(!clusterID) {
+          return $q.reject();
+        }
+        guzzleAPI = `/state/cluster/${clusterID}`;
+        if(method) {
+          guzzleAPI += `/${method}`;
+        }
 
         return $http.get(guzzleAPI, {cache: true})
           .then( response => response.data )

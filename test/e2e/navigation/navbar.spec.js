@@ -74,6 +74,7 @@ describe('The dropdown menu', function() {
         browser.switchTo().window(handles[1]).then(function () {
           browser.driver.getCurrentUrl().then(function(url) {
             expect(url).to.contain('www.solidfire.com/platform/support/');
+            browser.close();
           });
         });
         browser.ignoreSynchronization = false;

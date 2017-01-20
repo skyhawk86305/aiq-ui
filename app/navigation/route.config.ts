@@ -90,6 +90,10 @@
       .when('/cluster/:clusterID/reporting/forecasting', {
         templateUrl: 'coming-soon.tpl.html'
       })
+      .when('/cluster/:clusterID/reporting/apiCollection', {
+        template: '<api-collection-table class="sf-layout-block"></api-collection-table>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/nodes', {
         template: '<node-table class="sf-layout-block"></node-table>',
         reloadOnSearch: false

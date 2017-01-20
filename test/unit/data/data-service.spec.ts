@@ -2,6 +2,7 @@
 
 describe('Data Service', function () {
   var rootScope,
+      deferred,
       service,
       apiLogService,
       http,
@@ -15,8 +16,9 @@ describe('Data Service', function () {
     });
   }));
 
-  beforeEach(inject(function ($rootScope, DataService, ApiLogService, $httpBackend, $location) {
+  beforeEach(inject(function ($rootScope, $q, DataService, ApiLogService, $httpBackend, $location) {
     rootScope = $rootScope;
+    deferred = $q.defer();
     service = DataService;
     apiLogService = ApiLogService;
     http = $httpBackend;
@@ -45,6 +47,20 @@ describe('Data Service', function () {
       http.flush();
       expect(location.path).toHaveBeenCalledWith('/login');
       expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
+    });
+  });
+
+  describe('.callGuzzleAPI', function() {
+    it('should make an $http request to the API with the provided method name and cluster ID', function () {
+      service.callGuzzleAPI('12345', 'foobar');
+      http.expect('GET', '/state/cluster/12345/foobar').respond([]);
+      http.flush();
+    });
+
+    it('should make an $http request to the API with the provided cluster ID', function () {
+      service.callGuzzleAPI('12345');
+      http.expect('GET', '/state/cluster/12345').respond([]);
+      http.flush();
     });
   });
 
