@@ -81,7 +81,7 @@ describe('The dropdown menu', function() {
       });
   });
 
-  it('should go to the homepage of the old AIQ UI when the Return to Old UI item is selected from the dropdown menu', function() {
+  it('should go to the homepage of the old AIQ UI when the Legacy Active IQ item is selected from the dropdown menu', function() {
     browser.get('#');
     navbar.menu.expand().select('Legacy Active IQ');
       browser.getAllWindowHandles().then(function(handles) {
