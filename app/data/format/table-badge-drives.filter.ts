@@ -3,7 +3,7 @@
   
   angular
     .module('aiqUi')
-    .filter('tableBadgeDrives', function() {
+    .filter('DrivesTableBadge', function() {
       return function (data, column) {
 
         var type = 'normal';
