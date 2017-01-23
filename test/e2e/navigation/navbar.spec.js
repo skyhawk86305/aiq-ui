@@ -78,7 +78,6 @@ describe('The dropdown menu', function() {
         });
         browser.ignoreSynchronization = false;
         browser.switchTo().window(handles[0]);
-        browser.navigate().back();
       });
   });
 
@@ -92,6 +91,7 @@ describe('The dropdown menu', function() {
         });
         browser.ignoreSynchronization = false;
         browser.switchTo().window(handles[0]);
+        browser.navigate().back();
       });
   });
 });
