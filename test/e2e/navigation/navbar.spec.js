@@ -83,7 +83,7 @@ describe('The dropdown menu', function() {
 
   it('should go to the homepage of the old AIQ UI when the Return to Old UI item is selected from the dropdown menu', function() {
     browser.get('#');
-    navbar.menu.expand().select('Return to Old UI');
+    navbar.menu.expand().select('Legacy Active IQ');
       browser.getAllWindowHandles().then(function(handles) {
         browser.ignoreSynchronization = true; // disable temporarily since this page is not Angular
         browser.driver.getCurrentUrl().then(function(url) {
