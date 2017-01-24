@@ -22,7 +22,7 @@ function mapFixture(rawFixture) {
   return rawFixture.protocolEndpoints;
 }
 
-fdescribe('The Cluster Protocol Endpoint Page', function () {
+describe('The Cluster Protocol Endpoint Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/vvols/protocol-endpoints');
     expect(table.el.isDisplayed()).to.eventually.be.true;
