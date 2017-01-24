@@ -67,7 +67,8 @@
           href:'#/cluster/:clusterID/vvols/virtual-volumes',
           label: 'VVols',
           menuItems: [
-            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes'}
+            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes'},
+            {key:'protocolEndpoints', href: '#/cluster/:clusterID/vvols/protocol-endpoints', label: 'Protocol Endpoints'}
           ]
         }
       ]

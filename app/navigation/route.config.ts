@@ -109,6 +109,10 @@
         template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID/vvols/protocol-endpoints', {
+        template: '<protocol-endpoint-table class="sf-layout-block"></protocol-endpoint-table>',
+        reloadOnSearch: false
+      })
       .when('/users', {
         templateUrl: 'coming-soon.tpl.html'
       })
