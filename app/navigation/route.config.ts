@@ -105,6 +105,10 @@
       .when('/cluster/:clusterID/replication', {
         templateUrl: 'coming-soon.tpl.html'
       })
+      .when('/cluster/:clusterID/vvols/virtual-volumes', {
+        template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
+        reloadOnSearch: false
+      })
       .when('/users', {
         templateUrl: 'coming-soon.tpl.html'
       })

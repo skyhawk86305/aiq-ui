@@ -3,16 +3,16 @@
 
   angular
   .module('aiqUi')
-  .service('VolumeTableService', [
+  .service('VirtualVolumeTableService', [
     'SFTableService',
     'SFFilterComparators',
     'DataService',
-    VolumeTableService
+    VirtualVolumeTableService
   ]);
 
-  function VolumeTableService(SFTableService, SFFilterComparators, DataService) {
+  function VirtualVolumeTableService(SFTableService, SFFilterComparators, DataService) {
     var columns = getColumns(),
-      service = new SFTableService(listActiveVolumes, columns, false);
+      service = new SFTableService(listVirtualVolumes, columns, false);
 
     service.selectedClusterID = null;
     service.update = update;
@@ -23,26 +23,33 @@
     function getColumns() {
       return [
         {key: 'volumeID', label: 'ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
-        {key: 'accountID', label: 'Account ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
-        {key: 'totalSize', label: 'Volume Size', format: {filter: 'bytes'}},
-        {key: 'enable512e', label: '512e', width: 100, format: {filter: 'boolean', args: ['Yes', 'No']}},
+        {key: 'snapshotID', label: 'Snapshot ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+        {key: 'parentVirtualVolumeID', label: 'Parent Virtual Volume ID', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'virtualVolumeID', label: 'Virtual Volume ID', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'VMW_GosType', label: 'Guest OS Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'virtualVolumeType', label: 'Virtual Volume Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
         {key: 'access', label: 'Access', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
+        {key: 'snapshotInfo', label: 'Snapshots', format: {filter: 'string'}},
         {key: 'minIOPS', label: 'Min IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'maxIOPS', label: 'Max IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
-        {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
-        {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}}
+        {key: 'VMW_VmID', label: 'VMW_VmId', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}}
       ];
     }
 
-    function listActiveVolumes() {
-      return DataService.callAPI('ListActiveVolumes', {clusterID: service.selectedClusterID})
+    function listVirtualVolumes() {
+      return DataService.callGuzzleAPI('ListVirtualVolumes', {clusterID: service.selectedClusterID})
       .then(function(response) {
         return response.volumes.map(function(volume) {
-          volume.minIOPS = volume.qos.minIOPS;
-          volume.maxIOPS = volume.qos.maxIOPS;
-          volume.burstIOPS = volume.qos.burstIOPS;
-          volume.paired = volume.volumePairs.length ? true : false;
+          volume.VMW_GosType = volume.metadata.VMW_GosType;
+          volume.access = volume.volumeInfo.access;
+          volume.totalSize = volume.volumeInfo.totalSize;
+          volume.minIOPS = volume.volumeInfo.qos.minIOPS;
+          volume.maxIOPS = volume.volumeInfo.qos.maxIOPS;
+          volume.burstIOPS = volume.volumeInfo.qos.burstIOPS;
+          volume.createTime = volume.volumeInfo.createTime;
           return volume;
         });
       });

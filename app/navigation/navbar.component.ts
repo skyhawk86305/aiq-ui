@@ -67,7 +67,7 @@
           href:'#/cluster/:clusterID/vvols/virtual-volumes',
           label: 'VVols',
           menuItems: [
-            {key:'virtualVolumes', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'Virtual Volumes']
+            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes'}
           ]
         }
       ]
