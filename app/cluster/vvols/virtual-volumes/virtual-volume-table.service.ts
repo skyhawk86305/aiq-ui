@@ -30,7 +30,7 @@
         {key: 'virtualVolumeType', label: 'Virtual Volume Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
         {key: 'access', label: 'Access', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
         {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
-        {key: 'snapshotInfo', label: 'Snapshots', format: {filter: 'string'}},
+        {key: 'snapshotInfo', label: 'Snapshot', format: {filter: 'string'}},
         {key: 'minIOPS', label: 'Min IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'maxIOPS', label: 'Max IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
@@ -42,8 +42,9 @@
     function listVirtualVolumes() {
       return DataService.callGuzzleAPI('ListVirtualVolumes', {clusterID: service.selectedClusterID})
       .then(function(response) {
-        return response.volumes.map(function(volume) {
+        return response.virtualVolumes.map(function(volume) {
           volume.VMW_GosType = volume.metadata.VMW_GosType;
+          volume.VMW_VmID = volume.metadata.VMW_VmID;
           volume.access = volume.volumeInfo.access;
           volume.totalSize = volume.volumeInfo.totalSize;
           volume.minIOPS = volume.volumeInfo.qos.minIOPS;
@@ -52,6 +53,10 @@
           volume.createTime = volume.volumeInfo.createTime;
           return volume;
         });
+      }).catch(function(err) {
+        if (err.status !== 404) {
+          return err;
+        }
       });
     }
 
