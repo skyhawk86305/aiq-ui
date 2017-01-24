@@ -155,7 +155,7 @@
     }
 
     function yAxisFormat(factor) {
-      return $filter('percent')(factor, 2, true, false);
+      return $filter('percent')(factor, 2, true, true, false, null, null);
     }
   }
 })();

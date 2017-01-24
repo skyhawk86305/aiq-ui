@@ -12,7 +12,7 @@
 
   function DriveTableService(SFTableService, SFFilterComparators, DataService) {
     var listDrives = function() {
-      return DataService.callAPI('ListActiveDrives', {clusterID: this.selectedClusterID})
+      return DataService.callGuzzleAPI('ListDrives', {clusterID: this.selectedClusterID})
         .then(function(response) {
           return response.drives
             .map(function(drive) {
@@ -26,6 +26,7 @@
     var columns = [
       {key: 'driveID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
       {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
+      {key: 'status', label: 'Status', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'slot', label: 'Slot', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'driveSlot'}},
       {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
       {key: 'serial', label: 'Serial', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
