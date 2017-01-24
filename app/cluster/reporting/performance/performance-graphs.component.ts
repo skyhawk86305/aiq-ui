@@ -348,7 +348,7 @@
       return $filter('date')(new Date(milliseconds), 'short');
     }
     function utilizationFormat(utilization) {
-      return $filter('percent')(utilization, 0, false, true);
+      return $filter('percent')(utilization, 0, true, false, true, null, null);
     }
     function iopsFormat(iops) {
       return $filter('iops')(iops, 0, true);
