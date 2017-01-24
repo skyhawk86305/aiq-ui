@@ -21,7 +21,7 @@ function mapFixture(rawFixture) {
   return rawFixture.hosts;
 }
 
-fdescribe('The Cluster Host Page', function () {
+describe('The Cluster Host Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/vvols/hosts');
     expect(table.el.isDisplayed()).to.eventually.be.true;
