@@ -120,6 +120,10 @@
         template: '<binding-table class="sf-layout-block"></binding-table>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID/vvols/storage-containers', {
+        templateUrl: 'coming-soon.tpl.html',
+        reloadOnSearch: false
+      })
       .when('/users', {
         templateUrl: 'coming-soon.tpl.html'
       })
