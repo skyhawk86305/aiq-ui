@@ -17,7 +17,7 @@ describe('The main navbar', function() {
 
   it('should contain a menu with options', function() {
     expect(navbar.menu.button.isPresent()).to.eventually.be.true;
-    expect(navbar.menu.expand().options.count()).to.eventually.equal(2);
+    expect(navbar.menu.expand().options.count()).to.eventually.equal(3);
   });
 
   it('should change the URL route and set the active state when clicking on main navbar items', function() {
@@ -80,21 +80,18 @@ describe('The dropdown menu', function() {
         browser.switchTo().window(handles[0]);
       });
   });
-});
 
-describe('The dropdown menu', function() {
-  it('should go to the SF Support page when the Support item is selected from the dropdown menu', function() {
+  it('should go to the homepage of the old AIQ UI when the Legacy Active IQ item is selected from the dropdown menu', function() {
     browser.get('#');
-    navbar.menu.expand().select('Support');
+    navbar.menu.expand().select('Legacy Active IQ');
       browser.getAllWindowHandles().then(function(handles) {
         browser.ignoreSynchronization = true; // disable temporarily since this page is not Angular
-        browser.switchTo().window(handles[1]).then(function () {
-          browser.driver.getCurrentUrl().then(function(url) {
-            expect(url).to.contain('www.solidfire.com/platform/support/');
-          });
+        browser.driver.getCurrentUrl().then(function(url) {
+          expect(url).to.not.contain('beta');
         });
         browser.ignoreSynchronization = false;
         browser.switchTo().window(handles[0]);
+        browser.navigate().back();
       });
   });
 });
