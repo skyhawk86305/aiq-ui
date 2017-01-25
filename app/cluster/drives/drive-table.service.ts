@@ -12,7 +12,7 @@
 
   function DriveTableService(SFTableService, SFFilterComparators, DataService) {
     var listDrives = function() {
-      return DataService.callGuzzleAPI('ListDrives', {clusterID: this.selectedClusterID})
+      return DataService.callGuzzleAPI(this.selectedClusterID, 'ListDrives')
         .then(function(response) {
           return response.drives
             .map(function(drive) {

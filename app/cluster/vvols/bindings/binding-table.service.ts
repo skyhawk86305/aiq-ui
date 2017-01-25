@@ -24,11 +24,6 @@
     function listBindings() {
       return DataService.callGuzzleAPI(service.selectedClusterID, 'ListVirtualVolumeBindings')
         .then( response => response.bindings )
-        .catch( err => {
-          if (err.status !== 404) {
-            return err;
-          }
-        })
     }
 
     const service = new SFTableService(listBindings, columns, false);
