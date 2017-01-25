@@ -2,6 +2,83 @@
   <div id="cluster-name" class="heading">
     <span>{{$ctrl.clusterSummary.clusterName}}</span>
   </div>
+  <div class="sf-widget container-fluid info-bar">
+    <div class="info-bar-row col-lg-6 col-md-12">
+      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-2  col-md-2 col-sm-6">
+        <div class="info-box-content">
+          <span class="title">Nodes</span>
+          <span class="value">{{$ctrl.clusterSummary.nodeCount}}</span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getCapacitySnapshotState" class="info-box -efficiency-info col-lg-3  col-md-3 col-sm-6">
+        <div class="info-box-content -efficiency">
+          <span class="title">Efficiency (x)</span>
+          <span ng-bind-html="$ctrl.capacitySnapshot.efficiencyFactor | percent:1:false:true:false:true:999" class="value"></span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-4  col-md-4 col-sm-6">
+        <div class="info-box-content">
+          <span class="title">Unresolved Faults</span>
+          <div class="badge-container">
+            <div class="badge -first"
+                 ng-class="{'-warning': $ctrl.clusterSummary.unresolvedFaults.warning,
+                '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.warning }">
+              <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.warning || 0}}</span>
+              <span class="title">Warning</span>
+            </div>
+            <div class="badge -second"
+                 ng-class="{'-critical': $ctrl.clusterSummary.unresolvedFaults.error,
+                '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.error }">
+              <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.error || 0}}</span>
+              <span class="title">Error</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -iops col-lg-3  col-md-3 col-sm-6">
+        <div class="info-box-content">
+          <span class="title">IOPS</span>
+          <span class="value">{{$ctrl.performanceSnapshot.totalOpsPerSec | iops:true:1:false }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="info-bar-row col-lg-6 col-md-12">
+      <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -bandwidth col-lg-3  col-md-3 col-sm-6">
+        <div class="info-box-content">
+          <span class="title">Throughput</span>
+          <span ng-bind-html="$ctrl.performanceSnapshot.totalBytesPerSec | bytes:false:0:true:true" class="value"></span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -utilization col-lg-3  col-md-3 col-sm-6">
+        <div class="info-box-content">
+          <span class="title">Utilization (%)</span>
+          <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | percent:0:false:false:true:null:null }}</span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -block-capacity col-lg-3  col-md-3 col-sm-6">
+        <div class="info-box-content">
+          <span class="title">Block Capacity</span>
+          <div class="badge-container">
+            <div class="badge"
+                 ng-class="$ctrl.clusterSummary.clusterFull.blockFullness | clusterStage:true">
+              <span class="title -large">{{$ctrl.clusterSummary.clusterFull.blockFullness | clusterStage}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -metadata-capacity col-lg-3  col-md-3 col-sm-6">
+        <div class="info-box-content">
+          <span class="title">Metadata Capacity</span>
+          <div class="badge-container">
+            <div class="badge"
+                 ng-class="$ctrl.clusterSummary.clusterFull.metadataFullness | clusterStage:true">
+              <span class="title -large">{{$ctrl.clusterSummary.clusterFull.metadataFullness | clusterStage}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="graph-row">
     <div class="graph-container col-md-6">
       <div class="overview-dashboard-graph sf-widget">
@@ -11,7 +88,8 @@
                               limit="100"
                               context-range="$ctrl.graphs.contextRange"
                               title="Performance"
-                              legend="$ctrl.graphs.performance.legend">
+                              legend="$ctrl.graphs.performance.legend"
+                              export="true">
         </sf-graph-time-series>
       </div>
     </div>
@@ -23,85 +101,9 @@
                             limit="100"
                             context-range="$ctrl.graphs.contextRange"
                             title="Utilization"
-                            legend="$ctrl.graphs.utilization.legend">
+                            legend="$ctrl.graphs.utilization.legend"
+                            export="true">
       </sf-graph-time-series>
-      </div>
-    </div>
-  </div>
-  <div class="sf-widget container-fluid info-bar">
-    <div class="info-bar-row col-lg-6 col-md-12">
-      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-3  col-md-3">
-        <div class="info-box-content">
-          <span class="title">Nodes</span>
-          <span class="value">{{$ctrl.clusterSummary.nodeCount}}</span>
-        </div>
-      </div>
-      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -block-capacity col-lg-3  col-md-3">
-        <div class="info-box-content">
-          <span class="title">Block Capacity</span>
-          <div class="badge-container">
-            <div class="badge"
-              ng-class="$ctrl.clusterSummary.clusterFull.blockFullness | clusterStage:true">
-              <span class="title -large">{{$ctrl.clusterSummary.clusterFull.blockFullness | clusterStage}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -metadata-capacity col-lg-3  col-md-3">
-        <div class="info-box-content">
-          <span class="title">Metadata Capacity</span>
-          <div class="badge-container">
-            <div class="badge"
-              ng-class="$ctrl.clusterSummary.clusterFull.metadataFullness | clusterStage:true">
-              <span class="title -large">{{$ctrl.clusterSummary.clusterFull.metadataFullness | clusterStage}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div sf-state state= "$ctrl.getCapacitySnapshotState" class="info-box -efficiency-info col-lg-3  col-md-3">
-        <div class="info-box-content -efficiency">
-          <span class="title">Efficiency</span>
-          <span class="value">{{$ctrl.capacitySnapshot.efficiencyFactor | percent:1:true:false }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="info-bar-row col-lg-6 col-md-12">
-      <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -utilization col-lg-3  col-md-3">
-        <div class="info-box-content">
-          <span class="title">Utilization</span>
-          <span class="value">{{$ctrl.performanceSnapshot.clusterUtilizationPct | percent:0:false:true }}</span>
-        </div>
-      </div>
-      <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -iops col-lg-3  col-md-3">
-        <div class="info-box-content">
-          <span class="title">IOPS</span>
-          <span class="value">{{$ctrl.performanceSnapshot.totalOpsPerSec | iops:true:1:false }}</span>
-        </div>
-      </div>
-      <div sf-state state= "$ctrl.getPerformanceSnapshotState" class="info-box -bandwidth col-lg-3  col-md-3">
-        <div class="info-box-content">
-          <span class="title">Throughput</span>
-          <span ng-bind-html="$ctrl.performanceSnapshot.totalBytesPerSec | bytes:false:0:true:true" class="value"></span>
-        </div>
-      </div>
-      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-3  col-md-3">
-        <div class="info-box-content">
-          <span class="title">Faults</span>
-          <div class="badge-container">
-            <div class="badge -first"
-              ng-class="{'-warning': $ctrl.clusterSummary.unresolvedFaults.warning,
-                '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.warning }">
-              <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.warning || 0}}</span>
-              <span class="title">Warning</span>
-            </div>
-            <div class="badge -second"
-              ng-class="{'-critical': $ctrl.clusterSummary.unresolvedFaults.error,
-                '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.error }">
-              <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.error || 0}}</span>
-              <span class="title">Error</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

@@ -26,18 +26,23 @@ describe('The Cluster Capacity Page', function () {
     expect(capacityPage.syncGraphs.dateRangeSelectors.static.activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
   });
 
-  it('should have 3 child graphs', function (done) {
-    var childGraphIds = ['provisioned-space-child', 'block-capacity-child', 'metadata-capacity-child'];
-
-    for (var i = 0; i < childGraphIds.length; i++) {
-      expect(capacityPage.syncGraphs.childGraph(childGraphIds[i]).el.isDisplayed()).to.eventually.be.true;
-    }
-    expect(capacityPage.syncGraphs.childrenGraphs.count()).to.eventually.equal(3).notify(done);
-  });
-
   it('should have a specific graph selected as the initial context', function () {
     expect(capacityPage.syncGraphs.contextGraph.el.getAttribute('component-id')).to.eventually.equal('block-capacity-context');
   });
+
+  it('should have 3 child graphs', function (done) {
+    var childGraphIds = ['provisioned-space-child','metadata-capacity-child','block-capacity-child'];
+    var childGraphTitleIds = ['provisioned-space','metadata-capacity','block-capacity'];
+    var childGraphTitles = ['Provisioned Space','Metadata Capacity','Block Capacity'];
+
+    for (var i = 0; i < childGraphIds.length; i++) {
+      capacityPage.syncGraphs.graphSelector.select(childGraphTitleIds[i]);
+      expect(capacityPage.syncGraphs.childGraph(childGraphIds[i]).el.isDisplayed()).to.eventually.be.true;
+      expect(capacityPage.syncGraphs.childGraphTitle(childGraphTitleIds[i]).getText()).to.eventually.equal(childGraphTitles[i]);
+      }
+    expect(capacityPage.syncGraphs.childrenGraphs.count()).to.eventually.equal(3).notify(done);
+  });
+
 
   describe('Provisioned Space Graph', function () {
     it('should have the correct data series plotted with the appropriate legend', function () {
@@ -66,6 +71,10 @@ describe('The Cluster Capacity Page', function () {
       }
     });
 
+    it('should have an export button for the Block Capacity Graph', function() {
+      expect(capacityPage.syncGraphs.childGraph('block-capacity-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
+
     it('should have the correct info boxes displayed with the correct labels', function () {
       var infoBar = capacityPage.infoBars.blockCapacity;
       expect(infoBar.infoBoxes.count()).to.eventually.equal(5);
@@ -77,7 +86,6 @@ describe('The Cluster Capacity Page', function () {
       }
     });
 
-
     it('The info-boxes must be wider than their value text', function(){
       var infoBar = capacityPage.infoBars.blockCapacity;
       var boxNames = ['used-capacity','warning-threshold','error-threshold','total-capacity','current-state'];
@@ -85,7 +93,6 @@ describe('The Cluster Capacity Page', function () {
         support.infoBoxSizeCheck(infoBar, boxNames[i]);
       }
     });
-
   });
 
   describe('Metadata Capacity Graph', function () {
@@ -98,6 +105,10 @@ describe('The Cluster Capacity Page', function () {
         expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
+    });
+
+    it('should have an export button for the Metadata Capacity Graph', function() {
+      expect(capacityPage.syncGraphs.childGraph('metadata-capacity-child').exportButton.isDisplayed()).to.eventually.be.true;
     });
 
     it('should have the correct info boxes displayed, with the appropriate titles', function () {
@@ -118,6 +129,5 @@ describe('The Cluster Capacity Page', function () {
         support.infoBoxSizeCheck(infoBar, boxNames[i]);
       }
     });
-
   });
 });

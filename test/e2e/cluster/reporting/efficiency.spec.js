@@ -27,6 +27,7 @@ describe('The Cluster Efficiency Page', function () {
 
   it('should have 1 child graph', function () {
     expect(efficiencyGraphs.childGraph('efficiency-child').el.isDisplayed()).to.eventually.be.true;
+    expect(efficiencyGraphs.childGraphTitle('efficiency').getText()).to.eventually.equal('Efficiency');
     expect(efficiencyGraphs.childrenGraphs.count()).to.eventually.equal(1);
   });
 
@@ -44,6 +45,11 @@ describe('The Cluster Efficiency Page', function () {
         expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
+    });
+
+
+    it('should have an export button for the Efficiency Graph', function() {
+      expect(efficiencyGraphs.childGraph('efficiency-child').exportButton.isDisplayed()).to.eventually.be.true;
     });
   });
 });

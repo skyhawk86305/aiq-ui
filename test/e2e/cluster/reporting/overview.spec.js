@@ -46,6 +46,10 @@ describe('Cluster Overview Page', function () {
 
   });
 
+  it('should have an export button for the Performance Graph', function() {
+    expect(clusterOverviewPage.graphs.clusterPerformance.exportButton.isDisplayed()).to.eventually.be.true;
+  });
+
   it('should have the utilization graph with the correct title, series and legend items', function () {
     var graph = clusterOverviewPage.graphs.performanceUtilization;
     expect(graph.el.isDisplayed()).to.eventually.be.true;
@@ -54,6 +58,10 @@ describe('Cluster Overview Page', function () {
     expect(graph.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
     expect(graph.legend.legendItem('clusterUtilizationPct').label.getText()).to.eventually.equal('Utilization');
 
+  });
+
+  it('should have an export button for the Utilization Graph', function() {
+    expect(clusterOverviewPage.graphs.performanceUtilization.exportButton.isDisplayed()).to.eventually.be.true;
   });
 
   it('should display the infobar with 8 infoboxes', function() {
@@ -92,24 +100,24 @@ describe('Cluster Overview Page', function () {
   it('should have an efficiency info-box showing 25.3x', function() {
     var box = clusterOverviewPage.infoBar.infoBox('efficiency-info');
     expect(box.el.isDisplayed()).to.eventually.be.true;
-    expect(box.title.getText()).to.eventually.equal('Efficiency');
-    expect(box.value.getText()).to.eventually.equal('25.3x');
+    expect(box.title.getText()).to.eventually.equal('Efficiency (x)');
+    expect(box.value.getText()).to.eventually.equal('25.3');
   });
 
   //  Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
-  xit('The Efficiency info-box must be wider than its value text', function(){
+  it('The Efficiency info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'efficiency-info');
   });
 
   it('should have an utilization info-box showing 11%', function() {
     var box = clusterOverviewPage.infoBar.infoBox('utilization');
     expect(box.el.isDisplayed()).to.eventually.be.true;
-    expect(box.title.getText()).to.eventually.equal('Utilization');
-    expect(box.value.getText()).to.eventually.equal('11%');
+    expect(box.title.getText()).to.eventually.equal('Utilization (%)');
+    expect(box.value.getText()).to.eventually.equal('11');
   });
 
   // Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
-  xit('The Utilization info-box must be wider than its value text', function(){
+  it('The Utilization info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'utilization');
   });
 
@@ -121,7 +129,7 @@ describe('Cluster Overview Page', function () {
   });
 
   // Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
-  xit('The Bandwidth info-box must be wider than its value text', function(){
+  it('The Bandwidth info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'bandwidth');
   });
 
@@ -133,14 +141,14 @@ describe('Cluster Overview Page', function () {
   });
 
   // Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
-  xit('The IOPS info-box must be wider than its value text', function(){
+  it('The IOPS info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'iops');
   });
 
   it('should have a cluster fault info-box with a warning badge showing 3, and an error badge showing 2', function() {
     var box = clusterOverviewPage.infoBar.infoBox('cluster-faults');
     expect(box.el.isDisplayed()).to.eventually.be.true;
-    expect(box.title.getText()).to.eventually.equal('Faults');
+    expect(box.title.getText()).to.eventually.equal('Unresolved Faults');
     expect(box.badge('first.-warning').el.isDisplayed()).to.eventually.be.true;
     expect(box.badge('first.-warning').value.getText()).to.eventually.equal('3');
     expect(box.badge('second.-critical').el.isDisplayed()).to.eventually.be.true;

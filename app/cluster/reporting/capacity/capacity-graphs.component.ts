@@ -46,7 +46,7 @@
         child: {
           title: 'Block Capacity',
           id: 'block-capacity-child',
-          export: false,
+          export: true,
           legend: {
             position: 'top',
             items: {
@@ -70,7 +70,7 @@
         child: {
           title: 'Metadata Capacity',
           id: 'metadata-capacity-child',
-          export: false,
+          export: true,
           legend: {
             position: 'top',
             items: {
@@ -94,7 +94,7 @@
         child: {
           title: 'Provisioned Space',
           id: 'provisioned-space-child',
-          export: false,
+          export: true,
           legend: {
             position: 'top',
             items: {
@@ -141,7 +141,7 @@
             }
           },
           margin: {
-            top: 15,
+            top: 20,
             right: 20,
             bottom: 30
           },
@@ -215,7 +215,7 @@
             }
           },
           margin: {
-            top: 15,
+            top: 20,
             right: 20,
             bottom: 30
           },
@@ -289,7 +289,7 @@
             }
           },
           margin: {
-            top: 15,
+            top: 20,
             right: 20,
             bottom: 30
           },

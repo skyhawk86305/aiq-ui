@@ -27,9 +27,12 @@ describe('The Cluster Performance Page', function () {
 
   it('should have 3 child graphs', function (done) {
     var childGraphIds = ['utilization-child', 'iops-child', 'throughput-child'];
+    var childGraphTitleIds = ['utilization', 'iops', 'throughput'];
+    var childGraphTitles = ['Utilization','IOPS','Throughput'];
 
     for (var i = 0; i < childGraphIds.length; i++) {
       expect(performanceGraphs.childGraph(childGraphIds[i]).el.isDisplayed()).to.eventually.be.true;
+      expect(performanceGraphs.childGraphTitle(childGraphTitleIds[i]).getText()).to.eventually.equal(childGraphTitles[i]);
     }
     expect(performanceGraphs.childrenGraphs.count()).to.eventually.equal(3).notify(done);
   });
@@ -45,6 +48,10 @@ describe('The Cluster Performance Page', function () {
       expect(graph.svg.line('clusterUtilizationPct').isDisplayed()).to.eventually.be.true;
       expect(graph.legend.legendItem('clusterUtilizationPct').label.getText()).to.eventually.equal('Utilization');
     });
+
+    it('should have an export button for the Cluster Utilization Graph', function() {
+      expect(performanceGraphs.childGraph('utilization-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
   });
 
   describe('Cluster IOPS Graph', function () {
@@ -59,6 +66,11 @@ describe('The Cluster Performance Page', function () {
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
     });
+
+    it('should have an export button for theCluster IOPS Graph', function() {
+      expect(performanceGraphs.childGraph('iops-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
+
   });
 
   describe('Cluster Bandwidth Graph', function () {
@@ -73,5 +85,10 @@ describe('The Cluster Performance Page', function () {
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
       }
     });
+
+    it('should have an export button for the Cluster Bandwidth Graph', function() {
+      expect(performanceGraphs.childGraph('throughput-child').exportButton.isDisplayed()).to.eventually.be.true;
+    });
+
   });
 });

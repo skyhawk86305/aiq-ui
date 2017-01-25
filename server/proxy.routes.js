@@ -29,6 +29,13 @@ proxyRoutes.use(/\/json-rpc\/2\.0$/, function (req, res) {
   })).pipe(res);
 });
 
+proxyRoutes.use('/state/cluster', function (req, res) {
+  req.pipe(request({
+    method: req.method,
+    uri: proxyConfig.endPoint + req.originalUrl
+  })).pipe(res);
+});
+
 proxyRoutes.use('/graph', function (req, res) {
   req.pipe(request({
     method: req.method,
