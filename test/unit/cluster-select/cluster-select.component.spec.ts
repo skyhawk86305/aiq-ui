@@ -10,7 +10,8 @@ describe('Component: clusterSelect', function() {
       locals,
       bindings,
       controller,
-      mockData;
+      mockData,
+      mockDataFiltered;
 
   beforeEach(angular.mock.module('aiqUi'));
   beforeEach(angular.mock.module('componentTemplates'));
@@ -31,11 +32,23 @@ describe('Component: clusterSelect', function() {
     };
     controller = $componentController('clusterSelect', locals, bindings);
     mockData = [
-      {clusterID: 13, foo: 1, bar: 2, baz: 3},
-      {clusterID: 14, foo: 4, bar: 5, baz: 6},
-      {clusterID: 15, foo: 7, bar: 8, baz: 9},
-      {clusterID: 16, foo: 10, bar: 11, baz: 12}
+      {clusterID: 13, foo: 1, bar: 2, baz: 3, customerName: 'SolidFire', clusterName: 'name1'},
+      {clusterID: 14, foo: 4, bar: 5, baz: 6, customerName: 'SolidFire', clusterName: 'name2'},
+      {clusterID: 15, foo: 7, bar: 8, baz: 9, customerName: 'NetApp', clusterName: 'name3'},
+      {clusterID: 16, foo: 10, bar: 11, baz: 12, customerName: 'NetApp', clusterName: 'name4'}
     ];
+    mockDataFiltered = [
+      [
+        mockData[2],
+        mockData[3]
+      ],
+      [
+        mockData[0],
+        mockData[1]
+      ]
+    ];
+    mockDataFiltered[0]['$key'] = 'NetApp';
+    mockDataFiltered[1]['$key'] = 'SolidFire';
   }));
 
   describe('initialization', function() {
@@ -66,6 +79,33 @@ describe('Component: clusterSelect', function() {
     });
   });
 
+  describe('.filterClusters', function() {
+    describe('when filter input is provided', function() {
+      it('should filter the list of clusters', function() {
+        spyOn(service, 'updateSelectedCluster');
+        controller.init();
+        deferred.resolve(mockData);
+        scope.$apply();
+        controller.filterInput = 'NetApp';
+        controller.filterClusters();
+        expect(controller.clusters).toEqual(mockDataFiltered.splice(0, 1))
+      });
+    });
+
+    describe('when filter input is not provided', function() {
+      it('should return the full list of clusters', function() {
+        spyOn(service, 'updateSelectedCluster');
+        controller.init();
+        deferred.resolve(mockData);
+        scope.$apply();
+        controller.rawClusters = mockData;
+        controller.filterInput = '';
+        controller.filterClusters();
+        expect(controller.clusters).toEqual(mockDataFiltered);
+      });
+    });
+  });
+
   describe('.refresh', function() {
     it('updates the state to loading', function() {
       controller.refresh();
@@ -77,7 +117,7 @@ describe('Component: clusterSelect', function() {
       controller.refresh();
       deferred.resolve(mockData);
       scope.$apply();
-      expect(controller.clusters).toEqual(mockData);
+      expect(controller.clusters).toEqual(mockDataFiltered);
       expect(controller.state).toEqual('loaded');
     });
 
@@ -98,15 +138,37 @@ describe('Component: clusterSelect', function() {
     });
 
     it('pushes the selected cluster to the front of the recentlyViewed array', function() {
-      controller.recentlyViewed = ['foo', 'bar'];
-      controller.select('baz');
-      expect(controller.recentlyViewed[0]).toEqual('baz');
+      spyOn(service, 'updateSelectedCluster');
+      controller.init();
+      deferred.resolve(mockData);
+      controller.select(mockData[0]);
+      controller.filterClusters();
+      expect(controller.recentlyViewed[0]).toEqual(mockData[0]);
+      controller.select(mockData[1]);
+      controller.filterClusters();
+      expect(controller.recentlyViewed[0]).toEqual(mockData[1]);
+      controller.select(mockData[2]);
+      controller.filterClusters();
+      expect(controller.recentlyViewed[0]).toEqual(mockData[2]);
     });
 
-    it('de-duplicates the recentlyViewed array', function() {
-      controller.recentlyViewed = ['foo', 'bar', 'baz'];
-      controller.select('bar');
-      expect(controller.recentlyViewed).toEqual(['bar', 'foo', 'baz']);
+    it('de-duplicates the recentlyViewed array', function() {spyOn(service, 'updateSelectedCluster');
+      controller.init();
+      deferred.resolve(mockData);
+      controller.select(mockData[0]);
+      controller.filterClusters();
+      expect(controller.recentlyViewed[0]).toEqual(mockData[0]);
+      controller.select(mockData[1]);
+      controller.filterClusters();
+      expect(controller.recentlyViewed[0]).toEqual(mockData[1]);
+      controller.select(mockData[2]);
+      controller.filterClusters();
+      expect(controller.recentlyViewed[0]).toEqual(mockData[2]);
+      controller.select(mockData[1]);
+      controller.filterClusters();
+      expect(controller.recentlyViewed[0]).toEqual(mockData[1]);
+      expect(controller.recentlyViewed[1]).toEqual(mockData[2]);
+      expect(controller.recentlyViewed[2]).toEqual(mockData[0]);
     });
 
     it('should reroute the user by default to /cluster/<clusterID>/reporting/overview if not already on a cluster-specific route', function() {
