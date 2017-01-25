@@ -1,9 +1,14 @@
 @import 'shared.less';
 
+
+.welcome-beta-page {
+  align-items: baseline;
+  overflow: auto;
+}
 .welcome-beta-page > .welcome-message {
   text-align: center;
-  height: 200px;
-  margin-bottom: 300px;
+  height: 550px;
+  margin-top: 100px;
 
   > span {
     display: block;
@@ -59,14 +64,11 @@
   }
 
   .new-features-container {
-    width: 500px;
     margin: auto;
     padding: 15px;
-    overflow-y: auto;
     border-radius: 5px;
     border: 1px solid @whitescale-7;
     text-align: left;
-    height: 180px;
   }
   .new-features-title {
     font-weight: 500;
