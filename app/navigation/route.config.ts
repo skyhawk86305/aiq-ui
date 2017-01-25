@@ -106,8 +106,7 @@
         templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/vvols/virtual-volumes', {
-        template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
-        reloadOnSearch: false
+        templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/vvols/protocol-endpoints', {
         template: '<protocol-endpoint-table class="sf-layout-block"></protocol-endpoint-table>',

@@ -41,7 +41,8 @@ function mapFixture(rawFixture) {
   });
 }
 
-describe('The Cluster Virtual Volumes Page', function () {
+/* commenting out until vvols is enabled */
+xdescribe('The Cluster Virtual Volumes Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/vvols/virtual-volumes');
     expect(table.el.isDisplayed()).to.eventually.be.true;
