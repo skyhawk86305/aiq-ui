@@ -70,7 +70,8 @@
           menuItems: [
             {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes', disabled: true},
             {key:'protocolEndpoints', href: '#/cluster/:clusterID/vvols/protocol-endpoints', label: 'Protocol Endpoints'},
-            {key:'hosts', href: '#/cluster/:clusterID/vvols/hosts', label: 'Hosts'}
+            {key:'hosts', href: '#/cluster/:clusterID/vvols/hosts', label: 'Hosts'},
+            {key:'bindings', href: '#/cluster/:clusterID/vvols/bindings', label: 'Bindings'},
           ]
         }
       ]
