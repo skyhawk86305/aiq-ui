@@ -23,6 +23,7 @@
     var self = this;
     self.clusterSelect = ClusterSelectService;
     self.activeItems = {main: '', sub: '', menu: ''};
+    self.host = $location.host();
 
     // Used to dynamically build the sub navbar and sub nav menu
     self.subNavbarItems = {
