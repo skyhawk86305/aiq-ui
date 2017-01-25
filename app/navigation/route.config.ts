@@ -105,6 +105,17 @@
       .when('/cluster/:clusterID/replication', {
         templateUrl: 'coming-soon.tpl.html'
       })
+      .when('/cluster/:clusterID/vvols/virtual-volumes', {
+        templateUrl: 'coming-soon.tpl.html'
+      })
+      .when('/cluster/:clusterID/vvols/protocol-endpoints', {
+        template: '<protocol-endpoint-table class="sf-layout-block"></protocol-endpoint-table>',
+        reloadOnSearch: false
+      })
+      .when('/cluster/:clusterID/vvols/hosts', {
+        template: '<host-table class="sf-layout-block"></host-table>',
+        reloadOnSearch: false
+      })
       .when('/users', {
         templateUrl: 'coming-soon.tpl.html'
       })
