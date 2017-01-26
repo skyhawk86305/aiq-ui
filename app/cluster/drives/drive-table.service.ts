@@ -43,7 +43,7 @@
       ];
       let driveStatsLookup, drives;
 
-      return callGuzzleAPIs(methods).then(function(responseObj) {
+      return callGuzzleAPIs(methods).then(responseObj => {
         drives = responseObj.drives;
         driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
 
