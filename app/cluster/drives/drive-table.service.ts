@@ -37,19 +37,18 @@
     /***********************************************/
 
     function listDrives() {
-      var methods = [
+      const methods = [
         DataService.callGuzzleAPI('ListDrives', {clusterID: this.selectedClusterID}),
         DataService.callGuzzleAPI('GetDriveStats', {clusterID: this.selectedClusterID})
-      ],
-      driveStatsLookup,
-      drives;
+      ];
+      let driveStatsLookup, drives;
 
       return callGuzzleAPIs(methods).then(function(responseObj) {
         drives = responseObj.drives;
         driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
 
         return drives.map(function(drive) {
-          var driveLookupExists = driveStatsLookup && driveStatsLookup[drive.driveID];
+          const driveLookupExists = driveStatsLookup && driveStatsLookup[drive.driveID];
           drive.lifeRemainingPercent = driveLookupExists && driveStatsLookup[drive.driveID].lifeRemainingPercent || '';
           drive.reserveCapacityPercent  = driveLookupExists && driveStatsLookup[drive.driveID].reserveCapacityPercent || '';
           return drive;
@@ -66,19 +65,17 @@
       });
 
       function callGuzzleAPIs(methods) {
-        var deferred = $q.defer();
+        let deferred = $q.defer();
 
-        $q.all(methods).then(function(responses) {
-          var responseObj = {};
-          responses.forEach(function(response) {
-            Object.keys(response).forEach(function(key) {
-              responseObj[key] = response[key];
+        $q.all(methods).then(responses => {
+            let responseObj = {};
+            responses.forEach(function(response) {
+              Object.keys(response).forEach(function(key) {
+                responseObj[key] = response[key];
+              });
             });
-          });
-          deferred.resolve(responseObj);
-        }).catch(function(err) {
-          deferred.reject(err);
-        })
+            deferred.resolve(responseObj);
+          }).catch(error => deferred.reject(error));
 
         return deferred.promise;
       }
