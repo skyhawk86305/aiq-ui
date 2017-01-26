@@ -24,7 +24,7 @@ describe('DriveTableService', function () {
     spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
   }));
 
-  fdescribe('initialization', function() {
+  describe('initialization', function() {
     it('should inherit from SFTableService', function() {
       expect(service).toEqual(jasmine.any(parentService));
     });
@@ -34,14 +34,14 @@ describe('DriveTableService', function () {
     });
   });
 
-  fdescribe('.update', function() {
+  describe('.update', function() {
     it('should update the selectedClusterID to be used in data retrieval', function() {
       service.update('999');
       expect(service.selectedClusterID).toEqual(999);
     });
   });
 
-  fdescribe('.getData (inherited from SFTableService)', function() {
+  describe('.getData (inherited from SFTableService)', function() {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
