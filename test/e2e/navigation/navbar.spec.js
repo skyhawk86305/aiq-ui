@@ -12,12 +12,12 @@ describe('The main navbar', function() {
   it('should display on initial page load', function() {
     browser.get('#');
     expect(navbar.mainNavbar.el.isPresent()).to.eventually.be.true;
-    expect(navbar.mainNavbar.items.count()).to.eventually.equal(4);
+    expect(navbar.mainNavbar.items.count()).to.eventually.equal(5);
   });
 
   it('should contain a menu with options', function() {
     expect(navbar.menu.button.isPresent()).to.eventually.be.true;
-    expect(navbar.menu.expand().options.count()).to.eventually.equal(3);
+    expect(navbar.menu.expand().options.count()).to.eventually.equal(4);
   });
 
   it('should change the URL route and set the active state when clicking on main navbar items', function() {
