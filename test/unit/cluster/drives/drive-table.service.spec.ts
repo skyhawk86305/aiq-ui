@@ -11,13 +11,7 @@ describe('DriveTableService', function () {
     parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('DataService', {callGuzzleAPI: function(apiCall) {
-      if (apiCall === 'ListDrives') {
-
-      } else {
-
-      }
-    }});
+    $provide.value('DataService', {callGuzzleAPI: function(){}});
   }));
 
   beforeEach(inject(function ($q, $rootScope, DriveTableService, DataService, SFTableService) {
