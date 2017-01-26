@@ -29,7 +29,7 @@
       {key: 'serviceID', label: 'Service ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true, true]}},
       {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true, true]}},
-      {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'json'}}
+      {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'aiqJson'}}
     ];
 
     var eventTableService = new SFTableService(listEvents, columns, false);
