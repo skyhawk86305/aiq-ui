@@ -106,7 +106,8 @@
         templateUrl: 'coming-soon.tpl.html'
       })
       .when('/cluster/:clusterID/vvols/virtual-volumes', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/vvols/protocol-endpoints', {
         template: '<protocol-endpoint-table class="sf-layout-block"></protocol-endpoint-table>',
@@ -121,7 +122,7 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/vvols/storage-containers', {
-        templateUrl: 'coming-soon.tpl.html',
+        template: '<storage-container-table class="sf-layout-block"></storage-container-table>',
         reloadOnSearch: false
       })
       .when('/users', {

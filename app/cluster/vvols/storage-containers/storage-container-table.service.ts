@@ -22,12 +22,14 @@
 
     function listStorageContainers() {
       return DataService.callGuzzleAPI(service.selectedClusterID, 'ListStorageContainers')
-        .then( response =>
-          response.storageContainers.map( storageContainer => {
-            storageContainer.activeVirtualVolumesCount = storageContainer.virtualVolumes.length;
-            return storageContainer;
-          })
-        )
+        .then( response => {
+          if (response.storageContainers) {
+            return response.storageContainers.map( storageContainer => {
+              storageContainer.activeVirtualVolumesCount = storageContainer.virtualVolumes.length;
+              return storageContainer;
+            })
+          }
+        });
     }
 
     const service = new SFTableService(listStorageContainers, columns, false);

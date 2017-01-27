@@ -41,18 +41,20 @@
 
     function listVirtualVolumes() {
       return DataService.callGuzzleAPI(service.selectedClusterID, 'ListVirtualVolumes')
-      .then(function(response) {
-        return response.virtualVolumes.map(function(volume) {
-          volume.VMW_GosType = volume.metadata.VMW_GosType;
-          volume.VMW_VmID = volume.metadata.VMW_VmID;
-          volume.access = volume.volumeInfo.access;
-          volume.totalSize = volume.volumeInfo.totalSize;
-          volume.minIOPS = volume.volumeInfo.qos.minIOPS;
-          volume.maxIOPS = volume.volumeInfo.qos.maxIOPS;
-          volume.burstIOPS = volume.volumeInfo.qos.burstIOPS;
-          volume.createTime = volume.volumeInfo.createTime;
-          return volume;
-        });
+      .then(response => {
+        if (response.virtualVolumes) {
+          return response.virtualVolumes.map(volume => {
+            volume.VMW_GosType = volume.metadata.VMW_GosType;
+            volume.VMW_VmID = volume.metadata.VMW_VmID;
+            volume.access = volume.volumeInfo.access;
+            volume.totalSize = volume.volumeInfo.totalSize;
+            volume.minIOPS = volume.volumeInfo.qos.minIOPS;
+            volume.maxIOPS = volume.volumeInfo.qos.maxIOPS;
+            volume.burstIOPS = volume.volumeInfo.qos.burstIOPS;
+            volume.createTime = volume.volumeInfo.createTime;
+            return volume;
+          });
+        }
       });
     }
 
