@@ -5,7 +5,7 @@
     .module('aiqUi')
     .component('errorLogTable', {
       template: '<sf-table class="sf-layout-block alert-table" service="$ctrl.service" table-id="error-log" ' +
-      'control-bar="true" items-per-page="25" export="true"></sf-table>',
+        'control-bar="true" items-per-page="25" export="true"></sf-table>',
       controller: ['$routeParams', 'ErrorLogTableService', ErrorLogTableController]
     });
 

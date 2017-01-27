@@ -5,23 +5,25 @@
     .module('aiqUi')
     .filter('tableBadgeAlertSeverity', function() {
       return function (data) {
-        switch (data) {
-          case 'Info':
+        var ucData;
+
+        if (typeof data === 'string') {
+          ucData = data.toUpperCase();
+        } else {
+          ucData = data;
+        }
+
+        switch (ucData) {
+          case 'INFO':
             return '<div class="table-badge -info">INFO</div>';
-          case 'Warning':
+          case 'WARNING':
             return '<div class="table-badge -warning">WARNING</div>';
-          case 'Error':
+          case 'ERROR':
             return '<div class="table-badge -error">ERROR</div>';
-          case 'Critical':
+          case 'CRITICAL':
             return '<div class="table-badge -critical">CRITICAL</div>';
-          case 'info':
-            return '<div class="table-badge -info">INFO</div>';
-          case 'warning':
-            return '<div class="table-badge -warning">WARNING</div>';
-          case 'error':
-            return '<div class="table-badge -error">ERROR</div>';
-          case 'critical':
-            return '<div class="table-badge -critical">CRITICAL</div>';
+          case 'BESTPRACTICE':
+            return '<div class="table-badge -bestPractice">BEST PRACTICE</div>';
           default:
             return data;
         }
