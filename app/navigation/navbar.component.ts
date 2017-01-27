@@ -62,7 +62,17 @@
         {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
         {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
         {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes'},
-        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true}
+        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true},
+        {
+          key:'vvols',
+          href:'#/cluster/:clusterID/vvols/protocol-endpoints',
+          label: 'VVols',
+          menuItems: [
+            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes', disabled: true},
+            {key:'protocolEndpoints', href: '#/cluster/:clusterID/vvols/protocol-endpoints', label: 'Protocol Endpoints'},
+            {key:'hosts', href: '#/cluster/:clusterID/vvols/hosts', label: 'Hosts'}
+          ]
+        }
       ]
     };
 

@@ -17,7 +17,7 @@ var columns = [
   {key: 'serviceID', label: 'Service ID', format: {filter: 'string'}},
   {key: 'nodeID', label: 'Node ID', format: {filter: 'aiqNumber', args: [0, true, true]}},
   {key: 'driveID', label: 'Drive ID', format: {filter: 'aiqNumber', args: [0, true, true]}},
-  {key: 'details', label: 'Details', format: {filter: 'json'}, exclude: true} // EXCLUDE: JSON attributes get alphabetized when getting passed to browser.executeScript in $filter
+  {key: 'details', label: 'Details', format: {filter: 'aiqJson'}, exclude: true} // EXCLUDE: JSON attributes get alphabetized when getting passed to browser.executeScript in $filter
 ];
 
 function mapFixture(rawFixture) {
@@ -31,7 +31,7 @@ describe('The Cluster Events Page', function () {
     browser.get('#/cluster/26/reporting/events');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
-  
+
   it('should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
