@@ -9,7 +9,7 @@ describe('Cluster Select Filter', function () {
   beforeEach(angular.mock.module('aiqUi'));
 
   beforeEach(inject(function($filter) {
-    filter = $filter('clusterSelectFilter');
+    filter = $filter('clusterSelect');
     clusters = [
       {clusterName:'foo', clusterID:1, clusterUID:'ab', uuid:'12', apiVersion:'7', customerName:'customerFoo'},
       {clusterName:'bar', clusterID:2, clusterUID:'bc', uuid:'34', apiVersion:'8.2', customerName:'customerBarFor'},

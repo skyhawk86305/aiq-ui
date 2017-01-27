@@ -8,12 +8,11 @@
       '$http',
       '$filter',
       '$location',
-      'ApiLogService',
       'CacheFactory',
       DataService
     ]);
 
-  function DataService($q, $http, $filter, $location, ApiLogService, CacheFactory) {
+  function DataService($q, $http, $filter, $location, CacheFactory) {
     // Check to make sure the cache doesn't already exist
     if (!CacheFactory.get('defaultCache')) {
       $http.defaults.cache = new CacheFactory('defaultCache', {
@@ -27,17 +26,14 @@
     return {
       callAPI(method, params = {}) {
         const request = {method: method, params: params};
-        const entry = ApiLogService.appendRequest(request);
         return $http.post('/json-rpc/2.0', request)
           .then( response => {
-            ApiLogService.appendResponse(entry, response.data);
             return response.data.result;
           })
           .catch( error => {
             if (error.status === 401) {
               redirectToLogin();
             }
-            ApiLogService.appendResponse(entry, error.data, true);
             return error.data;
           });
       },

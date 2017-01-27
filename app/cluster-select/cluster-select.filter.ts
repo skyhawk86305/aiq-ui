@@ -3,7 +3,7 @@
 
   angular
     .module('aiqUi')
-    .filter('clusterSelectFilter', [clusterSelectFilter]);
+    .filter('clusterSelect', [clusterSelectFilter]);
 
   function regExpEscape(raw) {
     return raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

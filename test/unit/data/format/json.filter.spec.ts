@@ -14,7 +14,8 @@ describe('Json Filter', function () {
   });
 
   it('should display - when data is empty', function() {
-    expect(filter("")).toEqual('-');
+    expect(filter('')).toEqual('-');
+    expect(filter('""')).toEqual('-');
     expect(filter()).toEqual('-');
   });
 });
