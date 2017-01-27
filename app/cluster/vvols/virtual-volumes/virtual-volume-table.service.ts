@@ -40,7 +40,7 @@
     }
 
     function listVirtualVolumes() {
-      return DataService.callGuzzleAPI('ListVirtualVolumes', {clusterID: service.selectedClusterID})
+      return DataService.callGuzzleAPI(service.selectedClusterID, 'ListVirtualVolumes')
       .then(function(response) {
         return response.virtualVolumes.map(function(volume) {
           volume.VMW_GosType = volume.metadata.VMW_GosType;
@@ -53,10 +53,6 @@
           volume.createTime = volume.volumeInfo.createTime;
           return volume;
         });
-      }).catch(function(err) {
-        if (err.status !== 404) {
-          return err;
-        }
       });
     }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('ProtocolEndpointTableService', function () {
+describe('BindingTableService', function () {
   var rootScope,
     deferred,
     apiResponse,
@@ -14,10 +14,10 @@ describe('ProtocolEndpointTableService', function () {
     $provide.value('DataService', {callGuzzleAPI: function() {} });
   }));
 
-  beforeEach(inject(function ($q, $rootScope, ProtocolEndpointTableService, DataService, SFTableService) {
+  beforeEach(inject(function ($q, $rootScope, BindingTableService, DataService, SFTableService) {
     rootScope = $rootScope;
     deferred = $q.defer();
-    service = ProtocolEndpointTableService;
+    service = BindingTableService;
     service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
@@ -45,16 +45,32 @@ describe('ProtocolEndpointTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListProtocolEndpoints');
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListVirtualVolumeBindings');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {protocolEndpoints: [
-        { foo: 123, bar: 456 }
+      apiResponse = {bindings: [
+        {
+          virtualVolumeHostID: "4c4c4544-0053-3710-8052-c8c04f383432",
+          protocolEndpointID: "94d446de-bc9a-4213-a65a-a93f00b38e98",
+          virtualVolumeBindingID: 80,
+          virtualVolumeSecondaryID: "0xe20000000041",
+          protocolEndpointInBandID: "naa.6f47acc2000000036467306a00000000",
+          protocolEndpointType: "SCSI",
+          virtualVolumeID: "9b3b837f-99b0-464a-8061-77167f887130"
+        }
       ]};
       deserializedResponse = [
-        { foo: 123, bar: 456 }
-      ]
+        {
+          virtualVolumeHostID: "4c4c4544-0053-3710-8052-c8c04f383432",
+          protocolEndpointID: "94d446de-bc9a-4213-a65a-a93f00b38e98",
+          virtualVolumeBindingID: 80,
+          virtualVolumeSecondaryID: "0xe20000000041",
+          protocolEndpointInBandID: "naa.6f47acc2000000036467306a00000000",
+          protocolEndpointType: "SCSI",
+          virtualVolumeID: "9b3b837f-99b0-464a-8061-77167f887130"
+        }
+      ];
       service.getData(true).then(function(response) {
          expect(response).toEqual(deserializedResponse);
       });

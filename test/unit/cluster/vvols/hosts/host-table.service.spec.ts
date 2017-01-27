@@ -45,7 +45,7 @@ describe('HostTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('ListVirtualVolumeHosts', {clusterID: 'foobar'});
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListVirtualVolumeHosts');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
