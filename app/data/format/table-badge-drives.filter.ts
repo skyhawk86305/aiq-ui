@@ -9,7 +9,7 @@
         var warningThreshold = column === 'wear' ? 80 : 20;
         var type = 'normal';
 
-        if (typeof data !== 'number') {
+        if (isNaN(parseFloat(data))) {
           return '<div class="table-badge -empty">-</div>';                
         }
 
