@@ -1,22 +1,32 @@
 'use strict';
-var buildConfig = require('../build.config.js'),
-    preprocessors = {};
-
-preprocessors[buildConfig.buildJs + '**/*.js'] = ['coverage'];
-preprocessors[buildConfig.buildDir + '**/*.tpl.html'] = ['ng-html2js'];
 
 module.exports = {
+  singleRun: true,
   browsers: ['PhantomJS'],
-  frameworks: ['jasmine'],
-  reporters: ['junit', 'failed', 'coverage'],
-  preprocessors: preprocessors,
-  junitReporter: {
-    outputDir: 'report/junit',
-    useBrowserName: true
+  frameworks: ['jasmine', 'source-map-support'],
+  reporters: ['coverage', 'junit', 'remap-coverage'],
+
+  files: [
+    'app/vendor.ts',
+    'app/index.ts',
+    'node_modules/angular-mocks/angular-mocks.js',
+    'test/unit/test.ts'
+  ],
+
+  preprocessors: {
+    'app/vendor.ts': ['webpack'],
+    'app/index.ts': ['webpack'],
+    'test/unit/test.ts': ['webpack']
   },
+
+  webpack: require('../webpack/webpack.test'),
+
+  webpackMiddleware: {
+    noInfo: true
+  },
+
   coverageReporter: {
-    type: 'lcov',
-    dir: 'report/coverage/',
+    type: 'in-memory',
     check: {
       global: {
         statements: 75,
@@ -30,17 +40,18 @@ module.exports = {
       branches: [80, 90],
       functions: [80, 90],
       lines: [80, 90]
-    },
-    // use with gulp unitTest --verbose to see all tests and detailed results. otherwise in coverage/test-details.txt
-    reporters: [
-      {type: 'lcov'},
-      {type: 'text-summary'},
-      {type: 'cobertura', subdir:'cobertura', file: 'cobertura.xml'}
-    ]
+    }
   },
-  ngHtml2JsPreprocessor: {
-    stripPrefix: buildConfig.buildDir,
-    moduleName: 'componentTemplates'
+
+  remapCoverageReporter: {
+    'text-summary': null,
+    html: './report/html',
+    text: './report/text/test-details.txt',
+    cobertura: './report/cobertura/cobertura.xml'
   },
-  singleRun: true
+
+  junitReporter: {
+    outputDir: 'report/junit',
+    useBrowserName: true
+  }
 };

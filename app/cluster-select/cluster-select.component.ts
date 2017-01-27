@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('clusterSelect', {
-      templateUrl: 'cluster-select/cluster-select.tpl.html',
+      template: require('./cluster-select.tpl.html'),
       controller: [
         '$location',
         '$routeParams',

@@ -35,16 +35,16 @@
         template: '<login></login>'
       })
       .when('/dashboard/overview', {
-        templateUrl: 'welcome-beta.tpl.html'
+        template: require('../welcome-beta.tpl.html')
       })
       .when('/dashboard/health', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       .when('/dashboard/capacity', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       .when('/dashboard/performance', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       .when('/dashboard/alerts', {
         redirectTo: '/dashboard/alerts/history'
@@ -82,13 +82,13 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/iscsiSessions', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/reporting/virtualNetworks', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/reporting/forecasting', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/nodes', {
         template: '<node-table class="sf-layout-block"></node-table>',
@@ -103,7 +103,7 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/replication', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/vvols/virtual-volumes', {
         templateUrl: 'coming-soon.tpl.html'
@@ -125,7 +125,7 @@
         reloadOnSearch: false
       })
       .when('/users', {
-        templateUrl: 'coming-soon.tpl.html'
+        template: require('../coming-soon.tpl.html')
       })
       /* Legacy UI URLs */
       .when('/Admin/Nodes', defaultRedirect)

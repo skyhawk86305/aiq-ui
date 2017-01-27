@@ -20,9 +20,6 @@ tmp
 server/proxy.config.js
 build.zip
 
-# Bower
-bower_components
-
 # Logging
 logs
 *.log

@@ -5,7 +5,6 @@ describe('Component: alertPolicyTable', function() {
     controller;
 
   beforeEach(angular.mock.module('aiqUi'));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($componentController, AlertPolicyTableService) {
     service = AlertPolicyTableService;

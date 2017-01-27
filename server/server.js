@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express'),
+  webpack = require('webpack'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
   serverConfig = require('./server.config'),
@@ -12,9 +13,11 @@ var express = require('express'),
   port = argv.port || serverConfig.defaultPort,
   testingTask = argv._[0] === 'test:e2e' || argv._[0] === 'test:acceptance',
   useMock = testingTask || argv.hasOwnProperty('mock'),
+  serveProd = argv.hasOwnProperty('prod'),
   routes = useMock ? require('./mock.routes') : require('./proxy.routes'),
   fixture = typeof argv.mock === 'string' ? argv.mock : serverConfig.defaultFixture,
-  server = express();
+  server = express(),
+  compiler = webpack(require('../webpack/webpack.dev'));
 
 /**
  * Configure and start local server
@@ -25,7 +28,13 @@ if (useMock) {
 } else {
   server.use(cookieParser());
 }
-server.use(express.static('build'));
+
+if (serveProd) {
+  server.use(express.static('build'));
+} else {
+  server.use(require('webpack-dev-middleware')(compiler, {noInfo: true}));
+  server.use(require("webpack-hot-middleware")(compiler));
+}
 server.use('/', routes);
 server.listen(port, host);
 

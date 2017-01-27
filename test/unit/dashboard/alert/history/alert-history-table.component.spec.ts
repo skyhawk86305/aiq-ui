@@ -5,7 +5,6 @@ describe('Component: alertHistoryTable', function() {
     controller;
 
   beforeEach(angular.mock.module('aiqUi'));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($componentController, AlertHistoryTableService) {
     service = AlertHistoryTableService;
