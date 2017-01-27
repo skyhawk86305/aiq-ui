@@ -65,13 +65,7 @@
       });
 
       function callGuzzleAPIs(methods) {
-        return $q.all(methods).then( responses => {
-          let responseObj = {};
-          responses.forEach(response => {
-            Object.keys(response).forEach(key => responseObj[key] = response[key]);
-          });
-          return responseObj;
-        });
+        return $q.all(methods).then( responses => (<any>Object).assign({}, ...responses));
       }
     };
   }
