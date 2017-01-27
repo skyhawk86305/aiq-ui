@@ -24,22 +24,22 @@
       {key: 'type', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}}
     ];
 
-    const driveTableService = new SFTableService(listDrives, columns, false);
+    const service = new SFTableService(listDrives, columns, false);
 
-    driveTableService.selectedClusterID = null;
+    service.selectedClusterID = null;
 
-    driveTableService.update = function(clusterID) {
+    service.update = function(clusterID) {
       this.selectedClusterID = parseInt(clusterID);
     };
 
-    return driveTableService;
+    return service;
 
     /***********************************************/
 
     function listDrives() {
       const methods = [
-        DataService.callGuzzleAPI('ListDrives', {clusterID: this.selectedClusterID}),
-        DataService.callGuzzleAPI('GetDriveStats', {clusterID: this.selectedClusterID})
+        DataService.callGuzzleAPI(service.selectedClusterID, 'ListDrives'),
+        DataService.callGuzzleAPI(service.selectedClusterID, 'GetDriveStats')
       ];
       let driveStatsLookup, drives;
 
@@ -65,19 +65,15 @@
       });
 
       function callGuzzleAPIs(methods) {
-        let deferred = $q.defer();
-
-        $q.all(methods).then(responses => {
-            let responseObj = {};
-            responses.forEach(function(response) {
-              Object.keys(response).forEach(function(key) {
-                responseObj[key] = response[key];
-              });
+        return $q.all(methods).then(responses => {
+          let responseObj = {};
+          responses.forEach(function(response) {
+            Object.keys(response).forEach(function(key) {
+              responseObj[key] = response[key];
             });
-            deferred.resolve(responseObj);
-          }).catch(error => deferred.reject(error));
-
-        return deferred.promise;
+          });
+          return responseObj;
+        });
       }
     };
   }
