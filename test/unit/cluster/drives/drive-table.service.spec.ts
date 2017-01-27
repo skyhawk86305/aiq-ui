@@ -11,7 +11,7 @@ describe('DriveTableService', function () {
     parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('DataService', {callGuzzleAPI: function() {} });
+    $provide.value('DataService', {callGuzzleAPI: function(){}});
   }));
 
   beforeEach(inject(function ($q, $rootScope, DriveTableService, DataService, SFTableService) {
@@ -45,17 +45,15 @@ describe('DriveTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListDrives');
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('ListDrives', {clusterID: 'foobar'});
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('GetDriveStats', {clusterID: 'foobar'});
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {drives: [{driveStats: {lifeRemainingPercent: 'foo', reserveCapacityPercent: 'bar'}}]};
+      apiResponse = {drives: [{driveID:1}], driveStats: [{driveID: 1, lifeRemainingPercent: 'foo', reserveCapacityPercent: 'bar'}]};
       deserializedResponse = [
         {
-          driveStats: {
-            lifeRemainingPercent: 'foo',
-            reserveCapacityPercent: 'bar'
-          },
+          driveID: 1,
           lifeRemainingPercent: 'foo',
           reserveCapacityPercent: 'bar'
         }
