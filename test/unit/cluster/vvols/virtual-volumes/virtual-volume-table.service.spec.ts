@@ -45,7 +45,7 @@ describe('VirtualVolumeTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('ListVirtualVolumes', {clusterID: 'foobar'});
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListVirtualVolumes');
     });
 
     it('should deserialize the response and resolve an array of data', function() {

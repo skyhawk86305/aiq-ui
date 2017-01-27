@@ -31,14 +31,8 @@
     }
 
     function listHosts() {
-      return DataService.callGuzzleAPI('ListVirtualVolumeHosts', {clusterID: service.selectedClusterID})
-      .then(function(response) {
-        return response.hosts;
-      }).catch(function(err) {
-        if (err.status !== 404) {
-          return err;
-        }
-      });
+      return DataService.callGuzzleAPI(service.selectedClusterID, 'ListVirtualVolumeHosts')
+        .then( response => response.hosts )
     }
 
     function update(clusterID) {

@@ -8,12 +8,11 @@
       '$http',
       '$filter',
       '$location',
-      'ApiLogService',
       'CacheFactory',
       DataService
     ]);
 
-  function DataService($q, $http, $filter, $location, ApiLogService, CacheFactory) {
+  function DataService($q, $http, $filter, $location, CacheFactory) {
     // Check to make sure the cache doesn't already exist
     if (!CacheFactory.get('defaultCache')) {
       $http.defaults.cache = new CacheFactory('defaultCache', {
@@ -25,47 +24,40 @@
     }
 
     return {
-      callAPI: function(method, params) {
-        params = params || {};
-        var request = {method: method, params: params};
-        var entry = ApiLogService.appendRequest(request);
+      callAPI(method, params = {}) {
+        const request = {method: method, params: params};
         return $http.post('/json-rpc/2.0', request)
-        .then(function(response) {
-          ApiLogService.appendResponse(entry, response.data);
-          return response.data.result;
-        })
-        .catch(function(error) {
-          if (error.status === 401) {
-            CacheFactory.get('defaultCache').removeAll();
-            let oldUrl = $location.url();
-            $location.path('/login').search({url: oldUrl});
-          }
-          ApiLogService.appendResponse(entry, error.data, true);
-          return error.data;
-        });
+          .then( response => {
+            return response.data.result;
+          })
+          .catch( error => {
+            if (error.status === 401) {
+              redirectToLogin();
+            }
+            return error.data;
+          });
       },
 
-      callGuzzleAPI: function(method, params) {
-        let guzzleAPI = '/state/cluster/' + params.clusterID +
-            '/' + method;
+      callGuzzleAPI(clusterID, method) {
+        const guzzleAPI = `/state/cluster/${clusterID}/${method}`;
 
         return $http.get(guzzleAPI, {cache: true})
-          .then(function(response) {
-            return response.data;
-          })
-          .catch(function(error) {
+          .then( response => response.data )
+          .catch( error => {
             if (error.status === 401) {
-              CacheFactory.get('defaultCache').removeAll();
-              let oldUrl = $location.url();
-              $location.path('/login').search({url: oldUrl});
+              redirectToLogin();
+            }
+            if (error.status === 404) {
+              // 404 means "no data" in guzzle, so shouldn't be considered an error
+              return $q.resolve([]);
             }
             return $q.reject(error);
           });
       },
 
-      callGraphAPI: function(graph, params) {
-        var graphAPI = '/graph/cluster/' + params.clusterID +
-          '/' + graph;
+      callGraphAPI(graph, params) {
+        let graphAPI = `/graph/cluster/${params.clusterID}/${graph}`;
+
         if (params.snapshot) {
           graphAPI += '/snapshot';
         } else {
@@ -75,21 +67,25 @@
         }
 
         return $http.get(graphAPI, {cache: true})
-        .then(function(response) {
-          if (!params.snapshot) {
-            response.data.timestamps = response.data.timestampSec.map(function(timestamp) { return timestamp * 1000; });
-          }
-          return response;
-        })
-        .catch(function(error) {
-          if (error.status === 401) {
-            CacheFactory.get('defaultCache').removeAll();
-            let oldUrl = $location.url();
-            $location.path('/login').search({url: oldUrl});
-          }
-          return $q.reject(error);
-        });
+          .then( response => {
+            if (!params.snapshot) {
+              response.data.timestamps = response.data.timestampSec.map( timestamp => timestamp * 1000 );
+            }
+            return response;
+          })
+          .catch( error => {
+            if (error.status === 401) {
+              redirectToLogin();
+            }
+            return $q.reject(error);
+          });
       }
     };
+
+    function redirectToLogin() {
+      CacheFactory.get('defaultCache').removeAll();
+      let oldUrl = $location.url();
+      $location.path('/login').search({url: oldUrl});
+    }
   }
 }());

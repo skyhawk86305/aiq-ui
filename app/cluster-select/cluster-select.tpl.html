@@ -9,7 +9,8 @@
       <i class="fa fa-search"></i>
       <input id="cluster-select-filter"
              placeholder="type a cluster name to filter"
-             ng-model="filterInput">
+             ng-model="$ctrl.filterInput"
+             ng-change="$ctrl.filterClusters()">
     </div>
     <span class="cluster-select-hints"
           uib-tooltip-template="'cluster-select-hints-template'"
@@ -48,7 +49,7 @@
       <div class="cluster-select-list scrollable-menu">
         <div ng-if="!recentlyViewed"
              class="cluster-select-list-group"
-             ng-repeat="customer in $ctrl.clusters | clusterSelectFilter: filterInput | groupBy: 'customerName' | toArray: true | orderBy: '$key'">
+             ng-repeat="customer in $ctrl.clusters">
           <span title="{{customer.$key}}">{{customer.$key}}</span>
           <div class="cluster-select-list-item"
                 ng-repeat="cluster in customer | orderBy: 'clusterName'"
@@ -59,7 +60,7 @@
         </div>
         <div ng-if="recentlyViewed"
              class="cluster-select-list-item"
-             ng-repeat="cluster in $ctrl.recentlyViewed | clusterSelectFilter : filterInput"
+             ng-repeat="cluster in $ctrl.recentlyViewed"
              ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;"
              title="{{cluster.clusterName}}">
           {{cluster.clusterName}}
