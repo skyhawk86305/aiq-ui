@@ -43,11 +43,11 @@
       ];
       let driveStatsLookup, drives;
 
-      return callGuzzleAPIs(methods).then(responseObj => {
+      return callGuzzleAPIs(methods).then( responseObj => {
         drives = responseObj.drives;
         driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
 
-        return drives.map(drive => {
+        return drives.map( drive => {
           const driveLookupExists = driveStatsLookup && driveStatsLookup[drive.driveID];
           drive.lifeRemainingPercent = driveLookupExists && driveStatsLookup[drive.driveID].lifeRemainingPercent || '';
           drive.reserveCapacityPercent  = driveLookupExists && driveStatsLookup[drive.driveID].reserveCapacityPercent || '';
@@ -56,7 +56,7 @@
 
         function createLookup(data, uniqueKey) {
           if (data) {
-            return data.reduce((lookup, currentObj) => {
+            return data.reduce( (lookup, currentObj) => {
               lookup[currentObj[uniqueKey]] = currentObj;
               return lookup;
             }, {})
@@ -65,7 +65,7 @@
       });
 
       function callGuzzleAPIs(methods) {
-        return $q.all(methods).then(responses => {
+        return $q.all(methods).then( responses => {
           let responseObj = {};
           responses.forEach(response => {
             Object.keys(response).forEach(key => responseObj[key] = response[key]);
