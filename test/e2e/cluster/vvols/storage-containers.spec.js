@@ -26,7 +26,7 @@ function mapFixture(rawFixture) {
 }
 
 // Skip Storage Container tests, pending the secret-scrubbing work
-xdescribe('The Cluster Storage Containers Page', function () {
+describe('The Cluster Storage Containers Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/vvols/storage-containers');
     expect(table.el.isDisplayed()).to.eventually.be.true;
