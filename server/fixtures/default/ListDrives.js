@@ -24,8 +24,8 @@ module.exports = {
       serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900433',
       type: 'block',
       driveStats: {
-        lifeRemainingPercent: 100,
-        reserveCapacityPercent: 100
+        lifeRemainingPercent: 0,
+        reserveCapacityPercent: 0
       }
     },
     {
