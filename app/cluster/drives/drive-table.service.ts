@@ -47,14 +47,16 @@
         drives = responseObj.drives;
         driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
 
-        return drives.map( drive => {
-          const driveStats = driveStatsLookup ? driveStatsLookup[drive.driveID] : null;
-          if (driveStats) {
-            drive.lifeRemainingPercent = !isNaN(parseFloat(driveStats.lifeRemainingPercent)) ? driveStats.lifeRemainingPercent : '';
-            drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent: '';
-          }
-          return drive;
-        })
+        if (drives) {
+          return drives.map( drive => {
+            const driveStats = driveStatsLookup ? driveStatsLookup[drive.driveID] : null;
+            if (driveStats) {
+              drive.lifeRemainingPercent = !isNaN(parseFloat(driveStats.lifeRemainingPercent)) ? driveStats.lifeRemainingPercent : '';
+              drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent: '';
+            }
+            return drive;
+          })
+        }
 
         function createLookup(data, uniqueKey) {
           if (data) {
