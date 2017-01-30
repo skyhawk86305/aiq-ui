@@ -7,8 +7,8 @@ module.exports = {
     },
     {
       driveID: 2,
-      lifeRemainingPercent: 100,
-      reserveCapacityPercent: 100
+      lifeRemainingPercent: 0,
+      reserveCapacityPercent: 0
     },
     {
       driveID: 3,

@@ -19,8 +19,8 @@
       {key: 'slot', label: 'Slot', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'driveSlot'}},
       {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
       {key: 'serial', label: 'Serial', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-      {key: 'lifeRemainingPercent', label: 'Wear', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber'}},
-      {key: 'reserveCapacityPercent', label: 'Reserve', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber'}},
+      {key: 'lifeRemainingPercent', label: 'Wear', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['wear']}},
+      {key: 'reserveCapacityPercent', label: 'Reserve', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['reserve']}},
       {key: 'type', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}}
     ];
 
@@ -48,9 +48,11 @@
         driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
 
         return drives.map(function(drive) {
-          const driveLookupExists = driveStatsLookup && driveStatsLookup[drive.driveID];
-          drive.lifeRemainingPercent = driveLookupExists && driveStatsLookup[drive.driveID].lifeRemainingPercent || '';
-          drive.reserveCapacityPercent  = driveLookupExists && driveStatsLookup[drive.driveID].reserveCapacityPercent || '';
+          const driveStats = driveStatsLookup ? driveStatsLookup[drive.driveID] : null;
+          if (driveStats) {
+            drive.lifeRemainingPercent = !isNaN(parseFloat(driveStats.lifeRemainingPercent)) ? driveStats.lifeRemainingPercent : '';
+            drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent: '';
+          }
           return drive;
         })
 
