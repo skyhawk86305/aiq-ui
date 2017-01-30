@@ -26,8 +26,7 @@ var gulp = require('gulp'),
   appScriptFiles = path.join(appBase, '**/*.ts'),
   appStyleFiles = path.join(appBase, '**/*.less'),
   unitTestFiles = path.join(buildConfig.unitTestDir, '**/*.spec.ts'),
-  isProd = $.yargs.argv.prod,
-  googleAnalyticsToken = $.yargs.argv.googleAnalyticsToken || '';
+  isProd = $.yargs.argv.prod;
 
 // delete build directory
 gulp.task('clean', function (cb) {
@@ -121,7 +120,6 @@ gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
       addRootSlash: false,
       ignorePath: buildConfig.buildDir
     }))
-    .pipe($.if(isProd, $.replace('{googleAnalyticsToken}', googleAnalyticsToken)))
     .pipe(gulp.dest(buildConfig.buildDir));
 });
 
