@@ -74,6 +74,6 @@
     "angular-ui-bootstrap": "^2.4.0",
     "bootstrap-css-only": "~3.3.6",
     "font-awesome": "^4.7.0",
-    "sf-components-v2": "git@bitbucket.org:solidfire/sf-components-v2.git#feature/webpack-prep"
+    "sf-components-v2": "~2.0.0"
   }
 }
