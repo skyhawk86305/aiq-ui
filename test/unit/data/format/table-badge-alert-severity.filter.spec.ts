@@ -12,6 +12,7 @@ describe('Table Badge Alert Severity Filter', function () {
     expect(filter('Warning')).toEqual('<div class="table-badge -warning">WARNING</div>');
     expect(filter('Error')).toEqual('<div class="table-badge -error">ERROR</div>');
     expect(filter('Critical')).toEqual('<div class="table-badge -critical">CRITICAL</div>');
+    expect(filter('bestpractice')).toEqual('<div class="table-badge -bestPractice">BEST PRACTICE</div>');
   });
 
   it('should handle edge case inputs', function() {
