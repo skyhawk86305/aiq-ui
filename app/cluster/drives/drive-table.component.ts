@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('driveTable', {
-      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="drive" control-bar="true" items-per-page="25" quick-filter="$ctrl.quickFilter" export="true"></sf-table>',
+      template: '<sf-table class="sf-layout-block" service="$ctrl.service" id="drive-table" table-id="drive" control-bar="true" items-per-page="25" quick-filter="$ctrl.quickFilter" export="true"></sf-table>',
       controller: ['$routeParams', 'DriveTableService', DriveTableController]
     });
 
