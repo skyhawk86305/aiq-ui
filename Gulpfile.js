@@ -1,6 +1,7 @@
 'use strict';
 
-var gulp = require('gulp'),
+var child,
+  gulp = require('gulp'),
   yargs = require('yargs'),
   webpack = require('webpack'),
   karma = require('karma'),
@@ -27,7 +28,7 @@ gulp.task('build', function(done) {
 
 gulp.task('serve', function() {
   if (process.argv[2] === 'test:e2e' && !argv.mock) { process.argv.push('--mock'); }
-  childProcess.fork('./server/server.js', process.argv.slice(3));
+  child = childProcess.fork('./server/server.js', process.argv.slice(3));
 });
 
 gulp.task('test:unit', function (done) {
@@ -42,8 +43,8 @@ gulp.task('test:unit', function (done) {
 gulp.task('test:e2e', ['webdriverUpdate', 'serve'], function () {
   return gulp.src(['test/e2e/**/*.spec.js'])
     .pipe(protractor.protractor({configFile: configs.protractor, args: getProtractorArgs()}))
-    .on('error', function (e) { console.log(e); process.exit(-1); })
-    .on('close', function() { process.exit(); });
+    .on('error', function (e) { console.log(e); child.kill(); process.exit(-1); })
+    .on('close', function() { child.kill(); process.exit(); });
 });
 
 function getProtractorArgs() {
