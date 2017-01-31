@@ -13,10 +13,10 @@ var columns = [
   {key: 'id', label: 'Alert ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
   {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
-  {key: 'isResolved', label: 'Resolved', format: {filter: 'boolean', args:['Yes', 'No']}},
+  {key: 'isResolved', label: 'Resolved', format: {filter: 'tableBadgeBoolean'}, exclude: true},
   {key: 'resolved', label: 'Resolution Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
   {key: 'notificationName', label: 'Alert Policy Name'},
-  {key: 'severity', label: 'Alert Severity'},
+  {key: 'severity', label: 'Alert Severity', format: {filter: 'tableBadgeAlertSeverity'}, exclude: true},
   {key: 'value', label: 'Alert Value'},
   {key: 'destinationEmail', label: 'Destination'},
   {key: 'customerName', label: 'Customer'},
@@ -47,6 +47,8 @@ describe('The Alert History Page', function () {
 
   it('should display data from the correct API and properly format it in the table', function (done) {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
+    support.expect(table.content.row(0).data('isResolved').element(by.css('.table-badge')).getAttribute('class')).to.eventually.contains('table-badge');
+    support.expect(table.content.row(0).data('severity').element(by.css('.table-badge')).getAttribute('class')).to.eventually.contains('table-badge');
   });
 
   it('should have an export button for the table', function() {

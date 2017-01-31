@@ -50,12 +50,12 @@ describe('DriveTableService', function () {
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {drives: [{driveID:1}], driveStats: [{driveID: 1, lifeRemainingPercent: 'foo', reserveCapacityPercent: 'bar'}]};
+      apiResponse = {drives: [{driveID:1}], driveStats: [{driveID: 1, lifeRemainingPercent: 5, reserveCapacityPercent: 8}]};
       deserializedResponse = [
         {
           driveID: 1,
-          lifeRemainingPercent: 'foo',
-          reserveCapacityPercent: 'bar'
+          lifeRemainingPercent: 5,
+          reserveCapacityPercent: 8
         }
       ];
       service.getData(true).then(function(response) {
@@ -67,14 +67,8 @@ describe('DriveTableService', function () {
 
     it('should populate empty strings in the event of a missing driveStats object', function() {
       apiResponse = {drives: [{}]};
-      deserializedResponse = [
-        {
-          lifeRemainingPercent: '',
-          reserveCapacityPercent: ''
-        }
-      ];
       service.getData(true).then(function(response) {
-         expect(response).toEqual(deserializedResponse);
+         expect(response).toEqual([{}]);
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();

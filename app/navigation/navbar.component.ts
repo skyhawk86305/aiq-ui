@@ -56,7 +56,8 @@
             {key:'events', href: '#/cluster/:clusterID/reporting/events', label: 'Events'},
             {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions', disabled: true},
             {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks', disabled: true},
-            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting', disabled: true}
+            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting', disabled: true},
+            {key:'apiCollection', href: '#/cluster/:clusterID/reporting/apiCollection', label: 'API Collection', disabled: false}
           ]
         },
         {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
@@ -68,8 +69,8 @@
           href:'#/cluster/:clusterID/vvols/protocol-endpoints',
           label: 'VVols',
           menuItems: [
-            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes', disabled: true},
-            {key:'storageContainers', href: '#/cluster/:clusterID/vvols/storage-containers', label: 'Storage Containers', disabled: true},
+            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes'},
+            {key:'storageContainers', href: '#/cluster/:clusterID/vvols/storage-containers', label: 'Storage Containers'},
             {key:'protocolEndpoints', href: '#/cluster/:clusterID/vvols/protocol-endpoints', label: 'Protocol Endpoints'},
             {key:'hosts', href: '#/cluster/:clusterID/vvols/hosts', label: 'Hosts'},
             {key:'bindings', href: '#/cluster/:clusterID/vvols/bindings', label: 'Bindings'},

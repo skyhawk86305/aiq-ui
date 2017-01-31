@@ -19,8 +19,8 @@
       {key: 'slot', label: 'Slot', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'driveSlot'}},
       {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
       {key: 'serial', label: 'Serial', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-      {key: 'lifeRemainingPercent', label: 'Wear', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber'}},
-      {key: 'reserveCapacityPercent', label: 'Reserve', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber'}},
+      {key: 'lifeRemainingPercent', label: 'Wear', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['wear']}},
+      {key: 'reserveCapacityPercent', label: 'Reserve', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['reserve']}},
       {key: 'type', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}}
     ];
 
@@ -43,20 +43,24 @@
       ];
       let driveStatsLookup, drives;
 
-      return callGuzzleAPIs(methods).then(responseObj => {
+      return callGuzzleAPIs(methods).then( responseObj => {
         drives = responseObj.drives;
         driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
 
-        return drives.map(function(drive) {
-          const driveLookupExists = driveStatsLookup && driveStatsLookup[drive.driveID];
-          drive.lifeRemainingPercent = driveLookupExists && driveStatsLookup[drive.driveID].lifeRemainingPercent || '';
-          drive.reserveCapacityPercent  = driveLookupExists && driveStatsLookup[drive.driveID].reserveCapacityPercent || '';
-          return drive;
-        })
+        if (drives) {
+          return drives.map( drive => {
+            const driveStats = driveStatsLookup ? driveStatsLookup[drive.driveID] : null;
+            if (driveStats) {
+              drive.lifeRemainingPercent = !isNaN(parseFloat(driveStats.lifeRemainingPercent)) ? driveStats.lifeRemainingPercent : '';
+              drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent: '';
+            }
+            return drive;
+          })
+        }
 
         function createLookup(data, uniqueKey) {
           if (data) {
-            return data.reduce(function(lookup, currentObj) {
+            return data.reduce( (lookup, currentObj) => {
               lookup[currentObj[uniqueKey]] = currentObj;
               return lookup;
             }, {})
@@ -65,15 +69,13 @@
       });
 
       function callGuzzleAPIs(methods) {
-        return $q.all(methods).then(responses => {
-          let responseObj = {};
-          responses.forEach(function(response) {
-            Object.keys(response).forEach(function(key) {
-              responseObj[key] = response[key];
-            });
-          });
-          return responseObj;
-        });
+       return $q.all(methods).then( responses => {
+         let responseObj = {};
+         responses.forEach(response => {
+           Object.keys(response).forEach(key => responseObj[key] = response[key]);
+         });
+         return responseObj;
+       });
       }
     };
   }

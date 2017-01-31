@@ -16,8 +16,8 @@ var columns = [
   {key: 'slot', label: 'Slot', format: {filter: 'driveSlot'}},
   {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
   {key: 'serial', label: 'Serial', format: {filter: 'string'}},
-  {key: 'lifeRemainingPercent', label: 'Wear', format: {filter: 'aiqNumber'}},
-  {key: 'reserveCapacityPercent', label: 'Reserve', format: {filter: 'aiqNumber'}},
+  {key: 'lifeRemainingPercent', label: 'Wear', format: {filter: 'drivesTableBadge', args: ['wear']}, exclude: true},
+  {key: 'reserveCapacityPercent', label: 'Reserve', format: {filter: 'drivesTableBadge', args: ['reserve']}, exclude: true},
   {key: 'type', label: 'Type', format: {filter: 'string'}}
 ];
 

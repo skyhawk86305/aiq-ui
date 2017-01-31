@@ -2,6 +2,7 @@
 
 describe('Data Service', function () {
   var rootScope,
+      deferred,
       service,
       apiLogService,
       http,
@@ -15,8 +16,9 @@ describe('Data Service', function () {
     });
   }));
 
-  beforeEach(inject(function ($rootScope, DataService, ApiLogService, $httpBackend, $location) {
+  beforeEach(inject(function ($rootScope, $q, DataService, ApiLogService, $httpBackend, $location) {
     rootScope = $rootScope;
+    deferred = $q.defer();
     service = DataService;
     apiLogService = ApiLogService;
     http = $httpBackend;
@@ -35,30 +37,7 @@ describe('Data Service', function () {
       http.flush();
     });
 
-    it('should execute the request callback function every call', function() {
-      http.when('POST', '/json-rpc/2.0').respond({});
-      service.callAPI('foobar', {param: 'baz'});
-      http.flush();
-      expect(apiLogService.appendRequest).toHaveBeenCalledWith({method: 'foobar', params: {param: 'baz'}});
-    });
-
-    it('should make execute the response callback function on success', function() {
-      response = {foo: 'bar'};
-      http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(response);
-      service.callAPI('foobar', {param: 'baz'});
-      http.flush();
-      expect(apiLogService.appendResponse).toHaveBeenCalledWith('entry', response);
-    });
-
-    it('should make execute the error callback function if the call fails', function() {
-      response = {message: 'bar'};
-      http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(500, response);
-      service.callAPI('foobar', {param: 'baz'});
-      http.flush();
-      expect(apiLogService.appendResponse).toHaveBeenCalledWith('entry', response, true);
-    });
-
-    it('should make execute the error callback function and route to the login page if the call is unauthenticated', function() {
+    it('should execute the error callback function and route to the login page if the call is unauthenticated', function() {
       var pathSpy = jasmine.createSpyObj('path', ['search']);
       location.url('/foo/bar?baz=fuz');
       spyOn(location, 'path').and.returnValue(pathSpy);
@@ -66,9 +45,22 @@ describe('Data Service', function () {
       http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(401, response);
       service.callAPI('foobar', {param: 'baz'});
       http.flush();
-      expect(apiLogService.appendResponse).toHaveBeenCalledWith('entry', response, true);
       expect(location.path).toHaveBeenCalledWith('/login');
       expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
+    });
+  });
+
+  describe('.callGuzzleAPI', function() {
+    it('should make an $http request to the API with the provided method name and cluster ID', function () {
+      service.callGuzzleAPI('12345', 'foobar');
+      http.expect('GET', '/state/cluster/12345/foobar').respond([]);
+      http.flush();
+    });
+
+    it('should make an $http request to the API with the provided cluster ID', function () {
+      service.callGuzzleAPI('12345');
+      http.expect('GET', '/state/cluster/12345').respond([]);
+      http.flush();
     });
   });
 
