@@ -4,7 +4,8 @@ var webpack = require('webpack'),
 module.exports = {
   entry: {
     app: ['./app/index.ts'],
-    vendor: ['./app/vendor.ts']
+    vendor: ['./app/vendor.ts'],
+    polyfills: ['./app/polyfills.ts']
   },
   module: {
     preLoaders: [
