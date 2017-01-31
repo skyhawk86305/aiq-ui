@@ -35,16 +35,16 @@
         template: '<login></login>'
       })
       .when('/dashboard/overview', {
-        template: require('../welcome-beta.tpl.html')
+        template: require('./welcome-beta.tpl.html')
       })
       .when('/dashboard/health', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       .when('/dashboard/capacity', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       .when('/dashboard/performance', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       .when('/dashboard/alerts', {
         redirectTo: '/dashboard/alerts/history'
@@ -82,13 +82,13 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/iscsiSessions', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/reporting/virtualNetworks', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/reporting/forecasting', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/reporting/apiCollection', {
         template: '<api-collection-table class="sf-layout-block"></api-collection-table>',
@@ -107,7 +107,7 @@
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/replication', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/vvols/virtual-volumes', {
         template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
@@ -130,7 +130,7 @@
         reloadOnSearch: false
       })
       .when('/users', {
-        template: require('../coming-soon.tpl.html')
+        template: require('./coming-soon.tpl.html')
       })
       /* Legacy UI URLs */
       .when('/Admin/Nodes', defaultRedirect)

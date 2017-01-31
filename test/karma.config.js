@@ -7,15 +7,15 @@ module.exports = {
   reporters: ['coverage', 'junit', 'remap-coverage'],
 
   files: [
-    'app/vendor.ts',
-    'app/index.ts',
+    'client/vendor.ts',
+    'client/index.ts',
     'node_modules/angular-mocks/angular-mocks.js',
     'test/unit/test.ts'
   ],
 
   preprocessors: {
-    'app/vendor.ts': ['webpack'],
-    'app/index.ts': ['webpack'],
+    'client/vendor.ts': ['webpack'],
+    'client/index.ts': ['webpack'],
     'test/unit/test.ts': ['webpack']
   },
 

@@ -2,7 +2,8 @@
 .DS_Store
 
 # TypeScript
-typings
+client/**/*.js
+client/**/*.js.map
 app/**/*.js
 app/**/*.js.map
 test/unit/**/*.js

@@ -4,16 +4,16 @@
  * and images to ensure our app has everything it needs.
  * This file is only temporary until we modularize the app.
  */
-import './app.ts';
+import './app/app.ts';
 
-let scripts = require.context('.', true, /.ts$/);
+let scripts = require.context('./app', true, /.ts$/);
 scripts.keys().forEach(scripts);
 
-let styles = require.context('.', true, /.less$/);
+let styles = require.context('./app', true, /.less$/);
 styles.keys().forEach(styles);
 
-import './images/favicon.ico';
-import './images/Logo.png';
-import './images/right-drawn-arrow.svg';
-import './images/SolidFire-Gotham_WHITE.svg';
+import './app/images/favicon.ico';
+import './app/images/Logo.png';
+import './app/images/right-drawn-arrow.svg';
+import './app/images/SolidFire-Gotham_WHITE.svg';
 
