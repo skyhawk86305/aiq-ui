@@ -6,7 +6,6 @@ describe('Component: apiCollectionTable', function() {
       controller;
 
   beforeEach(angular.mock.module('aiqUi'));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($componentController, $routeParams, APICollectionTableService) {
     routeParams = $routeParams;
