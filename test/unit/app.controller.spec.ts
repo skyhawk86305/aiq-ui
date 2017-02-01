@@ -92,6 +92,9 @@ describe('AppController', function () {
         location.path('/Volumes/Active/List').search({clusterID: '123'});
         rootScope.$digest();
         expect(location.path()).toEqual('/cluster/123/volumes');
+        location.path('/Settings/Password');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/account');
       });
     });
 
@@ -164,9 +167,6 @@ describe('AppController', function () {
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Replication/Volumes');
-        rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/overview');
-        location.path('/Settings/Password');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Volumes/Snapshots/Schedules/List');

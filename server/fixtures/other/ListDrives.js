@@ -1,7 +1,6 @@
 module.exports = {
   drives: [
     {
-      clusterID: 11,
       driveID: 1,
       nodeID: 1,
       slot: 0,
@@ -9,94 +8,107 @@ module.exports = {
       capacity: '960197124096',
       serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900424',
       type: 'volume',
-      driveStats: {
-        lifeRemainingPercent: 99,
-        reserveCapacityPercent: 100
-      }
+      attributes:{}
     },
     {
-      clusterID: 11,
       driveID: 2,
-      nodeID: 2,
+      nodeID: 1,
       slot: 1,
       status: 'active',
       capacity: '960197124096',
       serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900433',
       type: 'block',
-      driveStats: {
-        lifeRemainingPercent: 100,
-        reserveCapacityPercent: 100
-      }
+      attributes:{}
     },
     {
-      clusterID: 11,
       driveID: 3,
-      nodeID: 3,
+      nodeID: 1,
       slot: 2,
       status: 'active',
       capacity: '960197124096',
       serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900414',
       type: 'block',
-      driveStats: {
-        lifeRemainingPercent: 100,
-        reserveCapacityPercent: 100
-      }
+      attributes:{}
     },
     {
-      clusterID: 11,
       driveID: 5,
-      nodeID: 4,
+      nodeID: 1,
       slot: 3,
-      status: 'active',
+      status: 'available',
       capacity: '960197124096',
       serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900408',
       type: 'volume',
-      driveStats: {
-        lifeRemainingPercent: 99,
-        reserveCapacityPercent: 100
-      }
+      attributes:{}
     },
     {
-      clusterID: 11,
       driveID: 6,
-      nodeID: 5,
+      nodeID: 1,
       slot: 4,
       status: 'active',
       capacity: '960197124096',
       serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900418',
       type: 'block',
-      driveStats: {
-        lifeRemainingPercent: 100,
-        reserveCapacityPercent: 100
-      }
+      attributes:{}
     },
     {
-      clusterID: 11,
       driveID: 7,
-      nodeID: 6,
+      nodeID: 1,
       slot: -1,
-      status: 'active',
+      status: 'available',
       capacity: '960197124096',
       serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900392',
       type: 'block',
-      driveStats: {
-        lifeRemainingPercent: 75,
-        reserveCapacityPercent: 80
-      }
+      attributes:{}
     },
     {
-      clusterID: 11,
-      driveID: 7,
-      nodeID: 7,
+      driveID: 8,
+      nodeID: 1,
       slot: 5,
+      status: 'failed',
+      capacity: '960197124096',
+      serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900292',
+      type: 'block',
+      attributes:{}
+    },
+  {
+      driveID: 11,
+      nodeID: 2,
+      slot: 0,
       status: 'active',
       capacity: '960197124096',
-      serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900392',
+      serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900108',
+      type: 'volume',
+      attributes:{}
+  },
+  {
+      driveID: 12,
+      nodeID: 2,
+      slot: 1,
+      status: 'available',
+      capacity: '960197124096',
+      serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900118',
       type: 'block',
-      driveStats: {
-        lifeRemainingPercent: 75,
-        reserveCapacityPercent: 80
-      }
-    }
+      attributes:{}
+  },
+  {
+      driveID: 13,
+      nodeID: 2,
+      slot: 2,
+      status: 'failed',
+      capacity: '960197124096',
+      serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900192',
+      type: 'block',
+      attributes:{}
+  },
+  {
+      driveID: 14,
+      nodeID: 2,
+      slot: 3,
+      status: 'active',
+      capacity: '960197124096',
+      serial: 'scsi-SATA_SAMSUNG_MZ7WD96S1LCNYAF900092',
+      type: 'block',
+      attributes:{}
+  }
   ]
 };
