@@ -8,7 +8,6 @@ describe('Component: changePassword', function() {
       spy;
 
   beforeEach(angular.mock.module('aiqUi'));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $location, $q, $componentController, AuthService) {
     $scope = $rootScope.$new();
@@ -34,7 +33,7 @@ describe('Component: changePassword', function() {
           expect(spy).toHaveBeenCalledWith('Test password1', 'New test password1');
           expect(controller.successful).toBe(true);
           expect(controller.error).toBeNull();
-          expect(controller.incorrectPassword).toBe(false);
+          expect(controller.incorrectPassword).toBe(true);
         })
         .finally(done)
 

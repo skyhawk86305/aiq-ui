@@ -37,7 +37,7 @@ gulp.task('test:unit', function (done) {
     configs.karma.reporters.push('spec');
   }
   if (argv.browser) { configs.karma.browsers = [argv.browser]; }
-  new karma.Server(configs.karma, function() { done(); process.exit(); }).start();
+  new karma.Server(configs.karma, function(c) { done(); process.exit(c); }).start();
 });
 
 gulp.task('test:e2e', ['webdriverUpdate', 'serve'], function () {

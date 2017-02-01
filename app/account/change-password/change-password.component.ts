@@ -3,7 +3,6 @@
 
   const moduleName = 'aiqUi';
   const componentName = 'changePassword';
-  const templateUrl = 'account/change-password/change-password.tpl.html';
   const controllerDeps = ['AuthService'];
 
   class ChangePasswordController {
@@ -46,7 +45,7 @@
   angular
     .module(moduleName)
     .component(componentName, {
-      templateUrl,
+      template: require('./change-password.tpl.html'),
       controller: [ ...controllerDeps, ChangePasswordController ],
     });
 })();

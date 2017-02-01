@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('account', {
-      templateUrl: 'account/account.tpl.html',
+      template: require('./account.tpl.html'),
       controller: ['UserInfoService', AccountController]
     });
 
