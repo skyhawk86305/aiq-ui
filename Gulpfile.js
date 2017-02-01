@@ -10,7 +10,7 @@ var child,
   configs = {
     server: require('./server/server.config.js'),
     webpack: require('./webpack/webpack.prod'),
-    karma: require('./test/karma.config.js'),
+    karma: require('./karma.config.js'),
     protractor: './test/protractor.config.js'
   },
   argv = yargs

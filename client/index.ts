@@ -6,10 +6,10 @@
  */
 import './app/app.ts';
 
-let scripts = require.context('./app', true, /.ts$/);
+let scripts = require.context('./app', true, /(?!\.spec)[\w-]{5}\.ts$/);
 scripts.keys().forEach(scripts);
 
-let styles = require.context('./app', true, /.less$/);
+let styles = require.context('./app', true, /\.less$/);
 styles.keys().forEach(styles);
 
 import './app/images/favicon.ico';

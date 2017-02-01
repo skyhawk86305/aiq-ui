@@ -10,16 +10,16 @@ module.exports = {
     'client/vendor.ts',
     'client/index.ts',
     'node_modules/angular-mocks/angular-mocks.js',
-    'test/unit/test.ts'
+    'client/test.ts'
   ],
 
   preprocessors: {
     'client/vendor.ts': ['webpack'],
     'client/index.ts': ['webpack'],
-    'test/unit/test.ts': ['webpack']
+    'client/test.ts': ['webpack']
   },
 
-  webpack: require('../webpack/webpack.test'),
+  webpack: require('./webpack/webpack.test'),
 
   webpackMiddleware: {
     noInfo: true
