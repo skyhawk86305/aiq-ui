@@ -33,7 +33,7 @@ describe('Component: changePassword', function() {
           expect(spy).toHaveBeenCalledWith('Test password1', 'New test password1');
           expect(controller.successful).toBe(true);
           expect(controller.error).toBeNull();
-          expect(controller.incorrectPassword).toBe(true);
+          expect(controller.incorrectPassword).toBe(false);
         })
         .finally(done)
 
