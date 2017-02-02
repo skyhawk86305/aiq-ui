@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('capacityGraphs', {
-      template: require('./capacity-graphs-section.tpl.html'),
+      template: require('./capacity.tpl.html'),
       controller: [
         '$routeParams',
         '$filter',

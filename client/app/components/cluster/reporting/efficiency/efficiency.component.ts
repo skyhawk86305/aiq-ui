@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('efficiencyGraphs', {
-      template: require('./efficiency-graphs-section.tpl.html'),
+      template: require('./efficiency.tpl.html'),
       controller: [
         '$routeParams',
         '$filter',

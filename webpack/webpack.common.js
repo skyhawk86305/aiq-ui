@@ -3,7 +3,7 @@ var webpack = require('webpack'),
 
 module.exports = {
   entry: {
-    app: ['./client/index.ts'],
+    app: ['./client/app.ts'],
     vendor: ['./client/vendor.ts'],
     polyfills: ['./client/polyfills.ts']
   },

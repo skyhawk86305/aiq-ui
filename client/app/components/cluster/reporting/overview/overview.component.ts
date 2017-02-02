@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('overviewDashboard', {
-      template: require('./overview-dashboard.tpl.html'),
+      template: require('./overview.tpl.html'),
       controller: [
         '$routeParams',
         '$filter',

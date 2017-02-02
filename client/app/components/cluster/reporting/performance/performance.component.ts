@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('performanceGraphs', {
-      template: require('./performance-graphs-section.tpl.html'),
+      template: require('./performance.tpl.html'),
       controller: [
         '$routeParams',
         '$filter',
