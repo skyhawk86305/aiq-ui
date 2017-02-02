@@ -6,5 +6,3 @@
  * of these files have changed...which they shouldn't unless we update
  * dependencies or edit this file.
  */
-
-import 'js-polyfills';
