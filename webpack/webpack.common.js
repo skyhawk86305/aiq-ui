@@ -3,9 +3,9 @@ var webpack = require('webpack'),
 
 module.exports = {
   entry: {
-    app: ['./app/index.ts'],
-    vendor: ['./app/vendor.ts'],
-    polyfills: ['./app/polyfills.ts']
+    app: ['./client/index.ts'],
+    vendor: ['./client/vendor.ts'],
+    polyfills: ['./client/polyfills.ts']
   },
   module: {
     preLoaders: [
@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new HtmlWebpackPlugin({ template: './app/index.html' }),
+    new HtmlWebpackPlugin({ template: './client/index.html' }),
     new webpack.ProvidePlugin({ d3: 'd3' }) // ToDo: remove once sf-components is packaged correctly
   ]
 };
