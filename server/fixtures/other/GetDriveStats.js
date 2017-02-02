@@ -7,8 +7,8 @@ module.exports = {
     },
     {
       driveID: 2,
-      lifeRemainingPercent: 100,
-      reserveCapacityPercent: 100
+      lifeRemainingPercent: 0,
+      reserveCapacityPercent: 0
     },
     {
       driveID: 3,
@@ -32,8 +32,33 @@ module.exports = {
     },
     {
       driveID: 7,
-      lifeRemainingPercent: 75,
-      reserveCapacityPercent: 80
+      lifeRemainingPercent: 15,
+      reserveCapacityPercent: 20
+    },
+    {
+      driveID: 8,
+      lifeRemainingPercent: 20,
+      reserveCapacityPercent: 15
+    },
+    {
+        driveID: 11,
+        lifeRemainingPercent: 30,
+        reserveCapacityPercent: 20
+    },
+    {
+        driveID: 12,
+        lifeRemainingPercent: 19,
+        reserveCapacityPercent: 0
+    },
+    {
+        driveID: 13,
+        lifeRemainingPercent: 0,
+        reserveCapacityPercent: 0
+    },
+    {
+        driveID: 14,
+        lifeRemainingPercent: 80,
+        reserveCapacityPercent: 90
     }
   ]
 };

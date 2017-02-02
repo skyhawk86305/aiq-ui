@@ -5,7 +5,7 @@ var support = require('../support.js');
 var expect = support.expect;
 var TableComponent = require('../page-objects/components/sf-components.po').table;
 var table = new TableComponent('drive');
-var fixture = mapFixture(support.fixture('ListDrives'));
+var fixture = mergeFixtures(support.fixture('ListDrives'), support.fixture('GetDriveStats'));
 var uniqueKey = 'driveID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
@@ -16,17 +16,22 @@ var columns = [
   {key: 'slot', label: 'Slot', format: {filter: 'driveSlot'}},
   {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
   {key: 'serial', label: 'Serial', format: {filter: 'string'}},
-  {key: 'lifeRemainingPercent', label: 'Wear', format: {filter: 'drivesTableBadge', args: ['wear']}, exclude: true},
+  {key: 'lifeRemainingPercent', label: 'Wear Remaining', format: {filter: 'drivesTableBadge', args: ['wear']}, exclude: true},
   {key: 'reserveCapacityPercent', label: 'Reserve', format: {filter: 'drivesTableBadge', args: ['reserve']}, exclude: true},
   {key: 'type', label: 'Type', format: {filter: 'string'}}
 ];
 
-function mapFixture(rawFixture) {
-  return rawFixture.drives.map(function(drive) {
-    drive.lifeRemainingPercent = drive.driveStats && drive.driveStats.lifeRemainingPercent || '';
-    drive.reserveCapacityPercent  = drive.driveStats && drive.driveStats.reserveCapacityPercent || '';
-    return drive;
-  });
+
+function mergeFixtures(fixture1, fixture2) {
+    return fixture1.drives.map(function(drive) {
+        fixture2.driveStats.forEach(function(drive2) {
+            if (drive.driveID === drive2.driveID) {
+                drive.lifeRemainingPercent = drive2.lifeRemainingPercent;
+                drive.reserveCapacityPercent = drive2.reserveCapacityPercent;
+            }
+        });
+        return drive;
+    });
 }
 
 describe('The Cluster Drives Page', function () {

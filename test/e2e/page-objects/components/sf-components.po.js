@@ -1,1 +1,1 @@
-module.exports = require('sf-components-v2/test/page-objects');
+module.exports = require('@sf-netapp/sf-components/test/page-objects');

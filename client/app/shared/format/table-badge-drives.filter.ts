@@ -7,6 +7,7 @@
       return function (data, column) {
         var criticalThreshold = column === 'wear' ? 10 : 1;
         var warningThreshold = column === 'wear' ? 80 : 20;
+        var percentage = column === 'wear' ? '%' : '';
         var type = 'normal';
 
         if (isNaN(parseFloat(data))) {
@@ -19,7 +20,7 @@
           type = 'warning';
         }
 
-        return '<div class="table-badge -' + type + '">' + data + '</div>';
+        return '<div class="table-badge -' + type + '">' + data + percentage + '</div>';
       };
     }]);
 })();

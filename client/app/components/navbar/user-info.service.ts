@@ -8,12 +8,15 @@
   function UserInfoService($q, $window, DataService) {
     var userInfoRetrieved = false;
 
+    this.currentUser = null;
+
     return {
-      getUserInfo: function() {
+      getUserInfo() {
         if(!userInfoRetrieved) {
           return DataService.callAPI('GetUserInfo', null)
-            .then(function(response) {
+            .then( response => {
               if(response.user) {
+                this.currentUser = response.user;
                 let fieldValues = {
                   fullname: response.user.userDisplayName,
                   email: response.user.username
@@ -56,7 +59,7 @@
         }
       },
 
-      clearUserInfo: function() {
+      clearUserInfo() {
         userInfoRetrieved = false;
       }
     };

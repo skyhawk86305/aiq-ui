@@ -26,6 +26,11 @@
 
     <div class="pull-right">
       <ul class="navbar-nav nav">
+        <li class="navbar-item -main -left-divider">
+          <a id="navbar-user" href="#/account">
+            <i class="fa fa-user"></i> {{ $ctrl.userInfo.currentUser.username }}
+          </a>
+        </li>
         <!-- Code to add a nav button to trigger the API log -->
         <!-- Removed, for now, for the Beta release -->
         <!--<li class="navbar-item -main -left-divider">
@@ -43,6 +48,13 @@
               <a id="return-to-old-ui-anchor" ng-href="http://{{$ctrl.host}}" alt="Return to Legacy Active IQ">
                 <i class="fa fa-external-link"></i>
                 <span>Legacy Active IQ</span>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li class="menu-option" role="menuitem">
+              <a id="account-settings-anchor" href="#/account" alt="Account Settings">
+                <i class="fa fa-gear"></i>
+                <span>Account Settings</span>
               </a>
             </li>
             <li class="divider"></li>

@@ -15,13 +15,17 @@
         '$window',
         'ClusterSelectService',
         'AuthService',
+        'UserInfoService',
         NavbarController
       ]
     });
 
-  function NavbarController($rootScope, $location, $timeout, $window, ClusterSelectService, AuthService) {
+  function NavbarController($rootScope, $location, $timeout, $window, ClusterSelectService, AuthService, UserInfoService) {
     var self = this;
     self.clusterSelect = ClusterSelectService;
+    UserInfoService.getUserInfo().then( () => {
+      self.userInfo = UserInfoService;
+    })
     self.activeItems = {main: '', sub: '', menu: ''};
     self.host = $location.host();
 
