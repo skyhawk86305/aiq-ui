@@ -14,9 +14,9 @@ Running the Tests
 
  Text execution can be configured with:
 
-`-a, --analyze // Run static analysis on code`
+`-b OR --browser // Change the browser that the tests run in [PhantomJS, chrome, firefox, safari]. Default: PhantomJS`
 
-`-v, --verbose // Run tests in verbose mode to output documentation`
+`-v OR --verbose // Run tests in verbose mode to output documentation`
 
 ## E2E Tests
 
@@ -31,19 +31,17 @@ Running the Tests
 
  Text execution can be configured with:
 
-`-a, --analyze // Run static analysis on code`
+`-b OR --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
 
-`-b, --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
+`-m OR --mock // Change the fixture to something other than default`
 
-`-m, --mock // Change the fixture to something other than default`
+`-s OR --seleniumAddress // Manually set the selenium address and port for running protractor tests`
 
-`-s, --seleniumAddress // Manually set the selenium address and port for running protractor tests`
+`-h OR --host // Set the host name of the express server serving the UI`
 
-`-h, --host // Set the host name of the express server serving the UI`
+`-p OR --port // Set the port number of the express server serving the UI`
 
-`-p, --port // Set the port number of the express server serving the UI`
-
-`-t, --tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
+`-t OR --tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
 
 Testing Guidelines
 ============================

@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('login', {
-      templateUrl: 'authentication/login.tpl.html',
+      template: require('./login.tpl.html'),
       controller: ['AuthService', '$location', LoginController]
     });
 

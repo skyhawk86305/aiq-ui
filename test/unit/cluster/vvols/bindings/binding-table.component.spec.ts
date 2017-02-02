@@ -6,7 +6,6 @@ describe('Component: bindingTable', function() {
     controller;
 
   beforeEach(angular.mock.module('aiqUi'));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($componentController, $routeParams, BindingTableService) {
     routeParams = $routeParams;

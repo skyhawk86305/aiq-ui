@@ -6,7 +6,6 @@ describe('Component: hostTable', function() {
     controller;
 
   beforeEach(angular.mock.module('aiqUi'));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($componentController, $routeParams, HostTableService) {
     routeParams = $routeParams;

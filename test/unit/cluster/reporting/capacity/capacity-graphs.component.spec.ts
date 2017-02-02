@@ -17,7 +17,6 @@ describe('Component: capacityGraphs', function() {
     $provide.value('SFD3LineGraph', function () {});
     $provide.value('SFD3BarGraph', function () {});
   }));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $q, $componentController, $routeParams, DataService, CapacityGraphsService) {
     scope = $rootScope;

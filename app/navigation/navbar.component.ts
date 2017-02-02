@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('navbar', {
-      templateUrl: 'navigation/navbar.tpl.html',
+      template: require('./navbar.tpl.html'),
       bindings: {
         onApiLogOpen: '&'
       },

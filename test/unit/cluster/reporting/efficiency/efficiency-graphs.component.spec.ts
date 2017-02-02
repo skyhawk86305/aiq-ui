@@ -14,7 +14,6 @@ describe('Component: efficiencyGraphs', function() {
     $provide.value('SFD3LineGraph', function () {});
     $provide.value('SFD3BarGraph', function () {});
   }));
-  beforeEach(angular.mock.module('componentTemplates'));
 
   beforeEach(inject(function($rootScope, $q, $filter, $componentController, $routeParams, EfficiencyGraphsService) {
     scope = $rootScope;
