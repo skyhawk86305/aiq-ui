@@ -74,7 +74,6 @@
     "angular-ui-bootstrap": "^2.4.0",
     "bootstrap-css-only": "~3.3.6",
     "font-awesome": "^4.7.0",
-    "js-polyfills": "^0.1.31",
     "@sf-netapp/sf-components": "~2.0.0"
   }
 }
