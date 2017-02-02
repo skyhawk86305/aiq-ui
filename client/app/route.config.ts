@@ -132,6 +132,9 @@
       .when('/users', {
         template: require('./coming-soon.tpl.html')
       })
+      .when('/account', {
+        template: '<account class="sf-layout-block"></account>',
+      })
       /* Legacy UI URLs */
       .when('/Admin/Nodes', defaultRedirect)
       .when('/Admin/Nodes/Add', defaultRedirect)
@@ -202,7 +205,11 @@
       })
       .when('/Replication/Clusters', defaultRedirect)
       .when('/Replication/Volumes', defaultRedirect)
-      .when('/Settings/Password', defaultRedirect)
+      .when('/Settings/Password', {
+        redirectTo: function (params, path, search) {
+          return '/account';
+        }
+      })
       .when('/Volumes/Active/List', {
         redirectTo: function (params, path, search) {
           return '/cluster/' + search.clusterID + '/volumes';

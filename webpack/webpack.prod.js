@@ -2,7 +2,7 @@ var webpack = require('webpack'),
   webpackMerge = require('webpack-merge'),
   commonConfig = require('./webpack.common.js'),
   CleanWebpackPlugin = require('clean-webpack-plugin'),
-  CompressionPlugin = require("compression-webpack-plugin");
+  ArchivePlugin = require('webpack-archive-plugin');
 
 module.exports = webpackMerge(commonConfig, {
   output: {
@@ -15,6 +15,6 @@ module.exports = webpackMerge(commonConfig, {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: { keep_fnames: true } }),
     new CleanWebpackPlugin(['build'], { root: __dirname + '/..' }),
-    new CompressionPlugin({ asset:'../build.zip' })
+    new ArchivePlugin({ output:'./build' })
   ]
 });

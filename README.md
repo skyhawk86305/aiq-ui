@@ -13,7 +13,7 @@ An Angular.js application written in TypeScript for interacting with the AIQ bac
  
 `git clone git@bitbucket.org:solidfire/aiq-ui.git`
  
- - Install dependencies (You must be on NetApp VPN - to access sf-components-v2 on private npm registry)
+ - Install dependencies (You must be on NetApp VPN - to access sf-components on private npm registry)
  
 `npm install`
 

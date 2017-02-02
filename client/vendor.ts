@@ -24,9 +24,9 @@ import 'angular-bind-html-compile';
 import 'array-find';
 import 'd3';
 import 'ng-csv';
-import '../node_modules/sf-components-v2/dist/sf-components.js';
+import '../node_modules/@sf-netapp/sf-components/dist/sf-components.js';
 
 /* Styles */
 import 'bootstrap-css-only';
 import '../node_modules/font-awesome/less/font-awesome.less';
-import '../node_modules/sf-components-v2/dist/sf-components.css';
+import '../node_modules/@sf-netapp/sf-components/dist/sf-components.css';
