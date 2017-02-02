@@ -85,7 +85,7 @@
     "require-dir": "^0.3.0",
     "rsyncwrapper": "^1.0.1",
     "run-sequence": "^1.0.2",
-    "sf-components-v2": "git@bitbucket.org:solidfire/sf-components-v2.git#master",
+    "@sf-netapp/sf-components": "git@bitbucket.org:solidfire/sf-components-v2.git#master",
     "sinon": "^1.17.4",
     "streamqueue": "^1.1.1",
     "tsd": "^0.6.5",
