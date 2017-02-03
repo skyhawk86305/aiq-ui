@@ -7,7 +7,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
    */
   let routeProvider = angular.extend({}, $routeProvider, {
     when: function(path, route) {
-      if (path !== '/login') {
+      if (path !== '/login' && path !== '/reset-password') {
         route.resolve = (route.resolve) ? route.resolve : {};
         angular.extend(route.resolve, {
           isAuthenticated: function() {
@@ -28,6 +28,9 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
     routeProvider
       .when('/login', {
         template: '<login></login>'
+      })
+      .when('/reset-password', {
+        template: '<reset-password></reset-password>'
       })
       .when('/dashboard/overview', {
         template: require('./welcome-beta.tpl.html')

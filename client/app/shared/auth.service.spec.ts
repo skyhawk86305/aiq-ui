@@ -105,4 +105,42 @@ describe('Auth Service', function () {
     });
   });
 
+  describe('.requestPasswordReset', function() {
+    it(`should make an $http POST request to /password-reset with the user's email in the body`, function() {
+      const email = 'test@email.com';
+      http.expectPOST('/password-reset', email).respond(200);
+      service.requestPasswordReset(email);
+      http.flush();
+    });
+
+    it('should be rejected if the server returns an error', function() {
+      const testEmail = 'test@email.com';
+      http.expectPOST('/password-reset', testEmail).respond(500);
+      service.requestPasswordReset(testEmail).then( () => {
+        throw new Error('should have been rejected');
+      });
+      http.flush();
+    });
+  });
+
+  describe('.setNewPassword', function() {
+    it(`should make an $http POST request to /password-reset/:token with the new password in the body`, function() {
+      const token = '00000000-0000-0000-0000-000000000000';
+      const password = 'Fake new password1';
+      http.expectPOST(`/password-reset/${token}`, password).respond(200);
+      service.setNewPassword(token, password);
+      http.flush();
+    });
+
+    it('should be rejected if the server returns an error', function() {
+      const token = '00000000-0000-0000-0000-000000000000';
+      const password = 'Fake new password1';
+      http.expectPOST(`/password-reset/${token}`, password).respond(400);
+      service.setNewPassword(token, password).then( () => {
+        throw new Error('should have been rejected');
+      });
+      http.flush();
+    });
+  });
+
 });

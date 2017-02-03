@@ -69,6 +69,25 @@ mockRoutes.delete('/sessions', function (req, res) {
 });
 
 /**
+ * Catch "send password reset email" requests and always return successfully
+ */
+mockRoutes.post('/password-reset', function (req, res) {
+  res.status(200).send();
+});
+
+/**
+ * Catch password-reset requests and respond successfully, unless the provided token is all ones (to provide a way to check
+ * the interface when an invalid token is used)
+ */
+mockRoutes.post('/password-reset/:token', function (req, res) {
+  if (req.params.token === '11111111-1111-1111-1111-111111111111') {
+    res.status(400).send('Invalid token');
+  } else {
+    res.status(200).send();
+  }
+});
+
+/**
  * Catch capacity page graph data requests and respond with random data
  * in the correct response format.
  */
