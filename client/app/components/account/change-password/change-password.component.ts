@@ -11,9 +11,9 @@
     public reenterNewPassword: string;
     public form;
 
-    private successful: boolean = false;
+    private successful = false;
     private error = null;
-    private incorrectPassword: boolean = false;
+    private incorrectPassword = false;
 
     constructor(private AuthService) {}
 
@@ -32,7 +32,7 @@
           this.form.$setPristine();
         })
         .catch( err => {
-          if (err.name == 'IncorrectPasswordFault') this.incorrectPassword = true;
+          if (err.name === 'IncorrectPasswordFault') this.incorrectPassword = true;
           else if (err.message) this.error = err.message;
           else if (err.data) this.error = err.data;
           else this.error = err;

@@ -1,6 +1,6 @@
 export function GraphResolutionFilter() {
   return function (resolutionMS, graph) {
-    var resolutionSec = resolutionMS / 1000;
+    let resolutionSec = resolutionMS / 1000;
 
     switch (graph) {
       case 'capacity':            return getClusterCapacity(resolutionSec);

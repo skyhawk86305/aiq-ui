@@ -1,6 +1,6 @@
 export function ClusterStageFilter() {
   return function (stage, getClass) {
-    switch(true) {
+    switch (true) {
       case /^stage1/.test(stage): return getClass ? '-no-alert' : 'Normal';
       case /^stage2/.test(stage): return getClass ? '-no-alert' : 'Normal';
       case /^stage3/.test(stage): return getClass ? '-warning'  : 'Warning';

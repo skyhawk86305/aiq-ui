@@ -5,7 +5,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
    * Customized route provider that adds a resolve to all routes (except for login).
    * The resolve checks if user is authenticated.
    */
-  var routeProvider = angular.extend({}, $routeProvider, {
+  let routeProvider = angular.extend({}, $routeProvider, {
     when: function(path, route) {
       if (path !== '/login') {
         route.resolve = (route.resolve) ? route.resolve : {};

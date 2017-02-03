@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: navbar', function() {
-  var scope,
+  let scope,
       service,
       deferred,
       location,
@@ -31,7 +31,7 @@ describe('Component: navbar', function() {
 
   describe('.login', function() {
     it('should call AuthService.login with credentials', function() {
-      var credentials = {username: 'foo', password: 'bar'};
+      let credentials = {username: 'foo', password: 'bar'};
       deferred.resolve();
       controller.login(credentials);
       expect(service.login).toHaveBeenCalledWith(credentials);

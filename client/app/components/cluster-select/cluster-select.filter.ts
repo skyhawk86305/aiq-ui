@@ -13,10 +13,10 @@
     return function (clusters, input) {
       if (!input) { return clusters; }
 
-      var words = input.split(' ');
+      let words = input.split(' ');
 
-      var tokens = words.map(function(word) {
-        var token, actual;
+      let tokens = words.map(function(word) {
+        let token, actual;
         if (word.toUpperCase().indexOf('VERSION:') === 0) {
           actual = word.split(/:/).slice(1).join(':');
           token = {

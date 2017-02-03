@@ -1,7 +1,7 @@
 'use strict';
 
 describe('ApiLogService', function () {
-  var service,
+  let service,
       parentService;
 
   beforeEach(angular.mock.module('aiqUi'));

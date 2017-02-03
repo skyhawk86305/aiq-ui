@@ -21,11 +21,11 @@
     });
 
   function NavbarController($rootScope, $location, $timeout, $window, ClusterSelectService, AuthService, UserInfoService) {
-    var self = this;
+    let self = this;
     self.clusterSelect = ClusterSelectService;
     UserInfoService.getUserInfo().then( () => {
       self.userInfo = UserInfoService;
-    })
+    });
     self.activeItems = {main: '', sub: '', menu: ''};
     self.host = $location.host();
 
@@ -86,7 +86,7 @@
 
     // Build the href using the selectedCluster's clusterID for the navbar anchors to bind to
     self.getHref = function(subNavbarItem) {
-      var clusterID = self.clusterSelect.selectedCluster ? self.clusterSelect.selectedCluster.clusterID : '';
+      let clusterID = self.clusterSelect.selectedCluster ? self.clusterSelect.selectedCluster.clusterID : '';
       return subNavbarItem.href.replace(':clusterID', clusterID);
     };
 
@@ -102,23 +102,23 @@
     };
 
     self.updateActiveItems = function() {
-      var path = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/');
+      let path = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/');
       self.activeItems.main = path[0];
       self.activeItems.sub = path.length > 1 ? path[1] : '';
       self.activeItems.menu = path.length > 2 ? path[2] : '';
       // Clear the cached selectedCluster when the user navigates to a non cluster-specific route
-      if(self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
+      if (self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
 
       self.sendGoogleAnalyticsPageView();
     };
 
     self.sendGoogleAnalyticsPageView = function() {
-      var pageView = {
+      let pageView = {
         page: $location.path(),
         title: $window.document.title
       };
 
-      if(!$window.ga) { return; }
+      if (!$window.ga) { return; }
 
       $window.ga('send', 'pageView', pageView);
     };

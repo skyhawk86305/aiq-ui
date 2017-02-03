@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: navbar', function() {
-  var scope,
+  let scope,
       rootScope,
       logoutDeferred,
       service,
@@ -48,12 +48,12 @@ describe('Component: navbar', function() {
 
   describe('.getHref', function() {
     it('should lookup and return the href from the input subNavbarItem', function() {
-      var subNavbarItem = controller.subNavbarItems.dashboard[4];
+      let subNavbarItem = controller.subNavbarItems.dashboard[4];
       expect(controller.getHref(subNavbarItem)).toEqual('#/dashboard/alerts/history');
     });
 
     it('should replace the :clusterID route variable with the cached selectedCluster clusterID from the ClusterSelectService', function() {
-      var subNavbarItem = controller.subNavbarItems.cluster[0];
+      let subNavbarItem = controller.subNavbarItems.cluster[0];
       service.selectedCluster = {clusterID: 999};
       expect(controller.getHref(subNavbarItem)).toEqual('#/cluster/999/reporting/overview');
     });

@@ -4,4 +4,4 @@ export const ComponentsModule = angular
   .module('aiqUi.components', [])
   .name;
 
-// ToDo: import modules, components, filters and services similar to SharedModeul
+// ToDo: import modules, components, filters and services similar to SharedModule

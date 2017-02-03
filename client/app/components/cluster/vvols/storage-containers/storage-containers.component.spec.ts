@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: storageContainerTable', function() {
-  var routeParams,
+  let routeParams,
     service,
     controller;
 

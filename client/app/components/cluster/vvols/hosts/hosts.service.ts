@@ -11,7 +11,7 @@
   ]);
 
   function HostTableService(SFTableService, SFFilterComparators, DataService) {
-    var columns = getColumns(),
+    let columns = getColumns(),
       service = new SFTableService(listHosts, columns, false);
 
     service.selectedClusterID = null;
@@ -32,11 +32,11 @@
 
     function listHosts() {
       return DataService.callGuzzleAPI(service.selectedClusterID, 'ListVirtualVolumeHosts')
-        .then( response => response.hosts )
+        .then( response => response.hosts );
     }
 
     function update(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID, 10);
     }
   }
 })();

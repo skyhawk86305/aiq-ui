@@ -11,7 +11,7 @@
   ]);
 
   function VirtualVolumeTableService(SFTableService, SFFilterComparators, DataService) {
-    var columns = getColumns(),
+    let columns = getColumns(),
       service = new SFTableService(listVirtualVolumes, columns, false);
 
     service.selectedClusterID = null;
@@ -59,7 +59,7 @@
     }
 
     function update(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID, 10);
     }
   }
 })();

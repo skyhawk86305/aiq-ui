@@ -1,7 +1,7 @@
 'use strict';
 
 describe('NodeTableService', function () {
-  var rootScope,
+  let rootScope,
       deferred,
       apiResponse,
       apiFailure,

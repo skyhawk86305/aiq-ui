@@ -1,15 +1,11 @@
 export function AppController($rootScope, ApiLogService, $location) {
-  var self = this;
+  let self = this;
   self.apiLogService = ApiLogService;
   self.showNavbar = false;
   self.host = $location.host();
 
   $rootScope.$on('$routeChangeSuccess', function() {
-    if ($location.path() !== '/login') {
-      self.showNavbar = true;
-    } else {
-      self.showNavbar = false;
-    }
+    self.showNavbar = $location.path() !== '/login';
     self.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
   });
 

@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: clusterSelect', function() {
-  var scope,
+  let scope,
       deferred,
       routeParams,
       location,
@@ -87,7 +87,7 @@ describe('Component: clusterSelect', function() {
         scope.$apply();
         controller.filterInput = 'NetApp';
         controller.filterClusters();
-        expect(controller.clusters).toEqual(mockDataFiltered.splice(0, 1))
+        expect(controller.clusters).toEqual(mockDataFiltered.splice(0, 1));
       });
     });
 

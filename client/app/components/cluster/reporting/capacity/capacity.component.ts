@@ -17,12 +17,12 @@
     });
 
   function CapacityGraphsController($routeParams, $filter, DataService, SFD3LineGraph, SFD3BarGraph, CapacityGraphsService) {
-    var ctrl = this;
+    let ctrl = this;
 
     ctrl.$onInit = function() {
       CapacityGraphsService.update($routeParams.clusterID);
       ctrl.getClusterFullThresholdState = 'loading';
-      DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID)})
+      DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID, 10)})
         .then(function(response) {
           ctrl.clusterFullThreshold = response.clusterFullThreshold;
           ctrl.getClusterFullThresholdState = 'loaded';
@@ -115,7 +115,7 @@
     ];
 
     function getGraphConfig(graph) {
-      var graphConfigs = {
+      let graphConfigs = {
         blockChild: {
           bindTo: 'block-capacity-child-graph',
           type: 'line',

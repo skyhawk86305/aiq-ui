@@ -1,7 +1,7 @@
 'use strict';
 
 describe('CapacityGraphsService', function () {
-  var rootScope,
+  let rootScope,
     deferred,
     apiResponse,
     apiFailure,
