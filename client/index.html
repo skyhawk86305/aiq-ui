@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en' ng-app='aiqUi' ng-controller="AppController as appCtrl">
+<head>
+  <title ng-bind="'Active IQ | ' + appCtrl.currentPage"></title>
+  <meta name='viewport' content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes'>
+  <meta charset='UTF-8'>
+  <link rel="SHORTCUT ICON" href="images/favicon.ico"/>
+  <script type="text/javascript" src="https://solidfire.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/3wwcwf/100014/c/1000.0.10/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=7cb55c00"></script>
+  <script type="text/javascript">
+    window.ATL_JQ_PAGE_PROPS = {
+      "triggerFunction": function(showCollectorDialog) {
+        jQuery("#atlwdg-trigger").click(function(e) {
+          e.preventDefault();
+          showCollectorDialog();
+        });
+      },
+      "fieldValues": {}
+    };
+  </script>
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '{googleAnalyticsToken}', 'auto');
+    if (location.hostname == 'localhost') {
+      ga('set', 'sendHitTask', null);
+    }
+    ga('set', 'forceSSL', 'true');
+  </script>
+</head>
+<body id="{{appCtrl.currentPage}}" ng-cloak class="sf-layout-container -flex-row body-container">
+
+  <div ng-cloak class="sf-layout-page sf-layout-container">
+    <navbar ng-if="appCtrl.showNavbar" class="sf-layout-shelf" on-api-log-open="appCtrl.apiLogVisible = true"></navbar>
+    <ng-view class="sf-layout-page"></ng-view>
+    <a href="#" id="atlwdg-trigger" class="atlwdg-trigger atlwdg-RIGHT" ng-show="appCtrl.showNavbar">Feedback</a>
+  </div>
+
+  <sf-api-log class="sf-layout-shelf api-log-shelf"
+              ng-show="appCtrl.apiLogVisible"
+              service="appCtrl.apiLogService"
+              on-close="appCtrl.apiLogVisible = false">
+  </sf-api-log>
+</body>
+</html>
+

@@ -219,8 +219,8 @@ module.exports = {
         "code": "someRandomCodeThing",
         "assignedToID": null,
         "acknowledgedByID": null,
-        "resolved": null,
-        "isResolved": false,
+        "resolved": "2017-01-09T18:28:07Z",
+        "isResolved": true,
         "lastNotified": "2016-08-08T17:45:58Z",
         "created": "2016-08-08T17:45:57Z",
         "updated": "2016-08-08T17:45:57Z"
@@ -293,7 +293,7 @@ module.exports = {
           "notificationID": 2738,
           "notificationName": "Testing fault notification chain",
           "destinationEmail": "activeiq.email.test+83068dad-f5f5-4e27-b8ae-d83ca5962f78@gmail.com",
-          "notificationSeverity": "Warning",
+          "notificationSeverity": "Error",
           "userID": 528,
           "username": "aiq_system_tests_admin@solidfire.com",
           "clusterID": 0,
@@ -321,7 +321,7 @@ module.exports = {
             }
           ]
         },
-        "severity": "Warning",
+        "severity": "Error",
         "value": "someRandomCodeThing",
         "faultID": 1799542030,
         "eventID": null,
@@ -332,7 +332,8 @@ module.exports = {
         "assignedToID": null,
         "acknowledgedByID": null,
         "resolved": null,
-        "isResolved": false,
+        "isResolved": true,
+        "resolved": "2017-01-09T18:28:07Z",
         "lastNotified": "2016-08-08T17:45:58Z",
         "created": "2016-08-08T17:45:57Z",
         "updated": "2016-08-08T17:45:57Z"
@@ -348,7 +349,7 @@ module.exports = {
         "notification": {
           "notificationID": 2738,
           "notificationName": "Testing fault notification chain",
-          "destinationEmail": "activeiq.email.test+83068dad-f5f5-4e27-b8ae-d83ca5962f78@gmail.com",
+          "destinationEmail": "activeiq.email.test@gmail.com",
           "notificationSeverity": "Warning",
           "userID": 528,
           "username": "aiq_system_tests_admin@solidfire.com",
@@ -517,7 +518,7 @@ module.exports = {
           "notificationID": 407,
           "notificationName": "All Cluster Faults",
           "destinationEmail": "aiqdev2@gmail.com",
-          "notificationSeverity": "Info",
+          "notificationSeverity": "Critical",
           "userID": 394,
           "username": "jeff.baziuk@solidfire.com",
           "clusterID": 0,
@@ -545,7 +546,7 @@ module.exports = {
             }
           ]
         },
-        "severity": "Info",
+        "severity": "Critical",
         "value": "someRandomCodeThing",
         "faultID": 1799526421,
         "eventID": null,
@@ -555,8 +556,8 @@ module.exports = {
         "code": "someRandomCodeThing",
         "assignedToID": null,
         "acknowledgedByID": null,
-        "resolved": null,
-        "isResolved": false,
+        "resolved": "2017-01-09T18:28:07Z",
+        "isResolved": true,
         "lastNotified": "2016-08-08T17:45:42Z",
         "created": "2016-08-08T17:45:41Z",
         "updated": "2016-08-08T17:45:41Z"

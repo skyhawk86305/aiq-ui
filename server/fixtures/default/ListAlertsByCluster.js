@@ -1078,7 +1078,7 @@ module.exports = {
         "assignedToID": null,
         "acknowledgedByID": null,
         "resolved": "2016-09-01T16:47:45Z",
-        "isResolved": true,
+        "isResolved": false,
         "lastNotified": "2016-09-01T16:48:24Z",
         "created": "2016-09-01T16:44:22Z",
         "updated": "2016-09-01T16:48:23Z"
