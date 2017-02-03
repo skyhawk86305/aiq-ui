@@ -18,6 +18,7 @@
       {key: 'status', label: 'Status', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'slot', label: 'Slot', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'driveSlot'}},
       {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
+      {key: 'firmwareVersion', label: 'Firmware Version', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'serial', label: 'Serial', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'lifeRemainingPercent', label: 'Wear', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['wear']}},
       {key: 'reserveCapacityPercent', label: 'Reserve', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['reserve']}},
