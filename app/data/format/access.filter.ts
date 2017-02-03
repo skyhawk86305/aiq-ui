@@ -15,7 +15,7 @@
           case 'replicationTarget':
             return 'Replication Target';
           default:
-        		return $filter('string')(data);
+          	return $filter('string')(data);
         }
       };
     }]);
