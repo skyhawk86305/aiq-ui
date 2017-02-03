@@ -18,8 +18,5 @@ module.exports = webpackMerge(commonConfig, {
         ]
       }
     ]
-  },
-  stats: {
-    errorDetails: true
   }
 });

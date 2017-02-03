@@ -7,6 +7,9 @@ module.exports = {
     vendor: ['./client/vendor.ts'],
     polyfills: ['./client/polyfills.ts']
   },
+  resolve: {
+    extensions: ['.ts', '.less', '.html']
+  },
   module: {
     preLoaders: [
       { test: /\.ts$/, loader: 'tslint' }
