@@ -7,7 +7,7 @@ describe('Access Filter', function () {
     filter = $filter('access');
   }));
 
-  it('should display the default value if data does not equal readWrite', function() {
+  it('should display the default value if data does not equal readWrite, readOnly, locked, or reaplicationTarget', function() {
     expect(filter()).toEqual('-');
     expect(filter(true)).toEqual('-');
     expect(filter({})).toEqual('-');
