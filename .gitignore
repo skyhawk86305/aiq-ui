@@ -2,7 +2,8 @@
 .DS_Store
 
 # TypeScript
-typings
+client/**/*.js
+client/**/*.js.map
 app/**/*.js
 app/**/*.js.map
 test/unit/**/*.js
@@ -19,9 +20,6 @@ build
 tmp
 server/proxy.config.js
 build.zip
-
-# Bower
-bower_components
 
 # Logging
 logs

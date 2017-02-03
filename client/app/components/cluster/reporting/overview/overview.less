@@ -1,0 +1,87 @@
+@import '../../../../styles/shared.less';
+
+.overview-dashboard-page {
+  background-color: @whitescale-2;
+  height: 100%;
+  overflow-y: auto;
+
+  .heading {
+    padding: 25px 0 0 15px;
+    font-size: 25px;
+    color: @core-blue-grey;
+  }
+
+  .sf-widget {
+    margin: 15px;
+    padding: 0;
+  }
+
+  .info-box {
+    height: 160px;
+
+    .throughput-value {
+      margin: 15px 0;
+
+      .label {
+        font-size: 22px;
+        padding: 0;
+      }
+    }
+
+    .value {
+      font-size: 50px;
+      margin: 15px 0;
+    }
+
+    .title {
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .units {
+      font-size: 24px;
+      color: @core-blue-grey-light;
+      font-weight: 400;
+    }
+
+    .prefixSymbol {
+      font-size: 24px;
+      color: @core-blue-grey-light;
+      font-weight: 400;
+    }
+
+    .badge {
+      height: 100px;
+      .justify-content(center);
+
+      .title {
+        font-size: 14px;
+
+        &.-large {
+          font-size: 25px;
+        }
+      }
+
+      .value {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+.graph-row {
+  min-height:600px;
+}
+
+.graph-container {
+  height: 600px;
+  padding: 15px;
+
+  >.overview-dashboard-graph {
+    height: 100%;
+    margin: 0;
+    .sf-state-container {
+      height: 500px;
+    }
+  }
+}
