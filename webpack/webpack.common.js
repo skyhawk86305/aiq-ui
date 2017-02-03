@@ -8,7 +8,7 @@ module.exports = {
     polyfills: ['./client/polyfills.ts']
   },
   resolve: {
-    extensions: ['.ts', '.less', '.html']
+    extensions: ['', '.js', '.ts', '.less', '.html']
   },
   module: {
     preLoaders: [
