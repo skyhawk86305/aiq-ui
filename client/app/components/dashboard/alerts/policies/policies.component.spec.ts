@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: alertPolicyTable', function() {
-  var service,
+  let service,
     controller;
 
   beforeEach(angular.mock.module('aiqUi'));

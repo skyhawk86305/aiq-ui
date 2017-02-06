@@ -10,7 +10,7 @@
     ]);
 
   function PerformanceGraphsService(DataService, SFGraphTimeSeriesService) {
-    var service = new SFGraphTimeSeriesService(getClusterPerformance);
+    let service = new SFGraphTimeSeriesService(getClusterPerformance);
     service.selectedClusterID = null;
     service.update = update;
     return service;
@@ -24,7 +24,7 @@
     }
 
     function update(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID, 10);
     }
   }
 })();

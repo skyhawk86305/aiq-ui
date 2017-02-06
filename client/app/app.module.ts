@@ -1,13 +1,36 @@
-(function () {
-  'use strict';
+import * as angular from 'angular';
+import 'angular-cache';
+import 'angular-filter';
+import 'angular-route';
+import 'angular-sanitize';
+import 'angular-ui-bootstrap';
+import '../../node_modules/@sf-netapp/sf-components/dist/sf-components.js';
 
-  angular
-    .module('aiqUi', [
-      'ui.bootstrap',
-      'ngRoute',
-      'ngSanitize',
-      'angular-cache',
-      'angular.filter',
-      'sfComponents'
-    ]);
-})();
+import { ComponentsModule } from './components/components.module';
+import { SharedModule } from './shared/shared.module';
+import { AppController } from './app.controller';
+import { AppRoutes } from './app.routes';
+import './styles';
+import './images';
+
+export const AppModule = angular
+  .module('aiqUi', [
+    'ui.bootstrap',
+    'ngRoute',
+    'ngSanitize',
+    'angular-cache',
+    'angular.filter',
+    'sfComponents',
+    ComponentsModule,
+    SharedModule
+  ])
+  .controller('AppController', AppController)
+  .config(AppRoutes)
+  .name;
+
+// ToDo: Remove this once components are modularized
+let scripts = require.context('./components', true, /(?!\.spec)[\w-]{5}\.ts$/);
+scripts.keys().forEach(scripts);
+
+let styles = require.context('./components', true, /\.less$/);
+styles.keys().forEach(styles);

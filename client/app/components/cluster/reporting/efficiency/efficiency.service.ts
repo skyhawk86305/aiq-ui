@@ -10,7 +10,7 @@
     ]);
 
   function EfficiencyGraphsService(DataService, SFGraphTimeSeriesService) {
-    var service = new SFGraphTimeSeriesService(getClusterEfficiency);
+    let service = new SFGraphTimeSeriesService(getClusterEfficiency);
     service.selectedClusterID = null;
     service.update = update;
     return service;
@@ -24,7 +24,7 @@
     }
 
     function update(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID, 10);
     }
   }
 })();

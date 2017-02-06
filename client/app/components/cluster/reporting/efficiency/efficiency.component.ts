@@ -16,7 +16,7 @@
     });
 
   function EfficiencyGraphsController($routeParams, $filter, SFD3LineGraph, SFD3BarGraph, EfficiencyGraphsService) {
-    var ctrl = this;
+    let ctrl = this;
 
     ctrl.$onInit = function() {
       EfficiencyGraphsService.update($routeParams.clusterID);
@@ -60,7 +60,7 @@
     ];
 
     function getGraphConfig(graph) {
-      var graphConfigs = {
+      let graphConfigs = {
         efficiencyChild: {
           bindTo: 'efficiency-child-graph',
           type: 'line',

@@ -16,7 +16,7 @@
     });
 
   function OverviewDashboardController($routeParams, $filter, DataService, PerformanceGraphsService, SFD3LineGraph) {
-    var ctrl = this;
+    let ctrl = this;
 
     ctrl.$onInit = function() {
       PerformanceGraphsService.update($routeParams.clusterID);
@@ -53,7 +53,7 @@
     /**********************************/
 
     function setInfoBarData() {
-      DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID)})
+      DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID, 10)})
         .then(function(response) {
           ctrl.clusterSummary = response.cluster;
           ctrl.getClusterSummaryState = 'loaded';
@@ -61,7 +61,7 @@
           ctrl.getClusterSummaryState = 'error';
         });
 
-      DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
+      DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID, 10), snapshot: true})
         .then(function(response) {
           ctrl.capacitySnapshot = response.data;
           ctrl.getCapacitySnapshotState = 'loaded';
@@ -69,7 +69,7 @@
           ctrl.getCapacitySnapshotState = 'error';
         });
 
-      DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID), snapshot: true})
+      DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID, 10), snapshot: true})
         .then(function(response) {
           ctrl.performanceSnapshot = response.data;
           ctrl.getPerformanceSnapshotState = 'loaded';
@@ -79,7 +79,7 @@
     }
 
     function getGraphConfig(graph) {
-      var graphConfigs = {
+      let graphConfigs = {
         utilization: {
           bindTo: 'performance-utilization-graph',
           type: 'line',
@@ -176,7 +176,7 @@
     }
 
     function getFiveDayRange() {
-      var now = Date.now(),
+      let now = Date.now(),
         fiveDaysMilliseconds = 432000000;
 
       return {

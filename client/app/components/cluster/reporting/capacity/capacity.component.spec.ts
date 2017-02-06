@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: capacityGraphs', function() {
-  var scope,
+  let scope,
     routeParams,
     dataService,
     controller,

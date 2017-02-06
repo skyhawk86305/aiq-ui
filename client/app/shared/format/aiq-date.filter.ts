@@ -1,16 +1,7 @@
-(function () {
-  'use strict';
+export function AiqDateFilter($filter) {
+  return function (data, format) {
+    return data ? $filter('date')(data, format) : '-';
+  };
+}
 
-  angular
-    .module('aiqUi')
-    .filter('aiqDate', [
-      '$filter',
-      AiqDateFilter
-      ]);
-
-  function AiqDateFilter($filter) {
-    return function (data, format) {
-      return data ? $filter('date')(data, format) : '-';
-    };
-  }
-})();
+AiqDateFilter.$inject = ['$filter'];

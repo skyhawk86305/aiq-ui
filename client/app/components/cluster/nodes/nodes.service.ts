@@ -11,12 +11,12 @@
     ]);
 
   function NodeTableService(SFTableService, SFFilterComparators, DataService) {
-    var listActiveNodes = function() {
+    let listActiveNodes = function() {
       return DataService.callAPI('ListActiveNodes', {clusterID: this.selectedClusterID})
         .then(function(response) { return response.nodes; });
     };
 
-    var columns = [
+    let columns = [
       {key: 'nodeID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
       {key: 'name', label: 'Name', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'nodeType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
@@ -28,12 +28,12 @@
       {key: 'ipcPort', label: 'Replication Port', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}}
     ];
 
-    var nodeTableService = new SFTableService(listActiveNodes, columns, false);
+    let nodeTableService = new SFTableService(listActiveNodes, columns, false);
 
     nodeTableService.selectedClusterID = null;
 
     nodeTableService.update = function(clusterID) {
-      this.selectedClusterID = parseInt(clusterID);
+      this.selectedClusterID = parseInt(clusterID, 10);
     };
 
     return nodeTableService;

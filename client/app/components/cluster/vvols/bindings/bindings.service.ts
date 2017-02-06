@@ -23,14 +23,14 @@
 
     function listBindings() {
       return DataService.callGuzzleAPI(service.selectedClusterID, 'ListVirtualVolumeBindings')
-        .then( response => response.bindings )
+        .then( response => response.bindings );
     }
 
     const service = new SFTableService(listBindings, columns, false);
 
     service.selectedClusterID = null;
     service.update = function(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID, 10);
     };
 
     return service;

@@ -9,14 +9,14 @@
     ]);
 
   function ClusterSelectService(DataService) {
-    var self = this;
+    let self = this;
     self.clusters = [];
     self.selectedCluster = null;
 
     self.getClusters = function() {
       return DataService.callAPI('ListActiveClusters', {components: ['clusterVersionInfo', 'clusterInfo']})
         .then(function(response) {
-          var clusters = response.clusters || [];
+          let clusters = response.clusters || [];
 
           self.clusters = clusters.map(function(cluster) {
             if (!cluster.clusterName) {

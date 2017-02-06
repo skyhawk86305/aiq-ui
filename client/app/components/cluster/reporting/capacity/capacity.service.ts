@@ -10,13 +10,11 @@
     ]);
 
   function CapacityGraphsService(DataService, SFGraphTimeSeriesService) {
-    var service = new SFGraphTimeSeriesService(getClusterCapacity);
+    let service = new SFGraphTimeSeriesService(getClusterCapacity);
     service.selectedClusterID = null;
     service.update = update;
     return service;
-    
-    /**********************************/
-    
+
     function getClusterCapacity(params) {
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('capacity', params)
@@ -24,7 +22,7 @@
     }
 
     function update(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID, 10);
     }
   }
 })();
