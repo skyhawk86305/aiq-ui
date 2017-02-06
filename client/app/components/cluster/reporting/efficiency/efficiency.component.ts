@@ -102,7 +102,7 @@
             x: {
               tick: {
                 format: xAxisFormat,
-                spacing: 150
+                spacing: 200
               }
             },
             y0: {
@@ -132,7 +132,7 @@
             x: {
               tick: {
                 format: xAxisFormat,
-                spacing: 150
+                spacing: 200
               }
             },
             y0: {
