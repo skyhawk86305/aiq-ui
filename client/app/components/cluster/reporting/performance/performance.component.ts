@@ -16,7 +16,7 @@
     });
 
   function PerformanceGraphsController($routeParams, $filter, SFD3LineGraph, SFD3BarGraph, PerformanceGraphsService) {
-    var ctrl = this;
+    let ctrl = this;
 
     ctrl.$onInit = function() {
       PerformanceGraphsService.update($routeParams.clusterID);
@@ -107,7 +107,7 @@
     ];
 
     function getGraphConfig(graph) {
-      var graphConfigs = {
+      let graphConfigs = {
         iopsChild: {
           bindTo: 'iops-child-graph',
           type: 'line',

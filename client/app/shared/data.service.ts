@@ -26,11 +26,11 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
 
     callGuzzleAPI(clusterID, method) {
       let guzzleAPI;
-      if(!clusterID) {
+      if (!clusterID) {
         return $q.reject();
       }
       guzzleAPI = `/state/cluster/${clusterID}`;
-      if(method) {
+      if (method) {
         guzzleAPI += `/${method}`;
       }
 

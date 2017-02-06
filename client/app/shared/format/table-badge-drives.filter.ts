@@ -1,9 +1,9 @@
 export function TableBadgeDrivesFilter() {
   return function (data, column) {
-    var criticalThreshold = column === 'wear' ? 10 : 1;
-    var warningThreshold = column === 'wear' ? 80 : 20;
-    var percentage = column === 'wear' ? '%' : '';
-    var type = 'normal';
+    let criticalThreshold = column === 'wear' ? 10 : 1;
+    let warningThreshold = column === 'wear' ? 80 : 20;
+    let percentage = column === 'wear' ? '%' : '';
+    let type = 'normal';
 
     if (isNaN(parseFloat(data))) {
       return '<div class="table-badge -empty">-</div>';

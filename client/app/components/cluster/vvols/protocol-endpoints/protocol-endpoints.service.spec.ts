@@ -1,7 +1,7 @@
 'use strict';
 
 describe('ProtocolEndpointTableService', function () {
-  var rootScope,
+  let rootScope,
     deferred,
     apiResponse,
     deserializedResponse,
@@ -54,7 +54,7 @@ describe('ProtocolEndpointTableService', function () {
       ]};
       deserializedResponse = [
         { foo: 123, bar: 456 }
-      ]
+      ];
       service.getData(true).then(function(response) {
          expect(response).toEqual(deserializedResponse);
       });

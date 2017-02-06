@@ -1,7 +1,7 @@
 'use strict';
 
 describe('AlertHistoryTableService', function () {
-  var rootScope,
+  let rootScope,
     deferred,
     apiResponse,
     deserializedResponse,

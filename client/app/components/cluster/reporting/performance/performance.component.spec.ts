@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: performanceGraphs', function() {
-  var scope,
+  let scope,
     routeParams,
     controller,
     deferred,

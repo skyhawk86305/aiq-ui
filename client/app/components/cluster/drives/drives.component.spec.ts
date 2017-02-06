@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: driveTable', function() {
-  var routeParams,
+  let routeParams,
     service,
     controller;
 
@@ -27,7 +27,7 @@ describe('Component: driveTable', function() {
           failed: 'Failed'
         },
         default: 'active'
-      })
+      });
     });
 
     it('should update the table service with the clusterID from the route', function() {

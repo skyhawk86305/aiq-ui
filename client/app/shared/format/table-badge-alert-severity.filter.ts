@@ -1,6 +1,6 @@
 export function TableBadgeAlertSeverityFilter() {
   return function (data) {
-    var ucData;
+    let ucData;
 
     if (typeof data === 'string') {
       ucData = data.toUpperCase();

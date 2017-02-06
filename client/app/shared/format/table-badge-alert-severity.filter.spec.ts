@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Table Badge Alert Severity Filter', function () {
-  var filter;
+  let filter;
   beforeEach(angular.mock.module('aiqUi'));
   beforeEach(inject(function($filter) {
     filter = $filter('tableBadgeAlertSeverity');

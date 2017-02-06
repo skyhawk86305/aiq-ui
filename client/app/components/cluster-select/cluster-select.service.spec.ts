@@ -1,7 +1,7 @@
 'use strict';
 
 describe('ClusterSelectService', function () {
-  var rootScope,
+  let rootScope,
       deferred,
       apiResponse,
       apiFailure,

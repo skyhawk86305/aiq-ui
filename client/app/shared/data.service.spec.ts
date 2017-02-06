@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Data Service', function () {
-  var rootScope,
+  let rootScope,
       deferred,
       service,
       apiLogService,
@@ -38,7 +38,7 @@ describe('Data Service', function () {
     });
 
     it('should execute the error callback function and route to the login page if the call is unauthenticated', function() {
-      var pathSpy = jasmine.createSpyObj('path', ['search']);
+      let pathSpy = jasmine.createSpyObj('path', ['search']);
       location.url('/foo/bar?baz=fuz');
       spyOn(location, 'path').and.returnValue(pathSpy);
       response = {message: 'bar'};
