@@ -145,6 +145,11 @@
         }).catch(function() {
           ctrl.getPerformanceSnapshotState = 'error';
         });
+      ctrl.infoBarLastUpdated = new Date().toUTCString();
+    }
+
+    ctrl.refreshInfoBarData = function() {
+      setInfoBarData();
     }
 
     function getGraphConfig(graph) {

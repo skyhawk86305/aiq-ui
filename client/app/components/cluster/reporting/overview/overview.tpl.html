@@ -97,6 +97,15 @@
         </div>
       </div>
     </div>
+    <div class="info-box-timestamp">
+      <span>{{$ctrl.infoBarLastUpdated}}</span>
+      <div class="info-bar-refresh-button">
+        <button class="button refresh-btn"
+                ng-click="$ctrl.refreshInfoBarData()">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="graph-row">
     <div class="graph-container col-md-6">
