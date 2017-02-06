@@ -145,7 +145,7 @@
         }).catch(function() {
           ctrl.getPerformanceSnapshotState = 'error';
         });
-      ctrl.infoBarLastUpdated = new Date().toUTCString();
+      ctrl.infoBarLastUpdated = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
     }
 
     ctrl.refreshInfoBarData = function() {
