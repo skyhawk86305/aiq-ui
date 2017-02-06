@@ -27,7 +27,7 @@ function mapFixture(rawFixture) {
   });
 }
 
-fdescribe('The Cluster Nodes Page', function () {
+describe('The Cluster Nodes Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/nodes');
     expect(nodesPage.table.el.isDisplayed()).to.eventually.be.true;
