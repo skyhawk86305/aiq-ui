@@ -14,17 +14,44 @@ module.exports = {
       },
       {
         nodeID: 2,
-        name: 'ALPSGADTSSF95-00005-N8-mgmt',
-        nodeType: 'SF9605',
-        softwareVersion: '8.4.0.69',
-        serviceTag: '4GRS482',
-        mip: '32.50.33.202',
-        cip: '32.50.33.202',
-        sip: '32.50.33.202',
-        ipcPort: '4003'
+        attributes: {},
+        associatedFServiceID: 0,
+        associatedMasterServiceID: 3,
+        cip: "10.28.3.2",
+        cipi: "Bond10G",
+        mip: "10.28.3.2",
+        mipi: "Bond10G",
+        sip: "10.28.3.2",
+        sipi: "Bond10G",
+        fibreChannelTargetPortGroup: null,
+        name: "cm-sf2",
+        softwareVersion: "8.6.2.3",
+        chassisType: "R620",
+        cpuModel: "Intel(R) Xeon(R) CPU E5-2640 0 @ 2.50GHz",
+        driveSizeBytes: null,
+        nodeMemoryGb: 72,
+        nodeType: "SF3010",
+        uuid: "4C4C4544-0048-3910-8056-C7C04F395931",
+        state: "active",
+        serviceTag: "GH9V9Y1",
+        ipcPort: 4002,
+        nodeStats: {
+            nodeID: 2,
+            networkUtilizationStorage: 0,
+            networkUtilizationCluster: 0,
+            timestamp: "2017-02-03T22:15:33.884856Z",
+            cpu: 73,
+            usedMemory: 38356942848,
+            sBytesIn: 20755961693698,
+            sBytesOut: 25061167655931,
+            cBytesIn: 20755961693698,
+            cBytesOut: 25061167655931,
+            mBytesIn: 20755961693698,
+            mBytesOut: 25061167655931
+          }
       },
       {
-        nodeID: 6,
+        nodeID: 3,
         name: 'ALPSGADTSSF95-00005-N7-mgmt',
         nodeType: 'SF9605',
         softwareVersion: '8.4.0.70',
@@ -35,7 +62,7 @@ module.exports = {
         ipcPort: '4004'
       },
       {
-        nodeID: 17,
+        nodeID: 4,
         name: 'ALPSGADTSSF95-00005-N10-mgmt',
         nodeType: 'SF9610',
         softwareVersion: '8.4.0.68',
@@ -46,7 +73,7 @@ module.exports = {
         ipcPort: '4002'
       },
       {
-        nodeID: 900,
+        nodeID: 5,
         name: 'ALPSGADTSSF95-00005-N1-mgmt',
         nodeType: 'SF9605',
         softwareVersion: '8.4.0.75',
@@ -57,7 +84,7 @@ module.exports = {
         ipcPort: '4004'
       },
       {
-        nodeID: 99,
+        nodeID: 6,
         name: 'ALPSGADTSSF95-00005-N6-mgmt',
         nodeType: 'SF9605',
         softwareVersion: '8.4.0.74',
@@ -101,15 +128,15 @@ module.exports = {
         ipcPort: '4004'
       },
       {
-        nodeID: 53,
+        nodeID: 5000,
         name: 'ALPSGADTSSF95-00005-N2-mgmt',
         nodeType: 'SF9605',
-        softwareVersion: '8.4.0.73',
+        softwareVersion: '10.4.0.73',
         serviceTag: '454TDB2',
-        mip: '32.50.33.220',
-        cip: '32.50.33.220',
-        sip: '32.50.33.220',
-        ipcPort: '4004'
+        mip: '192.100.133.220',
+        cip: '192.100.133.222',
+        sip: '192.100.133.225',
+        ipcPort: '14004'
       }
     ]
   }

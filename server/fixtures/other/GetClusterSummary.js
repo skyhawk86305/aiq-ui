@@ -1,16 +1,16 @@
 module.exports = {
   "result": {
     "cluster": {
-      "customerID": 49,
-      "clusterUID": "ddjt",
-      "clusterName": "cm-solidfire",
-      "clusterClassification": "Internal",
-      "clusterLocation": "Denver, CO",
+      "customerID": 55,
+      "clusterUID": "aaaa",
+      "clusterName": "ClusterA",
+      "clusterClassification": "External",
+      "clusterLocation": "Truth or Consequences, NM",
       "SLA": "Basic System",
       "depot": "NGL-LAX (NBD)",
       "accountTeam": "",
       "partner": "",
-      "mainContact": "support@solidfire.com",
+      "mainContact": "main-contact@acme.net",
       "clusterNotes": "4 node 3010",
       "collectorUID": "d6f7808b-b7d4-4608-99ea-8761f65ec2cf",
       "lastUpdateTime": 1479231500,

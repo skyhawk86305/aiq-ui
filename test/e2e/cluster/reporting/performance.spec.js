@@ -4,10 +4,28 @@
 var expect = require('../../support.js').expect;
 var SyncGraphsComponent = require('../../page-objects/components/sf-components.po').syncGraphs;
 var performanceGraphs = new SyncGraphsComponent('performance-sync-graphs');
+var support = require('../../support.js');
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
+
 
 describe('The Cluster Performance Page', function () {
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      clusterSelect.open().clustersList().selectClusterByIndex(0);
+        navbar.subNavbar.click('cluster-reporting').then(function () {
+          navbar.subNavMenu.click('cluster-reporting-performance').then(done);
+        })
+    });
+  });
+
+  afterEach(function(done) {
+      support.logout(done);
+  });
+
   it('should display a sync-graphs component on page load', function () {
-    browser.get('#/cluster/26/reporting/performance');
     expect(performanceGraphs.el.isDisplayed()).to.eventually.be.true;
   });
 

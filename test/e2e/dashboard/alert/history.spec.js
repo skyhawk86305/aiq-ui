@@ -5,6 +5,7 @@ var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('alert-history');
+var navbar = new support.navbarComponent();
 var fixture = mapFixture(support.fixture('ListAlerts'));
 var uniqueKey = 'id';
 var itemsPerPage = 25;
@@ -33,8 +34,21 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Alert History Page', function () {
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      navbar.subNavbar.click('dashboard-alerts').then(function() {
+        navbar.subNavMenu.click('dashboard-alerts-history').then(done);
+      });
+    });
+  });
+
+  afterEach(function(done) {
+      support.logout(done);
+  });
+
   it('should display a table component on page load', function () {
-    browser.get('#/dashboard/alerts/history');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 

@@ -5,10 +5,26 @@ var support = require('../../support.js');
 var expect = require('../../support.js').expect;
 var CapacityPage = require('../../page-objects/cluster/reporting/capacity.po');
 var capacityPage = new CapacityPage();
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
 
 describe('The Cluster Capacity Page', function () {
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      clusterSelect.open().clustersList().selectClusterByIndex(0);
+      navbar.subNavbar.click('cluster-reporting').then(function() {
+        navbar.subNavMenu.click('cluster-reporting-capacity').then(done);
+      });
+    });
+  });
+
+  afterEach(function(done) {
+      support.logout(done);
+  });
+
   it('should display a sync-graphs component on page load', function () {
-    browser.get('#/cluster/26/reporting/capacity');
     expect(capacityPage.syncGraphs.el.isDisplayed()).to.eventually.be.true;
   });
 

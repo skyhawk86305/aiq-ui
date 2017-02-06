@@ -5,10 +5,9 @@ var support = require('../support.js');
 var expect = support.expect;
 var mockBackend = support.mockBackend;
 var LoginPage = require('../page-objects/login.po');
-var NavbarComponent = require('../page-objects/components/navbar.po');
 
 var loginPage = new LoginPage();
-var navbar = new NavbarComponent();
+var navbar = new support.navbarComponent();
 
 describe('Authentication', function() {
   describe('Login Page', function() {
