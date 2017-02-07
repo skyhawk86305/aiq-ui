@@ -11,7 +11,7 @@
     ]);
 
   function EventTableService(SFTableService, SFFilterComparators, DataService) {
-    var listEvents = function() {
+    let listEvents = function() {
       return DataService.callAPI('ListEvents', {clusterID: this.selectedClusterID})
         .then(function(response) {
           return response.events.map(function(event) {
@@ -21,7 +21,7 @@
     };
 
 
-    var columns = [
+    let columns = [
       {key: 'eventID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
       {key: 'timeOfReport', label: 'Event Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'eventInfoType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
@@ -32,7 +32,7 @@
       {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter: 'aiqJson'}}
     ];
 
-    var eventTableService = new SFTableService(listEvents, columns, false);
+    let eventTableService = new SFTableService(listEvents, columns, false);
 
     eventTableService.selectedClusterID = null;
 

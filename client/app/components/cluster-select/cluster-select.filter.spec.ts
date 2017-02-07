@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Cluster Select Filter', function () {
-  var filter,
+  let filter,
       clusters,
       input,
       expectedClusters;

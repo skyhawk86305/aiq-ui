@@ -30,12 +30,10 @@
     service.selectedClusterID = null;
 
     service.update = function(clusterID) {
-      this.selectedClusterID = parseInt(clusterID);
+      this.selectedClusterID = parseInt(clusterID, 10);
     };
 
     return service;
-
-    /***********************************************/
 
     function listDrives() {
       const methods = [
@@ -53,10 +51,10 @@
             const driveStats = driveStatsLookup ? driveStatsLookup[drive.driveID] : null;
             if (driveStats) {
               drive.lifeRemainingPercent = !isNaN(parseFloat(driveStats.lifeRemainingPercent)) ? driveStats.lifeRemainingPercent : '';
-              drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent: '';
+              drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent : '';
             }
             return drive;
-          })
+          });
         }
 
         function createLookup(data, uniqueKey) {
@@ -64,7 +62,7 @@
             return data.reduce( (lookup, currentObj) => {
               lookup[currentObj[uniqueKey]] = currentObj;
               return lookup;
-            }, {})
+            }, {});
           }
         }
       });
@@ -78,6 +76,6 @@
          return responseObj;
        });
       }
-    };
+    }
   }
 })();

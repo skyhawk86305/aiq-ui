@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Component: virtualVolumeTable', function() {
-  var routeParams,
+  let routeParams,
     service,
     controller;
 

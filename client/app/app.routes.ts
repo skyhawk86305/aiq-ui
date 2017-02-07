@@ -1,34 +1,29 @@
-(function () {
-  'use strict';
+import * as angular from 'angular';
 
-  angular
-    .module('aiqUi')
-    .config(['$routeProvider', 'AuthServiceProvider', routeConfig]);
-
-  function routeConfig($routeProvider, AuthServiceProvider) {
-    /*
-     * Customized route provider that adds a resolve to all routes (except for login).
-     * The resolve checks if user is authenticated.
-     */
-    var routeProvider = angular.extend({}, $routeProvider, {
-      when: function(path, route) {
-        if (path !== '/login') {
-          route.resolve = (route.resolve) ? route.resolve : {};
-          angular.extend(route.resolve, {
-            isAuthenticated: function() {
-              return AuthServiceProvider.$get().isAuthenticated();
-            }
-          });
-        }
-        $routeProvider.when(path, route);
-        return this;
+export function AppRoutes($routeProvider, AuthServiceProvider) {
+  /*
+   * Customized route provider that adds a resolve to all routes (except for login).
+   * The resolve checks if user is authenticated.
+   */
+  let routeProvider = angular.extend({}, $routeProvider, {
+    when: function(path, route) {
+      if (path !== '/login') {
+        route.resolve = (route.resolve) ? route.resolve : {};
+        angular.extend(route.resolve, {
+          isAuthenticated: function() {
+            return AuthServiceProvider.$get().isAuthenticated();
+          }
+        });
       }
-    });
-    const defaultRedirect = {
-      redirectTo: function () {
-        return '/dashboard/overview';
-      }
-    };
+      $routeProvider.when(path, route);
+      return this;
+    }
+  });
+  const defaultRedirect = {
+    redirectTo: function () {
+      return '/dashboard/overview';
+    }
+  };
 
     routeProvider
       .when('/login', {
@@ -229,4 +224,4 @@
         redirectTo: '/dashboard/overview'
       });
   }
-})();
+AppRoutes.$inject = ['$routeProvider', 'AuthServiceProvider'];

@@ -27,7 +27,7 @@
             return response.storageContainers.map( storageContainer => {
               storageContainer.activeVirtualVolumesCount = storageContainer.virtualVolumes.length;
               return storageContainer;
-            })
+            });
           }
         });
     }
@@ -36,8 +36,8 @@
 
     service.selectedClusterID = null;
     service.update = function(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
-    }
+      service.selectedClusterID = parseInt(clusterID, 10);
+    };
 
     return service;
   }

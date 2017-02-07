@@ -8,14 +8,14 @@ module.exports = {
 
   files: [
     'client/vendor.ts',
-    'client/app.ts',
+    'client/app/app.module.ts',
     'node_modules/angular-mocks/angular-mocks.js',
     'client/test.ts'
   ],
 
   preprocessors: {
     'client/vendor.ts': ['webpack'],
-    'client/app.ts': ['webpack'],
+    'client/app/app.module.ts': ['webpack'],
     'client/test.ts': ['webpack']
   },
 

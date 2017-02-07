@@ -9,7 +9,7 @@
     return function (data, type) {
       switch (type) {
         case 'condition':
-          var conditions = '';
+          let conditions = '';
           if (Array.isArray(data)) {
             data.forEach(function(field) {
               conditions += (conditions === '' ? '' : '<br>') + field.streamFieldDisplayName;

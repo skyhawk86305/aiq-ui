@@ -12,7 +12,7 @@
     ]);
 
   function AlertHistoryTableService(SFTableService, SFFilterComparators, DataService, $filter) {
-    var listAlerts = function() {
+    let listAlerts = function() {
       return DataService.callAPI('ListAlerts')
         .then(function(response) {
           return response.alerts.map(function(history) {
@@ -24,7 +24,7 @@
         });
     };
 
-    var columns = [
+    let columns = [
       {key: 'id', label: 'Alert ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
       {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},

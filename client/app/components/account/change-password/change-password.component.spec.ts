@@ -35,7 +35,7 @@ describe('Component: changePassword', function() {
           expect(controller.error).toBeNull();
           expect(controller.incorrectPassword).toBe(false);
         })
-        .finally(done)
+        .finally(done);
 
       $scope.$apply();
     });

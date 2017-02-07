@@ -9,14 +9,14 @@
     });
 
   function LoginController(AuthService, $location) {
-    var self = this;
+    let self = this;
 
     self.login = function(credentials) {
       AuthService.login(credentials)
         .then(function() {
           self.error = null;
           let queryParams = $location.search();
-          if(queryParams && queryParams.url) {
+          if (queryParams && queryParams.url) {
             $location.url(queryParams.url);
           } else {
             $location.path('/');
