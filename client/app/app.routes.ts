@@ -84,7 +84,8 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: require('./coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/reporting/virtualNetworks', {
-        template: require('./coming-soon.tpl.html')
+        template: '<virtual-network-table class="sf-layout-block"></virtual-network-table>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/forecasting', {
         template: require('./coming-soon.tpl.html')
