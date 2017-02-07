@@ -151,7 +151,7 @@
     /***********************  Helper Functions  ************************/
 
     function xAxisFormat(milliseconds) {
-      return $filter('date')(new Date(milliseconds), 'short');
+      return $filter('date')(new Date(milliseconds), 'yyyy-MM-dd HH:mm:ss');
     }
 
     function yAxisFormat(factor) {
