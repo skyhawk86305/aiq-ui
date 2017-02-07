@@ -4,12 +4,28 @@
   angular
     .module('aiqUi')
     .component('nodeTable', {
-      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="node" control-bar="true" items-per-page="25" export="true"></sf-table>',
-      controller: ['$routeParams', 'NodeTableService', NodeTableController]
+      template: require('./nodes.tpl.html'),
+      controller: ['$routeParams', 'NodeTableService', 'DataService', NodeTableController]
     });
 
-  function NodeTableController($routeParams, NodeTableService) {
+  function NodeTableController($routeParams, NodeTableService, DataService) {
+    let ctrl = this;
     this.service = NodeTableService;
-    this.service.update($routeParams.clusterID);
+
+    ctrl.$onInit = function() {
+      ctrl.service.update($routeParams.clusterID);
+      ctrl.getClusterInfoState = 'loading';
+      setInfoBarData();
+    };
+
+    function setInfoBarData() {
+      DataService.callGuzzleAPI(parseInt($routeParams.clusterID, 10), 'GetClusterInfo')
+      .then(response => {
+        ctrl.clusterInfo = response.clusterInfo || {};
+        ctrl.getClusterInfoState = 'loaded';
+      }).catch(() => {
+        ctrl.getClusterInfoState = 'error';
+      });
+    }
   }
 })();
