@@ -107,7 +107,7 @@
             x: {
               tick: {
                 format: xAxisFormat,
-                spacing: 200
+                spacing: 150
               }
             },
             y0: {
@@ -153,7 +153,7 @@
             x: {
               tick: {
                 format: xAxisFormat,
-                spacing: 200
+                spacing: 150
               }
             },
             y0: {
@@ -188,7 +188,7 @@
     /***********************  Helper Functions  ************************/
 
     function xAxisFormat(milliseconds) {
-      return $filter('date')(new Date(milliseconds), 'short');
+      return $filter('date')(new Date(milliseconds), 'yyyy-MM-dd HH:mm:ss');
     }
     function utilizationFormat(utilization) {
       return $filter('percent')(utilization, 0, true, false, true, null, null);
