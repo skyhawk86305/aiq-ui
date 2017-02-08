@@ -44,7 +44,7 @@ function mapFixture(rawFixture) {
 }
 
 /* commenting out until vvols is enabled */
-fdescribe('The Cluster Virtual Volumes Page', function () {
+describe('The Cluster Virtual Volumes Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/vvols/virtual-volumes');
     expect(table.el.isDisplayed()).to.eventually.be.true;
