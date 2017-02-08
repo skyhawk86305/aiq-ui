@@ -26,7 +26,7 @@ function mapFixture(rawFixture) {
   });
 }
 
-fdescribe('The Cluster Virtual Networks Page', function () {
+describe('The Cluster Virtual Networks Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/reporting/virtualNetworks');
     expect(table.el.isDisplayed()).to.eventually.be.true;
