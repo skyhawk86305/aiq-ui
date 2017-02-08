@@ -53,7 +53,8 @@ describe('VirtualVolumeTableService', function () {
         {
           metadata: {
             VMW_GosType: 'foobar',
-            VMW_VmID: 'barbaz'
+            VMW_VmID: 'barbaz',
+            VMW_VVolName: 'nameWithoutExtension'
           },
           volumeInfo: {
             qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'},
@@ -67,7 +68,8 @@ describe('VirtualVolumeTableService', function () {
         {
           metadata: {
             VMW_GosType: 'foobar',
-            VMW_VmID: 'barbaz'
+            VMW_VmID: 'barbaz',
+            VMW_VVolName: 'nameWithoutExtension'
           },
           volumeInfo: {
             qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'},
@@ -77,6 +79,7 @@ describe('VirtualVolumeTableService', function () {
           },
           VMW_GosType: 'foobar',
           VMW_VmID: 'barbaz',
+          VMW_VVolName: 'nameWithoutExtension',
           minIOPS: 'foo',
           maxIOPS: 'bar',
           burstIOPS: 'baz',
@@ -88,8 +91,24 @@ describe('VirtualVolumeTableService', function () {
       service.getData(true).then(function(response) {
          expect(response).toEqual(deserializedResponse);
       });
+
+      apiResponse.virtualVolumes[0].metadata.VMW_VVolName = 'nameWithExtension.vswp';
+      deserializedResponse[0].VMW_VVolName = 'nameWithExtension';
+      deserializedResponse[0].metadata.VMW_VVolName = 'nameWithExtension.vswp';
+      service.getData(true).then(function(response) {
+        expect(response).toEqual(deserializedResponse);
+      });
+
+      apiResponse.virtualVolumes[0].metadata.VMW_VVolName = 'nameWithExtension.vmdk';
+      deserializedResponse[0].VMW_VVolName = 'nameWithExtension';
+      deserializedResponse[0].metadata.VMW_VVolName = 'nameWithExtension.vmdk';
+      service.getData(true).then(function(response) {
+        expect(response).toEqual(deserializedResponse);
+      });
+
       deferred.resolve(apiResponse);
       rootScope.$apply();
+
     });
 
     it('should reject the error message if the call fails', function() {

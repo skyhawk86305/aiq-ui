@@ -43,7 +43,6 @@
     function listVirtualVolumes() {
       return DataService.callGuzzleAPI(service.selectedClusterID, 'ListVirtualVolumes')
       .then(response => {
-        console.log(response.virtualVolumes);
         if (response.virtualVolumes) {
           return response.virtualVolumes.map(volume => {
             volume.VMW_GosType = volume.metadata.VMW_GosType;
