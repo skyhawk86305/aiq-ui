@@ -4,6 +4,11 @@ var InfoBarComponent = function (componentId, thisElement) {
   var component = this;
 
   component.el = thisElement || element(by.id(componentId));
+
+  component.timestamp = component.el.element(by.css('.info-bar-timestamp'));
+  component.timestamp.timestampText = component.el.element(by.css('.info-bar-timestamp span'));
+  component.timestamp.refreshButton = component.el.element(by.css('.info-bar-refresh-button'));
+
   component.infoBoxes = component.el.all(by.css('.info-box'));
   component.infoDetails = {
     el: component.el.element(by.css('.info-details')),
