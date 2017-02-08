@@ -25,18 +25,18 @@ describe('Access Filter', function () {
   });
 
   it('should display Read / Write if data equals readWrite', function() {
-    expect(filter('readWrite')).toEqual('Read / Write');  
+    expect(filter('readWrite')).toEqual('Read / Write');
   });
 
   it('should display Read Only if data equals readOnly', function() {
-    expect(filter('readOnly')).toEqual('Read Only');  
+    expect(filter('readOnly')).toEqual('Read Only');
   });
 
   it('should display Locked if data equals locked', function() {
-    expect(filter('locked')).toEqual('Locked');  
+    expect(filter('locked')).toEqual('Locked');
   });
 
   it('should display Replication Target if data equals replicationTarget', function() {
-    expect(filter('replicationTarget')).toEqual('Replication Target');  
+    expect(filter('replicationTarget')).toEqual('Replication Target');
   });
 });

@@ -23,6 +23,12 @@
       ctrl.getClusterSummaryState = 'loading';
       ctrl.getCapacitySnapshotState = 'loading';
       ctrl.getPerformanceSnapshotState = 'loading';
+      ctrl.getClusterInfoState = 'loading';
+      ctrl.getISCSISessionsState = 'loading';
+      ctrl.getFibreChannelSessionsState = 'loading';
+      ctrl.getActiveVolumesState = 'loading';
+      ctrl.getLDAPState = 'loading';
+      ctrl.getActiveNodesState = 'loading';
       setInfoBarData();
     };
 
@@ -55,10 +61,73 @@
     function setInfoBarData() {
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID, 10)})
         .then(function(response) {
+          if (response.cluster && !response.cluster.clusterVersion) {
+            console.log('Trying to set clusterVersion');
+            response.cluster.clusterVersion = '-';
+            console.log('clusterVersion set');
+          }
           ctrl.clusterSummary = response.cluster;
           ctrl.getClusterSummaryState = 'loaded';
         }).catch(function() {
           ctrl.getClusterSummaryState = 'error';
+        });
+
+      DataService.callGuzzleAPI($routeParams.clusterID, 'GetClusterInfo')
+        .then(function (response) {
+          ctrl.encryptionAtRestState = response && response.clusterInfo ? response.clusterInfo.encryptionAtRestState.toUpperCase() : '-';
+          ctrl.getClusterInfoState = 'loaded';
+        }).catch(function() {
+          ctrl.getClusterInfoState = 'error';
+        });
+
+      DataService.callGuzzleAPI($routeParams.clusterID, 'ListISCSISessions')
+        .then(function (response) {
+          ctrl.iSCSISessionsCount = response && response.sessions ? response.sessions.length : 0;
+          ctrl.getISCSISessionsState = 'loaded';
+        }).catch(function() {
+          ctrl.getISCSISessionsState = 'error';
+        });
+
+      /*DataService.callGuzzleAPI($routeParams.clusterID, 'ListFibreChannelSessions')
+        .then(function (response) {
+          ctrl.fibreChannelSessionsCount = response && response.sessions ? response.sessions.length : 0;
+          ctrl.getFibreChannelSessionsState = 'loaded';
+        }).catch(function() {
+        ctrl.getFibreChannelSessionsState = 'error';
+      });*/
+
+      DataService.callGuzzleAPI($routeParams.clusterID, 'ListActiveVolumes')
+        .then(function (response) {
+          ctrl.volumesCount = response && response.volumes ? response.volumes.length : 0;
+          ctrl.getActiveVolumesState = 'loaded';
+        }).catch(function() {
+          ctrl.getActiveVolumesState = 'error';
+        });
+
+      /*DataService.callGuzzleAPI($routeParams.clusterID, 'GetLdapConfiguration')
+        .then(function (response) {
+          ctrl.ldap = response && response.config ? response.config.toUpperCase() : '-';
+          ctrl.getLDAPState = 'loaded';
+        }).catch(function() {
+        ctrl.getLDAPState = 'error';
+      });*/
+
+      DataService.callGuzzleAPI($routeParams.clusterID, 'ListActiveNodes')
+        .then(function (response) {
+          let nodeCount = {},
+            formattedNodeCount = '';
+
+          if (response && response.nodes) {
+            nodeCount = getNodeCounts(response.nodes);
+            formattedNodeCount = Object.keys(nodeCount).map(function(key) {
+                return `${nodeCount[key]} - ${key}`;
+              }).join(', ');
+          }
+
+          ctrl.nodeCount = formattedNodeCount ? formattedNodeCount : '-';
+          ctrl.getActiveNodesState = 'loaded';
+        }).catch(function() {
+          ctrl.getActiveNodesState = 'error';
         });
 
       DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID, 10), snapshot: true})
@@ -198,6 +267,15 @@
     }
     function bytesFormat(bytes) {
       return $filter('bytes')(bytes, false, 0, true);
+    }
+
+    function getNodeCounts(nodes) {
+      let counts = {};
+      nodes.forEach(function (node) {
+        let nodeType = node.platformInfo ? (node.platformInfo.nodeType || '') : '';
+        counts.hasOwnProperty(nodeType) ? counts[nodeType]++ : counts[nodeType] = 1;
+      });
+      return counts;
     }
   }
 })();
