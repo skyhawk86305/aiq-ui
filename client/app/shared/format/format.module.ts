@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import { AccessFilter } from './access.filter';
 import { AiqDateFilter } from './aiq-date.filter';
 import { AiqJsonFilter } from './aiq-json.filter';
 import { AiqNumberFilter } from './aiq-number.filter';
@@ -15,6 +16,7 @@ import { TableBadgeDrivesFilter } from './table-badge-drives.filter';
 
 export const FormatModule = angular
   .module('aiqUi.shared.format', [])
+  .filter('access', AccessFilter)
   .filter('aiqDate', AiqDateFilter)
   .filter('aiqJson', AiqJsonFilter)
   .filter('aiqNumber', AiqNumberFilter)
