@@ -14,7 +14,7 @@ var columns = [
   {key: 'accountID', label: 'Account ID', format: {filter: 'string'}},
   {key: 'totalSize', label: 'Volume Size', format: {filter: 'bytes'}},
   {key: 'enable512e', label: '512e', format: {filter: 'boolean', args: ['Yes', 'No']}},
-  {key: 'access', label: 'Access', format: {filter: 'string'}},
+  {key: 'access', label: 'Access', format: {filter: 'access'}},
   {key: 'minIOPS', label: 'Min IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'maxIOPS', label: 'Max IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'burstIOPS', label: 'Burst IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},

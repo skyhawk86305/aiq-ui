@@ -16,7 +16,7 @@ var columns = [
   {key: 'virtualVolumeID', label: 'Virtual Volume ID', format: {filter: 'string'}},
   {key: 'VMW_GosType', label: 'Guest OS Type', format: {filter: 'string'}},
   {key: 'virtualVolumeType', label: 'Virtual Volume Type', format: {filter: 'string'}},
-  {key: 'access', label: 'Access', format: {filter: 'string'}},
+  {key: 'access', label: 'Access', format: {filter: 'access'}},
   {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
   {key: 'snapshotInfo', label: 'Snapshot', format: {filter: 'string'}},
   {key: 'minIOPS', label: 'Min IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
