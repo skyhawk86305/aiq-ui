@@ -58,4 +58,13 @@ describe('Component: overviewDashboard', function() {
       expect(controller.performanceSnapshot).toEqual('foo');
     });
   });
+
+   describe('.refreshInfoBarData', function () {
+    it('should call .setInfoBarData', function () {
+      controller.refreshInfoBarData();
+      expect(dataService.callAPI).toHaveBeenCalled();
+      expect(dataService.callGraphAPI).toHaveBeenCalled();
+    });
+  });
+
 });
