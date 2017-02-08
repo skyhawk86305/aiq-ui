@@ -108,7 +108,6 @@ describe('VirtualVolumeTableService', function () {
 
       deferred.resolve(apiResponse);
       rootScope.$apply();
-
     });
 
     it('should reject the error message if the call fails', function() {
