@@ -29,7 +29,7 @@
         {key: 'VMW_VVolName', label: 'Virtual Volume Name', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
         {key: 'VMW_GosType', label: 'Guest OS Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
         {key: 'virtualVolumeType', label: 'Virtual Volume Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-        {key: 'access', label: 'Access', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'access', label: 'Access', format: {filter: 'access'}},
         {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
         {key: 'snapshotInfo', label: 'Snapshot', format: {filter: 'string'}},
         {key: 'minIOPS', label: 'Min IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
