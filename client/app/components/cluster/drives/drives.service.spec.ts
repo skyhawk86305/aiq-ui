@@ -47,15 +47,17 @@ describe('DriveTableService', function () {
       service.getData(true);
       expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListDrives');
       expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'GetDriveStats');
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'GetClusterHardwareInfo');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {drives: [{driveID:1}], driveStats: [{driveID: 1, lifeRemainingPercent: 5, reserveCapacityPercent: 8}]};
+      apiResponse = {drives: [{driveID:1}], driveStats: [{driveID: 1, lifeRemainingPercent: 5, reserveCapacityPercent: 8}], clusterHardwareInfo: {drives: {1: {version: 'D2010350'}}}};
       deserializedResponse = [
         {
           driveID: 1,
           lifeRemainingPercent: 5,
-          reserveCapacityPercent: 8
+          reserveCapacityPercent: 8,
+          version: 'D2010350'
         }
       ];
       service.getData(true).then(function(response) {
@@ -66,9 +68,9 @@ describe('DriveTableService', function () {
     });
 
     it('should populate empty strings in the event of a missing driveStats object', function() {
-      apiResponse = {drives: [{}]};
+      apiResponse = {drives: [{}], clusterHardwareInfo: {drives: {}}};
       service.getData(true).then(function(response) {
-         expect(response).toEqual([{}]);
+         expect(response).toEqual([{version: null}]);
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();
