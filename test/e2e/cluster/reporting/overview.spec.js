@@ -46,6 +46,12 @@ describe('Cluster Overview Page', function () {
     expect(clusterOverviewPage.infoBar.infoBoxes.count()).to.eventually.equal(8);
   });
 
+  it('should display the infobar with a timestamp bar that contains the time and a refresh button', function() {
+    expect(clusterOverviewPage.infoBar.timestamp.isPresent()).to.eventually.be.true;
+    expect(clusterOverviewPage.infoBar.timestamp.timestampText.isPresent()).to.eventually.be.true;
+    expect(clusterOverviewPage.infoBar.timestamp.refreshButton.isPresent()).to.eventually.be.true;      
+  });
+
 
   it('should have a node count info-box with the correct title, showing 6 nodes', function() {
     var box = clusterOverviewPage.infoBar.infoBox('node-count');
