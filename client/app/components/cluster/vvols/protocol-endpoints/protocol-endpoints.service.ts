@@ -11,7 +11,7 @@
   ]);
 
   function ProtocolEndpointTableService(SFTableService, SFFilterComparators, DataService) {
-    var columns = getColumns(),
+    let columns = getColumns(),
       service = new SFTableService(listProtocolEndpoints, columns, false);
 
     service.selectedClusterID = null;
@@ -33,11 +33,11 @@
 
     function listProtocolEndpoints() {
       return DataService.callGuzzleAPI(service.selectedClusterID, 'ListProtocolEndpoints')
-        .then( response => response.protocolEndpoints )
+        .then( response => response.protocolEndpoints );
     }
 
     function update(clusterID) {
-      service.selectedClusterID = parseInt(clusterID);
+      service.selectedClusterID = parseInt(clusterID, 10);
     }
   }
 })();

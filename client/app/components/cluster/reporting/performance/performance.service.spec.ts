@@ -1,7 +1,7 @@
 'use strict';
 
 describe('PerformanceGraphsService', function () {
-  var rootScope,
+  let rootScope,
     deferred,
     apiResponse,
     apiFailure,

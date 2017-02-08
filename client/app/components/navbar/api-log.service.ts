@@ -9,7 +9,7 @@
     ]);
 
   function ApiLogService(SFApiLogService) {
-    var categories = {
+    let categories = {
       all: {
         label: 'All Calls',
         limit: 25,
@@ -17,8 +17,8 @@
       }
     };
 
-    var categorize = function(request) {
-      switch(request.method) {
+    let categorize = function(request) {
+      switch (request.method) {
         default: return 'all';
       }
     };

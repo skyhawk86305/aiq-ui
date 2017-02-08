@@ -2,7 +2,7 @@
 'use strict';
 
 describe('Auth Service', function () {
-  var rootScope,
+  let rootScope,
       service,
       http,
       userInfoService,
@@ -36,7 +36,7 @@ describe('Auth Service', function () {
     });
 
     it ('should encode the password and pass it to the $http request', function() {
-      var testCredentials = {username: 'foo', password: 'bar'},
+      let testCredentials = {username: 'foo', password: 'bar'},
         expectedEncodedPassword = btoa(testCredentials.password);
       apiHandler = http.when('PUT', '/sessions').respond('success');
       service.login(testCredentials);

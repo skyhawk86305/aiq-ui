@@ -3,8 +3,8 @@
 
 var support = require('../support.js');
 var expect = support.expect;
-var TableComponent = require('../page-objects/components/sf-components.po').table;
-var table = new TableComponent('node');
+var NodesPage = require('../page-objects/cluster/nodes/nodes.po');
+var nodesPage = new NodesPage();
 var fixture = mapFixture(support.fixture('ListActiveNodes'));
 var uniqueKey = 'nodeID';
 var itemsPerPage = 25;
@@ -30,21 +30,35 @@ function mapFixture(rawFixture) {
 describe('The Cluster Nodes Page', function () {
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/nodes');
-    expect(table.el.isDisplayed()).to.eventually.be.true;
+    expect(nodesPage.table.el.isDisplayed()).to.eventually.be.true;
   });
 
   it('should have the correct columns and headers', function () {
-    expect(table.content.columns.count()).to.eventually.equal(columns.length);
+    expect(nodesPage.table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
-      expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);
+      expect(nodesPage.table.content.header(column.key).title.getText()).to.eventually.equal(column.label);
     });
   });
 
   it('should display data from the correct API and properly format it in the table', function (done) {
-    support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
+    support.testTableData(nodesPage.table, columns, maxRows, uniqueKey, fixture, done);
   });
 
   it('should have an export button for the table', function() {
-    expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
+    expect(nodesPage.table.controlBar.export.button.isPresent()).to.eventually.be.true;
+  });
+
+  it('should display VLAN tag info', function() {
+    expect(nodesPage.infoBar.infoBox('mvip').el.isDisplayed()).to.eventually.be.true;
+    expect(nodesPage.infoBar.infoBox('mvip-tag').el.isDisplayed()).to.eventually.be.true;
+    expect(nodesPage.infoBar.infoBox('svip').el.isDisplayed()).to.eventually.be.true;
+    expect(nodesPage.infoBar.infoBox('svip-tag').el.isDisplayed()).to.eventually.be.true;
+  });
+
+  it('the info-boxes must be wider than its value text', function(){
+    support.infoBoxSizeCheck(nodesPage.infoBar,'mvip');
+    support.infoBoxSizeCheck(nodesPage.infoBar,'mvip-tag');
+    support.infoBoxSizeCheck(nodesPage.infoBar,'svip');
+    support.infoBoxSizeCheck(nodesPage.infoBar,'svip-tag');
   });
 });

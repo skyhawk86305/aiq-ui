@@ -1,7 +1,7 @@
 'use strict';
 
 describe('UserInfoService', function () {
-  var service,
+  let service,
       rootScope,
       dataService,
       dataSpy,
@@ -87,7 +87,7 @@ describe('UserInfoService', function () {
       });
 
       it('should not set the [username] property in Google Analytics', function () {
-        var apiResponseSubset = {
+        let apiResponseSubset = {
           user: {
             userID: 'userID',
             customerName: 'customer',
@@ -106,7 +106,7 @@ describe('UserInfoService', function () {
         expect(window.ga).toHaveBeenCalledWith('set', 'dimension5', apiResponseSubset.user.groups.join(', '));
       });
       it('should not set the [userID] property in Google Analytics', function () {
-        var apiResponseSubset = {
+        let apiResponseSubset = {
           user: {
             username: 'user',
             customerName: 'customer',
@@ -125,7 +125,7 @@ describe('UserInfoService', function () {
         expect(window.ga).toHaveBeenCalledWith('set', 'dimension5', apiResponseSubset.user.groups.join(', '));
       });
       it('should not set the [customerName] property in Google Analytics', function () {
-        var apiResponseSubset = {
+        let apiResponseSubset = {
           user: {
             username: 'user',
             userID: 'userID',
@@ -144,7 +144,7 @@ describe('UserInfoService', function () {
         expect(window.ga).toHaveBeenCalledWith('set', 'dimension5', apiResponseSubset.user.groups.join(', '));
       });
       it('should not set the [customerID] property in Google Analytics', function () {
-        var apiResponseSubset = {
+        let apiResponseSubset = {
           user: {
             username: 'user',
             userID: 'userID',
@@ -163,7 +163,7 @@ describe('UserInfoService', function () {
         expect(window.ga).toHaveBeenCalledWith('set', 'dimension5', apiResponseSubset.user.groups.join(', '));
       });
       it('should not set the [groups] property in Google Analytics', function () {
-        var apiResponseSubset = {
+        let apiResponseSubset = {
           user: {
             username: 'user',
             userID: 'userID',

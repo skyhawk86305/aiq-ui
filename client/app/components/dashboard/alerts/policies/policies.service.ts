@@ -12,7 +12,7 @@
     ]);
 
   function AlertPolicyTableService(SFTableService, SFFilterComparators, DataService, $filter) {
-    var listAlerts = function() {
+    let listAlerts = function() {
       return DataService.callAPI('ListNotifications')
         .then(function(response) {
           return response.notifications.map(function(policy) {
@@ -22,7 +22,7 @@
         });
     };
 
-    var columns = [
+    let columns = [
       {key: 'notificationName', label: 'Alert Policy Name', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'destinationEmail', label: 'Destination', format: {filter:'string'}},
       {key: 'notificationSeverity', label: 'Severity', format: {filter:'string'}},

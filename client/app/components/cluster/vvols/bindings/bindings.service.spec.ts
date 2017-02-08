@@ -1,7 +1,7 @@
 'use strict';
 
 describe('BindingTableService', function () {
-  var rootScope,
+  let rootScope,
     deferred,
     apiResponse,
     deserializedResponse,
@@ -51,24 +51,24 @@ describe('BindingTableService', function () {
     it('should deserialize the response and resolve an array of data', function() {
       apiResponse = {bindings: [
         {
-          virtualVolumeHostID: "4c4c4544-0053-3710-8052-c8c04f383432",
-          protocolEndpointID: "94d446de-bc9a-4213-a65a-a93f00b38e98",
+          virtualVolumeHostID: '4c4c4544-0053-3710-8052-c8c04f383432',
+          protocolEndpointID: '94d446de-bc9a-4213-a65a-a93f00b38e98',
           virtualVolumeBindingID: 80,
-          virtualVolumeSecondaryID: "0xe20000000041",
-          protocolEndpointInBandID: "naa.6f47acc2000000036467306a00000000",
-          protocolEndpointType: "SCSI",
-          virtualVolumeID: "9b3b837f-99b0-464a-8061-77167f887130"
+          virtualVolumeSecondaryID: '0xe20000000041',
+          protocolEndpointInBandID: 'naa.6f47acc2000000036467306a00000000',
+          protocolEndpointType: 'SCSI',
+          virtualVolumeID: '9b3b837f-99b0-464a-8061-77167f887130'
         }
       ]};
       deserializedResponse = [
         {
-          virtualVolumeHostID: "4c4c4544-0053-3710-8052-c8c04f383432",
-          protocolEndpointID: "94d446de-bc9a-4213-a65a-a93f00b38e98",
+          virtualVolumeHostID: '4c4c4544-0053-3710-8052-c8c04f383432',
+          protocolEndpointID: '94d446de-bc9a-4213-a65a-a93f00b38e98',
           virtualVolumeBindingID: 80,
-          virtualVolumeSecondaryID: "0xe20000000041",
-          protocolEndpointInBandID: "naa.6f47acc2000000036467306a00000000",
-          protocolEndpointType: "SCSI",
-          virtualVolumeID: "9b3b837f-99b0-464a-8061-77167f887130"
+          virtualVolumeSecondaryID: '0xe20000000041',
+          protocolEndpointInBandID: 'naa.6f47acc2000000036467306a00000000',
+          protocolEndpointType: 'SCSI',
+          virtualVolumeID: '9b3b837f-99b0-464a-8061-77167f887130'
         }
       ];
       service.getData(true).then(function(response) {

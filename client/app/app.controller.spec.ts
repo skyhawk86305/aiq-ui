@@ -1,7 +1,7 @@
 'use strict';
 
 describe('AppController', function () {
-  var rootScope,
+  let rootScope,
       location,
       controller,
       route,
@@ -48,7 +48,7 @@ describe('AppController', function () {
       expect(controller.showNavbar).toBeFalsy();
     });
     it('should set showNavbar to false and redirect to the login page upon route change error', function() {
-      var pathSpy = jasmine.createSpyObj('path', ['search']);
+      let pathSpy = jasmine.createSpyObj('path', ['search']);
       location.url('/foo/bar?baz=fuz');
       spyOn(location, 'path').and.returnValue(pathSpy);
       rootScope.$broadcast('$routeChangeError');

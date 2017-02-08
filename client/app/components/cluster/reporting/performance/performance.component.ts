@@ -16,7 +16,7 @@
     });
 
   function PerformanceGraphsController($routeParams, $filter, SFD3LineGraph, SFD3BarGraph, PerformanceGraphsService) {
-    var ctrl = this;
+    let ctrl = this;
 
     ctrl.$onInit = function() {
       PerformanceGraphsService.update($routeParams.clusterID);
@@ -107,7 +107,7 @@
     ];
 
     function getGraphConfig(graph) {
-      var graphConfigs = {
+      let graphConfigs = {
         iopsChild: {
           bindTo: 'iops-child-graph',
           type: 'line',
@@ -345,7 +345,7 @@
     /***********************  Helper Functions  ************************/
 
     function xAxisFormat(milliseconds) {
-      return $filter('date')(new Date(milliseconds), 'short');
+      return $filter('date')(new Date(milliseconds), 'yyyy-MM-dd HH:mm:ss');
     }
     function utilizationFormat(utilization) {
       return $filter('percent')(utilization, 0, true, false, true, null, null);

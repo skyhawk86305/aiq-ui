@@ -1,7 +1,7 @@
 'use strict';
 
 describe('VirtualVolumeTableService', function () {
-  var rootScope,
+  let rootScope,
     deferred,
     apiResponse,
     deserializedResponse,
@@ -84,7 +84,7 @@ describe('VirtualVolumeTableService', function () {
           totalSize: 123,
           createTime: 'hello'
         }
-      ]
+      ];
       service.getData(true).then(function(response) {
          expect(response).toEqual(deserializedResponse);
       });

@@ -11,14 +11,14 @@
     ]);
 
   function ErrorLogTableService(SFTableService, SFFilterComparators, DataService) {
-    var listClusterFaults = function() {
+    let listClusterFaults = function() {
       return DataService.callAPI('ListClusterFaults', {clusterID: this.selectedClusterID})
         .then(function(response) {
           return response.faults;
         });
     };
 
-    var columns = [
+    let columns = [
       {key: 'clusterFaultID', label: 'Cluster Fault ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true]}},
       {key: 'created', label: 'Date', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
       {key: 'severity', label: 'Severity', format: {filter: 'tableBadgeAlertSeverity'}},
@@ -31,12 +31,12 @@
       {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter:'string'}}
     ];
 
-    var errorLogTableService = new SFTableService(listClusterFaults, columns, false);
+    let errorLogTableService = new SFTableService(listClusterFaults, columns, false);
 
     errorLogTableService.selectedClusterID = null;
 
     errorLogTableService.update = function(clusterID) {
-      this.selectedClusterID = parseInt(clusterID);
+      this.selectedClusterID = parseInt(clusterID, 10);
     };
 
     return errorLogTableService;

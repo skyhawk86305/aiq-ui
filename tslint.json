@@ -5,7 +5,6 @@
       true,
       "check-space"
     ],
-    "curly": true,
     "eofline": true,
     "forin": true,
     "indent": [
@@ -13,10 +12,6 @@
       "spaces"
     ],
     "label-position": true,
-    "max-line-length": [
-      true,
-      140
-    ],
     "member-access": false,
     "no-arg": true,
     "no-bitwise": true,
@@ -38,15 +33,13 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-use-before-declare": true,
+    "no-use-before-declare": false,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
     "one-line": [
       true,
       "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-whitespace"
+      "check-catch"
     ],
     "quotemark": [
       true,
@@ -75,9 +68,7 @@
       true,
       "check-branch",
       "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
+      "check-operator"
     ]
   }
 }

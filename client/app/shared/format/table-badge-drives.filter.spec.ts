@@ -4,7 +4,6 @@ describe('Table Badge Drives Filter', function () {
   beforeEach(angular.mock.module('aiqUi'));
 
   it('should return all types of data', inject(function ($filter) {
-
     expect($filter('drivesTableBadge')(null)).toEqual('<div class="table-badge -empty">-</div>');
     expect($filter('drivesTableBadge')(undefined)).toEqual('<div class="table-badge -empty">-</div>');
     expect($filter('drivesTableBadge')('')).toEqual('<div class="table-badge -empty">-</div>');
@@ -34,5 +33,4 @@ describe('Table Badge Drives Filter', function () {
 
     expect($filter('drivesTableBadge')('1000', 'reserve')).toEqual('<div class="table-badge -normal">1000</div>');
   }));
-
 });
