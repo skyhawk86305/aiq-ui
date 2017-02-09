@@ -47,7 +47,7 @@
           return response.virtualVolumes.map(volume => {
             volume.VMW_GosType = volume.metadata.VMW_GosType;
             volume.VMW_VmID = volume.metadata.VMW_VmID;
-            volume.VMW_VVolName = getVirtualVolumeName(volume.metadata.VMW_VVolName);
+            volume.VMW_VVolName = volume.metadata.VMW_VVolName;
             volume.access = volume.volumeInfo.access;
             volume.totalSize = volume.volumeInfo.totalSize;
             volume.minIOPS = volume.volumeInfo.qos.minIOPS;
@@ -62,10 +62,6 @@
 
     function update(clusterID) {
       service.selectedClusterID = parseInt(clusterID, 10);
-    }
-
-    function getVirtualVolumeName(name) {
-      return name.lastIndexOf('.') === -1 ? name : name.substr(0, name.lastIndexOf('.'));
     }
   }
 })();

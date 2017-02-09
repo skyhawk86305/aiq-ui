@@ -14,7 +14,7 @@ var columns = [
   {key: 'snapshotID', label: 'Snapshot ID', format: {filter: 'string'}},
   {key: 'parentVirtualVolumeID', label: 'Parent Virtual Volume ID', format: {filter: 'string'}},
   {key: 'virtualVolumeID', label: 'Virtual Volume ID', format: {filter: 'string'}},
-  {key: 'VMW_VVolName', label: 'Virtual Volume Name', format: {filter: 'string'}, exclude: true},
+  {key: 'VMW_VVolName', label: 'Virtual Volume Name', format: {filter: 'string'}},
   {key: 'VMW_GosType', label: 'Guest OS Type', format: {filter: 'string'}},
   {key: 'virtualVolumeType', label: 'Virtual Volume Type', format: {filter: 'string'}},
   {key: 'access', label: 'Access', format: {filter: 'access'}},
@@ -59,9 +59,6 @@ describe('The Cluster Virtual Volumes Page', function () {
 
   it('should display data from the correct API and properly format it in the table', function (done) {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
-    support.expect(table.content.row(0).data('VMW_VVolName').getText()).to.eventually.equal('VH-ALEX-SILO04_2');
-    support.expect(table.content.row(2).data('VMW_VVolName').getText()).to.eventually.equal('replica-e5b7eb2c-6739-43f1-a361-7768f9be2dfb');
-    support.expect(table.content.row(3).data('VMW_VVolName').getText()).to.eventually.equal('hbr-persistent-state-RDID-403f6b52-8c0e-440c-ac9d-461f9388fb19');
   });
 
   it('should have an export button for the table', function() {

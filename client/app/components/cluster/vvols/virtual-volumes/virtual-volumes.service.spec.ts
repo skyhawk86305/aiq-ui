@@ -93,15 +93,8 @@ describe('VirtualVolumeTableService', function () {
       });
 
       apiResponse.virtualVolumes[0].metadata.VMW_VVolName = 'nameWithExtension.vswp';
-      deserializedResponse[0].VMW_VVolName = 'nameWithExtension';
+      deserializedResponse[0].VMW_VVolName = 'nameWithExtension.vswp';
       deserializedResponse[0].metadata.VMW_VVolName = 'nameWithExtension.vswp';
-      service.getData(true).then(function(response) {
-        expect(response).toEqual(deserializedResponse);
-      });
-
-      apiResponse.virtualVolumes[0].metadata.VMW_VVolName = 'nameWithExtension.vmdk';
-      deserializedResponse[0].VMW_VVolName = 'nameWithExtension';
-      deserializedResponse[0].metadata.VMW_VVolName = 'nameWithExtension.vmdk';
       service.getData(true).then(function(response) {
         expect(response).toEqual(deserializedResponse);
       });
