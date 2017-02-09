@@ -14,6 +14,7 @@ var columns = [
   {key: 'snapshotID', label: 'Snapshot ID', format: {filter: 'string'}},
   {key: 'parentVirtualVolumeID', label: 'Parent Virtual Volume ID', format: {filter: 'string'}},
   {key: 'virtualVolumeID', label: 'Virtual Volume ID', format: {filter: 'string'}},
+  {key: 'VMW_VVolName', label: 'Virtual Volume Name', format: {filter: 'string'}},
   {key: 'VMW_GosType', label: 'Guest OS Type', format: {filter: 'string'}},
   {key: 'virtualVolumeType', label: 'Virtual Volume Type', format: {filter: 'string'}},
   {key: 'access', label: 'Access', format: {filter: 'access'}},
@@ -31,6 +32,7 @@ function mapFixture(rawFixture) {
     /*jshint camelcase: false*/
     volume.VMW_GosType = volume.metadata.VMW_GosType;
     volume.VMW_VmID = volume.metadata.VMW_VmID;
+    volume.VMW_VVolName = volume.metadata.VMW_VVolName;
     volume.access = volume.volumeInfo.access;
     volume.totalSize = volume.volumeInfo.totalSize;
     volume.minIOPS = volume.volumeInfo.qos.minIOPS;
