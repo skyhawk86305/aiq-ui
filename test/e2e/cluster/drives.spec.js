@@ -15,6 +15,7 @@ var columns = [
   {key: 'status', label: 'Status', format: {filter: 'string'}},
   {key: 'slot', label: 'Slot', format: {filter: 'driveSlot'}},
   {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
+  {key: 'version', label: 'Firmware Version', format: {filter: 'string'}},
   {key: 'serial', label: 'Serial', format: {filter: 'string'}},
   {key: 'lifeRemainingPercent', label: 'Wear Remaining', format: {filter: 'drivesTableBadge', args: ['wear']}, exclude: true},
   {key: 'reserveCapacityPercent', label: 'Reserve', format: {filter: 'drivesTableBadge', args: ['reserve']}, exclude: true},

@@ -9,7 +9,7 @@ module.exports = {
     "repCount": 2,
     "encryptionAtRestState": "disabled",
     "attributes": {},
-    "mvip": "10.28.3.5",
+    "mvip": "888.888.888.888",
     "mvipVlanTag": "120",
     "ensemble": ["10.28.3.1", "10.28.3.2", "10.28.3.3", "10.28.3.4", "10.28.3.110"],
     "svipNodeID": 2

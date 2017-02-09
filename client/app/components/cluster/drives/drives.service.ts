@@ -18,6 +18,7 @@
       {key: 'status', label: 'Status', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'slot', label: 'Slot', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'driveSlot'}},
       {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
+      {key: 'version', label: 'Firmware Version', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'serial', label: 'Serial', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'lifeRemainingPercent', label: 'Wear Remaining', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['wear']}},
       {key: 'reserveCapacityPercent', label: 'Reserve', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'drivesTableBadge', args: ['reserve']}},
@@ -37,13 +38,15 @@
     function listDrives() {
       const methods = [
         DataService.callGuzzleAPI(service.selectedClusterID, 'ListDrives'),
-        DataService.callGuzzleAPI(service.selectedClusterID, 'GetDriveStats')
+        DataService.callGuzzleAPI(service.selectedClusterID, 'GetDriveStats'),
+        DataService.callGuzzleAPI(service.selectedClusterID, 'GetClusterHardwareInfo')
       ];
-      let driveStatsLookup, drives;
+      let driveStatsLookup, drives, driveInfo;
 
       return callGuzzleAPIs(methods).then( responseObj => {
         drives = responseObj.drives;
         driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
+        driveInfo = responseObj.clusterHardwareInfo.drives;
 
         if (drives) {
           return drives.map( drive => {
@@ -52,6 +55,8 @@
               drive.lifeRemainingPercent = !isNaN(parseFloat(driveStats.lifeRemainingPercent)) ? driveStats.lifeRemainingPercent : '';
               drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent : '';
             }
+            drive.version = driveInfo[drive.driveID] ? driveInfo[drive.driveID].version : null;
+
             return drive;
           });
         }
