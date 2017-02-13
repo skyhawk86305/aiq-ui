@@ -20,7 +20,7 @@ var child,
     .alias('h', 'host')
     .alias('p', 'port')
     .alias('m', 'mock')
-    .alias('t', 'tableRows').argv;
+    .alias('t', 'tag').argv;
 
 gulp.task('build', function(done) {
   webpack(configs.webpack, done);
@@ -55,6 +55,7 @@ function getProtractorArgs() {
 
   protractorArgs.push('--baseUrl', 'http://' + host + ':' + port);
   protractorArgs.push('--fixture', fixture);
+  if (argv.tag) { protractorArgs.push('--jasmineNodeOpts.grep', argv.tag); }
   if (argv.tableRows) { protractorArgs.push('--tableRows', argv.tableRows); }
   if (argv.browser) { protractorArgs.push('--capabilities.browserName', argv.browser); }
   if (argv.seleniumAddress) { protractorArgs.push('--seleniumAddress', 'http://'+argv.seleniumAddress+'/wd/hub'); }

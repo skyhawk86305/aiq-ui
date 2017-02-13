@@ -105,7 +105,9 @@ Run end-to-end tests via protractor.
 
 `-p OR --port // Set the port number of the express server serving the UI`
 
-`-t OR --tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
+`-t OR --tag   // Run a specfic suite of tests tagged with some unique identifier`
+
+`--tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
 
 
 ## License
