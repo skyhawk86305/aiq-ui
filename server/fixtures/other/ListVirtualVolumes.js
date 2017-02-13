@@ -74,7 +74,7 @@ module.exports = {
       virtualVolumeID: '00f56ba3-0abd-4efc-b5b3-08d74a0d5178',
       virtualVolumeType: 'swap',
       metadata: {
-        VMW_GosType: 'sles11_64Guest',
+        VMW_GosType: 'ubuntu16.04_64Guest',
         VMW_VmID: '501cfcfa-d5b6-f77a-ab97-af13d73942e4'
       },
       volumeInfo: {

@@ -5,6 +5,8 @@ var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('error-log');
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListClusterFaults'));
 var uniqueKey = 'clusterFaultID';
 var itemsPerPage = 25;
@@ -29,8 +31,21 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Cluster Error Log Page', function () {
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      clusterSelect.open().clustersList().selectClusterByIndex(0);
+      navbar.subNavbar.click('cluster-reporting').then(function() {
+        navbar.subNavMenu.click('cluster-reporting-errorLog').then(done);
+      });
+    });
+  });
+
+  afterEach(function(done) {
+      support.logout(done);
+  });
+
   it('should display a table component on page load', function () {
-    browser.get('#/cluster/26/reporting/errorLog');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 

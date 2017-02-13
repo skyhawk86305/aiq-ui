@@ -9,12 +9,15 @@ var fixture = mergeFixtures(support.fixture('ListDrives'), support.fixture('GetD
 var uniqueKey = 'driveID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
 var columns = [
   {key: 'driveID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'nodeID', label: 'Node ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'status', label: 'Status', format: {filter: 'string'}},
   {key: 'slot', label: 'Slot', format: {filter: 'driveSlot'}},
   {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
+  {key: 'version', label: 'Firmware Version', format: {filter: 'string'}},
   {key: 'serial', label: 'Serial', format: {filter: 'string'}},
   {key: 'lifeRemainingPercent', label: 'Wear Remaining', format: {filter: 'drivesTableBadge', args: ['wear']}, exclude: true},
   {key: 'reserveCapacityPercent', label: 'Reserve', format: {filter: 'drivesTableBadge', args: ['reserve']}, exclude: true},
@@ -35,8 +38,20 @@ function mergeFixtures(fixture1, fixture2) {
 }
 
 describe('The Cluster Drives Page', function () {
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      clusterSelect.open().clustersList().selectClusterByIndex(0);
+      navbar.subNavbar.click('cluster-drives').then(done);
+    });
+  });
+
+  afterEach(function(done) {
+    support.logout(done);
+  });
+
   it('should display a table component on page load', function () {
-    browser.get('#/cluster/26/drives');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
@@ -56,28 +71,28 @@ describe('The Cluster Drives Page', function () {
   });
 
 
-    it('should have an quick filter for table', function() {
-        expect(table.controlBar.quickFilter.el.isPresent()).to.eventually.be.true;
-    });
+  it('should have an quick filter for table', function() {
+    expect(table.controlBar.quickFilter.el.isPresent()).to.eventually.be.true;
+  });
 
-    it('should have the filter buttons for each valid status in the quick filter', function() {
-        expect(table.controlBar.quickFilter.buttons.count()).to.eventually.equal(3);
-        var buttonText = ['Active','Available','Failed'];
-        for (var i=0; i < buttonText.length; i++) {
-            expect(table.controlBar.quickFilter.buttons.get(i).getText()).to.eventually.equal(buttonText[i]);
-        }
-    });
+  it('should have the filter buttons for each valid status in the quick filter', function() {
+    expect(table.controlBar.quickFilter.buttons.count()).to.eventually.equal(3);
+    var buttonText = ['Active','Available','Failed'];
+    for (var i=0; i < buttonText.length; i++) {
+      expect(table.controlBar.quickFilter.buttons.get(i).getText()).to.eventually.equal(buttonText[i]);
+    }
+  });
 
-    it('should have the Active button selected by default on the quick Filter', function() {
-        var buttonText = ['Active','Available','Failed'];
-        for (var i=0; i < buttonText.length; i++) {
-            if (i < 1 ) {
-                expect(table.controlBar.quickFilter.buttons.get(i).getAttribute('class')).to.eventually.contain('active');
-            }
-            else {
-                expect(table.controlBar.quickFilter.buttons.get(i).getAttribute('class')).to.eventually.not.contain('active');
-            }
-        }
-    });
+  it('should have the Active button selected by default on the quick Filter', function() {
+    var buttonText = ['Active','Available','Failed'];
+    for (var i=0; i < buttonText.length; i++) {
+      if (i < 1 ) {
+        expect(table.controlBar.quickFilter.buttons.get(i).getAttribute('class')).to.eventually.contain('active');
+      }
+      else {
+        expect(table.controlBar.quickFilter.buttons.get(i).getAttribute('class')).to.eventually.not.contain('active');
+      }
+    }
+  });
 
 });

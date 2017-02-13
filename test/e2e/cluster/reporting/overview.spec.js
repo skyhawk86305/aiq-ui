@@ -5,10 +5,26 @@ var support = require('../../support.js');
 var expect = support.expect;
 var ClusterOverviewComponent = require('../../page-objects/cluster/reporting/overview.po');
 var clusterOverviewPage = new ClusterOverviewComponent();
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
+
 
 describe('Cluster Overview Page', function () {
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      clusterSelect.open().clustersList().selectClusterByIndex(0);
+      navbar.subNavbar.click('cluster-reporting').then(function() {
+        navbar.subNavMenu.click('cluster-reporting-overview').then(done);
+      });
+    });
+  });
+
+  afterEach(function(done) {
+      support.logout(done);
+  });
+
   it('should have the performance graph with the correct title, series and legend items', function () {
-    browser.get('#/cluster/26/reporting/overview');
     var graph = clusterOverviewPage.graphs.clusterPerformance;
     expect(graph.el.isDisplayed()).to.eventually.be.true;
     expect(graph.title.getText()).to.eventually.equal('Performance');
@@ -87,7 +103,6 @@ describe('Cluster Overview Page', function () {
     expect(box.value.getText()).to.eventually.equal('25.3');
   });
 
-  //  Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
   it('The Efficiency info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'efficiency-info');
   });
@@ -99,7 +114,6 @@ describe('Cluster Overview Page', function () {
     expect(box.value.getText()).to.eventually.equal('11');
   });
 
-  // Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
   it('The Utilization info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'utilization');
   });
@@ -111,7 +125,6 @@ describe('Cluster Overview Page', function () {
     expect(box.value.getText()).to.eventually.equal('178MB/s');
   });
 
-  // Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
   it('The Bandwidth info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'bandwidth');
   });
@@ -123,7 +136,6 @@ describe('Cluster Overview Page', function () {
     expect(box.value.getText()).to.eventually.equal('8.8k');
   });
 
-  // Disabling since these started failing for no obvious reason on 1/5 - will be revisisted with CLOUD-3452
   it('The IOPS info-box must be wider than its value text', function(){
     support.infoBoxSizeCheck(clusterOverviewPage.infoBar,'iops');
   });

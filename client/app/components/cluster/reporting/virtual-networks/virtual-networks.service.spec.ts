@@ -1,23 +1,22 @@
 'use strict';
 
-describe('DriveTableService', function () {
+describe('VirtualNetworkTableService', function () {
   let rootScope,
     deferred,
     apiResponse,
-    deserializedResponse,
     apiFailure,
     service,
     dataService,
     parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('DataService', {callGuzzleAPI: function(){}});
+    $provide.value('DataService', {callGuzzleAPI: function() {} });
   }));
 
-  beforeEach(inject(function ($q, $rootScope, DriveTableService, DataService, SFTableService) {
+  beforeEach(inject(function ($q, $rootScope, VirtualNetworkTableService, DataService, SFTableService) {
     rootScope = $rootScope;
     deferred = $q.defer();
-    service = DriveTableService;
+    service = VirtualNetworkTableService;
     service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
@@ -45,32 +44,13 @@ describe('DriveTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListDrives');
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'GetDriveStats');
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'GetClusterHardwareInfo');
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListVirtualNetworks');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {drives: [{driveID:1}], driveStats: [{driveID: 1, lifeRemainingPercent: 5, reserveCapacityPercent: 8}], clusterHardwareInfo: {drives: {1: {version: 'D2010350'}}}};
-      deserializedResponse = [
-        {
-          driveID: 1,
-          lifeRemainingPercent: 5,
-          reserveCapacityPercent: 8,
-          version: 'D2010350'
-        }
-      ];
+      apiResponse = {virtualNetworks: ['bar', 'foo']};
       service.getData(true).then(function(response) {
-         expect(response).toEqual(deserializedResponse);
-      });
-      deferred.resolve(apiResponse);
-      rootScope.$apply();
-    });
-
-    it('should populate empty strings in the event of a missing driveStats object', function() {
-      apiResponse = {drives: [{}], clusterHardwareInfo: {drives: {}}};
-      service.getData(true).then(function(response) {
-         expect(response).toEqual([{version: null}]);
+        expect(response).toEqual(apiResponse.virtualNetworks);
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();

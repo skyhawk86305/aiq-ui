@@ -5,6 +5,8 @@ var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('virtual-volume');
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListVirtualVolumes'));
 var uniqueKey = 'volumeID';
 var itemsPerPage = 25;
@@ -14,8 +16,9 @@ var columns = [
   {key: 'snapshotID', label: 'Snapshot ID', format: {filter: 'string'}},
   {key: 'parentVirtualVolumeID', label: 'Parent Virtual Volume ID', format: {filter: 'string'}},
   {key: 'virtualVolumeID', label: 'Virtual Volume ID', format: {filter: 'string'}},
+  {key: 'VMW_VVolName', label: 'Name', format: {filter: 'string'}},
   {key: 'VMW_GosType', label: 'Guest OS Type', format: {filter: 'string'}},
-  {key: 'virtualVolumeType', label: 'Virtual Volume Type', format: {filter: 'string'}},
+  {key: 'virtualVolumeType', label: 'Type', format: {filter: 'string'}},
   {key: 'access', label: 'Access', format: {filter: 'access'}},
   {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
   {key: 'snapshotInfo', label: 'Snapshot', format: {filter: 'string'}},
@@ -31,6 +34,7 @@ function mapFixture(rawFixture) {
     /*jshint camelcase: false*/
     volume.VMW_GosType = volume.metadata.VMW_GosType;
     volume.VMW_VmID = volume.metadata.VMW_VmID;
+    volume.VMW_VVolName = volume.metadata.VMW_VVolName;
     volume.access = volume.volumeInfo.access;
     volume.totalSize = volume.volumeInfo.totalSize;
     volume.minIOPS = volume.volumeInfo.qos.minIOPS;
@@ -41,8 +45,22 @@ function mapFixture(rawFixture) {
   });
 }
 
-/* commenting out until vvols is enabled */
 describe('The Cluster Virtual Volumes Page', function () {
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      clusterSelect.open().clustersList().selectClusterByIndex(0);
+      navbar.subNavbar.click('cluster-vvols').then(function() {
+        navbar.subNavMenu.click('cluster-vvols-virtualVolumes').then(done);
+      });
+    });
+  });
+
+  afterEach(function(done) {
+      support.logout(done);
+  });
+
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/vvols/virtual-volumes');
     expect(table.el.isDisplayed()).to.eventually.be.true;

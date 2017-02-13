@@ -9,7 +9,8 @@ module.exports = {
       virtualVolumeType: 'data',
       metadata: {
         VMW_GosType: 'windows8Server64Guest',
-        VMW_VmID: '50269ecc-4dda-b329-904f-086553386715'
+        VMW_VmID: '50269ecc-4dda-b329-904f-086553386715',
+        VMW_VVolName: 'VH-ALEX-SILO04_2'
       },
       volumeInfo: {
         access: 'readWrite',
@@ -31,7 +32,8 @@ module.exports = {
       virtualVolumeType: 'config',
       metadata: {
         VMW_GosType: 'windows8Server64Guest',
-        VMW_VmID: '50261da2-a72e-05a1-7ee4-85cceb339ac0'
+        VMW_VmID: '50261da2-a72e-05a1-7ee4-85cceb339ac0',
+        VMW_VVolName: 'VDI-Win10-004-checkpoint'
       },
       volumeInfo: {
         access: 'readWrite',
@@ -53,7 +55,8 @@ module.exports = {
       virtualVolumeType: 'other',
       metadata: {
         VMW_GosType: 'windows8Server64Guest',
-        VMW_VmID: '525ac7f2-594d-1f58-d519-d2daadd0b149'
+        VMW_VmID: '525ac7f2-594d-1f58-d519-d2daadd0b149',
+        VMW_VVolName: 'replica-e5b7eb2c-6739-43f1-a361-7768f9be2dfb.vswp'
       },
       volumeInfo: {
         access: 'readOnly',
@@ -75,7 +78,8 @@ module.exports = {
       virtualVolumeType: 'swap',
       metadata: {
         VMW_GosType: 'sles11_64Guest',
-        VMW_VmID: '501cfcfa-d5b6-f77a-ab97-af13d73942e4'
+        VMW_VmID: '501cfcfa-d5b6-f77a-ab97-af13d73942e4',
+        VMW_VVolName: 'hbr-persistent-state-RDID-403f6b52-8c0e-440c-ac9d-461f9388fb19.vmdk'
       },
       volumeInfo: {
         access: 'readWrite',
@@ -97,7 +101,8 @@ module.exports = {
       virtualVolumeType: 'data',
       metadata: {
         VMW_GosType: 'sles11_64Guest',
-        VMW_VmID: '5026e603-01ab-4f47-b72d-bfeb7338e5b4'
+        VMW_VmID: '5026e603-01ab-4f47-b72d-bfeb7338e5b4',
+        VMW_VVolName: 'vSphere Web Client Appliance_1'
       },
       volumeInfo: {
         access: 'readOnly',
@@ -119,7 +124,8 @@ module.exports = {
       virtualVolumeType: 'config',
       metadata: {
         VMW_GosType: 'sles11_64Guest',
-        VMW_VmID: '501c8403-6bbf-4422-f749-a094c62af7b7'
+        VMW_VmID: '501c8403-6bbf-4422-f749-a094c62af7b7',
+        VMW_VVolName: 'VH-ALEX-NTADB.ussfcu.office_2.vmdk'
       },
       volumeInfo: {
         access: 'readWrite',
@@ -141,7 +147,8 @@ module.exports = {
       virtualVolumeType: 'data',
       metadata: {
         VMW_GosType: 'sles11_64Guest',
-        VMW_VmID: '525ac7f2-594d-1f58-d519-d2daadd0b149'
+        VMW_VmID: '525ac7f2-594d-1f58-d519-d2daadd0b149',
+        VMW_VVolName: 'replica-e5b7eb2c-6739-43f1-a361-7768f9be2dfb.vswp'
       },
       volumeInfo: {
         access: 'writeOnly',
@@ -163,7 +170,8 @@ module.exports = {
       virtualVolumeType: 'other',
       metadata: {
         VMW_GosType: 'sles11_64Guest',
-        VMW_VmID: '501c6f8a-cd50-e244-62a0-53c856beabd5'
+        VMW_VmID: '501c6f8a-cd50-e244-62a0-53c856beabd5',
+        VMW_VVolName: 'LYNC-EDGE-01.vswp'
       },
       volumeInfo: {
         access: 'readWrite',
@@ -185,7 +193,8 @@ module.exports = {
       virtualVolumeType: 'data',
       metadata: {
         VMW_GosType: 'centosGuest',
-        VMW_VmID: '50267bc4-2b21-d169-b2b4-2a8b029b4fe5'
+        VMW_VmID: '50267bc4-2b21-d169-b2b4-2a8b029b4fe5',
+        VMW_VVolName: 'www-02.ussfcu.org_1.vmdk'
       },
       volumeInfo: {
         access: 'readWrite',
@@ -207,7 +216,8 @@ module.exports = {
       virtualVolumeType: 'swap',
       metadata: {
         VMW_GosType: 'centosGuest',
-        VMW_VmID: '5026e603-01ab-4f47-b72d-bfeb7338e5b4'
+        VMW_VmID: '5026e603-01ab-4f47-b72d-bfeb7338e5b4',
+        VMW_VVolName: 'VH-ALEX-vSERVICES2-f95ffec6'
       },
       volumeInfo: {
         access: 'readWrite',

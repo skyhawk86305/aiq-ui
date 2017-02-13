@@ -24,6 +24,19 @@ var ClusterSelectComponent = function () {
       scrollableMenu: element(by.css('.cluster-select-list.scrollable-menu')),
       recentlyViewedTab: element(by.css('.cluster-select-list-tab.recently-viewed')),
       emptyList: element(by.css('.cluster-select-empty')),
+      // just a list of clusters - without customer
+      clustersList: function() {
+          var list = element(by.css('div.cluster-select-list')),
+          clusterList = list.all(by.css('div.cluster-select-list-item'));
+          return {
+            el: list,
+            clusters: clusterList,
+            selectClusterByIndex: function(index) {
+              return clusterList.get(index).click();
+            }
+          }
+      },
+      // allows selection of cluster by customer
       allClustersList: function () {
         var list = element(by.css('div.cluster-select-list')),
             customerList = list.all(by.css('div.cluster-select-list-group'));

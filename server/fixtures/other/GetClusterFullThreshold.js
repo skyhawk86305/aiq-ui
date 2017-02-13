@@ -1,26 +1,26 @@
 module.exports = {
   result: {
     clusterFullThreshold: {
-      blockFullness: "stage1Happy",
-      clusterID: 1902240,
-      created: "2016-04-26T15:51:42Z",
-      fullness: "stage1Happy",
-      maxMetadataOverProvisionFactor: 5,
-      metadataFullness: "stage1Happy",
-      sliceReserveUsedThresholdPct: 5,
-      stage2AwareThreshold: 3,
-      stage2BlockThresholdBytes: 24369803009557,
-      stage3BlockThresholdBytes: 40097831902250,
-      stage3BlockThresholdPercent: 3,
-      stage3LowThreshold: 2,
-      stage4BlockThresholdBytes: 41653351243285,
-      stage4CriticalThreshold: 1,
-      stage5BlockThresholdBytes: 51850644701184,
-      sumTotalClusterBytes: 51850644701184,
-      sumTotalMetadataClusterBytes: 2592532235058,
-      sumUsedClusterBytes: 23787053909993,
-      sumUsedMetadataClusterBytes: 661996994560,
-      updated: "2016-11-04T15:07:08Z"
+      blockFullness: "stage3",
+      clusterID: 1872240,
+      created: "2017-02-02T15:51:42Z",
+      fullness: "stage3",
+      maxMetadataOverProvisionFactor: 3,
+      metadataFullness: "stage3",
+      sliceReserveUsedThresholdPct: 15,
+      stage2AwareThreshold: 4,
+      stage2BlockThresholdBytes: 45369803009557,
+      stage3BlockThresholdBytes: 61097831902250,
+      stage3BlockThresholdPercent: 4,
+      stage3LowThreshold: 3,
+      stage4BlockThresholdBytes: 62653351243285,
+      stage4CriticalThreshold: 2,
+      stage5BlockThresholdBytes: 72850644701184,
+      sumTotalClusterBytes: 72850644701184,
+      sumTotalMetadataClusterBytes: 3692532235058,
+      sumUsedClusterBytes: 44787053909993,
+      sumUsedMetadataClusterBytes: 871996994560,
+      updated: "2017-02-04T15:51:42Z"
     }
   }
 };

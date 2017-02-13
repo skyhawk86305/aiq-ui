@@ -25,7 +25,7 @@ var NavbarComponent = function () {
     activeItem: element(by.css('.navbar-item.-sub-menu.active')),
     items: element.all(by.css('.navbar-item.-sub-menu')),
     click: function(item) {
-      element(by.id('sf-sub-nav-menu-item-' + item)).click();
+      return element(by.id('sf-sub-nav-menu-item-' + item)).click();
     }
   };
   component.apiLog = element(by.id('api-log-anchor'));

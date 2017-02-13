@@ -11,7 +11,7 @@ module.exports = {
     "readOps": 296028548,
     "unalignedWrites": 0,
     "latencyUSec": 0,
-    "volumeSize": 500000882688,
+    "volumeSize": 1000001765376,
     "readBytes": 19144994955264,
     "writeOps": 3553500890,
     "readLatencyUSec": 0,

@@ -1,16 +1,24 @@
 /* jshint expr: true */
 'use strict';
 
+var support = require('../support.js');
 var expect = require('../support.js').expect;
-var NavbarComponent = require('../page-objects/components/navbar.po');
-var ClusterSelectComponent = require('../page-objects/components/cluster-select.po');
-
-var navbar = new NavbarComponent();
-var clusterSelect = new ClusterSelectComponent();
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
 
 describe('The main navbar', function() {
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#').then(done);
+    });
+  });
+
+  afterEach(function(done) {
+    support.logout(done);
+  });
+
   it('should display on initial page load', function() {
-    browser.get('#');
     expect(navbar.mainNavbar.el.isPresent()).to.eventually.be.true;
     expect(navbar.mainNavbar.items.count()).to.eventually.equal(5);
   });
@@ -35,10 +43,23 @@ describe('The main navbar', function() {
     navbar.mainNavbar.click('dashboard');
     expect(navbar.subNavbar.items.get(0).getAttribute('class')).to.eventually.contain('active');
   });
+});
+
+describe('should remember what cluster or pages have been selected previously', function() {
+
+  beforeAll(function(done) {
+    support.login(function () {
+      browser.get('#').then(done);
+    });
+  });
+
+  afterAll(function(done) {
+    support.logout(done);
+  });
 
   it('should contain a cluster select component for navigating to cluster specific pages', function() {
     var dropDownMenu = clusterSelect.open(),
-        list = dropDownMenu.allClustersList();
+      list = dropDownMenu.allClustersList();
     expect(clusterSelect.el.isPresent()).to.eventually.be.true;
     list.customer('Bill').then(function(customer) {
       customer.selectCluster('barCluster');
@@ -46,6 +67,7 @@ describe('The main navbar', function() {
       expect(navbar.mainNavbar.activeItem.getText()).to.eventually.equal('barCluster');
     });
   });
+
 
   it('should maintain the selected clusterID in the route when navigating to other cluster specific pages', function() {
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/reporting');
@@ -65,13 +87,23 @@ describe('The main navbar', function() {
   });
 });
 
+
 describe('The dropdown menu', function() {
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#').then(done);
+    });
+  });
+
+  afterEach(function(done) {
+    support.logout(done);
+  });
+
   it('should go to the SF Support page when the Support item is selected from the dropdown menu', function() {
-    browser.get('#');
     navbar.menu.expand().select('Support');
       browser.getAllWindowHandles().then(function(handles) {
         browser.ignoreSynchronization = true; // disable temporarily since this page is not Angular
-        browser.switchTo().window(handles[1]).then(function () {
+        browser.switchTo().window(handles[1]).then(function() {
           browser.driver.getCurrentUrl().then(function(url) {
             expect(url).to.contain('www.solidfire.com/platform/support/');
             browser.close();
@@ -83,7 +115,6 @@ describe('The dropdown menu', function() {
   });
 
   it('should go to the homepage of the old AIQ UI when the Legacy Active IQ item is selected from the dropdown menu', function() {
-    browser.get('#');
     navbar.menu.expand().select('Legacy Active IQ');
       browser.getAllWindowHandles().then(function(handles) {
         browser.ignoreSynchronization = true; // disable temporarily since this page is not Angular
@@ -98,8 +129,18 @@ describe('The dropdown menu', function() {
 });
 
 describe('The sub navbar', function() {
+    beforeEach(function(done) {
+        support.login(function() {
+            browser.get('#').then(done);
+            navbar.mainNavbar.click('dashboard').then(done);
+        });
+    });
+
+    afterEach(function(done) {
+        support.logout(done);
+    });
+
   it('should only be displayed if the active main navbar item has sub navbar items', function() {
-    navbar.mainNavbar.click('dashboard');
     expect(navbar.subNavbar.el.isDisplayed()).to.eventually.be.true;
     expect(navbar.subNavbar.items.count()).to.eventually.equal(5);
 
@@ -110,7 +151,6 @@ describe('The sub navbar', function() {
 
   // ToDo: include test after pages are built and become enabled in the navbar
   xit('should change the URL route and set the active state when clicking on sub navbar items', function() {
-    navbar.mainNavbar.click('dashboard');
 
     navbar.subNavbar.click('dashboard-health');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/health');
@@ -127,9 +167,19 @@ describe('The sub navbar', function() {
 });
 
 describe('The sub nav menu', function() {
+    beforeEach(function(done) {
+        support.login(function() {
+            browser.get('#').then(done);
+            navbar.mainNavbar.click('dashboard').then(done);
+        });
+    });
+
+    afterEach(function(done) {
+        support.logout(done);
+    });
+
   it('should only be displayed if the active sub navbar item has sub nav menu items', function() {
-    navbar.mainNavbar.click('dashboard');
-    navbar.subNavbar.click('dashboard-health');
+     navbar.subNavbar.click('dashboard-health');
     expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.false;
 
     navbar.subNavbar.click('dashboard-alerts');
@@ -138,7 +188,6 @@ describe('The sub nav menu', function() {
   });
 
   it('should change the URL route and set the active state when clicking on sub navbar items for alerts', function() {
-    navbar.mainNavbar.click('dashboard');
     navbar.subNavbar.click('dashboard-alerts');
 
     navbar.subNavMenu.click('dashboard-alerts-history');

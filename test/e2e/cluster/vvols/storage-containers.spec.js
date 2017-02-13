@@ -5,6 +5,8 @@ var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('storage-container');
+var navbar = new support.navbarComponent();
+var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListStorageContainers'));
 var uniqueKey = 'storageContainerID';
 var itemsPerPage = 25;
@@ -27,6 +29,21 @@ function mapFixture(rawFixture) {
 
 // Skip Storage Container tests, pending the secret-scrubbing work
 describe('The Cluster Storage Containers Page', function () {
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#/');
+      clusterSelect.open().clustersList().selectClusterByIndex(0);
+      navbar.subNavbar.click('cluster-vvols').then(function() {
+        navbar.subNavMenu.click('cluster-vvols-storageContainers').then(done);
+      });
+    });
+  });
+
+  afterEach(function(done) {
+      support.logout(done);
+  });
+
   it('should display a table component on page load', function () {
     browser.get('#/cluster/26/vvols/storage-containers');
     expect(table.el.isDisplayed()).to.eventually.be.true;

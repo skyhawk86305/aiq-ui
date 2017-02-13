@@ -3,20 +3,43 @@
 
 var expect = require('../support.js').expect;
 var support = require('../support.js');
-var ClusterSelectComponent = require('../page-objects/components/cluster-select.po');
-
-var clusterSelect = new ClusterSelectComponent();
+var clusterSelect = new support.clusterSelectComponent();
 
 var dropDownMenu, hintsTooltip;
 
-describe('The cluster select component', function() {
+
+describe('The cluster select component on initial page load', function() {
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#').then(done);
+    });
+  });
+
+
+  afterEach(function(done) {
+    support.logout(done);
+  });
+
   it('should display on initial page load', function() {
-    browser.get('#');
     expect(clusterSelect.el.isPresent()).to.eventually.be.true;
   });
 
-  it('should default to All Clusters when none are selected', function() {
+  it('should default to All Clusters when none are selected', function () {
     expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('All Clusters');
+  });
+});
+
+describe('The cluster select component', function() {
+  //dropDownMenu = clusterSelect.open();
+
+  beforeEach(function(done) {
+    support.login(function() {
+      browser.get('#').then(done);
+    });
+  });
+
+  afterEach(function(done) {
+    support.logout(done);
   });
 
   it('should open a drop down menu when clicking on it', function() {
@@ -26,15 +49,18 @@ describe('The cluster select component', function() {
 
   describe('it\'s drop down menu', function() {
     it('should display a list of all clusters', function() {
+      dropDownMenu = clusterSelect.open();
       expect(dropDownMenu.activeTab.getText()).to.eventually.equal('All Clusters');
       expect(dropDownMenu.allClustersList().customers.count()).to.eventually.equal(21);
     });
 
     it('should have a scrollbar if there are too many clusters to display on the page', function() {
+      dropDownMenu = clusterSelect.open();
       support.checkScroll(dropDownMenu.scrollableMenu,true);
     });
 
     it('should allow the user to view a list of recently viewed clusters', function() {
+      dropDownMenu = clusterSelect.open();
       dropDownMenu.recentlyViewedTab.click();
       expect(dropDownMenu.activeTab.getText()).to.eventually.equal('Recently Viewed');
       expect(dropDownMenu.emptyList.isDisplayed()).to.eventually.be.true;
@@ -42,6 +68,7 @@ describe('The cluster select component', function() {
 
     describe('filtering clusters', function() {
       it('should display hints in a tooltip', function() {
+        dropDownMenu = clusterSelect.open();
         hintsTooltip = dropDownMenu.viewHints();
         expect(hintsTooltip.menu.isDisplayed()).to.eventually.be.true;
         hintsTooltip = dropDownMenu.viewHints();
@@ -49,6 +76,7 @@ describe('The cluster select component', function() {
       });
 
       it('should filter by text (clusterName OR customerName) AND (single word OR multi word)', function() {
+        dropDownMenu = clusterSelect.open();
         dropDownMenu.allClustersTab.click();
 
         dropDownMenu.filter('foo').then(function() {
@@ -101,6 +129,7 @@ describe('The cluster select component', function() {
       });
 
       it('should filter by id', function() {
+        dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('id:26').then(function() {
           var expectedClusters = [
             { customer: 'Bill', clusters: ['barCluster'] }
@@ -119,6 +148,7 @@ describe('The cluster select component', function() {
       });
 
       it('should filter by version', function() {
+        dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('version:8').then(function() {
           var expectedClusters = [
             { customer: 'ACME', clusters: ['p-a-c_m+n&o-cluster-01', 'sxzysf-cluster-01'] },
@@ -153,6 +183,7 @@ describe('The cluster select component', function() {
       });
 
       it('should filter by uid', function() {
+        dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('uid:b').then(function() {
           var expectedClusters = [
             { customer: 'ATSC (ABCD Technical Solutions Corporation)', clusters: ['ABCDEFGHIJKLMNOP95-00010'] },
@@ -173,6 +204,7 @@ describe('The cluster select component', function() {
       });
 
       it('should filter by uuid', function() {
+        dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('uuid:333').then(function() {
           var expectedClusters = [
             { customer: 'ABC-Cloud R&D_Americas.com', clusters: ['AB-DC1-Cluster01'] },
@@ -194,10 +226,13 @@ describe('The cluster select component', function() {
       });
 
       it('should not have a scrollbar if the clusters fit on one page', function() {
+        dropDownMenu = clusterSelect.open();
+        dropDownMenu.filter('uuid:111');
         support.checkScroll(dropDownMenu.scrollableMenu,false);
       });
 
       it('should allow combining more than one filter type',function() {
+        dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('version:8.1.2 ba').then(function() {
           var expectedClusters = [
             { customer: 'Jim', clusters: ['bazCluster'] }
@@ -208,7 +243,8 @@ describe('The cluster select component', function() {
       });
 
       it('should reset with an empty filter', function() {
-        dropDownMenu.filter('').then(function() {
+          dropDownMenu = clusterSelect.open();
+          dropDownMenu.filter('').then(function() {
           var expectedClusters = [
             { customer: 'ABC-Cloud R&D_Americas.com', clusters: ['AB-DC1-Cluster01'] },
             { customer: 'ACME', clusters: ['p-a-c_m+n&o-cluster-01', 'sxzysf-cluster-01'] },
@@ -238,41 +274,60 @@ describe('The cluster select component', function() {
       });
     });
 
-    describe('selecting clusters', function() {
-      it('should close the drop down and update the selected cluster', function() {
-        var list = dropDownMenu.allClustersList();
 
-        dropDownMenu.allClustersTab.click();
-        expect(list.customers.count()).to.eventually.equal(21);
-        list.customer('Bill').then(function(customer) {
-          customer.selectCluster('barCluster');
-          expect(dropDownMenu.el.isDisplayed()).to.eventually.be.false;
-          expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');
-        });
-      });
+  });
+});
+describe('selecting clusters', function() {
 
-      it('should navigate the user to the default /cluster route with the selected clusterID embedded in the url', function() {
-        expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/reporting/overview');
-      });
+  beforeAll(function(done) {
+    support.login(function() {
+      browser.get('#').then(done);
+    });
+  });
 
-      it('should add the selected cluster to the top of the recently viewed', function() {
-        var list,
-            expectedClusters = [
-              'fooCluster',
-              'barCluster'
-            ];
 
-        dropDownMenu = clusterSelect.open();
-        list = dropDownMenu.allClustersList();
+  afterAll(function(done) {
+    support.logout(done);
+  });
 
-        list.customer('Bob').then(function(customer) {
-          customer.selectCluster('fooCluster');
-          dropDownMenu = clusterSelect.open();
-          dropDownMenu.recentlyViewedTab.click();
+  var selectClusterSequence = function() {
+    dropDownMenu = clusterSelect.open();
+    var list = dropDownMenu.allClustersList();
 
-          compareExpectedRecentlyViewedList(dropDownMenu.recentlyViewedList.clusters, expectedClusters);
-        });
-      });
+    dropDownMenu.allClustersTab.click();
+    expect(list.customers.count()).to.eventually.equal(21);
+    list.customer('Bill').then(function(customer) {
+      customer.selectCluster('barCluster');
+    });
+  };
+
+  it('should close the drop down and update the selected cluster', function() {
+    selectClusterSequence();
+    expect(dropDownMenu.el.isDisplayed()).to.eventually.be.false;
+    expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');
+  });
+
+  it('should navigate the user to the default /cluster route with the selected clusterID embedded in the url', function() {
+    selectClusterSequence();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/reporting/overview');
+  });
+
+  it('should add the selected cluster to the top of the recently viewed', function() {
+    var list,
+      expectedClusters = [
+        'fooCluster',
+        'barCluster'
+      ];
+    selectClusterSequence();
+    dropDownMenu = clusterSelect.open();
+    list = dropDownMenu.allClustersList();
+
+    list.customer('Bob').then(function(customer) {
+      customer.selectCluster('fooCluster');
+      dropDownMenu = clusterSelect.open();
+      dropDownMenu.recentlyViewedTab.click();
+
+      compareExpectedRecentlyViewedList(dropDownMenu.recentlyViewedList.clusters, expectedClusters);
     });
   });
 });

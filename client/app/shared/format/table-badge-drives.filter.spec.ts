@@ -22,15 +22,15 @@ describe('Table Badge Drives Filter', function () {
 
     expect($filter('drivesTableBadge')('1000', 'wear')).toEqual('<div class="table-badge -normal">1000%</div>');
 
-    expect($filter('drivesTableBadge')(0, 'reserve')).toEqual('<div class="table-badge -critical">0</div>');
-    expect($filter('drivesTableBadge')(1, 'reserve')).toEqual('<div class="table-badge -warning">1</div>');
-    expect($filter('drivesTableBadge')(10, 'reserve')).toEqual('<div class="table-badge -warning">10</div>');
-    expect($filter('drivesTableBadge')(19, 'reserve')).toEqual('<div class="table-badge -warning">19</div>');
-    expect($filter('drivesTableBadge')(20, 'reserve')).toEqual('<div class="table-badge -normal">20</div>');
-    expect($filter('drivesTableBadge')(21, 'reserve')).toEqual('<div class="table-badge -normal">21</div>');
-    expect($filter('drivesTableBadge')(90, 'reserve')).toEqual('<div class="table-badge -normal">90</div>');
-    expect($filter('drivesTableBadge')(100, 'reserve')).toEqual('<div class="table-badge -normal">100</div>');
+    expect($filter('drivesTableBadge')(0, 'reserve')).toEqual('<div class="table-badge -critical">0%</div>');
+    expect($filter('drivesTableBadge')(1, 'reserve')).toEqual('<div class="table-badge -warning">1%</div>');
+    expect($filter('drivesTableBadge')(10, 'reserve')).toEqual('<div class="table-badge -warning">10%</div>');
+    expect($filter('drivesTableBadge')(19, 'reserve')).toEqual('<div class="table-badge -warning">19%</div>');
+    expect($filter('drivesTableBadge')(20, 'reserve')).toEqual('<div class="table-badge -normal">20%</div>');
+    expect($filter('drivesTableBadge')(21, 'reserve')).toEqual('<div class="table-badge -normal">21%</div>');
+    expect($filter('drivesTableBadge')(90, 'reserve')).toEqual('<div class="table-badge -normal">90%</div>');
+    expect($filter('drivesTableBadge')(100, 'reserve')).toEqual('<div class="table-badge -normal">100%</div>');
 
-    expect($filter('drivesTableBadge')('1000', 'reserve')).toEqual('<div class="table-badge -normal">1000</div>');
+    expect($filter('drivesTableBadge')('1000', 'reserve')).toEqual('<div class="table-badge -normal">1000%</div>');
   }));
 });

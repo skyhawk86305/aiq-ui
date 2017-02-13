@@ -1,1 +1,86 @@
-module.exports = {"volumes": []};
+module.exports = {
+    "volumes": [{
+        "clusterID": 1902678,
+        "volumeID": 268,
+        "access": "readWrite",
+        "accountID": 4,
+        "blockSize": 4096,
+        "createTime": "2016-11-17T19:41:58Z",
+        "deleteTime": "",
+        "enable512e": false,
+        "iqn": "iqn.2010-01.com.solidfire:dg0j.sf-iscsi-silo.268",
+        "name": null,
+        "purgeTime": "",
+        "scsiEUIDeviceID": "6467306a0000010cf47acc0100000000",
+        "scsiNAADeviceID": "6f47acc1000000006467306a0000010c",
+        "sliceCount": 1,
+        "status": "active",
+        "totalSize": 2048000000000,
+        "volumeStats": {
+            "clusterID": 1902678,
+            "volumeID": 268,
+            "actualIOPS": 0,
+            "asyncDelay": "00:00:00.000000",
+            "averageIOPSize": 5734,
+            "burstIopsCredit": 257460,
+            "clientQueueDepth": 0,
+            "latencyUSec": 0,
+            "nonZeroBlocks": 16565,
+            "readBytes": 2770169856,
+            "readLatencyUSec": 0,
+            "readOps": 42172,
+            "throttle": 0.0,
+            "timestamp": "2017-02-03T22:29:29.720108Z",
+            "unalignedReads": 0,
+            "unalignedWrites": 0,
+            "volumeSize": 2048000000000,
+            "volumeUtilization": 0.0,
+            "writeBytes": 2550232215552,
+            "writeLatencyUSec": 0,
+            "writeOps": 33454,
+            "zeroBlocks": 499983435,
+            "created": "2016-12-08T21:10:36Z",
+            "updated": "2017-02-03T22:29:33Z"
+        },
+        "qos": {
+            "clusterID": 1902678,
+            "volumeID": 268,
+            "burstIOPS": 14305,
+            "burstTime": 60,
+            "maxIOPS": 10014,
+            "minIOPS": 5000,
+            "curve": {
+                "8192": 160,
+                "32768": 500,
+                "4096": 100,
+                "1048576": 15000,
+                "131072": 1950,
+                "262144": 3900,
+                "16384": 270,
+                "65536": 1000,
+                "524288": 7600
+            },
+            "created": "2016-12-08T21:10:33Z",
+            "updated": "2016-12-08T21:10:33Z"
+        },
+        "configuredAccessProtocols": ["ISCSI"],
+        "volumePairs": [{
+            "clusterPairID": 2,
+            "remoteReplication": {
+                "pauseLimit": 3145728000,
+                "remoteServiceID": 9,
+                "stateDetails": "",
+                "resumeDetails": "",
+                "state": "Active",
+                "snapshotReplication": {"state": "Idle", "stateDetails": ""},
+                "mode": "Async"
+            },
+            "remoteSliceID": 139,
+            "remoteVolumeID": 139,
+            "remoteVolumeName": "SF-iSCSI-Silo",
+            "volumePairUUID": "d0c400e4-2c3d-4224-a89c-d38736985112"
+        }],
+        "created": "2016-12-08T21:10:33Z",
+        "updated": "2016-12-08T21:10:33Z"
+    }]
+}

@@ -30,6 +30,8 @@ support = {
       browser.clearMockModules();
     }
   },
+  navbarComponent: require('./page-objects/components/navbar.po'),
+  clusterSelectComponent: require('./page-objects/components/cluster-select.po'),
   getActiveElement: function() {
     return browser.driver.switchTo().activeElement();
   },
