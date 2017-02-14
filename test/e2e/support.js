@@ -7,8 +7,8 @@ var support,
   fs = require('fs'),
   HttpBackend = require('httpbackend'),
   chai = require('chai'),
-  request = require('request'),
   chaiAsPromised = require('chai-as-promised'),
+  serverConfig = require('../../server/server.config'),
   argv = require('yargs').argv,
   ngMocksDir = path.dirname(require.resolve('angular-mocks')),
   ngMocksFilePath = path.join(ngMocksDir, 'angular-mocks.js'),
@@ -39,7 +39,10 @@ support = {
     request.delete(browser.baseUrl + '/sessions', callback);
   },
   login: function (callback) {
-    var params = {username: 'testuser@solidfire.com', password: new Buffer('password123').toString('base64')};
+    var params = {
+      username: serverConfig[argv.env].username,
+      password: new Buffer(serverConfig[argv.env].password).toString('base64')
+    };
     return request({
       method: 'PUT',
       uri: browser.baseUrl + '/sessions',

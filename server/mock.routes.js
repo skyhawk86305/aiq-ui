@@ -5,7 +5,7 @@ var express = require('express'),
   mockTimeSeriesData = require('./mock.time-series-data'),
   serverConfig = require('./server.config.js'),
   argv = require('yargs').alias('m', 'mock').argv,
-  fixtureDir = typeof argv.mock === 'string' ? argv.mock : serverConfig.defaultFixture,
+  fixtureDir = typeof argv.mock === 'string' ? argv.mock : serverConfig.local.fixture,
   authenticated = true;
 
 /**
@@ -50,8 +50,8 @@ mockRoutes.get('/sessions', function (req, res) {
  * Catch API put request to sessions and sign in user based on username and password
  */
 mockRoutes.put('/sessions', function (req, res) {
-  if (req.body.username === 'testuser@solidfire.com' &&
-    req.body.password === new Buffer('password123').toString('base64')) {
+  if (req.body.username === serverConfig.local.username &&
+    req.body.password === new Buffer(serverConfig.local.password).toString('base64')) {
     authenticated = true;
     res.status(200).send();
   } else {

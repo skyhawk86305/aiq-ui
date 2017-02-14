@@ -11,6 +11,7 @@ var clusterSelect = new support.clusterSelectComponent();
 
 describe('Cluster Overview Page', function () {
   beforeEach(function(done) {
+    browser.get('#/');
     support.login(function() {
       browser.get('#/');
       clusterSelect.open().clustersList().selectClusterByIndex(0);
@@ -24,7 +25,7 @@ describe('Cluster Overview Page', function () {
       support.logout(done);
   });
 
-  it('should have the performance graph with the correct title, series and legend items', function () {
+  it('@smoke should have the performance graph with the correct title, series and legend items', function () {
     var graph = clusterOverviewPage.graphs.clusterPerformance;
     expect(graph.el.isDisplayed()).to.eventually.be.true;
     expect(graph.title.getText()).to.eventually.equal('Performance');
@@ -39,11 +40,11 @@ describe('Cluster Overview Page', function () {
 
   });
 
-  it('should have an export button for the Performance Graph', function() {
+  it('@smoke should have an export button for the Performance Graph', function() {
     expect(clusterOverviewPage.graphs.clusterPerformance.exportButton.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the utilization graph with the correct title, series and legend items', function () {
+  it('@smoke should have the utilization graph with the correct title, series and legend items', function () {
     var graph = clusterOverviewPage.graphs.performanceUtilization;
     expect(graph.el.isDisplayed()).to.eventually.be.true;
     expect(graph.title.getText()).to.eventually.equal('Utilization');
