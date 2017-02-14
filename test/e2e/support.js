@@ -47,6 +47,18 @@ support = {
       body: params
     }, callback);
   },
+  manualLogin: function(username,password) {
+    var LoginPage = require('./page-objects/login.po'),
+      loginPage = new LoginPage;
+    browser.get('#/login');
+    loginPage.usernameInput.enter(username);
+    loginPage.passwordInput.enter(password);
+    loginPage.loginButton.click();
+  },
+  manualLogout: function() {
+    var navBar = new support.navbarComponent;
+    navBar.menu.expand().select('Support');
+  },
   fixture: function(method) {
     return require('../../server/fixtures/' + argv.fixture + '/' + method);
   },
