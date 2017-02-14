@@ -44,7 +44,7 @@ describe('The cluster select component', function() {
     browser.get('#').then(done);
   });
 
-  afterAll(function(done) {
+  afterAll(function() {
     support.manualLogout();
   });
 
@@ -294,7 +294,7 @@ describe('selecting clusters', function() {
     browser.get('#').then(done);
   });
 
-  afterAll(function(done) {
+  afterAll(function() {
     support.manualLogout();
   });
 
