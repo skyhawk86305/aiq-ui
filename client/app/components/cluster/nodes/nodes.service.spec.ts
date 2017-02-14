@@ -4,13 +4,14 @@ describe('NodeTableService', function () {
   let rootScope,
       deferred,
       apiResponse,
+      deserializedResponse,
       apiFailure,
       service,
       dataService,
       parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('DataService', {callAPI: function() {} });
+    $provide.value('DataService', {callGuzzleAPI: function() {} });
   }));
 
   beforeEach(inject(function ($q, $rootScope, NodeTableService, DataService, SFTableService) {
@@ -20,7 +21,7 @@ describe('NodeTableService', function () {
     service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
-    spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
+    spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
   }));
 
   describe('initialization', function() {
@@ -44,11 +45,27 @@ describe('NodeTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callAPI).toHaveBeenCalledWith('ListActiveNodes', {clusterID: 'foobar'});
+      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListActiveNodes');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {nodes: ['bar', 'foo']};
+      apiResponse = {nodes: [{id: 'bar', platformInfo: {nodeType: 'baz'}}, {id: 'foo', platformInfo: {nodeType: 'fiz'}}]};
+      deserializedResponse = [
+        {
+          id: 'bar',
+          nodeType: 'baz',
+          platformInfo: {
+            nodeType: 'baz'
+          }
+        },
+        {
+          id: 'foo',
+          nodeType: 'fiz',
+          platformInfo: {
+            nodeType: 'fiz'
+          }
+        }
+      ];
       service.getData(true).then(function(response) {
         expect(response).toEqual(apiResponse.nodes);
       });

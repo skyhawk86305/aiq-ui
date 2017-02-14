@@ -8,20 +8,30 @@ var capacityPage = new CapacityPage();
 var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 
-describe('The Cluster Capacity Page', function () {
+fdescribe('The Cluster Capacity Page', function () {
 
+  //working
   beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-reporting').then(function() {
-        navbar.subNavMenu.click('cluster-reporting-capacity').then(done);
-      });
+    support.manualLogin('testuser@solidfire.com','password123');
+    clusterSelect.open().clustersList().selectClusterByIndex(0);
+    navbar.subNavbar.click('cluster-reporting').then(function() {
+      navbar.subNavMenu.click('cluster-reporting-capacity').then(done);
     });
   });
 
+  // beforeEach(function(done) {
+  //   support.login(function() {
+  //     browser.get('#/');
+  //     clusterSelect.open().clustersList().selectClusterByIndex(0);
+
+  //     navbar.subNavbar.click('cluster-vvols').then(function() {
+  //       navbar.subNavMenu.click('cluster-vvols-bindings').then(done);
+  //     });
+  //   });
+  // });
+
   afterEach(function(done) {
-      support.logout(done);
+      support.manualLogout().then(done);
   });
 
   it('should display a sync-graphs component on page load', function () {

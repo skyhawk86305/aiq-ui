@@ -12,8 +12,13 @@
 
   function NodeTableService(SFTableService, SFFilterComparators, DataService) {
     let listActiveNodes = function() {
-      return DataService.callAPI('ListActiveNodes', {clusterID: this.selectedClusterID})
-        .then(function(response) { return response.nodes; });
+      return DataService.callGuzzleAPI(this.selectedClusterID, 'ListActiveNodes')
+        .then(function(response) {
+          return response.nodes.map(function(node) {
+          node.nodeType = node.platformInfo.nodeType;
+          return node;
+        });
+      });
     };
 
     let columns = [
