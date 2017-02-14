@@ -10,6 +10,7 @@ var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListActiveVolumes'));
 var uniqueKey = 'volumeID';
 var itemsPerPage = 25;
+var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'volumeID', label: 'ID', format: {filter: 'string'}},
@@ -36,15 +37,31 @@ function mapFixture(rawFixture) {
 
 describe('The Cluster Volumes Page', function () {
 
-  beforeEach(function(done) {
-      support.login(function() {
-          browser.get('#/');
-          clusterSelect.open().clustersList().selectClusterByIndex(0);
-          navbar.subNavbar.click('cluster-volumes').then(done);
-      });
+  // beforeAll(function(done) {
+  //   support.manualLogin();
+  //   clusterSelect.open().clustersList().selectClusterByIndex(0).then(function() {
+  //     browser.getLocationAbsUrl().then(function(text){
+  //       clusterId = text.split('/cluster\/')[1].split('\/reporting').shift();
+  //       done();
+  //     });
+  //   });
+  // });
+
+  beforeAll(function(done) {
+    support.manualLogin();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
+    });
   });
-  afterEach(function(done) {
-      support.logout(done);
+
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/volumes').then(done);
+  });
+
+  afterAll(function() {
+    support.manualLogout();
   });
 
   it('should display a table component on page load', function () {

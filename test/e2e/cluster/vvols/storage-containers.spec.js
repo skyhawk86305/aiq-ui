@@ -11,6 +11,7 @@ var fixture = mapFixture(support.fixture('ListStorageContainers'));
 var uniqueKey = 'storageContainerID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
+var clusterId;
 var columns = [
   {key: 'accountID', label: 'Account ID', format: {filter: 'string'}},
   {key: 'name', label: 'Name', format: {filter: 'string'}},
@@ -27,25 +28,29 @@ function mapFixture(rawFixture) {
   });
 }
 
+
 // Skip Storage Container tests, pending the secret-scrubbing work
 describe('The Cluster Storage Containers Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-vvols').then(function() {
-        navbar.subNavMenu.click('cluster-vvols-storageContainers').then(done);
-      });
+  beforeAll(function(done) {
+    support.manualLogin();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/vvols/storage-containers').then(done);
   });
 
+  afterAll(function() {
+    support.manualLogout();
+  });
+
+
   it('should display a table component on page load', function () {
-    browser.get('#/cluster/26/vvols/storage-containers');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 

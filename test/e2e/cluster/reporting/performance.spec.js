@@ -7,23 +7,27 @@ var performanceGraphs = new SyncGraphsComponent('performance-sync-graphs');
 var support = require('../../support.js');
 var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
-
+var clusterId;
 
 describe('The Cluster Performance Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-        navbar.subNavbar.click('cluster-reporting').then(function () {
-          navbar.subNavMenu.click('cluster-reporting-performance').then(done);
-        })
+  beforeAll(function(done) {
+    support.manualLogin();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/performance').then(done);
   });
+
+  afterAll(function() {
+    support.manualLogout();
+  });
+
 
   it('should display a sync-graphs component on page load', function () {
     expect(performanceGraphs.el.isDisplayed()).to.eventually.be.true;

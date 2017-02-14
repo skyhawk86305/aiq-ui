@@ -7,31 +7,25 @@ var CapacityPage = require('../../page-objects/cluster/reporting/capacity.po');
 var capacityPage = new CapacityPage();
 var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
+var clusterId;
 
-fdescribe('The Cluster Capacity Page', function () {
+describe('The Cluster Capacity Page', function () {
 
-  //working
-  beforeEach(function(done) {
-    support.manualLogin('testuser@solidfire.com','password123');
-    clusterSelect.open().clustersList().selectClusterByIndex(0);
-    navbar.subNavbar.click('cluster-reporting').then(function() {
-      navbar.subNavMenu.click('cluster-reporting-capacity').then(done);
+  beforeAll(function(done) {
+    support.manualLogin();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  // beforeEach(function(done) {
-  //   support.login(function() {
-  //     browser.get('#/');
-  //     clusterSelect.open().clustersList().selectClusterByIndex(0);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/capacity').then(done);
+  });
 
-  //     navbar.subNavbar.click('cluster-vvols').then(function() {
-  //       navbar.subNavMenu.click('cluster-vvols-bindings').then(done);
-  //     });
-  //   });
-  // });
-
-  afterEach(function(done) {
-      support.manualLogout().then(done);
+  afterAll(function() {
+    support.manualLogout();
   });
 
   it('should display a sync-graphs component on page load', function () {

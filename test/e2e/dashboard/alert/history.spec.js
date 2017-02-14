@@ -35,17 +35,17 @@ function mapFixture(rawFixture) {
 
 describe('The Alert History Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      navbar.subNavbar.click('dashboard-alerts').then(function() {
-        navbar.subNavMenu.click('dashboard-alerts-history').then(done);
-      });
-    });
+  beforeAll(function(done) {
+    support.manualLogin();
+        done();
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/dashboard/alerts/history').then(done);
+  });
+
+  afterAll(function() {
+    support.manualLogout();
   });
 
   it('should display a table component on page load', function () {

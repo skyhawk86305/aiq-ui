@@ -28,21 +28,20 @@ function mapFixture(rawFixture) {
 
 describe('The Alert Policies Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      navbar.subNavbar.click('dashboard-alerts').then(function() {
-        navbar.subNavMenu.click('dashboard-alerts-policies').then(done);
-      });
-    });
+  beforeAll(function(done) {
+    support.manualLogin();
+    done();
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/dashboard/alerts/policies').then(done);
+  });
+
+  afterAll(function() {
+    support.manualLogout();
   });
 
   it('should display a table component on page load', function () {
-    browser.get('#/dashboard/alerts/policies');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 

@@ -10,6 +10,7 @@ var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListVirtualVolumeHosts'));
 var uniqueKey = 'virtualVolumeHostID';
 var itemsPerPage = 25;
+var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'virtualVolumeHostID', label: 'Host ID', format: {filter: 'string'}},
@@ -25,18 +26,21 @@ function mapFixture(rawFixture) {
 
 describe('The Cluster Host Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-vvols').then(function() {
-        navbar.subNavMenu.click('cluster-vvols-hosts').then(done);
-      });
+  beforeAll(function(done) {
+    support.manualLogin();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/vvols/hosts').then(done);
+  });
+
+  afterAll(function() {
+    support.manualLogout();
   });
 
   it('should display a table component on page load', function () {

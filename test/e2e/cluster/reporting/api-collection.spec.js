@@ -11,6 +11,7 @@ var fixture = support.fixture('GetGuzzleAPIs');
 var uniqueKey = 'source';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
+var clusterId;
 var columns = [
   {key: 'source', label: 'Element API Method', format: {filter: 'apiCollectionLink', args:['26']}},
   {key: 'ingestedTime', label: 'Last Updated', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}}
@@ -29,15 +30,24 @@ describe('The Cluster API Collection Page', function () {
     });
   });
   */
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/cluster/26/reporting/apiCollection').then(done);
+
+  beforeAll(function(done) {
+    support.manualLogin();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/apiCollection').then(done);
   });
+
+  afterAll(function() {
+    support.manualLogout();
+  });
+
 
   it('should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;

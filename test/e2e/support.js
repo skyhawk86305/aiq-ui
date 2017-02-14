@@ -50,17 +50,17 @@ support = {
       body: params
     }, callback);
   },
-  manualLogin: function(username,password) {
+  manualLogin: function() {
     var LoginPage = require('./page-objects/login.po'),
       loginPage = new LoginPage;
     browser.get('#/login');
-    loginPage.usernameInput.enter(username);
-    loginPage.passwordInput.enter(password);
+    loginPage.usernameInput.enter(serverConfig[argv.env].username);
+    loginPage.passwordInput.enter(serverConfig[argv.env].password);
     loginPage.loginButton.click();
   },
   manualLogout: function() {
     var navBar = new support.navbarComponent;
-    navBar.menu.expand().select('Support');
+    navBar.menu.expand().select('Logout');
   },
   fixture: function(method) {
     return require('../../server/fixtures/' + argv.fixture + '/' + method);
@@ -144,8 +144,16 @@ support = {
         support.expect(clientHeight).to.equal(scrollHeight);
       }
     });
+  },
+  getFirstClusterId: function(openedClusterSelect) {
+    return new Promise(function(resolve, reject) {
+      openedClusterSelect.clustersList().selectClusterByIndex(0).then(function () {
+        browser.getLocationAbsUrl().then(function (url) {
+          resolve(url.split('/cluster\/')[1].split('\/reporting').shift());
+        });
+      });
+    });
   }
-
 };
 
 module.exports = support;

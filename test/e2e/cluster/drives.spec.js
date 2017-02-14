@@ -11,6 +11,7 @@ var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
+var clusterId;
 var columns = [
   {key: 'driveID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'nodeID', label: 'Node ID', format: {filter: 'aiqNumber', args: [0, true]}},
@@ -39,16 +40,21 @@ function mergeFixtures(fixture1, fixture2) {
 
 describe('The Cluster Drives Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-drives').then(done);
+  beforeAll(function(done) {
+    support.manualLogin();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-    support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/drives').then(done);
+  });
+
+  afterAll(function() {
+    support.manualLogout();
   });
 
   it('should display a table component on page load', function () {
