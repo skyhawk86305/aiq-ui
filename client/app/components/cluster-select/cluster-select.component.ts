@@ -27,7 +27,6 @@
     // Populate list of clusters and set the cached selected cluster using clusterID from route params
     self.init = function() {
       self.refresh().then(function() {
-        console.log('inside init');
         let clusterFromRoute = rawClusters.filter(function(cluster) {
           return cluster.clusterID && cluster.clusterID.toString() === $routeParams.clusterID;
         });
@@ -71,7 +70,14 @@
     };
 
     function updateSelectedCluster(cluster) {
-      let index = rawRecentlyViewed.indexOf(cluster);
+      let index = -1;
+
+      for (var i = 0, len = rawRecentlyViewed.length; i < len; i++) {
+        if (rawRecentlyViewed[i].clusterID === cluster.clusterID) {
+          index = i;
+          break;
+        }
+      }
       // deduplicate and push to front of recently viewed array
       if (index >= 0) { rawRecentlyViewed.splice(index, 1); }
       rawRecentlyViewed.unshift(cluster);
