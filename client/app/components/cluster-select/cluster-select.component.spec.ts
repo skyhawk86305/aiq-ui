@@ -75,6 +75,14 @@ describe('Component: clusterSelect', function() {
         scope.$apply();
         expect(service.updateSelectedCluster).toHaveBeenCalledWith(mockData[1]);
       });
+
+      it('should call refresh function on $routeChangeSuccess', inject(function($rootScope, $location){
+        spyOn(controller, 'refresh').and.returnValue(deferred.promise);
+        $location.path('/cluster/26/reporting/overview');
+        $rootScope.$apply();
+        $rootScope.$broadcast('$routeChangeSuccess');
+        expect(controller.refresh).toHaveBeenCalled();
+      }));
     });
   });
 
