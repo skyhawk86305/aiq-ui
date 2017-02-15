@@ -137,7 +137,7 @@ describe('Data Service', function () {
       http.flush();
     });
 
-    it('should return a response with timestamps that are converted to seconds', function () {
+    it('should return a response with timestamps that are converted to milliseconds', function () {
       const params = {
           clusterID: 456,
           start: new Date('Wed Feb 08 2017 14:04:38 GMT-0700 (MST)'),
