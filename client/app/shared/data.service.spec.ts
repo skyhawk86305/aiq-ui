@@ -5,7 +5,8 @@ describe('Data Service', function () {
       service,
       http,
       location,
-      response;
+      response,
+      pathSpy;
 
   beforeEach(angular.mock.module('aiqUi'));
 
@@ -14,6 +15,9 @@ describe('Data Service', function () {
     service = DataService;
     http = $httpBackend;
     location = $location;
+    pathSpy = jasmine.createSpyObj('path', ['search']);
+    location.url('/foo/bar?baz=fuz');
+    spyOn(location, 'path').and.returnValue(pathSpy);
   }));
 
   afterEach(function () {
@@ -37,9 +41,6 @@ describe('Data Service', function () {
     });
 
     it('should execute the error callback function and route to the login page if the call is unauthenticated', function () {
-      let pathSpy = jasmine.createSpyObj('path', ['search']);
-      location.url('/foo/bar?baz=fuz');
-      spyOn(location, 'path').and.returnValue(pathSpy);
       response = {message: 'bar'};
       http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(401, response);
       service.callAPI('foobar', {param: 'baz'});
@@ -77,9 +78,6 @@ describe('Data Service', function () {
     });
 
     it('should execute the error callback function and route to the login page if the call is unauthenticated', function () {
-      let pathSpy = jasmine.createSpyObj('path', ['search']);
-      location.url('/foo/bar?baz=fuz');
-      spyOn(location, 'path').and.returnValue(pathSpy);
       response = {message: 'bar'};
       http.when('GET', '/state/cluster/1234').respond(401, response);
       service.callGuzzleAPI('1234');
@@ -157,9 +155,6 @@ describe('Data Service', function () {
     });
 
     it('should execute the error callback function and route to the login page if the call is unauthenticated', function () {
-      let pathSpy = jasmine.createSpyObj('path', ['search']);
-      location.url('/foo/bar?baz=fuz');
-      spyOn(location, 'path').and.returnValue(pathSpy);
       response = {message: 'bar'};
       http.when('GET', '/graph/cluster/789/foobar/snapshot').respond(401, response);
       service.callGraphAPI('foobar', {clusterID: 789, snapshot: true});
