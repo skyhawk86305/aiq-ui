@@ -12,7 +12,7 @@ var uniqueKey = 'volumeID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
-  {key: 'volumeID', label: 'ID', format: {filter: 'string'}},
+  {key: 'volumeID', label: 'Volume ID', format: {filter: 'string'}},
   {key: 'snapshotID', label: 'Snapshot ID', format: {filter: 'string'}},
   {key: 'parentVirtualVolumeID', label: 'Parent Virtual Volume ID', format: {filter: 'string'}},
   {key: 'virtualVolumeID', label: 'Virtual Volume ID', format: {filter: 'string'}},
@@ -75,7 +75,7 @@ describe('The Cluster Virtual Volumes Page', function () {
 
   it('should display data from the correct API and properly format it in the table', function (done) {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
-  });
+  }, 60000);
 
   it('should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;

@@ -145,7 +145,10 @@
         }).catch(function() {
           ctrl.getPerformanceSnapshotState = 'error';
         });
+      ctrl.infoBarLastUpdated = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
     }
+
+    ctrl.refreshInfoBarData = setInfoBarData;
 
     function getGraphConfig(graph) {
       let graphConfigs = {
