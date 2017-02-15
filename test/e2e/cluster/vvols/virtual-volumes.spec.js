@@ -75,7 +75,7 @@ describe('The Cluster Virtual Volumes Page', function () {
 
   it('should display data from the correct API and properly format it in the table', function (done) {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
-  });
+  }, 60000);
 
   it('should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
