@@ -2,26 +2,15 @@
 
 describe('Data Service', function () {
   let rootScope,
-      deferred,
       service,
-      apiLogService,
       http,
       location,
       response;
 
-  beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('ApiLogService', {
-      appendRequest: jasmine.createSpy('appendRequest').and.returnValue('entry'),
-      appendResponse: jasmine.createSpy('appendResponse')
-    });
-  }));
-
-  beforeEach(inject(function ($rootScope, $q, DataService, ApiLogService, $httpBackend, $location) {
+  beforeEach(inject(function ($rootScope, DataService, $httpBackend, $location) {
     rootScope = $rootScope;
-    deferred = $q.defer();
-    apiLogService = ApiLogService;
-    http = $httpBackend;
     service = DataService;
+    http = $httpBackend;
     location = $location;
   }));
 
