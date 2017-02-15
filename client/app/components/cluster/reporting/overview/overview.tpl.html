@@ -3,6 +3,17 @@
     <span>{{$ctrl.clusterSummary.clusterName}}</span>
   </div>
   <div class="sf-widget container-fluid info-bar">
+
+    <div class="info-bar-timestamp">
+      <span>Last Updated: {{$ctrl.infoBarLastUpdated}}</span>
+      <div class="info-bar-refresh-button">
+        <button class="button refresh-btn"
+                ng-click="$ctrl.refreshInfoBarData()">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+    </div>
+
     <div class="info-bar-row col-lg-6 col-md-12">
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-3 col-md-3 col-sm-6">
         <div class="info-box-content">
