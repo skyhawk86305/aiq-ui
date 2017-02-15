@@ -242,7 +242,7 @@ describe('The cluster select component', function() {
         });
       });
 
-      it('should reset with an empty filter', function() {
+      it('should reset with an empty filter', function(done) {
           dropDownMenu = clusterSelect.open();
           dropDownMenu.filter('').then(function() {
           var expectedClusters = [
@@ -269,7 +269,7 @@ describe('The cluster select component', function() {
             { customer: 'Zebra Media, Inc.', clusters: ['RKXV-SF01'] }
           ];
 
-          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters, done);
         });
       });
     });
@@ -277,6 +277,7 @@ describe('The cluster select component', function() {
 
   });
 });
+
 describe('selecting clusters', function() {
 
   beforeAll(function(done) {
@@ -296,20 +297,24 @@ describe('selecting clusters', function() {
 
     dropDownMenu.allClustersTab.click();
     expect(list.customers.count()).to.eventually.equal(21);
-    list.customer('Bill').then(function(customer) {
+    return list.customer('Bill').then(function(customer) {
       customer.selectCluster('barCluster');
     });
   };
 
-  it('should close the drop down and update the selected cluster', function() {
-    selectClusterSequence();
-    expect(dropDownMenu.el.isDisplayed()).to.eventually.be.false;
-    expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');
+  it('should close the drop down and update the selected cluster', function(done) {
+    selectClusterSequence().then(function () {
+      expect(dropDownMenu.el.isDisplayed()).to.eventually.be.false;
+      expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');
+      done();
+    });
   });
 
-  it('should navigate the user to the default /cluster route with the selected clusterID embedded in the url', function() {
-    selectClusterSequence();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/reporting/overview');
+  it('should navigate the user to the default /cluster route with the selected clusterID embedded in the url', function(done) {
+    selectClusterSequence().then(function () {
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/reporting/overview');
+      done();
+    });
   });
 
   it('should add the selected cluster to the top of the recently viewed', function() {
@@ -332,7 +337,7 @@ describe('selecting clusters', function() {
   });
 });
 
-function compareExpectedAllClustersList(clusterList, expectedClustersArr) {
+function compareExpectedAllClustersList(clusterList, expectedClustersArr, done) {
   expect(clusterList.customers.count()).to.eventually.equal(expectedClustersArr.length);
   clusterList.customers.each(function (customerElem, customerIndex) {
     customerElem.element(by.css('span')).getText().then(function (name) {
@@ -342,6 +347,9 @@ function compareExpectedAllClustersList(clusterList, expectedClustersArr) {
         customer.clusters.each(function (clusterElem, clusterIndex) {
           expect(clusterElem.getText()).to.eventually.equal(expectedClustersArr[customerIndex].clusters[clusterIndex]);
         });
+        if(typeof done === 'function') {
+          done();
+        }
       });
     });
   });
