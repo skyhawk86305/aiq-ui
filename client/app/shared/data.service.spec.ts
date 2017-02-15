@@ -7,6 +7,8 @@ describe('Data Service', function () {
       location,
       response;
 
+  beforeEach(angular.mock.module('aiqUi'));
+
   beforeEach(inject(function ($rootScope, DataService, $httpBackend, $location) {
     rootScope = $rootScope;
     service = DataService;
@@ -14,27 +16,27 @@ describe('Data Service', function () {
     location = $location;
   }));
 
-  afterEach(function() {
+  afterEach(function () {
     http.verifyNoOutstandingExpectation();
     http.verifyNoOutstandingRequest();
   });
 
-  describe('initialization', function() {
-    it('should have three functions: callAPI, callGuzzleAPI, and callGraphAPI', function() {
+  describe('initialization', function () {
+    it('should have three functions: callAPI, callGuzzleAPI, and callGraphAPI', function () {
       expect(service.callAPI).toBeDefined();
       expect(service.callGuzzleAPI).toBeDefined();
       expect(service.callGraphAPI).toBeDefined();
     });
   });
 
-  describe('.callAPI', function() {
+  describe('.callAPI', function () {
     it('should make an $http request to the API with the provided method name and params', function () {
       service.callAPI('foobar', {param: 'baz'});
       http.expect('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond({});
       http.flush();
     });
 
-    it('should execute the error callback function and route to the login page if the call is unauthenticated', function() {
+    it('should execute the error callback function and route to the login page if the call is unauthenticated', function () {
       let pathSpy = jasmine.createSpyObj('path', ['search']);
       location.url('/foo/bar?baz=fuz');
       spyOn(location, 'path').and.returnValue(pathSpy);
@@ -46,36 +48,35 @@ describe('Data Service', function () {
       expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
     });
 
-    it('should return error message if the api call fails', function() {
+    it('should return error message if the api call fails', function () {
       response = 'foobar';
       http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(400, response);
-      service.callAPI('foobar', {param: 'baz'})
-        .then(response => {expect(response).toEqual('foobar');});
+      service.callAPI('foobar', {param: 'baz'}).catch(err => {expect(err).toEqual('foobar');});
       http.flush();
     });
   });
 
-  describe('.callGuzzleAPI', function() {
+  describe('.callGuzzleAPI', function () {
     it('should make an $http request to the API with the provided method name and cluster ID', function () {
       service.callGuzzleAPI('12345', 'foobar');
-      http.expect('GET', '/state/cluster/12345/foobar').respond([]);
+      http.expect('GET', '/state/cluster/12345/foobar').respond({});
       http.flush();
     });
 
     it('should make an $http request to the API with the provided cluster ID', function () {
       service.callGuzzleAPI('12345');
-      http.expect('GET', '/state/cluster/12345').respond([]);
+      http.expect('GET', '/state/cluster/12345').respond({});
       http.flush();
     });
 
-    it('should return a rejected promise if there is no clusterID passed', function() {
+    it('should return a rejected promise if there is no clusterID passed', function () {
       let rejected = false;
       service.callGuzzleAPI().catch( () => { rejected = true; });
       rootScope.$apply();
       expect(rejected).toBeTruthy();
     });
 
-    it('should execute the error callback function and route to the login page if the call is unauthenticated', function() {
+    it('should execute the error callback function and route to the login page if the call is unauthenticated', function () {
       let pathSpy = jasmine.createSpyObj('path', ['search']);
       location.url('/foo/bar?baz=fuz');
       spyOn(location, 'path').and.returnValue(pathSpy);
@@ -87,26 +88,28 @@ describe('Data Service', function () {
       expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
     });
 
-    it('should return a resolved promise with an empty array if guzzleAPI returns a 404', function() {
+    it('should return a resolved promise with an empty array if guzzleAPI returns a 404', function () {
       response = {message: 'bar'};
       http.when('GET', '/state/cluster/1234').respond(404, response);
-      service.callGuzzleAPI('1234').then(response => {
-        expect(response).toEqual([]);
-      });
+      service.callGuzzleAPI('1234')
+        .then(response => {
+          expect(response).toEqual([]);
+        });
       http.flush();
     });
 
-    it('should a return a rejected promise with the error message if the call fails and is neither a 404 nor 401 error', function() {
+    it('should a return a rejected promise with the error message if the call fails and is neither a 404 nor 401 error', function () {
       response = {message: 'bar'};
       http.when('GET', '/state/cluster/1234').respond(400, response);
-      service.callGuzzleAPI('1234').catch( err => {
-        expect(err.data).toEqual(response);
-      });
+      service.callGuzzleAPI('1234')
+        .catch( err => {
+          expect(err.data).toEqual(response);
+        });
       http.flush();
     });
   });
 
-  describe('.callGraphAPI', function() {
+  describe('.callGraphAPI', function () {
     it('should make an $http request to the API with the provided graph name and snapshot', function () {
       service.callGraphAPI('foobar', {clusterID: 123, snapshot: true});
       http.expect('GET', '/graph/cluster/123/foobar/snapshot').respond({});
@@ -129,9 +132,10 @@ describe('Data Service', function () {
 
     it('should simply return the api call response for a snapshot', function () {
       http.when('GET', '/graph/cluster/456/foobar/snapshot').respond('foobar');
-      service.callGraphAPI('foobar', {clusterID: 456, snapshot: true}).then( response => {
-        expect(response.data).toEqual('foobar');
-      });
+      service.callGraphAPI('foobar', {clusterID: 456, snapshot: true})
+        .then( response => {
+          expect(response.data).toEqual('foobar');
+        });
       http.flush();
     });
 
@@ -145,13 +149,14 @@ describe('Data Service', function () {
         endpoint = '/graph/cluster/456/foobar?startTime=2017-02-08T21:04:38.000Z&endTime=2017-02-09T21:04:38.000Z&resolution=3024';
       response = {timestampSec: [1,2,3]};
       http.when('GET', endpoint).respond(response);
-      service.callGraphAPI('foobar', params).then( response => {
-        expect(response.data.timestamps).toEqual([1000, 2000, 3000]);
-      });
+      service.callGraphAPI('foobar', params)
+        .then( response => {
+          expect(response.data.timestamps).toEqual([1000, 2000, 3000]);
+        });
       http.flush();
     });
 
-    it('should execute the error callback function and route to the login page if the call is unauthenticated', function() {
+    it('should execute the error callback function and route to the login page if the call is unauthenticated', function () {
       let pathSpy = jasmine.createSpyObj('path', ['search']);
       location.url('/foo/bar?baz=fuz');
       spyOn(location, 'path').and.returnValue(pathSpy);
@@ -163,12 +168,13 @@ describe('Data Service', function () {
       expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
     });
 
-    it('should return a rejected promise with the error message if the call fails and is not a 401 error', function() {
+    it('should return a rejected promise with the error message if the call fails and is not a 401 error', function () {
       response = {message: 'bar'};
       http.when('GET', '/graph/cluster/789/foobar/snapshot').respond(400, response);
-      service.callGraphAPI('foobar', {clusterID: 789, snapshot: true}).catch(function(err) {
-        expect(err.data).toEqual(response);
-      });
+      service.callGraphAPI('foobar', {clusterID: 789, snapshot: true})
+        .catch( err => {
+          expect(err.data).toEqual(response);
+        });
       http.flush();
     });
   });
