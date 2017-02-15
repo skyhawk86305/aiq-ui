@@ -3,6 +3,17 @@
     <span>{{$ctrl.clusterSummary.clusterName}}</span>
   </div>
   <div class="sf-widget container-fluid info-bar">
+
+    <div class="info-bar-timestamp">
+      <span>Last Updated: {{$ctrl.infoBarLastUpdated}}</span>
+      <div class="info-bar-refresh-button">
+        <button class="button refresh-btn"
+                ng-click="$ctrl.refreshInfoBarData()">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+    </div>
+
     <div class="info-bar-row col-lg-6 col-md-12">
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-3 col-md-3 col-sm-6">
         <div class="info-box-content">
@@ -75,22 +86,22 @@
       </span>
       </div>
       <div sf-state state="$ctrl.getClusterSummaryState" uib-collapse="isDetailCollapsed" class="info-details-content">
-        <div class="info-details-content-row">
-          <div class="info-details-content-box -elementos-version col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="info-details-content-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-details-content-box -elementos-version">
             <span class="info-details-content-title">Element OS Version</span>
             <span class="info-details-content-value">{{$ctrl.clusterSummary.clusterVersion}}</span>
           </div>
-          <div class="info-details-content-box -node-types col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <span class="info-details-content-title">Node Types</span>
-            <span class="info-details-content-value">{{$ctrl.nodeCount}}</span>
-          </div>
-        </div>
-        <div class="info-details-content-row">
-          <div class="info-details-content-box -iscsi-sessions col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-details-content-box -iscsi-sessions">
             <span class="info-details-content-title">iSCSI Sessions</span>
             <span class="info-details-content-value">{{$ctrl.iSCSISessionsCount}}</span>
           </div>
-          <div class="info-details-content-box -encryption-at-rest col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        </div>
+        <div class="info-details-content-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-details-content-box -node-types">
+            <span class="info-details-content-title">Node Types</span>
+            <span class="info-details-content-value">{{$ctrl.nodeCount}}</span>
+          </div>
+          <div class="info-details-content-box -encryption-at-rest">
             <span class="info-details-content-title">Encryption at Rest</span>
             <span class="info-details-content-value">{{$ctrl.encryptionAtRestState}}</span>
           </div>
