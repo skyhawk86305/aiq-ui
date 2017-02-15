@@ -4,7 +4,6 @@ var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('alert-history');
-var navbar = new support.navbarComponent();
 var fixture = mapFixture(support.fixture('ListAlerts'));
 var uniqueKey = 'id';
 var itemsPerPage = 25;
@@ -34,7 +33,7 @@ function mapFixture(rawFixture) {
 
 describe('The Alert History Page', function () {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -42,7 +41,7 @@ describe('The Alert History Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display a table component on page load', function () {

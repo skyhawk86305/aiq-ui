@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -6,7 +5,6 @@ var expect = support.expect;
 var NodesPage = require('../page-objects/cluster/nodes/nodes.po');
 var nodesPage = new NodesPage();
 var fixture = mapFixture(support.fixture('ListActiveNodes'));
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var uniqueKey = 'nodeID';
 var itemsPerPage = 25;
@@ -34,7 +32,7 @@ function mapFixture(rawFixture) {
 describe('The Cluster Nodes Page', function () {
 
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -47,7 +45,7 @@ describe('The Cluster Nodes Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display a table component on page load', function () {

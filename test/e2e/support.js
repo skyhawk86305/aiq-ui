@@ -35,22 +35,7 @@ support = {
   getActiveElement: function() {
     return browser.driver.switchTo().activeElement();
   },
-  logout: function (callback) {
-    request.delete(browser.baseUrl + '/sessions', callback);
-  },
-  login: function (callback) {
-    var params = {
-      username: serverConfig[argv.env].username,
-      password: new Buffer(serverConfig[argv.env].password).toString('base64')
-    };
-    return request({
-      method: 'PUT',
-      uri: browser.baseUrl + '/sessions',
-      json: true,
-      body: params
-    }, callback);
-  },
-  manualLogin: function() {
+  login: function() {
     var LoginPage = require('./page-objects/login.po'),
       loginPage = new LoginPage;
     browser.get('#/login');
@@ -58,7 +43,7 @@ support = {
     loginPage.passwordInput.enter(serverConfig[argv.env].password);
     loginPage.loginButton.click();
   },
-  manualLogout: function() {
+  logout: function() {
     var navBar = new support.navbarComponent;
     navBar.menu.expand().select('Logout');
   },

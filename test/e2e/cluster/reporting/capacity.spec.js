@@ -1,18 +1,16 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = require('../../support.js').expect;
 var CapacityPage = require('../../page-objects/cluster/reporting/capacity.po');
 var capacityPage = new CapacityPage();
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var clusterId;
 
 describe('The Cluster Capacity Page', function () {
 
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -25,7 +23,7 @@ describe('The Cluster Capacity Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display a sync-graphs component on page load', function () {

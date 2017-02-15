@@ -5,13 +5,12 @@ var expect = require('../../support.js').expect;
 var SyncGraphsComponent = require('../../page-objects/components/sf-components.po').syncGraphs;
 var efficiencyGraphs = new SyncGraphsComponent('efficiency-sync-graphs');
 var support = require('../../support.js');
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var clusterId;
 
 describe('The Cluster Efficiency Page', function () {
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -24,7 +23,7 @@ describe('The Cluster Efficiency Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display a sync-graphs component on page load', function () {

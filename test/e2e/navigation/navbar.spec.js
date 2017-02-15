@@ -7,7 +7,7 @@ var clusterSelect = new support.clusterSelectComponent();
 
 describe('The main navbar', function() {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -15,7 +15,7 @@ describe('The main navbar', function() {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display on initial page load', function() {
@@ -47,11 +47,11 @@ describe('The main navbar', function() {
 
 describe('should remember what cluster or pages have been selected previously', function() {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should contain a cluster select component for navigating to cluster specific pages', function() {
@@ -86,7 +86,7 @@ describe('should remember what cluster or pages have been selected previously', 
 
 describe('The dropdown menu', function() {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -94,7 +94,7 @@ describe('The dropdown menu', function() {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should go to the SF Support page when the Support item is selected from the dropdown menu', function() {
@@ -128,7 +128,7 @@ describe('The dropdown menu', function() {
 
 describe('The sub navbar', function() {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -136,7 +136,7 @@ describe('The sub navbar', function() {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should only be displayed if the active main navbar item has sub navbar items', function() {
@@ -167,7 +167,7 @@ describe('The sub navbar', function() {
 
 describe('The sub nav menu', function() {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -175,7 +175,7 @@ describe('The sub nav menu', function() {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should only be displayed if the active sub navbar item has sub nav menu items', function() {

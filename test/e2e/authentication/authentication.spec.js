@@ -140,7 +140,7 @@ describe('Authentication', function() {
 
   describe('Logging Out', function() {
     beforeEach(function() {
-      support.manualLogin();
+      support.login();
     });
 
     it('should take me to the login page', function () {

@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
@@ -6,7 +5,6 @@ var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('clusterAlert');
 var fixture = mapFixture(support.fixture('ListAlertsByCluster'));
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var uniqueKey = 'id';
 var itemsPerPage = 25;
@@ -35,7 +33,7 @@ function mapFixture(rawFixture) {
 describe('The Cluster Alerts Page', function () {
 
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -48,7 +46,7 @@ describe('The Cluster Alerts Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
 

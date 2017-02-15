@@ -1,11 +1,9 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('api-collection');
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = support.fixture('GetGuzzleAPIs');
 var uniqueKey = 'source';
@@ -18,21 +16,8 @@ var columns = [
 ];
 
 describe('The Cluster API Collection Page', function () {
-
-  /* have to use URL right now as we have disabled navigation to this page temporarily
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-reporting').then(function() {
-          navbar.subNavMenu.click('cluster-reporting-apiCollection').then(done);
-      });
-    });
-  });
-  */
-
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -45,7 +30,7 @@ describe('The Cluster API Collection Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
 

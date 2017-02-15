@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -9,7 +8,6 @@ var fixture = mergeFixtures(support.fixture('ListDrives'), support.fixture('GetD
 var uniqueKey = 'driveID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var clusterId;
 var columns = [
@@ -41,7 +39,7 @@ function mergeFixtures(fixture1, fixture2) {
 describe('The Cluster Drives Page', function () {
 
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -54,7 +52,7 @@ describe('The Cluster Drives Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display a table component on page load', function () {

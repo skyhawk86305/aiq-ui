@@ -4,13 +4,12 @@ var support = require('../../support.js');
 var expect = support.expect;
 var ClusterOverviewComponent = require('../../page-objects/cluster/reporting/overview.po');
 var clusterOverviewPage = new ClusterOverviewComponent();
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var clusterId;
 
 describe('Cluster Overview Page', function () {
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -23,7 +22,7 @@ describe('Cluster Overview Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should have the performance graph with the correct title, series and legend items', function () {

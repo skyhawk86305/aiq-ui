@@ -10,7 +10,7 @@ var dropDownMenu, hintsTooltip;
 describe('The cluster select component on initial page load', function() {
 
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -18,7 +18,7 @@ describe('The cluster select component on initial page load', function() {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display on initial page load', function() {
@@ -32,7 +32,7 @@ describe('The cluster select component on initial page load', function() {
 
 describe('The cluster select component', function() {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -40,7 +40,7 @@ describe('The cluster select component', function() {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should open a drop down menu when clicking on it', function() {
@@ -281,7 +281,7 @@ describe('The cluster select component', function() {
 
 describe('selecting clusters', function() {
   beforeAll(function() {
-    support.manualLogin();
+    support.login();
   });
 
   beforeEach(function(done) {
@@ -289,7 +289,7 @@ describe('selecting clusters', function() {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   var selectClusterSequence = function() {

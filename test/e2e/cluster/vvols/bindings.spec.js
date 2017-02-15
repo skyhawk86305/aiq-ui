@@ -1,11 +1,9 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('binding');
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListVirtualVolumeBindings'));
 var uniqueKey = 'virtualVolumeBindingID';
@@ -29,7 +27,7 @@ function mapFixture(rawFixture) {
 describe('The Cluster VVol Bindings Page', function () {
 
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -42,7 +40,7 @@ describe('The Cluster VVol Bindings Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
   it('should display a table component on page load', function () {

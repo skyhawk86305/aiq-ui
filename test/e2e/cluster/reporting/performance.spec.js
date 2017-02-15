@@ -1,18 +1,16 @@
-/* jshint expr: true */
 'use strict';
 
 var expect = require('../../support.js').expect;
 var SyncGraphsComponent = require('../../page-objects/components/sf-components.po').syncGraphs;
 var performanceGraphs = new SyncGraphsComponent('performance-sync-graphs');
 var support = require('../../support.js');
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var clusterId;
 
 describe('The Cluster Performance Page', function () {
 
   beforeAll(function(done) {
-    support.manualLogin();
+    support.login();
     var openedClusterSelect = clusterSelect.open();
     support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
       clusterId = firstClusterId;
@@ -25,7 +23,7 @@ describe('The Cluster Performance Page', function () {
   });
 
   afterAll(function() {
-    support.manualLogout();
+    support.logout();
   });
 
 
