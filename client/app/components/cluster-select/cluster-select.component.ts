@@ -6,6 +6,7 @@
     .component('clusterSelect', {
       template: require('./cluster-select.tpl.html'),
       controller: [
+        '$rootScope',
         '$filter',
         '$location',
         '$routeParams',
@@ -14,7 +15,7 @@
       ]
     });
 
-  function ClusterSelectController($filter, $location, $routeParams, ClusterSelectService) {
+  function ClusterSelectController($rootScope, $filter, $location, $routeParams, ClusterSelectService) {
     let self = this,
         rawClusters = [],
         rawRecentlyViewed = [];
@@ -34,6 +35,8 @@
         }
       });
     };
+
+    $rootScope.$on('$routeChangeSuccess', self.init);
 
     // Re-populate the list of clusters to select from
     self.refresh = function() {
