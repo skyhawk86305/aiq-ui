@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
@@ -27,10 +26,8 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Alert Policies Page', function () {
-
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {

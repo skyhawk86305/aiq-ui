@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -36,17 +35,6 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Cluster Volumes Page', function () {
-
-  // beforeAll(function(done) {
-  //   support.manualLogin();
-  //   clusterSelect.open().clustersList().selectClusterByIndex(0).then(function() {
-  //     browser.getLocationAbsUrl().then(function(text){
-  //       clusterId = text.split('/cluster\/')[1].split('\/reporting').shift();
-  //       done();
-  //     });
-  //   });
-  // });
-
   beforeAll(function(done) {
     support.manualLogin();
     var openedClusterSelect = clusterSelect.open();

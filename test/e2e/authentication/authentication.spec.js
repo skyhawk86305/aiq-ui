@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -140,9 +139,8 @@ describe('Authentication', function() {
   });
 
   describe('Logging Out', function() {
-    beforeEach(function(done) {
-      support.manualLogin()
-      done();
+    beforeEach(function() {
+      support.manualLogin();
     });
 
     it('should take me to the login page', function () {

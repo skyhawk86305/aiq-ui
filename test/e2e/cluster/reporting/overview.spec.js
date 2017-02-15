@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
@@ -27,7 +26,7 @@ describe('Cluster Overview Page', function () {
     support.manualLogout();
   });
 
-  it('@smoke should have the performance graph with the correct title, series and legend items', function () {
+  it('should have the performance graph with the correct title, series and legend items', function () {
     var graph = clusterOverviewPage.graphs.clusterPerformance;
     expect(graph.el.isDisplayed()).to.eventually.be.true;
     expect(graph.title.getText()).to.eventually.equal('Performance');
@@ -41,11 +40,11 @@ describe('Cluster Overview Page', function () {
     }
   });
 
-  it('@smoke should have an export button for the Performance Graph', function() {
+  it('should have an export button for the Performance Graph', function() {
     expect(clusterOverviewPage.graphs.clusterPerformance.exportButton.isDisplayed()).to.eventually.be.true;
   });
 
-  it('@smoke should have the utilization graph with the correct title, series and legend items', function () {
+  it('should have the utilization graph with the correct title, series and legend items', function () {
     var graph = clusterOverviewPage.graphs.performanceUtilization;
     expect(graph.el.isDisplayed()).to.eventually.be.true;
     expect(graph.title.getText()).to.eventually.equal('Utilization');

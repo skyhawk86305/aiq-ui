@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var expect = require('../support.js').expect;
@@ -10,9 +9,8 @@ var dropDownMenu, hintsTooltip;
 
 describe('The cluster select component on initial page load', function() {
 
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {
@@ -33,11 +31,8 @@ describe('The cluster select component on initial page load', function() {
 });
 
 describe('The cluster select component', function() {
-  //dropDownMenu = clusterSelect.open();
-
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {
@@ -285,10 +280,8 @@ describe('The cluster select component', function() {
 });
 
 describe('selecting clusters', function() {
-
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {

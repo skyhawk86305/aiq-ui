@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -7,10 +6,8 @@ var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 
 describe('The main navbar', function() {
-
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {
@@ -49,10 +46,8 @@ describe('The main navbar', function() {
 });
 
 describe('should remember what cluster or pages have been selected previously', function() {
-
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   afterAll(function() {
@@ -89,11 +84,9 @@ describe('should remember what cluster or pages have been selected previously', 
   });
 });
 
-
 describe('The dropdown menu', function() {
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {
@@ -134,9 +127,8 @@ describe('The dropdown menu', function() {
 });
 
 describe('The sub navbar', function() {
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {
@@ -174,9 +166,8 @@ describe('The sub navbar', function() {
 });
 
 describe('The sub nav menu', function() {
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.manualLogin();
-    done();
   });
 
   beforeEach(function(done) {
