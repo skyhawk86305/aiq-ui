@@ -95,4 +95,13 @@ describe('Component: overviewDashboard', function() {
       });
     });
   });
+
+   describe('.refreshInfoBarData', function () {
+    it('should call .setInfoBarData', function () {
+      controller.refreshInfoBarData();
+      expect(dataService.callAPI).toHaveBeenCalled();
+      expect(dataService.callGraphAPI).toHaveBeenCalled();
+    });
+  });
+
 });

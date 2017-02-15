@@ -22,7 +22,7 @@
 
     function getColumns() {
       return [
-        {key: 'volumeID', label: 'ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+        {key: 'volumeID', label: 'Volume ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
         {key: 'snapshotID', label: 'Snapshot ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
         {key: 'parentVirtualVolumeID', label: 'Parent Virtual Volume ID', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
         {key: 'virtualVolumeID', label: 'Virtual Volume ID', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
