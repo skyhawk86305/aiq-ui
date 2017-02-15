@@ -27,6 +27,7 @@
     // Populate list of clusters and set the cached selected cluster using clusterID from route params
     self.init = function() {
       self.refresh().then(function() {
+        console.log('inside init');
         let clusterFromRoute = rawClusters.filter(function(cluster) {
           return cluster.clusterID && cluster.clusterID.toString() === $routeParams.clusterID;
         });
