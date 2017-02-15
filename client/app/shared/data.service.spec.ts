@@ -58,13 +58,13 @@ describe('Data Service', function () {
   describe('.callGuzzleAPI', function() {
     it('should make an $http request to the API with the provided method name and cluster ID', function () {
       service.callGuzzleAPI('12345', 'foobar');
-      http.expect('GET', '/state/cluster/12345/foobar').respond({});
+      http.expect('GET', '/state/cluster/12345/foobar').respond([]);
       http.flush();
     });
 
     it('should make an $http request to the API with the provided cluster ID', function () {
       service.callGuzzleAPI('12345');
-      http.expect('GET', '/state/cluster/12345').respond({});
+      http.expect('GET', '/state/cluster/12345').respond([]);
       http.flush();
     });
 
