@@ -12,7 +12,7 @@ var uniqueKey = 'volumeID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
-  {key: 'volumeID', label: 'ID', format: {filter: 'string'}},
+  {key: 'volumeID', label: 'Volume ID', format: {filter: 'string'}},
   {key: 'snapshotID', label: 'Snapshot ID', format: {filter: 'string'}},
   {key: 'parentVirtualVolumeID', label: 'Parent Virtual Volume ID', format: {filter: 'string'}},
   {key: 'virtualVolumeID', label: 'Virtual Volume ID', format: {filter: 'string'}},
