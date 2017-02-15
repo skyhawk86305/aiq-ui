@@ -24,7 +24,8 @@ var columns = [
 ];
 
 function mapFixture(rawFixture) {
-  return rawFixture.result.nodes.map(function(node) {
+  return rawFixture.nodes.map(function(node) {
+    node.nodeType = node.platformInfo.nodeType;
     return node;
   });
 }

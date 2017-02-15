@@ -25,7 +25,7 @@ var columns = [
 ];
 
 function mapFixture(rawFixture) {
-  return rawFixture.result.volumes.map(function(volume) {
+  return rawFixture.volumes.map(function(volume) {
     volume.minIOPS = volume.qos.minIOPS;
     volume.maxIOPS = volume.qos.maxIOPS;
     volume.burstIOPS = volume.qos.burstIOPS;
