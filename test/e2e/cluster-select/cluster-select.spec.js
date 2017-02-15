@@ -278,7 +278,7 @@ describe('The cluster select component', function() {
   });
 });
 
-fdescribe('selecting clusters', function() {
+describe('selecting clusters', function() {
 
   beforeAll(function(done) {
     support.login(function() {
@@ -341,7 +341,6 @@ function compareExpectedAllClustersList(clusterList, expectedClustersArr, done) 
   clusterList.customers.each(function (customerElem, customerIndex) {
     customerElem.element(by.css('span')).getText().then(function (name) {
       clusterList.customer(name).then(function(customer) {
-        console.log(customer.name);
         expect(customer.name).to.equal(expectedClustersArr[customerIndex].customer);
         expect(customer.clusters.count()).to.eventually.equal(expectedClustersArr[customerIndex].clusters.length);
         customer.clusters.each(function (clusterElem, clusterIndex) {
