@@ -70,14 +70,9 @@
     };
 
     function updateSelectedCluster(cluster) {
-      let index = -1;
-
-      for (var i = 0, len = rawRecentlyViewed.length; i < len; i++) {
-        if (rawRecentlyViewed[i].clusterID === cluster.clusterID) {
-          index = i;
-          break;
-        }
-      }
+      let index = rawRecentlyViewed.findIndex(function(aCluster) {
+        return aCluster.clusterID === cluster.clusterID;
+      });
 
       // deduplicate and push to front of recently viewed array
       if (index >= 0) { rawRecentlyViewed.splice(index, 1); }
