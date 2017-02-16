@@ -141,6 +141,7 @@ describe('Authentication', function() {
   describe('Logging Out', function() {
     beforeEach(function() {
       support.login();
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
     });
 
     it('should take me to the login page', function () {

@@ -55,11 +55,11 @@ describe('The Cluster Drives Page', function () {
     support.logout();
   });
 
-  it('should display a table component on page load', function () {
+  it('@any @smoke should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the correct columns and headers', function () {
+  it('@any @smoke should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
       expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);
@@ -70,16 +70,16 @@ describe('The Cluster Drives Page', function () {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
   });
 
-  it('should have an export button for the table', function() {
+  it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
 
 
-  it('should have an quick filter for table', function() {
+  it('@any should have an quick filter for table', function() {
     expect(table.controlBar.quickFilter.el.isPresent()).to.eventually.be.true;
   });
 
-  it('should have the filter buttons for each valid status in the quick filter', function() {
+  it('@any should have the filter buttons for each valid status in the quick filter', function() {
     expect(table.controlBar.quickFilter.buttons.count()).to.eventually.equal(3);
     var buttonText = ['Active','Available','Failed'];
     for (var i=0; i < buttonText.length; i++) {
@@ -87,7 +87,7 @@ describe('The Cluster Drives Page', function () {
     }
   });
 
-  it('should have the Active button selected by default on the quick Filter', function() {
+  it('@any should have the Active button selected by default on the quick Filter', function() {
     var buttonText = ['Active','Available','Failed'];
     for (var i=0; i < buttonText.length; i++) {
       if (i < 1 ) {

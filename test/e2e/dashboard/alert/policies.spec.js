@@ -27,7 +27,9 @@ function mapFixture(rawFixture) {
 describe('The Alert Policies Page', function () {
   beforeAll(function() {
     support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
   });
+
 
   beforeEach(function(done) {
     browser.get('#/dashboard/alerts/policies').then(done);
@@ -37,11 +39,11 @@ describe('The Alert Policies Page', function () {
     support.logout();
   });
 
-  it('should display a table component on page load', function () {
+  it('@any @smoke should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the correct columns and headers', function () {
+  it('@any @smoke should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
       expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);
@@ -52,7 +54,7 @@ describe('The Alert Policies Page', function () {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
   });
 
-  it('should have an export button for the table', function() {
+  it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
 });

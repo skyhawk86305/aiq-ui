@@ -22,7 +22,7 @@ function mapFixture(rawFixture) {
   return rawFixture.hosts;
 }
 
-describe('The Cluster Host Page', function () {
+describe('The Cluster VVols Host Page', function () {
 
   beforeAll(function(done) {
     support.login();

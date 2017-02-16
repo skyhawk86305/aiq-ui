@@ -28,7 +28,7 @@ function mapFixture(rawFixture) {
 
 
 // Skip Storage Container tests, pending the secret-scrubbing work
-describe('The Cluster Storage Containers Page', function () {
+describe('The Cluster VVols Storage Containers Page', function () {
 
   beforeAll(function(done) {
     support.login();

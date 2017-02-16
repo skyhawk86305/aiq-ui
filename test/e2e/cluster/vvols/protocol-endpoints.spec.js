@@ -23,7 +23,7 @@ function mapFixture(rawFixture) {
   return rawFixture.protocolEndpoints;
 }
 
-describe('The Cluster Protocol Endpoint Page', function () {
+describe('The Cluster VVols Protocol Endpoint Page', function () {
 
   beforeAll(function(done) {
     support.login();
@@ -43,7 +43,6 @@ describe('The Cluster Protocol Endpoint Page', function () {
   });
 
   it('should display a table component on page load', function () {
-    browser.get('#/cluster/26/vvols/protocol-endpoints');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 

@@ -11,6 +11,7 @@ describe('The cluster select component on initial page load', function() {
 
   beforeAll(function() {
     support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
   });
 
   beforeEach(function(done) {
@@ -21,11 +22,11 @@ describe('The cluster select component on initial page load', function() {
     support.logout();
   });
 
-  it('should display on initial page load', function() {
+  it('@any @smoke should display on initial page load', function() {
     expect(clusterSelect.el.isPresent()).to.eventually.be.true;
   });
 
-  it('should default to All Clusters when none are selected', function () {
+  it('@any @smoke should default to All Clusters when none are selected', function () {
     expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('All Clusters');
   });
 });
@@ -33,6 +34,7 @@ describe('The cluster select component on initial page load', function() {
 describe('The cluster select component', function() {
   beforeAll(function() {
     support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
   });
 
   beforeEach(function(done) {
@@ -43,7 +45,7 @@ describe('The cluster select component', function() {
     support.logout();
   });
 
-  it('should open a drop down menu when clicking on it', function() {
+  it('@any @smoke should open a drop down menu when clicking on it', function() {
     dropDownMenu = clusterSelect.open();
     expect(dropDownMenu.el.isDisplayed()).to.eventually.be.true;
   });
@@ -60,7 +62,7 @@ describe('The cluster select component', function() {
       support.checkScroll(dropDownMenu.scrollableMenu,true);
     });
 
-    it('should allow the user to view a list of recently viewed clusters', function() {
+    it('@any should allow the user to view a list of recently viewed clusters', function() {
       dropDownMenu = clusterSelect.open();
       dropDownMenu.recentlyViewedTab.click();
       expect(dropDownMenu.activeTab.getText()).to.eventually.equal('Recently Viewed');
@@ -68,7 +70,7 @@ describe('The cluster select component', function() {
     });
 
     describe('filtering clusters', function() {
-      it('should display hints in a tooltip', function() {
+      it('@any should display hints in a tooltip', function() {
         dropDownMenu = clusterSelect.open();
         hintsTooltip = dropDownMenu.viewHints();
         expect(hintsTooltip.menu.isDisplayed()).to.eventually.be.true;

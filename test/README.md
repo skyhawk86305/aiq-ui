@@ -26,6 +26,15 @@ Running the Tests
   - Run against the current build served locally via express
   - Use a mock backend to respond to API calls with text fixtures found at /server/fixtures/<fixture-name>
   - Output coverage reports TBD
+  - Specific suites are indicated with @tags at the beginning of the title of the test (see testing guidelines):
+   DEV should use the following tags:
+   -- @any should be added to tests that are data independent and can be run on any environment
+   -- @fixture_name should be used ONLY for tests that require non-default fixture data
+   -- NO tag should be used for tests that require the default fixture
+   QE will add @smoke tags as necessary:
+   -- @smoke will be used for indicating tests to run for acceptance
+
+
 
 `gulp test:e2e`
 
@@ -74,7 +83,6 @@ reports that are output to /report/e2e/htmlReport.html
   * NOT test what has already been unit tested
   * Run independently at file level to allow them to be run in parallel
   * NOT have selectors (these belong in page objects)
-
 
 ## Page Objects
 
