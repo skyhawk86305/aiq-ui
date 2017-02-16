@@ -18,7 +18,7 @@
   function ClusterSelectController($rootScope, $filter, $location, $routeParams, ClusterSelectService) {
     let self = this,
         rawClusters = [],
-        rawRecentlyViewed = [];
+        rawRecentlyViewed: Array<any> = [];
     self.clusters = [];
     self.recentlyViewed = [];
     self.filterInput = '';
@@ -78,6 +78,7 @@
           break;
         }
       }
+
       // deduplicate and push to front of recently viewed array
       if (index >= 0) { rawRecentlyViewed.splice(index, 1); }
       rawRecentlyViewed.unshift(cluster);
