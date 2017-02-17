@@ -7,3 +7,4 @@
  * dependencies or edit this file.
  */
 import 'array-find';
+import 'array-find-index';
