@@ -13,16 +13,16 @@ module.exports = {
     host: 'activeiq.dev.aiq.netapp.internal',
     port: 80,
     subDir: '/beta',
-    username: 'aiq_ui_qe@netapp.com',
-    password: 'Solidfire123',
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
     fixture: null
   },
   prod: {
     host: 'activeiq.solidfire.com',
     port: 80,
     subDir: '/beta',
-    username: '',
-    password: '',
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
     fixture: null
   }
 };
