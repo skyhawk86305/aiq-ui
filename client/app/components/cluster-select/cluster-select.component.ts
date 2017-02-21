@@ -36,7 +36,9 @@
       });
     };
 
-    $rootScope.$on('$routeChangeSuccess', self.init);
+    self.$onDestroy = $rootScope.$on('$routeChangeSuccess', () => {
+      if ($location.path() !== '/login') self.init();
+    });
 
     // Re-populate the list of clusters to select from
     self.refresh = function() {
