@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -91,16 +90,19 @@ describe('Authentication', function() {
 
   describe('Logging In', function() {
     beforeEach(function(done) {
-      support.logout(function() {
-        browser.get('#').then(done);
+      browser.get('#/dashboard/overview').then(function() {
+        browser.getLocationAbsUrl().then(function(url){
+          if (url.indexOf('login') === -1){
+            var navBar = new support.navbarComponent;
+            navBar.menu.expand().select('Logout');
+          }
+          done();
+        });
       });
     });
 
-    afterEach(function(done) {
-      support.login(done);
-    });
-
     it('should get focus when selected', function () {
+      console.log("starting test");
       loginPage.usernameInput.click();
       expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('username-input');
       loginPage.passwordInput.click();
@@ -137,12 +139,11 @@ describe('Authentication', function() {
   });
 
   describe('Logging Out', function() {
-    afterEach(function(done) {
-      support.login(done);
+    beforeEach(function() {
+      support.login();
     });
 
     it('should take me to the login page', function () {
-      browser.get('#');
       navbar.menu.expand().select('Logout');
       expect(loginPage.el.isPresent()).to.eventually.be.true;
     });

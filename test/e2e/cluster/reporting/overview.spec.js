@@ -1,27 +1,28 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var ClusterOverviewComponent = require('../../page-objects/cluster/reporting/overview.po');
 var clusterOverviewPage = new ClusterOverviewComponent();
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
-
+var clusterId;
 
 describe('Cluster Overview Page', function () {
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-reporting').then(function() {
-        navbar.subNavMenu.click('cluster-reporting-overview').then(done);
-      });
+  beforeAll(function(done) {
+    support.login();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/overview').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('should have the performance graph with the correct title, series and legend items', function () {
@@ -36,7 +37,6 @@ describe('Cluster Overview Page', function () {
       expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
       expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
     }
-
   });
 
   it('should have an export button for the Performance Graph', function() {

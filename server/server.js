@@ -9,13 +9,13 @@ var express = require('express'),
     .alias('h', 'host')
     .alias('p', 'port')
     .alias('m', 'mock').argv,
-  host = argv.host || serverConfig.defaultHost,
-  port = argv.port || serverConfig.defaultPort,
-  testingTask = argv._[0] === 'test:e2e' || argv._[0] === 'test:acceptance',
+  host = argv.host || serverConfig.local.host,
+  port = argv.port || serverConfig.local.port,
+  testingTask = argv._[0] === 'test:e2e',
   useMock = testingTask || argv.hasOwnProperty('mock'),
   serveProd = argv.hasOwnProperty('prod'),
   routes = useMock ? require('./mock.routes') : require('./proxy.routes'),
-  fixture = typeof argv.mock === 'string' ? argv.mock : serverConfig.defaultFixture,
+  fixture = typeof argv.mock === 'string' ? argv.mock : serverConfig.local.fixture,
   server = express(),
   compiler = webpack(require('../webpack/webpack.dev'));
 

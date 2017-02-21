@@ -17,18 +17,21 @@ var child,
     .alias('v', 'verbose')
     .alias('b', 'browser')
     .alias('s', 'seleniumAddress')
+    .alias('e', 'env')
     .alias('h', 'host')
     .alias('p', 'port')
     .alias('m', 'mock')
-    .alias('t', 'tag').argv;
+    .alias('t', 'tag').argv,
+  isE2ETask = process.argv[2] === 'test:e2e',
+  isRemoteE2ETask = isE2ETask && argv.env;
 
 gulp.task('build', function(done) {
   webpack(configs.webpack, done);
 });
 
 gulp.task('serve', function() {
-  if (process.argv[2] === 'test:e2e' && !argv.mock) { process.argv.push('--mock'); }
-  child = childProcess.fork('./server/server.js', process.argv.slice(3));
+  if (isE2ETask && !argv.mock) { process.argv.push('--mock'); }
+  if (!isRemoteE2ETask) { child = childProcess.fork('./server/server.js', process.argv.slice(3)); }
 });
 
 gulp.task('test:unit', function (done) {
@@ -43,17 +46,19 @@ gulp.task('test:unit', function (done) {
 gulp.task('test:e2e', ['webdriverUpdate', 'serve'], function () {
   return gulp.src(['test/e2e/**/*.spec.js'])
     .pipe(protractor.protractor({configFile: configs.protractor, args: getProtractorArgs()}))
-    .on('error', function (e) { console.log(e); child.kill(); process.exit(-1); })
-    .on('close', function() { child.kill(); process.exit(); });
+    .on('error', function (e) { console.log(e); if (!isRemoteE2ETask) { child.kill(); } process.exit(-1); })
+    .on('close', function() { if (!isRemoteE2ETask) { child.kill(); } process.exit(); });
 });
 
 function getProtractorArgs() {
   var protractorArgs = [],
-    fixture = typeof argv.mock === 'string' ? argv.mock : configs.server.defaultFixture,
-    host = argv.host || configs.server.defaultHost,
-    port = argv.port || configs.server.defaultPort;
+    fixture = typeof argv.mock === 'string' ? argv.mock : configs.server.local.fixture,
+    env = argv.env || 'local',
+    host = argv.host || configs.server[env].host,
+    port = argv.port || configs.server[env].port;
 
-  protractorArgs.push('--baseUrl', 'http://' + host + ':' + port);
+  protractorArgs.push('--baseUrl', 'http://' + host + ':' + port + configs.server[env].subDir);
+  protractorArgs.push('--env', env);
   protractorArgs.push('--fixture', fixture);
   if (argv.tag) { protractorArgs.push('--jasmineNodeOpts.grep', argv.tag); }
   if (argv.tableRows) { protractorArgs.push('--tableRows', argv.tableRows); }

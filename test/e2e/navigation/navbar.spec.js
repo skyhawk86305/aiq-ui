@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -7,15 +6,16 @@ var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 
 describe('The main navbar', function() {
-
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#').then(done);
-    });
+  beforeAll(function() {
+    support.login();
   });
 
-  afterEach(function(done) {
-    support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('should display on initial page load', function() {
@@ -46,15 +46,12 @@ describe('The main navbar', function() {
 });
 
 describe('should remember what cluster or pages have been selected previously', function() {
-
-  beforeAll(function(done) {
-    support.login(function () {
-      browser.get('#').then(done);
-    });
+  beforeAll(function() {
+    support.login();
   });
 
-  afterAll(function(done) {
-    support.logout(done);
+  afterAll(function() {
+    support.logout();
   });
 
   it('should contain a cluster select component for navigating to cluster specific pages', function() {
@@ -87,16 +84,17 @@ describe('should remember what cluster or pages have been selected previously', 
   });
 });
 
-
 describe('The dropdown menu', function() {
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#').then(done);
-    });
+  beforeAll(function() {
+    support.login();
   });
 
-  afterEach(function(done) {
-    support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('should go to the SF Support page when the Support item is selected from the dropdown menu', function() {
@@ -129,16 +127,17 @@ describe('The dropdown menu', function() {
 });
 
 describe('The sub navbar', function() {
-    beforeEach(function(done) {
-        support.login(function() {
-            browser.get('#').then(done);
-            navbar.mainNavbar.click('dashboard').then(done);
-        });
-    });
+  beforeAll(function() {
+    support.login();
+  });
 
-    afterEach(function(done) {
-        support.logout(done);
-    });
+  beforeEach(function(done) {
+    browser.get('#/dashboard').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
+  });
 
   it('should only be displayed if the active main navbar item has sub navbar items', function() {
     expect(navbar.subNavbar.el.isDisplayed()).to.eventually.be.true;
@@ -167,16 +166,17 @@ describe('The sub navbar', function() {
 });
 
 describe('The sub nav menu', function() {
-    beforeEach(function(done) {
-        support.login(function() {
-            browser.get('#').then(done);
-            navbar.mainNavbar.click('dashboard').then(done);
-        });
-    });
+  beforeAll(function() {
+    support.login();
+  });
 
-    afterEach(function(done) {
-        support.logout(done);
-    });
+  beforeEach(function(done) {
+    browser.get('#/dashboard').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
+  });
 
   it('should only be displayed if the active sub navbar item has sub nav menu items', function() {
      navbar.subNavbar.click('dashboard-health');

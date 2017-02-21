@@ -1,15 +1,14 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('event');
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListEvents'));
 var uniqueKey = 'eventID';
 var itemsPerPage = 25;
+var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'eventID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
@@ -29,18 +28,21 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Cluster Events Page', function () {
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-reporting').then(function() {
-        navbar.subNavMenu.click('cluster-reporting-events').then(done);
-      });
+  beforeAll(function(done) {
+    support.login();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/events').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('should display a table component on page load', function () {

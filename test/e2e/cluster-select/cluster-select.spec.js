@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var expect = require('../support.js').expect;
@@ -9,15 +8,17 @@ var dropDownMenu, hintsTooltip;
 
 
 describe('The cluster select component on initial page load', function() {
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#').then(done);
-    });
+
+  beforeAll(function() {
+    support.login();
   });
 
+  beforeEach(function(done) {
+    browser.get('#').then(done);
+  });
 
-  afterEach(function(done) {
-    support.logout(done);
+  afterAll(function() {
+    support.logout();
   });
 
   it('should display on initial page load', function() {
@@ -30,16 +31,16 @@ describe('The cluster select component on initial page load', function() {
 });
 
 describe('The cluster select component', function() {
-  //dropDownMenu = clusterSelect.open();
-
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#').then(done);
-    });
+  beforeAll(function() {
+    support.login();
   });
 
-  afterEach(function(done) {
-    support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('should open a drop down menu when clicking on it', function() {
@@ -279,15 +280,16 @@ describe('The cluster select component', function() {
 });
 
 describe('selecting clusters', function() {
-
-  beforeAll(function(done) {
-    support.login(function() {
-      browser.get('#').then(done);
-    });
+  beforeAll(function() {
+    support.login();
   });
 
-  afterAll(function(done) {
-    support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   var selectClusterSequence = function() {

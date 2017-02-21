@@ -1,10 +1,8 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
-var navbar = new support.navbarComponent();
 var table = new TableComponent('alert-policy');
 var fixture = mapFixture(support.fixture('ListNotifications'));
 var uniqueKey = 'notificationName';
@@ -27,22 +25,19 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Alert Policies Page', function () {
-
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      navbar.subNavbar.click('dashboard-alerts').then(function() {
-        navbar.subNavMenu.click('dashboard-alerts-policies').then(done);
-      });
-    });
+  beforeAll(function() {
+    support.login();
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/dashboard/alerts/policies').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('should display a table component on page load', function () {
-    browser.get('#/dashboard/alerts/policies');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
