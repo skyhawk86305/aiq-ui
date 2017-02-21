@@ -31,10 +31,10 @@ describe('Component: clusterSelect', function() {
     };
     controller = $componentController('clusterSelect', locals, bindings);
     mockData = [
-      {clusterID: 13, foo: 1, bar: 2, baz: 3, customerName: 'SolidFire', clusterName: 'name1'},
-      {clusterID: 14, foo: 4, bar: 5, baz: 6, customerName: 'SolidFire', clusterName: 'name2'},
-      {clusterID: 15, foo: 7, bar: 8, baz: 9, customerName: 'NetApp', clusterName: 'name3'},
-      {clusterID: 16, foo: 10, bar: 11, baz: 12, customerName: 'NetApp', clusterName: 'name4'}
+      {clusterID: 13, foo: 1, bar: 2, baz: 3, customerName: 'SolidFire', clusterName: 'name1', findIndex: function() {return 0;}},
+      {clusterID: 14, foo: 4, bar: 5, baz: 6, customerName: 'SolidFire', clusterName: 'name2', findIndex: function() {return 1;}},
+      {clusterID: 15, foo: 7, bar: 8, baz: 9, customerName: 'NetApp', clusterName: 'name3', findIndex: function() {return 2;}},
+      {clusterID: 16, foo: 10, bar: 11, baz: 12, customerName: 'NetApp', clusterName: 'name4', findIndex: function() {return 3;}}
     ];
     mockDataFiltered = [
       [
@@ -75,6 +75,14 @@ describe('Component: clusterSelect', function() {
         scope.$apply();
         expect(service.updateSelectedCluster).toHaveBeenCalledWith(mockData[1]);
       });
+
+      it('should call refresh function on $routeChangeSuccess', inject(function($rootScope, $location){
+        spyOn(controller, 'refresh').and.returnValue(deferred.promise);
+        $location.path('/cluster/26/reporting/overview');
+        $rootScope.$apply();
+        $rootScope.$broadcast('$routeChangeSuccess');
+        expect(controller.refresh).toHaveBeenCalled();
+      }));
     });
   });
 
