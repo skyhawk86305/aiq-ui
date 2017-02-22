@@ -20,7 +20,7 @@ describe('The main navbar', function() {
 
   it('should display on initial page load', function() {
     expect(navbar.mainNavbar.el.isPresent()).to.eventually.be.true;
-    expect(navbar.mainNavbar.items.count()).to.eventually.equal(5);
+    expect(navbar.mainNavbar.items.count()).to.eventually.equal(6);
   });
 
   it('should contain a menu with options', function() {
