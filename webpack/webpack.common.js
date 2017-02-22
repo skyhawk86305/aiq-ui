@@ -3,7 +3,7 @@ var webpack = require('webpack'),
 
 module.exports = {
   entry: {
-    app: ['array-find-index', './client/app/app.module.ts'],
+    app: ['./client/app/app.module.ts'],
     vendor: ['./client/vendor.ts']
   },
   resolve: {

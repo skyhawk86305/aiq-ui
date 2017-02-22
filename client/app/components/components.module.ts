@@ -1,5 +1,5 @@
 import * as angular from 'angular';
-import 'array-find-index';
+import 'jspolyfill-array.prototype.findIndex';
 
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
