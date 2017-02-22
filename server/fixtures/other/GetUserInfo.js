@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
   result: {
     user: {
       createTime: 1470865743,
