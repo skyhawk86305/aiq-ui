@@ -13,6 +13,7 @@
     public volumeID:               number;
     public clusterID:              number;
     public clusterName:            string;
+    public infoBarLastUpdated:     string;
     public staticDateRangeOptions: Array<any>;
     public syncGraphs:             Array<any>;
     public getVolumeStatus       = 'loading';
@@ -229,6 +230,7 @@
         }).catch(err => {
           this.getAverageVolumePerformanceStatus = 'error';
         });
+      this.infoBarLastUpdated = this.$filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
     }
 
     private getGraphConfig(graph, context = false, sparkLine = false) {
