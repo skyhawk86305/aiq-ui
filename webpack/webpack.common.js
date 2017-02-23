@@ -24,6 +24,6 @@ module.exports = {
   plugins: [
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({ template: './client/index.html' }),
-    new webpack.ProvidePlugin({ d3: 'd3', arrayFind: 'array-find' }) // ToDo: remove once sf-components is packaged correctly
+    new webpack.ProvidePlugin({ d3: 'd3' }) // ToDo: remove once sf-components is packaged correctly
   ]
 };
