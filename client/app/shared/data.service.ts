@@ -49,12 +49,17 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
     },
 
     callGraphAPI(graph, params) {
-      let graphAPI = `/graph/cluster/${params.clusterID}/${graph}`;
+      let graphAPI = `/graph/cluster/${params.clusterID}`;
+
+      if (params.volumeID) {
+        graphAPI += `/volume/${params.volumeID}`;
+      }
+      graphAPI += `/${graph}`;
 
       if (params.snapshot) {
         graphAPI += '/snapshot';
       } else {
-        graphAPI += '?startTime='+ params.start.toISOString() +
+        graphAPI += '?startTime=' + params.start.toISOString() +
           '&endTime=' + params.end.toISOString() +
           '&resolution=' + $filter('graphResolution')(params.resolution, graph);
       }
