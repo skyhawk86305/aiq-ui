@@ -22,7 +22,7 @@
         return DataService.callGuzzleAPI(this.clusterID, 'ListActiveVolumes')
           .then(response => {
             return response.volumes.find(volume => {
-              return volume.volumeID = this.volumeID;
+              return volume.volumeID === this.volumeID;
             });
           });
       },
@@ -31,7 +31,7 @@
         return DataService.callGuzzleAPI(this.clusterID, 'ListVolumeStatsByVolume')
           .then(response => {
             return response.volumeStats.find(volume => {
-              return volume.volumeID = this.volumeID;
+              return volume.volumeID === this.volumeID;
             });
           });
       },
@@ -40,7 +40,7 @@
         return DataService.callGuzzleAPI(this.clusterID, 'ListSnapshots')
           .then(response => {
             return response.snapshots.map(snapshot => {
-              return snapshot.volumeID = this.volumeID;
+              return snapshot.volumeID === this.volumeID;
             });
           });
       },
