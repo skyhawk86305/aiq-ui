@@ -18,7 +18,6 @@ import 'angular-filter';
 import 'angular-route';
 import 'angular-sanitize';
 import 'angular-ui-bootstrap';
-import 'jspolyfill-array.prototype.find';
 import 'jspolyfill-array.prototype.findIndex';
 
 /* sf-components - until it is properly packaged with own dependencies */
