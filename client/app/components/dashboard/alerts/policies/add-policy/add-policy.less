@@ -1,0 +1,100 @@
+@import '../../../../../styles/shared.less';
+
+.add-alert-policy-page {
+  height: 100%;
+  width: 100%;
+  background: @page-bg-color;
+  color: @text-secondary-color;
+  padding: 50px 0px;
+}
+
+.add-alert-policy-container {
+  width: 900px;
+  margin: auto;
+
+  background: @basic-white;
+  box-shadow: 0 1px 3px fade(black, 10%);
+
+  .add-alert-policy-title {
+    font-size: 17px;
+    padding: 11px 14px;
+    border-bottom: 1px solid fade(black, 10%);
+  }
+}
+
+.add-alert-policy-form {
+  text-align: center;
+  padding: 25px;
+
+  .form-group {
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: left;
+
+    label {
+      font-weight: normal;
+      margin-right: 0;
+      width: 360px;
+      margin-right: 5px;
+      vertical-align: top;
+    }
+
+    .control-container {
+      text-align: left;
+      display: inline-block;
+      width: 250px;
+
+      input {
+        &.ng-invalid.ng-touched {
+          border: 1px solid @text-error-color;
+        }
+      }
+    }
+
+    span.post-control-text {
+      margin-left: 5px;
+      margin-top: 6px;
+      display: inline-block;
+      width: 250px;
+      vertical-align: top;
+    }
+
+    &.policyType {
+      margin-bottom: 40px;
+    }
+  }
+
+  .button-container {
+    padding-top: 30px;
+  }
+
+  .button {
+    border-radius: 4px;
+    background-color: @button-color;
+    border: none;
+    height: 35px;
+    color: @basic-white;
+    padding: 0 15px;
+    margin-top: 10px;
+
+    &.cancel {
+      background-color: fade(black, 20%);
+      margin-right: 5px;
+    }
+
+    &:disabled {
+      opacity:.5;
+    }
+  }
+
+  .error-message {
+    margin-bottom: 25px;
+    color: @text-error-color;
+    font-style: italic;
+  }
+
+  .success-message {
+    margin-bottom: 25px;
+    color: @text-success-color;
+  }
+}

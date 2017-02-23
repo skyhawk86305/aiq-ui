@@ -55,6 +55,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<alert-policy-table class="sf-layout-block"></alert-policy-table>',
         reloadOnSearch: false
       })
+      .when('/dashboard/alerts/policies/add', {
+        template: '<add-alert-policy class="sf-layout-block"></add-alert-policy>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
         reloadOnSearch: false
