@@ -54,7 +54,7 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
       if (params.snapshot) {
         graphAPI += '/snapshot';
       } else {
-        graphAPI += '?startTime='+ params.start.toISOString() +
+        graphAPI += '?startTime=' + params.start.toISOString() +
           '&endTime=' + params.end.toISOString() +
           '&resolution=' + $filter('graphResolution')(params.resolution, graph);
       }

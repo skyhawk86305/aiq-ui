@@ -12,8 +12,8 @@
     public email: string;
     public newPassword: string;
 
-    public emailSent: boolean = false;
-    public resetComplete: boolean = false;
+    public emailSent = false;
+    public resetComplete = false;
     public error: string = null;
 
     constructor(private AuthService, private $location) {
