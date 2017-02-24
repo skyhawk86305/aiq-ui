@@ -97,13 +97,9 @@ Run end-to-end tests via protractor.
 
 `-b OR --browser // Change the browser that the tests run in [chrome, firefox, safari]. Default: chrome`
 
-`-m OR --mock // Change the fixture to something other than default`
-
 `-s OR --seleniumAddress // Manually set the selenium address and port for running protractor tests`
 
-`-h OR --host // Set the host name of the express server serving the UI`
-
-`-p OR --port // Set the port number of the express server serving the UI`
+`-e OR --env // Configure the tests to run against a different environemnt [local, dev, prod]. Default: local. Note: USERNAME and PASSWORD environment variables must be set for any env other than local.`
 
 `-t OR --tag   // Run a specific suite of tests tagged with some unique identifier. NOTE: does regex matching e.g. gulp test:e2e --tag ^.*(@smoke|@foo).*$`
 

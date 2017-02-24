@@ -6,6 +6,7 @@
     .component('clusterSelect', {
       template: require('./cluster-select.tpl.html'),
       controller: [
+        '$rootScope',
         '$filter',
         '$location',
         '$routeParams',
@@ -14,10 +15,10 @@
       ]
     });
 
-  function ClusterSelectController($filter, $location, $routeParams, ClusterSelectService) {
+  function ClusterSelectController($rootScope, $filter, $location, $routeParams, ClusterSelectService) {
     let self = this,
         rawClusters = [],
-        rawRecentlyViewed = [];
+        rawRecentlyViewed: Array<any> = [];
     self.clusters = [];
     self.recentlyViewed = [];
     self.filterInput = '';
@@ -34,6 +35,10 @@
         }
       });
     };
+
+    self.$onDestroy = $rootScope.$on('$routeChangeSuccess', () => {
+      if ($location.path() !== '/login') self.init();
+    });
 
     // Re-populate the list of clusters to select from
     self.refresh = function() {
@@ -67,7 +72,10 @@
     };
 
     function updateSelectedCluster(cluster) {
-      let index = rawRecentlyViewed.indexOf(cluster);
+      let index = rawRecentlyViewed.findIndex(function(aCluster) {
+        return aCluster.clusterID === cluster.clusterID;
+      });
+
       // deduplicate and push to front of recently viewed array
       if (index >= 0) { rawRecentlyViewed.splice(index, 1); }
       rawRecentlyViewed.unshift(cluster);

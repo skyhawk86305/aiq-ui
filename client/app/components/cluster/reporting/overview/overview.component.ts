@@ -62,9 +62,7 @@
       DataService.callAPI('GetClusterSummary', {clusterID: parseInt($routeParams.clusterID, 10)})
         .then(function(response) {
           if (response.cluster && !response.cluster.clusterVersion) {
-            console.log('Trying to set clusterVersion');
             response.cluster.clusterVersion = '-';
-            console.log('clusterVersion set');
           }
           ctrl.clusterSummary = response.cluster;
           ctrl.getClusterSummaryState = 'loaded';

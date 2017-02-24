@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
@@ -6,11 +5,11 @@ var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('clusterAlert');
 var fixture = mapFixture(support.fixture('ListAlertsByCluster'));
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var uniqueKey = 'id';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
+var clusterId;
 var columns = [
   {key: 'id', label: 'Alert ID', width: 100, format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'created', label: 'Alert Triggered', width: 190, format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
@@ -33,25 +32,29 @@ function mapFixture(rawFixture) {
 
 describe('The Cluster Alerts Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-reporting').then(function() {
-        navbar.subNavMenu.click('cluster-reporting-alerts').then(done);
-      });
+  beforeAll(function(done) {
+    support.login();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/alerts').then(done);
   });
 
-  it('should display a table component on page load', function () {
+  afterAll(function() {
+    support.logout();
+  });
+
+
+  it('@any @smoke should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the correct columns and headers', function () {
+  it('@any @smoke should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
       expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);

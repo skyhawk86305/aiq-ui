@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -7,28 +6,30 @@ var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 
 describe('The main navbar', function() {
+  beforeAll(function() {
+    support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+  });
 
   beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#').then(done);
-    });
+    browser.get('#').then(done);
   });
 
-  afterEach(function(done) {
-    support.logout(done);
+  afterAll(function() {
+    support.logout();
   });
 
-  it('should display on initial page load', function() {
+  it('@any @smoke should display on initial page load', function() {
     expect(navbar.mainNavbar.el.isPresent()).to.eventually.be.true;
-    expect(navbar.mainNavbar.items.count()).to.eventually.equal(5);
+    expect(navbar.mainNavbar.items.count()).to.eventually.equal(6);
   });
 
-  it('should contain a menu with options', function() {
+  it('@any @smoke should contain a menu with options', function() {
     expect(navbar.menu.button.isPresent()).to.eventually.be.true;
     expect(navbar.menu.expand().options.count()).to.eventually.equal(4);
   });
 
-  it('should change the URL route and set the active state when clicking on main navbar items', function() {
+  it('@any should change the URL route and set the active state when clicking on main navbar items', function() {
     // ToDo: uncomment once Users page is complete
     //navbar.mainNavbar.click('users');
     //expect(browser.getLocationAbsUrl()).to.eventually.contain('/users');
@@ -39,22 +40,19 @@ describe('The main navbar', function() {
     expect(navbar.mainNavbar.activeItem.getText()).to.eventually.equal('Dashboard');
   });
 
-  it('should also set the state of the first sub navbar item to active', function() {
+  it('@any @smoke should also set the state of the first sub navbar item to active', function() {
     navbar.mainNavbar.click('dashboard');
     expect(navbar.subNavbar.items.get(0).getAttribute('class')).to.eventually.contain('active');
   });
 });
 
 describe('should remember what cluster or pages have been selected previously', function() {
-
-  beforeAll(function(done) {
-    support.login(function () {
-      browser.get('#').then(done);
-    });
+  beforeAll(function() {
+    support.login();
   });
 
-  afterAll(function(done) {
-    support.logout(done);
+  afterAll(function() {
+    support.logout();
   });
 
   it('should contain a cluster select component for navigating to cluster specific pages', function() {
@@ -87,19 +85,21 @@ describe('should remember what cluster or pages have been selected previously', 
   });
 });
 
-
 describe('The dropdown menu', function() {
+  beforeAll(function() {
+    support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+  });
+
   beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#').then(done);
-    });
+    browser.get('#').then(done);
   });
 
-  afterEach(function(done) {
-    support.logout(done);
+  afterAll(function() {
+    support.logout();
   });
 
-  it('should go to the SF Support page when the Support item is selected from the dropdown menu', function() {
+  it('@any @smoke should go to the SF Support page when the Support item is selected from the dropdown menu', function() {
     navbar.menu.expand().select('Support');
       browser.getAllWindowHandles().then(function(handles) {
         browser.ignoreSynchronization = true; // disable temporarily since this page is not Angular
@@ -114,6 +114,7 @@ describe('The dropdown menu', function() {
       });
   });
 
+  // TODO - this one is not passing against dev, but should
   it('should go to the homepage of the old AIQ UI when the Legacy Active IQ item is selected from the dropdown menu', function() {
     navbar.menu.expand().select('Legacy Active IQ');
       browser.getAllWindowHandles().then(function(handles) {
@@ -129,18 +130,20 @@ describe('The dropdown menu', function() {
 });
 
 describe('The sub navbar', function() {
-    beforeEach(function(done) {
-        support.login(function() {
-            browser.get('#').then(done);
-            navbar.mainNavbar.click('dashboard').then(done);
-        });
-    });
+  beforeAll(function() {
+    support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+  });
 
-    afterEach(function(done) {
-        support.logout(done);
-    });
+  beforeEach(function(done) {
+    browser.get('#/dashboard').then(done);
+  });
 
-  it('should only be displayed if the active main navbar item has sub navbar items', function() {
+  afterAll(function() {
+    support.logout();
+  });
+
+  it('@any @smoke should only be displayed if the active main navbar item has sub navbar items', function() {
     expect(navbar.subNavbar.el.isDisplayed()).to.eventually.be.true;
     expect(navbar.subNavbar.items.count()).to.eventually.equal(5);
 
@@ -167,18 +170,20 @@ describe('The sub navbar', function() {
 });
 
 describe('The sub nav menu', function() {
-    beforeEach(function(done) {
-        support.login(function() {
-            browser.get('#').then(done);
-            navbar.mainNavbar.click('dashboard').then(done);
-        });
-    });
+  beforeAll(function() {
+    support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+  });
 
-    afterEach(function(done) {
-        support.logout(done);
-    });
+  beforeEach(function(done) {
+    browser.get('#/dashboard').then(done);
+  });
 
-  it('should only be displayed if the active sub navbar item has sub nav menu items', function() {
+  afterAll(function() {
+    support.logout();
+  });
+
+  it('@any @smoke should only be displayed if the active sub navbar item has sub nav menu items', function() {
      navbar.subNavbar.click('dashboard-health');
     expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.false;
 
@@ -187,7 +192,7 @@ describe('The sub nav menu', function() {
     expect(navbar.subNavMenu.items.count()).to.eventually.equal(2);
   });
 
-  it('should change the URL route and set the active state when clicking on sub navbar items for alerts', function() {
+  it('@any @smoke should change the URL route and set the active state when clicking on sub navbar items for alerts', function() {
     navbar.subNavbar.click('dashboard-alerts');
 
     navbar.subNavMenu.click('dashboard-alerts-history');

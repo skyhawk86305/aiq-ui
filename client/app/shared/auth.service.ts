@@ -44,6 +44,18 @@ export function AuthService($q, $http, UserInfoService) {
       });
     },
 
+    requestPasswordReset(email: string) {
+      return $http.post('/password-reset', email, {
+        headers: { 'Content-Type': 'text/plain' },
+      });
+    },
+
+    setNewPassword(token: string, newPassword: string) {
+      return $http.post(`/password-reset/${token}`, newPassword, {
+        headers: { 'Content-Type': 'text/plain' },
+      });
+    },
+
     logout() {
       return $http.delete('/sessions').then(function(response) {
         UserInfoService.clearUserInfo();

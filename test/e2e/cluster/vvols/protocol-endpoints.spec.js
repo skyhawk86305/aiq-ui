@@ -1,15 +1,14 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('protocol-endpoint');
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListProtocolEndpoints'));
 var uniqueKey = 'primaryProviderID';
 var itemsPerPage = 25;
+var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'primaryProviderID', label: 'Primary Provider ID', format: {filter: 'string'}},
@@ -24,24 +23,26 @@ function mapFixture(rawFixture) {
   return rawFixture.protocolEndpoints;
 }
 
-describe('The Cluster Protocol Endpoint Page', function () {
+describe('The Cluster VVols Protocol Endpoint Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-vvols').then(function() {
-        navbar.subNavMenu.click('cluster-vvols-protocolEndpoints').then(done);
-      });
+  beforeAll(function(done) {
+    support.login();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/vvols/protocol-endpoints').then(done);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('should display a table component on page load', function () {
-    browser.get('#/cluster/26/vvols/protocol-endpoints');
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 

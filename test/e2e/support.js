@@ -7,8 +7,8 @@ var support,
   fs = require('fs'),
   HttpBackend = require('httpbackend'),
   chai = require('chai'),
-  request = require('request'),
   chaiAsPromised = require('chai-as-promised'),
+  serverConfig = require('../../server/server.config'),
   argv = require('yargs').argv,
   ngMocksDir = path.dirname(require.resolve('angular-mocks')),
   ngMocksFilePath = path.join(ngMocksDir, 'angular-mocks.js'),
@@ -35,17 +35,17 @@ support = {
   getActiveElement: function() {
     return browser.driver.switchTo().activeElement();
   },
-  logout: function (callback) {
-    request.delete(browser.baseUrl + '/sessions', callback);
+  login: function() {
+    var LoginPage = require('./page-objects/login.po'),
+      loginPage = new LoginPage;
+    browser.get('#/login');
+    loginPage.usernameInput.enter(serverConfig[argv.env].username);
+    loginPage.passwordInput.enter(serverConfig[argv.env].password);
+    loginPage.loginButton.click();
   },
-  login: function (callback) {
-    var params = {username: 'testuser@solidfire.com', password: new Buffer('password123').toString('base64')};
-    return request({
-      method: 'PUT',
-      uri: browser.baseUrl + '/sessions',
-      json: true,
-      body: params
-    }, callback);
+  logout: function() {
+    var navBar = new support.navbarComponent;
+    navBar.menu.expand().select('Logout');
   },
   fixture: function(method) {
     return require('../../server/fixtures/' + argv.fixture + '/' + method);
@@ -129,8 +129,16 @@ support = {
         support.expect(clientHeight).to.equal(scrollHeight);
       }
     });
+  },
+  getFirstClusterId: function(openedClusterSelect) {
+    return new Promise(function(resolve, reject) {
+      openedClusterSelect.clustersList().selectClusterByIndex(0).then(function () {
+        browser.getLocationAbsUrl().then(function (url) {
+          resolve(url.split('/cluster\/')[1].split('\/reporting').shift());
+        });
+      });
+    });
   }
-
 };
 
 module.exports = support;

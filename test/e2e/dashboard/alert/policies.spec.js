@@ -1,10 +1,8 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
-var navbar = new support.navbarComponent();
 var table = new TableComponent('alert-policy');
 var fixture = mapFixture(support.fixture('ListNotifications'));
 var uniqueKey = 'notificationName';
@@ -27,26 +25,25 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Alert Policies Page', function () {
+  beforeAll(function() {
+    support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+  });
+
 
   beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      navbar.subNavbar.click('dashboard-alerts').then(function() {
-        navbar.subNavMenu.click('dashboard-alerts-policies').then(done);
-      });
-    });
+    browser.get('#/dashboard/alerts/policies').then(done);
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  afterAll(function() {
+    support.logout();
   });
 
-  it('should display a table component on page load', function () {
-    browser.get('#/dashboard/alerts/policies');
+  it('@any @smoke should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the correct columns and headers', function () {
+  it('@any @smoke should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
       expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);
@@ -57,7 +54,7 @@ describe('The Alert Policies Page', function () {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
   });
 
-  it('should have an export button for the table', function() {
+  it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
 });
