@@ -140,12 +140,14 @@ describe('The sub nav menu', function() {
     navbar.subNavMenu.click('dashboard-alerts-history');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/alerts/history');
     navbar.subNavbar.click('dashboard-alerts');
+    expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.true;
     expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('History');
 
     navbar.subNavbar.click('dashboard-alerts');
     navbar.subNavMenu.click('dashboard-alerts-policies');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/alerts/policies');
     navbar.subNavbar.click('dashboard-alerts');
+    expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.true;
     expect(navbar.subNavMenu.activeItem.getText()).to.eventually.equal('Policies');
   });
 
