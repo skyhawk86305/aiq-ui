@@ -33,7 +33,7 @@
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
         {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-        {key: 'details', label: 'Details', width: 60, sortable: false, hideable: false}
+        {key: 'details', label: 'View Details', width: 100, sortable: false, hideable: false}
       ];
     }
 
@@ -45,7 +45,8 @@
           volume.maxIOPS = volume.qos.maxIOPS;
           volume.burstIOPS = volume.qos.burstIOPS;
           volume.paired = volume.volumePairs.length ? true : false;
-          volume.details = '<a ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID +'">View ></a>';
+          volume.details = '<div class="view-details-link"><a  ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID + '" aria-label="Leave this page to view selected volume details">' +
+            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a></div>';
           return volume;
         });
       });
