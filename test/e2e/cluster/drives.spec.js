@@ -1,4 +1,3 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../support.js');
@@ -9,8 +8,8 @@ var fixture = mergeFixtures(support.fixture('ListDrives'), support.fixture('GetD
 var uniqueKey = 'driveID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
+var clusterId;
 var columns = [
   {key: 'driveID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'nodeID', label: 'Node ID', format: {filter: 'aiqNumber', args: [0, true]}},
@@ -39,23 +38,28 @@ function mergeFixtures(fixture1, fixture2) {
 
 describe('The Cluster Drives Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-drives').then(done);
+  beforeAll(function(done) {
+    support.login();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-    support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/drives').then(done);
   });
 
-  it('should display a table component on page load', function () {
+  afterAll(function() {
+    support.logout();
+  });
+
+  it('@any @smoke should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the correct columns and headers', function () {
+  it('@any @smoke should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
       expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);
@@ -66,16 +70,16 @@ describe('The Cluster Drives Page', function () {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
   });
 
-  it('should have an export button for the table', function() {
+  it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
 
 
-  it('should have an quick filter for table', function() {
+  it('@any should have an quick filter for table', function() {
     expect(table.controlBar.quickFilter.el.isPresent()).to.eventually.be.true;
   });
 
-  it('should have the filter buttons for each valid status in the quick filter', function() {
+  it('@any should have the filter buttons for each valid status in the quick filter', function() {
     expect(table.controlBar.quickFilter.buttons.count()).to.eventually.equal(3);
     var buttonText = ['Active','Available','Failed'];
     for (var i=0; i < buttonText.length; i++) {
@@ -83,7 +87,7 @@ describe('The Cluster Drives Page', function () {
     }
   });
 
-  it('should have the Active button selected by default on the quick Filter', function() {
+  it('@any should have the Active button selected by default on the quick Filter', function() {
     var buttonText = ['Active','Available','Failed'];
     for (var i=0; i < buttonText.length; i++) {
       if (i < 1 ) {

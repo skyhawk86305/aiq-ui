@@ -4,8 +4,7 @@ var webpack = require('webpack'),
 module.exports = {
   entry: {
     app: ['./client/app/app.module.ts'],
-    vendor: ['./client/vendor.ts'],
-    polyfills: ['./client/polyfills.ts']
+    vendor: ['./client/vendor.ts']
   },
   resolve: {
     extensions: ['', '.js', '.ts', '.less', '.html']

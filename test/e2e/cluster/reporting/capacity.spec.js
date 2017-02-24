@@ -1,34 +1,36 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = require('../../support.js').expect;
 var CapacityPage = require('../../page-objects/cluster/reporting/capacity.po');
 var capacityPage = new CapacityPage();
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
+var clusterId;
 
 describe('The Cluster Capacity Page', function () {
 
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-reporting').then(function() {
-        navbar.subNavMenu.click('cluster-reporting-capacity').then(done);
-      });
+  beforeAll(function(done) {
+    support.login();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/capacity').then(done);
   });
 
-  it('should display a sync-graphs component on page load', function () {
+  afterAll(function() {
+    support.logout();
+  });
+
+  it('@any @smoke should display a sync-graphs component on page load', function () {
     expect(capacityPage.syncGraphs.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have custom static date range options', function (done) {
+  it('@any should have custom static date range options', function (done) {
     var expectedDateRangeOptions = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'],
       actualDateRangeOptions = capacityPage.syncGraphs.dateRangeSelectors.static.staticDateRangeOptions;
 
@@ -38,15 +40,15 @@ describe('The Cluster Capacity Page', function () {
     expect(actualDateRangeOptions.count()).to.eventually.equal(5).notify(done);
   });
 
-  it('should have a default date range selected', function () {
+  it('@any should have a default date range selected', function () {
     expect(capacityPage.syncGraphs.dateRangeSelectors.static.activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
   });
 
-  it('should have a specific graph selected as the initial context', function () {
+  it('@any should have a specific graph selected as the initial context', function () {
     expect(capacityPage.syncGraphs.contextGraph.el.getAttribute('component-id')).to.eventually.equal('block-capacity-context');
   });
 
-  it('should have 3 child graphs', function (done) {
+  it('@any @smoke should have 3 child graphs', function (done) {
     var childGraphIds = ['provisioned-space-child','metadata-capacity-child','block-capacity-child'];
     var childGraphTitleIds = ['provisioned-space','metadata-capacity','block-capacity'];
     var childGraphTitles = ['Provisioned Space','Metadata Capacity','Block Capacity'];
@@ -61,7 +63,7 @@ describe('The Cluster Capacity Page', function () {
 
 
   describe('Provisioned Space Graph', function () {
-    it('should have the correct data series plotted with the appropriate legend', function () {
+    it('@any @smoke should have the correct data series plotted with the appropriate legend', function () {
       var graph = capacityPage.syncGraphs.childGraph('provisioned-space-child');
       expect(graph.svg.lines.count()).to.eventually.equal(2);
 
@@ -75,7 +77,7 @@ describe('The Cluster Capacity Page', function () {
   });
 
   describe('Block Capacity Graph', function () {
-    it('should have the correct data series plotted, with the appropriate legends', function () {
+    it('@any @smoke should have the correct data series plotted, with the appropriate legends', function () {
       var graph = capacityPage.syncGraphs.childGraph('block-capacity-child');
       expect(graph.svg.lines.count()).to.eventually.equal(2);
 
@@ -87,11 +89,11 @@ describe('The Cluster Capacity Page', function () {
       }
     });
 
-    it('should have an export button for the Block Capacity Graph', function() {
+    it('@any should have an export button for the Block Capacity Graph', function() {
       expect(capacityPage.syncGraphs.childGraph('block-capacity-child').exportButton.isDisplayed()).to.eventually.be.true;
     });
 
-    it('should have the correct info boxes displayed with the correct labels', function () {
+    it('@any @smoke should have the correct info boxes displayed with the correct labels', function () {
       var infoBar = capacityPage.infoBars.blockCapacity;
       expect(infoBar.infoBoxes.count()).to.eventually.equal(5);
       var expectedBoxes = ['used-capacity','warning-threshold','error-threshold','total-capacity','current-state'];
@@ -102,7 +104,7 @@ describe('The Cluster Capacity Page', function () {
       }
     });
 
-    it('The info-boxes must be wider than their value text', function(){
+    it('@any The info-boxes must be wider than their value text', function(){
       var infoBar = capacityPage.infoBars.blockCapacity;
       var boxNames = ['used-capacity','warning-threshold','error-threshold','total-capacity','current-state'];
       for (var i=0; i < boxNames.length; i++) {
@@ -112,7 +114,7 @@ describe('The Cluster Capacity Page', function () {
   });
 
   describe('Metadata Capacity Graph', function () {
-    it('should have the correct data series plotted, with the appropriate legends', function () {
+    it('@any @smoke should have the correct data series plotted, with the appropriate legends', function () {
       var graph = capacityPage.syncGraphs.childGraph('metadata-capacity-child');
       expect(graph.svg.lines.count()).to.eventually.equal(2);
       var expectedSeries = ['maxUsedMetadataSpace','usedMetadataSpace'],
@@ -123,11 +125,11 @@ describe('The Cluster Capacity Page', function () {
       }
     });
 
-    it('should have an export button for the Metadata Capacity Graph', function() {
+    it('@any should have an export button for the Metadata Capacity Graph', function() {
       expect(capacityPage.syncGraphs.childGraph('metadata-capacity-child').exportButton.isDisplayed()).to.eventually.be.true;
     });
 
-    it('should have the correct info boxes displayed, with the appropriate titles', function () {
+    it('@any @smoke should have the correct info boxes displayed, with the appropriate titles', function () {
       var infoBar = capacityPage.infoBars.metadataCapacity;
       expect(infoBar.infoBoxes.count()).to.eventually.equal(3);
       var expectedBoxes = ['used-capacity','total-capacity','current-state'];
@@ -138,7 +140,7 @@ describe('The Cluster Capacity Page', function () {
       }
     });
 
-    it('The info-boxes must be wider than their value text', function(){
+    it('@any The info-boxes must be wider than their value text', function(){
       var infoBar = capacityPage.infoBars.metadataCapacity;
       var boxNames = ['used-capacity','total-capacity','current-state'];
       for (var i=0; i < boxNames.length; i++) {

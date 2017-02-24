@@ -1,11 +1,9 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('alert-history');
-var navbar = new support.navbarComponent();
 var fixture = mapFixture(support.fixture('ListAlerts'));
 var uniqueKey = 'id';
 var itemsPerPage = 25;
@@ -34,25 +32,24 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Alert History Page', function () {
+  beforeAll(function() {
+    support.login();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+  });
 
   beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      navbar.subNavbar.click('dashboard-alerts').then(function() {
-        navbar.subNavMenu.click('dashboard-alerts-history').then(done);
-      });
-    });
+    browser.get('#/dashboard/alerts/history').then(done);
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  afterAll(function() {
+    support.logout();
   });
 
-  it('should display a table component on page load', function () {
+  it('@any @smoke should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the correct columns and headers', function () {
+  it('@any @smoke should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
       expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);
@@ -65,7 +62,7 @@ describe('The Alert History Page', function () {
     support.expect(table.content.row(0).data('severity').element(by.css('.table-badge')).getAttribute('class')).to.eventually.contains('table-badge');
   });
 
-  it('should have an export button for the table', function() {
+  it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
 });

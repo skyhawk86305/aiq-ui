@@ -1,15 +1,14 @@
-/* jshint expr: true */
 'use strict';
 
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('error-log');
-var navbar = new support.navbarComponent();
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListClusterFaults'));
 var uniqueKey = 'clusterFaultID';
 var itemsPerPage = 25;
+var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'clusterFaultID', label: 'Cluster Fault ID', format: {filter:'aiqNumber', args: [0, true]}},
@@ -31,25 +30,28 @@ function mapFixture(rawFixture) {
 }
 
 describe('The Cluster Error Log Page', function () {
-  beforeEach(function(done) {
-    support.login(function() {
-      browser.get('#/');
-      clusterSelect.open().clustersList().selectClusterByIndex(0);
-      navbar.subNavbar.click('cluster-reporting').then(function() {
-        navbar.subNavMenu.click('cluster-reporting-errorLog').then(done);
-      });
+  beforeAll(function(done) {
+    support.login();
+    var openedClusterSelect = clusterSelect.open();
+    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+      clusterId = firstClusterId;
+      done();
     });
   });
 
-  afterEach(function(done) {
-      support.logout(done);
+  beforeEach(function(done) {
+    browser.get('#/cluster/' + clusterId + '/reporting/errorLog').then(done);
   });
 
-  it('should display a table component on page load', function () {
+  afterAll(function() {
+    support.logout();
+  });
+
+  it('@any @smoke should display a table component on page load', function () {
     expect(table.el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should have the correct columns and headers', function () {
+  it('@any @smoke should have the correct columns and headers', function () {
     expect(table.content.columns.count()).to.eventually.equal(columns.length);
     columns.forEach(function(column) {
       expect(table.content.header(column.key).title.getText()).to.eventually.equal(column.label);

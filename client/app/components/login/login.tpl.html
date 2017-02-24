@@ -19,8 +19,13 @@
                required
                ng-model='credentials.password'>
       </div>
-      <span class='pull-left login-error error-message'
-            ng-bind='$ctrl.error'></span>
+      <div class="pull-left">
+        <span class='login-error error-message'
+              ng-bind='$ctrl.error'></span>
+        <a class="reset-password-link" href="#/reset-password">
+          Forget your password?
+        </a>
+      </div>
       <button ng-disabled='!(credentials.username && credentials.password)'
               class='pull-right login-btn button'
               type='submit'>

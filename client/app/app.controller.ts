@@ -5,7 +5,7 @@ export function AppController($rootScope, ApiLogService, $location) {
   self.host = $location.host();
 
   $rootScope.$on('$routeChangeSuccess', function() {
-    self.showNavbar = $location.path() !== '/login';
+    self.showNavbar = $location.path() !== '/login' && $location.path() !== '/reset-password';
     self.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
   });
 

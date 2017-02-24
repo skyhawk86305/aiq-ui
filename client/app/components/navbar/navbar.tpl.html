@@ -27,6 +27,13 @@
     <div class="pull-right">
       <ul class="navbar-nav nav">
         <li class="navbar-item -main -left-divider">
+          <div class="customer-name">
+            <div class="ellipses" title="{{ $ctrl.userInfo.currentUser.customerName }}">
+              {{ $ctrl.userInfo.currentUser.customerName }}
+            </div>
+          </div>
+        </li>
+        <li class="navbar-item -main -left-divider">
           <a id="navbar-user" href="#/account">
             <i class="fa fa-user"></i> {{ $ctrl.userInfo.currentUser.username }}
           </a>

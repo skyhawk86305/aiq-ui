@@ -3,6 +3,7 @@
     "noImplicitAny": false,
     "removeComments": false,
     "preserveConstEnums": true,
+    "lib": ["es6", "dom"],
     "target": "es5",
     "sourceMap": true,
     "listFiles": false
