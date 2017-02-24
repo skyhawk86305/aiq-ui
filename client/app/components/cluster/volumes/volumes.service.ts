@@ -7,10 +7,11 @@
     'SFTableService',
     'SFFilterComparators',
     'DataService',
+    '$routeParams',
     VolumeTableService
   ]);
 
-  function VolumeTableService(SFTableService, SFFilterComparators, DataService) {
+  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $routeParams) {
     let columns = getColumns(),
       service = new SFTableService(listActiveVolumes, columns, false);
 
@@ -31,7 +32,8 @@
         {key: 'maxIOPS', label: 'Max IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
-        {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}}
+        {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'details', label: 'Details', width: 60, sortable: false, hideable: false}
       ];
     }
 
@@ -43,6 +45,7 @@
           volume.maxIOPS = volume.qos.maxIOPS;
           volume.burstIOPS = volume.qos.burstIOPS;
           volume.paired = volume.volumePairs.length ? true : false;
+          volume.details = '<a ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID +'">View ></a>';
           return volume;
         });
       });
