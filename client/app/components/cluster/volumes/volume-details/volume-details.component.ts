@@ -3,7 +3,7 @@
 
   const moduleName     = 'aiqUi';
   const componentName  = 'volumeDetails';
-  const controllerDeps = ['$filter', '$routeParams', 'VolumeDetailsService', 'VolumePerformanceGraphService', 'DataService', 'SFD3LineGraph', 'SFD3BarGraph'];
+  const controllerDeps = ['$filter', '$routeParams', 'VolumeDetailsService', 'VolumePerformanceGraphsService', 'DataService', 'SFD3LineGraph', 'SFD3BarGraph'];
 
   class VolumeDetailsController {
     public volume;
@@ -21,27 +21,27 @@
     public getSnapshotsStatus    = 'loading';
     public getAverageVolumePerformanceStatus = 'loading';
 
-    constructor( private $filter, private $routeParams, private VolumeDetailsService, private VolumePerformanceGraphService, private DataService, private SFD3LineGraph, private SFD3BarGraph) {
-      'ngInject';
-    }
+    constructor( private $filter, private $routeParams, private VolumeDetailsService, private VolumePerformanceGraphsService, private DataService, private SFD3LineGraph, private SFD3BarGraph) {}
 
     $onInit() {
       this.volumeID  = parseInt(this.$routeParams.volumeID, 10);
       this.clusterID = parseInt(this.$routeParams.clusterID, 10);
-      this.VolumePerformanceGraphService.update(this.clusterID, this.volumeID);
+      this.VolumePerformanceGraphsService.update(this.clusterID, this.volumeID);
       this.VolumeDetailsService.setVolume(this.clusterID, this.volumeID);
       this.setClusterName();
       this.setInfoBarData();
+
       this.staticDateRangeOptions = [
-        {milliseconds: 86400000, label: '24 Hours'},
-        {milliseconds: 259200000, label: '3 Days'},
-        {milliseconds: 604800000, label: '7 Days', default: true},
+        {milliseconds: 86400000,   label:   '24 Hours'},
+        {milliseconds: 259200000,  label:  '3 Days'},
+        {milliseconds: 604800000,  label:  '7 Days', default: true},
         {milliseconds: 1209600000, label: '14 Days'},
         {milliseconds: 2592000000, label: '30 Days'}
       ];
+
       this.syncGraphs = [
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'throughput',
           selected: {
             title: 'Throughput',
@@ -67,7 +67,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'iops',
           selected: {
             title: 'IOPS',
@@ -93,7 +93,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'latency',
           selected: {
             title: 'Latency',
@@ -119,7 +119,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'queue-depth',
           selected: {
             title: 'Queue Depth',
@@ -138,7 +138,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'average-io-size',
           selected: {
             title: 'Average IO Size',
@@ -157,7 +157,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'capacity',
           selected: {
             title: 'Capacity',
@@ -185,6 +185,10 @@
     }
 
     refreshInfoBarData() {
+      this.getVolumeStatus       = 'loading';
+      this.getVolumeStatsStatus  = 'loading';
+      this.getSnapshotsStatus    = 'loading';
+      this.getAverageVolumePerformanceStatus = 'loading';
       this.setInfoBarData();
     }
 

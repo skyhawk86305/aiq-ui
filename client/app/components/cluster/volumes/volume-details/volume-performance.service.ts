@@ -3,13 +3,13 @@
 
   angular
     .module('aiqUi')
-    .service('VolumePerformanceGraphService', [
+    .service('VolumePerformanceGraphsService', [
       'DataService',
       'SFGraphTimeSeriesService',
-      VolumePerformanceGraphService
+      VolumePerformanceGraphsService
     ]);
 
-  function VolumePerformanceGraphService(DataService, SFGraphTimeSeriesService) {
+  function VolumePerformanceGraphsService(DataService, SFGraphTimeSeriesService) {
     let service = new SFGraphTimeSeriesService(getClusterPerformance);
     service.selectedClusterID = null;
     service.selectedVolumeID = null;
