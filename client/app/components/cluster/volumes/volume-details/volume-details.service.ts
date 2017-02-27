@@ -39,9 +39,15 @@
       getSnapshots() {
         return DataService.callGuzzleAPI(this.clusterID, 'ListSnapshots')
           .then(response => {
-            return response.snapshots.map(snapshot => {
-              return snapshot.volumeID === this.volumeID;
-            });
+            return (response.snapshots.map(snapshot => {
+              if (snapshot.volumeID === this.volumeID) {
+                return snapshot;
+              };
+            }).filter(function(snapshot) {
+              if (snapshot) {
+                return snapshot;
+              }
+            }));
           });
       },
 
