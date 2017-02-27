@@ -1,6 +1,6 @@
 'use strict';
 
-fdescribe('service: VolumeDetailsService', function() {
+describe('service: VolumeDetailsService', function() {
   let service,
     dataService,
     deferred,

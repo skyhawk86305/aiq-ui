@@ -21,9 +21,7 @@
     public getSnapshotsStatus    = 'loading';
     public getAverageVolumePerformanceStatus = 'loading';
 
-    constructor( private $filter, private $routeParams, private VolumeDetailsService, private VolumePerformanceGraphService, private DataService, private SFD3LineGraph, private SFD3BarGraph) {
-      'ngInject';
-    }
+    constructor( private $filter, private $routeParams, private VolumeDetailsService, private VolumePerformanceGraphService, private DataService, private SFD3LineGraph, private SFD3BarGraph) {}
 
     $onInit() {
       this.volumeID  = parseInt(this.$routeParams.volumeID, 10);
@@ -32,13 +30,15 @@
       this.VolumeDetailsService.setVolume(this.clusterID, this.volumeID);
       this.setClusterName();
       this.setInfoBarData();
+
       this.staticDateRangeOptions = [
-        {milliseconds: 86400000, label: '24 Hours'},
-        {milliseconds: 259200000, label: '3 Days'},
-        {milliseconds: 604800000, label: '7 Days', default: true},
+        {milliseconds: 86400000,   label:   '24 Hours'},
+        {milliseconds: 259200000,  label:  '3 Days'},
+        {milliseconds: 604800000,  label:  '7 Days', default: true},
         {milliseconds: 1209600000, label: '14 Days'},
         {milliseconds: 2592000000, label: '30 Days'}
       ];
+
       this.syncGraphs = [
         {
           service: this.VolumePerformanceGraphService,
@@ -185,6 +185,10 @@
     }
 
     refreshInfoBarData() {
+      this.getVolumeStatus       = 'loading';
+      this.getVolumeStatsStatus  = 'loading';
+      this.getSnapshotsStatus    = 'loading';
+      this.getAverageVolumePerformanceStatus = 'loading';
       this.setInfoBarData();
     }
 
