@@ -20,7 +20,8 @@ var columns = [
   {key: 'maxIOPS', label: 'Max IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'burstIOPS', label: 'Burst IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
-  {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', format: {filter: 'string'}}
+  {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', format: {filter: 'string'}},
+  {key: 'details', label: 'View Details', width: 100, sortable: false, hideable: false, exclude: true}
 ];
 
 function mapFixture(rawFixture) {
