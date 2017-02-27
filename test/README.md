@@ -35,7 +35,6 @@ Running the Tests
    -- @smoke will be used for indicating tests to run for acceptance
 
 
-
 `gulp test:e2e`
 
  Text execution can be configured with:
