@@ -135,7 +135,7 @@ describe('The sub nav menu', function() {
     expect(navbar.subNavMenu.items.count()).to.eventually.equal(2);
   });
 
-  it('@any should keep the last active item on the sub navmenu active when reopening the subnav menu', function() {
+ xit('@any should keep the last active item on the sub navmenu active when reopening the subnav menu', function() {
     navbar.subNavbar.click('dashboard-alerts');
     navbar.subNavMenu.click('dashboard-alerts-history');
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/alerts/history');
