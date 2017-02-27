@@ -25,6 +25,19 @@
         white-space: nowrap;
       }
     }
+
+    .info-bar-row + .info-bar-row {
+      @media only screen and (min-width: 1200px) {
+        .info-box {
+          border-left: 1px solid @whitescale-5;
+        }
+      }
+    }
+    @media only screen and (min-width: 768px) {
+      .info-box:last-child {
+        border-left: 1px solid @whitescale-5;
+      }
+    }
   }
 
   .nodes-table-widget {
