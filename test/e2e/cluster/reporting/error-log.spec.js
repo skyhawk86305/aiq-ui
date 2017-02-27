@@ -12,7 +12,7 @@ var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'clusterFaultID', label: 'Cluster Fault ID', format: {filter:'aiqNumber', args: [0, true]}},
-  {key: 'created', label: 'Date', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'date', label: 'Date', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
   {key: 'severity', label: 'Severity', format: {filter: 'tableBadgeAlertSeverity'}, exclude: true},
   {key: 'type', label: 'Type', format: {filter:'string'}},
   {key: 'nodeID', label: 'Node ID', format: {filter:'aiqNumber', args: [0, true, true]}},
