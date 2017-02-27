@@ -16,12 +16,12 @@ describe('Component: volumeDetails', function() {
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function($componentController, $q, $rootScope, $routeParams, VolumeDetailsService, VolumePerformanceGraphService, DataService) {
+  beforeEach(inject(function($componentController, $q, $rootScope, $routeParams, VolumeDetailsService, VolumePerformanceGraphsService, DataService) {
     $scope = $rootScope.$new();
     q = $q;
     routeParams = $routeParams;
     volumeDetailsService = VolumeDetailsService;
-    volumePerformanceService = VolumePerformanceGraphService;
+    volumePerformanceService = VolumePerformanceGraphsService;
     dataService = DataService;
     controller = $componentController('volumeDetails');
     dataServiceSpy = spyOn(dataService, 'callAPI').and.returnValue(q.resolve({cluster: {clusterName: 'clusterName'}}));
@@ -91,7 +91,7 @@ describe('Component: volumeDetails', function() {
   });
 
   describe('refreshInfoBarData', function() {
-    it('should set the states to loading and set info bar data', function() { 
+    it('should set the states to loading and set info bar data', function() {
       spyOn(controller, 'setInfoBarData');
       controller.refreshInfoBarData();
       expect(controller.getVolumeStatus).toEqual('loading');

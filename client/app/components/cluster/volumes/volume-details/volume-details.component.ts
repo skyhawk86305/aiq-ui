@@ -3,7 +3,7 @@
 
   const moduleName     = 'aiqUi';
   const componentName  = 'volumeDetails';
-  const controllerDeps = ['$filter', '$routeParams', 'VolumeDetailsService', 'VolumePerformanceGraphService', 'DataService', 'SFD3LineGraph', 'SFD3BarGraph'];
+  const controllerDeps = ['$filter', '$routeParams', 'VolumeDetailsService', 'VolumePerformanceGraphsService', 'DataService', 'SFD3LineGraph', 'SFD3BarGraph'];
 
   class VolumeDetailsController {
     public volume;
@@ -21,12 +21,12 @@
     public getSnapshotsStatus    = 'loading';
     public getAverageVolumePerformanceStatus = 'loading';
 
-    constructor( private $filter, private $routeParams, private VolumeDetailsService, private VolumePerformanceGraphService, private DataService, private SFD3LineGraph, private SFD3BarGraph) {}
+    constructor( private $filter, private $routeParams, private VolumeDetailsService, private VolumePerformanceGraphsService, private DataService, private SFD3LineGraph, private SFD3BarGraph) {}
 
     $onInit() {
       this.volumeID  = parseInt(this.$routeParams.volumeID, 10);
       this.clusterID = parseInt(this.$routeParams.clusterID, 10);
-      this.VolumePerformanceGraphService.update(this.clusterID, this.volumeID);
+      this.VolumePerformanceGraphsService.update(this.clusterID, this.volumeID);
       this.VolumeDetailsService.setVolume(this.clusterID, this.volumeID);
       this.setClusterName();
       this.setInfoBarData();
@@ -41,7 +41,7 @@
 
       this.syncGraphs = [
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'throughput',
           selected: {
             title: 'Throughput',
@@ -67,7 +67,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'iops',
           selected: {
             title: 'IOPS',
@@ -93,7 +93,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'latency',
           selected: {
             title: 'Latency',
@@ -119,7 +119,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'queue-depth',
           selected: {
             title: 'Queue Depth',
@@ -138,7 +138,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'average-io-size',
           selected: {
             title: 'Average IO Size',
@@ -157,7 +157,7 @@
           }
         },
         {
-          service: this.VolumePerformanceGraphService,
+          service: this.VolumePerformanceGraphsService,
           id: 'capacity',
           selected: {
             title: 'Capacity',

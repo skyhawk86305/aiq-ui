@@ -114,14 +114,29 @@ describe('Data Service', function () {
       http.flush();
     });
 
-    it('should make an $http request to the API with the provided graph name and graph params', function () {
+    it('should make an $http request to the API with the provided graph name and cluster graph params', function () {
       const params = {
         clusterID: 123,
         start: new Date('Wed Feb 08 2017 14:04:38 GMT-0700 (MST)'),
         end: new Date('Wed Feb 09 2017 14:04:38 GMT-0700 (MST)'),
         resolution: 3024000
-      }, 
+      },
       endpoint = '/graph/cluster/123/foobar?startTime=2017-02-08T21:04:38.000Z&endTime=2017-02-09T21:04:38.000Z&resolution=3024';
+      response = {timestampSec: [1,2,3]};
+      service.callGraphAPI('foobar', params);
+      http.expect('GET', endpoint).respond(response);
+      http.flush();
+    });
+
+    it('should make an $http request to the API with the provided graph name and volume graph params', function () {
+      const params = {
+        clusterID: 123,
+        volumeID: 456,
+        start: new Date('Wed Feb 08 2017 14:04:38 GMT-0700 (MST)'),
+        end: new Date('Wed Feb 09 2017 14:04:38 GMT-0700 (MST)'),
+        resolution: 3024000
+      },
+      endpoint = '/graph/cluster/123/volume/456/foobar?startTime=2017-02-08T21:04:38.000Z&endTime=2017-02-09T21:04:38.000Z&resolution=3024';
       response = {timestampSec: [1,2,3]};
       service.callGraphAPI('foobar', params);
       http.expect('GET', endpoint).respond(response);
@@ -143,7 +158,7 @@ describe('Data Service', function () {
           start: new Date('Wed Feb 08 2017 14:04:38 GMT-0700 (MST)'),
           end: new Date('Wed Feb 09 2017 14:04:38 GMT-0700 (MST)'),
           resolution: 3024000
-        }, 
+        },
         endpoint = '/graph/cluster/456/foobar?startTime=2017-02-08T21:04:38.000Z&endTime=2017-02-09T21:04:38.000Z&resolution=3024';
       response = {timestampSec: [1,2,3]};
       http.when('GET', endpoint).respond(response);
