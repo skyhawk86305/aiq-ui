@@ -7,7 +7,6 @@ describe('Component: overviewDashboard', function() {
     deferred,
     locals,
     filter,
-    timeout,
     performanceService,
     clusterAlertTableService,
     dataService;
@@ -16,7 +15,7 @@ describe('Component: overviewDashboard', function() {
     $provide.value('SFD3LineGraph', function () {});
   }));
 
-  beforeEach(inject(function($rootScope, $q, $filter, $timeout, $componentController, $routeParams, PerformanceGraphsService, ClusterAlertTableService, DataService) {
+  beforeEach(inject(function($rootScope, $q, $filter, $componentController, $routeParams, PerformanceGraphsService, ClusterAlertTableService, DataService) {
     scope = $rootScope;
     deferred = $q.defer();
     routeParams = $routeParams;
@@ -25,7 +24,6 @@ describe('Component: overviewDashboard', function() {
     clusterAlertTableService = ClusterAlertTableService;
     dataService = DataService;
     filter = $filter;
-    timeout = $timeout;
     locals = {
       $routeParams: routeParams,
       $filter: filter,
