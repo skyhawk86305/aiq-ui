@@ -66,6 +66,36 @@ describe('Component: addAlertPolicy', function() {
       expect(controller.error).toBe(null);
     });
 
+    it('should call the correct API on DataService for capacity licensing', function() {
+      controller.name = 'testPolicy';
+      controller.severity = 'Info';
+      controller.emails = 'testuser@email.com';
+      controller.clusterID = null;
+      controller.customerID = 123;
+      controller.policyType = 'licensing';
+      controller.capacityLicensingThreshold = 40;
+
+      spyOn(DataService, 'callAPI').and.returnValue(q.resolve());
+      controller.submit();
+
+      expect(DataService.callAPI).toHaveBeenCalledWith('AddNotification', {
+        notificationName: 'testPolicy',
+        notificationSeverity: 'Info',
+        notificationFields: [{
+          streamName: 'EntitledLicenseCapacity',
+          streamFieldName: 'provisionedSpace',
+          notificationFieldOperator: '>',
+          notificationFieldValue: 40,
+        }],
+        destinationEmail: 'testuser@email.com',
+        clusterID: null,
+        customerID: 123,
+      });
+      $scope.$digest();
+      expect(controller.successful).toBe(true);
+      expect(controller.error).toBe(null);
+    });
+
     it('should handle a string error from DataService', function() {
       spyOn(DataService, 'callAPI').and.returnValue(q.reject('fake error'));
       controller.submit();
