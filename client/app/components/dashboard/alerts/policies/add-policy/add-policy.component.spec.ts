@@ -1,22 +1,39 @@
 'use strict';
 
 describe('Component: addAlertPolicy', function() {
-  let DataService,
+  let $scope,
+    $location,
+    DataService,
+    UserInfoService,
     controller,
     q;
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function($componentController, $q) {
+  beforeEach(inject(function($componentController, $q, $rootScope) {
+    $scope = $rootScope.$new();
+    $location = { path() {} };
     q = $q;
     DataService = {
       callAPI() {
         return $q.resolve();
       }
     };
-    controller = $componentController('addAlertPolicy', { DataService });
+    UserInfoService = {
+      getUserInfo() {
+        return $q.resolve();
+      },
+      currentUser: {
+        username: 'testuser@email.com'
+      },
+    };
+    const locals = { $scope, UserInfoService, DataService, $location };
+    controller = $componentController('addAlertPolicy', locals);
+    controller.form = {
+      $setUntouched: () => {},
+      $setPristine: () => {},
+    };
   }));
-
 
   describe('submit()', function() {
     it('should call the correct API on DataService', function() {
@@ -28,9 +45,7 @@ describe('Component: addAlertPolicy', function() {
       controller.policyType = 'clusterFault';
       controller.clusterFaultType = null;
 
-      spyOn(DataService, 'callAPI').and.callFake( () => {
-        return q.resolve();
-      });
+      spyOn(DataService, 'callAPI').and.returnValue(q.resolve());
       controller.submit();
 
       expect(DataService.callAPI).toHaveBeenCalledWith('AddNotification', {
@@ -46,6 +61,71 @@ describe('Component: addAlertPolicy', function() {
         clusterID: 123,
         customerID: null,
       });
+      $scope.$digest();
+      expect(controller.successful).toBe(true);
+      expect(controller.error).toBe(null);
+    });
+
+    it('should handle a string error from DataService', function() {
+      spyOn(DataService, 'callAPI').and.returnValue(q.reject('fake error'));
+      controller.submit();
+      expect(DataService.callAPI).toHaveBeenCalled();
+      $scope.$digest();
+      expect(controller.successful).toBe(false);
+      expect(controller.error).toEqual('fake error');
+    });
+
+    it('should handle an error object with message from DataService', function() {
+      spyOn(DataService, 'callAPI').and.returnValue(q.reject({ message: 'fake error' }));
+      controller.submit();
+      expect(DataService.callAPI).toHaveBeenCalled();
+      $scope.$digest();
+      expect(controller.successful).toBe(false);
+      expect(controller.error).toEqual('fake error');
+    });
+
+    it('should handle an error object with data from DataService', function() {
+      spyOn(DataService, 'callAPI').and.returnValue(q.reject({ data: 'fake error' }));
+      controller.submit();
+      expect(DataService.callAPI).toHaveBeenCalled();
+      $scope.$digest();
+      expect(controller.successful).toBe(false);
+      expect(controller.error).toEqual('fake error');
+    });
+  });
+
+  describe('cancel()', function() {
+    it('should navigate back to the policy list page', function() {
+      spyOn($location, 'path');
+      controller.cancel();
+      expect($location.path).toHaveBeenCalledWith('/dashboard/alerts/policies');
+    });
+  });
+
+  describe('getClustersAndCustomers()', function() {
+    it('should extract the cluster list and customer list from the ListActiveClusters call', function() {
+      spyOn(DataService, 'callAPI').and.returnValue(q.resolve({
+        clusters: [
+          { clusterID: 1, clusterName: 'cl1', customerID: 1, customerName: 'cu1' },
+          { clusterID: 2, clusterName: 'cl2', customerID: 1, customerName: 'cu1' },
+          { clusterID: 3, clusterName: 'cl3', customerID: 2, customerName: 'cu2' },
+          { clusterID: 4, clusterName: 'cl3', customerID: 3, customerName: 'cu3' },
+        ],
+      }));
+      controller.getClustersAndCustomers();
+      $scope.$digest();
+      expect(DataService.callAPI).toHaveBeenCalled();
+      expect(controller.clusters).toEqual([
+        { id: 1, name: 'cu1 - cl1' },
+        { id: 2, name: 'cu1 - cl2' },
+        { id: 3, name: 'cu2 - cl3' },
+        { id: 4, name: 'cu3 - cl3' },
+      ]);
+      expect(controller.customers).toEqual([
+        { id: 1, name: 'cu1' },
+        { id: 2, name: 'cu2' },
+        { id: 3, name: 'cu3' },
+      ]);
     });
   });
 

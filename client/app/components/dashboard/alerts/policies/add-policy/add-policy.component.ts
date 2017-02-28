@@ -55,11 +55,15 @@
         this.emails = this.UserInfoService.currentUser.username;
       });
 
-      this.DataService
+      this.getClustersAndCustomers();
+    }
+
+    getClustersAndCustomers() {
+      return this.DataService
         .callAPI('ListActiveClusters', {
           components: ['clusterVersionInfo', 'clusterInfo' ]
         })
-        .then( response => (response.clusters || []) )
+        .then( response => _.get(response, 'clusters', []) )
         .then( clusters => {
           this.clusters = clusters.map( c => ({
             id: c.clusterID,
