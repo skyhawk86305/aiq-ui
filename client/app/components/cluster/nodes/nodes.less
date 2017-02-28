@@ -1,7 +1,7 @@
 @import '../../../styles/shared.less';
 
 .nodes-page {
-  background-color: @whitescale-2;
+  background-color: @page-bg-color;
   height: 100%;
   overflow-y: auto;
   padding: 15px;
@@ -29,13 +29,13 @@
     .info-bar-row + .info-bar-row {
       @media only screen and (min-width: 1200px) {
         .info-box {
-          border-left: 1px solid @whitescale-5;
+          border-left: 1px solid fade(black, 15%);
         }
       }
     }
     @media only screen and (min-width: 768px) {
       .info-box:last-child {
-        border-left: 1px solid @whitescale-5;
+        border-left: 1px solid fade(black, 15%);
       }
     }
   }

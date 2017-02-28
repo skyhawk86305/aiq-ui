@@ -81,3 +81,20 @@ input[type=number]::-webkit-outer-spin-button {
     }
   }
 }
+
+.placeholder(@rules) {
+  &::-webkit-input-placeholder {
+    @rules();
+  }
+  &:-moz-placeholder {
+    opacity: 1;
+    @rules();
+  }
+  &::-moz-placeholder {
+    opacity: 1;
+    @rules();
+  }
+  &:-ms-input-placeholder {
+    @rules();
+  }
+}
