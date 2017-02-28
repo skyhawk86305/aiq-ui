@@ -53,7 +53,7 @@ describe('Volume Details Page', function () {
       }
     });
 
-    describe('The info-boxes with data values should have correct data, and should be wider than their data values', function() {
+    describe('The info-boxes should be wider than their data values', function() {
       it('volume size info-box', function () {
         var box = volumeDetailsPage.infoBar.infoBox('volume-size');
         expect(box.value.getText()).to.eventually.equal('10MB');
@@ -62,20 +62,26 @@ describe('Volume Details Page', function () {
 
       it('average throughput info-box', function () {
         var box = volumeDetailsPage.infoBar.infoBox('average-throughput');
-        expect(box.value.getText()).to.eventually.equal('5TB/s');
         support.infoBoxSizeCheck(volumeDetailsPage.infoBar, 'average-throughput');
       });
 
       it('average latency info-box', function () {
         var box = volumeDetailsPage.infoBar.infoBox('average-latency');
-        expect(box.value.getText()).to.eventually.equal('5.1');
         support.infoBoxSizeCheck(volumeDetailsPage.infoBar, 'average-latency');
       });
-
     });
 
     describe('the info details section', function () {
-      var infoDetails;
+      var infoDetails,
+        detailBoxes = ['access', 'access-groups', 'non-zero-blocks', 'zero-blocks', 'snapshots',
+          'enable512e', 'min-iops', 'max-iops', 'burst-iops', 'volumes-paired', 'create-time', 'block-size',
+          'unaligned-writes', 'unaligned-reads', 'iqn', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'attributes'],
+        boxTitles = ['Acces', 'Access Groups', 'Non-Zero Blocks', 'Zero Blocks', 'Snapshot Count',
+          'Enable 512e', 'Min IOPS', 'Max IOPS', 'Burst IOPS', 'Volumes Paired', 'Create Time', 'Block Size',
+          'Unaligned Writes', 'Unaligned Reads', 'IQN', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'Attributes'],
+        boxData = [ 'Read / Write', '1, 2, 3', '646', '122069882', '3', 'Yes', '1000', '15000', '15000', 'No',
+          '2014-12-02 12:52:37', '4096', '0', '0', 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+          '64646a7400123301ff47acc0100000000', '6f47acc100056600064646a740000001f', '-'];
 
       beforeEach(function () {
         infoDetails = volumeDetailsPage.infoBar.infoDetails;
@@ -92,12 +98,6 @@ describe('Volume Details Page', function () {
 
       it('@any @smoke should have the correct items in the details section', function () {
         expect(infoDetails.infoDetailsBoxes.count()).to.eventually.equal(18);
-        var detailBoxes = ['access', 'access-groups', 'non-zero-blocks', 'zero-blocks', 'snapshots',
-          'enable512e', 'min-iops', 'max-iops', 'burst-iops', 'volumes-paired', 'create-time', 'block-size',
-          'unaligned-writes', 'unaligned-reads', 'iqn', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'attributes'];
-        var boxTitles = ['Acces', 'Access Groups', 'Non-Zero Blocks', 'Zero Blocks', 'Snapshot Count',
-          'Enable 512e', 'Min IOPS', 'Max IOPS', 'Burst IOPS', 'Volumes Paired', 'Create Time', 'Block Size',
-          'Unaligned Writes', 'Unaligned Reads', 'IQN', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'Attributes'];
         for (var i=0; i < detailBoxes.length; i++) {
           var box = infoDetails.infoDetailsBox(detailBoxes[i]);
           expect(box.el.isDisplayed()).to.eventually.be.true;
@@ -105,57 +105,58 @@ describe('Volume Details Page', function () {
         }
       });
 
-      describe('it should have the correct data in the details section', function() {
-        it('the Element OS version', function () {
-          var box = infoDetails.infoDetailsBox('elementos-version');
-          expect(box.value.getText()).to.eventually.equal('8.1.0.95');
-        });
+      it('should have the correct data in the details section', function() {
+        function checkData(boxId, expectedText) {
+          var box = infoDetails.infoDetailsBox(boxId);
+          expect(box.value.getText()).to.eventually.equal(expectedText);
+        }
 
-        it('the iSCSCI Sessions count', function () {
-          var box = infoDetails.infoDetailsBox('iscsi-sessions');
-          expect(box.value.getText()).to.eventually.equal('9');
-        });
-
-        it('the Encryption at Rest state', function () {
-          var box = infoDetails.infoDetailsBox('encryption-at-rest');
-          expect(box.value.getText()).to.eventually.equal('DISABLED');
-        });
-
-        it('the node types count', function () {
-          var box = infoDetails.infoDetailsBox('node-types');
-          expect(box.value.getText()).to.eventually.equal('1 - SF-A044, 8 - SF9605, 1 - SF9610');
-        });
+        for (var i = 0; i < detailBoxes.length; i++) {
+          checkData(detailBoxes[i], boxData[i]);
+        }
       })
     });
   });
 
   describe('the sync graphs', function() {
-    it('@any @smoke should have 6 sparklines with the expected labels', function () {
-      var graph = clusterOverviewPage.graphs.clusterPerformance;
-      expect(graph.el.isDisplayed()).to.eventually.be.true;
-      expect(graph.title.getText()).to.eventually.equal('Performance');
+    var expectedGraphLabels = ['Throughput', 'IOPS', 'Latency', 'Queue Depth', 'Average IO Size', 'Capacity'],
+      volumeSyncGraphs = volumeDetailsPage.syncGraphs;
 
-      expect(graph.svg.lines.count()).to.eventually.equal(2);
-      var expectedSeries = ['totalOpsPerSec','totalBytesPerSec'],
-        expectedLabels = ['IOPS','Throughput'];
-      for (var i=0; i < expectedSeries.length; i++) {
-        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
-        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+    it('@any @smoke should have 6 graph selections with the expected labels', function () {
+      expect(volumeSyncGraphs.graphSelectorPanel.graphSelections.count()).to.eventually.equal(expectedGraphLabels.length);
+      for (var i = 1; i <= expectedGraphLabels.length; i++) {
+        expect(volumeSyncGraphs.graphSelectorPanel.graphSelection('sync-graph-' + i).label.getText()).to.eventually.equal(expectedGraphLabels[i-1]);
+        expect(volumeSyncGraphs.graphSelectorPanel.graphSelection('sync-graph-' + i).sparkline.el.isPresent()).to.eventually.be.true;
       }
     });
 
-    it('@any @smoke should allow the user to select a sparkline and see the selected graph with a title, expected lines, a legend (if applicable), and an export button', function () {
-      var graph = clusterOverviewPage.graphs.clusterPerformance;
-      expect(graph.el.isDisplayed()).to.eventually.be.true;
-      expect(graph.title.getText()).to.eventually.equal('Performance');
+    describe('selecting a graph', function() {
+      it('@any @smoke should change the context graph and the selected graph which has a title, expected lines, a legend (if applicable), and an export button', function () {
+        function checkSelectedAndContextGraph() {
+          syncGraphsThumbnails.graphSelectorPanel.graphSelection('sync-graph-2').el.click();
 
-      expect(graph.svg.lines.count()).to.eventually.equal(2);
-      var expectedSeries = ['totalOpsPerSec','totalBytesPerSec'],
-        expectedLabels = ['IOPS','Throughput'];
-      for (var i=0; i < expectedSeries.length; i++) {
-        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
-        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
-      }
+          expect(syncGraphsThumbnails.graphSelectorPanel.graphSelection('sync-graph-1').el.getAttribute('class')).to.eventually.not.contain('active');
+          expect(syncGraphsThumbnails.graphSelectorPanel.graphSelection('sync-graph-2').el.getAttribute('class')).to.eventually.contain('active');
+
+          expect(syncGraphsThumbnails.selectedGraph.graph('sync-graph-1').el.isPresent()).to.eventually.be.false;
+          expect(syncGraphsThumbnails.selectedGraph.graph('sync-graph-2').el.isPresent()).to.eventually.be.true;
+
+          /** Refactor context graph in page object to be like selected graph when scroll layout is deprecated **/
+          expect(syncGraphsThumbnails.contextGraph.el.element(by.css('.sf-graph-time-series-container')).getAttribute('id')).to.eventually.contain('sync-graph-2');
+          expect(syncGraphsThumbnails.contextGraph.el.element(by.css('.sf-graph-time-series-container')).getAttribute('id')).to.eventually.not.contain('sync-graph-1');
+        }
+        var graph = clusterOverviewPage.graphs.clusterPerformance;
+        expect(graph.el.isDisplayed()).to.eventually.be.true;
+        expect(graph.title.getText()).to.eventually.equal('Performance');
+
+        expect(graph.svg.lines.count()).to.eventually.equal(2);
+        var expectedSeries = ['totalOpsPerSec','totalBytesPerSec'],
+          expectedLabels = ['IOPS','Throughput'];
+        for (var i=0; i < expectedSeries.length; i++) {
+          expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
+          expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+        }
+      });
     });
   });
 
