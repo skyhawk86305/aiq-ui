@@ -33,7 +33,7 @@
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
         {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-        {key: 'details', label: 'View Details', width: 100, sortable: false, hideable: false}
+        {key: 'details', label: 'View Details', width: 100, sortable: false, nonData: true}
       ];
     }
 
