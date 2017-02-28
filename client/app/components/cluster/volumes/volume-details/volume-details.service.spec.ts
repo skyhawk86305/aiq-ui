@@ -161,7 +161,7 @@ describe('service: VolumeDetailsService', function() {
       service.getAverageVolumePerformance();
       expect(dataService.callGraphAPI).toHaveBeenCalledWith('performance', params);
     });
-    
+
     it('should return correct average volume performance', function() {
       service.clusterID = 1898714;
       service.volumeID = 33;
