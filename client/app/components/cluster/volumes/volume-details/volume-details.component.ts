@@ -349,6 +349,9 @@
                 totalOpsPerSec: 'solid'
               }
             },
+            tooltipFormat: {
+              y0: (d) => { return d; }
+            },
             margin: {
               top:    sparkLine ? 10 : 20,
               right:  sparkLine ? 10 : 75,
@@ -444,6 +447,7 @@
               },
               y0: {
                 tick: {
+                  format: (number) => { return this.latencyFormat(number); },
                   spacing: 50
                 }
               }
@@ -569,6 +573,9 @@
                 averageIOPSize: 'solid'
               }
             },
+            tooltipFormat: {
+              y0: (d) => { return d; }
+            },
             margin: {
               top:    sparkLine ? 10 : 20,
               right:  sparkLine ? 10 : 75,
@@ -584,6 +591,7 @@
               },
               y0: {
                 tick: {
+                  format: (io) => { return this.iopsFormat(io); },
                   spacing: 50
                 }
               }
@@ -708,10 +716,13 @@
       return this.$filter('percent')(utilization, 0, true, false, true, null, null);
     }
     private iopsFormat(iops) {
-      return this.$filter('iops')(iops, 0, true);
+      return this.$filter('iops')(iops, true, 1);
     }
     private bytesFormat(bytes) {
       return this.$filter('bytes')(bytes, false, 0, true);
+    }
+    private latencyFormat(number) {
+      return this.$filter('aiqNumber')(number, 2);
     }
     private capacityFormat(bytes) {
       return this.$filter('bytes')(bytes, false, 0, false);

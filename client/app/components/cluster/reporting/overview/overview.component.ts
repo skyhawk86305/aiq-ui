@@ -8,6 +8,7 @@
       controller: [
         '$routeParams',
         '$filter',
+        '$timeout',
         'DataService',
         'PerformanceGraphsService',
         'SFD3LineGraph',
@@ -15,7 +16,7 @@
       ]
     });
 
-  function OverviewDashboardController($routeParams, $filter, DataService, PerformanceGraphsService, SFD3LineGraph) {
+  function OverviewDashboardController($routeParams, $filter, $timeout, DataService, PerformanceGraphsService, SFD3LineGraph) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -54,6 +55,13 @@
           }
         }
       }
+    };
+
+    ctrl.resizeGraphs = function() {
+      $timeout(function() {
+        ctrl.graphs.performance.graph.resize();
+        ctrl.graphs.utilization.graph.resize();
+      }, 300);
     };
 
     /**********************************/
@@ -217,7 +225,7 @@
             }
           },
           tooltipFormat: {
-            y0: function(d) { return d; }
+            y0: (d) => { return d; }
           },
           axis: {
             x: {
@@ -264,7 +272,7 @@
       return $filter('percent')(utilization, 0, true, false, true, null, null);
     }
     function iopsFormat(iops) {
-      return $filter('iops')(iops, 0);
+      return $filter('iops')(iops, true, 1);
     }
     function bytesFormat(bytes) {
       return $filter('bytes')(bytes, false, 0, true);
