@@ -45,8 +45,8 @@
           volume.maxIOPS = volume.qos.maxIOPS;
           volume.burstIOPS = volume.qos.burstIOPS;
           volume.paired = volume.volumePairs.length ? true : false;
-          volume.details = '<div class="view-details-link"><a  ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID + '" aria-label="Leave this page to view selected volume details">' +
-            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a></div>';
+          volume.details = '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID + '" aria-label="Leave this page to view selected volume details">' +
+            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>';
           return volume;
         });
       });

@@ -8,7 +8,7 @@ var clusterSelect = new support.clusterSelectComponent();
 var clusterId;
 var volumeId = 1;
 
-describe('Volume Details Page', function () {
+fdescribe('Volume Details Page', function () {
   beforeAll(function(done) {
     support.login();
     var openedClusterSelect = clusterSelect.open();

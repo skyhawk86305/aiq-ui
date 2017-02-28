@@ -112,7 +112,7 @@
           </div>
           <div class="info-details-content-box -block-size">
             <span class="info-details-content-title">Block Size</span>
-            <span class="info-details-content-value"> {{$ctrl.volume.blockSize}} </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.blockSize | string}} </span>
           </div>
           <div class="info-details-content-box -unaligned-writes">
             <span class="info-details-content-title"> Unaligned Writes </span>
@@ -124,15 +124,15 @@
           </div>
           <div class="info-details-content-box -iqn">
             <span class="info-details-content-title"> IQN </span>
-            <span class="info-details-content-value"> {{$ctrl.volume.iqn}} </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.iqn | string}} </span>
           </div>
           <div class="info-details-content-box -scsiEUIDeviceID">
             <span class="info-details-content-title"> scsiEUIDeviceID </span>
-            <span class="info-details-content-value"> {{$ctrl.volume.scsiEUIDeviceID}} </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.scsiEUIDeviceID | string}} </span>
           </div>
           <div class="info-details-content-box -scsiNAADeviceID">
             <span class="info-details-content-title"> scsiNAADeviceID </span>
-            <span class="info-details-content-value"> {{$ctrl.volume.scsiNAADeviceID}} </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.scsiNAADeviceID | string}} </span>
           </div>
           <div class="info-details-content-box -attributes">
             <span class="info-details-content-title"> Attributes </span>
