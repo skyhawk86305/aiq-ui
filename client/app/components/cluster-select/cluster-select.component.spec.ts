@@ -189,5 +189,11 @@ describe('Component: clusterSelect', function() {
       controller.select({clusterID: 12345});
       expect(location.path).toHaveBeenCalledWith('/cluster/12345/foo/bar');
     });
+
+    it('should reroute the user to the volumes page if currently on a volume specific details page', function() {
+      spyOn(location, 'path').and.returnValue('#/volume/bar');
+      controller.select({clusterID: 999});
+      expect(location.path).toHaveBeenCalledWith('/cluster/999/volumes/');
+    });
   });
 });

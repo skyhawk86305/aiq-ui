@@ -68,7 +68,11 @@
           newPath = onClusterPath ? currentPath.replace(/\/cluster\/([0-9]*)/, '') : defaultPath;
 
       updateSelectedCluster(cluster);
-      $location.path('/cluster/' + cluster.clusterID + newPath);
+      if (currentPath.indexOf('/volume/') >= 0) {
+        $location.path('/cluster/' + cluster.clusterID + '/volumes/');
+      } else {
+        $location.path('/cluster/' + cluster.clusterID + newPath);
+      }
     };
 
     function updateSelectedCluster(cluster) {
