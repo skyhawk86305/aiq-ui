@@ -74,5 +74,7 @@ describe('The Cluster Volumes Page', function () {
   it('@any should allow the user to go to volume details page', function() {
     var viewDetailsLink = table.el.all(by.css('.view-details-link')).get(0);
     expect(viewDetailsLink.isPresent()).to.eventually.be.true;
+    viewDetailsLink.click();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/volume/1');
   });
 });
