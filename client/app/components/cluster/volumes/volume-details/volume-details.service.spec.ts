@@ -25,7 +25,7 @@ describe('service: VolumeDetailsService', function() {
   }));
 
   describe('setVolume', function() {
-    it('should set volume properly', function() {
+    it('should set cluster id and volume id', function() {
       service.setVolume(1898714, 33);
       expect(service.clusterID).toEqual(1898714);
       expect(service.volumeID).toEqual(33);
@@ -39,7 +39,7 @@ describe('service: VolumeDetailsService', function() {
       expect(dataService.callGuzzleAPI).toHaveBeenCalledWith(1898714, 'ListActiveVolumes');
     });
 
-    it('should return undefined', function() {
+    it('should return undefined if the volume is not found', function() {
       service.volumeID = 33;
       service.clusterID = 1898714;
       apiResponse = {volumes: [{ volumeID: 31, status: 'active', sliceCount: 1, accountID: 1 },
@@ -77,7 +77,7 @@ describe('service: VolumeDetailsService', function() {
       expect(dataService.callGuzzleAPI).toHaveBeenCalledWith(1898714, 'ListVolumeStatsByVolume');
     });
 
-    it('should return undefined', function() {
+    it('should return undefined if the volume is not found', function() {
       service.volumeID = 29;
       service.clusterID = 1898714;
       apiResponse = {volumeStats: [{ volumeID: 31, writeLatencyUSec: 0, burstIOPSCredit: 0, actualIOPS: 0, readOps: 296031170 },

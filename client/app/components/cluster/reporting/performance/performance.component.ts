@@ -142,7 +142,7 @@
             bottom: 30
           },
           tooltipFormat: {
-            y0: function(d) { return d; }
+            y0: (d) => { return d; }
           },
           axis: {
             x: {
@@ -351,7 +351,7 @@
       return $filter('percent')(utilization, 0, true, false, true, null, null);
     }
     function iopsFormat(iops) {
-      return $filter('iops')(iops, 0, true);
+      return $filter('iops')(iops, true, 1);
     }
     function bytesFormat(bytes) {
       return $filter('bytes')(bytes, false, 0, true);

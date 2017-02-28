@@ -17,7 +17,7 @@ export function PercentFilter() {
         suffix = '<span class="units">' + suffix + '</span>';
         prefix = '<span class="prefixSymbol">' + prefix + '</span>';
       }
-      return number || number === 0 ? prefix + number.toFixed(places) + suffix : '-';
+      return number || number === 0 ? prefix + +(number).toFixed(places) + suffix : '-';
     } else { return '-'; }
   };
 }

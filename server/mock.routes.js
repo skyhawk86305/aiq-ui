@@ -123,6 +123,49 @@ mockRoutes.get('/graph/cluster/:clusterId/performance', function (req, res) {
   });
 
   res.send(response);
+});/**
+ * Catch capacity page graph data requests and respond with random data
+ * in the correct response format.
+ */
+
+mockRoutes.get('/graph/cluster/:clusterId/volume/:volumeId/performance', function (req, res) {
+  var data = mockTimeSeriesData.getTimeSeriesData(req.query.startTime, req.query.endTime, req.query.resolution, 0, ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec', 'readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec', 'readLatencyUSec', 'writeLatencyUSec', 'latencyUSec', 'usedCapacity', 'provisionedCapacity', 'averageIOPSize', 'clientQueueDepth']),
+    response = data || {};
+
+  response.clientQueueDepth = response.clientQueueDepth.map(function(val) {
+    return (val / 1000000000000);
+  });
+
+  response.averageIOPSize = response.averageIOPSize.map(function(val) {
+    return (val / 1000000000000);
+  });
+
+  response.readLatencyUSec = response.readLatencyUSec.map(function(val) {
+    return (val / 1000000000000);
+
+  });
+
+  response.writeLatencyUSec = response.writeLatencyUSec.map(function(val) {
+    return (val / 1000000000000);
+  });
+
+  response.latencyUSec = response.latencyUSec.map(function(val) {
+    return (val / 1000000000000);
+  });
+
+  response.readOpsPerSec = response.readOpsPerSec.map(function(val) {
+    return (val / 100000000000);
+  });
+
+  response.writeOpsPerSec = response.writeOpsPerSec.map(function(val) {
+    return (val / 100000000000);
+  });
+
+  response.totalOpsPerSec = response.totalOpsPerSec.map(function(val) {
+    return (val / 100000000000);
+  });
+
+  res.send(response);
 });
 
 /**
