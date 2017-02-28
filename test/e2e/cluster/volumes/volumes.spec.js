@@ -34,7 +34,7 @@ function mapFixture(rawFixture) {
   });
 }
 
-describe('The Cluster Volumes Page', function () {
+fdescribe('The Cluster Volumes Page', function () {
   beforeAll(function(done) {
     support.login();
     var openedClusterSelect = clusterSelect.open();
@@ -69,5 +69,10 @@ describe('The Cluster Volumes Page', function () {
 
   it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
+  });
+
+  it('@any should allow the user to go to volume details page', function() {
+    var viewDetailsLink = table.el.element(by.css('.view-details-link'));
+    expect(viewDetailsLink.isPresent()).to.eventually.be.true;
   });
 });

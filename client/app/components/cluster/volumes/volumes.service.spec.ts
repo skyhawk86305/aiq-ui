@@ -64,9 +64,9 @@ describe('VolumeTableService', function () {
           maxIOPS: 'bar',
           burstIOPS: 'baz',
           paired: true,
-          details: '<div class="view-details-link"><a  ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
+          details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
             apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
-            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a></div>'
+            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
         }
       ];
       service.getData(true).then(function(response) {
