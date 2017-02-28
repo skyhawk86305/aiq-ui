@@ -143,7 +143,7 @@ describe('Cluster Overview Page', function () {
         expect(infoDetails.el.isDisplayed()).to.eventually.be.true;
       });
 
-      it('@any @smoke should have the correct items items in the details section', function () {
+      it('@any @smoke should have the correct items in the details section', function () {
         expect(infoDetails.infoDetailsBoxes.count()).to.eventually.equal(4);
         var detailBoxes = ['elementos-version','iscsi-sessions', 'encryption-at-rest','node-types'];
         var boxTitles = ['Element OS Version','iSCSI Sessions','Encryption at Rest','Node Types'];

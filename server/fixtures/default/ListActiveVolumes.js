@@ -4,7 +4,7 @@ module.exports = {
       clusterID:11,
       volumeID: 1,
       accountID: 2,
-      totalSize: 100000,
+      totalSize: 10000000,
       enable512e: true,
       access: 'readWrite',
       qos: {
@@ -25,7 +25,7 @@ module.exports = {
       clusterID:11,
       volumeID: 2,
       accountID: 2,
-      totalSize: 200000,
+      totalSize: 20000000,
       enable512e: false,
       access: 'readWrite',
       qos: {
@@ -46,7 +46,7 @@ module.exports = {
       clusterID:11,
       volumeID: 3,
       accountID: 4,
-      totalSize: 100000,
+      totalSize: 10000000,
       enable512e: true,
       access: 'readWrite',
       qos: {
@@ -67,7 +67,7 @@ module.exports = {
       clusterID:11,
       volumeID: 4,
       accountID: 4,
-      totalSize: 1500000,
+      totalSize: 150000000,
       enable512e: true,
       access: 'readOnly',
       qos: {
@@ -88,7 +88,7 @@ module.exports = {
       clusterID:11,
       volumeID: 5,
       accountID: 2,
-      totalSize: 2048000000000,
+      totalSize: 20480000000,
       enable512e: false,
       access: 'readWrite',
       qos: {
@@ -130,7 +130,7 @@ module.exports = {
       clusterID:11,
       volumeID: 25,
       accountID: 4,
-      totalSize: 200000,
+      totalSize: 20000000,
       enable512e: true,
       access: 'readWrite',
       qos: {
