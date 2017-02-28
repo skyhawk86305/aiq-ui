@@ -1,7 +1,7 @@
 'use strict';
 
-var SyncGraphsComponent = require('../../components/sf-components.po').syncGraphs;
-var InfoBarComponent = require('../../components/info-bar.po');
+var SyncGraphsComponent = require('../components/sf-components.po').syncGraphs;
+var InfoBarComponent = require('../components/info-bar.po');
 
 var VolumeDetailsPage = function () {
   var page = this;

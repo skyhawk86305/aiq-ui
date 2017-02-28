@@ -1,8 +1,8 @@
 'use strict';
 
-var support = require('../support.js');
+var support = require('../../support.js');
 var expect = support.expect;
-var TableComponent = require('../page-objects/components/sf-components.po').table;
+var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('volume');
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListActiveVolumes'));

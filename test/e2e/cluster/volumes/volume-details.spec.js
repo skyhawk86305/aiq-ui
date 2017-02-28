@@ -74,9 +74,9 @@ describe('Volume Details Page', function () {
     describe('the info details section', function () {
       var infoDetails,
         detailBoxes = ['access', 'access-groups', 'non-zero-blocks', 'zero-blocks', 'snapshots',
-          'enable512e', 'min-iops', 'max-iops', 'burst-iops', 'volumes-paired', 'create-time', 'block-size',
+          'enable-512e', 'min-iops', 'max-iops', 'burst-iops', 'volumes-paired', 'create-time', 'block-size',
           'unaligned-writes', 'unaligned-reads', 'iqn', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'attributes'],
-        boxTitles = ['Acces', 'Access Groups', 'Non-Zero Blocks', 'Zero Blocks', 'Snapshot Count',
+        boxTitles = ['Access', 'Access Groups', 'Non-Zero Blocks', 'Zero Blocks', 'Snapshot Count',
           'Enable 512e', 'Min IOPS', 'Max IOPS', 'Burst IOPS', 'Volumes Paired', 'Create Time', 'Block Size',
           'Unaligned Writes', 'Unaligned Reads', 'IQN', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'Attributes'],
         boxData = [ 'Read / Write', '1, 2, 3', '646', '122069882', '3', 'Yes', '1000', '15000', '15000', 'No',
@@ -119,42 +119,90 @@ describe('Volume Details Page', function () {
   });
 
   describe('the sync graphs', function() {
-    var expectedGraphLabels = ['Throughput', 'IOPS', 'Latency', 'Queue Depth', 'Average IO Size', 'Capacity'],
-      volumeSyncGraphs = volumeDetailsPage.syncGraphs;
+    var graphs = {
+      throughput: {
+        id: 'throughput',
+        label: 'Throughput',
+        seriesIds: ['readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec'],
+        seriesLabels: ['Read', 'Write', 'Total']
+      },
+      iops: {
+        id: 'iops',
+        label: 'IOPS',
+        seriesIds: ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec'],
+        seriesLabels: ['Read', 'Write', 'Total']
+      },
+      latency: {
+        id: 'latency',
+        label: 'Latency',
+        seriesIds: ['readLatencyUSec', 'writeLatencyUSec', 'latencyUSec'],
+        seriesLabels: ['Read', 'Write', 'Average']
+      },
+      queueDepth: {
+        id: 'queue-depth',
+        label: 'Queue Depth',
+        seriesIds: ['clientQueueDepth']
+      },
+      averageIOSize: {
+        id: 'average-io-size',
+        label: 'Average IO Size',
+        seriesIds: ['averageIOPSize']
+      },
+      capacity: {
+        id: 'capacity',
+        label: 'Capacity',
+        seriesIds: ['usedCapacity', 'provisionedCapacity'],
+        seriesLabels: ['Used', 'Provisioned']
+      },
+    },
+    graphKeys = Object.keys(graphs),
+    volumeSyncGraphs = volumeDetailsPage.syncGraphs;
 
     it('@any @smoke should have 6 graph selections with the expected labels', function () {
-      expect(volumeSyncGraphs.graphSelectorPanel.graphSelections.count()).to.eventually.equal(expectedGraphLabels.length);
-      for (var i = 1; i <= expectedGraphLabels.length; i++) {
-        expect(volumeSyncGraphs.graphSelectorPanel.graphSelection('sync-graph-' + i).label.getText()).to.eventually.equal(expectedGraphLabels[i-1]);
-        expect(volumeSyncGraphs.graphSelectorPanel.graphSelection('sync-graph-' + i).sparkline.el.isPresent()).to.eventually.be.true;
+      expect(volumeSyncGraphs.graphSelectorPanel.graphSelections.count()).to.eventually.equal(graphKeys.length);
+      for (var i = 0; i < graphKeys.length; i++) {
+        var graph = graphs[graphKeys[i]];
+        expect(volumeSyncGraphs.graphSelectorPanel.graphSelection(graph.id).label.getText()).to.eventually.equal(graph.label);
+        expect(volumeSyncGraphs.graphSelectorPanel.graphSelection(graph.id).sparkline.el.isPresent()).to.eventually.be.true;
       }
     });
 
     describe('selecting a graph', function() {
-      it('@any @smoke should change the context graph and the selected graph which has a title, expected lines, a legend (if applicable), and an export button', function () {
-        function checkSelectedAndContextGraph() {
-          syncGraphsThumbnails.graphSelectorPanel.graphSelection('sync-graph-2').el.click();
+      it('@any @smoke should change the context graph and the selected graph (including its title, expected lines, a legend (if applicable), and an export button)', function () {
+        var previousGraph = graphs[graphKeys[0]];
 
-          expect(syncGraphsThumbnails.graphSelectorPanel.graphSelection('sync-graph-1').el.getAttribute('class')).to.eventually.not.contain('active');
-          expect(syncGraphsThumbnails.graphSelectorPanel.graphSelection('sync-graph-2').el.getAttribute('class')).to.eventually.contain('active');
+        expect(volumeSyncGraphs.graphSelectorPanel.graphSelection(previousGraph.id).el.getAttribute('class')).to.eventually.contain('active');
+        expect(volumeSyncGraphs.selectedGraph.graph(previousGraph.id).el.isPresent()).to.eventually.be.true;
+        expect(volumeSyncGraphs.contextGraph.el.element(by.css('.sf-graph-time-series-container')).getAttribute('id')).to.eventually.contain(previousGraph.id);
 
-          expect(syncGraphsThumbnails.selectedGraph.graph('sync-graph-1').el.isPresent()).to.eventually.be.false;
-          expect(syncGraphsThumbnails.selectedGraph.graph('sync-graph-2').el.isPresent()).to.eventually.be.true;
-
-          /** Refactor context graph in page object to be like selected graph when scroll layout is deprecated **/
-          expect(syncGraphsThumbnails.contextGraph.el.element(by.css('.sf-graph-time-series-container')).getAttribute('id')).to.eventually.contain('sync-graph-2');
-          expect(syncGraphsThumbnails.contextGraph.el.element(by.css('.sf-graph-time-series-container')).getAttribute('id')).to.eventually.not.contain('sync-graph-1');
+        for (var i = 1; i < graphKeys.length; i++) {
+          var graph = graphs[graphKeys[i]];
+          volumeSyncGraphs.graphSelectorPanel.graphSelection(graph.id).el.click();
+          isSelectedAndContextGraphUpdated(graph);
+          checkSelectedGraphElements(graph);
+          previousGraph = graph;
         }
-        var graph = clusterOverviewPage.graphs.clusterPerformance;
-        expect(graph.el.isDisplayed()).to.eventually.be.true;
-        expect(graph.title.getText()).to.eventually.equal('Performance');
 
-        expect(graph.svg.lines.count()).to.eventually.equal(2);
-        var expectedSeries = ['totalOpsPerSec','totalBytesPerSec'],
-          expectedLabels = ['IOPS','Throughput'];
-        for (var i=0; i < expectedSeries.length; i++) {
-          expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
-          expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
+        function isSelectedAndContextGraphUpdated(graph) {
+          expect(volumeSyncGraphs.graphSelectorPanel.graphSelection(previousGraph.id).el.getAttribute('class')).to.eventually.not.contain('active');
+          expect(volumeSyncGraphs.graphSelectorPanel.graphSelection(graph.id).el.getAttribute('class')).to.eventually.contain('active');
+          expect(volumeSyncGraphs.selectedGraph.graph(previousGraph.id).el.isPresent()).to.eventually.be.false;
+          expect(volumeSyncGraphs.selectedGraph.graph(graph.id).el.isPresent()).to.eventually.be.true;
+          expect(volumeSyncGraphs.contextGraph.el.element(by.css('.sf-graph-time-series-container')).getAttribute('id')).to.eventually.contain(graph.id);
+          expect(volumeSyncGraphs.contextGraph.el.element(by.css('.sf-graph-time-series-container')).getAttribute('id')).to.eventually.not.contain(previousGraph.id);
+        }
+
+        function checkSelectedGraphElements(graph) {
+          expect(volumeSyncGraphs.selectedGraph.graph(graph.id).title.getText()).to.eventually.equal(graph.label);
+          expect(volumeSyncGraphs.selectedGraph.graph(graph.id).exportButton.isPresent()).to.eventually.be.true;
+
+          expect(volumeSyncGraphs.selectedGraph.graph(graph.id).svg.lines.count()).to.eventually.equal(graph.seriesIds.length);
+          for (var i = 0; i < graph.seriesIds.length; i++) {
+            expect(volumeSyncGraphs.selectedGraph.graph(graph.id).svg.line(graph.seriesIds[i]).isDisplayed()).to.eventually.be.true;
+            if (graph.seriesLabels) {
+              expect(volumeSyncGraphs.selectedGraph.graph(graph.id).legend.legendItem(graph.seriesIds[i]).label.getText()).to.eventually.equal(graph.seriesLabels[i]);
+            }
+          }
         }
       });
     });

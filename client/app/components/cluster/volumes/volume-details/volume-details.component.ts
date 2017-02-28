@@ -166,8 +166,8 @@
             export: true,
             legend: {
               items: {
-                usedCapacity: 'Used Capacity',
-                provisionedCapacity: 'Provisioned Capacity',
+                usedCapacity: 'Used',
+                provisionedCapacity: 'Provisioned',
               }
             }
           },

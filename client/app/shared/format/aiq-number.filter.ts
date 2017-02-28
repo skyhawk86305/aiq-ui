@@ -8,7 +8,7 @@ export function AiqNumberFilter($filter) {
 
       if (!validNumber || (dashZero && number === 0)) { return '-'; }
       else {
-        rounded = +(number).toFixed(places);
+        rounded = number.toFixed(places);
         return hideCommas ? rounded : $filter('number')(rounded);
       }
     } else { return '-'; }
