@@ -27,7 +27,6 @@ describe('Component: overviewDashboard', function() {
     locals = {
       $routeParams: routeParams,
       $filter: filter,
-      $timeout: timeout,
       DataService: dataService,
       PerformanceGraphsService: performanceService,
       ClusterAlertTableService: clusterAlertTableService
