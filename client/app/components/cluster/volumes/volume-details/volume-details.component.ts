@@ -620,6 +620,7 @@
               },
               y0: {
                 tick: {
+                  format: (io) => { return this.iopsFormat(io); },
                   spacing: 25
                 }
               }
