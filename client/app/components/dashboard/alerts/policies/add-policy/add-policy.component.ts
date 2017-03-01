@@ -58,7 +58,7 @@
       this.getClustersAndCustomers();
     }
 
-    getClustersAndCustomers() {
+    private getClustersAndCustomers() {
       return this.DataService
         .callAPI('ListActiveClusters', {
           components: ['clusterVersionInfo', 'clusterInfo' ]
