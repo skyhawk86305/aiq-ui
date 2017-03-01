@@ -58,46 +58,6 @@
       this.getClustersAndCustomers();
     }
 
-    private getClustersAndCustomers() {
-      return this.DataService
-        .callAPI('ListActiveClusters', {
-          components: ['clusterVersionInfo', 'clusterInfo' ]
-        })
-        .then( response => _.get(response, 'clusters', []) )
-        .then( clusters => {
-          this.clusters = clusters.map( c => ({
-            id: c.clusterID,
-            name: `${c.customerName} - ${c.clusterName || 'Unnamed Cluster'}`,
-          }));
-
-          this.customers = _(clusters)
-            .map( c => ({
-              id: c.customerID,
-              name: c.customerName,
-            }))
-            .uniqBy('id')
-            .value();
-        });
-    }
-
-    initFieldValues() {
-      this.policyType = this.policyTypes[0][0];
-      this.name = '';
-      this.severity = this.severities[0];
-      this.clusterID = null;
-      this.customerID = null;
-      this.clusterFaultType = null;
-      this.eventType = this.eventTypes[0];
-      this.clusterUtilizationThreshold = null;
-      this.usableSpaceThreshold = null;
-      this.provisionableSpaceThreshold = null;
-      this.collectorNotReportingTime = null;
-      this.driveWearThreshold = null;
-      this.driveWearType = this.driveWearTypes[0][0];
-      this.sessionsThreshold = null;
-      this.capacityLicensingThreshold = null;
-    }
-
     submit() {
       this.DataService
         .callAPI('AddNotification', {
@@ -125,7 +85,48 @@
       this.$location.path('/dashboard/alerts/policies');
     }
 
-    getNotificationFields() {
+    private initFieldValues() {
+      this.policyType = this.policyTypes[0][0];
+      this.name = '';
+      this.severity = this.severities[0];
+      this.clusterID = null;
+      this.customerID = null;
+      this.clusterFaultType = null;
+      this.eventType = this.eventTypes[0];
+      this.clusterUtilizationThreshold = null;
+      this.usableSpaceThreshold = null;
+      this.provisionableSpaceThreshold = null;
+      this.collectorNotReportingTime = null;
+      this.driveWearThreshold = null;
+      this.driveWearType = this.driveWearTypes[0][0];
+      this.sessionsThreshold = null;
+      this.capacityLicensingThreshold = null;
+    }
+
+    private getClustersAndCustomers() {
+      return this.DataService
+        .callAPI('ListActiveClusters', {
+          components: ['clusterVersionInfo', 'clusterInfo' ]
+        })
+        .then( response => _.get(response, 'clusters', []) )
+        .then( clusters => {
+          this.clusters = clusters.map( c => ({
+            id: c.clusterID,
+            name: `${c.customerName} - ${c.clusterName || 'Unnamed Cluster'}`,
+          }));
+
+          this.customers = _(clusters)
+            .map( c => ({
+              id: c.customerID,
+              name: c.customerName,
+            }))
+            .uniqBy('id')
+            .value();
+        });
+    }
+
+
+    private getNotificationFields() {
       switch (this.policyType) {
         case 'clusterFault': return {
           streamName: 'ListClusterFaults',
@@ -206,7 +207,7 @@
       }
     }
 
-    getPolicyTypes() {
+    private getPolicyTypes() {
       return [
         ['clusterFault', 'Cluster Fault'],
         ['event', 'Event'],
@@ -222,11 +223,11 @@
       ];
     }
 
-    getSeverities() {
+    private getSeverities() {
       return [ 'Info', 'Warning', 'Error', 'Critical' ];
     }
 
-    getClusterFaultTypes() {
+    private getClusterFaultTypes() {
       return [
         'blockServiceTooFull',
         'blockServiceUnhealthy',
@@ -244,7 +245,7 @@
       ];
     }
 
-    getEventTypes() {
+    private getEventTypes() {
       return [
         'apiEvent',
         'binAssignmentsEvent',
@@ -262,7 +263,7 @@
       ];
     }
 
-    getDriveWearTypes() {
+    private getDriveWearTypes() {
       return [
         ['lifeRemainingPercent', 'Wear'],
         ['reserveCapacityPercent', 'Reserve'],
