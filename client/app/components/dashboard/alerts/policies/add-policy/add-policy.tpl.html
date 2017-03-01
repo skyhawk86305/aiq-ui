@@ -11,7 +11,10 @@
         novalidate>
 
       <div class="success-message" ng-show="$ctrl.successful && !$ctrl.form.$dirty">
-        <i class="fa fa-check"></i> Alert was successfully created.
+        <i class="fa fa-check"></i>
+        Alert policy was successfully created.
+        Go back to <a href="#/dashboard/alerts/policies">the alert policies page</a>,
+        or add another alert policy below.
       </div>
 
       <div class="error-message" ng-show="$ctrl.error">
