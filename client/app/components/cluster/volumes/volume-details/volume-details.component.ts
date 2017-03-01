@@ -14,8 +14,8 @@
     public clusterID:              number;
     public clusterName:            string;
     public infoBarLastUpdated:     string;
-    public staticDateRangeOptions: Array<any>;
-    public syncGraphs:             Array<any>;
+    public staticDateRangeOptions: Array<Object>;
+    public syncGraphs:             Array<Object>;
     public getVolumeStatus       = 'loading';
     public getVolumeStatsStatus  = 'loading';
     public getSnapshotsStatus    = 'loading';
@@ -269,6 +269,9 @@
                 totalBytesPerSec: 'solid'
               }
             },
+            tooltipFormat: {
+              y0: (d) => { return this.bytesFormat(d, 3)}
+            },
             margin: {
               top:    sparkLine ? 10 : 20,
               right:  sparkLine ? 10 : 75,
@@ -431,6 +434,9 @@
                 writeLatencyUSec: 'solid',
                 latencyUSec:      'solid'
               }
+            },
+            tooltipFormat: {
+              y0: (d) => { return d + ' &#181;s'; }
             },
             margin: {
               top:    sparkLine ? 10 : 20,
@@ -652,6 +658,9 @@
                 provisionedCapacity: 'solid'
               }
             },
+            tooltipFormat: {
+              y0: (d) => { return this.bytesFormat(d, 3)}
+            },
             margin: {
               top:    sparkLine ? 10 : 20,
               right:  sparkLine ? 10 : 75,
@@ -719,8 +728,8 @@
     private iopsFormat(iops) {
       return this.$filter('iops')(iops, true, 1);
     }
-    private bytesFormat(bytes) {
-      return this.$filter('bytes')(bytes, false, 0, true);
+    private bytesFormat(bytes, decimalPlaces = 0) {
+      return this.$filter('bytes')(bytes, false, decimalPlaces, true);
     }
     private latencyFormat(number) {
       return this.$filter('aiqNumber')(number, 2);
