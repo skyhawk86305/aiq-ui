@@ -302,7 +302,7 @@
               top:    25,
               right:  25,
               bottom: 25,
-              left:   50
+              left:   75
             },
             axis: {
               x: {
@@ -385,7 +385,7 @@
               top:    25,
               right:  25,
               bottom: 25,
-              left:   50
+              left:   75
             },
             axis: {
               x: {
@@ -465,7 +465,7 @@
               top:    25,
               right:  25,
               bottom: 25,
-              left:   50
+              left:   75
             },
             axis: {
               x: {
@@ -535,7 +535,7 @@
               top:    25,
               right:  25,
               bottom: 25,
-              left:   50
+              left:   75
             },
             axis: {
               x: {
@@ -609,7 +609,7 @@
               top:    25,
               right:  25,
               bottom: 25,
-              left:   50
+              left:   75
             },
             axis: {
               x: {
@@ -684,7 +684,7 @@
               top:    25,
               right:  25,
               bottom: 25,
-              left:   50
+              left:   75
             },
             axis: {
               x: {
