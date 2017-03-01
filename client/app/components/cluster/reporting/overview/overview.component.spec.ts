@@ -103,5 +103,4 @@ describe('Component: overviewDashboard', function() {
       expect(dataService.callGraphAPI).toHaveBeenCalled();
     });
   });
-
 });

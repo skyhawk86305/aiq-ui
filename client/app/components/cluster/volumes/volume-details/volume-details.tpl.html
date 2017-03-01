@@ -1,0 +1,155 @@
+<div class="volume-details-page">
+  <div class="volume-label">
+    <span> {{$ctrl.clusterName}} > Volume ID: {{$ctrl.volume.volumeID}} </span>
+  </div>
+  <div class="sf-widget container-fluid info-bar">
+    <div class="info-bar-timestamp">
+      <span> Last Updated: {{$ctrl.infoBarLastUpdated}} </span>
+      <div class="info-bar-refresh-button">
+        <button class="button refresh-btn"
+                ng-click="$ctrl.refreshInfoBarData()">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="info-bar-row col-lg-12">
+      <div sf-state state="$ctrl.getVolumeStatus" class="info-box -account-id col-lg-2 col-md-4 col-sm-6">
+        <div class="info-box-content">
+          <span class="title"> Account ID </span>
+          <span class="value"> {{$ctrl.volume.accountID}} </span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getVolumeStatus" class="info-box -volume-size col-lg-2 col-md-4 col-sm-6">
+        <div class="info-box-content">
+          <span class="title"> Volume Size </span>
+          <span class="value" ng-bind-html="$ctrl.volume.totalSize | bytes:false:1:false:true"></span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getVolumeStatsStatus" class="info-box -used-capacity col-lg-2 col-md-4 col-sm-6">
+        <div class="info-box-content">
+          <span class="title"> Used Capacity </span>
+          <span class="value"> {{$ctrl.getUsedCapacity() | percent:0:true}} </span>
+        </div>
+      </div>
+      <div sf-state state="$ctrl.getAverageVolumePerformanceStatus" class="info-box -average-iops col-lg-2 col-md-4 col-sm-6">
+        <div class="info-box-content">
+          <span class="title"> Average IOPS </span>
+          <span class="value"> {{$ctrl.averageVolumePerformance.iops | iops:true}} </span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getAverageVolumePerformanceStatus" class="info-box -average-throughput col-lg-2 col-md-4 col-sm-6">
+        <div class="info-box-content">
+          <span class="title"> Average Throughput </span>
+          <span class="value" ng-bind-html="$ctrl.averageVolumePerformance.throughput | bytes:false:0:true:true"></span>
+        </div>
+      </div>
+      <div sf-state state= "$ctrl.getAverageVolumePerformanceStatus" class="info-box -average-latency col-lg-2 col-md-4 col-sm-6">
+        <div class="info-box-content">
+          <span class="title"> Average Latency (&#181;s) </span>
+          <span class="value"> {{$ctrl.averageVolumePerformance.latency | aiqNumber:1:true}} <span class="units"></span></span>
+        </div>
+      </div>
+    </div>
+    <div class="info-details col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-model="isDetailCollapsed" ng-init="isDetailCollapsed = true;">
+      <div class="info-details-button" ng-click="isDetailCollapsed = !isDetailCollapsed">
+      <span ng-if="!isDetailCollapsed" class="info-details-button-text">
+        Hide Volume Details
+        <i class="fa fa-chevron-up info-details-button-collapse"></i>
+      </span>
+      <span ng-if="isDetailCollapsed"  class="info-details-button-text">
+        Show Volume Details
+        <i class="fa fa-chevron-down info-details-button-expand"></i>
+      </span>
+      </div>
+      <div sf-state state="$ctrl.getVolumeStatus" uib-collapse="isDetailCollapsed" class="info-details-content">
+        <div class="info-details-content-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-details-content-box -access">
+            <span class="info-details-content-title"> Access </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.access | access}} </span>
+          </div>
+          <div class="info-details-content-box -access-groups">
+            <span class="info-details-content-title"> Access Groups </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.volumeAccessGroups | string}} </span>
+          </div>
+          <div class="info-details-content-box -non-zero-blocks">
+            <span class="info-details-content-title"> Non-Zero Blocks </span>
+            <span class="info-details-content-value"> {{$ctrl.volumeStats.nonZeroBlocks}} </span>
+          </div>
+          <div class="info-details-content-box -zero-blocks">
+            <span class="info-details-content-title" >Zero Blocks </span>
+            <span class="info-details-content-value"> {{$ctrl.volumeStats.zeroBlocks}} </span>
+          </div>
+          <div class="info-details-content-box -snapshots">
+            <span class="info-details-content-title"> Snapshot Count </span>
+            <span class="info-details-content-value"> {{$ctrl.snapshots.length}} </span>
+          </div>
+          <div class="info-details-content-box -enable-512e">
+            <span class="info-details-content-title"> Enable 512e </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.enable512e | boolean:'Yes':'No'}} </span>
+          </div>
+          <div class="info-details-content-box -min-iops">
+            <span class="info-details-content-title"> Min IOPS </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.qos.minIOPS}} </span>
+          </div>
+          <div class="info-details-content-box -max-iops">
+            <span class="info-details-content-title"> Max IOPS </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.qos.maxIOPS}} </span>
+          </div>
+          <div class="info-details-content-box -burst-iops">
+            <span class="info-details-content-title"> Burst IOPS </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.qos.burstIOPS}} </span>
+          </div>
+        </div>
+        <div class="info-details-content-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="info-details-content-box -volumes-paired">
+            <span class="info-details-content-title">Volumes Paired</span>
+            <span class="info-details-content-value"> {{$ctrl.volume.volumePairs.length ? 'Yes' : 'No'}} </span>
+          </div>
+          <div class="info-details-content-box -create-time">
+            <span class="info-details-content-title">Create Time</span>
+            <span class="info-details-content-value"> {{$ctrl.volume.createTime | date:'yyyy-MM-dd HH:mm:ss' }} </span>
+          </div>
+          <div class="info-details-content-box -block-size">
+            <span class="info-details-content-title">Block Size</span>
+            <span class="info-details-content-value"> {{$ctrl.volume.blockSize | string}} </span>
+          </div>
+          <div class="info-details-content-box -unaligned-writes">
+            <span class="info-details-content-title"> Unaligned Writes </span>
+            <span class="info-details-content-value"> {{$ctrl.volumeStats.unalignedWrites}} </span>
+          </div>
+          <div class="info-details-content-box -unaligned-reads">
+            <span class="info-details-content-title"> Unaligned Reads </span>
+            <span class="info-details-content-value"> {{$ctrl.volumeStats.unalignedReads}} </span>
+          </div>
+          <div class="info-details-content-box -iqn">
+            <span class="info-details-content-title"> IQN </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.iqn | string}} </span>
+          </div>
+          <div class="info-details-content-box -scsiEUIDeviceID">
+            <span class="info-details-content-title"> scsiEUIDeviceID </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.scsiEUIDeviceID | string}} </span>
+          </div>
+          <div class="info-details-content-box -scsiNAADeviceID">
+            <span class="info-details-content-title"> scsiNAADeviceID </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.scsiNAADeviceID | string}} </span>
+          </div>
+          <div class="info-details-content-box -attributes">
+            <span class="info-details-content-title"> Attributes </span>
+            <span class="info-details-content-value"> {{$ctrl.volume.attributes | string}} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf-widget volume-sync-graphs-parent">
+    <div class="volume-sync-graphs">
+      <sf-sync-graphs component-id="volume-sync-graphs"
+                      graphs="$ctrl.syncGraphs"
+                      static-date-range-options="$ctrl.staticDateRangeOptions"
+                      scroll="false"
+                      resize="isDetailCollapsed">
+      </sf-sync-graphs>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,7 @@ module.exports = {
       clusterID:11,
       volumeID: 1,
       accountID: 2,
-      totalSize: 100000,
+      totalSize: 10000000,
       enable512e: true,
       access: 'readWrite',
       qos: {
@@ -13,13 +13,19 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-12-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a7400123301ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc100056600064646a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
       volumeID: 2,
       accountID: 2,
-      totalSize: 200000,
+      totalSize: 20000000,
       enable512e: false,
       access: 'readWrite',
       qos: {
@@ -28,13 +34,19 @@ module.exports = {
         burstIOPS: 20000
       },
       volumePairs: [1],
+      volumeAccessGroups: [1],
+      createTime: '2014-12-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.stage-mango-data-01.31',
+      scsiEUIDeviceID: '64646a7400012301ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc1000000006464656a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
       volumeID: 3,
       accountID: 4,
-      totalSize: 100000,
+      totalSize: 10000000,
       enable512e: true,
       access: 'readWrite',
       qos: {
@@ -43,13 +55,19 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:55:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.firesolid:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001f123acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a123000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
       volumeID: 4,
       accountID: 4,
-      totalSize: 1500000,
+      totalSize: 150000000,
       enable512e: true,
       access: 'readOnly',
       qos: {
@@ -58,13 +76,19 @@ module.exports = {
         burstIOPS: 25000
       },
       volumePairs: [2],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
       volumeID: 5,
       accountID: 2,
-      totalSize: 2048000000000,
+      totalSize: 20480000000,
       enable512e: false,
       access: 'readWrite',
       qos: {
@@ -73,6 +97,12 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
@@ -88,13 +118,19 @@ module.exports = {
         burstIOPS: 20000
       },
       volumePairs: [2],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
       volumeID: 25,
       accountID: 4,
-      totalSize: 200000,
+      totalSize: 20000000,
       enable512e: true,
       access: 'readWrite',
       qos: {
@@ -102,6 +138,12 @@ module.exports = {
         maxIOPS: 15000,
         burstIOPS: 15000
       },
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       volumePairs: [],
       configuredAccessProtocols:['ISCSI']
     },
@@ -118,6 +160,12 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
@@ -133,6 +181,12 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [2],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {
@@ -148,6 +202,12 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
+      volumeAccessGroups: [1, 2, 3],
+      createTime: '2014-10-02T19:52:37Z',
+      blockSize: 4096,
+      iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
+      scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
+      scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       configuredAccessProtocols:['ISCSI']
     },
     {

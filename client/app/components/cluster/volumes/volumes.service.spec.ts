@@ -48,10 +48,12 @@ describe('VolumeTableService', function () {
       expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListActiveVolumes');
     });
 
-    it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {volumes: [{qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}]};
+    it('should deserialize the response and resolve an array of data', inject(function($routeParams) {
+      $routeParams.clusterID = 1898714;
+      apiResponse = {volumes: [{ volumeID: 33, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}]};
       deserializedResponse = [
         {
+          volumeID: 33,
           qos: {
             minIOPS: 'foo',
             maxIOPS: 'bar',
@@ -61,7 +63,10 @@ describe('VolumeTableService', function () {
           minIOPS: 'foo',
           maxIOPS: 'bar',
           burstIOPS: 'baz',
-          paired: true
+          paired: true,
+          details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
+            apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
+            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
         }
       ];
       service.getData(true).then(function(response) {
@@ -69,7 +74,7 @@ describe('VolumeTableService', function () {
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();
-    });
+    }));
 
     it('should reject the error message if the call fails', function() {
       apiFailure = 'FooError';

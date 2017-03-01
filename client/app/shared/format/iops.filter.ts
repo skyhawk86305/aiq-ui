@@ -11,7 +11,7 @@ export function IopsFilter() {
 
       if (displayIops) { units += ' IOPS'; }
       if (forHtml) { units = '<span class="units">' + units + '</span>'; }
-      return validNumber ? iops.toFixed(places) + units : '-';
+      return validNumber ? +(iops).toFixed(places) + units : '-';
     } else { return '-'; }
   };
 }

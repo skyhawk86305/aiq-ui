@@ -109,6 +109,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<volume-table class="sf-layout-block"></volume-table>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID/volume/:volumeID', {
+        template: '<volume-details class="sf-layout-block"></volume-details>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/replication', {
         template: require('./coming-soon.tpl.html')
       })
