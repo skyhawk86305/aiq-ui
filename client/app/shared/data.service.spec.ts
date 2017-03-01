@@ -52,7 +52,13 @@ describe('Data Service', function () {
     it('should return error message if the api call fails', function () {
       response = 'foobar';
       http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(400, response);
-      service.callAPI('foobar', {param: 'baz'}).catch(err => {expect(err).toEqual('foobar');});
+      service.callAPI('foobar', {param: 'baz'})
+        .then( () => {
+          fail('Expected promise to be rejected');
+        })
+        .catch( err => {
+          expect(err).toEqual('foobar');
+        });
       http.flush();
     });
   });
@@ -182,6 +188,9 @@ describe('Data Service', function () {
       response = {message: 'bar'};
       http.when('GET', '/graph/cluster/789/foobar/snapshot').respond(400, response);
       service.callGraphAPI('foobar', {clusterID: 789, snapshot: true})
+        .then( () => {
+          fail('Expected promise to be rejected');
+        })
         .catch( err => {
           expect(err.data).toEqual(response);
         });

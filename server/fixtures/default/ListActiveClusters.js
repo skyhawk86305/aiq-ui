@@ -7,7 +7,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8'},
         clusterUID: 'a',
         clusterInfo: {uuid: '111'},
-        customerName: 'Bob'
+        customerName: 'Bob',
+        customerID: 2
       },
       {
         clusterID: 26,
@@ -15,7 +16,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1'},
         clusterUID: 'b',
         clusterInfo: {uuid: '222'},
-        customerName: 'Bill'
+        customerName: 'Bill',
+        customerID: 3
       },
       {
         clusterID: 9,
@@ -23,7 +25,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1.2'},
         clusterUID: 'c',
         clusterInfo: {uuid: '333'},
-        customerName: 'Jim'
+        customerName: 'Jim',
+        customerID: 4
       },
       {
         clusterID: 67,
@@ -31,7 +34,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1.2.3'},
         clusterUID: 'd',
         clusterInfo: {uuid: '444'},
-        customerName: 'John'
+        customerName: 'John',
+        customerID: 5
       },
       {
         clusterID: 1901628,
@@ -39,7 +43,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8'},
         clusterUID: 'abcd',
         clusterInfo: {uuid: '111'},
-        customerName: 'Some Random State Federal Credit Union'
+        customerName: 'Some Random State Federal Credit Union',
+        customerID: 6
       },
       {
         clusterID: 1899306,
@@ -47,7 +52,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.6.0.25'},
         clusterUID: 'bcde',
         clusterInfo: {uuid: '222'},
-        customerName: 'ATSC (ABCD Technical Solutions Corporation)'
+        customerName: 'ATSC (ABCD Technical Solutions Corporation)',
+        customerID: 7
       },
       {
         clusterID: 1849553,
@@ -55,7 +61,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '9.0.0.1554'},
         clusterUID: 'cdef',
         clusterInfo: {uuid: '333'},
-        customerName: '	ABC-Cloud R&D_Americas.com'
+        customerName: '	ABC-Cloud R&D_Americas.com',
+        customerID: 8
       },
       {
         clusterID: 851465,
@@ -63,7 +70,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1.2'},
         clusterUID: 'd',
         clusterInfo: {uuid: '444'},
-        customerName: 'ACME'
+        customerName: 'ACME',
+        customerID: 9
       },
       {
         clusterID: 103,
@@ -71,7 +79,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.2.0.198'},
         clusterUID: 'e',
         clusterInfo: {uuid: '555'},
-        customerName: 'SmithCorp (Green)'
+        customerName: 'SmithCorp (Green)',
+        customerID: 10
       },
       {
         clusterID: 1690492,
@@ -79,7 +88,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '9.0.0.1554'},
         clusterUID: 'f',
         clusterInfo: {uuid: '777'},
-        customerName: 'SmithCorp (Green)'
+        customerName: 'SmithCorp (Green)',
+        customerID: 10
       },
       {
         clusterID: 1828398,
@@ -87,7 +97,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.5.0.13'},
         clusterUID: 'g',
         clusterInfo: {uuid: '888'},
-        customerName: 'Random Cloud Services'
+        customerName: 'Random Cloud Services',
+        customerID: 11
       },
       {
         clusterID: 1898823,
@@ -95,7 +106,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.6.1.2'},
         clusterUID: 'h',
         clusterInfo: {uuid: '999'},
-        customerName: 'Cloud Cluster (Technical Solutions Inc)'
+        customerName: 'Cloud Cluster (Technical Solutions Inc)',
+        customerID: 12
       },
       {
         clusterID: 1898836,
@@ -103,7 +115,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '7.4.0.43'},
         clusterUID: 'i',
         clusterInfo: {uuid: '1010'},
-        customerName: 'SmithCorp (Yellow)'
+        customerName: 'SmithCorp (Yellow)',
+        customerID: 13
       },
       {
         clusterID: 1898838,
@@ -111,7 +124,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.6.2.3'},
         clusterUID: 'j',
         clusterInfo: {uuid: '1111'},
-        customerName: 'SmithCorp (Yellow)'
+        customerName: 'SmithCorp (Yellow)',
+        customerID: 13
       },
       {
         clusterID: 1690497,
@@ -119,7 +133,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.6.1.2'},
         clusterUID: 'k',
         clusterInfo: {uuid: '1212'},
-        customerName: 'ACME'
+        customerName: 'ACME',
+        customerID: 9
       },
       {
         clusterID: 1902394,
@@ -127,7 +142,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1.2'},
         clusterUID: 'l',
         clusterInfo: {uuid: '1414'},
-        customerName: 'RKXV'
+        customerName: 'RKXV',
+        customerID: 14
       },
       {
         clusterID: 1902500,
@@ -135,7 +151,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1.2'},
         clusterUID: 'm',
         clusterInfo: {uuid: '9999'},
-        customerName: 'Zebra Media, Inc.'
+        customerName: 'Zebra Media, Inc.',
+        customerID: 15
       },
       {
         clusterID: 1902773,
@@ -143,7 +160,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '7.3.0.16'},
         clusterUID: 'nrqs',
         clusterInfo: {uuid: '54321'},
-        customerName: 'Haßermaaß (Haß)'
+        customerName: 'Haßermaaß (Haß)',
+        customerID: 16
       },
       {
         clusterID: 1902774,
@@ -151,7 +169,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1.2'},
         clusterUID: 'nefr',
         clusterInfo: {uuid: '54320'},
-        customerName: 'Smith Jones Anderson Associates, Inc.'
+        customerName: 'Smith Jones Anderson Associates, Inc.',
+        customerID: 17
       },
       {
         clusterID: 1902775,
@@ -159,7 +178,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.4.0.68'},
         clusterUID: 'f3d3e',
         clusterInfo: {uuid: '54322'},
-        customerName: 'Something.com'
+        customerName: 'Something.com',
+        customerID: 18
       },
       {
         clusterID: 1902776,
@@ -167,7 +187,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '9.0.0.1549'},
         clusterUID: 'nrst',
         clusterInfo: {uuid: '54323'},
-        customerName: 'xiWeb'
+        customerName: 'xiWeb',
+        customerID: 19
       },
       {
         clusterID: 1902777,
@@ -175,7 +196,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '7.0.0.541'},
         clusterUID: 'nnaa',
         clusterInfo: {uuid: '54324'},
-        customerName: 'Xenon Temp Humidity Sensors (c/o Neon)'
+        customerName: 'Xenon Temp Humidity Sensors (c/o Neon)',
+        customerID: 20
       },
       {
         clusterID: 1902778,
@@ -183,7 +205,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.1.2'},
         clusterUID: 'xyzx',
         clusterInfo: {uuid: '54325'},
-        customerName: 'PMPX Network Enterprises'
+        customerName: 'PMPX Network Enterprises',
+        customerID: 21
       },
       {
         clusterID: 1902779,
@@ -191,7 +214,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.6.1.2'},
         clusterUID: 'nx2',
         clusterInfo: {uuid: '54326'},
-        customerName: 'PMPX Network Enterprises'
+        customerName: 'PMPX Network Enterprises',
+        customerID: 21
       },
       {
         clusterID: 1902780,
@@ -199,7 +223,8 @@ module.exports = {
         clusterVersionInfo: {clusterAPIVersion: '8.6.0.25'},
         clusterUID: 'nop',
         clusterInfo: {uuid: '54327'},
-        customerName: 'NetApp-Internal-Vienna-demolab-6th-floor'
+        customerName: 'NetApp-Internal-Vienna-demolab-6th-floor',
+        customerID: 22
       }
     ]
   }
