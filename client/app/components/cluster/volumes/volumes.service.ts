@@ -7,10 +7,12 @@
     'SFTableService',
     'SFFilterComparators',
     'DataService',
+    '$q',
+    '$routeParams',
     VolumeTableService
   ]);
 
-  function VolumeTableService(SFTableService, SFFilterComparators, DataService) {
+  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $q, $routeParams) {
     let columns = getColumns(),
       service = new SFTableService(listActiveVolumes, columns, false);
 
@@ -31,20 +33,48 @@
         {key: 'maxIOPS', label: 'Max IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
-        {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}}
+        {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}}
       ];
     }
 
     function listActiveVolumes() {
-      return DataService.callGuzzleAPI(service.selectedClusterID, 'ListActiveVolumes')
-      .then(function(response) {
-        return response.volumes.map(function(volume) {
-          volume.minIOPS = volume.qos.minIOPS;
-          volume.maxIOPS = volume.qos.maxIOPS;
-          volume.burstIOPS = volume.qos.burstIOPS;
-          volume.paired = volume.volumePairs.length ? true : false;
-          return volume;
+      const methods = [
+        DataService.callGuzzleAPI(service.selectedClusterID, 'ListActiveVolumes'),
+        DataService.callGuzzleAPI(service.selectedClusterID, 'ListSnapshots')
+      ];
+      let volumes, snapshots;
+
+      return callGuzzleAPIs(methods).then( responseObj => {
+        volumes = responseObj.volumes;
+        snapshots = responseObj.snapshots;
+
+        if (volumes) {
+          return volumes.map( volume => {
+            volume.minIOPS = volume.qos.minIOPS;
+            volume.maxIOPS = volume.qos.maxIOPS;
+            volume.burstIOPS = volume.qos.burstIOPS;
+            volume.paired = volume.volumePairs.length ? true : false;
+            let snapshotCount = (snapshots.filter(snapshot => {
+              return snapshot.volumeID === volume.volumeID;
+            })).length;
+
+            volume.snapshots = snapshotCount === 0 ? snapshotCount : '<a ng-href="#/cluster/' + $routeParams.clusterID + '/snapshot/' + volume.volumeID + '" ' +
+              'aria-label="Leave this page to view snapshots associated with selected volume">' + snapshotCount + '</a>';
+
+            return volume;
+          });
+        }
+      });
+    }
+
+    function callGuzzleAPIs(methods) {
+      return $q.all(methods).then( responses => {
+        let responseObj = {};
+        responses.forEach(response => {
+          Object.keys(response).forEach(key => responseObj[key] = response[key]);
         });
+        return responseObj;
       });
     }
 

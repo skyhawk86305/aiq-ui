@@ -105,6 +105,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<drive-table class="sf-layout-block"></drive-table>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID/snapshot/:volumeID', {
+        template: '<snapshot-table class="sf-layout-block"></snapshot-table>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/volumes', {
         template: '<volume-table class="sf-layout-block"></volume-table>',
         reloadOnSearch: false
