@@ -26,7 +26,7 @@ describe('Add Alert Policy form', function() {
     expect(page.submitButton.isEnabled()).to.eventually.be.false;
   });
 
-  it('@any should show a success message upon successful alert policy creation', function() {
+  it('@any @smoke should show a success message upon successful alert policy creation', function() {
       mockBackend.http.whenPOST('/json-rpc/2.0').respond( () => [200, {}] );
       page.policyTypeSelect.choose('Cluster Fault');
       page.policyNameInput.enter('test');
@@ -57,11 +57,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Cluster Fault');
     });
 
-    it('@any should only display the expected form inputs', function() {
+    it('@any @smoke should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'clusterFaultTypeSelect' ]);
     });
 
-    it('@any should enable the submit button when a policy name is entered', function() {
+    it('@any @smoke should enable the submit button when a policy name is entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       expect(page.submitButton.isEnabled()).to.eventually.be.true;
@@ -73,11 +73,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Event');
     });
 
-    it('@any should only display the expected form inputs', function() {
+    it('@any @smoke should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'eventTypeSelect' ]);
     });
 
-    it('@any should enable the submit button when a policy name is entered', function() {
+    it('@any @smoke should enable the submit button when a policy name is entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       expect(page.submitButton.isEnabled()).to.eventually.be.true;
@@ -223,11 +223,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Capacity Licensing');
     });
 
-    it('@any should only display the expected form inputs', function() {
+    it('@any @smoke should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'customerSelect', 'capacityLicensingThresholdInput' ]);
     });
 
-    it('@any should enable the submit button when policy name and licensing threshold are entered', function() {
+    it('@any @smoke should enable the submit button when policy name and licensing threshold are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.capacityLicensingThresholdInput.enter('60');
