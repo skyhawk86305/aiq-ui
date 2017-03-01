@@ -22,11 +22,11 @@ describe('Add Alert Policy form', function() {
     mockBackend.disable();
   });
 
-  it('should disable the submit button if all fields are empty', function() {
+  it('@any should disable the submit button if all fields are empty', function() {
     expect(page.submitButton.isEnabled()).to.eventually.be.false;
   });
 
-  it('should show a success message upon successful alert policy creation', function() {
+  it('@any should show a success message upon successful alert policy creation', function() {
       mockBackend.http.whenPOST('/json-rpc/2.0').respond( () => [200, {}] );
       page.policyTypeSelect.choose('Cluster Fault');
       page.policyNameInput.enter('test');
@@ -34,7 +34,7 @@ describe('Add Alert Policy form', function() {
       expect(page.successMessage.isDisplayed()).to.eventually.be.true;
   });
 
-  it('should show an error message if alert policy creation is unsuccessful due to an HTTP error', function() {
+  it('@any should show an error message if alert policy creation is unsuccessful due to an HTTP error', function() {
       mockBackend.http.whenPOST('/json-rpc/2.0').respond( () => [503, 'service unavailable'] );
       page.policyTypeSelect.choose('Cluster Fault');
       page.policyNameInput.enter('test');
@@ -43,7 +43,7 @@ describe('Add Alert Policy form', function() {
       expect(page.errorMessage.getText()).to.eventually.equal('Error: service unavailable');
   });
 
-  it('should show an error message if alert policy creation is unsuccessful due to a JSON RPC error', function() {
+  it('@any should show an error message if alert policy creation is unsuccessful due to a JSON RPC error', function() {
       mockBackend.http.whenPOST('/json-rpc/2.0').respond( () => [200, { error: { message: 'bad request' } }] );
       page.policyTypeSelect.choose('Cluster Fault');
       page.policyNameInput.enter('test');
@@ -57,11 +57,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Cluster Fault');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'clusterFaultTypeSelect' ]);
     });
 
-    it('should enable the submit button when a policy name is entered', function() {
+    it('@any should enable the submit button when a policy name is entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       expect(page.submitButton.isEnabled()).to.eventually.be.true;
@@ -73,11 +73,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Event');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'eventTypeSelect' ]);
     });
 
-    it('should enable the submit button when a policy name is entered', function() {
+    it('@any should enable the submit button when a policy name is entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       expect(page.submitButton.isEnabled()).to.eventually.be.true;
@@ -89,11 +89,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Failed Drive');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect' ]);
     });
 
-    it('should enable the submit button when a policy name is entered', function() {
+    it('@any should enable the submit button when a policy name is entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       expect(page.submitButton.isEnabled()).to.eventually.be.true;
@@ -105,11 +105,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Available Drive');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect' ]);
     });
 
-    it('should enable the submit button when a policy name is entered', function() {
+    it('@any should enable the submit button when a policy name is entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       expect(page.submitButton.isEnabled()).to.eventually.be.true;
@@ -121,11 +121,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Cluster Utilization');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'clusterUtilizationThresholdInput' ]);
     });
 
-    it('should enable the submit button when a policy name and cluster utilization are entered', function() {
+    it('@any should enable the submit button when a policy name and cluster utilization are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.clusterUtilizationThresholdInput.enter('42');
@@ -138,11 +138,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Usable Space');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'usableSpaceThresholdInput' ]);
     });
 
-    it('should enable the submit button when a policy name and usable space threshold are entered', function() {
+    it('@any should enable the submit button when a policy name and usable space threshold are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.usableSpaceThresholdInput.enter('42');
@@ -155,11 +155,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Provisionable Space');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'provisionableSpaceThresholdInput' ]);
     });
 
-    it('should enable the submit button when a policy name and provisionable space threshold are entered', function() {
+    it('@any should enable the submit button when a policy name and provisionable space threshold are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.provisionableSpaceThresholdInput.enter('42');
@@ -172,11 +172,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Collector Not Reporting');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'collectorNotReportingTimeInput' ]);
     });
 
-    it('should enable the submit button when a policy name and collector not reporting threshold are entered', function() {
+    it('@any should enable the submit button when a policy name and collector not reporting threshold are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.collectorNotReportingTimeInput.enter('60');
@@ -189,11 +189,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Drive Wear');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'driveWearThresholdInput', 'driveWearTypeSelect' ]);
     });
 
-    it('should enable the submit button when policy name and drive wear threshold are entered', function() {
+    it('@any should enable the submit button when policy name and drive wear threshold are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.driveWearThresholdInput.enter('40');
@@ -206,11 +206,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('iSCSI Sessions');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'clusterSelect', 'sessionsThresholdInput' ]);
     });
 
-    it('should enable the submit button when policy name and sessions threshold are entered', function() {
+    it('@any should enable the submit button when policy name and sessions threshold are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.sessionsThresholdInput.enter('10');
@@ -223,11 +223,11 @@ describe('Add Alert Policy form', function() {
       page.policyTypeSelect.choose('Capacity Licensing');
     });
 
-    it('should only display the expected form inputs', function() {
+    it('@any should only display the expected form inputs', function() {
       assertOnlyInputsPresent([ 'customerSelect', 'capacityLicensingThresholdInput' ]);
     });
 
-    it('should enable the submit button when policy name and licensing threshold are entered', function() {
+    it('@any should enable the submit button when policy name and licensing threshold are entered', function() {
       expect(page.submitButton.isEnabled()).to.eventually.be.false;
       page.policyNameInput.enter('test');
       page.capacityLicensingThresholdInput.enter('60');
