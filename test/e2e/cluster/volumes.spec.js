@@ -20,7 +20,8 @@ var columns = [
   {key: 'maxIOPS', label: 'Max IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'burstIOPS', label: 'Burst IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
-  {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', format: {filter: 'string'}}
+  {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', format: {filter: 'string'}},
+  {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}, exclude: true}
 ];
 
 function mapFixture(rawFixture) {
@@ -64,6 +65,7 @@ describe('The Cluster Volumes Page', function () {
 
   it('should display data from the correct API and properly format it in the table', function (done) {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
+    support.expect(table.content.row(0).data('snapshots').getText()).to.eventually.equal('0');
   });
 
   it('@any should have an export button for the table', function() {
