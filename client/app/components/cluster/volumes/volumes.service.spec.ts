@@ -49,9 +49,14 @@ describe('VolumeTableService', function () {
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {volumes: [{qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}]};
+      apiResponse = {volumes: [{volumeID: 10, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}],
+        snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null,
+          snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da384d4', enableRemoteReplication: false, groupID: 0, createTime: '2016-05-18T21:36:24Z'},
+          {snapshotID: 21, volumeID: 30, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da38422',
+            enableRemoteReplication: true, groupID: 1, createTime: '2016-04-18T21:36:24Z'}]};
       deserializedResponse = [
         {
+          volumeID: 10,
           qos: {
             minIOPS: 'foo',
             maxIOPS: 'bar',
@@ -61,7 +66,8 @@ describe('VolumeTableService', function () {
           minIOPS: 'foo',
           maxIOPS: 'bar',
           burstIOPS: 'baz',
-          paired: true
+          paired: true,
+          snapshots: 0
         }
       ];
       service.getData(true).then(function(response) {
@@ -70,6 +76,37 @@ describe('VolumeTableService', function () {
       deferred.resolve(apiResponse);
       rootScope.$apply();
     });
+
+    it('should return link to snapshots table', inject(function($routeParams) {
+      $routeParams.clusterID = 'foobar';
+      apiResponse = {volumes: [{volumeID: 33, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}],
+        snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null,
+          snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da384d4', enableRemoteReplication: false, groupID: 0, createTime: '2016-05-18T21:36:24Z'},
+          {snapshotID: 21, volumeID: 33, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da38422',
+            enableRemoteReplication: true, groupID: 1, createTime: '2016-04-18T21:36:24Z'}]};
+      deserializedResponse = [
+        {
+          volumeID: 33,
+          qos: {
+            minIOPS: 'foo',
+            maxIOPS: 'bar',
+            burstIOPS: 'baz'
+          },
+          volumePairs: [1,2,3],
+          minIOPS: 'foo',
+          maxIOPS: 'bar',
+          burstIOPS: 'baz',
+          paired: true,
+          snapshots: '<a ng-href="#/cluster/' + $routeParams.clusterID + '/snapshot/' + apiResponse.volumes[0].volumeID + '" ' +
+          'aria-label="Leave this page to view snapshots associated with selected volume">' + apiResponse.snapshots.length + '</a>'
+        }
+      ];
+      service.getData(true).then(function(response) {
+        expect(response).toEqual(deserializedResponse);
+      });
+      deferred.resolve(apiResponse);
+      rootScope.$apply();
+    }));
 
     it('should reject the error message if the call fails', function() {
       apiFailure = 'FooError';

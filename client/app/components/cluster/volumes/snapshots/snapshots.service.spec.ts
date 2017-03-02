@@ -57,7 +57,7 @@ describe('service: SnapshotTableService', function() {
         volumes: [{volumeID: 33, accountID: 2, totalSize: 500000882688, status: 'active'}, {volumeID: 31, accountID: 1, totalSize: 500000882688, status: 'active'}],
         snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da384d4', enableRemoteReplication: false, groupID: 0, createTime: '2016-05-18T21:36:24Z'},
           {snapshotID: 21, volumeID: 30, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da38422', enableRemoteReplication: true, groupID: 1, createTime: '2016-04-18T21:36:24Z'}]
-      }
+      };
       deserializedResponse = [
         {
           snapshotID: 20,
@@ -85,7 +85,7 @@ describe('service: SnapshotTableService', function() {
         volumes: [{volumeID: 33, accountID: 2, totalSize: 500000882688, status: 'active'}, {volumeID: 31, accountID: 1, totalSize: 500000882688, status: 'active'}],
         snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da384d4', enableRemoteReplication: false, groupID: 0, createTime: '2016-05-18T21:36:24Z'},
           {snapshotID: 21, volumeID: 30, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da38422', enableRemoteReplication: true, groupID: 1, createTime: '2016-04-18T21:36:24Z'}]
-      }
+      };
       deserializedResponse = [];
       service.getData(true).then(function(response) {
         expect(response).toEqual(deserializedResponse);
@@ -100,7 +100,7 @@ describe('service: SnapshotTableService', function() {
         volumes: [{volumeID: 33, accountID: 2, totalSize: 500000882688, status: 'active'}, {volumeID: 31, accountID: 1, totalSize: 500000882688, status: 'active'}],
         snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da384d4', enableRemoteReplication: false, groupID: 0, createTime: '2016-05-18T21:36:24Z'},
           {snapshotID: 21, volumeID: 30, totalSize: 500000882688, expirationTime: null, snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da38422', enableRemoteReplication: true, groupID: 1, createTime: '2016-04-18T21:36:24Z'}]
-      }
+      };
       service.getData(true).then(function(response) {
         expect(response).toBeUndefined();
       });
