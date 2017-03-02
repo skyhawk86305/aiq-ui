@@ -1,6 +1,6 @@
 'use strict';
 
-fdescribe('Component: snapshotTable', function() {
+describe('Component: snapshotTable', function() {
   let routeParams,
     service,
     controller;
@@ -10,6 +10,7 @@ fdescribe('Component: snapshotTable', function() {
   beforeEach(inject(function($componentController, $routeParams, SnapshotTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
+    routeParams.volumeID = 33;
     service = SnapshotTableService;
     spyOn(service, 'update');
     controller = $componentController('snapshotTable');
@@ -21,7 +22,7 @@ fdescribe('Component: snapshotTable', function() {
     });
 
     it('should update the table service with the clusterID and volumeID from the route', function() {
-
+      expect(service.update).toHaveBeenCalledWith('foobar', 33);
     });
   });
 });
