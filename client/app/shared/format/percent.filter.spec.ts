@@ -34,9 +34,9 @@ describe('Percent Filter', function () {
   it('should allow a custom number of decimal places to be displayed (rounding)', function() {
     expect(filter(0.241, 0, true)).toEqual('24%');
     expect(filter(0.245, 0, true)).toEqual('25%');
-    expect(filter(0.2401, 1, true)).toEqual('24.0%');
+    expect(filter(0.2401, 1, true)).toEqual('24%');
     expect(filter(0.2405, 1, true)).toEqual('24.1%');
-    expect(filter(0.24001, 2, true)).toEqual('24.00%');
+    expect(filter(0.24001, 2, true)).toEqual('24%');
     expect(filter(0.24005, 2, true)).toEqual('24.01%');
   });
 

@@ -1,0 +1,259 @@
+<div class="add-alert-policy-page">
+  <div class="add-alert-policy-container">
+
+    <div class="add-alert-policy-title">
+      Create Policy
+    </div>
+
+    <form class="add-alert-policy-form form-horizontal"
+        name="$ctrl.form"
+        ng-submit="$ctrl.submit()"
+        novalidate>
+
+      <div class="success-message" ng-show="$ctrl.successful && !$ctrl.form.$dirty">
+        <i class="fa fa-check"></i>
+        Alert policy was successfully created.
+        <a href="#/dashboard/alerts/policies">Return to the alert policies page</a>,
+        or create another alert policy below.
+      </div>
+
+      <div class="error-message" ng-show="$ctrl.error">
+        Error: {{ $ctrl.error }}
+      </div>
+
+      <div class="form-group policy-type">
+        <label class="control-label">Policy type: </label>
+        <div class="control-container">
+          <select class="form-control"
+              name="policyType"
+              ng-model="$ctrl.policyType"
+              ng-options="type[0] as type[1] for type in $ctrl.policyTypes">
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Create a policy named: </label>
+        <div class="control-container">
+          <input type="text"
+              class="form-control"
+              name="name"
+              ng-model="$ctrl.name"
+              required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">With severity: </label>
+        <div class="control-container">
+          <select class="form-control"
+              name="severity"
+              ng-model="$ctrl.severity"
+              ng-options="sev for sev in $ctrl.severities">
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">That will notify: </label>
+        <div class="control-container">
+          <input type="text"
+              class="form-control"
+              name="emails"
+              ng-model="$ctrl.emails">
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType !== 'licensing'">
+        <label class="control-label" ng-switch on="$ctrl.policyType">
+          <span ng-switch-when="collectorNotReporting"> If the collector for: </span>
+          <span ng-switch-when="driveWear"> If a drive in: </span>
+          <span ng-switch-default> If: </span>
+        </label>
+        <div class="control-container">
+          <select class="form-control"
+              name="clusterID"
+              ng-model="$ctrl.clusterID"
+              ng-options="cluster.id as cluster.name for cluster in $ctrl.clusters">
+            <option value="">Any Cluster</option>
+          </select>
+        </div>
+        <span class="post-control-text" ng-switch on="$ctrl.policyType">
+          <span ng-switch-when="failedDrive"> has a failed drive. </span>
+          <span ng-switch-when="availableDrive"> has an available drive. </span>
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'licensing'">
+        <label class="control-label">
+          If PLC for:
+        </label>
+        <div class="control-container">
+          <select class="form-control"
+              name="customerID"
+              ng-model="$ctrl.customerID"
+              ng-options="customer.id as customer.name for customer in $ctrl.customers">
+            <option value="">Any Customer</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'clusterFault'">
+        <label class="control-label">Produces cluster fault: </label>
+        <div class="control-container">
+          <select class="form-control"
+              name="clusterFaultType"
+              ng-model="$ctrl.clusterFaultType"
+              ng-options="fault for fault in $ctrl.clusterFaultTypes">
+            <option value="">Any</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'event'">
+        <label class="control-label">Produces: </label>
+        <div class="control-container">
+          <select class="form-control"
+              name="eventType"
+              ng-model="$ctrl.eventType"
+              ng-options="event for event in $ctrl.eventTypes">
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'utilization'">
+        <label class="control-label">Has cluster utilization greater than: </label>
+        <div class="control-container">
+          <input type="number"
+              class="form-control"
+              name="clusterUtilizationThreshold"
+              ng-model="$ctrl.clusterUtilizationThreshold"
+              min="0"
+              required>
+        </div>
+        <span class="post-control-text">
+          percent.
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'usedSpace'">
+        <label class="control-label">Has less than: </label>
+        <div class="control-container">
+          <input type="number"
+              class="form-control"
+              name="usableSpaceThreshold"
+              ng-model="$ctrl.usableSpaceThreshold"
+              min="0"
+              required>
+        </div>
+        <span class="post-control-text">
+          percent of usable space remaining.
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'provisionedSpace'">
+        <label class="control-label">Has less than: </label>
+        <div class="control-container">
+          <input type="number"
+              class="form-control"
+              name="provisionableSpaceThreshold"
+              ng-model="$ctrl.provisionableSpaceThreshold"
+              min="0"
+              required>
+        </div>
+        <span class="post-control-text">
+          percent of provisionable space remaining.
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'collectorNotReporting'">
+        <label class="control-label">Fails to send data for: </label>
+        <div class="control-container">
+          <input type="number"
+              class="form-control"
+              name="collectorNotReportingTime"
+              ng-model="$ctrl.collectorNotReportingTime"
+              min="0"
+              required>
+        </div>
+        <span class="post-control-text">
+          minutes.
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'driveWear'">
+        <label class="control-label">Has less than: </label>
+        <div class="control-container">
+          <input type="number"
+              class="form-control"
+              name="driveWearThreshold"
+              ng-model="$ctrl.driveWearThreshold"
+              min="0"
+              required>
+        </div>
+        <span class="post-control-text">
+          percent.
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'driveWear'">
+        <label class="control-label"></label>
+        <div class="control-container">
+          <select class="form-control"
+              name="driveWearType"
+              ng-model="$ctrl.driveWearType"
+              ng-options="wearType[0] as wearType[1] for wearType in $ctrl.driveWearTypes">
+          </select>
+        </div>
+        <span class="post-control-text">
+          remaining.
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'sessions'">
+        <label class="control-label">Has more than: </label>
+        <div class="control-container">
+          <input type="number"
+              class="form-control"
+              name="sessionsThreshold"
+              ng-model="$ctrl.sessionsThreshold"
+              integer
+              min="0"
+              required>
+        </div>
+        <span class="post-control-text">
+          active iSCSI sessions.
+        </span>
+      </div>
+
+      <div class="form-group" ng-if="$ctrl.policyType === 'licensing'">
+        <label class="control-label">Exceeds: </label>
+        <div class="control-container">
+          <input type="number"
+              class="form-control"
+              name="capacityLicensingThreshold"
+              ng-model="$ctrl.capacityLicensingThreshold"
+              min="0"
+              required>
+        </div>
+        <span class="post-control-text">
+          percent of ELC.
+        </span>
+      </div>
+
+
+      <div class="button-container">
+        <button class="button cancel" ng-click="$ctrl.cancel()">
+          Cancel
+        </button>
+
+        <button class="button" type="submit" ng-disabled="$ctrl.form.$invalid">
+          Save Alert Policy
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

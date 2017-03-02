@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export function DataService($q, $http, $filter, $location, CacheFactory) {
   // Check to make sure the cache doesn't already exist
   if (!CacheFactory.get('defaultCache')) {
@@ -13,14 +15,18 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
     callAPI(method, params = {}) {
       const request = {method: method, params: params};
       return $http.post('/json-rpc/2.0', request)
-        .then( response => {
-          return response.data.result;
-        })
         .catch( error => {
           if (error.status === 401) {
             redirectToLogin();
           }
-          return error.data;
+          return $q.reject(error.data || error);
+        })
+        .then( response => {
+          const error = _.get(response, 'data.error');
+          if (error) {
+            return $q.reject(error);
+          }
+          return _.get(response, 'data.result');
         });
     },
 
@@ -49,7 +55,12 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
     },
 
     callGraphAPI(graph, params) {
-      let graphAPI = `/graph/cluster/${params.clusterID}/${graph}`;
+      let graphAPI = `/graph/cluster/${params.clusterID}`;
+
+      if (params.volumeID) {
+        graphAPI += `/volume/${params.volumeID}`;
+      }
+      graphAPI += `/${graph}`;
 
       if (params.snapshot) {
         graphAPI += '/snapshot';

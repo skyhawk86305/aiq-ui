@@ -1,8 +1,8 @@
 'use strict';
 
-var support = require('../support.js');
+var support = require('../../support.js');
 var expect = support.expect;
-var TableComponent = require('../page-objects/components/sf-components.po').table;
+var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('volume');
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListActiveVolumes'));
@@ -21,6 +21,7 @@ var columns = [
   {key: 'burstIOPS', label: 'Burst IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
   {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', format: {filter: 'string'}},
+  {key: 'details', label: 'View Details', width: 100, sortable: false, hideable: false, exclude: true}
   {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}, exclude: true}
 ];
 
@@ -70,5 +71,12 @@ describe('The Cluster Volumes Page', function () {
 
   it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
+  });
+
+  it('@any should allow the user to go to volume details page', function() {
+    var viewDetailsLink = table.el.all(by.css('.view-details-link')).get(0);
+    expect(viewDetailsLink.isPresent()).to.eventually.be.true;
+    viewDetailsLink.click();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/volume/1');
   });
 });

@@ -17,7 +17,7 @@ export function BytesFilter() {
 
       if (forHtml) { units = '<span class="units">' + units + '</span>'; }
       if (isNegative) { bytes *= -1; }
-      return validNumber ? bytes.toFixed(places) + units : '-';
+      return validNumber ? +(bytes).toFixed(places) + units : '-';
     } else { return '-'; }
   };
 }

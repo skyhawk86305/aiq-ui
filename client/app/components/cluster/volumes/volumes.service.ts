@@ -34,7 +34,8 @@
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
         {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-        {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}}
+        {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}},
+        {key: 'details', label: 'View Details', width: 100, sortable: false, nonData: true}
       ];
     }
 
@@ -69,7 +70,7 @@
     }
 
     function callGuzzleAPIs(methods) {
-      return $q.all(methods).then( responses => {
+      return $q.all(methods).then(responses => {
         let responseObj = {};
         responses.forEach(response => {
           Object.keys(response).forEach(key => responseObj[key] = response[key]);

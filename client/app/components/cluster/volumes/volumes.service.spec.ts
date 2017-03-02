@@ -48,7 +48,7 @@ describe('VolumeTableService', function () {
       expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListActiveVolumes');
     });
 
-    it('should deserialize the response and resolve an array of data', function() {
+    it('should deserialize the response and resolve an array of data', inject(function($routeParams) {
       apiResponse = {volumes: [{volumeID: 10, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}],
         snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null,
           snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da384d4', enableRemoteReplication: false, groupID: 0, createTime: '2016-05-18T21:36:24Z'},
@@ -67,7 +67,10 @@ describe('VolumeTableService', function () {
           maxIOPS: 'bar',
           burstIOPS: 'baz',
           paired: true,
-          snapshots: 0
+          snapshots: 0,
+          details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
+            apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
+            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
         }
       ];
       service.getData(true).then(function(response) {
@@ -75,7 +78,7 @@ describe('VolumeTableService', function () {
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();
-    });
+    }));
 
     it('should return link to snapshots table', inject(function($routeParams) {
       $routeParams.clusterID = 'foobar';
