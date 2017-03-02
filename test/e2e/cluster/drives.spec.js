@@ -4,7 +4,7 @@ var support = require('../support.js');
 var expect = support.expect;
 var TableComponent = require('../page-objects/components/sf-components.po').table;
 var table = new TableComponent('drive');
-var fixture = mergeFixtures(support.fixture('ListDrives'), support.fixture('GetDriveStats'));
+var fixture = mergeFixtures(support.fixture('ListDrives-Guzzle'), support.fixture('GetDriveStats-Guzzle'));
 var uniqueKey = 'driveID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
@@ -25,13 +25,13 @@ var columns = [
 
 function mergeFixtures(fixture1, fixture2) {
     return fixture1.drives.map(function(drive) {
-        fixture2.driveStats.forEach(function(drive2) {
-            if (drive.driveID === drive2.driveID) {
-                drive.lifeRemainingPercent = drive2.lifeRemainingPercent;
-                drive.reserveCapacityPercent = drive2.reserveCapacityPercent;
-            }
-        });
-        return drive;
+      fixture2.driveStats.forEach(function(drive2) {
+          if (drive.driveID === drive2.driveID) {
+              drive.lifeRemainingPercent = drive2.lifeRemainingPercent;
+              drive.reserveCapacityPercent = drive2.reserveCapacityPercent;
+          }
+      });
+      return drive;
     });
 }
 

@@ -5,7 +5,7 @@ var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('binding');
 var clusterSelect = new support.clusterSelectComponent();
-var fixture = mapFixture(support.fixture('ListVirtualVolumeBindings'));
+var fixture = mapFixture(support.fixture('ListVirtualVolumeBindings-Guzzle'));
 var uniqueKey = 'virtualVolumeBindingID';
 var itemsPerPage = 25;
 var clusterId;

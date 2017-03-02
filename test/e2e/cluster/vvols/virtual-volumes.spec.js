@@ -5,7 +5,7 @@ var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('virtual-volume');
 var clusterSelect = new support.clusterSelectComponent();
-var fixture = mapFixture(support.fixture('ListVirtualVolumes'));
+var fixture = mapFixture(support.fixture('ListVirtualVolumes-Guzzle'));
 var uniqueKey = 'volumeID';
 var itemsPerPage = 25;
 var clusterId;

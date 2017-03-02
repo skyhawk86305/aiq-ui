@@ -8,7 +8,6 @@ module.exports = {
 
   files: [
     'client/vendor.ts',
-    'client/polyfills.ts',
     './node_modules/phantomjs-polyfill-find-index/findIndex-polyfill.js',
     'client/app/app.module.ts',
     'node_modules/angular-mocks/angular-mocks.js',
@@ -17,7 +16,6 @@ module.exports = {
 
   preprocessors: {
     'client/vendor.ts': ['webpack'],
-    'client/polyfills.ts': ['webpack'],
     'client/app/app.module.ts': ['webpack'],
     'client/test.ts': ['webpack']
   },

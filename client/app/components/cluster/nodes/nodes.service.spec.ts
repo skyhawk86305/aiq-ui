@@ -11,7 +11,7 @@ describe('NodeTableService', function () {
       parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('DataService', {callGuzzleAPI: function() {} });
+    $provide.value('DataService', {callAPI: function() {} });
   }));
 
   beforeEach(inject(function ($q, $rootScope, NodeTableService, DataService, SFTableService) {
@@ -21,7 +21,7 @@ describe('NodeTableService', function () {
     service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
-    spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
+    spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
   }));
 
   describe('initialization', function() {
@@ -45,7 +45,7 @@ describe('NodeTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListActiveNodes');
+      expect(dataService.callAPI).toHaveBeenCalledWith('ListActiveNodes', {clusterID: 'foobar'});
     });
 
     it('should deserialize the response and resolve an array of data', function() {

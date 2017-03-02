@@ -1,4 +1,4 @@
-module.exports = {
+exports.exports = {
   "clusterVersionInfo": [{
     "nodeVersion": "8.1.0.95",
     "nodeInternalRevision": "BuildType=Release Element=oxygen Release=oxygen-patch1 ReleaseShort=oxygen-patch1 Version=8.1.0.95 sfdev=8.36 Repository=oxygen-patch1 Revision=62e4be195aae BuildDate=2015-07-17T18:18:28MDT",
