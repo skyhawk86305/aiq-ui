@@ -21,8 +21,8 @@ var columns = [
   {key: 'burstIOPS', label: 'Burst IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
   {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', format: {filter: 'string'}},
-  {key: 'details', label: 'View Details', width: 100, sortable: false, hideable: false, exclude: true}
-  {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}, exclude: true}
+  {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}, exclude: true},
+  {key: 'details', label: 'View Details', width: 100, sortable: false, nonData: false, exclude: true}
 ];
 
 function mapFixture(rawFixture) {
