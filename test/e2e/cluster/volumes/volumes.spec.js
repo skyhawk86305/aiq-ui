@@ -35,7 +35,7 @@ function mapFixture(rawFixture) {
   });
 }
 
-describe('The Cluster Volumes Page', function () {
+fdescribe('The Cluster Volumes Page', function () {
   beforeAll(function(done) {
     support.login();
     var openedClusterSelect = clusterSelect.open();
@@ -81,7 +81,7 @@ describe('The Cluster Volumes Page', function () {
   });
 
   it('@any should allow the user to go to snapshots table page', function() {
-    var snapshotLink= table.el.all(by.model('volume.snapshots')).get(0);
+    var snapshotLink= table.el.all(by.id('snapshot-details')).get(0);
     expect(snapshotLink.isPresent()).to.eventually.be.true;
     snapshotLink.click();
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/snapshot/1');
