@@ -88,7 +88,8 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/iscsiSessions', {
-        template: require('./coming-soon.tpl.html')
+        template: '<iscsi-sessions class="sf-layout-block"></iscsi-sessions>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/virtualNetworks', {
         template: '<virtual-network-table class="sf-layout-block"></virtual-network-table>',
