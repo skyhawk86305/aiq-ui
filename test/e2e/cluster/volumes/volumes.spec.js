@@ -35,7 +35,7 @@ function mapFixture(rawFixture) {
   });
 }
 
-fdescribe('The Cluster Volumes Page', function () {
+describe('The Cluster Volumes Page', function () {
   beforeAll(function(done) {
     support.login();
     var openedClusterSelect = clusterSelect.open();
