@@ -1,6 +1,7 @@
 'use strict';
 
-var express = require('express'),
+var _ = require('lodash'),
+  express = require('express'),
   mockRoutes = express.Router(),
   mockTimeSeriesData = require('./mock.time-series-data'),
   serverConfig = require('./server.config.js'),
@@ -92,10 +93,14 @@ mockRoutes.post('/password-reset/:token', function (req, res) {
  * in the correct response format.
  */
 mockRoutes.get('/graph/cluster/:clusterId/capacity', function (req, res) {
-  var data = mockTimeSeriesData.getTimeSeriesData(req.query.startTime, req.query.endTime, req.query.resolution, 0, ['usedSpace', 'maxUsedSpace', 'usedMetadataSpace', 'maxUsedMetadataSpace', 'provisionedSpace', 'maxProvisionedSpace']),
-    response = data || {};
-
-  res.send(response);
+  const data = mockTimeSeriesData.getTimeSeriesData(
+    req.query.startTime,
+    req.query.endTime,
+    req.query.resolution,
+    0,
+    ['usedSpace', 'maxUsedSpace', 'usedMetadataSpace', 'maxUsedMetadataSpace', 'provisionedSpace', 'maxProvisionedSpace']
+  );
+  res.send(data);
 });
 
 /**
@@ -103,69 +108,43 @@ mockRoutes.get('/graph/cluster/:clusterId/capacity', function (req, res) {
  * in the correct response format.
  */
 mockRoutes.get('/graph/cluster/:clusterId/performance', function (req, res) {
-  var data = mockTimeSeriesData.getTimeSeriesData(req.query.startTime, req.query.endTime, req.query.resolution, 0, ['clusterUtilizationPct', 'readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec', 'readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec']),
-    response = data || {};
+  const data = mockTimeSeriesData
+    .getTimeSeriesData(
+      req.query.startTime,
+      req.query.endTime,
+      req.query.resolution,
+      0,
+      ['clusterUtilizationPct', 'readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec', 'readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec']
+    );
+  data.clusterUtilizationPct = data.clusterUtilizationPct.map( val => val / 1000000000000 );
+  data.readOpsPerSec = data.readOpsPerSec.map( val => val / 100000000000 );
+  data.writeOpsPerSec = data.writeOpsPerSec.map( val => val / 100000000000 );
+  data.totalOpsPerSec = data.totalOpsPerSec.map( val => val / 100000000000 );
+  res.send(data);
+});
 
-  response.clusterUtilizationPct = response.clusterUtilizationPct.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.readOpsPerSec = response.readOpsPerSec.map(function(val) {
-    return (val / 100000000000);
-  });
-
-  response.writeOpsPerSec = response.writeOpsPerSec.map(function(val) {
-    return (val / 100000000000);
-  });
-
-  response.totalOpsPerSec = response.totalOpsPerSec.map(function(val) {
-    return (val / 100000000000);
-  });
-
-  res.send(response);
-});/**
+/**
  * Catch capacity page graph data requests and respond with random data
  * in the correct response format.
  */
-
 mockRoutes.get('/graph/cluster/:clusterId/volume/:volumeId/performance', function (req, res) {
-  var data = mockTimeSeriesData.getTimeSeriesData(req.query.startTime, req.query.endTime, req.query.resolution, 0, ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec', 'readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec', 'readLatencyUSec', 'writeLatencyUSec', 'latencyUSec', 'usedCapacity', 'provisionedCapacity', 'averageIOPSize', 'clientQueueDepth']),
-    response = data || {};
-
-  response.clientQueueDepth = response.clientQueueDepth.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.averageIOPSize = response.averageIOPSize.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.readLatencyUSec = response.readLatencyUSec.map(function(val) {
-    return (val / 1000000000000);
-
-  });
-
-  response.writeLatencyUSec = response.writeLatencyUSec.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.latencyUSec = response.latencyUSec.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.readOpsPerSec = response.readOpsPerSec.map(function(val) {
-    return (val / 100000000000);
-  });
-
-  response.writeOpsPerSec = response.writeOpsPerSec.map(function(val) {
-    return (val / 100000000000);
-  });
-
-  response.totalOpsPerSec = response.totalOpsPerSec.map(function(val) {
-    return (val / 100000000000);
-  });
-
-  res.send(response);
+  const data = mockTimeSeriesData
+    .getTimeSeriesData(
+      req.query.startTime,
+      req.query.endTime,
+      req.query.resolution,
+      0,
+      ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec', 'readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec', 'readLatencyUSec', 'writeLatencyUSec', 'latencyUSec', 'usedCapacity', 'provisionedCapacity', 'averageIOPSize', 'clientQueueDepth']
+    );
+  data.clientQueueDepth = data.clientQueueDepth.map( val => val / 1000000000000 );
+  data.averageIOPSize = data.averageIOPSize.map( val => val / 1000000000000 );
+  data.readLatencyUSec = data.readLatencyUSec.map( val => val / 1000000000000 );
+  data.writeLatencyUSec = data.writeLatencyUSec.map( val => val / 1000000000000 );
+  data.latencyUSec = data.latencyUSec.map( val => val / 1000000000000 );
+  data.readOpsPerSec = data.readOpsPerSec.map( val => val / 100000000000 );
+  data.writeOpsPerSec = data.writeOpsPerSec.map( val => val / 100000000000 );
+  data.totalOpsPerSec = data.totalOpsPerSec.map( val => val / 100000000000 );
+  res.send(data);
 });
 
 /**
@@ -173,39 +152,48 @@ mockRoutes.get('/graph/cluster/:clusterId/volume/:volumeId/performance', functio
  * in the correct response format.
  */
 mockRoutes.get('/graph/cluster/:clusterId/efficiency', function (req, res) {
-  var data = mockTimeSeriesData.getTimeSeriesData(req.query.startTime, req.query.endTime, req.query.resolution, 0, ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor']),
-    response = data || {};
+  const data = mockTimeSeriesData
+    .getTimeSeriesData(
+      req.query.startTime,
+     req.query.endTime,
+     req.query.resolution,
+     0,
+     ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor']
+    );
+  data.thinProvisioningFactor = data.thinProvisioningFactor.map( val => val / 1000000000000 );
+  data.deDuplicationFactor = data.deDuplicationFactor.map( val => val / 1000000000000 );
+  data.compressionFactor = data.compressionFactor.map( val => val / 1000000000000 );
+  data.efficiencyFactor = data.efficiencyFactor.map( val => val / 1000000000000 );
+  res.send(data);
+});
 
-  response.thinProvisioningFactor = response.thinProvisioningFactor.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.deDuplicationFactor = response.deDuplicationFactor.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.compressionFactor = response.compressionFactor.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  response.efficiencyFactor = response.efficiencyFactor.map(function(val) {
-    return (val / 1000000000000);
-  });
-
-  res.send(response);
+/**
+ * Catch iSCSI Sessions graph data requests and respond with random data
+ * in the correct response format.
+ */
+mockRoutes.get('/graph/cluster/:clusterId/activeISCSISessions', function (req, res) {
+  const data = mockTimeSeriesData
+    .getTimeSeriesData(
+      req.query.startTime,
+      req.query.endTime,
+      req.query.resolution,
+      0,
+      ['activeSessions', 'peakActiveSessions']
+    );
+  data.activeSessions = data.activeSessions.map( val => val / 10000000000 );
+  data.peakActiveSessions = data.peakActiveSessions.map( val => val / 10000000000 );
+  res.send(data);
 });
 
 
 mockRoutes.get('/graph/cluster/:clusterId/capacity/snapshot', function (req, res) {
   var response = {"timestampSec":1479401909,"usedSpace":2935990947150,"maxUsedSpace":42805052899328,"usedMetadataSpace":180152187904,"maxUsedMetadataSpace":2080115870926,"provisionedSpace":59728017932288,"maxProvisionedSpace":138254831476736,"thinProvisioningFactor":7.833951255671171,"deDuplicationFactor":1.808344330383057,"compressionFactor":2.8194204035516706,"efficiencyFactor":25.25773144525874,"activeSessions":80,"peakActiveSessions":100};
   res.send(response);
-
 });
 
 mockRoutes.get('/graph/cluster/:clusterId/performance/snapshot', function (req, res) {
   var response ={"timestampSec":1479495910,"readOpsPerSec":2020,"writeOpsPerSec":7890,"totalOpsPerSec":8765,"readBytesPerSec":22973537,"writeBytesPerSec":153109641,"totalBytesPerSec":178083178,"clusterUtilizationPct":10.747204393148422};
   res.send(response);
-
 });
 
 module.exports = mockRoutes;
