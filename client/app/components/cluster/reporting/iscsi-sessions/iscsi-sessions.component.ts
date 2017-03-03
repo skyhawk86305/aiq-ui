@@ -37,8 +37,8 @@
             legend: {
               position: 'top',
               items: {
-                activeSessions: 'Session Count',
-                peakActiveSessions: 'Peak Session Count',
+                activeSessions: 'Active Sessions',
+                peakActiveSessions: 'Peak Active Sessions',
               }
             },
             dataLimit: 500,

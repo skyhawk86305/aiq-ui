@@ -59,7 +59,7 @@ describe('The Cluster iSCSI Sessions Page', function () {
       var graph = iscsiSessionsGraphs.childGraph('iscsi-sessions-child');
       expect(graph.svg.lines.count()).to.eventually.equal(2);
       var expectedSeries = ['activeSessions', 'peakActiveSessions'];
-      var expectedLabels = ['Session Count','Peak Session Count'];
+      var expectedLabels = ['Active Sessions','Peak Active Sessions'];
       for (var i = 0; i < expectedSeries.length; i++) {
         expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
         expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
