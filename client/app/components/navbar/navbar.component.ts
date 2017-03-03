@@ -59,7 +59,7 @@
             {key:'errorLog', href: '#/cluster/:clusterID/reporting/errorLog', label: 'Error Log'},
             {key:'events', href: '#/cluster/:clusterID/reporting/events', label: 'Events'},
             {key:'alerts', href: '#/cluster/:clusterID/reporting/alerts', label: 'Alerts'},
-            {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions', disabled: true},
+            {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions'},
             {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks'},
             {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting', disabled: true}
           ]
