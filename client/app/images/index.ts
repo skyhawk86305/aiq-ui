@@ -1,2 +1,2 @@
 import './favicon.ico';
-import './SolidFire-Gotham_WHITE.svg';
+import './na_logo_hrz_1c-rev_rgb_lrg.png';
