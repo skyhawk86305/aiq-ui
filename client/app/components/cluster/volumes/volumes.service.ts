@@ -60,8 +60,7 @@
               return snapshot.volumeID === volume.volumeID;
             })).length;
 
-            volume.snapshots = snapshotCount === 0 ? snapshotCount : '<a ng-href="#/cluster/' + $routeParams.clusterID + '/snapshot/' + volume.volumeID + '" ' +
-              'aria-label="Leave this page to view snapshots associated with selected volume">' + snapshotCount + '</a>';
+            volume.snapshots = snapshotCount === 0 ? snapshotCount : '<a ng-href="#/cluster/' + $routeParams.clusterID + '/snapshot/' + volume.volumeID + '">' + snapshotCount + '</a>';
             volume.details = '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID + '" aria-label="Leave this page to view selected volume details">' +
               '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>';
 
