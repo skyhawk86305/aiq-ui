@@ -39,18 +39,14 @@
     }
 
     function listSnapshots() {
-      return $q
-        .all([
-          DataService.callGuzzleAPI(service.selectedClusterID, 'ListActiveVolume'),
-          DataService.callGuzzleAPI(service.selectedClusterID, 'ListSnapshots')
-        ])
-        .then( ([{ volumes = [] }, { snapshots = [] }]) => {
+      return DataService.callGuzzleAPIs(service.selectedClusterID, 'ListActiveVolumes', 'ListSnapshots')
+        .then( ({ volumes = [], snapshots = [] }) => {
           const selectedVolume = volumes.find( volume => volume.volumeID === service.volumeID );
-          const accountID = selectedVolume.accountID;
-          const volumeSize = selectedVolume.totalSize;
+          const accountID = _.get(selectedVolume, 'accountID');
+          const volumeSize = _.get(selectedVolume, 'totalSize');
           return snapshots
             .filter( snapshot => snapshot.volumeID === service.volumeID )
-            .map( snapshot => Object.assign({}, snapshot, { accountID, volumeSize }));
+            .map( snapshot => Object.assign({}, snapshot, { accountID, volumeSize }) );
       });
     }
 

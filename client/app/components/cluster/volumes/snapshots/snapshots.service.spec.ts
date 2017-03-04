@@ -11,7 +11,7 @@ describe('service: SnapshotTableService', function() {
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('DataService', {
-      callGuzzleAPI: function() {}
+      callGuzzleAPIs: function() {}
     });
   }));
 
@@ -21,7 +21,7 @@ describe('service: SnapshotTableService', function() {
     service = SnapshotTableService;
     dataService = DataService;
     parentService = SFTableService;
-    spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
+    spyOn(dataService, 'callGuzzleAPIs').and.returnValue(deferred.promise);
   }));
 
   describe('initialization', function() {
@@ -44,11 +44,10 @@ describe('service: SnapshotTableService', function() {
   });
 
   describe('.getData (inherited from SFTableService)', function() {
-    it('should call expected API methods with the selectedClusterID', function() {
+    fit('should call expected API methods with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListActiveVolumes');
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListSnapshots');
+      expect(dataService.callGuzzleAPIs).toHaveBeenCalledWith('foobar', 'ListActiveVolumes', 'ListSnapshots');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
