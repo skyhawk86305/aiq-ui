@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
     .module('aiqUi')
     .service('SnapshotTableService', [
@@ -37,40 +39,18 @@
     }
 
     function listSnapshots() {
-      const methods = [
-        DataService.callGuzzleAPI(service.selectedClusterID, 'ListActiveVolumes'),
-        DataService.callGuzzleAPI(service.selectedClusterID, 'ListSnapshots')
-      ];
-      let volumes, snapshots, selectedVolume;
-
-      return callGuzzleAPIs(methods).then( responseObj => {
-        volumes = responseObj.volumes;
-        snapshots = responseObj.snapshots;
-
-        if (volumes) {
-          selectedVolume = volumes.find( volume => {
-            return volume.volumeID === service.volumeID;
-          });
-        }
-        if (selectedVolume && snapshots) {
-          return snapshots.filter(snapshot => {
-            if (snapshot.volumeID === service.volumeID) {
-              snapshot.accountID = selectedVolume.accountID;
-              snapshot.volumeSize = selectedVolume.totalSize;
-              return snapshot;
-            };
-          });
-        }
-      });
-    }
-
-    function callGuzzleAPIs(methods) {
-      return $q.all(methods).then( responses => {
-        let responseObj = {};
-        responses.forEach(response => {
-          Object.keys(response).forEach(key => responseObj[key] = response[key]);
-        });
-        return responseObj;
+      return $q
+        .all([
+          DataService.callGuzzleAPI(service.selectedClusterID, 'ListActiveVolume'),
+          DataService.callGuzzleAPI(service.selectedClusterID, 'ListSnapshots')
+        ])
+        .then( ([{ volumes = [] }, { snapshots = [] }]) => {
+          const selectedVolume = volumes.find( volume => volume.volumeID === service.volumeID );
+          const accountID = selectedVolume.accountID;
+          const volumeSize = selectedVolume.totalSize;
+          return snapshots
+            .filter( snapshot => snapshot.volumeID === service.volumeID )
+            .map( snapshot => Object.assign({}, snapshot, { accountID, volumeSize }));
       });
     }
 
