@@ -9,6 +9,7 @@
         '$routeParams',
         '$filter',
         '$timeout',
+        '$location',
         'DataService',
         'PerformanceGraphsService',
         'SFD3LineGraph',
@@ -16,7 +17,7 @@
       ]
     });
 
-  function OverviewDashboardController($routeParams, $filter, $timeout, DataService, PerformanceGraphsService, SFD3LineGraph) {
+  function OverviewDashboardController($routeParams, $filter, $timeout, $location, DataService, PerformanceGraphsService, SFD3LineGraph) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -62,6 +63,14 @@
         ctrl.graphs.performance.graph.resize();
         ctrl.graphs.utilization.graph.resize();
       }, 300);
+    };
+
+    ctrl.getHref = function(clusterPath) {
+      if (clusterPath.indexOf('/') !== 0) {
+        clusterPath = '/' + clusterPath;
+      }
+
+      return '#/cluster/' + $routeParams.clusterID + clusterPath;
     };
 
     /**********************************/
