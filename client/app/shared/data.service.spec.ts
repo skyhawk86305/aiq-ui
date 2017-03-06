@@ -121,6 +121,13 @@ describe('Data Service', function () {
       expect(service.callGuzzleAPI).toHaveBeenCalledWith('12345', 'test1');
       expect(service.callGuzzleAPI).toHaveBeenCalledWith('12345', 'test2');
     }));
+
+    it('should make two $http requests to the API with the provided cluster ID', function () {
+      service.callGuzzleAPIs('12345', 'test1', 'test2');
+      http.expect('GET', '/state/cluster/12345/test1').respond([]);
+      http.expect('GET', '/state/cluster/12345/test2').respond([]);
+      http.flush();
+    });
   });
 
   describe('.callGraphAPI', function () {

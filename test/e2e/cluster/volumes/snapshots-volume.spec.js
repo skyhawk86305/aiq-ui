@@ -3,12 +3,13 @@
 var support = require('../../support.js');
 var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
-var snapshotTable = new TableComponent('snapshot');
+var snapshotTable = new TableComponent('snapshot-volume');
 var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('ListActiveVolumes'), support.fixture('ListSnapshots'));
 var itemsPerPage = 25;
 var uniqueKey = 'snapshotID';
 var clusterId;
+var volumeId = 1;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'snapshotID', label: 'ID', width: 100, format: {filter: 'string'}},
@@ -36,7 +37,7 @@ function mapFixture(volumeRawFixture, snapshotRawFixture) {
   });
 }
 
-describe('The Snapshots Page', function() {
+describe('The snapshots for a volume page', function() {
   beforeAll(function(done) {
     support.login();
     var openedClusterSelect = clusterSelect.open();
@@ -47,14 +48,14 @@ describe('The Snapshots Page', function() {
   });
 
   beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/snapshots').then(done);
+    browser.get('#/cluster/' + clusterId + '/snapshot/' + volumeId).then(done);
   });
 
   afterAll(function() {
     support.logout();
   });
 
-  it('@any @smoke should display a snapshots table component on page load', function () {
+  it('@any @smoke should display a table component on page load', function () {
     expect(snapshotTable.el.isDisplayed()).to.eventually.be.true;
   });
 

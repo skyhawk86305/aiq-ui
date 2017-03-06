@@ -68,7 +68,7 @@
         {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
         {
           key:'volumes',
-          href:'#/cluster/:clusterID/volumes/overview',
+          href:'#/cluster/:clusterID/volumes',
           label: 'Volumes',
           menuItems: [
             {key:'activeVolumes', href: '#/cluster/:clusterID/volumes', label: 'Active Volumes'},
