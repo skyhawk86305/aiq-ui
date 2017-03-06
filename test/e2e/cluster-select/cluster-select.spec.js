@@ -54,7 +54,7 @@ describe('The cluster select component', function() {
     it('should display a list of all clusters', function() {
       dropDownMenu = clusterSelect.open();
       expect(dropDownMenu.activeTab.getText()).to.eventually.equal('All Clusters');
-      expect(dropDownMenu.allClustersList().customers.count()).to.eventually.equal(21);
+      expect(dropDownMenu.allClustersList().customers).to.eventually.have.length(21);
     });
 
     it('should have a scrollbar if there are too many clusters to display on the page', function() {
@@ -131,7 +131,7 @@ describe('The cluster select component', function() {
         });
       });
 
-      it('should filter by id', function(done) {
+      it('should filter by id', function() {
         dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('id:26').then(function() {
           var expectedClusters = [
@@ -145,12 +145,12 @@ describe('The cluster select component', function() {
               { customer: 'Jim', clusters: ['bazCluster'] }
             ];
 
-            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters, done);
+            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
           });
         });
       });
 
-      it('should filter by version', function(done) {
+      it('should filter by version', function() {
         dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('version:8').then(function() {
           var expectedClusters = [
@@ -180,12 +180,12 @@ describe('The cluster select component', function() {
               { customer: 'John', clusters: ['fizCluster'] }
             ];
 
-            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters, done);
+            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
           });
         });
       });
 
-      it('should filter by uid', function(done) {
+      it('should filter by uid', function() {
         dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('uid:b').then(function() {
           var expectedClusters = [
@@ -201,12 +201,12 @@ describe('The cluster select component', function() {
               { customer: 'John', clusters: ['fizCluster'] }
             ];
 
-            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters, done);
+            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
           });
         });
       });
 
-      it('should filter by uuid', function(done) {
+      it('should filter by uuid', function() {
         dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('uuid:333').then(function() {
           var expectedClusters = [
@@ -223,7 +223,7 @@ describe('The cluster select component', function() {
               { customer: 'Some Random State Federal Credit Union', clusters: ['PD4OiJ7fXxfKwo2000.snmp.acme.net'] }
             ];
 
-            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters, done);
+            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
           });
         });
       });
@@ -234,18 +234,18 @@ describe('The cluster select component', function() {
         support.checkScroll(dropDownMenu.scrollableMenu,false);
       });
 
-      it('should allow combining more than one filter type', function(done) {
+      it('should allow combining more than one filter type', function() {
         dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('version:8.1.2 ba').then(function() {
           var expectedClusters = [
             { customer: 'Jim', clusters: ['bazCluster'] }
           ];
 
-          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters, done);
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
 
-      it('should reset with an empty filter', function(done) {
+      it('should reset with an empty filter', function() {
           dropDownMenu = clusterSelect.open();
           dropDownMenu.filter('').then(function() {
           var expectedClusters = [
@@ -272,7 +272,7 @@ describe('The cluster select component', function() {
             { customer: 'Zebra Media, Inc.', clusters: ['RKXV-SF01'] }
           ];
 
-          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters, done);
+          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
         });
       });
     });
@@ -294,15 +294,12 @@ describe('selecting clusters', function() {
     support.logout();
   });
 
-  var selectClusterSequence = function() {
+  function selectClusterSequence() {
     dropDownMenu = clusterSelect.open();
-    var list = dropDownMenu.allClustersList();
-
     dropDownMenu.allClustersTab.click();
-    expect(list.customers.count()).to.eventually.equal(21);
-    return list.customer('Bill').then(function(customer) {
-      customer.selectCluster('barCluster');
-    });
+    const list = dropDownMenu.allClustersList();
+    expect(list.customers).to.eventually.have.length(21);
+    return list.customer('Bill').then( customer => customer.selectCluster('barCluster') );
   };
 
   it('should close the drop down and update the selected cluster', function(done) {
@@ -340,26 +337,21 @@ describe('selecting clusters', function() {
   });
 });
 
-function compareExpectedAllClustersList(clusterList, expectedClustersArr, done) {
-  expect(clusterList.customers.count()).to.eventually.equal(expectedClustersArr.length);
-  clusterList.customers.each(function (customerElem, customerIndex) {
-    customerElem.element(by.css('span')).getText().then(function (name) {
-      clusterList.customer(name).then(function(customer) {
-        expect(customer.name).to.equal(expectedClustersArr[customerIndex].customer);
-        expect(customer.clusters.count()).to.eventually.equal(expectedClustersArr[customerIndex].clusters.length);
-        customer.clusters.each(function (clusterElem, clusterIndex) {
-          expect(clusterElem.getText()).to.eventually.equal(expectedClustersArr[customerIndex].clusters[clusterIndex]);
-        });
-        if(typeof done === 'function') {
-          done();
-        }
+function compareExpectedAllClustersList(clusterList, expectedClustersArr) {
+  expect(clusterList.customers).to.eventually.have.length(expectedClustersArr.length);
+  clusterList.customers.then( customers =>
+    customers.forEach( (customer, customerIndex) => {
+      expect(customer.name).to.eventually.equal(expectedClustersArr[customerIndex].customer);
+      expect(customer.clusters).to.eventually.have.length(expectedClustersArr[customerIndex].clusters.length);
+      customer.clusters.each( (clusterElem, clusterIndex) => {
+        expect(clusterElem.getText()).to.eventually.equal(expectedClustersArr[customerIndex].clusters[clusterIndex]);
       });
-    });
-  });
+    })
+  );
 }
 
 function compareExpectedRecentlyViewedList(clusterList, expectedClustersArr) {
-  expect(clusterList.count()).to.eventually.equal(expectedClustersArr.length);
+  expect(clusterList).to.eventually.have.length(expectedClustersArr.length);
   clusterList.each(function (clusterElem, clusterIndex) {
     expect(clusterElem.getText()).to.eventually.equal(expectedClustersArr[clusterIndex]);
   });
