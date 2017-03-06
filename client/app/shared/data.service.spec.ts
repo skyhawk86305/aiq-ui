@@ -26,10 +26,11 @@ describe('Data Service', function () {
   });
 
   describe('initialization', function () {
-    it('should have three functions: callAPI, callGuzzleAPI, and callGraphAPI', function () {
+    it('should have four functions: callAPI, callGuzzleAPI, and callGraphAPI', function () {
       expect(service.callAPI).toBeDefined();
       expect(service.callGuzzleAPI).toBeDefined();
       expect(service.callGraphAPI).toBeDefined();
+      expect(service.callGuzzleAPIs).toBeDefined();
     });
   });
 
@@ -111,6 +112,15 @@ describe('Data Service', function () {
         });
       http.flush();
     });
+  });
+
+  describe('.callGuzzleAPIs', function() {
+    it('should invoke the callGuzzleAPI with the provided method names and cluster ID', inject(function($q) {
+      spyOn(service, 'callGuzzleAPI').and.returnValue($q.resolve({}));
+      service.callGuzzleAPIs('12345', 'test1', 'test2');
+      expect(service.callGuzzleAPI).toHaveBeenCalledWith('12345', 'test1');
+      expect(service.callGuzzleAPI).toHaveBeenCalledWith('12345', 'test2');
+    }));
   });
 
   describe('.callGraphAPI', function () {

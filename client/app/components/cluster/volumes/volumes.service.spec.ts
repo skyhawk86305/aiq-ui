@@ -11,7 +11,9 @@ describe('VolumeTableService', function () {
     parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('DataService', {callGuzzleAPI: function() {} });
+    $provide.value('DataService', {
+      callGuzzleAPIs: function() {}
+    });
   }));
 
   beforeEach(inject(function ($q, $rootScope, VolumeTableService, DataService, SFTableService) {
@@ -21,7 +23,7 @@ describe('VolumeTableService', function () {
     service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
-    spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
+    spyOn(dataService, 'callGuzzleAPIs').and.returnValue(deferred.promise);
   }));
 
   describe('initialization', function() {
@@ -45,7 +47,7 @@ describe('VolumeTableService', function () {
     it('should call the appropriate API method with the selectedClusterID', function() {
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListActiveVolumes');
+      expect(dataService.callGuzzleAPIs).toHaveBeenCalledWith('foobar', 'ListActiveVolumes', 'ListSnapshots');
     });
 
     it('should deserialize the response and resolve an array of data', inject(function($routeParams) {

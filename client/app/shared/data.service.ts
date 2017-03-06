@@ -59,7 +59,11 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
         .all(
           methods.map( method => this.callGuzzleAPI(clusterID, method) )
         )
-        .then( responses => Object.assign({}, ...responses) );
+        .then( responses => {
+          console.log(responses);
+          console.log(Object.assign);
+          return Object.assign({}, ...responses)
+        } );
     },
 
     callGraphAPI(graph, params) {

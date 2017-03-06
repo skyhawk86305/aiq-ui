@@ -110,8 +110,12 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<drive-table class="sf-layout-block"></drive-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/snapshot/:volumeID', {
+      .when('/cluster/:clusterID/snapshots', {
         template: '<snapshot-table class="sf-layout-block"></snapshot-table>',
+        reloadOnSearch: false
+      })
+      .when('/cluster/:clusterID/snapshot/:volumeID', {
+        template: '<snapshot-volume-table class="sf-layout-block"></snapshot-volume-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/volumes', {

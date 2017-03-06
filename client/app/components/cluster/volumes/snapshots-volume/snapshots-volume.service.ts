@@ -5,18 +5,19 @@
 
   angular
     .module('aiqUi')
-    .service('SnapshotTableService', [
+    .service('SnapshotVolumeTableService', [
       'SFTableService',
       'DataService',
       'SFFilterComparators',
-      SnapshotTableService
+      SnapshotVolumeTableService
     ]);
 
-  function SnapshotTableService(SFTableService, DataService, SFFilterComparators) {
+  function SnapshotVolumeTableService(SFTableService, DataService, SFFilterComparators) {
     let columns = getColumns(),
-      service = new SFTableService(listSnapshots, columns, false);
+      service = new SFTableService(listVolumeSnapshots, columns, false);
 
     service.selectedClusterID = null;
+    service.volumeID = null;
     service.update = update;
     return service;
 
@@ -36,20 +37,21 @@
       ];
     }
 
-    function listSnapshots() {
+    function listVolumeSnapshots() {
       return DataService.callGuzzleAPIs(service.selectedClusterID, 'ListActiveVolumes', 'ListSnapshots')
-        .then( ({ volumes = [], snapshots = [] }) =>
-          snapshots.map( snapshot => {
-            const associatedVolume = volumes.find( volume => volume.volumeID === snapshot.volumeID );
-            const accountID = _.get(associatedVolume, 'accountID');
-            const volumeSize = _.get(associatedVolume, 'totalSize');
-            return Object.assign({}, snapshot, { accountID, volumeSize });
-          })
-        );
+        .then( ({ volumes = [], snapshots = [] }) => {
+          const selectedVolume = volumes.find( volume => volume.volumeID === service.volumeID );
+          const accountID = _.get(selectedVolume, 'accountID');
+          const volumeSize = _.get(selectedVolume, 'totalSize');
+          return snapshots
+            .filter( snapshot => snapshot.volumeID === service.volumeID )
+            .map( snapshot => Object.assign({}, snapshot, { accountID, volumeSize }) );
+        });
     }
 
-    function update(clusterID) {
+    function update(clusterID, volumeID) {
       service.selectedClusterID = parseInt(clusterID, 10);
+      service.volumeID = parseInt(volumeID, 10);
     }
   }
 })();

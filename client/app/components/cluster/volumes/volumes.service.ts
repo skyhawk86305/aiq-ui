@@ -1,18 +1,19 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
   .module('aiqUi')
   .service('VolumeTableService', [
     'SFTableService',
     'SFFilterComparators',
     'DataService',
-    '$q',
     '$routeParams',
     VolumeTableService
   ]);
 
-  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $q, $routeParams) {
+  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $routeParams) {
     let columns = getColumns(),
       service = new SFTableService(listActiveVolumes, columns, false);
 
@@ -40,44 +41,23 @@
     }
 
     function listActiveVolumes() {
-      const methods = [
-        DataService.callGuzzleAPI(service.selectedClusterID, 'ListActiveVolumes'),
-        DataService.callGuzzleAPI(service.selectedClusterID, 'ListSnapshots')
-      ];
-      let volumes, snapshots;
-
-      return callGuzzleAPIs(methods).then( responseObj => {
-        volumes = responseObj.volumes;
-        snapshots = responseObj.snapshots;
-
-        if (volumes) {
-          return volumes.map( volume => {
-            volume.minIOPS = volume.qos.minIOPS;
-            volume.maxIOPS = volume.qos.maxIOPS;
-            volume.burstIOPS = volume.qos.burstIOPS;
-            volume.paired = volume.volumePairs.length ? true : false;
-            let snapshotCount = (snapshots.filter(snapshot => {
-              return snapshot.volumeID === volume.volumeID;
-            })).length;
-
-            volume.snapshots = snapshotCount === 0 ? snapshotCount : '<a id="snapshot-details" ng-href="#/cluster/' + $routeParams.clusterID + '/snapshot/' + volume.volumeID + '">' + snapshotCount + '</a>';
-            volume.details = '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID + '" aria-label="Leave this page to view selected volume details">' +
-              '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>';
-
-            return volume;
-          });
-        }
-      });
-    }
-
-    function callGuzzleAPIs(methods) {
-      return $q.all(methods).then(responses => {
-        let responseObj = {};
-        responses.forEach(response => {
-          Object.keys(response).forEach(key => responseObj[key] = response[key]);
+      return DataService.callGuzzleAPIs(service.selectedClusterID, 'ListActiveVolumes', 'ListSnapshots')
+        .then( ({ volumes = [], snapshots = [] }) => {
+          if (volumes) {
+            return volumes.map( volume => {
+              volume.minIOPS = volume.qos.minIOPS;
+              volume.maxIOPS = volume.qos.maxIOPS;
+              volume.burstIOPS = volume.qos.burstIOPS;
+              volume.paired = volume.volumePairs.length ? true : false;
+              let snapshotCount = snapshots.filter( snapshot => snapshot.volumeID === volume.volumeID ).length;
+              volume.snapshots = snapshotCount === 0 ? snapshotCount : '<a id="snapshot-details" ng-href="#/cluster/' + $routeParams.clusterID +
+                '/snapshot/' + volume.volumeID + '">' + snapshotCount + '</a>';
+              volume.details = '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID +
+                '" aria-label="Leave this page to view selected volume details"><i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>';
+              return volume;
+            });
+          }
         });
-        return responseObj;
-      });
     }
 
     function update(clusterID) {

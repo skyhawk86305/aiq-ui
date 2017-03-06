@@ -10,7 +10,6 @@ describe('Component: snapshotTable', function() {
   beforeEach(inject(function($componentController, $routeParams, SnapshotTableService) {
     routeParams = $routeParams;
     routeParams.clusterID = 'foobar';
-    routeParams.volumeID = 33;
     service = SnapshotTableService;
     spyOn(service, 'update');
     controller = $componentController('snapshotTable');
@@ -21,8 +20,8 @@ describe('Component: snapshotTable', function() {
       expect(controller.service).toEqual(service);
     });
 
-    it('should update the table service with the clusterID and volumeID from the route', function() {
-      expect(service.update).toHaveBeenCalledWith('foobar', 33);
+    it('should update the table service with the clusterID from the route', function() {
+      expect(service.update).toHaveBeenCalledWith('foobar');
     });
   });
 });

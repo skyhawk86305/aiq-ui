@@ -1,6 +1,6 @@
 'use strict';
 
-describe('service: SnapshotTableService', function() {
+describe('service: SnapshotVolumeTableService', function() {
   let service,
     dataService,
     deferred,
@@ -15,10 +15,10 @@ describe('service: SnapshotTableService', function() {
     });
   }));
 
-  beforeEach(inject(function($q, $rootScope, DataService, SnapshotTableService, SFTableService) {
+  beforeEach(inject(function($q, $rootScope, DataService, SnapshotVolumeTableService, SFTableService) {
     rootScope = $rootScope;
     deferred = $q.defer();
-    service = SnapshotTableService;
+    service = SnapshotVolumeTableService;
     dataService = DataService;
     parentService = SFTableService;
     spyOn(dataService, 'callGuzzleAPIs').and.returnValue(deferred.promise);
@@ -29,15 +29,17 @@ describe('service: SnapshotTableService', function() {
       expect(service).toEqual(jasmine.any(parentService));
     });
 
-    it('should keep track of the selectedClusterID to be used in data retrieval', function() {
+    it('should keep track of the selectedClusterID and volumeID to be used in data retrieval', function() {
       expect(service.selectedClusterID).toBeNull();
+      expect(service.volumeID).toBeNull();
     });
   });
 
   describe('.update', function() {
     it('should update the selectedClusterID to be used in data retrieval', function() {
-      service.update('800');
+      service.update('800', 20);
       expect(service.selectedClusterID).toEqual(800);
+      expect(service.volumeID).toEqual(20);
     });
   });
 
@@ -116,3 +118,4 @@ describe('service: SnapshotTableService', function() {
     });
   });
 });
+

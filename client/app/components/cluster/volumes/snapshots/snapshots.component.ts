@@ -10,6 +10,6 @@
 
   function SnapshotTableController($routeParams, SnapshotTableService) {
     this.service = SnapshotTableService;
-    this.service.update($routeParams.clusterID, $routeParams.volumeID);
+    this.service.update($routeParams.clusterID);
   }
 })();
