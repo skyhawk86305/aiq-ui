@@ -5,7 +5,7 @@ var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var table = new TableComponent('protocol-endpoint');
 var clusterSelect = new support.clusterSelectComponent();
-var fixture = mapFixture(support.fixture('ListProtocolEndpoints'));
+var fixture = mapFixture(support.fixture('ListProtocolEndpoints-Guzzle'));
 var uniqueKey = 'primaryProviderID';
 var itemsPerPage = 25;
 var clusterId;

@@ -23,10 +23,7 @@ var columns = [
 ];
 
 function mapFixture(rawFixture) {
-  return rawFixture.nodes.map(function(node) {
-    node.nodeType = node.platformInfo.nodeType;
-    return node;
-  });
+  return rawFixture.result.nodes;
 }
 
 describe('The Cluster Nodes Page', function () {

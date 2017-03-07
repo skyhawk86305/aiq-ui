@@ -29,4 +29,4 @@ module.exports = {
   },
   "clusterVersion": "8.1.0.95",
   "clusterAPIVersion": "8.1"
-}
+};

@@ -19,19 +19,13 @@ mockRoutes.post('/json-rpc/2.0', function (req, res) {
 });
 
 mockRoutes.get('/state/cluster/:clusterId/:method', function (req, res) {
-  var fixture = require('./fixtures/' + fixtureDir + '/' + req.params.method),
+  var fixture = require('./fixtures/' + fixtureDir + '/' + req.params.method + '-Guzzle'),
     response = fixture || {};
   res.send(response);
 });
 
 mockRoutes.get('/state/cluster/:clusterId', function (req, res) {
   var fixture = require('./fixtures/' + fixtureDir + '/GetGuzzleAPIs'),
-    response = fixture || {};
-  res.send(response);
-});
-
-mockRoutes.get('/state/cluster/:clusterId/:method', function (req, res) {
-  var fixture = require('./fixtures/' + fixtureDir + '/' + req.params.method),
     response = fixture || {};
   res.send(response);
 });
