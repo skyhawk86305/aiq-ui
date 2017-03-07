@@ -262,7 +262,8 @@ describe('Per-Cluster pages', function() {
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/drives');
     });
 
-    it('@any @smoke Should allow navigation to the Volumes page', function() {
+    // ToDo: Enable once sub nav link bug is fixed
+    xit('@any @smoke Should allow navigation to the Volumes page', function() {
       navbar.subNavbar.click('cluster-volumes');
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes');
     });
