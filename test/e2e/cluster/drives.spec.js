@@ -13,6 +13,7 @@ var clusterId;
 var columns = [
   {key: 'driveID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'nodeID', label: 'Node ID', format: {filter: 'aiqNumber', args: [0, true]}},
+  {key: 'status', label: 'Status', format: {filter: 'string'}},
   {key: 'slot', label: 'Slot', format: {filter: 'driveSlot'}},
   {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
   {key: 'version', label: 'Firmware Version', format: {filter: 'string'}},
