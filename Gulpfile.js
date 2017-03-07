@@ -21,6 +21,7 @@ var child,
     .alias('h', 'host')
     .alias('p', 'port')
     .alias('m', 'mock')
+    .alias('w', 'watch')
     .alias('t', 'tag').argv,
   isE2ETask = process.argv[2] === 'test:e2e',
   isRemoteE2ETask = isE2ETask && argv.env;
@@ -38,6 +39,10 @@ gulp.task('test:unit', function (done) {
   if (argv.verbose) {
     configs.karma.remapCoverageReporter.text = null;
     configs.karma.reporters.push('spec');
+  }
+  if (argv.watch) {
+    configs.karma.autoWatch = true;
+    configs.karma.singleRun = false;
   }
   if (argv.browser) { configs.karma.browsers = [argv.browser]; }
   new karma.Server(configs.karma, function(c) { done(); process.exit(c); }).start();
