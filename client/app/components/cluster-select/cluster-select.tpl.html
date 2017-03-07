@@ -46,7 +46,7 @@
         No Clusters Found
       </div>
 
-      <div class="cluster-select-list scrollable-menu">
+      <div class="cluster-select-list scrollable-menu" scroll-to-top="$ctrl.clusters.length">
         <div ng-if="!recentlyViewed"
              class="cluster-select-list-group"
              ng-repeat="customer in $ctrl.clusters">
