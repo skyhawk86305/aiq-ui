@@ -36,21 +36,21 @@
         <div class="info-box-content">
           <span class="title"> Average IOPS </span>
           <span class="value"> {{$ctrl.averageVolumePerformance.iops | iops:true}} </span>
-          <span class="label"> Last 30 minutes </span>
+          <span class="label"> Last 30 Minutes </span>
         </div>
       </div>
       <div sf-state state= "$ctrl.getAverageVolumePerformanceStatus" class="info-box -average-throughput col-lg-2 col-md-4 col-sm-6">
         <div class="info-box-content">
           <span class="title"> Average Throughput </span>
           <span class="value" ng-bind-html="$ctrl.averageVolumePerformance.throughput | bytes:false:0:true:true"></span>
-          <span class="label"> Last 30 minutes </span>
+          <span class="label"> Last 30 Minutes </span>
         </div>
       </div>
       <div sf-state state= "$ctrl.getAverageVolumePerformanceStatus" class="info-box -average-latency col-lg-2 col-md-4 col-sm-6">
         <div class="info-box-content">
           <span class="title"> Average Latency (&#181;s) </span>
           <span class="value"> {{$ctrl.averageVolumePerformance.latency | aiqNumber:1:true}} <span class="units"></span></span>
-          <span class="label"> Last 30 minutes </span>
+          <span class="label"> Last 30 Minutes </span>
         </div>
       </div>
     </div>
