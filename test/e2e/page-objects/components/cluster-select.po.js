@@ -1,5 +1,7 @@
 'use strict';
 
+const protractor = require('protractor');
+
 var ClusterSelectComponent = function () {
   var component = this;
 
@@ -37,38 +39,41 @@ var ClusterSelectComponent = function () {
           }
       },
       // allows selection of cluster by customer
-      allClustersList: function () {
-        var list = element(by.css('div.cluster-select-list')),
-            customerList = list.all(by.css('div.cluster-select-list-group'));
+      allClustersList() {
+        const el = element(by.css('div.cluster-select-list'));
+        const customerList = el.all(by.css('div.cluster-select-list-group'));
+
         return {
-          el: list,
-          customers: customerList,
-          customer: function(customerName) {
-            return customerList.filter(function (el) {
-              return el.element(by.css('span')).getText().then(function (text) {
-                return customerName === text;
+          el,
+          customers: customerList.then( customers => customers.map(instrumentCustomer) ),
+          customer(customerName) {
+            return customerList
+              .filter( el =>
+                el.element(by.css('span')).getText().then( text => customerName === text )
+              )
+              .then( list => {
+                if(list.length > 0) {
+                  return instrumentCustomer(list[0]);
+                } else {
+                  return null;
+                }
               });
-            }).then(function(list) {
-              if(list.length > 0) {
-                return {
-                  name: customerName,
-                  clusters: list[0].all(by.css('div.cluster-select-list-item')),
-                  selectCluster: function (clusterName) {
-                    return {
-                      cluster: this.clusters.filter(function (el) {
-                        return el.getText().then(function (text) {
-                          return clusterName === text;
-                        });
-                      }).first().click()
-                    };
-                  }
-                };
-              } else {
-                return null;
-              }
-            });
           }
         };
+
+        function instrumentCustomer(customerEl) {
+          return {
+            el: customerEl,
+            name: customerEl.element(by.css('span')).getText(),
+            clusters: customerEl.all(by.css('div.cluster-select-list-item')),
+            selectCluster(name) {
+              return this.clusters
+                .filter( el => el.getText().then( text => name === text ) )
+                .first()
+                .click();
+            }
+          };
+        }
       },
       recentlyViewedList: {
         el: element(by.css('div.cluster-select-list')),
