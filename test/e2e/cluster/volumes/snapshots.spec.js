@@ -5,7 +5,7 @@ var expect = support.expect;
 var TableComponent = require('../../page-objects/components/sf-components.po').table;
 var snapshotTable = new TableComponent('snapshot');
 var clusterSelect = new support.clusterSelectComponent();
-var fixture = mapFixture(support.fixture('ListActiveVolumes'), support.fixture('ListSnapshots'));
+var fixture = mapFixture(support.fixture('ListActiveVolumes-Guzzle'), support.fixture('ListSnapshots-Guzzle'));
 var itemsPerPage = 25;
 var uniqueKey = 'snapshotID';
 var clusterId;
