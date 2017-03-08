@@ -278,7 +278,7 @@ describe('Per-Cluster pages', function() {
 
     beforeAll(function(done) {
       support.login();
-      var openedClusterSelect = clusterSelect.open();
+      const openedClusterSelect = clusterSelect.open();
       support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
         clusterId = firstClusterId;
         done();
@@ -287,6 +287,7 @@ describe('Per-Cluster pages', function() {
 
     beforeEach(function(done) {
       navbar.subNavbar.click('cluster-reporting');
+      browser.wait(protractor.ExpectedConditions.presenceOf(navbar.subNavMenu.el));
       done();
     });
 
@@ -324,12 +325,12 @@ describe('Per-Cluster pages', function() {
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/reporting/events');
     });
 
-    // ToDo: These two pages aren't implemented yet
-    xit('Should allow navigation to the iSCSI Sessions page', function() {
+    it('Should allow navigation to the iSCSI Sessions page', function() {
       navbar.subNavMenu.click('cluster-reporting-iscsiSessions');
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/reporting/iscsiSessions');
     });
 
+    // ToDo: This pages aren't implemented yet
     xit('Should allow navigation to the Forecasting page', function() {
      navbar.subNavMenu.click('cluster-reporting-forecasting');
      expect(browser.getLocationAbsUrl()).to.eventually.contain('/reporting/forecasting');
