@@ -355,8 +355,10 @@ fdescribe('Per-Cluster pages', function() {
     });
 
     beforeEach(function(done) {
-      navbar.subNavbar.click('cluster-vvols');
-      done();
+      browser.actions().mouseMove(element(by.id('sf-sub-navbar-item-cluster-vvols'))).perform().then(() => {
+        browser.wait(protractor.ExpectedConditions.presenceOf(navbar.subNavMenu.el));
+        done();
+      });
     });
 
     afterAll(function() {
