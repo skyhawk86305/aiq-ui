@@ -198,7 +198,7 @@ describe('The Dashboard Pages', function() {
   });
 });
 
-fdescribe('Per-Cluster pages', function() {
+describe('Per-Cluster pages', function() {
 
   describe('should remember what cluster or pages have been selected previously', function() {
     beforeAll(function() {
