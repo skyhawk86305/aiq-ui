@@ -198,7 +198,7 @@ describe('The Dashboard Pages', function() {
   });
 });
 
-describe('Per-Cluster pages', function() {
+fdescribe('Per-Cluster pages', function() {
 
   describe('should remember what cluster or pages have been selected previously', function() {
     beforeAll(function() {
@@ -286,9 +286,10 @@ describe('Per-Cluster pages', function() {
     });
 
     beforeEach(function(done) {
-      navbar.subNavbar.click('cluster-reporting');
-      browser.wait(protractor.ExpectedConditions.presenceOf(navbar.subNavMenu.el));
-      done();
+      browser.actions().mouseMove(element(by.id('sf-sub-navbar-item-cluster-reporting'))).perform().then(() => {
+        browser.wait(protractor.ExpectedConditions.presenceOf(navbar.subNavMenu.el));
+        done();
+      });
     });
 
     afterAll(function() {
