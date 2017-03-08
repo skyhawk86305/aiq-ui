@@ -37,12 +37,20 @@ describe('Component: navbar', function() {
       expect(service.login).toHaveBeenCalledWith(credentials);
     });
 
-    it('should set the error to null and set the location path to \'/\/ on login success', function() {
+    it(`should set the error to null and set the location path to '/' on login success`, function() {
       controller.login();
       deferred.resolve();
       scope.$apply();
       expect(controller.error).toEqual(null);
       expect(location.path).toHaveBeenCalledWith('/');
+    });
+
+    it(`should redirect to the URL specified by the 'url' query param on login success`, function() {
+      spyOn(location, 'search').and.returnValue({ url: '/test/url' });
+      controller.login();
+      deferred.resolve();
+      scope.$apply();
+      expect(location.path).toHaveBeenCalledWith('/test/url');
     });
 
     it('should set the error message and not set the location path upon login failure', function() {

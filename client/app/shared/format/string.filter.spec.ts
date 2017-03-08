@@ -2,7 +2,9 @@
 
 describe('String Filter', function () {
   let filter;
+
   beforeEach(angular.mock.module('aiqUi'));
+
   beforeEach(inject(function($filter) {
     filter = $filter('string');
   }));
@@ -34,4 +36,10 @@ describe('String Filter', function () {
     expect(filter('856', true)).toEqual('856');
     expect(filter('!@#$%^&*', true)).toEqual('!@#$%^&*');
   });
+
+  it('should format an array as a comma and space separated list', function() {
+    expect(filter([1, 2, 3])).toEqual('1, 2, 3');
+    expect(filter(['1', '2', '3'])).toEqual('1, 2, 3');
+  });
+
 });

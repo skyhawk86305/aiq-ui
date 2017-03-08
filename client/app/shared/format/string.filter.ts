@@ -1,13 +1,18 @@
 export function StringFilter() {
   return function (data, capitalize) {
+
     if (typeof data === 'number' || typeof data === 'string') {
-      let string = typeof data === 'string' ? data : data.toString();
-      return capitalize && string.length > 0 ? string.charAt(0).toUpperCase() + string.slice(1) : string;
-    } else if (typeof data === 'object' && data && data.length) {
-      let formattedArray = data.map(function(d, i) {
-        return i === 0 ? d : ' ' + d;
-      });
-      return formattedArray.toString();
-    } else { return '-'; }
+      const string = typeof data === 'string' ? data : data.toString();
+      if (capitalize && string.length > 0) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+      return string;
+    }
+
+    if (typeof data === 'object' && data && data.length) {
+      return data.join(', ');
+    }
+
+    return '-';
   };
 }

@@ -49,7 +49,7 @@ describe('Data Service', function () {
       expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
     });
 
-    it('should return error message if the api call fails', function () {
+    it('should return error message if the api call fails with an HTTP error', function () {
       response = 'foobar';
       http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(400, response);
       service.callAPI('foobar', {param: 'baz'})
@@ -58,6 +58,19 @@ describe('Data Service', function () {
         })
         .catch( err => {
           expect(err).toEqual('foobar');
+        });
+      http.flush();
+    });
+
+    it('should return error message if the api call fails with a json-rpc error', function () {
+      response = { error: { message: 'test err' } };
+      http.when('POST', '/json-rpc/2.0', {method: 'foobar', params: {param: 'baz'}}).respond(200, response);
+      service.callAPI('foobar', {param: 'baz'})
+        .then( () => {
+          fail('Expected promise to be rejected');
+        })
+        .catch( err => {
+          expect(err).toEqual({ message: 'test err' });
         });
       http.flush();
     });
