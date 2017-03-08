@@ -105,6 +105,7 @@ Run end-to-end tests via protractor.
 
 `--tableRows   // Configure the number of table rows to test during e2e tests (default: 5)`
 
+
 ## License
 
 Copyright (c) 2017 SolidFire, Inc.
