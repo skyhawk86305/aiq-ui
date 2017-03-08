@@ -84,6 +84,6 @@ describe('The Cluster Volumes Page', function () {
     var snapshotLink= table.el.all(by.id('snapshot-details')).get(0);
     expect(snapshotLink.isPresent()).to.eventually.be.true;
     snapshotLink.click();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/snapshot/1');
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/snapshots?snapshot-page');
   });
 });

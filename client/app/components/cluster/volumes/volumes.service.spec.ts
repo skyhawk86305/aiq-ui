@@ -102,7 +102,9 @@ describe('VolumeTableService', function () {
           maxIOPS: 'bar',
           burstIOPS: 'baz',
           paired: true,
-          snapshots: '<a id="snapshot-details" ng-href="#/cluster/' + $routeParams.clusterID + '/snapshot/' + apiResponse.volumes[0].volumeID + '">' + apiResponse.snapshots.length + '</a>',
+          snapshots: '<a id="snapshot-details" ng-href="#/cluster/' + $routeParams.clusterID + '/snapshots" ' +
+            'ng-click="$location.path(\'/snapshots\').search(\'snapshot-table-filters\', JSON.stringify({volumeID: volume.volumeID}))">' +
+            apiResponse.snapshots.length + '</a>',
           details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
           apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
           '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
