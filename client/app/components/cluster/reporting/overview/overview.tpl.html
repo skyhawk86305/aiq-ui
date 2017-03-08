@@ -17,19 +17,28 @@
     <div class="info-bar-row col-lg-6 col-md-12">
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-3 col-md-3 col-sm-6">
         <div class="info-box-content">
-          <span class="title">Nodes</span>
+          <a href="{{$ctrl.getHref('/nodes')}}" class="title link">
+            Nodes
+            <i class="fa fa-arrow-right"></i>
+          </a>
           <span class="value">{{$ctrl.clusterSummary.nodeCount}}</span>
         </div>
       </div>
       <div sf-state state= "$ctrl.getActiveVolumesState" class="info-box -volume-count col-lg-3 col-md-3 col-sm-6">
         <div class="info-box-content">
-          <span class="title">Volumes</span>
+          <a href="{{$ctrl.getHref('/volumes')}}" class="title link">
+            Volumes
+            <i class="fa fa-arrow-right"></i>
+          </a>
           <span class="value">{{$ctrl.volumesCount}}</span>
         </div>
       </div>
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-6 col-md-6 col-sm-12">
         <div class="info-box-content">
-          <span class="title">Unresolved Faults</span>
+          <a href="{{$ctrl.getHref('/reporting/errorLog')}}" class="title link">
+            Unresolved Faults
+            <i class="fa fa-arrow-right"></i>
+          </a>
           <div class="badge-container">
             <div class="badge -first"
                  ng-class="{'-warning': $ctrl.clusterSummary.unresolvedFaults.warning,
@@ -50,13 +59,19 @@
     <div class="info-bar-row col-lg-6 col-md-12">
       <div sf-state state= "$ctrl.getCapacitySnapshotState" class="info-box -efficiency-info col-lg-4 col-md-4 col-sm-12">
         <div class="info-box-content -efficiency">
-          <span class="title">Efficiency (x)</span>
+          <a href="{{$ctrl.getHref('/reporting/efficiency')}}" class="title link">
+            Efficiency (x)
+            <i class="fa fa-arrow-right"></i>
+          </a>
           <span ng-bind-html="$ctrl.capacitySnapshot.efficiencyFactor | percent:1:false:true:false:true:999" class="value"></span>
         </div>
       </div>
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -block-capacity col-lg-4 col-md-4 col-sm-6">
         <div class="info-box-content">
-          <span class="title">Block Capacity</span>
+          <a href="{{$ctrl.getHref('/reporting/capacity?capacity-sync-graphs-context-graph=block-capacity')}}" class="title link">
+            Block Capacity
+            <i class="fa fa-arrow-right"></i>
+          </a>
           <div class="badge-container">
             <div class="badge"
                  ng-class="$ctrl.clusterSummary.clusterFull.blockFullness | clusterStage:true">
@@ -67,7 +82,10 @@
       </div>
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -metadata-capacity col-lg-4 col-md-4 col-sm-6">
         <div class="info-box-content">
-          <span class="title">Metadata Capacity</span>
+          <a href="{{$ctrl.getHref('/reporting/capacity?capacity-sync-graphs-context-graph=metadata-capacity')}}" class="title link">
+            Metadata Capacity
+            <i class="fa fa-arrow-right"></i>
+          </a>
           <div class="badge-container">
             <div class="badge"
                  ng-class="$ctrl.clusterSummary.clusterFull.metadataFullness | clusterStage:true">
