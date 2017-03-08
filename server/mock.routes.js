@@ -88,12 +88,27 @@ mockRoutes.post('/password-reset/:token', function (req, res) {
  */
 mockRoutes.get('/graph/cluster/:clusterId/capacity', function (req, res) {
   const data = mockTimeSeriesData.getTimeSeriesData(
-    req.query.startTime,
-    req.query.endTime,
-    req.query.resolution,
-    0,
-    ['usedSpace', 'maxUsedSpace', 'usedMetadataSpace', 'maxUsedMetadataSpace', 'provisionedSpace', 'maxProvisionedSpace']
+    req.query.startTime, req.query.endTime, req.query.resolution, 0, [
+      'usedSpace',
+      'maxUsedSpace',
+      'usedMetadataSpace',
+      'maxUsedMetadataSpace',
+      'provisionedSpace',
+      'maxProvisionedSpace',
+      'thinProvisioningFactor',
+      'deDuplicationFactor',
+      'compressionFactor',
+      'efficiencyFactor',
+      'activeSessions',
+      'peakActiveSessions',
+    ]
   );
+  data.thinProvisioningFactor = data.thinProvisioningFactor.map( val => val / 1000000000000 );
+  data.deDuplicationFactor = data.deDuplicationFactor.map( val => val / 1000000000000 );
+  data.compressionFactor = data.compressionFactor.map( val => val / 1000000000000 );
+  data.efficiencyFactor = data.efficiencyFactor.map( val => val / 1000000000000 );
+  data.activeSessions = data.activeSessions.map( val => val / 10000000000 );
+  data.peakActiveSessions = data.peakActiveSessions.map( val => val / 10000000000 );
   res.send(data);
 });
 
@@ -141,52 +156,36 @@ mockRoutes.get('/graph/cluster/:clusterId/volume/:volumeId/performance', functio
   res.send(data);
 });
 
-/**
- * Catch capacity page graph data requests and respond with random data
- * in the correct response format.
- */
-mockRoutes.get('/graph/cluster/:clusterId/efficiency', function (req, res) {
-  const data = mockTimeSeriesData
-    .getTimeSeriesData(
-      req.query.startTime,
-     req.query.endTime,
-     req.query.resolution,
-     0,
-     ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor']
-    );
-  data.thinProvisioningFactor = data.thinProvisioningFactor.map( val => val / 1000000000000 );
-  data.deDuplicationFactor = data.deDuplicationFactor.map( val => val / 1000000000000 );
-  data.compressionFactor = data.compressionFactor.map( val => val / 1000000000000 );
-  data.efficiencyFactor = data.efficiencyFactor.map( val => val / 1000000000000 );
-  res.send(data);
-});
-
-/**
- * Catch iSCSI Sessions graph data requests and respond with random data
- * in the correct response format.
- */
-mockRoutes.get('/graph/cluster/:clusterId/activeISCSISessions', function (req, res) {
-  const data = mockTimeSeriesData
-    .getTimeSeriesData(
-      req.query.startTime,
-      req.query.endTime,
-      req.query.resolution,
-      0,
-      ['activeSessions', 'peakActiveSessions']
-    );
-  data.activeSessions = data.activeSessions.map( val => val / 10000000000 );
-  data.peakActiveSessions = data.peakActiveSessions.map( val => val / 10000000000 );
-  res.send(data);
-});
-
-
 mockRoutes.get('/graph/cluster/:clusterId/capacity/snapshot', function (req, res) {
-  var response = {"timestampSec":1479401909,"usedSpace":2935990947150,"maxUsedSpace":42805052899328,"usedMetadataSpace":180152187904,"maxUsedMetadataSpace":2080115870926,"provisionedSpace":59728017932288,"maxProvisionedSpace":138254831476736,"thinProvisioningFactor":7.833951255671171,"deDuplicationFactor":1.808344330383057,"compressionFactor":2.8194204035516706,"efficiencyFactor":25.25773144525874,"activeSessions":80,"peakActiveSessions":100};
+  const response = {
+    "timestampSec": 1479401909,
+    "usedSpace": 2935990947150,
+    "maxUsedSpace": 42805052899328,
+    "usedMetadataSpace": 180152187904,
+    "maxUsedMetadataSpace": 2080115870926,
+    "provisionedSpace": 59728017932288,
+    "maxProvisionedSpace": 138254831476736,
+    "thinProvisioningFactor": 7.833951255671171,
+    "deDuplicationFactor": 1.808344330383057,
+    "compressionFactor": 2.819420403551671,
+    "efficiencyFactor": 25.25773144525874,
+    "activeSessions": 80,
+    "peakActiveSessions": 100,
+  };
   res.send(response);
 });
 
 mockRoutes.get('/graph/cluster/:clusterId/performance/snapshot', function (req, res) {
-  var response ={"timestampSec":1479495910,"readOpsPerSec":2020,"writeOpsPerSec":7890,"totalOpsPerSec":8765,"readBytesPerSec":22973537,"writeBytesPerSec":153109641,"totalBytesPerSec":178083178,"clusterUtilizationPct":10.747204393148422};
+  const response = {
+    "timestampSec": 1479495910,
+    "readOpsPerSec": 2020,
+    "writeOpsPerSec": 7890,
+    "totalOpsPerSec": 8765,
+    "readBytesPerSec": 22973537,
+    "writeBytesPerSec": 153109641,
+    "totalBytesPerSec": 178083178,
+    "clusterUtilizationPct": 10.747204393148422,
+  };
   res.send(response);
 });
 
