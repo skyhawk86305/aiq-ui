@@ -325,7 +325,7 @@ describe('Per-Cluster pages', function() {
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/reporting/events');
     });
 
-    it('Should allow navigation to the iSCSI Sessions page', function() {
+    it('@any @smoke Should allow navigation to the iSCSI Sessions page', function() {
       navbar.subNavMenu.click('cluster-reporting-iscsiSessions');
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/reporting/iscsiSessions');
     });
@@ -336,7 +336,7 @@ describe('Per-Cluster pages', function() {
      expect(browser.getLocationAbsUrl()).to.eventually.contain('/reporting/forecasting');
     });
 
-    it('Should allow navigation to the Virtual Networks page', function() {
+    it('@any @smoke Should allow navigation to the Virtual Networks page', function() {
       navbar.subNavMenu.click('cluster-reporting-virtualNetworks');
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/reporting/virtualNetworks');
     });
