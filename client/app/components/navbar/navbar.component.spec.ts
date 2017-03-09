@@ -15,7 +15,7 @@ describe('Component: navbar', function() {
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $timeout, $location, $q, AuthService, ClusterSelectService) {
+  beforeEach(inject(function($rootScope, $componentController, $httpBackend, $timeout, $location, $q, $window, AuthService, ClusterSelectService) {
     rootScope = $rootScope;
     scope = $rootScope.$new();
     logoutDeferred = $q.defer();
@@ -24,8 +24,15 @@ describe('Component: navbar', function() {
     authService = AuthService;
     timeout = $timeout;
     location = $location;
+    $window.ga = () => {};
     locals = {
-      $scope: scope
+      $scope: scope,
+      UserInfoService: {
+        getUserInfo() {
+          return $q.resolve({});
+        },
+      },
+      $window,
     };
     bindings = {
       AuthService: service

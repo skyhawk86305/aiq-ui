@@ -49,7 +49,7 @@ describe('Auth Service', function () {
       it('should clear user information and return an error', function () {
         apiHandler = http.when('PUT', '/sessions').respond(404, '');
         service.login({username: 'foo', password: 'bar'}).then(function() {
-          new Error('login() should return an error');
+          fail('expected promise to be rejected');
         }).catch(function() {
           expect(userInfoService.clearUserInfo).toHaveBeenCalled();
         });
@@ -73,7 +73,7 @@ describe('Auth Service', function () {
       it('should clear user information and return an error', function () {
         apiHandler = http.when('GET', '/sessions').respond(401, '');
         service.isAuthenticated().then(function() {
-          new Error('isAuthenticated() should return an error');
+          fail('expected promise to be rejected');
         }).catch(function() {
           expect(userInfoService.clearUserInfo).toHaveBeenCalled();
         });
@@ -97,11 +97,54 @@ describe('Auth Service', function () {
       it('should return an error', function () {
         apiHandler = http.when('GET', '/sessions').respond(404);
         service.logout().then(function() {
-          new Error('logout() should return an error');
+          fail('expected promise to be rejected');
         });
         http.expectDELETE('/sessions').respond(404);
         http.flush();
       });
+    });
+  });
+
+  describe('.changePassword', function() {
+    it(`should make a json-rpc request with the user's current and new passwords`, function() {
+      const oldPassword = 'Password123';
+      const newPassword = 'newPassword1234';
+      http.expectPOST('/json-rpc/2.0', {
+        method: 'ChangeUserPassword',
+        params: { oldPassword, newPassword },
+      }).respond(200);
+      service.changePassword(oldPassword, newPassword);
+      http.flush();
+    });
+
+    it('should be rejected if the server returns an HTTP error', function() {
+      const oldPassword = 'Password123';
+      const newPassword = 'newPassword1234';
+      http.expectPOST('/json-rpc/2.0', {
+        method: 'ChangeUserPassword',
+        params: { oldPassword, newPassword },
+      }).respond(400);
+      service.changePassword(oldPassword, newPassword).then( () => {
+        fail('expected promise to be rejected');
+      });
+      http.flush();
+    });
+
+    it('should be rejected with the error if the server returns one via json-rpc', function() {
+      const oldPassword = 'Password123';
+      const newPassword = 'newPassword1234';
+      http.expectPOST('/json-rpc/2.0', {
+        method: 'ChangeUserPassword',
+        params: { oldPassword, newPassword },
+      }).respond(200, { error: { message: 'test err' } });
+      service.changePassword(oldPassword, newPassword)
+        .then( () => {
+          fail('expected promise to be rejected');
+        })
+        .catch( err => {
+          expect(err).toEqual({ message: 'test err' });
+        });
+      http.flush();
     });
   });
 
@@ -117,7 +160,7 @@ describe('Auth Service', function () {
       const testEmail = 'test@email.com';
       http.expectPOST('/password-reset', testEmail).respond(500);
       service.requestPasswordReset(testEmail).then( () => {
-        throw new Error('should have been rejected');
+        fail('expected promise to be rejected');
       });
       http.flush();
     });
@@ -137,7 +180,7 @@ describe('Auth Service', function () {
       const password = 'Fake new password1';
       http.expectPOST(`/password-reset/${token}`, password).respond(400);
       service.setNewPassword(token, password).then( () => {
-        throw new Error('should have been rejected');
+        fail('expected promise to be rejected');
       });
       http.flush();
     });

@@ -3,6 +3,7 @@
 describe('Component: overviewDashboard', function() {
   let scope,
     routeParams,
+    location,
     controller,
     deferred,
     locals,
@@ -15,11 +16,12 @@ describe('Component: overviewDashboard', function() {
     $provide.value('SFD3LineGraph', function () {});
   }));
 
-  beforeEach(inject(function($rootScope, $q, $filter, $componentController, $routeParams, PerformanceGraphsService, ClusterAlertTableService, DataService) {
+  beforeEach(inject(function($rootScope, $q, $filter, $location, $componentController, $routeParams, PerformanceGraphsService, ClusterAlertTableService, DataService) {
     scope = $rootScope;
     deferred = $q.defer();
     routeParams = $routeParams;
     routeParams.clusterID = '1';
+    location = $location;
     performanceService = PerformanceGraphsService;
     clusterAlertTableService = ClusterAlertTableService;
     dataService = DataService;
@@ -36,6 +38,7 @@ describe('Component: overviewDashboard', function() {
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
     spyOn(dataService, 'callGraphAPI').and.returnValue(deferred.promise);
     spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
+    spyOn(location, 'path');
     controller = $componentController('overviewDashboard', locals);
   }));
 
@@ -103,4 +106,18 @@ describe('Component: overviewDashboard', function() {
       expect(dataService.callGraphAPI).toHaveBeenCalled();
     });
   });
+
+   describe('.getHref', function() {
+     describe('when provided a path with a leading /', function() {
+       it('should set the location to the correct cluster path', function() {
+         expect(controller.getHref('/path/to/page')).toEqual('#/cluster/' + routeParams.clusterID + '/path/to/page');
+       });
+     });
+
+     describe('when provided a path without a leading /', function() {
+       it('should set the location to the correct cluster path', function() {
+         expect(controller.getHref('path/to/page')).toEqual('#/cluster/' + routeParams.clusterID + '/path/to/page');
+       });
+     });
+   });
 });

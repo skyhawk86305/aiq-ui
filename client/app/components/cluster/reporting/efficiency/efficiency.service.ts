@@ -19,7 +19,7 @@
 
     function getClusterEfficiency(params) {
       params.clusterID = service.selectedClusterID;
-      return DataService.callGraphAPI('efficiency', params)
+      return DataService.callGraphAPI('capacity', params)
         .then(function(response) { return response.data; });
     }
 

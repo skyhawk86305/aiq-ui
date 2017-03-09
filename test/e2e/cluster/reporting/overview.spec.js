@@ -102,6 +102,7 @@ describe('Cluster Overview Page', function () {
       });
 
     });
+
     describe('The info-boxes with badges values should have correct badges and data', function() {
       it('block capacity info-box and its status badge', function () {
         var box = clusterOverviewPage.infoBar.infoBox('block-capacity');
@@ -124,7 +125,43 @@ describe('Cluster Overview Page', function () {
       });
     });
 
+    describe('infobox title links when clicked', function() {
+      it('@any @smoke node count should redirect to the nodes page', function() {
+        const box = clusterOverviewPage.infoBar.infoBox('node-count');
+        box.title.click();
+        expect(browser.getLocationAbsUrl()).to.eventually.include('/nodes');
+      });
 
+      it('@any @smoke volume count should redirect to the volumes page', function() {
+        const box = clusterOverviewPage.infoBar.infoBox('volume-count');
+        box.title.click();
+        expect(browser.getLocationAbsUrl()).to.eventually.include('/volumes');
+      });
+
+      it('@any @smoke efficiency info should redirect to the efficiency page', function() {
+        const box = clusterOverviewPage.infoBar.infoBox('efficiency-info');
+        box.title.click();
+        expect(browser.getLocationAbsUrl()).to.eventually.include('/efficiency');
+      });
+
+      it('@any @smoke block capacity should redirect to the capacity page', function() {
+        const box = clusterOverviewPage.infoBar.infoBox('block-capacity');
+        box.title.click();
+        expect(browser.getLocationAbsUrl()).to.eventually.include('/capacity?capacity-sync-graphs-context-graph=block-capacity');
+      });
+
+      it('@any @smoke metadata capacity should redirect to the capacity page', function() {
+        const box = clusterOverviewPage.infoBar.infoBox('metadata-capacity');
+        box.title.click();
+        expect(browser.getLocationAbsUrl()).to.eventually.include('/capacity?capacity-sync-graphs-context-graph=metadata-capacity');
+      });
+
+      it('@any @smoke cluster faults should redirect to the error log page', function() {
+        const box = clusterOverviewPage.infoBar.infoBox('cluster-faults');
+        box.title.click();
+        expect(browser.getLocationAbsUrl()).to.eventually.include('/errorLog');
+      });
+    });
 
     describe('the details section', function () {
 

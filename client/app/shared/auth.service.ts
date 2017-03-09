@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import * as _ from 'lodash';
 
 export function AuthService($q, $http, UserInfoService) {
   return {
@@ -31,16 +32,14 @@ export function AuthService($q, $http, UserInfoService) {
       const params = { oldPassword, newPassword };
       return $http.post('/json-rpc/2.0', { method, params })
       .then( response => {
-        if (response.data && response.data.error) {
-          return $q.reject(response.data.error);
+        const error = _.get(response, 'data.error');
+        if (error) {
+          return $q.reject(error);
         }
-        return response.data.result;
+        return _.get(response, 'data.result');
       })
       .catch( err => {
-        if (err.data && err.data.error) {
-          return $q.reject(err.data.error);
-        }
-        return $q.reject(err);
+        return $q.reject(_.get(err, 'data.error', err));
       });
     },
 
