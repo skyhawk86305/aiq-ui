@@ -50,7 +50,7 @@ describe('VolumeTableService', function () {
       expect(dataService.callGuzzleAPIs).toHaveBeenCalledWith('foobar', 'ListActiveVolumes', 'ListSnapshots');
     });
 
-    it('should deserialize the response and resolve an array of data', inject(function($routeParams) {
+    it('should deserialize the response and resolve an array of data', inject(function($routeParams, $filter) {
       apiResponse = {volumes: [{volumeID: 10, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}],
         snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null,
           snapshotUUID: '61573ec7-3ffe-43f6-8a0a-f7d87da384d4', enableRemoteReplication: false, groupID: 0, createTime: '2016-05-18T21:36:24Z'},
@@ -69,7 +69,7 @@ describe('VolumeTableService', function () {
           maxIOPS: 'bar',
           burstIOPS: 'baz',
           paired: true,
-          snapshots: 0,
+          snapshots: $filter('volumesSnapshotsLink')(0, apiResponse.volumes[0].volumeID),
           details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
             apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
             '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
@@ -82,7 +82,7 @@ describe('VolumeTableService', function () {
       rootScope.$apply();
     }));
 
-    it('should return link to snapshots table', inject(function($routeParams) {
+    it('should return link to snapshots table', inject(function($routeParams, $filter) {
       $routeParams.clusterID = 'foobar';
       apiResponse = {volumes: [{volumeID: 33, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]}],
         snapshots: [{snapshotID: 20, volumeID: 33, totalSize: 500000882688, expirationTime: null,
@@ -102,9 +102,7 @@ describe('VolumeTableService', function () {
           maxIOPS: 'bar',
           burstIOPS: 'baz',
           paired: true,
-          snapshots: '<a id="snapshot-details" ng-href="#/cluster/' + $routeParams.clusterID + '/snapshots" ' +
-            'ng-click="$location.path(\'/snapshots\').search(\'snapshot-table-filters\', JSON.stringify({volumeID: volume.volumeID}))">' +
-            apiResponse.snapshots.length + '</a>',
+          snapshots: $filter('volumesSnapshotsLink')(apiResponse.snapshots.length, apiResponse.volumes[0].volumeID),
           details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
           apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
           '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
