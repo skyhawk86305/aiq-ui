@@ -8,11 +8,11 @@
     'SFFilterComparators',
     'DataService',
     '$routeParams',
-    '$location',
+    '$filter',
     VolumeTableService
   ]);
 
-  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $routeParams, $location) {
+  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $routeParams, $filter) {
     const columns = [
       {key: 'volumeID', label: 'ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'accountID', label: 'Account ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
@@ -45,8 +45,10 @@
               volume.burstIOPS = volume.qos.burstIOPS;
               volume.paired = volume.volumePairs.length ? true : false;
               let snapshotCount = snapshots.filter( snapshot => snapshot.volumeID === volume.volumeID ).length;
-              volume.snapshots = snapshotCount === 0 ? snapshotCount : '<a id="snapshot-details" ng-href="#/cluster/' + $routeParams.clusterID +
-                '/snapshots" ng-click="$location.path(\'/snapshots\').search(\'snapshot-table-filters\', JSON.stringify({volumeID: volume.volumeID}))">' + snapshotCount + '</a>';
+              volume.snapshots = $filter('volumesSnapshotsLink')(snapshotCount, volume.volumeID);
+
+              // volume.snapshots = snapshotCount === 0 ? snapshotCount : '<a id="snapshot-details" ng-href="#/cluster/' + $routeParams.clusterID +
+              //  '/snapshots" ng-click="$location.path(\'/snapshots\').search(\'snapshot-table-filters\', JSON.stringify({volumeID: volume.volumeID}))">' + snapshotCount + '</a>';
               volume.details = '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID +
                 '" aria-label="Leave this page to view selected volume details"><i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>';
               return volume;
