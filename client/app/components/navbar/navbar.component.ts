@@ -66,7 +66,15 @@
         },
         {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
         {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
-        {key:'volumes', href:'#/cluster/:clusterID/volumes', label: 'Volumes'},
+        {
+          key:'volumes',
+          href:'#/cluster/:clusterID/volumes',
+          label: 'Volumes',
+          menuItems: [
+            {key:'activeVolumes', href: '#/cluster/:clusterID/volumes', label: 'Active Volumes'},
+            {key:'snapshots', href: '#/cluster/:clusterID/snapshots', label: 'Snapshots'}
+          ]
+        },
         {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true},
         {
           key:'vvols',

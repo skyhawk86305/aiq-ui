@@ -21,7 +21,8 @@ var columns = [
   {key: 'burstIOPS', label: 'Burst IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
   {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', format: {filter: 'string'}},
-  {key: 'details', label: 'View Details', width: 100, sortable: false, hideable: false, exclude: true}
+  {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}, exclude: true},
+  {key: 'details', label: 'View Details', width: 100, sortable: false, nonData: false, exclude: true}
 ];
 
 function mapFixture(rawFixture) {
@@ -65,6 +66,7 @@ describe('The Cluster Volumes Page', function () {
 
   it('should display data from the correct API and properly format it in the table', function (done) {
     support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
+    support.expect(table.content.row(0).data('snapshots').getText()).to.eventually.equal('3');
   });
 
   it('@any should have an export button for the table', function() {
@@ -76,5 +78,12 @@ describe('The Cluster Volumes Page', function () {
     expect(viewDetailsLink.isPresent()).to.eventually.be.true;
     viewDetailsLink.click();
     expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/volume/1');
+  });
+
+  it('@any should allow the user to go to snapshots table page', function() {
+    var snapshotLink= table.el.all(by.id('1snapshot-details')).get(0);
+    expect(snapshotLink.isPresent()).to.eventually.be.true;
+    snapshotLink.click();
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/snapshots?snapshot-filters');
   });
 });

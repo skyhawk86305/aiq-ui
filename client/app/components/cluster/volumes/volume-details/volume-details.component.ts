@@ -270,7 +270,7 @@
               }
             },
             tooltipFormat: {
-              y0: (d) => this.bytesFormat(d, 3)
+              y0: (d) => { return this.bytesFormat(d, 3);}
             },
             margin: {
               top:    sparkLine ? 10 : 20,
@@ -659,7 +659,7 @@
               }
             },
             tooltipFormat: {
-              y0: (d) => this.bytesFormat(d, 3)
+              y0: (d) => { return this.bytesFormat(d, 3);}
             },
             margin: {
               top:    sparkLine ? 10 : 20,

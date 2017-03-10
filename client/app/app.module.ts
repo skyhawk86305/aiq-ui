@@ -4,6 +4,7 @@ import 'angular-filter';
 import 'angular-route';
 import 'angular-sanitize';
 import 'angular-ui-bootstrap';
+import * as objectAssignPolyfill from 'es6-object-assign';
 import '../../node_modules/@sf-netapp/sf-components/dist/sf-components.js';
 
 import { ComponentsModule } from './components/components.module';
@@ -12,6 +13,8 @@ import { AppController } from './app.controller';
 import { AppRoutes } from './app.routes';
 import './styles';
 import './images';
+
+objectAssignPolyfill.polyfill();
 
 export const AppModule = angular
   .module('aiqUi', [
@@ -34,3 +37,4 @@ scripts.keys().forEach(scripts);
 
 let styles = require.context('./components', true, /\.less$/);
 styles.keys().forEach(styles);
+ 

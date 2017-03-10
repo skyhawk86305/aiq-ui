@@ -54,6 +54,14 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
         });
     },
 
+    callGuzzleAPIs(clusterID, ...methods) {
+      return $q
+        .all(
+          methods.map( method => this.callGuzzleAPI(clusterID, method) )
+        )
+        .then( responses => Object.assign({}, ...responses));
+    },
+
     callGraphAPI(graph, params) {
       let graphAPI = `/graph/cluster/${params.clusterID}`;
 
