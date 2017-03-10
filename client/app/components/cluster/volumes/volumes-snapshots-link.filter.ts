@@ -12,7 +12,7 @@
           return 0;
         }
         const url = buildURL($routeParams.clusterID, volumeID);
-        return `<a href="${url}">${data}</a>`;
+        return `<a id="${volumeID}snapshot-details" href="${url}">${data}</a>`;
 
         function buildURL(clusterID, volumeID) {
           const snapshotFilter = JSON.stringify({

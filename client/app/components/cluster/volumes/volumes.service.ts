@@ -46,8 +46,7 @@
               volume.paired = volume.volumePairs.length ? true : false;
               let snapshotCount = snapshots.filter( snapshot => snapshot.volumeID === volume.volumeID ).length;
               volume.snapshots = $filter('volumesSnapshotsLink')(snapshotCount, volume.volumeID);
-              volume.details = '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' + volume.volumeID +
-                '" aria-label="Leave this page to view selected volume details"><i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>';
+              volume.details = $filter('volumesDetailsLink')(volume.volumeID);
               return volume;
             });
           }

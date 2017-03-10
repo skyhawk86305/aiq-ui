@@ -70,9 +70,7 @@ describe('VolumeTableService', function () {
           burstIOPS: 'baz',
           paired: true,
           snapshots: $filter('volumesSnapshotsLink')(0, apiResponse.volumes[0].volumeID),
-          details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
-            apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
-            '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
+          details: $filter('volumesDetailsLink')(apiResponse.volumes[0].volumeID)
         }
       ];
       service.getData(true).then(function(response) {
@@ -103,9 +101,7 @@ describe('VolumeTableService', function () {
           burstIOPS: 'baz',
           paired: true,
           snapshots: $filter('volumesSnapshotsLink')(apiResponse.snapshots.length, apiResponse.volumes[0].volumeID),
-          details: '<a class="view-details-link" ng-href="#/cluster/' + $routeParams.clusterID + '/volume/' +
-          apiResponse.volumes[0].volumeID + '" aria-label="Leave this page to view selected volume details">' +
-          '<i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i></a>'
+          details: $filter('volumesDetailsLink')(apiResponse.volumes[0].volumeID)
         }
       ];
       service.getData(true).then(function(response) {
