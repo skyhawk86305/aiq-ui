@@ -78,7 +78,7 @@
         {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true},
         {
           key:'vvols',
-          href:'#/cluster/:clusterID/vvols/protocol-endpoints',
+          href:'#/cluster/:clusterID/vvols/virtual-volumes',
           label: 'VVols',
           menuItems: [
             {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes'},
