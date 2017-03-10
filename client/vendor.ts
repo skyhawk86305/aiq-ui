@@ -21,6 +21,8 @@ import 'angular-ui-bootstrap';
 import 'jspolyfill-array.prototype.find';
 import 'jspolyfill-array.prototype.findIndex';
 import 'es6-object-assign';
+import 'lodash';
+import 'moment';
 
 /* sf-components - until it is properly packaged with own dependencies */
 import 'angular-bind-html-compile';

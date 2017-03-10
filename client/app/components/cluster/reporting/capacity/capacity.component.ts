@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
     .module('aiqUi')
     .component('capacityGraphs', {
@@ -8,6 +10,7 @@
       controller: [
         '$routeParams',
         '$filter',
+        '$q',
         'DataService',
         'SFD3LineGraph',
         'SFD3BarGraph',
@@ -16,18 +19,43 @@
       ]
     });
 
-  function CapacityGraphsController($routeParams, $filter, DataService, SFD3LineGraph, SFD3BarGraph, CapacityGraphsService) {
+  function CapacityGraphsController($routeParams, $filter, $q, DataService, SFD3LineGraph, SFD3BarGraph, CapacityGraphsService) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
       CapacityGraphsService.update($routeParams.clusterID);
+      ctrl.updateInfoBar();
+    };
+
+    ctrl.updateInfoBar = function() {
+      const clusterID = parseInt($routeParams.clusterID, 10);
+      return $q.all([
+        ctrl.getClusterFullThreshold(clusterID),
+        ctrl.getClusterFullPrediction(clusterID),
+      ]);
+    };
+
+    ctrl.getClusterFullThreshold = function(clusterID) {
       ctrl.getClusterFullThresholdState = 'loading';
-      DataService.callAPI('GetClusterFullThreshold', {clusterID: parseInt($routeParams.clusterID, 10)})
-        .then(function(response) {
-          ctrl.clusterFullThreshold = response.clusterFullThreshold;
+      return DataService.callAPI('GetClusterFullThreshold', { clusterID })
+        .then( response => {
           ctrl.getClusterFullThresholdState = 'loaded';
-        }).catch(function() {
+          ctrl.clusterFullThreshold = _.get(response, 'clusterFullThreshold');
+        })
+        .catch( err => {
           ctrl.getClusterFullThresholdState = 'error';
+        });
+    };
+
+    ctrl.getClusterFullPrediction = function(clusterID) {
+      ctrl.getClusterFullPredictionState = 'loading';
+      return DataService.callAPI('GetClusterFullPrediction', { clusterID })
+        .then( response => {
+          ctrl.getClusterFullPredictionState = 'loaded';
+          ctrl.clusterFullPrediction = _.get(response, 'clusterFullPrediction');
+        })
+        .catch( err => {
+          ctrl.getClusterFullPredictionState = 'error';
         });
     };
 

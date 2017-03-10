@@ -9,6 +9,7 @@ import { ClusterStageFilter } from './cluster-stage.filter';
 import { DriveSlotFilter } from './drive-slot.filter';
 import { IopsFilter } from './iops.filter';
 import { PercentFilter } from './percent.filter';
+import { RelativeDateFilter } from './relative-date.filter';
 import { StringFilter } from './string.filter';
 import { TableBadgeAlertSeverityFilter } from './table-badge-alert-severity.filter';
 import { TableBadgeBooleanFilter } from './table-badge-boolean.filter';
@@ -26,6 +27,7 @@ export const FormatModule = angular
   .filter('driveSlot', DriveSlotFilter)
   .filter('iops', IopsFilter)
   .filter('percent', PercentFilter)
+  .filter('relativeDate', RelativeDateFilter)
   .filter('string', StringFilter)
   .filter('tableBadgeAlertSeverity', TableBadgeAlertSeverityFilter)
   .filter('tableBadgeBoolean', TableBadgeBooleanFilter)

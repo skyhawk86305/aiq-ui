@@ -1,5 +1,43 @@
 @import '../../../../styles/shared.less';
 
+#capacity-sync-graphs {
+  .info-box {
+    height: 150px;
+    .info-box-content {
+      .justify-content(flex-start);
+    }
+
+    .value {
+      font-size: 32px;
+      font-weight: normal;
+      margin: auto;
+      color: @text-primary-color;
+    }
+
+    .label {
+      font-size: 14px;
+      color: @text-secondary-color;
+    }
+
+    .forecast {
+      font-size: 14px;
+      color: @text-primary-color;
+    }
+
+    .badge {
+      height: 90px;
+      .justify-content(center);
+
+      .title {
+        font-size: 20px;
+        margin: 0px;
+        color: @basic-white;
+      }
+    }
+
+  }
+}
+
 #block-capacity {
   @media (min-width: 768px) {
     .info-box {
