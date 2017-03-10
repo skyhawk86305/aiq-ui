@@ -14,7 +14,7 @@ describe('Volumes Snapshots Link Filter', function() {
     it('should return valid URL', inject(function($filter) {
       routeParams.clusterID = 18382;
       filter = $filter('volumesSnapshotsLink')(3, 33);
-      expect(filter).toEqual('<a id="3snapshot-details" href="#/cluster/18382/snapshots?snapshot-filters=%7B%22volumeID%22:%7B%22equals%22:%5B33%5D%7D%7D">3</a>');
+      expect(filter).toEqual('<a id="33snapshot-details" href="#/cluster/18382/snapshots?snapshot-filters=%7B%22volumeID%22:%7B%22equals%22:%5B33%5D%7D%7D">3</a>');
     }));
   });
 
