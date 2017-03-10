@@ -262,11 +262,6 @@ describe('Per-Cluster pages', function() {
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/drives');
     });
 
-    it('@any @smoke Should allow navigation to the Volumes page', function() {
-      navbar.subNavbar.click('cluster-volumes');
-      expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes');
-    });
-
     // ToDo: This page isn't implemented yet
     xit('Should allow navigation to the Replication page', function() {
       navbar.subNavbar.click('cluster-replication');
@@ -388,6 +383,44 @@ describe('Per-Cluster pages', function() {
     it('Should allow navigation to the VVols Bindings page', function() {
       navbar.subNavMenu.click('cluster-vvols-bindings');
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/vvols/bindings');
+    });
+  });
+
+  fdescribe('Navigation to all Per-Cluster Volumes Pages', function() {
+
+    beforeAll(function(done) {
+      support.login();
+      var openedClusterSelect = clusterSelect.open();
+      support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+        clusterId = firstClusterId;
+        done();
+      });
+    });
+
+    beforeEach(function(done) {
+      browser.actions().mouseMove(element(by.id('sf-sub-navbar-item-cluster-volumes'))).perform().then(() => {
+        browser.wait(protractor.ExpectedConditions.presenceOf(navbar.subNavMenu.el));
+        done();
+      });
+    });
+
+    afterAll(function() {
+      support.logout();
+    });
+
+    it('Should allow navigation to the Active Volumes page', function() {
+      navbar.subNavMenu.click('cluster-volumes-activeVolumes');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes/');
+    });
+
+    it('Should allow navigation to the Snapshots page', function() {
+      navbar.subNavMenu.click('cluster-volumes-snapshots');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes/snapshots');
+    });
+
+    it('Should allow navigation to the Snapshot Schedules page', function() {
+      navbar.subNavMenu.click('cluster-volumes-snapshotSchedules');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes/snapshot-schedules');
     });
   });
 
