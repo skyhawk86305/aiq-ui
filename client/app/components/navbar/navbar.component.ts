@@ -71,8 +71,9 @@
           href:'#/cluster/:clusterID/volumes',
           label: 'Volumes',
           menuItems: [
-            {key:'activeVolumes', href: '#/cluster/:clusterID/volumes', label: 'Active Volumes'},
-            {key:'snapshots', href: '#/cluster/:clusterID/snapshots', label: 'Snapshots'}
+            {key:'activeVolumes', href: '#/cluster/:clusterID/volumes/active-volumes', label: 'Active Volumes'},
+            {key:'snapshots', href: '#/cluster/:clusterID/volumes/snapshots', label: 'Snapshots'},
+            {key:'snapshotSchedules', href: '#/cluster/:clusterID/volumes/snapshot-schedules', label: 'Snapshot Schedules'}
           ]
         },
         {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true},

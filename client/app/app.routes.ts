@@ -110,12 +110,16 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<drive-table class="sf-layout-block"></drive-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/snapshots', {
+      .when('/cluster/:clusterID/volumes/snapshots', {
         template: '<snapshot-table class="sf-layout-block"></snapshot-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/volumes', {
+      .when('/cluster/:clusterID/volumes/active-volumes', {
         template: '<volume-table class="sf-layout-block"></volume-table>',
+        reloadOnSearch: false
+      })
+      .when('/cluster/:clusterID/volumes/snapshot-schedules', {
+        template: '<snapshot-schedules-table class="sf-layout-block"></snapshot-schedules-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/volume/:volumeID', {
@@ -228,11 +232,19 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       })
       .when('/Volumes/Active/List', {
         redirectTo: function (params, path, search) {
-          return '/cluster/' + search.clusterID + '/volumes';
+          return '/cluster/' + search.clusterID + '/volumes/active-volumes';
         }
       })
-      .when('/Volumes/Snapshots/Schedules/List', defaultRedirect)
-      .when('/Volumes/Snapshots/List', defaultRedirect)
+      .when('/Volumes/Snapshots/Schedules/List', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/volumes/snapshot-schedules';
+        }
+      })
+      .when('/Volumes/Snapshots/List', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/volumes/snapshots';
+        }
+      })
       .when('/Volumes/Stats', defaultRedirect)
       .when('/Users/Add', defaultRedirect)
       .when('/Users/Edit', defaultRedirect)

@@ -91,7 +91,13 @@ describe('AppController', function () {
         expect(location.path()).toEqual('/cluster/123/nodes');
         location.path('/Volumes/Active/List').search({clusterID: '123'});
         rootScope.$digest();
-        expect(location.path()).toEqual('/cluster/123/volumes');
+        expect(location.path()).toEqual('/cluster/123/volumes/active-volumes');
+        location.path('/Volumes/Snapshots/Schedules/List').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/volumes/snapshot-schedules');
+        location.path('/Volumes/Snapshots/List').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/volumes/snapshots');
         location.path('/Settings/Password');
         rootScope.$digest();
         expect(location.path()).toEqual('/account');
@@ -167,12 +173,6 @@ describe('AppController', function () {
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Replication/Volumes');
-        rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/overview');
-        location.path('/Volumes/Snapshots/Schedules/List');
-        rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/overview');
-        location.path('/Volumes/Snapshots/List');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Volumes/Stats');
