@@ -1,16 +1,15 @@
 'use strict';
 
 describe('Component: capacityGraphs', function() {
-  let scope,
-    routeParams,
-    dataService,
+  let $scope,
+    $q,
+    $routeParams,
+    DataService,
     controller,
     deferred,
-    apiResponse,
     apiFailure,
     locals,
-    service,
-    capacityService;
+    CapacityGraphsService;
 
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
@@ -18,21 +17,17 @@ describe('Component: capacityGraphs', function() {
     $provide.value('SFD3BarGraph', function () {});
   }));
 
-  beforeEach(inject(function($rootScope, $q, $componentController, $routeParams, DataService, CapacityGraphsService) {
-    scope = $rootScope;
+  beforeEach(inject(function(_$q_, _$routeParams_, _DataService_, _CapacityGraphsService_, $rootScope, $componentController) {
+    $q = _$q_;
+    $routeParams = _$routeParams_;
+    DataService = _DataService_;
+    CapacityGraphsService = _CapacityGraphsService_;
+
+    $scope = $rootScope.$new();
+    $routeParams.clusterID = '1';
     deferred = $q.defer();
-    dataService = DataService;
-    routeParams = $routeParams;
-    routeParams.clusterID = '1';
-    capacityService = CapacityGraphsService;
-    service = DataService;
-    locals = {
-      $routeParams: routeParams,
-      DataService: dataService,
-      CapacityGraphsService: capacityService
-    };
-    spyOn(capacityService, 'update');
-    spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
+    locals = { $scope, $routeParams, DataService, CapacityGraphsService };
+    spyOn(CapacityGraphsService, 'update');
     controller = $componentController('capacityGraphs', locals);
   }));
 
@@ -46,34 +41,60 @@ describe('Component: capacityGraphs', function() {
   describe('.$onInit', function() {
     it('should update the capacity graphs service with the clusterID from the route', function() {
       controller.$onInit();
-      expect(capacityService.update).toHaveBeenCalledWith(routeParams.clusterID);
+      expect(CapacityGraphsService.update).toHaveBeenCalledWith($routeParams.clusterID);
     });
 
-    describe('DataService', function () {
-      it('should call the appropriate API method with the clusterID', function () {
-        controller.$onInit();
-        expect(dataService.callAPI).toHaveBeenCalledWith('GetClusterFullThreshold', {clusterID: 1});
-      });
+  });
 
-      it('should deserialize the response and resolve an array of data', function () {
-        apiResponse = {
-          clusterFullThreshold: 'foobar'
-        };
-        dataService.callAPI('GetClusterFullThreshold', {clusterID: routeParams.clusterID}).then(function(response) {
-          expect(response).toEqual(apiResponse);
-        });
-        deferred.resolve(apiResponse);
-      });
-
-      it('should reject the error message if the call fails', function () {
-        apiFailure = 'FooError';
-        dataService.callAPI('GetClusterFullThreshold', {clusterID: routeParams.clusterID}).catch(function(err) {
-          expect(err).toEqual(apiFailure);
-        });
-        deferred.reject(apiFailure);
-      });
+  describe('.updateInfoBar', function () {
+    it('should call the appropriate API methods with the clusterID', function () {
+      spyOn(DataService, 'callAPI').and.returnValue($q.resolve());
+      controller.updateInfoBar();
+      $scope.$digest();
+      expect(DataService.callAPI).toHaveBeenCalledWith('GetClusterFullThreshold', {clusterID: 1});
+      expect(DataService.callAPI).toHaveBeenCalledWith('GetClusterFullPrediction', {clusterID: 1});
     });
 
+    it('should expose the data for use in the template', function () {
+      const clusterFullThresholdResponse = { clusterFullThreshold: 'foo' };
+      const clusterFullPredictionResponse = { clusterFullPrediction: 'bar' };
+      spyOn(DataService, 'callAPI').and.callFake( (method, params) => {
+        if (method === 'GetClusterFullThreshold') return $q.resolve(clusterFullThresholdResponse);
+        if (method === 'GetClusterFullPrediction') return $q.resolve(clusterFullPredictionResponse);
+      });
+      controller.updateInfoBar()
+        .then( () => {
+          expect(controller.clusterFullThreshold).toEqual('foo');
+          expect(controller.clusterFullPrediction).toEqual('bar');
+        });
+      $scope.$digest();
+    });
+
+    it('should set getClusterFullThresholdState to \'error\' if the callAPI promise is rejected', function (done) {
+      spyOn(DataService, 'callAPI').and.callFake( (method, params) => {
+        if (method === 'GetClusterFullThreshold') return $q.reject();
+        if (method === 'GetClusterFullPrediction') return $q.resolve();
+      });
+      controller.updateInfoBar()
+        .then( () => {
+          expect(controller.getClusterFullThresholdState).toEqual('error');
+          done();
+        });
+      $scope.$digest();
+    });
+
+    it('should set getClusterFullPredictionState to \'error\' if the callAPI promise is rejected', function (done) {
+      spyOn(DataService, 'callAPI').and.callFake( (method, params) => {
+        if (method === 'GetClusterFullThreshold') return $q.resolve();
+        if (method === 'GetClusterFullPrediction') return $q.reject();
+      });
+      controller.updateInfoBar()
+        .then( () => {
+          expect(controller.getClusterFullPredictionState).toEqual('error');
+          done();
+        });
+      $scope.$digest();
+    });
   });
 
 });

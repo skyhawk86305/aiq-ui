@@ -5,32 +5,72 @@
     <div class="info-bar-row">
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -used-capacity">
         <div class="info-box-content">
-          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumUsedClusterBytes | bytes:false:2}}</span>
           <span class="title">Used Capacity</span>
+          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumUsedClusterBytes | bytes:false:2}}</span>
         </div>
       </div>
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -warning-threshold">
         <div class="info-box-content">
-          <span class="value -medium">{{$ctrl.clusterFullThreshold.stage3BlockThresholdBytes | bytes:false:2}}</span>
           <span class="title">Warning Threshold</span>
+          <span class="value -medium">{{$ctrl.clusterFullThreshold.stage3BlockThresholdBytes | bytes:false:2}}</span>
+          <span class="label">Warning Threshold Forecast:</span>
+          <span class="forecast" ng-show="$ctrl.getClusterFullPredictionState === 'loaded'">
+            <span ng-show="$ctrl.clusterFullPrediction.stage3Code.code === 'OK'">
+              {{ $ctrl.clusterFullPrediction.stage3 | relativeDate }}
+            </span>
+            <span ng-show="$ctrl.clusterFullPrediction.stage3Code.code !== 'OK'">
+              {{ $ctrl.clusterFullPrediction.stage3Code.description }}
+            </span>
+          </span>
+          <span class="forecast-error" ng-show="$ctrl.getClusterFullPredictionState === 'error'">
+            Error loading forecast
+          </span>
         </div>
       </div>
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -error-threshold">
         <div class="info-box-content">
-          <span class="value -medium">{{$ctrl.clusterFullThreshold.stage4BlockThresholdBytes | bytes:false:2}}</span>
           <span class="title">Error Threshold</span>
+          <span class="value -medium">{{$ctrl.clusterFullThreshold.stage4BlockThresholdBytes | bytes:false:2}}</span>
+          <span class="label">Error Threshold Forecast:</span>
+          <span class="forecast" ng-show="$ctrl.getClusterFullPredictionState === 'loaded'">
+            <span ng-show="$ctrl.clusterFullPrediction.stage4Code.code === 'OK'">
+              {{ $ctrl.clusterFullPrediction.stage4 | relativeDate }}
+            </span>
+            <span ng-show="$ctrl.clusterFullPrediction.stage4Code.code !== 'OK'">
+              {{ $ctrl.clusterFullPrediction.stage4Code.description }}
+            </span>
+          </span>
+          <span class="forecast-error" ng-show="$ctrl.getClusterFullPredictionState === 'error'">
+            Error loading forecast
+          </span>
         </div>
       </div>
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -total-capacity">
         <div class="info-box-content">
-          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumTotalClusterBytes | bytes:false:2}}</span>
           <span class="title">Total Capacity</span>
+          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumTotalClusterBytes | bytes:false:2}}</span>
+          <span class="label">Critical Threshold Forecast:</span>
+          <span class="forecast" ng-show="$ctrl.getClusterFullPredictionState === 'loaded'">
+            <span ng-show="$ctrl.clusterFullPrediction.stage5Code.code === 'OK'">
+              {{ $ctrl.clusterFullPrediction.stage5 | relativeDate }}
+            </span>
+            <span ng-show="$ctrl.clusterFullPrediction.stage5Code.code !== 'OK'">
+              {{ $ctrl.clusterFullPrediction.stage5Code.description }}
+            </span>
+          </span>
+          <span class="forecast-error" ng-show="$ctrl.getClusterFullPredictionState === 'error'">
+            Error loading forecast
+          </span>
         </div>
       </div>
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -current-state">
         <div class="info-box-content">
-          <span class="value -small {{$ctrl.clusterFullThreshold.blockFullness | clusterStage:true}}">{{$ctrl.clusterFullThreshold.blockFullness | clusterStage}}</span>
           <span class="title">Current State</span>
+          <div class="value badge-container">
+            <div class="badge {{$ctrl.clusterFullThreshold.blockFullness | clusterStage:true}}">
+              <span class="title">{{$ctrl.clusterFullThreshold.blockFullness | clusterStage}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -40,20 +80,36 @@
     <div class="info-bar-row">
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -used-capacity col-md-4">
         <div class="info-box-content">
-          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumUsedMetadataClusterBytes | bytes:false:2}}</span>
           <span class="title">Used Capacity</span>
+          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumUsedMetadataClusterBytes | bytes:false:2}}</span>
         </div>
       </div>
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -total-capacity col-md-4">
         <div class="info-box-content">
-          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumTotalMetadataClusterBytes | bytes:false:2}}</span>
           <span class="title">Total Capacity</span>
+          <span class="value -medium">{{$ctrl.clusterFullThreshold.sumTotalMetadataClusterBytes | bytes:false:2}}</span>
+          <span class="label">Critical Threshold Forecast:</span>
+          <span class="forecast" ng-show="$ctrl.getClusterFullPredictionState === 'loaded'">
+            <span ng-show="$ctrl.clusterFullPrediction.metadataCode.code === 'OK'">
+              {{ $ctrl.clusterFullPrediction.metadata | relativeDate }}
+            </span>
+            <span ng-show="$ctrl.clusterFullPrediction.metadataCode.code !== 'OK'">
+              {{ $ctrl.clusterFullPrediction.metadataCode.description }}
+            </span>
+          </span>
+          <span class="forecast-error" ng-show="$ctrl.getClusterFullPredictionState === 'error'">
+            Error loading forecast
+          </span>
         </div>
       </div>
       <div sf-state state="$ctrl.getClusterFullThresholdState" class="info-box -current-state col-md-4">
         <div class="info-box-content">
-          <span class="value -small {{$ctrl.clusterFullThreshold.metadataFullness | clusterStage:true}}">{{$ctrl.clusterFullThreshold.metadataFullness | clusterStage}}</span>
           <span class="title">Current State</span>
+          <div class="value badge-container">
+            <div class="badge {{$ctrl.clusterFullThreshold.metadataFullness  | clusterStage:true}}">
+              <span class="title">{{$ctrl.clusterFullThreshold.metadataFullness | clusterStage}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

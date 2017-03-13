@@ -79,6 +79,7 @@
     "font-awesome": "^4.7.0",
     "jspolyfill-array.prototype.find": "^0.1.3",
     "jspolyfill-array.prototype.findIndex": "^0.1.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1"
   }
 }
