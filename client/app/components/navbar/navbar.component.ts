@@ -42,7 +42,8 @@
           label: 'Alerts',
           menuItems: [
             {key:'history', href: '#/dashboard/alerts/history', label: 'History'},
-            {key:'policies', href: '#/dashboard/alerts/policies', label: 'Policies'}
+            {key:'policies', href: '#/dashboard/alerts/policies', label: 'Policies'},
+            {key:'suppressedClusters', href: '#/dashboard/alerts/suppressedClusters', label: 'Suppressed Clusters'},
           ]
         }
       ],

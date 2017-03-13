@@ -132,7 +132,7 @@ describe('The sub nav menu', function() {
 
     navbar.subNavbar.click('dashboard-alerts');
     expect(navbar.subNavMenu.el.isDisplayed()).to.eventually.be.true;
-    expect(navbar.subNavMenu.items.count()).to.eventually.equal(2);
+    expect(navbar.subNavMenu.items.count()).to.eventually.equal(3);
   });
 
  xit('@any should keep the last active item on the sub navmenu active when reopening the subnav menu', function() {

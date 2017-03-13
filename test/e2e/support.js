@@ -50,55 +50,50 @@ support = {
   fixture: function(method) {
     return require('../../server/fixtures/' + argv.fixture + '/' + method);
   },
-  $filter: function(name) {
-    return function() {
-      return browser.executeScript(function(name, args) {
-        return angular.element(document.documentElement).injector().get('$filter')(name).apply(null, args);
-      }, name, Array.from(arguments));
-    };
+  $filter: function(name, args) {
+    return browser.executeScript( (name, args) => {
+      const $filter = angular.element(document.documentElement).injector().get('$filter');
+      return $filter(name)(...args);
+    }, name, args);
   },
-  testTableData: function(table, columns, maxRows, uniqueKey, fixture, done) {
-    var rowIndex, rowIndex2 = 0, colIndex = 0,
-      defaultRows = maxRows > 5 ? 5 : maxRows,
-      customRowCount = maxRows > argv.tableRows ? argv.tableRows : maxRows,
-      rowsToTest = argv.tableRows ? customRowCount : defaultRows;
+  testTableData: function(table, columns, maxRows, uniqueKey, fixture) {
+    const defaultRows = maxRows > 5 ? 5 : maxRows;
+    const customRowCount = maxRows > argv.tableRows ? argv.tableRows : maxRows;
+    const rowsToTest = argv.tableRows ? customRowCount : defaultRows;
 
     // Loop through a subset of all visible rows on the given table
-    for(rowIndex=0; rowIndex<rowsToTest; rowIndex++) {
-      table.content.row(rowIndex).data(uniqueKey).getText().then(compareFixtureToUiValue);
+    for(let rowIndex = 0; rowIndex < rowsToTest; rowIndex++) {
+      table.content.row(rowIndex).data(uniqueKey).getText()
+        .then(key => compareFixtureToUiValue(rowIndex, key));
     }
 
     // Use the uniqueKey for a given table row to find its matching fixture within the provided array
-    function compareFixtureToUiValue(key) {
-      var fixtureMatch = fixture.find(function(obj) { return obj[uniqueKey].toString() === key; }); // ToDo: test will break if uniqueKey field uses a custom formatter
+    function compareFixtureToUiValue(rowIndex, key) {
+      // ToDo: test will break if uniqueKey field uses a custom formatter
+      const fixtureMatch = fixture.find( obj => obj[uniqueKey].toString() === key );
 
       // Loop through every column of that row and match the UI text against the formatted fixture data
-      columns.forEach(function(column) {
-        var fixtureData = fixtureMatch[column.key];
+      columns.forEach( column => {
+        if (column.exclude) return;
+        const fixtureData = fixtureMatch[column.key];
 
         if(column.format) {
-          var filterArgs = column.format.args ? [fixtureData].concat(column.format.args) : [fixtureData];
-          support.$filter(column.format.filter).apply(null, filterArgs).then(testTableCell);
-        } else {
-          Promise.resolve(fixtureData).then(testTableCell);
+          const filterArgs = column.format.args ? [fixtureData, ...column.format.args] : [fixtureData];
+          support.$filter(column.format.filter, filterArgs)
+            .then( formattedFixtureData => {
+              testTableCell(rowIndex, column.key, formattedFixtureData);
+            });
         }
-
-        // Because $filter returns a promise we must maintain a separate pointer to the tested table cell with rowIndex2 and colIndex
-        function testTableCell(formattedFixtureData) {
-          var errorMsg = 'Row: ' + rowIndex2 + ', Column: ' + column.key + ' ';
-
-          if(!column.exclude) {
-            //console.log(errorMsg, '  Value:', formattedFixtureData); // For debugging only
-            support.expect(table.content.row(rowIndex2).data(column.key).getText()).to.eventually.equal(formattedFixtureData, errorMsg);
-          }
-          colIndex++;
-          if(colIndex >= columns.length) {
-            colIndex=0;
-            rowIndex2++;
-            if(rowIndex2 >= rowsToTest) { browser.sleep(500); done(); } // Delay and signal done to prevent stale element reference
-          }
+        else {
+          testTableCell(rowIndex, column.key, fixtureData);
         }
       });
+    }
+
+    function testTableCell(rowIndex, columnKey, expectedValue) {
+      const cellContent = table.content.row(rowIndex).data(columnKey).getText();
+      const errorMessage = `Row: ${rowIndex}, Column: ${columnKey}`
+      support.expect(cellContent).to.eventually.equal(expectedValue, errorMessage);
     }
   },
 
