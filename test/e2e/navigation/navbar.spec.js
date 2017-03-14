@@ -386,7 +386,7 @@ describe('Per-Cluster pages', function() {
     });
   });
 
-  fdescribe('Navigation to all Per-Cluster Volumes Pages', function() {
+  describe('Navigation to all Per-Cluster Volumes Pages', function() {
 
     beforeAll(function(done) {
       support.login();
