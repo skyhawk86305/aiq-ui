@@ -21,7 +21,7 @@
             }
           });
           const queryString = $httpParamSerializer({'snapshot-filters': snapshotFilter});
-          return `#/cluster/${clusterID}/snapshots?${queryString}`;
+          return `#/cluster/${clusterID}/volumes/snapshots?${queryString}`;
         }
       };
     }]);
