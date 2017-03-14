@@ -24,6 +24,7 @@
     "fs-extra": "^0.30.0",
     "gulp": "^3.8.7",
     "gulp-protractor": "^3.0.0",
+    "gulp-tslint": "^7.1.0",
     "html-webpack-plugin": "^2.24.1",
     "httpbackend": "^2.0.0",
     "istanbul-instrumenter-loader": "^1.2.0",
