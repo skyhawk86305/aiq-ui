@@ -410,7 +410,7 @@ describe('Per-Cluster pages', function() {
 
     it('Should allow navigation to the Active Volumes page', function() {
       navbar.subNavMenu.click('cluster-volumes-activeVolumes');
-      expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes/');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes/active-volumes');
     });
 
     it('Should allow navigation to the Snapshots page', function() {

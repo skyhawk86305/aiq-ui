@@ -46,7 +46,7 @@ describe('The Cluster Volumes Page', function () {
   });
 
   beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/volumes').then(done);
+    browser.get('#/cluster/' + clusterId + '/volumes/active-volumes').then(done);
   });
 
   afterAll(function() {
@@ -84,6 +84,6 @@ describe('The Cluster Volumes Page', function () {
     var snapshotLink= table.el.all(by.id('1snapshot-details')).get(0);
     expect(snapshotLink.isPresent()).to.eventually.be.true;
     snapshotLink.click();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/snapshots?snapshot-filters');
+    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/volumes/snapshots');
   });
 });

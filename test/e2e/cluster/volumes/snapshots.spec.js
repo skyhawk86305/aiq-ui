@@ -37,17 +37,17 @@ function mapFixture(volumeRawFixture, snapshotRawFixture) {
 }
 
 describe('The Snapshots Page', function() {
-  beforeAll(function(done) {
+  beforeAll(function() {
     support.login();
     var openedClusterSelect = clusterSelect.open();
-    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
-      clusterId = firstClusterId;
-      done();
-    });
+    support.getFirstClusterId(openedClusterSelect)
+      .then( firstClusterId => {
+        clusterId = firstClusterId;
+      });
   });
 
-  beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/snapshots').then(done);
+  beforeEach(function() {
+    browser.get('#/cluster/' + clusterId + '/volumes/snapshots');
   });
 
   afterAll(function() {
@@ -65,7 +65,7 @@ describe('The Snapshots Page', function() {
     });
   });
 
-  it('should display data from the correct API and properly format it in the table', function (done) {
+  it('should display data from the correct API and properly format it in the table', function(done) {
     support.testTableData(snapshotTable, columns, maxRows, uniqueKey, fixture, done);
   });
 

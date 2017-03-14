@@ -1,0 +1,10 @@
+{
+  "extends": "../tslint.json",
+  "jsRules": {
+    "ban": [
+      true,
+      [ "fdescribe" ],
+      [ "fit" ]
+    ]
+  }
+}

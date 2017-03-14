@@ -32,18 +32,19 @@ function mapFixture(rawFixture) {
   });
 }
 
-describe('The Snapshots Page', function() {
-  beforeAll(function(done) {
+describe('The Snapshot Schedules Page', function() {
+
+  beforeAll(function() {
     support.login();
     const openedClusterSelect = clusterSelect.open();
-    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
-      clusterId = firstClusterId;
-      done();
-    });
+    support.getFirstClusterId(openedClusterSelect)
+      .then( firstClusterId => {
+        clusterId = firstClusterId;
+      });
   });
 
-  beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/snapshot-schedules').then(done);
+  beforeEach(function() {
+    browser.get('#/cluster/' + clusterId + '/volumes/snapshot-schedules');
   });
 
   afterAll(function() {
