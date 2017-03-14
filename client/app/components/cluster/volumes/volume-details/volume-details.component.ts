@@ -659,7 +659,7 @@
               }
             },
             tooltipFormat: {
-              y0: (d) => { return this.bytesFormat(d, 3);}
+              y0: (d) => { return this.capacityFormat(d, 2);}
             },
             margin: {
               top:    sparkLine ? 10 : 20,
@@ -722,9 +722,6 @@
     private xAxisFormat(milliseconds) {
       return this.$filter('date')(new Date(milliseconds), 'yyyy-MM-dd HH:mm:ss');
     }
-    private utilizationFormat(utilization) {
-      return this.$filter('percent')(utilization, 0, true, false, true, null, null);
-    }
     private iopsFormat(iops) {
       return this.$filter('iops')(iops, true, 1);
     }
@@ -734,8 +731,8 @@
     private latencyFormat(number) {
       return this.$filter('aiqNumber')(number, 2);
     }
-    private capacityFormat(bytes) {
-      return this.$filter('bytes')(bytes, false, 0, false);
+    private capacityFormat(bytes, decimalPlaces = 0) {
+      return this.$filter('bytes')(bytes, false, decimalPlaces, false);
     }
   }
 
