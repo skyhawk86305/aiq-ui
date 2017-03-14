@@ -15,7 +15,7 @@ const columns = [
   {key: 'username', label: 'Creator', format: {filter:'string'}},
   {key: 'customerName', label: 'Customer', format: {filter:'string'}},
   {key: 'clusterName', label: 'Cluster', format: {filter:'string'}},
-  {key: 'policyDescription', label: 'Alert Condition', format: {filter:'string'}}
+  {key: 'notificationFields', label: 'Alert Condition', format: {filter:'alert', args:['condition']} },
 ];
 
 function mapFixture(rawFixture) {
