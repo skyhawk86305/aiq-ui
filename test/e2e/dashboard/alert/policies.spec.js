@@ -1,21 +1,21 @@
 'use strict';
 
-var support = require('../../support.js');
-var expect = support.expect;
-var TableComponent = require('../../page-objects/components/sf-components.po').table;
-var table = new TableComponent('alert-policy');
-var fixture = mapFixture(support.fixture('ListNotifications'));
-var uniqueKey = 'notificationName';
-var itemsPerPage = 25;
-var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
-var columns = [
+const support = require('../../support.js');
+const expect = support.expect;
+const TableComponent = require('../../page-objects/components/sf-components.po').table;
+const table = new TableComponent('alert-policy');
+const fixture = mapFixture(support.fixture('ListNotifications'));
+const uniqueKey = 'notificationName';
+const itemsPerPage = 25;
+const maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
+const columns = [
   {key: 'notificationName', label: 'Alert Policy Name', format: {filter: 'string'}},
   {key: 'destinationEmail', label: 'Destination', format: {filter:'string'}},
-  {key: 'notificationSeverity', label: 'Severity', format: {filter:'string'}},
+  {key: 'notificationSeverity', label: 'Severity', format: {filter:'string'}, exclude: true}, // Data is manipulated using custom severity filter
   {key: 'username', label: 'Creator', format: {filter:'string'}},
   {key: 'customerName', label: 'Customer', format: {filter:'string'}},
   {key: 'clusterName', label: 'Cluster', format: {filter:'string'}},
-  {key: 'policyDescription', label: 'Alert Condition', exclude: true} // Data is manipulated using custom alert filter
+  {key: 'policyDescription', label: 'Alert Condition', format: {filter:'string'}}
 ];
 
 function mapFixture(rawFixture) {
