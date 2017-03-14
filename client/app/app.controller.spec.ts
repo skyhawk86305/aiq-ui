@@ -65,6 +65,12 @@ describe('AppController', function () {
         location.path('/Alerts/Manage');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/alerts/policies');
+        location.path('/Alerts/Add');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/alerts/policies/add');
+        location.path('/Alerts/Suppress');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/dashboard/alerts/suppressedClusters');
         location.path('/Cluster/Graphs/Capacity').search({clusterID: '123'});
         rootScope.$digest();
         expect(location.path()).toEqual('/cluster/123/reporting/capacity');
@@ -89,6 +95,9 @@ describe('AppController', function () {
         location.path('/Nodes/Active').search({clusterID: '123'});
         rootScope.$digest();
         expect(location.path()).toEqual('/cluster/123/nodes');
+        location.path('/Replication/Clusters').search({clusterID: '123'});
+        rootScope.$digest();
+        expect(location.path()).toEqual('/cluster/123/replication/clusterPairs');
         location.path('/Volumes/Active/List').search({clusterID: '123'});
         rootScope.$digest();
         expect(location.path()).toEqual('/cluster/123/volumes/active-volumes');
@@ -110,12 +119,6 @@ describe('AppController', function () {
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Admin/Nodes/Add');
-        rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/overview');
-        location.path('/Alerts/Add');
-        rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/overview');
-        location.path('/Alerts/Suppress');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Clusters/Archived');
@@ -167,9 +170,6 @@ describe('AppController', function () {
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Licensing/Capacity/View');
-        rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/overview');
-        location.path('/Replication/Clusters');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Replication/Volumes');

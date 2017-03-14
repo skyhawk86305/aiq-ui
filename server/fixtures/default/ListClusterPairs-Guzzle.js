@@ -1,11 +1,13 @@
 module.exports = {
-  "clusterPairs": [{
-    "clusterPairUUID": "660cf1bd-1181-4966-ad84-2d02fb4febf2",
-    "status": "Unconfigured",
-    "latency": 0,
-    "clusterName": "",
-    "clusterPairID": 1,
-    "version": "0",
-    "mvip": "0.0.0.0"
-  }]
-};
+  clusterPairs: [
+    {
+      clusterPairUUID: "85d24e41-f45e-4f2f-b4d8-35638052af31",
+      status: "Connected",
+      latency: 1,
+      clusterName: "sf4v01",
+      clusterPairID: 1,
+      version: "8.6.1.2",
+      mvip: "1.2.3.4"
+    }
+  ]
+}
