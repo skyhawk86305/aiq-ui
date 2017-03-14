@@ -7,13 +7,11 @@ describe('AlertPolicyTableService', function () {
     deserializedResponse,
     apiFailure,
     service,
-    alertFilterSpy = jasmine.createSpy('alertFilter'),
     dataService,
     parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
     $provide.value('DataService', {callAPI: function() {} });
-    $provide.value('alertFilter', alertFilterSpy);
   }));
 
   beforeEach(inject(function ($q, $rootScope, $filter, AlertPolicyTableService, DataService, SFTableService) {
@@ -24,9 +22,6 @@ describe('AlertPolicyTableService', function () {
     dataService = DataService;
     parentService = SFTableService;
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
-    alertFilterSpy.and.callFake(function() {
-      return 'filtered';
-    });
   }));
 
   describe('initialization', function() {
@@ -44,15 +39,9 @@ describe('AlertPolicyTableService', function () {
 
     it('should deserialize the response and resolve an array of data', function() {
       apiResponse = {notifications: [{notificationFields: []}]};
-      deserializedResponse = [
-        {
-          notificationFields: [],
-          policyDescription: 'filtered'
-        }
-      ];
+      deserializedResponse = [ { notificationFields: [] } ];
       service.getData(true).then(function(response) {
         expect(response).toEqual(deserializedResponse);
-        expect(alertFilterSpy).toHaveBeenCalledWith([], 'condition');
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();
