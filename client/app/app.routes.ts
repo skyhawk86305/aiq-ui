@@ -59,6 +59,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<add-alert-policy class="sf-layout-block"></add-alert-policy>',
         reloadOnSearch: false
       })
+      .when('/dashboard/alerts/suppressedClusters', {
+        template: '<suppressed-clusters class="sf-layout-block"></suppressed-clusters>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
         reloadOnSearch: false

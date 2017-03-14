@@ -56,8 +56,8 @@ describe('The Alert History Page', function () {
     });
   });
 
-  it('should display data from the correct API and properly format it in the table', function (done) {
-    support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
+  it('should display data from the correct API and properly format it in the table', function () {
+    support.testTableData(table, columns, maxRows, uniqueKey, fixture);
     support.expect(table.content.row(0).data('isResolved').element(by.css('.table-badge')).getAttribute('class')).to.eventually.contains('table-badge');
     support.expect(table.content.row(0).data('severity').element(by.css('.table-badge')).getAttribute('class')).to.eventually.contains('table-badge');
   });

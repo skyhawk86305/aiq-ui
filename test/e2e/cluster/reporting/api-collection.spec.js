@@ -47,8 +47,8 @@ describe('The Cluster API Collection Page', function () {
 
   // TODO: Test currently fails due to the unique key having a custom formatter applied
   // support.testTableData needs to be updated.
-  xit('should display data from the correct API and properly format it in the table', function (done) {
-    support.testTableData(table, columns, maxRows, uniqueKey, fixture, done);
+  xit('should display data from the correct API and properly format it in the table', function () {
+    support.testTableData(table, columns, maxRows, uniqueKey, fixture);
   });
 
   describe('clicking an API link', function () {
