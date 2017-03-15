@@ -19,7 +19,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a7400123301ff47acc0100000000',
       scsiNAADeviceID: '6f47acc100056600064646a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -40,7 +39,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.stage-mango-data-01.31',
       scsiEUIDeviceID: '64646a7400012301ff47acc0100000000',
       scsiNAADeviceID: '6f47acc1000000006464656a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -61,7 +59,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.firesolid:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a740000001f123acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a123000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -82,7 +79,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -103,7 +99,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -124,7 +119,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -145,7 +139,6 @@ module.exports = {
       scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a740000001f',
       volumePairs: [],
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -166,7 +159,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -187,7 +179,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID:11,
@@ -208,7 +199,6 @@ module.exports = {
       iqn: 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',
       scsiEUIDeviceID: '64646a740000001ff47acc0100000000',
       scsiNAADeviceID: '6f47acc10000000064646a740000001f',
-      configuredAccessProtocols:['ISCSI']
     },
     {
       clusterID: 1898714,
@@ -274,9 +264,6 @@ module.exports = {
         created: '2016-04-13T19:30:35Z',
         updated: '2016-12-15T18:41:33Z'
       },
-      configuredAccessProtocols: [
-        'ISCSI'
-      ],
       volumePairs: [],
       created: '2016-04-07T19:33:48Z',
       updated: '2016-12-14T23:45:06Z'

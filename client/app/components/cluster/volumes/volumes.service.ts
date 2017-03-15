@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
   .module('aiqUi')
   .service('VolumeTableService', [
@@ -9,10 +11,11 @@
     'DataService',
     '$routeParams',
     '$filter',
+    '$q',
     VolumeTableService
   ]);
 
-  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $routeParams, $filter) {
+  function VolumeTableService(SFTableService, SFFilterComparators, DataService, $routeParams, $filter, $q) {
     const columns = [
       {key: 'volumeID', label: 'ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'accountID', label: 'Account ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
@@ -36,21 +39,24 @@
     /**********************************/
 
     function listActiveVolumes() {
-      return DataService.callGuzzleAPIs(service.selectedClusterID, 'ListActiveVolumes', 'ListSnapshots')
-        .then( ({ volumes = [], snapshots = [] }) => {
-          if (volumes) {
-            return volumes.map( volume => {
-              volume.minIOPS = volume.qos.minIOPS;
-              volume.maxIOPS = volume.qos.maxIOPS;
-              volume.burstIOPS = volume.qos.burstIOPS;
-              volume.paired = volume.volumePairs.length ? true : false;
-              let snapshotCount = snapshots.filter( snapshot => snapshot.volumeID === volume.volumeID ).length;
-              volume.snapshots = $filter('volumesSnapshotsLink')(snapshotCount, volume.volumeID);
-              volume.details = $filter('volumesDetailsLink')(volume.volumeID);
-              return volume;
+      return $q
+        .all([
+          DataService.callAPI('ListActiveVolumes', { clusterID: service.selectedClusterID }),
+          DataService.callGuzzleAPI(service.selectedClusterID, 'ListSnapshots'),
+        ])
+        .then( ([{ volumes = [] }, { snapshots = [] }]) =>
+          volumes.map( volume => {
+            const snapshotCount = _(snapshots).filter(['volumeID', volume.volumeID]).size();
+            return Object.assign({}, volume, {
+              minIOPS: volume.qos.minIOPS,
+              maxIOPS: volume.qos.maxIOPS,
+              burstIOPS: volume.qos.burstIOPS,
+              paired: volume.volumePairs.length ? true : false,
+              snapshots: $filter('volumesSnapshotsLink')(snapshotCount, volume.volumeID),
+              details: $filter('volumesDetailsLink')(volume.volumeID),
             });
-          }
-        });
+          })
+        );
     }
 
     function update(clusterID) {

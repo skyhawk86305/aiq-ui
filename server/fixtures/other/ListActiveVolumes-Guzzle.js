@@ -14,7 +14,6 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -29,7 +28,6 @@ module.exports = {
         burstIOPS: 20000
       },
       volumePairs: [1],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -44,7 +42,6 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -59,7 +56,6 @@ module.exports = {
         burstIOPS: 25000
       },
       volumePairs: [2],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -74,7 +70,6 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -89,7 +84,6 @@ module.exports = {
         burstIOPS: 20000
       },
       volumePairs: [2],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -104,7 +98,6 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -119,7 +112,6 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -134,7 +126,6 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [2],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 11,
@@ -149,7 +140,6 @@ module.exports = {
         burstIOPS: 15000
       },
       volumePairs: [],
-      configuredAccessProtocols: ['ISCSI']
     },
     {
       clusterID: 1898714,
@@ -215,9 +205,6 @@ module.exports = {
         created: '2016-04-13T19:30:35Z',
         updated: '2016-12-15T18:41:33Z'
       },
-      configuredAccessProtocols: [
-        'ISCSI'
-      ],
       volumePairs: [],
       created: '2016-04-07T19:33:48Z',
       updated: '2016-12-14T23:45:06Z'
