@@ -130,8 +130,9 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<volume-details class="sf-layout-block"></volume-details>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/replication', {
-        template: require('./coming-soon.tpl.html')
+      .when('/cluster/:clusterID/replication/clusterPairs', {
+        template: '<cluster-pairs class="sf-layout-block"></cluster-pairs>',
+        reloadOnSearch: false
       })
       .when('/cluster/:clusterID/vvols/virtual-volumes', {
         template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
@@ -162,14 +163,18 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       /* Legacy UI URLs */
       .when('/Admin/Nodes', defaultRedirect)
       .when('/Admin/Nodes/Add', defaultRedirect)
-      .when('/Alerts/Add', defaultRedirect)
+      .when('/Alerts/Add', {
+        redirectTo: '/dashboard/alerts/policies/add'
+      })
       .when('/Alerts/History', {
         redirectTo: '/dashboard/alerts/history'
       })
       .when('/Alerts/Manage', {
         redirectTo: '/dashboard/alerts/policies'
       })
-      .when('/Alerts/Suppress', defaultRedirect)
+      .when('/Alerts/Suppress', {
+        redirectTo: '/dashboard/alerts/suppressedClusters'
+      })
       .when('/Cluster/Graphs/Capacity', {
         redirectTo: function (params, path, search) {
           return '/cluster/' + search.clusterID + '/reporting/capacity';
@@ -227,7 +232,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           return '/cluster/' + search.clusterID + '/nodes';
         }
       })
-      .when('/Replication/Clusters', defaultRedirect)
+      .when('/Replication/Clusters', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/replication/clusterPairs';
+        }
+      })
       .when('/Replication/Volumes', defaultRedirect)
       .when('/Settings/Password', {
         redirectTo: function (params, path, search) {

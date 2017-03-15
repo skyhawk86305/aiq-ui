@@ -262,8 +262,12 @@ describe('Per-Cluster pages', function() {
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/drives');
     });
 
-    // ToDo: This page isn't implemented yet
-    xit('Should allow navigation to the Replication page', function() {
+    it('@any @smoke Should allow navigation to the Volumes page', function() {
+      navbar.subNavbar.click('cluster-volumes');
+      expect(browser.getLocationAbsUrl()).to.eventually.contain('/volumes');
+    });
+
+    it('@any @smoke Should allow navigation to the Replication page', function() {
       navbar.subNavbar.click('cluster-replication');
       expect(browser.getLocationAbsUrl()).to.eventually.contain('/replication');
     });

@@ -77,7 +77,15 @@
             {key:'snapshotSchedules', href: '#/cluster/:clusterID/volumes/snapshot-schedules', label: 'Snapshot Schedules'}
           ]
         },
-        {key:'replication', href:'#/cluster/:clusterID/replication', label: 'Replication', disabled: true},
+        {
+          key:'replication',
+          href:'#/cluster/:clusterID/replication/clusterPairs',
+          label: 'Replication',
+          menuItems: [
+            {key:'clusterPairs', href: '#/cluster/:clusterID/replication/clusterPairs', label: 'Cluster Pairs'},
+            {key:'volumePairs', href: '#/cluster/:clusterID/replication/volumePairs', label: 'Volume Pairs', disabled: true},
+          ],
+        },
         {
           key:'vvols',
           href:'#/cluster/:clusterID/vvols/virtual-volumes',
