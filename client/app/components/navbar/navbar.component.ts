@@ -83,7 +83,7 @@
           label: 'Replication',
           menuItems: [
             {key:'clusterPairs', href: '#/cluster/:clusterID/replication/clusterPairs', label: 'Cluster Pairs'},
-            {key:'volumePairs', href: '#/cluster/:clusterID/replication/volumePairs', label: 'Volume Pairs', disabled: true},
+            {key:'volumePairs', href: '#/cluster/:clusterID/replication/volumePairs', label: 'Volume Pairs'},
           ],
         },
         {

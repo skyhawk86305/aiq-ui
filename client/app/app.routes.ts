@@ -134,6 +134,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<cluster-pairs class="sf-layout-block"></cluster-pairs>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID/replication/volumePairs', {
+        template: '<volume-pairs class="sf-layout-block"></volume-pairs>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/vvols/virtual-volumes', {
         template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
         reloadOnSearch: false
