@@ -51,14 +51,18 @@ gulp.task('test:unit', function (done) {
 
 gulp.task('test:e2e', ['webdriverUpdate', 'serve'], function () {
   return gulp.src(['test/e2e/**/*.spec.js'])
+    .pipe(protractor.protractor({configFile: configs.protractor, args: getProtractorArgs()}))
+    .on('error', function (e) { console.log(e); if (!isRemoteE2ETask) { child.kill(); } process.exit(-1); })
+    .on('close', function() { if (!isRemoteE2ETask) { child.kill(); } process.exit(); });
+});
+
+gulp.task('lint:e2e', function() {
+  return gulp.src(['test/e2e/**/*.spec.js'])
     .pipe(tslint({
       formatter: 'verbose',
       configuration: 'test/tslint.json',
     }))
-    .pipe(tslint.report())
-    .pipe(protractor.protractor({configFile: configs.protractor, args: getProtractorArgs()}))
-    .on('error', function (e) { console.log(e); if (!isRemoteE2ETask) { child.kill(); } process.exit(-1); })
-    .on('close', function() { if (!isRemoteE2ETask) { child.kill(); } process.exit(); });
+    .pipe(tslint.report());
 });
 
 function getProtractorArgs() {
