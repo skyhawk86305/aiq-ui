@@ -20,7 +20,7 @@
       { label: 'Volume Status', key: 'volumeStatus', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Replication Mode', key: 'replicationMode', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Direction', key: 'direction', filterComparators: SFFilterComparators.STRING_DEFAULT },
-      { label: 'Async Delay', key: 'asyncDelay', filterComparators: SFFilterComparators.STRING_DEFAULT },
+      { label: 'Async Delay', key: 'asyncDelay', filterComparators: SFFilterComparators.STRING_DEFAULT, format: { filter: 'string' } },
       { label: 'Remote Cluster', key: 'remoteClusterName', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Remote Volume ID', key: 'remoteVolumeID', filterComparators: SFFilterComparators.INTEGER_DEFAULT },
     ];

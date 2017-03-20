@@ -19,7 +19,7 @@ const columns = [
   { label: 'Volume Status', key: 'volumeStatus' },
   { label: 'Replication Mode', key: 'replicationMode' },
   { label: 'Direction', key: 'direction' },
-  { label: 'Async Delay', key: 'asyncDelay' },
+  { label: 'Async Delay', key: 'asyncDelay', format: { filter: 'string' } },
   { label: 'Remote Cluster', key: 'remoteClusterName' },
   { label: 'Remote Volume ID', key: 'remoteVolumeID', format: { filter: 'string' } },
 ];
