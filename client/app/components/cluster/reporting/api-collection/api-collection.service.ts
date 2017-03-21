@@ -12,7 +12,18 @@
 
   function APICollectionTableService(SFTableService, SFFilterComparators, DataService) {
     let listAPICollections = function() {
-      return DataService.callGuzzleAPI(this.selectedClusterID);
+      const apiBlacklist = [
+        'GetProcessInfo',
+        'GetStartupFlags',
+        'GetTime',
+        'ListCoreFiles',
+        'ListMountedFileSystems'
+      ];
+      return DataService.callGuzzleAPI(this.selectedClusterID).then(apiList => {
+        return apiList.filter(api => {
+          return (api && api.source) ? (apiBlacklist.indexOf(api.source) < 0) : false;
+        });
+      });
     };
 
     let columns = [
