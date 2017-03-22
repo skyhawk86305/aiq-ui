@@ -48,7 +48,7 @@ describe('APICollectionTableService', function () {
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = ['bar', 'foo'];
+      apiResponse = [{source: 'bar'}, {source: 'foo'}];
       service.getData(true).then(function(response) {
         expect(response).toEqual(apiResponse);
       });

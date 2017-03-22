@@ -1,19 +1,33 @@
 'use strict';
 
-var support = require('../../support.js');
-var expect = support.expect;
-var TableComponent = require('../../page-objects/components/sf-components.po').table;
-var table = new TableComponent('api-collection');
-var clusterSelect = new support.clusterSelectComponent();
-var fixture = support.fixture('GetGuzzleAPIs');
-var uniqueKey = 'source';
-var itemsPerPage = 25;
-var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
-var clusterId;
-var columns = [
+const support = require('../../support.js');
+const expect = support.expect;
+const TableComponent = require('../../page-objects/components/sf-components.po').table;
+const table = new TableComponent('api-collection');
+const clusterSelect = new support.clusterSelectComponent();
+const fixture = mapFixture(support.fixture('GetGuzzleAPIs'));
+const uniqueKey = 'source';
+const itemsPerPage = 25;
+const maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
+const columns = [
   {key: 'source', label: 'Element API Method', format: {filter: 'apiCollectionLink', args:['26']}},
   {key: 'ingestedTime', label: 'Last Updated', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}}
 ];
+let clusterId;
+
+function mapFixture(rawFixture) {
+  const apiBlacklist = [
+    'GetProcessInfo',
+    'GetStartupFlags',
+    'GetTime',
+    'ListCoreFiles',
+    'ListMountedFileSystems'
+  ];
+
+  return rawFixture.filter(api => {
+    return (api && api.source) ? (apiBlacklist.indexOf(api.source) < 0) : false;
+  });
+}
 
 describe('The Cluster API Collection Page', function () {
   beforeAll(function(done) {

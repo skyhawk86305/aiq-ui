@@ -62,7 +62,8 @@
             {key:'alerts', href: '#/cluster/:clusterID/reporting/alerts', label: 'Alerts'},
             {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions'},
             {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks'},
-            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting', disabled: true}
+            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting', disabled: true},
+            {key:'apiCollection', href: '#/cluster/:clusterID/reporting/apiCollection', label: 'API Collection'}
           ]
         },
         {key:'nodes', href:'#/cluster/:clusterID/nodes', label: 'Nodes'},
