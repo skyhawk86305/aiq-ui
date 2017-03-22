@@ -37,7 +37,7 @@ describe('Volume Details Page', function () {
     it('@any @smoke should display the infobar with 6 infoboxes', function() {
       expect(volumeDetailsPage.infoBar.el.isPresent()).to.eventually.be.true;
       expect(volumeDetailsPage.infoBar.infoBoxes.count()).to.eventually.equal(6);
-    }); 
+    });
 
     it('@any should display the infobar with a timestamp bar that contains the time and a refresh button', function() {
       expect(volumeDetailsPage.infoBar.timestamp.el.isPresent()).to.eventually.be.true;
@@ -56,7 +56,7 @@ describe('Volume Details Page', function () {
     describe('The info-boxes should be wider than their data values', function() {
       it('volume size info-box', function () {
         var box = volumeDetailsPage.infoBar.infoBox('volume-size');
-        expect(box.value.getText()).to.eventually.equal('10MB');
+        expect(box.value.getText()).to.eventually.equal('10 MB');
         support.infoBoxSizeCheck(volumeDetailsPage.infoBar, 'volume-size');
       })
 
