@@ -45,7 +45,8 @@
             {key:'policies', href: '#/dashboard/alerts/policies', label: 'Policies'},
             {key:'suppressedClusters', href: '#/dashboard/alerts/suppressedClusters', label: 'Suppressed Clusters'},
           ]
-        }
+        },
+        {key:'capacityLicensing', href:'#/dashboard/capacity-licensing', label: 'Capacity Licensing'},
       ],
       cluster: [
         {

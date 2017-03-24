@@ -1,0 +1,25 @@
+<div class="capacity-licensing-page container-fluid">
+
+  <div class="sf-widget info-box capacity-licensing-info-widget">
+    <div class="info-box-content">
+      <div>
+        <span class="important-label">Important: </span>
+        The information on this page applies only for customers using NetApp SolidFire’s FlashForward
+        Capacity Licensing model. Customers using standard NetApp SolidFire appliances should disregard
+        this page. If you have any questions, please contact your technical support engineer.
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-widget sf-layout-block capacity-licensing-table-widget">
+    <sf-table id="capacity-licensing-table"
+        class="sf-layout-block"
+        service="$ctrl.service"
+        table-id="capacity-licensing"
+        control-bar="true"
+        items-per-page="25"
+        export="true"
+        footer-row-count="true">
+    </sf-table>
+  </div>
+</div>
