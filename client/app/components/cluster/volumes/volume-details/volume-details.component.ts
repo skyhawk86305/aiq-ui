@@ -453,7 +453,7 @@
               },
               y0: {
                 tick: {
-                  format: (number) => { return this.latencyFormat(number); },
+                  format: (number) => { return `${this.latencyFormat(number)} μs`; },
                   spacing: 50
                 }
               }
@@ -482,6 +482,7 @@
               },
               y0: {
                 tick: {
+                  format: (number) => { return `${this.latencyFormat(number)} μs`; },
                   spacing: 25
                 }
               }
