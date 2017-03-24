@@ -22,7 +22,7 @@
       </div>
 
       <div class="form-group policy-type">
-        <label class="control-label">Policy type: </label>
+        <label class="control-label">Policy Type: </label>
         <div class="control-container">
           <select class="form-control"
               name="policyType"
@@ -33,7 +33,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label">Create a policy named: </label>
+        <label class="control-label">Policy Name: </label>
         <div class="control-container">
           <input type="text"
               class="form-control"
@@ -44,7 +44,7 @@
       </div>
 
       <div class="form-group">
-        <label class="control-label">With severity: </label>
+        <label class="control-label">Severity: </label>
         <div class="control-container">
           <select class="form-control"
               name="severity"
@@ -54,22 +54,8 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="control-label">That will notify: </label>
-        <div class="control-container">
-          <input type="text"
-              class="form-control"
-              name="emails"
-              ng-model="$ctrl.emails">
-        </div>
-      </div>
-
       <div class="form-group" ng-if="$ctrl.policyType !== 'licensing'">
-        <label class="control-label" ng-switch on="$ctrl.policyType">
-          <span ng-switch-when="collectorNotReporting"> If the collector for: </span>
-          <span ng-switch-when="driveWear"> If a drive in: </span>
-          <span ng-switch-default> If: </span>
-        </label>
+        <label class="control-label" >Select Cluster: </label>
         <div class="control-container">
           <select class="form-control"
               name="clusterID"
@@ -78,15 +64,11 @@
             <option value="">Any Cluster</option>
           </select>
         </div>
-        <span class="post-control-text" ng-switch on="$ctrl.policyType">
-          <span ng-switch-when="failedDrive"> has a failed drive. </span>
-          <span ng-switch-when="availableDrive"> has an available drive. </span>
-        </span>
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'licensing'">
         <label class="control-label">
-          If PLC for:
+          Select Customer:
         </label>
         <div class="control-container">
           <select class="form-control"
@@ -100,7 +82,7 @@
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'clusterFault'">
-        <label class="control-label">Produces cluster fault: </label>
+        <label class="control-label">Select Fault Type: </label>
         <div class="control-container">
           <select class="form-control"
               name="clusterFaultType"
@@ -112,7 +94,7 @@
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'event'">
-        <label class="control-label">Produces: </label>
+        <label class="control-label">Select Event Type: </label>
         <div class="control-container">
           <select class="form-control"
               name="eventType"
@@ -123,7 +105,7 @@
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'utilization'">
-        <label class="control-label">Has cluster utilization greater than: </label>
+        <label class="control-label">Cluster Utilization is Greater Than: </label>
         <div class="control-container">
           <input type="number"
               class="form-control"
@@ -133,12 +115,12 @@
               required>
         </div>
         <span class="post-control-text">
-          percent.
+          %.
         </span>
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'usedSpace'">
-        <label class="control-label">Has less than: </label>
+        <label class="control-label">Usable Space Remaining is Less Than: </label>
         <div class="control-container">
           <input type="number"
               class="form-control"
@@ -148,12 +130,12 @@
               required>
         </div>
         <span class="post-control-text">
-          percent of usable space remaining.
+          %.
         </span>
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'provisionedSpace'">
-        <label class="control-label">Has less than: </label>
+        <label class="control-label">Provisionable Space Remaining is Less Than: </label>
         <div class="control-container">
           <input type="number"
               class="form-control"
@@ -163,12 +145,12 @@
               required>
         </div>
         <span class="post-control-text">
-          percent of provisionable space remaining.
+          %.
         </span>
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'collectorNotReporting'">
-        <label class="control-label">Fails to send data for: </label>
+        <label class="control-label">Collector Fails to Send Data For: </label>
         <div class="control-container">
           <input type="number"
               class="form-control"
@@ -183,7 +165,7 @@
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'driveWear'">
-        <label class="control-label">Has less than: </label>
+        <label class="control-label">Drive Has Less Than: </label>
         <div class="control-container">
           <input type="number"
               class="form-control"
@@ -193,12 +175,12 @@
               required>
         </div>
         <span class="post-control-text">
-          percent.
+          %.
         </span>
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'driveWear'">
-        <label class="control-label"></label>
+        <label class="control-label">Select Remaining Wear or Reserve: </label>
         <div class="control-container">
           <select class="form-control"
               name="driveWearType"
@@ -206,13 +188,10 @@
               ng-options="wearType[0] as wearType[1] for wearType in $ctrl.driveWearTypes">
           </select>
         </div>
-        <span class="post-control-text">
-          remaining.
-        </span>
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'sessions'">
-        <label class="control-label">Has more than: </label>
+        <label class="control-label">Number of Active iSCSI Sessions is Greater Than: </label>
         <div class="control-container">
           <input type="number"
               class="form-control"
@@ -222,13 +201,10 @@
               min="0"
               required>
         </div>
-        <span class="post-control-text">
-          active iSCSI sessions.
-        </span>
       </div>
 
       <div class="form-group" ng-if="$ctrl.policyType === 'licensing'">
-        <label class="control-label">Exceeds: </label>
+        <label class="control-label">PLC Exceeds ELC By: </label>
         <div class="control-container">
           <input type="number"
               class="form-control"
@@ -238,8 +214,18 @@
               required>
         </div>
         <span class="post-control-text">
-          percent of ELC.
+          %.
         </span>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Email Notification to: </label>
+        <div class="control-container">
+          <input type="text"
+                 class="form-control"
+                 name="emails"
+                 ng-model="$ctrl.emails">
+        </div>
       </div>
 
 
