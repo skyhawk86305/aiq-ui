@@ -1,0 +1,16 @@
+<div class="sf-modal-form" id="delete-policy-form">
+
+  <div class="sf-modal-body">
+    <div class="error-message" ng-show="$ctrl.error">
+      Error: {{ $ctrl.error }}
+    </div>
+
+    <div class="delete-policy-details form-section">
+      <span>Are you sure you want to delete policy {{$ctrl.formData.notificationName}}?</span>
+    </div>
+  </div>
+  <div class="sf-modal-footer">
+    <button class="button -submit" ng-click="$ctrl.deletePolicy($ctrl.formData.notificationID)">Yes</button>
+    <button class="button -cancel" ng-click="$ctrl.modal.close()">No</button>
+  </div>
+</div>

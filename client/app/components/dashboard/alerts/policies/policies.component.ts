@@ -5,10 +5,16 @@
     .module('aiqUi')
     .component('alertPolicyTable', {
       template: require('./policies.tpl.html'),
-      controller: ['AlertPolicyTableService', AlertPolicyTableController]
+      controller: ['$scope', 'AlertPolicyTableService', AlertPolicyTableController]
     });
 
-  function AlertPolicyTableController(AlertPolicyTableService) {
-    this.service = AlertPolicyTableService;
+  function AlertPolicyTableController($scope, AlertPolicyTableService) {
+    let ctrl = this;
+    ctrl.service = AlertPolicyTableService;
+
+    $scope.$on('openModal', function(event, data) {
+      ctrl.notification = data;
+      ctrl.isModalOpen = true;
+    });
   }
 })();
