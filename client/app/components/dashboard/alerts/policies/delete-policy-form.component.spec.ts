@@ -17,7 +17,7 @@ describe('Component: deletePolicyForm', function() {
     controller.formData = {};
     deferred = _$q_.defer();
     $rootScope = _$rootScope_;
-    spyOn(service, 'callAPI').and.returnValue(service.promise);
+    spyOn(service, 'callAPI').and.returnValue(deferred.promise);
   }));
 
   describe('deletePolicy', function() {
