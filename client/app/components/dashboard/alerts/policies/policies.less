@@ -10,4 +10,46 @@
     margin-right: 5px;
     display: inline-block;
   }
+
+  .sf-td:last-child {
+    text-align: center;
+  }
+}
+
+#delete-policy-form-modal {
+  .sf-alert {
+    height: 220px;
+  }
+}
+
+#delete-policy-form {
+  .sf-modal-body {
+    .error-message {
+      margin-bottom: 25px;
+      color: @text-error-color;
+      font-style: italic;
+    }
+  }
+}
+
+.delete-policy-form {
+  position: absolute;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.delete-policy-button {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  vertical-align: middle;
+  color: @table-icon-color;
+  height: 30px;
+  line-height: 0;
+
+  &:hover {
+    background: transparent;
+  }
 }

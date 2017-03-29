@@ -3,7 +3,9 @@
 const support = require('../../support.js');
 const expect = support.expect;
 const TableComponent = require('../../page-objects/components/sf-components.po').table;
+const ModalComponent = require('../../page-objects/components/sf-components.po').modal;
 const table = new TableComponent('alert-policy');
+const modal = new ModalComponent('delete-policy-form');
 const fixture = mapFixture(support.fixture('ListNotifications'));
 const uniqueKey = 'notificationName';
 const itemsPerPage = 25;
@@ -16,6 +18,7 @@ const columns = [
   {key: 'customerName', label: 'Customer', format: {filter:'string'}},
   {key: 'clusterName', label: 'Cluster', format: {filter:'string'}},
   {key: 'notificationFields', label: 'Alert Condition', format: {filter:'alert', args:['condition']} },
+  {key: 'deletePolicy', label: 'Delete Policy', exclude: true },
 ];
 
 function mapFixture(rawFixture) {
@@ -56,5 +59,28 @@ describe('The Alert Policies Page', function () {
 
   it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
+  });
+
+  describe('Delete Policy button', function() {
+    describe('when clicked', function() {
+      it('@default should successfully delete a policy', function() {
+        let deletePolicyButton = table.el.all(by.css('.delete-policy-button')).get(0);
+        let policyCount;
+
+        expect(deletePolicyButton.isPresent()).to.eventually.be.true;
+        table.content.rows.count().then(count => {
+          policyCount = count;deletePolicyButton.click();
+          expect(modal.el.isPresent()).to.eventually.be.true;
+          modal.footer.submitButton.click();
+          expect(modal.el.isPresent()).to.eventually.be.false;
+          /* TODO: Try and check that the list of policies has decreased by one.
+           * Current API and mocking system won't allow for modifying the return
+           * value of the API to include one less record.
+           */
+        });
+      });
+
+      // TODO: Test error handling when API/mocking library allow it
+    });
   });
 });

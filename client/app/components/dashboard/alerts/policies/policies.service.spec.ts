@@ -38,8 +38,8 @@ describe('AlertPolicyTableService', function () {
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {notifications: [{notificationFields: []}]};
-      deserializedResponse = [ { notificationFields: [] } ];
+      apiResponse = {notifications: [{notificationFields: [], notificationID: 1}]};
+      deserializedResponse = [ { notificationFields: [], notificationID: 1, deletePolicy: '<button id="delete-policy-1" ng-click="$emit(\'openModal\', $ctrl.rowCtrl.rowData)" class="delete-policy-button" aria-label="Delete Policy"><i class="fa fa-times-circle" aria-hidden="true"</i></button>' } ];
       service.getData(true).then(function(response) {
         expect(response).toEqual(deserializedResponse);
       });

@@ -14,3 +14,12 @@
   </control-bar-right>
 
 </sf-table>
+
+<sf-modal modal-id="delete-policy-form"
+          is-open="$ctrl.isModalOpen"
+          close="$ctrl.isModalOpen = false"
+          modal-header="Delete Policy {{$ctrl.notification.notificationName}}"
+          disable-overlay-close="disableOverlayClose"
+          modal-class="sf-alert">
+  <delete-policy-form form-data="$ctrl.notification"></delete-policy-form>
+</sf-modal>
