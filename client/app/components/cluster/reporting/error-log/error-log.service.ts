@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
     .module('aiqUi')
     .service('ErrorLogTableService', [
@@ -13,9 +15,7 @@
   function ErrorLogTableService(SFTableService, SFFilterComparators, DataService) {
     let listClusterFaults = function() {
       return DataService.callAPI('ListClusterFaults', {clusterID: this.selectedClusterID})
-        .then(function(response) {
-          return response.faults;
-        });
+        .then(response => _.orderBy(response.faults, ['date'], ['desc']));
     };
 
     let columns = [
