@@ -1,0 +1,59 @@
+@import '../../../../styles/shared.less';
+
+.capacity-licensing-details-page {
+  padding: 20px;
+  height: 100%;
+  .flex-block();
+  .flex-direction(column);
+
+  .info-bar {
+    margin: 0 0 15px 0;
+    padding: 0;
+
+    .info-box {
+      height: 130px;
+
+      .title {
+        margin: 10px 0;
+        font-size: 16px;
+        white-space: nowrap;
+      }
+
+      .value {
+        margin: auto 0;
+        padding: 0 15px;
+        font-size: 30px;
+        font-weight: normal;
+        color: @text-primary-color;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+  }
+
+  .capacity-licensing-details-table-widget {
+    margin: 0;
+    position: relative;
+    background: none;
+    box-shadow: none;
+
+    .sf-table-control-bar {
+      border: none;
+
+      .sf-table-controls-left {
+        padding: 0px;
+        margin-top: 20px;
+        font-size: 18px;
+      }
+
+      .sf-table-controls-right {
+        padding-right: 0px;
+      }
+    }
+  }
+
+
+}

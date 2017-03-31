@@ -67,6 +67,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<capacity-licensing class="sf-layout-block"></capacity-licensing>',
         reloadOnSearch: false
       })
+      .when('/dashboard/capacity-licensing/:customerID', {
+        template: '<capacity-licensing-details class="sf-layout-block"></capacity-licensing-details>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
         reloadOnSearch: false
@@ -203,8 +207,16 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       .when('/Clusters/Details', defaultRedirect)
       .when('/Clusters/Stats', defaultRedirect)
       .when('/Clusters/Overview', defaultRedirect)
-      .when('/Clusters/Graph/Sessions', defaultRedirect)
-      .when('/Clusters/VirtualNetworks', defaultRedirect)
+      .when('/Clusters/Graph/Sessions', {
+        redirectTo(params, path, search) {
+          return `/cluster/${search.clusterID}/reporting/iscsiSessions`;
+        }
+      })
+      .when('/Clusters/VirtualNetworks', {
+        redirectTo(params, path, search) {
+          return `/cluster/${search.clusterID}/reporting/virtualNetworks`;
+        }
+      })
       .when('/Customers/Add', defaultRedirect)
       .when('/Customers/Edit', defaultRedirect)
       .when('/Customers/List', defaultRedirect)
@@ -231,10 +243,20 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           return '/cluster/' + search.clusterID + '/reporting/errorLog';
         }
       })
-      .when('/Events/List', defaultRedirect)
+      .when('/Events/List', {
+        redirectTo(params, path, search) {
+          return `/cluster/${search.clusterID}/reporting/events`;
+        }
+      })
       .when('/Licensing/Capacity/Adjust', defaultRedirect)
-      .when('/Licensing/Capacity/List', defaultRedirect)
-      .when('/Licensing/Capacity/View', defaultRedirect)
+      .when('/Licensing/Capacity/List', {
+        redirectTo: '/dashboard/capacity-licensing',
+      })
+      .when('/Licensing/Capacity/View', {
+        redirectTo(params, path, search) {
+          return `/dashboard/capacity-licensing/${search.customerID}`;
+        }
+      })
       .when('/Nodes/Active', {
         redirectTo: function (params, path, search) {
           return '/cluster/' + search.clusterID + '/nodes';
@@ -245,7 +267,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           return '/cluster/' + search.clusterID + '/replication/clusterPairs';
         }
       })
-      .when('/Replication/Volumes', defaultRedirect)
+      .when('/Replication/Volumes', {
+        redirectTo: function (params, path, search) {
+          return '/cluster/' + search.clusterID + '/replication/volumePairs';
+        }
+      })
       .when('/Settings/Password', {
         redirectTo: function (params, path, search) {
           return '/account';
@@ -266,7 +292,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           return '/cluster/' + search.clusterID + '/volumes/snapshots';
         }
       })
-      .when('/Volumes/Stats', defaultRedirect)
+      .when('/Volumes/Stats', {
+        redirectTo(params, path, search) {
+          return `/cluster/${search.clusterID}/volume/${search.volumeID}`;
+        }
+      })
       .when('/Users/Add', defaultRedirect)
       .when('/Users/Edit', defaultRedirect)
       .when('/Users/List', defaultRedirect)

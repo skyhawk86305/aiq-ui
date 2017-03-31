@@ -63,7 +63,7 @@ describe('The Alert Policies Page', function () {
 
   describe('Delete Policy button', function() {
     describe('when clicked', function() {
-      it('@default should successfully delete a policy', function() {
+      it('should successfully delete a policy', function() {
         let deletePolicyButton = table.el.all(by.css('.delete-policy-button')).get(0);
         let policyCount;
 

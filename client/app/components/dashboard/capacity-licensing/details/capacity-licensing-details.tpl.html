@@ -1,0 +1,62 @@
+<div class="capacity-licensing-details-page container-fluid">
+
+  <div class="sf-widget container-fluid info-bar">
+    <div class="info-bar-row col-sm-12">
+
+      <div sf-state state="$ctrl.getEntitledCapacityState" class="info-box -customer-name col-sm-4">
+        <div class="info-box-content">
+          <span class="title">Customer Name</span>
+          <span class="value">{{ $ctrl.customerName }}</span>
+        </div>
+      </div>
+
+      <div sf-state state="$ctrl.getEntitledCapacityState" class="info-box -entitled-license-capacity col-sm-4">
+        <div class="info-box-content">
+          <span class="title">Entitled Licensed Capacity</span>
+          <span class="value">{{ $ctrl.entitledCapacity | bytes }}</span>
+        </div>
+      </div>
+
+      <div sf-state state="$ctrl.getEntitledCapacityState" class="info-box -provisioned-license-capacity col-sm-4">
+        <div class="info-box-content">
+          <span class="title">Provisioned Licensed Capacity</span>
+          <span class="value">{{ $ctrl.provisionedLicensedCapacity | bytes }}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sf-widget sf-layout-block capacity-licensing-details-table-widget">
+    <sf-table id="capacity-licensed-clusters-table"
+        class="sf-layout-block"
+        service="$ctrl.CapacityLicensedClusterService"
+        table-id="capacity-licensed-clusters"
+        control-bar="true"
+        items-per-page="10"
+        export="true">
+
+      <control-bar-left>
+        Provisioned Licensed Capacity By Cluster
+      </control-bar-left>
+
+    </sf-table>
+  </div>
+
+  <div class="sf-widget sf-layout-block capacity-licensing-details-table-widget">
+    <sf-table id="capacity-licensed-nodes-table"
+        class="sf-layout-block"
+        service="$ctrl.CapacityLicensedNodeService"
+        table-id="capacity-licensed-nodes"
+        control-bar="true"
+        items-per-page="10"
+        export="true">
+
+      <control-bar-left>
+        Capacity Licensed Nodes
+      </control-bar-left>
+
+    </sf-table>
+  </div>
+
+</div>

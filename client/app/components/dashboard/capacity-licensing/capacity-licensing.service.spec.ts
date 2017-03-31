@@ -56,10 +56,19 @@ describe('CapacityLicensingService', function () {
           },
         ],
       };
+      const expectedResult = apiResponse.customers.map( customer => Object.assign({}, customer, {
+        detailsLink: `
+          <a class="view-details-link"
+              href="#/dashboard/capacity-licensing/${customer.customerID}"
+              aria-label="View capacity licensing details for the customer">
+            <i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i>
+          </a>
+        `,
+      }));
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
       service.getData(true)
         .then( response => {
-           expect(response).toEqual(apiResponse.customers);
+           expect(response).toEqual(expectedResult);
         })
         .catch( err => {
           fail('promise was unexpectedly rejected');

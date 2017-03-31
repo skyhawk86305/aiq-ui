@@ -14,6 +14,7 @@ const columns = [
   { label: 'Number of Capacity Licensed Nodes', key: 'licensedNodes', format: { filter: 'string' } },
   { label: 'Entitled Licensed Capacity', key: 'entitledCapacity', format: { filter: 'bytes' } },
   { label: 'Provisioned Licensed Capacity', key: 'provisionedLicensedCapacity', format: { filter: 'bytes' } },
+  { label: 'Details', key: 'detailsLink', width: 100, sortable: false, nonData: true, exclude: true },
 ];
 
 function mapFixture(rawFixture) {
