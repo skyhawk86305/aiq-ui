@@ -56,15 +56,33 @@ describe('CapacityLicensingService', function () {
           },
         ],
       };
-      const expectedResult = apiResponse.customers.map( customer => Object.assign({}, customer, {
-        detailsLink: `
+      const expectedResult = [{
+        'customerID': 158,
+        'customerName': '3Peaks',
+        'licensedNodes': 0,
+        'entitledCapacity': 0,
+        'provisionedLicensedCapacity': 0,
+        'detailsLink': `
           <a class="view-details-link"
-              href="#/dashboard/capacity-licensing/${customer.customerID}"
+              href="#/dashboard/capacity-licensing/158"
               aria-label="View capacity licensing details for the customer">
             <i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i>
           </a>
         `,
-      }));
+      }, {
+        'customerID': 175,
+        'customerName': 'Comcast',
+        'licensedNodes': 92,
+        'entitledCapacity': 800000000000000,
+        'provisionedLicensedCapacity': 88669599825920,
+        'detailsLink': `
+          <a class="view-details-link"
+              href="#/dashboard/capacity-licensing/175"
+              aria-label="View capacity licensing details for the customer">
+            <i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i>
+          </a>
+        `,
+      }];
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
       service.getData(true)
         .then( response => {
