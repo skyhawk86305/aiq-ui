@@ -25,6 +25,7 @@
       return DataService.callAPI('ListCustomerLicensingInfo')
         .then( ({ customers = [] }) =>
           customers.map( customer => Object.assign({}, customer, {
+            licensedNodes: customer.licensedNodes || 0,
             detailsLink: $filter('capacityLicensingDetailsLink')(customer.customerID),
           }))
         );

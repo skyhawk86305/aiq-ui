@@ -18,7 +18,9 @@ const columns = [
 ];
 
 function mapFixture(rawFixture) {
-  return rawFixture.result.customers;
+  return rawFixture.result.customers.map( customer => Object.assign({}, customer, {
+    licensedNodes: customer.licensedNodes || 0,
+  }));
 }
 
 describe('The Capacity Licensing Page', function () {
