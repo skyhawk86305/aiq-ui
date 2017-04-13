@@ -70,7 +70,7 @@ describe('Authentication', function() {
       });
 
       browser.get('#/dashboard/overview').then(function() {
-        expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+        expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
 
         mockBackend.http.reset();
         authMock.respond(function() {
@@ -78,20 +78,20 @@ describe('Authentication', function() {
         });
 
         browser.get('#/dashboard/health');
-        expect(browser.getLocationAbsUrl()).to.eventually.contain('/login');
+        expect(browser.getCurrentUrl()).to.eventually.contain('/login');
       });
     });
 
     it('should not let me navigate to an aiq page via URL if I\'m not unauthenticated', function() {
       browser.get('#/dashboard/overview');
-      expect(browser.getLocationAbsUrl()).to.eventually.contain('/login');
+      expect(browser.getCurrentUrl()).to.eventually.contain('/login');
     });
   });
 
   describe('Logging In', function() {
     beforeEach(function(done) {
       browser.get('#/dashboard/overview').then(function() {
-        browser.getLocationAbsUrl().then(function(url){
+        browser.getCurrentUrl().then(function(url){
           if (url.indexOf('login') === -1){
             var navBar = new support.navbarComponent;
             navBar.menu.expand().select('Logout');
@@ -141,7 +141,7 @@ describe('Authentication', function() {
   describe('Logging Out', function() {
     beforeEach(function() {
       support.login();
-      expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+      expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
     });
 
     it('should take me to the login page', function () {

@@ -129,37 +129,37 @@ describe('Cluster Overview Page', function () {
       it('@any @smoke node count should redirect to the nodes page', function() {
         const box = clusterOverviewPage.infoBar.infoBox('node-count');
         box.title.click();
-        expect(browser.getLocationAbsUrl()).to.eventually.include('/nodes');
+        expect(browser.getCurrentUrl()).to.eventually.include('/nodes');
       });
 
       it('@any @smoke volume count should redirect to the volumes page', function() {
         const box = clusterOverviewPage.infoBar.infoBox('volume-count');
         box.title.click();
-        expect(browser.getLocationAbsUrl()).to.eventually.include('/volumes/active-volumes');
+        expect(browser.getCurrentUrl()).to.eventually.include('/volumes/active-volumes');
       });
 
       it('@any @smoke efficiency info should redirect to the efficiency page', function() {
         const box = clusterOverviewPage.infoBar.infoBox('efficiency-info');
         box.title.click();
-        expect(browser.getLocationAbsUrl()).to.eventually.include('/efficiency');
+        expect(browser.getCurrentUrl()).to.eventually.include('/efficiency');
       });
 
       it('@any @smoke block capacity should redirect to the capacity page', function() {
         const box = clusterOverviewPage.infoBar.infoBox('block-capacity');
         box.title.click();
-        expect(browser.getLocationAbsUrl()).to.eventually.include('/capacity?capacity-sync-graphs-context-graph=block-capacity');
+        expect(browser.getCurrentUrl()).to.eventually.include('/capacity?capacity-sync-graphs-context-graph=block-capacity');
       });
 
       it('@any @smoke metadata capacity should redirect to the capacity page', function() {
         const box = clusterOverviewPage.infoBar.infoBox('metadata-capacity');
         box.title.click();
-        expect(browser.getLocationAbsUrl()).to.eventually.include('/capacity?capacity-sync-graphs-context-graph=metadata-capacity');
+        expect(browser.getCurrentUrl()).to.eventually.include('/capacity?capacity-sync-graphs-context-graph=metadata-capacity');
       });
 
       it('@any @smoke cluster faults should redirect to the error log page', function() {
         const box = clusterOverviewPage.infoBar.infoBox('cluster-faults');
         box.title.click();
-        expect(browser.getLocationAbsUrl()).to.eventually.include('/errorLog');
+        expect(browser.getCurrentUrl()).to.eventually.include('/errorLog');
       });
     });
 

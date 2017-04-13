@@ -30,7 +30,7 @@ function mapFixture(rawFixture) {
 describe('The Alert Policies Page', function () {
   beforeAll(function() {
     support.login();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
   });
 
 

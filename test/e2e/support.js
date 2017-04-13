@@ -92,7 +92,7 @@ support = {
 
     function testTableCell(rowIndex, columnKey, expectedValue) {
       const cellContent = table.content.row(rowIndex).data(columnKey).getText();
-      const errorMessage = `Row: ${rowIndex}, Column: ${columnKey}`
+      const errorMessage = `Row: ${rowIndex}, Column: ${columnKey}`;
       support.expect(cellContent).to.eventually.equal(expectedValue, errorMessage);
     }
   },
@@ -128,7 +128,7 @@ support = {
   getFirstClusterId: function(openedClusterSelect) {
     return new Promise(function(resolve, reject) {
       openedClusterSelect.clustersList().selectClusterByIndex(0).then(function () {
-        browser.getLocationAbsUrl().then(function (url) {
+        browser.getCurrentUrl().then(function (url) {
           resolve(url.split('/cluster\/')[1].split('\/reporting').shift());
         });
       });
