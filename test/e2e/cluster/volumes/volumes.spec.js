@@ -77,13 +77,13 @@ describe('The Cluster Volumes Page', function () {
     var viewDetailsLink = table.el.all(by.css('.view-details-link')).get(0);
     expect(viewDetailsLink.isPresent()).to.eventually.be.true;
     viewDetailsLink.click();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/volume/1');
+    expect(browser.getCurrentUrl()).to.eventually.contain('/cluster/1849553/volume/1');
   });
 
   it('@any should allow the user to go to snapshots table page', function() {
     var snapshotLink= table.el.all(by.id('1snapshot-details')).get(0);
     expect(snapshotLink.isPresent()).to.eventually.be.true;
     snapshotLink.click();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/1849553/volumes/snapshots');
+    expect(browser.getCurrentUrl()).to.eventually.contain('/cluster/1849553/volumes/snapshots');
   });
 });

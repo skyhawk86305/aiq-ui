@@ -11,7 +11,7 @@ describe('The cluster select component on initial page load', function() {
 
   beforeAll(function() {
     support.login();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
   });
 
   beforeEach(function(done) {
@@ -34,7 +34,7 @@ describe('The cluster select component on initial page load', function() {
 describe('The cluster select component', function() {
   beforeAll(function() {
     support.login();
-    expect(browser.getLocationAbsUrl()).to.eventually.contain('/dashboard/overview');
+    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
   });
 
   beforeEach(function(done) {
@@ -312,7 +312,7 @@ describe('selecting clusters', function() {
 
   it('should navigate the user to the default /cluster route with the selected clusterID embedded in the url', function(done) {
     selectClusterSequence().then(function () {
-      expect(browser.getLocationAbsUrl()).to.eventually.contain('/cluster/26/reporting/overview');
+      expect(browser.getCurrentUrl()).to.eventually.contain('/cluster/26/reporting/overview');
       done();
     });
   });
