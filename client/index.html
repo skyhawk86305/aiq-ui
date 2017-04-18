@@ -33,6 +33,13 @@
 <body id="{{appCtrl.currentPage}}" ng-cloak class="sf-layout-container -flex-row body-container">
 
   <div ng-cloak class="sf-layout-page sf-layout-container">
+    <sf-message-banner ng-if="appCtrl.displayBanner"
+                       message-banner-id="aiq-message-banner"
+                       message-banner-text="{{appCtrl.messageText}}"
+                       message-banner-date="{{appCtrl.messageDate | date:'yyyy-MM-dd HH:mm:ss' }}"
+                       message-type="{{appCtrl.messageType}}"
+                       message-banner-button-text="Dismiss"
+                       on-message-banner-action="appCtrl.dismissBanner()"></sf-message-banner>
     <navbar ng-if="appCtrl.showNavbar" class="sf-layout-shelf" on-api-log-open="appCtrl.apiLogVisible = true"></navbar>
     <ng-view class="sf-layout-page"></ng-view>
     <a href="#" id="atlwdg-trigger" class="atlwdg-trigger atlwdg-RIGHT" ng-show="appCtrl.showNavbar">Feedback</a>
