@@ -63,7 +63,6 @@
             {key:'alerts', href: '#/cluster/:clusterID/reporting/alerts', label: 'Alerts'},
             {key:'iscsiSessions', href: '#/cluster/:clusterID/reporting/iscsiSessions', label: 'ISCSI Sessions'},
             {key:'virtualNetworks', href: '#/cluster/:clusterID/reporting/virtualNetworks', label: 'Virtual Networks'},
-            {key:'forecasting', href: '#/cluster/:clusterID/reporting/forecasting', label: 'Forecasting', disabled: true},
             {key:'apiCollection', href: '#/cluster/:clusterID/reporting/apiCollection', label: 'API Collection'}
           ]
         },
@@ -99,6 +98,12 @@
             {key:'hosts', href: '#/cluster/:clusterID/vvols/hosts', label: 'Hosts'},
             {key:'bindings', href: '#/cluster/:clusterID/vvols/bindings', label: 'Bindings'},
           ]
+        },
+        {
+          key:'vmwareAlarms',
+          href:'#/cluster/:clusterID/vmware-alarms',
+          label: 'VMware Alarms',
+          permissions: ['internalAdmin'],
         }
       ]
     };

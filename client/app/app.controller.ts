@@ -1,19 +1,27 @@
-export function AppController($rootScope, ApiLogService, $location) {
-  let self = this;
-  self.apiLogService = ApiLogService;
-  self.showNavbar = false;
-  self.host = $location.host();
+import { PermissionError } from './app.permissions';
 
-  $rootScope.$on('$routeChangeSuccess', function() {
-    self.showNavbar = $location.path() !== '/login' && $location.path() !== '/reset-password';
-    self.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
-  });
+export class AppController {
+  public showNavbar = false;
+  public host: string;
+  public currentPage: string;
 
-  $rootScope.$on('$routeChangeError', function() {
-    let oldUrl = $location.url();
-    self.showNavbar = false;
-    $location.path('/login').search({url: oldUrl});
-  });
+  static $inject = ['$rootScope', 'ApiLogService', '$location'];
+  constructor(private $rootScope, private apiLogService, private $location) {
+    this.host = $location.host();
+
+    $rootScope.$on('$routeChangeSuccess', () => {
+      this.showNavbar = $location.path() !== '/login' && $location.path() !== '/reset-password';
+      this.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
+    });
+
+    $rootScope.$on('$routeChangeError', (evt, toRoute, fromRoute, error) => {
+      // permission errors are already handled by route config
+      if ( error instanceof PermissionError ) return;
+
+      const oldUrl = $location.url();
+      this.showNavbar = false;
+      $location.path('/login').search({url: oldUrl});
+    });
+  }
 }
 
-AppController.$inject = ['$rootScope', 'ApiLogService', '$location'];
