@@ -279,8 +279,6 @@ describe('Per-Cluster pages', function() {
       { name: 'Volumes', menuItem: 'cluster-volumes', expectedURL: '/volumes' },
       { name: 'Replication', menuItem: 'cluster-replication', expectedURL: '/replication' },
       { name: 'VVols', menuItem: 'cluster-vvols', expectedURL: '/vvols/virtual-volumes' },
-      // TODO: handle hidden nav links -- only internalAdmin can see this one, but test fixture is internalUser
-      // { name: 'VMware Alarms', menuItem: 'cluster-vmwareAlarms', expectedURL: '/vmware-alarms' },
     ];
     tcs.forEach( tc => {
       it(`@any @smoke Should allow navigation to the ${tc.name} page`, function() {
