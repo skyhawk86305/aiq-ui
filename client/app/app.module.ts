@@ -4,6 +4,7 @@ import 'angular-filter';
 import 'angular-route';
 import 'angular-sanitize';
 import 'angular-ui-bootstrap';
+import 'angular-permission';
 import * as objectAssignPolyfill from 'es6-object-assign';
 import '../../node_modules/@sf-netapp/sf-components/dist/sf-components.js';
 
@@ -11,6 +12,7 @@ import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
 import { AppController } from './app.controller';
 import { AppRoutes } from './app.routes';
+import { AppPermissions } from './app.permissions';
 import './styles';
 import './images';
 
@@ -22,6 +24,8 @@ export const AppModule = angular
     'ngRoute',
     'ngSanitize',
     'angular-cache',
+    'permission',
+    'permission.ng',
     'angular.filter',
     'sfComponents',
     ComponentsModule,
@@ -29,6 +33,7 @@ export const AppModule = angular
   ])
   .controller('AppController', AppController)
   .config(AppRoutes)
+  .run(AppPermissions)
   .name;
 
 // ToDo: Remove this once components are modularized

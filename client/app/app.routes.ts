@@ -166,6 +166,13 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<storage-container-table class="sf-layout-block"></storage-container-table>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID/vmware-alarms', {
+        template: '<vmware-alarms></vmware-alarms>',
+        reloadOnSearch: false,
+        data: {
+          permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
+        },
+      })
       .when('/users', {
         template: require('./coming-soon.tpl.html')
       })

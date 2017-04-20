@@ -175,38 +175,46 @@ describe('The Dashboard Pages', function() {
     support.logout();
   });
 
-
-  // Todo: These four pages aren't implemented yet
-  xit('@any @smoke Should allow the user to navigate to the Overview page', function() {
-    navbar.subNavbar.click('dashboard-overview');
-    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
+  const tcs = [
+    // TODO: These pages aren't implemented yet
+    // { name: 'Overview', menuItem: 'dashboard-overview', expectedURL: '/dashboard/overview' },
+    // { name: 'Health', menuItem: 'dashboard-health', expectedURL: '/dashboard/health' },
+    // { name: 'Capacity', menuItem: 'dashboard-capacity', expectedURL: '/dashboard/capacity' },
+    // { name: 'Performance', menuItem: 'dashboard-performance', expectedURL: '/dashboard/performance' },
+    { name: 'Alerts', menuItem: 'dashboard-alerts', expectedURL: '/dashboard/alerts/history' },
+    { name: 'Capacity Licensing', menuItem: 'dashboard-capacityLicensing', expectedURL: '/dashboard/capacity-licensing' },
+  ];
+  tcs.forEach( tc => {
+    it(`@any @smoke Should allow navigation to the ${tc.name} page`, function() {
+      const menuItem = navbar.subNavbar.item(tc.menuItem);
+      expect(menuItem.isDisplayed()).to.eventually.be.true;
+      menuItem.click();
+      expect(browser.getCurrentUrl()).to.eventually.contain(tc.expectedURL);
+    });
   });
 
-  xit('@any @smoke Should allow the user to navigate to the Health page', function() {
-    navbar.subNavbar.click('dashboard-health');
-    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/health');
-  });
+  describe('Navigation to all Alert Pages', function() {
 
-  xit('@any @smoke Should allow the user to navigate to the Capacity page', function() {
-    navbar.subNavbar.click('dashboard-capacity');
-    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/capacity');
-  });
+    beforeEach(function(done) {
+      browser.actions().mouseMove(element(by.id('sf-sub-navbar-item-dashboard-alerts'))).perform().then(() => {
+        browser.wait(protractor.ExpectedConditions.presenceOf(navbar.subNavMenu.el));
+        done();
+      });
+    });
 
-  xit('@any @smoke Should allow the user to navigate to the Performance page', function() {
-    navbar.subNavbar.click('dashboard-performance');
-    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/performance');
-  });
-
-  it('@any @smoke Should allow the user to navigate to the alerts History Page', function() {
-    navbar.subNavbar.click('dashboard-alerts');
-    navbar.subNavMenu.click('dashboard-alerts-history');
-    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/alerts/history');
-  });
-
-  it('@any @smoke Should allow the user to navigate to the alerts History Page', function() {
-    navbar.subNavbar.click('dashboard-alerts');
-    navbar.subNavMenu.click('dashboard-alerts-policies');
-    expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/alerts/policies');
+    const tcs = [
+      { name: 'Alerts History', menuItem: 'dashboard-alerts-history', expectedURL: '/dashboard/alerts/history' },
+      { name: 'Alert Policies', menuItem: 'dashboard-alerts-policies', expectedURL: '/dashboard/alerts/policies' },
+      { name: 'Suppressed Clusters', menuItem: 'dashboard-alerts-suppressedClusters', expectedURL: '/dashboard/alerts/suppressedClusters' },
+    ];
+    tcs.forEach( tc => {
+      it(`@any @smoke Should allow navigation to the ${tc.name} page`, function() {
+        const menuItem = navbar.subNavMenu.item(tc.menuItem);
+        expect(menuItem.isDisplayed()).to.eventually.be.true;
+        menuItem.click();
+        expect(browser.getCurrentUrl()).to.eventually.contain(tc.expectedURL);
+      });
+    });
   });
 });
 
@@ -264,24 +272,21 @@ describe('Per-Cluster pages', function() {
       support.logout();
     });
 
-    it('@any @smoke Should allow navigation to the Nodes page', function() {
-      navbar.subNavbar.click('cluster-nodes');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/nodes');
-    });
-
-    it('@any @smoke Should allow navigation to the Drives page', function() {
-      navbar.subNavbar.click('cluster-drives');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/drives');
-    });
-
-    it('@any @smoke Should allow navigation to the Volumes page', function() {
-      navbar.subNavbar.click('cluster-volumes');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/volumes');
-    });
-
-    it('@any @smoke Should allow navigation to the Replication page', function() {
-      navbar.subNavbar.click('cluster-replication');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/replication');
+    const tcs = [
+      { name: 'Reporting', menuItem: 'cluster-reporting', expectedURL: '/reporting/overview' },
+      { name: 'Nodes', menuItem: 'cluster-nodes', expectedURL: '/nodes' },
+      { name: 'Drives', menuItem: 'cluster-drives', expectedURL: '/drives' },
+      { name: 'Volumes', menuItem: 'cluster-volumes', expectedURL: '/volumes' },
+      { name: 'Replication', menuItem: 'cluster-replication', expectedURL: '/replication' },
+      { name: 'VVols', menuItem: 'cluster-vvols', expectedURL: '/vvols/virtual-volumes' },
+    ];
+    tcs.forEach( tc => {
+      it(`@any @smoke Should allow navigation to the ${tc.name} page`, function() {
+        const menuItem = navbar.subNavbar.item(tc.menuItem);
+        expect(menuItem.isDisplayed()).to.eventually.be.true;
+        menuItem.click();
+        expect(browser.getCurrentUrl()).to.eventually.contain(tc.expectedURL);
+      });
     });
   });
 
@@ -307,51 +312,27 @@ describe('Per-Cluster pages', function() {
       support.logout();
     });
 
-    it('@any @smoke Should allow navigation to the Overview page', function() {
-      navbar.subNavMenu.click('cluster-reporting-overview');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/overview');
+    const tcs = [
+      { name: 'Overview', menuItem: 'cluster-reporting-overview', expectedURL: '/reporting/overview' },
+      { name: 'Capacity', menuItem: 'cluster-reporting-capacity', expectedURL: '/reporting/capacity' },
+      { name: 'Efficiency', menuItem: 'cluster-reporting-efficiency', expectedURL: '/reporting/efficiency' },
+      { name: 'Performance', menuItem: 'cluster-reporting-performance', expectedURL: '/reporting/performance' },
+      { name: 'Error Log', menuItem: 'cluster-reporting-errorLog', expectedURL: '/reporting/errorLog' },
+      { name: 'Events', menuItem: 'cluster-reporting-events', expectedURL: '/reporting/events' },
+      { name: 'Alerts', menuItem: 'cluster-reporting-alerts', expectedURL: '/reporting/alerts' },
+      { name: 'iSCSI Sessions', menuItem: 'cluster-reporting-iscsiSessions', expectedURL: '/reporting/iscsiSessions' },
+      { name: 'Virtual Networks', menuItem: 'cluster-reporting-virtualNetworks', expectedURL: '/reporting/virtualNetworks' },
+      { name: 'API Collection', menuItem: 'cluster-reporting-apiCollection', expectedURL: '/reporting/apiCollection' },
+    ];
+    tcs.forEach( tc => {
+      it(`@any @smoke Should allow navigation to the ${tc.name} page`, function() {
+        const menuItem = navbar.subNavMenu.item(tc.menuItem);
+        expect(menuItem.isDisplayed()).to.eventually.be.true;
+        menuItem.click();
+        expect(browser.getCurrentUrl()).to.eventually.contain(tc.expectedURL);
+      });
     });
 
-    it('@any @smoke Should allow navigation to the Capacity page', function() {
-      navbar.subNavMenu.click('cluster-reporting-capacity');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/capacity');
-    });
-
-    it('@any @smoke Should allow navigation to the Efficiency page', function() {
-      navbar.subNavMenu.click('cluster-reporting-efficiency');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/efficiency');
-    });
-
-    it('@any @smoke Should allow navigation to the Performance page', function() {
-      navbar.subNavMenu.click('cluster-reporting-performance');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/performance');
-    });
-
-    it('@any @smoke Should allow navigation to the Error Log page', function() {
-      navbar.subNavMenu.click('cluster-reporting-errorLog');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/errorLog');
-    });
-
-    it('@any @smoke Should allow navigation to the Events page', function() {
-      navbar.subNavMenu.click('cluster-reporting-events');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/events');
-    });
-
-    it('@any @smoke Should allow navigation to the iSCSI Sessions page', function() {
-      navbar.subNavMenu.click('cluster-reporting-iscsiSessions');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/iscsiSessions');
-    });
-
-    // ToDo: This pages aren't implemented yet
-    xit('Should allow navigation to the Forecasting page', function() {
-     navbar.subNavMenu.click('cluster-reporting-forecasting');
-     expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/forecasting');
-    });
-
-    it('@any @smoke Should allow navigation to the Virtual Networks page', function() {
-      navbar.subNavMenu.click('cluster-reporting-virtualNetworks');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/reporting/virtualNetworks');
-    });
   });
 
   describe('Navigation to all Per-Cluster VVols Pages', function() {
@@ -376,30 +357,22 @@ describe('Per-Cluster pages', function() {
       support.logout();
     });
 
-    it('Should allow navigation to the Virtual Volumes page', function() {
-      navbar.subNavMenu.click('cluster-vvols-virtualVolumes');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/vvols/virtual-volumes');
+    const tcs = [
+      { name: 'Virtual Volumes', menuItem: 'cluster-vvols-virtualVolumes', expectedURL: '/vvols/virtual-volumes' },
+      { name: 'VVol Storage Containers', menuItem: 'cluster-vvols-storageContainers', expectedURL: '/vvols/storage-containers' },
+      { name: 'VVol Protocol Endpoints', menuItem: 'cluster-vvols-protocolEndpoints', expectedURL: '/vvols/protocol-endpoints' },
+      { name: 'VVol Hosts', menuItem: 'cluster-vvols-hosts', expectedURL: '/vvols/hosts' },
+      { name: 'VVol Bindings', menuItem: 'cluster-vvols-bindings', expectedURL: '/vvols/bindings' },
+    ];
+    tcs.forEach( tc => {
+      it(`Should allow navigation to the ${tc.name} page`, function() {
+        const menuItem = navbar.subNavMenu.item(tc.menuItem);
+        expect(menuItem.isDisplayed()).to.eventually.be.true;
+        menuItem.click();
+        expect(browser.getCurrentUrl()).to.eventually.contain(tc.expectedURL);
+      });
     });
 
-    it('Should allow navigation to the VVols Storage Containers page', function() {
-      navbar.subNavMenu.click('cluster-vvols-storageContainers');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/vvols/storage-containers');
-    });
-
-    it('Should allow navigation to the VVols Protocol Endpoints page', function() {
-      navbar.subNavMenu.click('cluster-vvols-protocolEndpoints');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/vvols/protocol-endpoints');
-    });
-
-    it('Should allow navigation to the VVols Hosts page', function() {
-      navbar.subNavMenu.click('cluster-vvols-hosts');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/vvols/hosts');
-    });
-
-    it('Should allow navigation to the VVols Bindings page', function() {
-      navbar.subNavMenu.click('cluster-vvols-bindings');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/vvols/bindings');
-    });
   });
 
   describe('Navigation to all Per-Cluster Volumes Pages', function() {
@@ -424,20 +397,20 @@ describe('Per-Cluster pages', function() {
       support.logout();
     });
 
-    it('Should allow navigation to the Active Volumes page', function() {
-      navbar.subNavMenu.click('cluster-volumes-activeVolumes');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/volumes/active-volumes');
+    const tcs = [
+      { name: 'Active Volumes', menuItem: 'cluster-volumes-activeVolumes', expectedURL: '/volumes/active-volumes' },
+      { name: 'Snapshots', menuItem: 'cluster-volumes-snapshots', expectedURL: '/volumes/snapshots' },
+      { name: 'Snapshot Schedules', menuItem: 'cluster-volumes-snapshotSchedules', expectedURL: '/volumes/snapshot-schedules' },
+    ];
+    tcs.forEach( tc => {
+      it(`Should allow navigation to the ${tc.name} page`, function() {
+        const menuItem = navbar.subNavMenu.item(tc.menuItem);
+        expect(menuItem.isDisplayed()).to.eventually.be.true;
+        menuItem.click();
+        expect(browser.getCurrentUrl()).to.eventually.contain(tc.expectedURL);
+      });
     });
 
-    it('Should allow navigation to the Snapshots page', function() {
-      navbar.subNavMenu.click('cluster-volumes-snapshots');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/volumes/snapshots');
-    });
-
-    it('Should allow navigation to the Snapshot Schedules page', function() {
-      navbar.subNavMenu.click('cluster-volumes-snapshotSchedules');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/volumes/snapshot-schedules');
-    });
   });
 
 });
