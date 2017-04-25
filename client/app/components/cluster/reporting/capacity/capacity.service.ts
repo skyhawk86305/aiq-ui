@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
     .module('aiqUi')
     .service('CapacityGraphsService', [
@@ -18,7 +20,16 @@
     function getClusterCapacity(params) {
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('capacity', params)
-        .then(function(response) { return response.data; });
+        .then( ({ data }) => Object.assign({}, data,
+          _(data)
+            .pick([
+              'maxUsedSpace', 'usedSpace',
+              'maxUsedMetadataSpace', 'usedMetadataSpace',
+              'maxProvisionedSpace', 'provisionedSpace',
+            ])
+            .mapValues( vals => vals.map( v => v < 0 ? null : v ) ) // remove negatives
+            .value()
+        ));
     }
 
     function update(clusterID) {
