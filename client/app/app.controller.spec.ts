@@ -24,7 +24,7 @@ describe('AppController', function () {
     http.when('GET', '/sessions').respond('success');
     http.when('GET', 'welcome-beta.tpl.html').respond(200);
     http.when('POST', '/json-rpc/2.0').respond(200);
-    http.when('GET', '/message-banner').respond(messageBanner);
+    http.when('GET', '/banner-message').respond(messageBanner);
   }));
 
   describe('initialization', function() {
@@ -41,6 +41,7 @@ describe('AppController', function () {
           expect(controller.messageDate).toEqual(messageBanner.timestamp);
           expect(controller.displayBanner).toBeTruthy();
         });
+        rootScope.$digest();
       });
     });
   });
@@ -56,6 +57,7 @@ describe('AppController', function () {
           controller.updateBanner();
           expect(controller.displayBanner).toBeFalsy();
         });
+        rootScope.$digest();
       });
     });
 
@@ -69,6 +71,7 @@ describe('AppController', function () {
           controller.updateBanner();
           expect(controller.displayBanner).toBeFalsy();
         });
+        rootScope.$digest();
       });
     });
 
@@ -83,6 +86,7 @@ describe('AppController', function () {
             expect(controller.displayBanner).toBeFalsy();
           });
         });
+        rootScope.$digest();
       });
     });
 
@@ -102,6 +106,7 @@ describe('AppController', function () {
               expect(controller.messageDate).toEqual(messageBanner.timestamp);
             });
           });
+          rootScope.$digest();
         });
       });
 
@@ -117,6 +122,7 @@ describe('AppController', function () {
               expect(controller.displayBanner).toBeFalsy();
             });
           });
+          rootScope.$digest();
         });
       });
     });
