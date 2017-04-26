@@ -189,4 +189,14 @@ mockRoutes.get('/graph/cluster/:clusterId/performance/snapshot', function (req, 
   res.send(response);
 });
 
+mockRoutes.get('/banner-message', function(req, res) {
+  const response = {
+    "message": "This is a mock message.",
+    "type": "info",
+    "timestamp": "0"
+  };
+
+  res.send(response);
+});
+
 module.exports = mockRoutes;

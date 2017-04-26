@@ -15,6 +15,13 @@ if(!proxyConfig) {
   process.exit();
 }
 
+proxyRoutes.use('/banner-message', function (req, res) {
+  req.pipe(request({
+    method: req.method,
+    uri: proxyConfig.endPoint + '/banner-message'
+  })).pipe(res);
+});
+
 proxyRoutes.use('/sessions', function (req, res) {
   req.pipe(request({
     method: req.method,

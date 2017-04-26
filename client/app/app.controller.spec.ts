@@ -5,7 +5,8 @@ describe('AppController', function () {
       location,
       controller,
       route,
-      http;
+      http,
+      messageBanner;
 
   beforeEach(angular.mock.module('aiqUi'));
 
@@ -15,15 +16,121 @@ describe('AppController', function () {
     controller = $controller('AppController');
     route = $route;
     http = $httpBackend;
+    messageBanner = {
+      message: 'Test message',
+      type: 'info',
+      timestamp: '0'
+    };
     http.when('GET', '/sessions').respond('success');
     http.when('GET', 'welcome-beta.tpl.html').respond(200);
     http.when('POST', '/json-rpc/2.0').respond(200);
+    http.when('GET', '/banner-message').respond(messageBanner);
   }));
+
+  // TODO: this should be added, but breaks a bunch of these tests
+  // afterEach(function() {
+  //   http.verifyNoOutstandingExpectation();
+  //   http.verifyNoOutstandingRequest();
+  // });
 
   describe('initialization', function() {
     it('should expose the navbar and apiLog services', function() {
       expect(controller.apiLogService).toBeDefined();
       expect(controller.showNavbar).toBeFalsy();
+    });
+
+    describe('.$onInit', function() {
+      xit('should retrieve the banner data', function() {
+        controller.$onInit().then(function() {
+          expect(controller.messageText).toEqual(messageBanner.message);
+          expect(controller.messageType).toEqual(messageBanner.type);
+          expect(controller.messageDate).toEqual(messageBanner.timestamp);
+          expect(controller.displayBanner).toBeTruthy();
+        });
+        rootScope.$digest();
+      });
+    });
+  });
+
+  xdescribe('.updateBanner()', function() {
+    describe('when the message is missing from the banner data', function() {
+      it('should not display the banner', function() {
+        controller.$onInit().then(function() {
+          messageBanner = {
+            timestamp: messageBanner.timestamp,
+            type: messageBanner.type
+          };
+          controller.updateBanner();
+          expect(controller.displayBanner).toBeFalsy();
+        });
+        rootScope.$digest();
+      });
+    });
+
+    describe('when the type is missing from the banner data', function() {
+      it('should not display the banner', function() {
+        controller.$onInit().then(function() {
+          messageBanner = {
+            timestamp: messageBanner.timestamp,
+            message: messageBanner.message
+          };
+          controller.updateBanner();
+          expect(controller.displayBanner).toBeFalsy();
+        });
+        rootScope.$digest();
+      });
+    });
+
+    describe('when the timestamp is missing from the banner data', function() {
+      it('should not display the banner', function() {
+        controller.$onInit().then(function() {
+          messageBanner = {
+            message: messageBanner.message,
+            type: messageBanner.type
+          };
+          controller.updateBanner().then(function() {
+            expect(controller.displayBanner).toBeFalsy();
+          });
+        });
+        rootScope.$digest();
+      });
+    });
+
+    describe('when the banner is not displayed', function() {
+      describe('and a new message is available', function() {
+        it('should display the banner with the new message', function() {
+          controller.$onInit().then(function() {
+            messageBanner = {
+              message: 'New Message',
+              type: 'error',
+              timestamp: '100'
+            };
+            controller.updateBanner().then(function() {
+              expect(controller.displayBanner).toBeTruthy();
+              expect(controller.messageText).toEqual(messageBanner.message);
+              expect(controller.messageType).toEqual(messageBanner.type);
+              expect(controller.messageDate).toEqual(messageBanner.timestamp);
+            });
+          });
+          rootScope.$digest();
+        });
+      });
+
+      describe('and no new message is available', function() {
+        it('should not display the banner', function() {
+          controller.$onInit().then(function() {
+            messageBanner = {
+              message: 'New Message',
+              type: 'error',
+              timestamp: messageBanner.timestamp
+            };
+            controller.updateBanner().then(function() {
+              expect(controller.displayBanner).toBeFalsy();
+            });
+          });
+          rootScope.$digest();
+        });
+      });
     });
   });
 
