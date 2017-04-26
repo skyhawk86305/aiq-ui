@@ -6,7 +6,7 @@ const expect = require('../support.js').expect;
 const MessageBanner = require('../page-objects/components/sf-components.po').messageBanner;
 const messageBanner = new MessageBanner('aiq-message-banner');
 
-fdescribe('The message banner', function() {
+describe('The message banner', function() {
 
   describe('with a valid message JSON', function() {
     afterEach(function() {
