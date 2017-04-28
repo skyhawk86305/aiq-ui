@@ -105,6 +105,9 @@
           label: 'VMware Alarms',
           permissions: ['internalAdmin'],
         }
+      ],
+      admin: [
+        {key:'unassociatedClusters', href: '#/admin/unassociatedClusters', label: 'Unassociated Clusters', permissions: ['internalAdmin', 'root']}
       ]
     };
 

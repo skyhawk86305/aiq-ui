@@ -15,6 +15,11 @@
             ng-class="{'active':$ctrl.activeItems.main === 'cluster'}">
           <cluster-select></cluster-select>
         </li>
+        <li class="navbar-item -main"
+            id="sf-main-navbar-item-admin"
+            ng-class="{'active':$ctrl.activeItems.main === 'admin'}">
+          <a href="#/admin/unassociatedClusters">Admin</a>
+        </li>
 
         <!--<li class="navbar-item -main"
             id="sf-main-navbar-item-users"

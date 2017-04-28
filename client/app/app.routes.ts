@@ -32,6 +32,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       .when('/reset-password', {
         template: '<reset-password></reset-password>'
       })
+      .when('/admin/unassociatedClusters', {
+        template: '<unassociated-clusters class="sf-layout-block"></unassociated-clusters>',
+        reloadOnSearch: false
+      })
       .when('/dashboard/overview', {
         template: require('./welcome-beta.tpl.html')
       })
