@@ -42,4 +42,3 @@ scripts.keys().forEach(scripts);
 
 let styles = require.context('./components', true, /\.less$/);
 styles.keys().forEach(styles);
- 
