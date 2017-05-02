@@ -82,7 +82,7 @@
               usedSpace: 'Used Space'
             }
           },
-          dataLimit: 500,
+          dataLimit: 750,
           graph: new SFD3LineGraph(getGraphConfig('blockChild'))
         },
         context: {
@@ -106,7 +106,7 @@
               usedMetadataSpace: 'Used Metadata Space'
             }
           },
-          dataLimit: 500,
+          dataLimit: 750,
           graph: new SFD3LineGraph(getGraphConfig('metadataChild'))
         },
         context: {
@@ -130,7 +130,7 @@
               provisionedSpace: 'Provisioned Space'
             }
           },
-          dataLimit: 500,
+          dataLimit: 750,
           graph: new SFD3LineGraph(getGraphConfig('provisionedChild'))
         },
         context: {

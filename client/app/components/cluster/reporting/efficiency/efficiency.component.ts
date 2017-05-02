@@ -47,7 +47,7 @@
               efficiencyFactor: 'Overall Efficiency'
             }
           },
-          dataLimit: 500,
+          dataLimit: 750,
           graph: new SFD3LineGraph(getGraphConfig('efficiencyChild'))
         },
         context: {

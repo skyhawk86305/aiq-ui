@@ -45,7 +45,7 @@
           id: 'throughput',
           selected: {
             title: 'Throughput',
-            dataLimit: 75,
+            dataLimit: 750,
             graph: new this.SFD3LineGraph(this.getGraphConfig('throughput')),
             export: true,
             legend: {
@@ -58,7 +58,7 @@
           },
           sparkLine: {
             title: 'Throughput',
-            dataLimit: 75,
+            dataLimit: 175,
             graph: new this.SFD3LineGraph(this.getGraphConfig('throughput', false, true))
           },
           context: {
@@ -71,7 +71,7 @@
           id: 'iops',
           selected: {
             title: 'IOPS',
-            dataLimit: 75,
+            dataLimit: 750,
             graph: new this.SFD3LineGraph(this.getGraphConfig('iops')),
             export: true,
             legend: {
@@ -84,7 +84,7 @@
           },
           sparkLine: {
             title: 'IOPS',
-            dataLimit: 75,
+            dataLimit: 175,
             graph: new this.SFD3LineGraph(this.getGraphConfig('iops', false, true))
           },
           context: {
@@ -97,7 +97,7 @@
           id: 'latency',
           selected: {
             title: 'Latency',
-            dataLimit: 75,
+            dataLimit: 750,
             graph: new this.SFD3LineGraph(this.getGraphConfig('latency')),
             export: true,
             legend: {
@@ -110,7 +110,7 @@
           },
           sparkLine: {
             title: 'Latency',
-            dataLimit: 75,
+            dataLimit: 175,
             graph: new this.SFD3LineGraph(this.getGraphConfig('latency', false, true))
           },
           context: {
@@ -123,13 +123,13 @@
           id: 'queue-depth',
           selected: {
             title: 'Queue Depth',
-            dataLimit: 75,
+            dataLimit: 750,
             graph: new this.SFD3LineGraph(this.getGraphConfig('queueDepth')),
             export: true
           },
           sparkLine: {
             title: 'Queue Depth',
-            dataLimit: 75,
+            dataLimit: 175,
             graph: new this.SFD3LineGraph(this.getGraphConfig('queueDepth', false, true))
           },
           context: {
@@ -142,13 +142,13 @@
           id: 'average-io-size',
           selected: {
             title: 'Average IO Size',
-            dataLimit: 75,
+            dataLimit: 750,
             graph: new this.SFD3LineGraph(this.getGraphConfig('averageIOSize')),
             export: true
           },
           sparkLine: {
             title: 'Average IO Size',
-            dataLimit: 75,
+            dataLimit: 175,
             graph: new this.SFD3LineGraph(this.getGraphConfig('averageIOSize', false, true))
           },
           context: {
@@ -161,7 +161,7 @@
           id: 'capacity',
           selected: {
             title: 'Capacity',
-            dataLimit: 75,
+            dataLimit: 750,
             graph: new this.SFD3LineGraph(this.getGraphConfig('capacity')),
             export: true,
             legend: {
@@ -173,11 +173,11 @@
           },
           sparkLine: {
             title: 'Capacity',
-            dataLimit: 75,
+            dataLimit: 175,
             graph: new this.SFD3LineGraph(this.getGraphConfig('capacity', false, true))
           },
           context: {
-            dataLimit: 200,
+            dataLimit: 75,
             graph: new this.SFD3BarGraph(this.getGraphConfig('capacity', true))
           }
         },

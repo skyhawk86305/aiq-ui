@@ -46,7 +46,7 @@
               totalOpsPerSec: 'Total IOPS'
             }
           },
-          dataLimit: 500,
+          dataLimit: 750,
           graph: new SFD3LineGraph(getGraphConfig('iopsChild'))
         },
         context: {
@@ -71,7 +71,7 @@
               totalBytesPerSec: 'Total Throughput'
             }
           },
-          dataLimit: 500,
+          dataLimit: 750,
           graph: new SFD3LineGraph(getGraphConfig('throughputChild'))
         },
         context: {
@@ -94,7 +94,7 @@
               clusterUtilizationPct: 'Utilization'
             }
           },
-          dataLimit: 500,
+          dataLimit: 750,
           graph: new SFD3LineGraph(getGraphConfig('utilizationChild'))
         },
         context: {
