@@ -41,7 +41,7 @@
                 peakActiveSessions: 'Peak Active Sessions',
               }
             },
-            dataLimit: 500,
+            dataLimit: 750,
             graph: new SFD3LineGraph(this.getGraphConfig('iscsiSessionsChild'))
           },
           context: {
