@@ -177,7 +177,7 @@
             graph: new this.SFD3LineGraph(this.getGraphConfig('capacity', false, true))
           },
           context: {
-            dataLimit: 75,
+            dataLimit: 200,
             graph: new this.SFD3BarGraph(this.getGraphConfig('capacity', true))
           }
         },
