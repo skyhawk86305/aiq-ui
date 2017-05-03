@@ -32,8 +32,8 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       .when('/reset-password', {
         template: '<reset-password></reset-password>'
       })
-      .when('/admin/unassociatedClusters', {
-        template: '<unassociated-clusters class="sf-layout-block"></unassociated-clusters>',
+      .when('/admin/unregisteredClusters', {
+        template: '<unregistered-clusters class="sf-layout-block"></unregistered-clusters>',
         reloadOnSearch: false
       })
       .when('/dashboard/overview', {

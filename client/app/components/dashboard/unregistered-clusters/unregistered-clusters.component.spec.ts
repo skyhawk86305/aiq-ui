@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Component: unassociatedClusters', function() {
+describe('Component: unregisteredClusters', function() {
   let service,
     controller;
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function($componentController, UnassociatedClustersService) {
-    service = UnassociatedClustersService;
-    controller = $componentController('unassociatedClusters');
+  beforeEach(inject(function($componentController, UnregisteredClustersService) {
+    service = UnregisteredClustersService;
+    controller = $componentController('unregisteredClusters');
   }));
 
   describe('initialization', function() {

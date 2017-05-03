@@ -107,7 +107,7 @@
         }
       ],
       admin: [
-        {key:'unassociatedClusters', href: '#/admin/unassociatedClusters', label: 'Unassociated Clusters', permissions: ['internalAdmin', 'root']}
+        {key:'unregisteredClusters', href: '#/admin/unregisteredClusters', label: 'Unregistered Clusters', permissions: ['internalAdmin', 'root']}
       ]
     };
 

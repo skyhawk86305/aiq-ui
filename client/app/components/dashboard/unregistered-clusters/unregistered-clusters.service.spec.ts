@@ -1,6 +1,6 @@
 'use strict';
 
-describe('UnassociatedClustersService', function() {
+describe('UnregisteredClustersService', function() {
   let $scope,
     $q,
     DataService,
@@ -13,13 +13,13 @@ describe('UnassociatedClustersService', function() {
     });
   }));
 
-  beforeEach(inject(function($rootScope, _$q_, _DataService_, _SFTableService_, UnassociatedClusterService) {
+  beforeEach(inject(function($rootScope, _$q_, _DataService_, _SFTableService_, UnregisteredClustersService) {
     $scope = $rootScope.$new();
     $q = _$q_;
     DataService = _DataService_;
     SFTableService = _SFTableService_;
 
-    service = UnassociatedClusterService;
+    service = UnregisteredClustersService;
     service.page = {start: 0, limit:25};
   }));
 
@@ -36,11 +36,32 @@ describe('UnassociatedClustersService', function() {
 
     it('should deserialize the responses and resolve an array of data', function() {
       const apiResponse = {
-        clusters: [
-        ]
+        clusters: [{
+          clusterID: 2147039,
+          clusterName: 'Test cluster 1',
+          clusterUUID: 'ef1d6265-e24f-4f36-b095-586e369e018a',
+          clusterVersion: '8.1.0.95',
+          lastUpdateTime: '2017-04-24T17:31:24Z',
+        }, {
+          clusterID: 2147040,
+          clusterName: 'Test cluster 2',
+          clusterUUID: 'abcd6265-e24f-4f36-b095-586e369e018a',
+          clusterVersion: '8.1.0.96',
+          lastUpdateTime: '2017-05-24T17:31:24Z',
+        }]
       };
       const expectedResult = [{
-
+        clusterID: 2147039,
+        clusterName: 'Test cluster 1',
+        clusterUUID: 'ef1d6265-e24f-4f36-b095-586e369e018a',
+        clusterVersion: '8.1.0.95',
+        lastUpdateTime: '2017-04-24T17:31:24Z',
+      }, {
+        clusterID: 2147040,
+        clusterName: 'Test cluster 2',
+        clusterUUID: 'abcd6265-e24f-4f36-b095-586e369e018a',
+        clusterVersion: '8.1.0.96',
+        lastUpdateTime: '2017-05-24T17:31:24Z',
       }];
 
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
@@ -49,7 +70,7 @@ describe('UnassociatedClustersService', function() {
           expect(response).toEqual(expectedResult);
         })
         .catch( () => {
-          fail('promise was unexpectedly rejected')
+          fail('promise was unexpectedly rejected');
         });
 
       $scope.$digest();
@@ -65,6 +86,6 @@ describe('UnassociatedClustersService', function() {
           expect(err).toEqual('test error');
         });
       $scope.$digest();
-    })
+    });
   });
 });
