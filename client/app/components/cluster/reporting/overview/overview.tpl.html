@@ -15,7 +15,7 @@
     </div>
 
     <div class="info-bar-row col-lg-6 col-md-12">
-      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-3 col-md-3 col-sm-6">
+      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-2 col-md-2 col-sm-6">
         <div class="info-box-content">
           <a href="{{$ctrl.getHref('/nodes')}}" class="title link">
             Nodes
@@ -33,7 +33,7 @@
           <span class="value">{{$ctrl.volumesCount}}</span>
         </div>
       </div>
-      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-6 col-md-6 col-sm-12">
+      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-7 col-md-7 col-sm-12">
         <div class="info-box-content">
           <a href="{{$ctrl.getHref('/reporting/errorLog')}}" class="title link">
             Unresolved Faults
@@ -47,10 +47,16 @@
               <span class="title">Warning</span>
             </div>
             <div class="badge -second"
-                 ng-class="{'-critical': $ctrl.clusterSummary.unresolvedFaults.error,
+                 ng-class="{'-error': $ctrl.clusterSummary.unresolvedFaults.error,
                 '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.error }">
               <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.error || 0}}</span>
               <span class="title">Error</span>
+            </div>
+            <div class="badge -third"
+                 ng-class="{'-critical': $ctrl.clusterSummary.unresolvedFaults.critical,
+                '-empty-alert' : !$ctrl.clusterSummary.unresolvedFaults.critical }">
+              <span class="value">{{$ctrl.clusterSummary.unresolvedFaults.critical || 0}}</span>
+              <span class="title">Critical</span>
             </div>
           </div>
         </div>

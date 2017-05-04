@@ -283,7 +283,7 @@ module.exports = {
         "code": "blockServiceUnhealthy",
         "details": "Multiple Block Services are unavailable. SolidFire is attempting to migrate data. Contact SolidFire Support immediately.",
         "data": null,
-        "resolved": true,
+        "resolved": false,
         "resolvedDate": "2014-05-01T18:29:51.210927Z",
         "created": "2015-04-27T22:58:18Z",
         "updated": "2015-04-27T22:58:18Z"
