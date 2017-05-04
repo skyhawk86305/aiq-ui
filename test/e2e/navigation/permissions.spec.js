@@ -65,4 +65,64 @@ describe('The permission framework', function() {
     });
   });
 
+  describe('without registerCluster permission', function() {
+    beforeAll(function() {
+      mockBackend.enable(browser);
+      mockBackend.http.whenGET('/sessions').respond( () => [200, {}] );
+      mockBackend.http.whenPOST('/json-rpc/2.0').respond( () => [200, {
+        result: {
+          user: {
+            userID: 12345,
+            username: "john.doe@netapp.com",
+            permissions: [ 'internalUser' ] ,
+          },
+        }
+      }]);
+    });
+
+    afterAll(function() {
+      mockBackend.disable();
+    });
+
+    it('Should not allow navigation to the Unregistered Clusters page by URL', function() {
+      browser.get('#/admin/unregisteredClusters');
+      expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
+    });
+
+    it('Should not expose a link to the Admin page in the navbar', function() {
+      browser.get('#');
+      expect(navbar.mainNavbar.item('admin').isDisplayed()).to.eventually.be.false;
+    });
+  });
+
+  describe('with registerCluster permission', function() {
+    beforeAll(function() {
+      mockBackend.enable(browser);
+      mockBackend.http.whenGET('/sessions').respond( () => [200, {}] );
+      mockBackend.http.whenPOST('/json-rpc/2.0').respond( () => [200, {
+        result: {
+          user: {
+            userID: 12345,
+            username: "john.doe@netapp.com",
+            permissions: [ 'registerCluster' ] ,
+          },
+        }
+      }]);
+    });
+
+    afterAll(function() {
+      mockBackend.disable();
+    });
+
+    it('Should allow navigation to the Unregistered Clusters page by URL', function() {
+      browser.get('#/admin/unregisteredClusters');
+      expect(browser.getCurrentUrl()).to.eventually.contain('/admin/unregisteredClusters');
+    });
+
+    it('Should expose a link to the Admin page in the navbar', function() {
+      browser.get('#');
+      expect(navbar.mainNavbar.item('admin').isDisplayed()).to.eventually.be.true;
+    });
+  });
+
 });
