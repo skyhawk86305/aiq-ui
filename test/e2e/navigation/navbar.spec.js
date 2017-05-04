@@ -22,7 +22,7 @@ describe('The main navbar', function() {
 
   it('@any @smoke should display on initial page load', function() {
     expect(navbar.mainNavbar.el.isPresent()).to.eventually.be.true;
-    expect(navbar.mainNavbar.items.count()).to.eventually.equal(6);
+    expect(navbar.mainNavbar.items.count()).to.eventually.equal(7);
   });
 
   it('@any @smoke should contain a menu with options', function() {
