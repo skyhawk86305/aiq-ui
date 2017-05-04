@@ -116,12 +116,14 @@ describe('Cluster Overview Page', function () {
         expect(box.badge('warning').title.getText()).to.eventually.equal('Warning');
       });
 
-      it('cluster fault info-box and its unresolved warning and error badges', function () {
+      it('cluster fault info-box and its unresolved warning, error, and critical badges', function () {
         var box = clusterOverviewPage.infoBar.infoBox('cluster-faults');
         expect(box.badge('first.-warning').el.isDisplayed()).to.eventually.be.true;
         expect(box.badge('first.-warning').value.getText()).to.eventually.equal('3');
-        expect(box.badge('second.-critical').el.isDisplayed()).to.eventually.be.true;
-        expect(box.badge('second.-critical').value.getText()).to.eventually.equal('2');
+        expect(box.badge('second.-error').el.isDisplayed()).to.eventually.be.true;
+        expect(box.badge('second.-error').value.getText()).to.eventually.equal('2');
+        expect(box.badge('third.-critical').el.isDisplayed()).to.eventually.be.true;
+        expect(box.badge('third.-critical').value.getText()).to.eventually.equal('1');
       });
     });
 
