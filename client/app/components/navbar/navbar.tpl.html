@@ -7,7 +7,8 @@
         </li>
         <li class="navbar-item -main"
             id="sf-main-navbar-item-dashboard"
-            ng-class="{'active':$ctrl.activeItems.main === 'dashboard'}">
+            ng-class="{'active':$ctrl.activeItems.main === 'dashboard'}"
+            >
           <a href="#/dashboard/overview">Dashboard</a>
         </li>
         <li class="navbar-item -main cluster-select"
@@ -17,7 +18,8 @@
         </li>
         <li class="navbar-item -main"
             id="sf-main-navbar-item-admin"
-            ng-class="{'active':$ctrl.activeItems.main === 'admin'}">
+            ng-class="{'active':$ctrl.activeItems.main === 'admin'}"
+            permission permission-only="['registerCluster']">
           <a href="#/admin/unregisteredClusters">Admin</a>
         </li>
 

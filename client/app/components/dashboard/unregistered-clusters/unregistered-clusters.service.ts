@@ -16,7 +16,7 @@
       { label: 'Cluster Name', key: 'clusterName', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Cluster UUID', key: 'clusterUUID', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Version', key: 'clusterVersion', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
-      { label: 'Last Updated', key: 'lastUpdateTime', filterComparators: SFFilterComparators.INTEGER_DEFAULT },
+      { label: 'Last Updated', key: 'lastUpdateTime', width: 200, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
     ];
 
     function listUnregisteredClusters() {
