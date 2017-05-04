@@ -71,7 +71,9 @@ describe('The Cluster Nodes Page', function () {
     expect(nodesPage.infoBar.infoBox('svip-tag').el.isDisplayed()).to.eventually.be.true;
   });
 
-  it('@any @smoke the info-boxes must be wider than its value text', function(){
+  // TODO: Test is flaky -- fails sometimes
+  // Tech debt card: https://solidfire.atlassian.net/browse/CLOUD-4243
+  xit('@any @smoke the info-boxes must be wider than its value text', function(){
     support.infoBoxSizeCheck(nodesPage.infoBar,'mvip');
     support.infoBoxSizeCheck(nodesPage.infoBar,'mvip-tag');
     support.infoBoxSizeCheck(nodesPage.infoBar,'svip');
