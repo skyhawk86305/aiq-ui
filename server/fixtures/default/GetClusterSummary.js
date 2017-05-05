@@ -23,7 +23,7 @@ module.exports = {
       "vertical": null,
       "nodeCount": 10,
       "resolvedFaults": {"bestPractice": 2, "warning": 98, "error": 16},
-      "unresolvedFaults": {"warning": 3, "error": 2},
+      "unresolvedFaults": {"warning": 3, "error": 2, "critical": 1},
       "clusterFull": {
         "clusterID": 1898714,
         "blockFullness": "stage1Happy",
