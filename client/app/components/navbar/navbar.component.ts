@@ -136,7 +136,24 @@
       // Clear the cached selectedCluster when the user navigates to a non cluster-specific route
       if (self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
 
+      self.sendPageView();
+    };
+
+    self.sendPageView = function() {
       self.sendGoogleAnalyticsPageView();
+
+      if (!$window.divolte) return;
+      let userInfo = {}, currentUser = self.userInfo && self.userInfo.currentUser;
+
+      if(currentUser) {
+          userInfo = {
+              'userId': currentUser.userID,
+              'userName': currentUser.username,
+              'customerId': currentUser.customerID,
+              'customerName': currentUser.customerName
+          };
+      }
+      $window.divolte.signal('pageView', userInfo); // 2nd param can be an object with arbitrary data
     };
 
     self.sendGoogleAnalyticsPageView = function() {
