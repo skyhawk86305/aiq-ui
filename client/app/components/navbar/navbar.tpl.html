@@ -120,7 +120,7 @@
           <a href="{{$ctrl.getHref(subNavbarItem)}}"
              ng-if="subNavbarItem.menuItems"
              ng-click="$ctrl.subNavbarItem = subNavbarItem; $ctrl.clickedSubNavMenu = false; $ctrl.currentlyInMenu = false"
-             ng-mouseenter="$ctrl.subNavbarItem = subNavbarItem; $ctrl.hoveredSubNavMenu = true; $ctrl.currentlyInMenu = true"
+             ng-mouseenter="$ctrl.subNavbarItem = subNavbarItem; $ctrl.showSubNav();"
              ng-mouseleave="$ctrl.currentlyInMenu = false; $ctrl.delayMouseLeave()">
             <span ng-bind="subNavbarItem.label"></span>
           </a>

@@ -120,7 +120,12 @@
     // UX feature to delay the hiding of the sub nav menu if the user temporarily hovers outside of it
     self.delayMouseLeave = function() {
       $timeout(function() {
-        if (!self.currentlyInMenu) { self.hoveredSubNavMenu = false; }
+        if (!self.currentlyInMenu) {
+          if (self.hoveredSubNavMenu) {
+            self.sendEvent('hideSubNav');
+          }
+          self.hoveredSubNavMenu = false;
+        }
       }, 500);
     };
 
@@ -136,16 +141,29 @@
       // Clear the cached selectedCluster when the user navigates to a non cluster-specific route
       if (self.activeItems.main !== 'cluster') { self.clusterSelect.updateSelectedCluster(null); }
 
-      self.sendPageView();
+      self.sendEvent('pageView');
     };
 
-    self.sendPageView = function() {
-      self.sendGoogleAnalyticsPageView();
+    self.showSubNav = function() {
+      if (self.subNavbarItem && self.subNavbarItem.menuItems && !self.hoveredSubNavMenu) {
+        self.sendEvent('showSubNav');
+      }
+      self.hoveredSubNavMenu = true;
+      self.currentlyInMenu = true;
+    };
+
+    self.sendEvent = function(eventName) {
+      let validEvents = ['hideSubNav', 'showSubNav', 'pageView'];
+      if (!validEvents.some(name => eventName === name)) return;
+
+      if (eventName === 'pageView') {
+        self.sendGoogleAnalyticsPageView();
+      }
 
       if (!$window.divolte) return;
       let userInfo = {}, currentUser = self.userInfo && self.userInfo.currentUser;
 
-      if(currentUser) {
+      if (currentUser) {
           userInfo = {
               'userId': currentUser.userID,
               'userName': currentUser.username,
@@ -153,7 +171,7 @@
               'customerName': currentUser.customerName
           };
       }
-      $window.divolte.signal('pageView', userInfo); // 2nd param can be an object with arbitrary data
+      $window.divolte.signal(eventName, userInfo); // 2nd param can be an object with arbitrary data
     };
 
     self.sendGoogleAnalyticsPageView = function() {
