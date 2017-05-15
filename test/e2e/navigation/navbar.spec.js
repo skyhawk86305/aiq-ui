@@ -182,7 +182,7 @@ describe('The Dashboard Pages', function() {
     // { name: 'Capacity', menuItem: 'dashboard-capacity', expectedURL: '/dashboard/capacity' },
     // { name: 'Performance', menuItem: 'dashboard-performance', expectedURL: '/dashboard/performance' },
     { name: 'Alerts', menuItem: 'dashboard-alerts', expectedURL: '/dashboard/alerts/history' },
-    { name: 'Capacity Licensing', menuItem: 'dashboard-capacityLicensing', expectedURL: '/dashboard/capacity-licensing' },
+    { name: 'Capacity Licensing', menuItem: 'dashboard-capacityLicensing', expectedURL: '/dashboard/capacityLicensing' },
   ];
   tcs.forEach( tc => {
     it(`@any @smoke Should allow navigation to the ${tc.name} page`, function() {
@@ -278,7 +278,7 @@ describe('Per-Cluster pages', function() {
       { name: 'Drives', menuItem: 'cluster-drives', expectedURL: '/drives' },
       { name: 'Volumes', menuItem: 'cluster-volumes', expectedURL: '/volumes' },
       { name: 'Replication', menuItem: 'cluster-replication', expectedURL: '/replication' },
-      { name: 'VVols', menuItem: 'cluster-vvols', expectedURL: '/vvols/virtual-volumes' },
+      { name: 'VVols', menuItem: 'cluster-vvols', expectedURL: '/vvols/virtualVolumes' },
     ];
     tcs.forEach( tc => {
       it(`@any @smoke Should allow navigation to the ${tc.name} page`, function() {
@@ -358,9 +358,9 @@ describe('Per-Cluster pages', function() {
     });
 
     const tcs = [
-      { name: 'Virtual Volumes', menuItem: 'cluster-vvols-virtualVolumes', expectedURL: '/vvols/virtual-volumes' },
-      { name: 'VVol Storage Containers', menuItem: 'cluster-vvols-storageContainers', expectedURL: '/vvols/storage-containers' },
-      { name: 'VVol Protocol Endpoints', menuItem: 'cluster-vvols-protocolEndpoints', expectedURL: '/vvols/protocol-endpoints' },
+      { name: 'Virtual Volumes', menuItem: 'cluster-vvols-virtualVolumes', expectedURL: '/vvols/virtualVolumes' },
+      { name: 'VVol Storage Containers', menuItem: 'cluster-vvols-storageContainers', expectedURL: '/vvols/storageContainers' },
+      { name: 'VVol Protocol Endpoints', menuItem: 'cluster-vvols-protocolEndpoints', expectedURL: '/vvols/protocolEndpoints' },
       { name: 'VVol Hosts', menuItem: 'cluster-vvols-hosts', expectedURL: '/vvols/hosts' },
       { name: 'VVol Bindings', menuItem: 'cluster-vvols-bindings', expectedURL: '/vvols/bindings' },
     ];
@@ -398,9 +398,9 @@ describe('Per-Cluster pages', function() {
     });
 
     const tcs = [
-      { name: 'Active Volumes', menuItem: 'cluster-volumes-activeVolumes', expectedURL: '/volumes/active-volumes' },
+      { name: 'Active Volumes', menuItem: 'cluster-volumes-activeVolumes', expectedURL: '/volumes/activeVolumes' },
       { name: 'Snapshots', menuItem: 'cluster-volumes-snapshots', expectedURL: '/volumes/snapshots' },
-      { name: 'Snapshot Schedules', menuItem: 'cluster-volumes-snapshotSchedules', expectedURL: '/volumes/snapshot-schedules' },
+      { name: 'Snapshot Schedules', menuItem: 'cluster-volumes-snapshotSchedules', expectedURL: '/volumes/snapshotSchedules' },
     ];
     tcs.forEach( tc => {
       it(`Should allow navigation to the ${tc.name} page`, function() {

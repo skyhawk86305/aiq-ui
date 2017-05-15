@@ -19,7 +19,7 @@ export class AppController {
     this.displayBanner = false;
 
     $rootScope.$on('$routeChangeSuccess', () => {
-      this.showNavbar = $location.path() !== '/login' && $location.path() !== '/reset-password';
+      this.showNavbar = $location.path() !== '/login' && $location.path() !== '/resetPassword';
       this.currentPage = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/').join('-');
     });
 

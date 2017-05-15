@@ -64,7 +64,7 @@ describe('CapacityLicensingService', function () {
         'provisionedLicensedCapacity': 0,
         'detailsLink': `
           <a class="view-details-link"
-              href="#/dashboard/capacity-licensing/158"
+              href="#/dashboard/capacityLicensing/158"
               aria-label="View capacity licensing details for the customer">
             <i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i>
           </a>
@@ -77,7 +77,7 @@ describe('CapacityLicensingService', function () {
         'provisionedLicensedCapacity': 88669599825920,
         'detailsLink': `
           <a class="view-details-link"
-              href="#/dashboard/capacity-licensing/175"
+              href="#/dashboard/capacityLicensing/175"
               aria-label="View capacity licensing details for the customer">
             <i class="fa fa-arrow-right right-arrow" aria-hidden="true"</i>
           </a>

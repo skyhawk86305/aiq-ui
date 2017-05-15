@@ -40,7 +40,7 @@ describe('The Cluster VVols Storage Containers Page', function () {
   });
 
   beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/vvols/storage-containers').then(done);
+    browser.get('#/cluster/' + clusterId + '/vvols/storageContainers').then(done);
   });
 
   afterAll(function() {

@@ -13,7 +13,7 @@ describe('Reset password', function() {
   describe('Send password reset email', function() {
     beforeEach(function() {
       mockBackend.enable(browser);
-      browser.get('#/reset-password');
+      browser.get('#/resetPassword');
     });
 
     afterEach(function() {
@@ -57,7 +57,7 @@ describe('Reset password', function() {
   describe('Set new password via reset token', function() {
     beforeEach(function() {
       mockBackend.enable(browser);
-      browser.get('#/reset-password?token=00000000-0000-0000-0000-000000000000&user=testUser%40solidfire.com');
+      browser.get('#/resetPassword?token=00000000-0000-0000-0000-000000000000&user=testUser%40solidfire.com');
     });
 
     afterEach(function() {
