@@ -32,7 +32,7 @@ describe('The Cluster Performance Page', function () {
   });
 
   it('@any should have custom static date range options', function (done) {
-    var expectedDateRangeOptions = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'],
+    var expectedDateRangeOptions = ['Last Hour', 'Last 24 Hours', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'],
       actualDateRangeOptions = performanceGraphs.dateRangeSelectors.static.staticDateRangeOptions;
 
     for (var i = 0; i < expectedDateRangeOptions.length; i++) {
