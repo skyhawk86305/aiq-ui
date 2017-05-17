@@ -24,7 +24,7 @@
         <meta http-equiv="Expires" content="-1"/>
         <meta http-equiv="Pragma" content="no-cache"/>
         <link href="css/styles.css" rel="stylesheet"/>
-        
+
 <script>
 <![CDATA[
   function toggleDetails(contentId, linkId) {
@@ -66,22 +66,28 @@
       <div id="71ec2559-a88a-48e8-9952-1b4418d44e16" class="scope" style="margin-left: 0px;">
       <xsl:value-of select="$testsuitename"/>
       </div>
-
-    <xsl:for-each select="testsuite/testcase">
-        <xsl:if test="skipped">
+        <xsl:for-each select="testsuite/testcase">
+          <xsl:if test="skipped">
             <div id="263dcc5f-3b2a-49f6-9e15-68f8a8e5b838" class="test_canceled" style="margin-left: 0px;">
-                <dl>
-                    <dt><xsl:value-of select="@name"/></dt>
-                </dl>
+              <dl>
+                <dt><xsl:value-of select="@name"/></dt>
+              </dl>
             </div>
-        </xsl:if>
-        <xsl:if test="not(skipped)">
+          </xsl:if>
+          <xsl:if test="failure">
+            <div id="263dcc5f-3b2a-49f6-9e15-68f8a8e5b838" class="test_failed" style="margin-left: 0px;">
+              <dl>
+                <dt><xsl:value-of select="@name"/></dt>
+              </dl>
+            </div>
+          </xsl:if>
+          <xsl:if test="not(failure) and not(skipped)">
             <div id="263dcc5f-3b2a-49f6-9e15-68f8a8e5b838" class="test_passed" style="margin-left: 0px;">
-                <dl>
-                    <dt><xsl:value-of select="@name"/></dt>
-                </dl>
+              <dl>
+                <dt><xsl:value-of select="@name"/></dt>
+              </dl>
             </div>
-        </xsl:if>
+          </xsl:if>
     </xsl:for-each>
         <table id="suite_footer">
           <tr id="suite_footer_id">
