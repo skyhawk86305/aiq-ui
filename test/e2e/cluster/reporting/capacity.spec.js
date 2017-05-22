@@ -30,7 +30,7 @@ describe('The Cluster Capacity Page', function() {
   });
 
   it('@any should have custom static date range options', function() {
-    const expectedDateRangeOptions = ['Last 24 Hours', 'Last 3 Days', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'];
+    const expectedDateRangeOptions = ['Last Hour', 'Last 24 Hours', 'Last 7 Days', 'Last 14 Days', 'Last 30 Days'];
     const actualDateRangeOptions = capacityPage.syncGraphs.dateRangeSelectors.static.staticDateRangeOptions;
 
     for (let i = 0; i < expectedDateRangeOptions.length; i++) {
