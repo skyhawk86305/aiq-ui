@@ -1,0 +1,29 @@
+@import '../../../styles/shared.less';
+
+.register-cluster-modal {
+  form {
+    text-align: center;
+    margin-top: 30px;
+
+    label {
+      display: inline-block;
+      text-align: right;
+      font-weight: normal;
+      margin-right: 10px;
+    }
+
+    .control-container {
+      display: inline-block;
+      text-align: left;
+
+      input {
+        width: 220px;
+        padding: 0px 4px;
+
+        &.ng-invalid.ng-touched {
+          border: 1px solid @text-error-color;
+        }
+      }
+    }
+  }
+}

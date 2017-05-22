@@ -1,0 +1,45 @@
+<div class="aiq-modal-header">
+  <div class="aiq-modal-close-button" ng-click="$ctrl.cancel()">
+    <i class="fa fa-times"></i>
+  </div>
+
+  Register Cluster {{ $ctrl.resolve.cluster.clusterName }} to Customer Account
+</div>
+
+
+<div class="aiq-modal-message" ng-show="$ctrl.error">
+  <div class="banner-message banner-message-error">
+    <i class="fa fa-times-circle"></i>
+    {{ $ctrl.error }}
+  </div>
+</div>
+
+<div class="aiq-modal-content">
+  <p>
+    Enter the customer name to register this cluster.
+  </p>
+
+  <form name="customerUIDForm" novalidate>
+    <div class="form-group">
+      <label class="control-label">
+        Customer Name:
+      </label>
+      <div class="control-container">
+        <input type="text"
+            class="form-control input-sm"
+            ng-model="$ctrl.customer"
+            uib-typeahead="c as c.customerName for c in $ctrl.customers"
+            required>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="aiq-modal-footer">
+  <button class="button button-submit"
+      ng-click="$ctrl.registerCluster()"
+      ng-disabled="!customerUIDForm.$valid">
+    Register Cluster
+  </button>
+  <button class="button button-cancel" ng-click="$ctrl.cancel()"> Cancel </button>
+</div>

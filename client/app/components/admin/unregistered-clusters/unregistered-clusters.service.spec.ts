@@ -56,12 +56,26 @@ describe('UnregisteredClustersService', function() {
         clusterUUID: 'ef1d6265-e24f-4f36-b095-586e369e018a',
         clusterVersion: '8.1.0.95',
         lastUpdateTime: '2017-04-24T17:31:24Z',
+        register:
+`<a href
+    ng-click="$ctrl.rowCtrl.tableCtrl.service.register($ctrl.rowCtrl.rowData)"
+    class="register-cluster-button">
+  <i class="fa fa-plus-circle"></i>
+</a>
+`,
       }, {
         clusterID: 2147040,
         clusterName: 'Test cluster 2',
         clusterUUID: 'abcd6265-e24f-4f36-b095-586e369e018a',
         clusterVersion: '8.1.0.96',
         lastUpdateTime: '2017-05-24T17:31:24Z',
+        register:
+`<a href
+    ng-click="$ctrl.rowCtrl.tableCtrl.service.register($ctrl.rowCtrl.rowData)"
+    class="register-cluster-button">
+  <i class="fa fa-plus-circle"></i>
+</a>
+`,
       }];
 
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
