@@ -27,8 +27,8 @@
       {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
       {key: 'paired', label: 'Paired', format: {filter: 'boolean', args: ['Yes', 'No']}},
       {key: 'configuredAccessProtocols', label: 'Configured Access Protocols', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-      {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}},
-      {key: 'details', label: 'View Details', width: 100, sortable: false, nonData: true}
+      {key: 'snapshots', label: 'Snapshots', format: {filter: 'string'}, titleValue: 'Click to View Volume Snapshots'},
+      {key: 'details', label: 'View Details', width: 100, sortable: false, nonData: true, titleValue: 'Click to View Volume Details'}
     ];
     let service = new SFTableService(listActiveVolumes, columns, false);
 
