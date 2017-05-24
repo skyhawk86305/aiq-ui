@@ -7,7 +7,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
    */
   let routeProvider = angular.extend({}, $routeProvider, {
     when: function(path, route) {
-      if (path !== '/login' && path !== '/resetPassword') {
+      if (path !== '/login' && path !== '/reset-password') {
         route.resolve = (route.resolve) ? route.resolve : {};
         angular.extend(route.resolve, {
           isAuthenticated: function() {
@@ -29,7 +29,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       .when('/login', {
         template: '<login></login>'
       })
-      .when('/resetPassword', {
+      .when('/reset-password', {
         template: '<reset-password></reset-password>'
       })
       .when('/admin/unregisteredClusters', {
