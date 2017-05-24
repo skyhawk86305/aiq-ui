@@ -39,11 +39,16 @@ class RegisterUnregisteredClusterController {
       )
       .then( () => this.modalInstance.close() )
       .catch( err => {
-        if (err === 'backdrop click') {
+        if ( !err || err === 'backdrop click' ) {
           // confirmation modal was cancelled
           return;
         }
-        this.error = err;
+        const message = _.get(err, 'message');
+        if (message) {
+          this.error = message;
+          return;
+        }
+        this.error = 'An unexpected error occurred while attempting to register the cluster';
       });
   }
 
@@ -56,7 +61,7 @@ class RegisterUnregisteredClusterController {
     if ( _(validCustomerUIDs).includes(this.customer.customerUID) ) {
       return this.$q.resolve();
     }
-    return this.$q.reject('Customer not found');
+    return this.$q.reject({ message: 'Customer not found' });
   }
 
   private openConfirmationModal() {
