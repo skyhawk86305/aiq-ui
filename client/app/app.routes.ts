@@ -39,6 +39,13 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           permissions: { only: ['registerCluster'], redirectTo: '/dashboard/overview' },
         },
       })
+      .when('/admin/controlTower', {
+        template: '<control-tower class="sf-layout-block"></control-tower>',
+        reloadOnSearch: false,
+        data: {
+          permissions: { only: ['internalUser'], redirectTo: '/dashboard/overview' },
+        },
+      })
       .when('/dashboard/overview', {
         template: require('./welcome-beta.tpl.html')
       })
