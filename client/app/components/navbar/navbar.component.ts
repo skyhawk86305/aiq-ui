@@ -47,6 +47,7 @@
           ]
         },
         {key:'capacityLicensing', href:'#/dashboard/capacityLicensing', label: 'Capacity Licensing'},
+        {key:'registerCluster', href:'#/dashboard/registerCluster', label: 'Register New Cluster', permissions: ['registerCluster']},
       ],
       cluster: [
         {

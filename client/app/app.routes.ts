@@ -78,6 +78,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<capacity-licensing-details class="sf-layout-block"></capacity-licensing-details>',
         reloadOnSearch: false
       })
+      .when('/dashboard/registerCluster', {
+        template: '<register-cluster class="sf-layout-block"></register-cluster>',
+        reloadOnSearch: false
+      })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
         reloadOnSearch: false

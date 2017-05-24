@@ -1,0 +1,71 @@
+@import './colors.less';
+
+.aiq-modal {
+  .modal-dialog {
+    margin: 250px auto;
+
+    .modal-content {
+      border-radius: 0px;
+      box-shadow: 0 0px 0px;
+      border: 0;
+    }
+  }
+
+  .aiq-modal-header {
+    padding: 10px;
+    background: @brand-secondary-color;
+    color: fade(@basic-white, 90%);
+    font-size: 16px;
+
+    .aiq-modal-close-button {
+      cursor: pointer;
+      float: right;
+      margin: 0px 4px;
+      color: @basic-white;
+    }
+  }
+
+  .aiq-modal-message {
+    text-align: center;
+    margin: 25px 35px 0px 35px;
+  }
+
+  .aiq-modal-content {
+    padding: 25px 35px;
+    color: @text-secondary-color;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+
+  .aiq-modal-footer {
+    padding: 15px;
+    background: fade(black, 5%);
+    text-align: center;
+
+    .button {
+      border-radius: 4px;
+      border: none;
+      height: 35px;
+      padding: 0 40px;
+      color: @basic-white;
+      margin: 0px 7px;
+
+      &-submit {
+        background-color: @button-color;
+      }
+      &-cancel {
+        background-color: @cancel-button-color;
+      }
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+
+.aiq-modal-backdrop {
+  background: #555;
+}
