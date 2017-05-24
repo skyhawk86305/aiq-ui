@@ -9,7 +9,7 @@ module.exports = webpackMerge(commonConfig, {
   devtool: 'eval',
   output: {
     path: __dirname + '/build-dev', //No files actually generated
-    filename: '[name]-[chunkhash].js',
+    filename: '[name]-[hash].js',
     chunkFilename: '[id].chunk.js'
   },
   plugins: [
