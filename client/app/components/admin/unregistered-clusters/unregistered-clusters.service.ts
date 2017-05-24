@@ -1,7 +1,13 @@
 export class UnregisteredClustersService {
 
-  static $inject = [ '$uibModal', 'SFTableService', 'SFFilterComparators', 'DataService' ];
-  constructor(private $uibModal, private SFTableService, private SFFilterComparators, private DataService) {
+  static $inject = [ '$rootScope', '$uibModal', 'SFTableService', 'SFFilterComparators', 'DataService' ];
+  constructor(
+    private $rootScope,
+    private $uibModal,
+    private SFTableService,
+    private SFFilterComparators,
+    private DataService
+  ) {
     const columns = [
       { label: 'Cluster ID', key: 'clusterID', width: 100, format: { filter: 'aiqNumber', args: [0, true] }, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
       { label: 'Cluster Name', key: 'clusterName', filterComparators: SFFilterComparators.STRING_DEFAULT },
@@ -20,6 +26,10 @@ export class UnregisteredClustersService {
         );
     }
 
+    const refreshTable = () => {
+      this.$rootScope.$broadcast('refresh-unregistered-clusters', true);
+    }
+
     const service = new SFTableService(listUnregisteredClusters, columns, false);
 
     service.register = function(rowData) {
@@ -35,9 +45,7 @@ export class UnregisteredClustersService {
           backdropClass: 'aiq-modal-backdrop',
         })
         .result
-        .then( () => {
-          // TODO: trigger table refresh
-        });
+        .then( () => refreshTable() );
     };
 
     return service;
