@@ -14,7 +14,7 @@ export class UnregisteredClustersService {
       { label: 'Cluster UUID', key: 'clusterUUID', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Version', key: 'clusterVersion', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
       { label: 'Last Updated', key: 'lastUpdateTime', width: 200, format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
-      { label: 'Register with Customer', key: 'register', width: 200},
+      { label: 'Register with Customer', key: 'register', width: 200, titleValue: 'Register with Customer'},
     ];
 
     function listUnregisteredClusters() {
