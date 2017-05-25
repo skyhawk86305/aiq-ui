@@ -53,4 +53,12 @@ describe('The Unregistered Clusters Page', function () {
   it('@any should have an export button for the table', function() {
     expect(table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
+
+  it('@any should allow the user to open the register cluster modal', function() {
+    const registerClusterButton = table.el.all(by.css('.register-cluster-button')).get(0);
+    expect(registerClusterButton.isPresent()).to.eventually.be.true;
+    registerClusterButton.click();
+    const registerClusterModal = element(by.css('.register-cluster-modal'));
+    expect(registerClusterModal.isPresent()).to.eventually.be.true;
+  });
 });
