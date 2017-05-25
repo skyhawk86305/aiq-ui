@@ -1,48 +1,37 @@
 <div class="control-tower-page">
     <div class="container-fluid">
-        <div class="sf-widget">
+        <div class="sf-widget" ng-repeat="item in $ctrl.items">
             <div class="info-bar-timestamp">
-                <span>Nodes in Clusters</span>
+                <span>{{ item.title }}</span>
                 <div class="info-bar-refresh-button">
                     <button class="button refresh-btn" ng-click="$ctrl.refreshInfoBarData()">
                         <i class="fa fa-refresh"></i>
                     </button>
                 </div>
             </div>
-            <div class="row control-tower-total-data">
+            <div class="row control-tower-sum-data">
                 <div class="info-box col-md-6">
                     <div class="info-box-content ">
-                        <span><span class="value -medium">539</span>TB</span>
-                        <span class="title">Total Nodes in Field</span>
+                        <span><span class="value -medium">{{ item.sumNum }}</span>{{ item.numUnit }}</span>
+                        <span class="title">{{ item.description }}</span>
                     </div>
                 </div>
-             <div class="info-box col-md-6">
-                <div class="info-box-content">
-                    <table class="table">
-                        <thead>
-                            <td>View Plotted Data</td>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Min Volume Size Per Cluster</td>
-                                <th>1.3GB/8TB</th>
-                            </tr>
-                            <tr>
-                                <td>Max Volume Size Per Cluster</td>
-                                <th>7TB/8TB</th>
-                            </tr>
-                            <tr>
-                                <td>Avg Volume Size Per Cluster</td>
-                                <th>2.5TB/8TB</th>
-                            </tr>
-                            <tr>
-                                <td>Standard Deviation</td>
-                                <th>52%</th>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="info-box col-md-6">
+                    <div class="info-box-content">
+                        <table class="table">
+                            <thead>
+                                <td>View Plotted Data</td>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in item.viewData">
+                                    <td>{{ data.subTitle }}</td>
+                                    <th>{{ data.dataDisplay }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-  </div>
+    </div>
 </div>
