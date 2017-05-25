@@ -159,7 +159,7 @@ class RegisterClusterController {
           clusterName: () => this.clusterName,
           customerName: () => this.customerName,
         },
-        windowClass: 'aiq-modal',
+        windowClass: 'aiq-modal register-new-cluster-confirmation-modal',
         backdropClass: 'aiq-modal-backdrop',
       })
       .result;

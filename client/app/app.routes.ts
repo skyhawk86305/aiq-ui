@@ -80,7 +80,10 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       })
       .when('/dashboard/registerCluster', {
         template: '<register-cluster class="sf-layout-block"></register-cluster>',
-        reloadOnSearch: false
+        reloadOnSearch: false,
+        data: {
+          permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
+        },
       })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
