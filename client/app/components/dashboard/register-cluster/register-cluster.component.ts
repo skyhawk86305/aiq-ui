@@ -92,9 +92,9 @@ class RegisterClusterController {
                 return this.$q.reject('RegistrationCheckError');
               })
               .then( result => {
-                const customerID = _.get(result, 'cluster.customerID')
+                const customerID = _.get(result, 'customerID')
                 if (customerID) {
-                  this.clusterID = _.get(result, 'cluster.clusterID');
+                  this.clusterID = _.get(result, 'clusterID');
                   return this.$q.reject('ClusterAlreadyRegistered');
                 }
               })

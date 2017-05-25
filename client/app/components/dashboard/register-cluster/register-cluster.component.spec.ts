@@ -81,9 +81,7 @@ describe('Component: registerCluster', function() {
       spyOn(fakeElementClientInstance, 'callAPI').and.returnValue($q.resolve({
         clusterInfo: { name: 'testClusterName', uuid: 'testClusterUUID' }
       }));
-      spyOn(DataService, 'callAPI').and.returnValue($q.resolve({
-        cluster: { clusterID: 1234, customerID: 234 }
-      }));
+      spyOn(DataService, 'callAPI').and.returnValue($q.resolve({ clusterID: 1234, customerID: 234 }));
       controller.steps[1]()
         .then( () => {
           fail('Promise was expected to be rejected, but was resolved');
