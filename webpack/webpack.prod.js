@@ -7,7 +7,7 @@ var webpack = require('webpack'),
 module.exports = webpackMerge(commonConfig, {
   output: {
     path: __dirname + '/../build',
-    filename: '[name].js',
+    filename: '[name]-[chunkhash].js',
     chunkFilename: '[id].chunk.js'
   },
   plugins: [
