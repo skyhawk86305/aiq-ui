@@ -120,7 +120,7 @@ describe('The sub navbar', function() {
 
   it('@any @smoke should only be displayed if the active main navbar item has sub navbar items', function() {
     expect(navbar.subNavbar.el.isDisplayed()).to.eventually.be.true;
-    expect(navbar.subNavbar.items.count()).to.eventually.equal(6);
+    expect(navbar.subNavbar.items.count()).to.eventually.equal(7);
   });
 });
 
