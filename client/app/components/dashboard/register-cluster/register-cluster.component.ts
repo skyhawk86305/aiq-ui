@@ -54,7 +54,7 @@ class RegisterClusterController {
       // step 1
       () => {
         const client = new this.ElementClient(this.clusterMVIP, '', '');
-        return this.$q.resolve( client.callAPI('GetClusterInfo') )
+        return client.callAPI('GetClusterInfo')
           .catch( err => {
             if (err === 'unauthenticated') {
               // this is what we expect if the MVIP is accessible, since we didn't send any creds
@@ -67,7 +67,7 @@ class RegisterClusterController {
       // step 2
       () => {
         const client = new this.ElementClient(this.clusterMVIP, this.clusterUsername, this.clusterPassword);
-        return this.$q.resolve( client.callAPI('GetClusterInfo') )
+        return client.callAPI('GetClusterInfo')
           .then( ({ clusterInfo }) => {
             this.clusterName = clusterInfo.name;
             this.clusterUUID = clusterInfo.uuid;
