@@ -87,6 +87,10 @@
       self.clusterSelect.updateSelectedCluster(cluster);
     }
 
+    $rootScope.$on('refresh-cluster-select', function() {
+      self.refresh();
+    });
+
     self.init();
   }
 })();

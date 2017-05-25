@@ -82,6 +82,7 @@
           <label class="control-label"> Cluster MVIP: </label>
           <div class="control-container">
             <input type="text"
+                name="clusterMVIP"
                 class="form-control input-sm"
                 ng-model="$ctrl.clusterMVIP"
                 ng-pattern="/\d+\.\d+\.\d+\.\d+/"
@@ -106,6 +107,7 @@
           </label>
           <div class="control-container">
             <input type="text"
+                name="clusterUsername"
                 class="form-control input-sm"
                 ng-model="$ctrl.clusterUsername"
                 required>
@@ -116,6 +118,7 @@
           <label class="control-label"> Cluster Password: </label>
           <div class="control-container">
             <input type="password"
+                name="clusterPassword"
                 class="form-control input-sm"
                 ng-model="$ctrl.clusterPassword"
                 autocomplete="new-password"
@@ -143,6 +146,7 @@
           <label class="control-label"> Customer UUID: </label>
           <div class="control-container">
             <input type="text"
+                name="customerUID"
                 class="form-control input-sm"
                 ng-model="$ctrl.customerUID"
                 required>

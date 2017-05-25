@@ -2,6 +2,7 @@ describe('Component: registerCluster', function() {
   let controller,
     $q,
     $rootScope,
+    fakeRootScope,
     $uibModal,
     DataService,
     fakeElementClientInstance;
@@ -13,10 +14,16 @@ describe('Component: registerCluster', function() {
     $uibModal = _$uibModal_;
     $rootScope = _$rootScope_;
     DataService = _DataService_;
+    fakeRootScope = {
+      $broadcast() {}
+    };
+    controller = $componentController('registerCluster', {
+      DataService,
+      $rootScope: fakeRootScope,
+    });
     fakeElementClientInstance = {
       callAPI() {}
     };
-    controller = $componentController('registerCluster', { DataService });
     spyOn(controller, 'ElementClient').and.returnValue(fakeElementClientInstance);
   }));
 
@@ -137,6 +144,7 @@ describe('Component: registerCluster', function() {
       const registerClusterResponse = $q.resolve({ clusterID: 12345 });
       spyOn(DataService, 'callAPI').and.returnValues(getCustomerResponse, registerClusterResponse);
       spyOn($uibModal, 'open').and.returnValue($q.resolve());
+      spyOn(fakeRootScope, '$broadcast').and.returnValue(undefined);
       controller.steps[2]()
         .then( () => {
           expect(DataService.callAPI).toHaveBeenCalledWith('GetCustomer', { customerUID: 'testCustomerUID' });
@@ -152,6 +160,7 @@ describe('Component: registerCluster', function() {
             customerUID: 'testCustomerUID',
           });
           expect(controller.clusterID).toEqual(12345);
+          expect(fakeRootScope.$broadcast).toHaveBeenCalledWith('refresh-cluster-select');
         })
         .catch( err => {
           fail('Promise was unexpectedly rejected, with: ' + err);

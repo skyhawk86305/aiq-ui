@@ -15,8 +15,22 @@ class RegisterClusterController {
   public customerUID: string;
   public clusterID: number;
 
-  static $inject = [ '$q', '$uibModal', '$location', 'DataService', 'ElementClient' ];
-  constructor(private $q, private $uibModal, private $location, private DataService, private ElementClient) {}
+  static $inject = [
+    '$q',
+    '$rootScope',
+    '$uibModal',
+    '$location',
+    'DataService',
+    'ElementClient',
+  ];
+  constructor(
+    private $q,
+    private $rootScope,
+    private $uibModal,
+    private $location,
+    private DataService,
+    private ElementClient
+  ) {}
 
   next() {
     this.loading = true;
@@ -121,6 +135,7 @@ class RegisterClusterController {
             })
             .then( ({ clusterID }) => {
               this.clusterID = clusterID;
+              this.$rootScope.$broadcast('refresh-cluster-select');
             })
             .catch( err => {
               if ( err.name === 'ClusterAlreadyRegisteredFault' ) {
