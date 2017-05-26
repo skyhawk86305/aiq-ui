@@ -39,11 +39,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           permissions: { only: ['registerCluster'], redirectTo: '/dashboard/overview' },
         },
       })
-      .when('/admin/controlTower', {
-        template: '<control-tower class="sf-layout-block"></control-tower>',
+      .when('/admin/dashberg', {
+        template: '<dashberg class="sf-layout-block"></dashberg>',
         reloadOnSearch: false,
         data: {
-          permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
+          permissions: { only: ['dashberg'], redirectTo: '/dashboard/overview' },
         },
       })
       .when('/dashboard/overview', {
