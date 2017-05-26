@@ -56,7 +56,7 @@ describe('The Cluster Virtual Volumes Page', function () {
   });
 
   beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/vvols/virtual-volumes').then(done);
+    browser.get('#/cluster/' + clusterId + '/vvols/virtualVolumes').then(done);
   });
 
   afterAll(function() {

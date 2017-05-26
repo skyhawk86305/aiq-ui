@@ -31,7 +31,7 @@ describe('The Capacity Licensing Details Page', function() {
   });
 
   beforeEach(function() {
-    browser.get(`#/dashboard/capacity-licensing/${customerID}`);
+    browser.get(`#/dashboard/capacityLicensing/${customerID}`);
   });
 
   afterAll(function() {

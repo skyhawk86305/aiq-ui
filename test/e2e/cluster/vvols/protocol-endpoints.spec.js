@@ -35,7 +35,7 @@ describe('The Cluster VVols Protocol Endpoint Page', function () {
   });
 
   beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/vvols/protocol-endpoints').then(done);
+    browser.get('#/cluster/' + clusterId + '/vvols/protocolEndpoints').then(done);
   });
 
   afterAll(function() {

@@ -210,10 +210,10 @@ describe('AppController', function () {
         expect(location.path()).toEqual('/cluster/123/reporting/events');
         location.path('/Licensing/Capacity/List');
         rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/capacity-licensing');
+        expect(location.path()).toEqual('/dashboard/capacityLicensing');
         location.path('/Licensing/Capacity/View').search({customerID: '123'});
         rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/capacity-licensing/123');
+        expect(location.path()).toEqual('/dashboard/capacityLicensing/123');
         location.path('/Nodes/Active').search({clusterID: '123'});
         rootScope.$digest();
         expect(location.path()).toEqual('/cluster/123/nodes');
@@ -225,10 +225,10 @@ describe('AppController', function () {
         expect(location.path()).toEqual('/cluster/123/replication/volumePairs');
         location.path('/Volumes/Active/List').search({clusterID: '123'});
         rootScope.$digest();
-        expect(location.path()).toEqual('/cluster/123/volumes/active-volumes');
+        expect(location.path()).toEqual('/cluster/123/volumes/activeVolumes');
         location.path('/Volumes/Snapshots/Schedules/List').search({clusterID: '123'});
         rootScope.$digest();
-        expect(location.path()).toEqual('/cluster/123/volumes/snapshot-schedules');
+        expect(location.path()).toEqual('/cluster/123/volumes/snapshotSchedules');
         location.path('/Volumes/Snapshots/List').search({clusterID: '123'});
         rootScope.$digest();
         expect(location.path()).toEqual('/cluster/123/volumes/snapshots');

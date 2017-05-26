@@ -25,7 +25,7 @@ describe('The permission framework', function() {
     });
 
     it('Should not allow navigation to the VMware Alarms page by URL', function() {
-      browser.get('#/cluster/1234/vmware-alarms');
+      browser.get('#/cluster/1234/vmwareAlarms');
       expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
     });
 
@@ -55,8 +55,8 @@ describe('The permission framework', function() {
     });
 
     it('Should allow navigation to the VMware Alarms page by URL', function() {
-      browser.get('#/cluster/1234/vmware-alarms');
-      expect(browser.getCurrentUrl()).to.eventually.contain('/cluster/1234/vmware-alarms');
+      browser.get('#/cluster/1234/vmwareAlarms');
+      expect(browser.getCurrentUrl()).to.eventually.contain('/cluster/1234/vmwareAlarms');
     });
 
     it('Should expose a link to the VMware Alarms page in the navbar', function() {

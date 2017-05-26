@@ -46,7 +46,8 @@
             {key:'suppressedClusters', href: '#/dashboard/alerts/suppressedClusters', label: 'Suppressed Clusters'},
           ]
         },
-        {key:'capacityLicensing', href:'#/dashboard/capacity-licensing', label: 'Capacity Licensing'},
+        {key:'capacityLicensing', href:'#/dashboard/capacityLicensing', label: 'Capacity Licensing'},
+        {key:'registerCluster', href:'#/dashboard/registerCluster', label: 'Register New Cluster', permissions: ['internalAdmin']},
       ],
       cluster: [
         {
@@ -70,12 +71,12 @@
         {key:'drives', href:'#/cluster/:clusterID/drives', label: 'Drives'},
         {
           key:'volumes',
-          href:'#/cluster/:clusterID/volumes/active-volumes',
+          href:'#/cluster/:clusterID/volumes/activeVolumes',
           label: 'Volumes',
           menuItems: [
-            {key:'activeVolumes', href: '#/cluster/:clusterID/volumes/active-volumes', label: 'Active Volumes'},
+            {key:'activeVolumes', href: '#/cluster/:clusterID/volumes/activeVolumes', label: 'Active Volumes'},
             {key:'snapshots', href: '#/cluster/:clusterID/volumes/snapshots', label: 'Snapshots'},
-            {key:'snapshotSchedules', href: '#/cluster/:clusterID/volumes/snapshot-schedules', label: 'Snapshot Schedules'}
+            {key:'snapshotSchedules', href: '#/cluster/:clusterID/volumes/snapshotSchedules', label: 'Snapshot Schedules'}
           ]
         },
         {
@@ -89,19 +90,19 @@
         },
         {
           key:'vvols',
-          href:'#/cluster/:clusterID/vvols/virtual-volumes',
+          href:'#/cluster/:clusterID/vvols/virtualVolumes',
           label: 'VVols',
           menuItems: [
-            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtual-volumes', label: 'Virtual Volumes'},
-            {key:'storageContainers', href: '#/cluster/:clusterID/vvols/storage-containers', label: 'Storage Containers'},
-            {key:'protocolEndpoints', href: '#/cluster/:clusterID/vvols/protocol-endpoints', label: 'Protocol Endpoints'},
+            {key:'virtualVolumes', href: '#/cluster/:clusterID/vvols/virtualVolumes', label: 'Virtual Volumes'},
+            {key:'storageContainers', href: '#/cluster/:clusterID/vvols/storageContainers', label: 'Storage Containers'},
+            {key:'protocolEndpoints', href: '#/cluster/:clusterID/vvols/protocolEndpoints', label: 'Protocol Endpoints'},
             {key:'hosts', href: '#/cluster/:clusterID/vvols/hosts', label: 'Hosts'},
             {key:'bindings', href: '#/cluster/:clusterID/vvols/bindings', label: 'Bindings'},
           ]
         },
         {
           key:'vmwareAlarms',
-          href:'#/cluster/:clusterID/vmware-alarms',
+          href:'#/cluster/:clusterID/vmwareAlarms',
           label: 'VMware Alarms',
           permissions: ['internalAdmin'],
         }

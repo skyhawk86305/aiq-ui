@@ -46,7 +46,7 @@ describe('The Cluster Volumes Page', function () {
   });
 
   beforeEach(function(done) {
-    browser.get('#/cluster/' + clusterId + '/volumes/active-volumes').then(done);
+    browser.get('#/cluster/' + clusterId + '/volumes/activeVolumes').then(done);
   });
 
   afterAll(function() {

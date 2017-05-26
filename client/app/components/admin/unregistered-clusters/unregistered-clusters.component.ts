@@ -1,24 +1,13 @@
-(function () {
-  'use strict';
+class UnregisteredClustersController {
+  public service;
 
-  const moduleName = 'aiqUi';
-  const componentName = 'unregisteredClusters';
-  const template = require('./unregistered-clusters.tpl.html');
-  const deps = [ 'UnregisteredClustersService' ];
-
-  class UnregisteredClustersController {
-    public service;
-
-    constructor(private UnregisteredClustersService) {
-      this.service = this.UnregisteredClustersService;
-    }
+  static $inject = [ 'UnregisteredClustersService' ];
+  constructor(private UnregisteredClustersService) {
+    this.service = this.UnregisteredClustersService;
   }
+}
 
-  angular
-    .module(moduleName)
-    .component(componentName, {
-      template,
-      controller: [ ...deps, UnregisteredClustersController]
-    });
-
-})();
+export const UnregisteredClustersComponent = {
+  template: require('./unregistered-clusters.tpl.html'),
+  controller: UnregisteredClustersController,
+};

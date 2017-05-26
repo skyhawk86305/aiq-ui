@@ -70,13 +70,20 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<suppressed-clusters class="sf-layout-block"></suppressed-clusters>',
         reloadOnSearch: false
       })
-      .when('/dashboard/capacity-licensing', {
+      .when('/dashboard/capacityLicensing', {
         template: '<capacity-licensing class="sf-layout-block"></capacity-licensing>',
         reloadOnSearch: false
       })
-      .when('/dashboard/capacity-licensing/:customerID', {
+      .when('/dashboard/capacityLicensing/:customerID', {
         template: '<capacity-licensing-details class="sf-layout-block"></capacity-licensing-details>',
         reloadOnSearch: false
+      })
+      .when('/dashboard/registerCluster', {
+        template: '<register-cluster class="sf-layout-block"></register-cluster>',
+        reloadOnSearch: false,
+        data: {
+          permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
+        },
       })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
@@ -133,11 +140,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<snapshot-table class="sf-layout-block"></snapshot-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/volumes/active-volumes', {
+      .when('/cluster/:clusterID/volumes/activeVolumes', {
         template: '<volume-table class="sf-layout-block"></volume-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/volumes/snapshot-schedules', {
+      .when('/cluster/:clusterID/volumes/snapshotSchedules', {
         template: '<snapshot-schedules-table class="sf-layout-block"></snapshot-schedules-table>',
         reloadOnSearch: false
       })
@@ -153,11 +160,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<volume-pairs class="sf-layout-block"></volume-pairs>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vvols/virtual-volumes', {
+      .when('/cluster/:clusterID/vvols/virtualVolumes', {
         template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vvols/protocol-endpoints', {
+      .when('/cluster/:clusterID/vvols/protocolEndpoints', {
         template: '<protocol-endpoint-table class="sf-layout-block"></protocol-endpoint-table>',
         reloadOnSearch: false
       })
@@ -169,11 +176,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<binding-table class="sf-layout-block"></binding-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vvols/storage-containers', {
+      .when('/cluster/:clusterID/vvols/storageContainers', {
         template: '<storage-container-table class="sf-layout-block"></storage-container-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vmware-alarms', {
+      .when('/cluster/:clusterID/vmwareAlarms', {
         template: '<vmware-alarms></vmware-alarms>',
         reloadOnSearch: false,
         data: {
@@ -264,11 +271,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       })
       .when('/Licensing/Capacity/Adjust', defaultRedirect)
       .when('/Licensing/Capacity/List', {
-        redirectTo: '/dashboard/capacity-licensing',
+        redirectTo: '/dashboard/capacityLicensing',
       })
       .when('/Licensing/Capacity/View', {
         redirectTo(params, path, search) {
-          return `/dashboard/capacity-licensing/${search.customerID}`;
+          return `/dashboard/capacityLicensing/${search.customerID}`;
         }
       })
       .when('/Nodes/Active', {
@@ -293,12 +300,12 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       })
       .when('/Volumes/Active/List', {
         redirectTo: function (params, path, search) {
-          return '/cluster/' + search.clusterID + '/volumes/active-volumes';
+          return '/cluster/' + search.clusterID + '/volumes/activeVolumes';
         }
       })
       .when('/Volumes/Snapshots/Schedules/List', {
         redirectTo: function (params, path, search) {
-          return '/cluster/' + search.clusterID + '/volumes/snapshot-schedules';
+          return '/cluster/' + search.clusterID + '/volumes/snapshotSchedules';
         }
       })
       .when('/Volumes/Snapshots/List', {
