@@ -4,9 +4,11 @@
             <div class="info-bar-timestamp">
                 <span>{{ item.title }}</span>
                 <div class="info-bar-refresh-button">
-                    <button class="button refresh-btn" ng-click="$ctrl.refreshInfoBarData()">
-                        <i class="fa fa-refresh"></i>
-                    </button>
+                    
+                    <label class="switch">
+                        <input type="checkbox" ng-model="checkboxModel">
+                        <div class="slider round"></div>
+                    </label>
                 </div>
             </div>
             <div class="row control-tower-sum-data">
@@ -23,7 +25,11 @@
                                 <td>View Plotted Data</td>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="data in item.viewData">
+                                <tr ng-if="checkboxModel" ng-repeat="data in item.nodeData">
+                                    <td>{{ data.subTitle }}</td>
+                                    <th>{{ data.dataDisplay }}</th>
+                                </tr>
+                                <tr ng-if="!checkboxModel" ng-repeat="data in item.clusterData">
                                     <td>{{ data.subTitle }}</td>
                                     <th>{{ data.dataDisplay }}</th>
                                 </tr>
@@ -41,7 +47,6 @@
                     <span>Node Type - Count</span>
                 </div>
                 <div class="info-box-content">
-                    Node Type Graph
                 </div>
             </div>
         </div>
