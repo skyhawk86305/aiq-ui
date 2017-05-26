@@ -39,6 +39,13 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           permissions: { only: ['registerCluster'], redirectTo: '/dashboard/overview' },
         },
       })
+      .when('/admin/dashberg', {
+        template: '<dashberg class="sf-layout-block"></dashberg>',
+        reloadOnSearch: false,
+        data: {
+          permissions: { only: ['dashberg'], redirectTo: '/dashboard/overview' },
+        },
+      })
       .when('/dashboard/overview', {
         template: require('./welcome-beta.tpl.html')
       })
