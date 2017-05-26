@@ -17,7 +17,7 @@
     <div class="info-bar-row col-lg-6 col-md-12">
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -node-count col-lg-2 col-md-2 col-sm-6">
         <div class="info-box-content">
-          <a href="{{$ctrl.getHref('/nodes')}}" class="title link">
+          <a href="{{$ctrl.getHref('/nodes')}}" class="title sf-link">
             Nodes
             <i class="fa fa-arrow-right"></i>
           </a>
@@ -26,7 +26,7 @@
       </div>
       <div sf-state state= "$ctrl.getActiveVolumesState" class="info-box -volume-count col-lg-3 col-md-3 col-sm-6">
         <div class="info-box-content">
-          <a href="{{$ctrl.getHref('/volumes/activeVolumes')}}" class="title link">
+          <a href="{{$ctrl.getHref('/volumes/activeVolumes')}}" class="title sf-link">
             Volumes
             <i class="fa fa-arrow-right"></i>
           </a>
@@ -35,7 +35,7 @@
       </div>
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -cluster-faults col-lg-7 col-md-7 col-sm-12">
         <div class="info-box-content">
-          <a href="{{$ctrl.getHref('/reporting/errorLog')}}" class="title link">
+          <a href="{{$ctrl.getHref('/reporting/errorLog')}}" class="title sf-link">
             Unresolved Faults
             <i class="fa fa-arrow-right"></i>
           </a>
@@ -65,7 +65,7 @@
     <div class="info-bar-row col-lg-6 col-md-12">
       <div sf-state state= "$ctrl.getCapacitySnapshotState" class="info-box -efficiency-info col-lg-4 col-md-4 col-sm-12">
         <div class="info-box-content -efficiency">
-          <a href="{{$ctrl.getHref('/reporting/efficiency')}}" class="title link">
+          <a href="{{$ctrl.getHref('/reporting/efficiency')}}" class="title sf-link">
             Efficiency (x)
             <i class="fa fa-arrow-right"></i>
           </a>
@@ -74,7 +74,7 @@
       </div>
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -block-capacity col-lg-4 col-md-4 col-sm-6">
         <div class="info-box-content">
-          <a href="{{$ctrl.getHref('/reporting/capacity?capacity-sync-graphs-context-graph=block-capacity')}}" class="title link">
+          <a href="{{$ctrl.getHref('/reporting/capacity?capacity-sync-graphs-context-graph=block-capacity')}}" class="title sf-link">
             Block Capacity
             <i class="fa fa-arrow-right"></i>
           </a>
@@ -88,7 +88,7 @@
       </div>
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -metadata-capacity col-lg-4 col-md-4 col-sm-6">
         <div class="info-box-content">
-          <a href="{{$ctrl.getHref('/reporting/capacity?capacity-sync-graphs-context-graph=metadata-capacity')}}" class="title link">
+          <a href="{{$ctrl.getHref('/reporting/capacity?capacity-sync-graphs-context-graph=metadata-capacity')}}" class="title sf-link">
             Metadata Capacity
             <i class="fa fa-arrow-right"></i>
           </a>
