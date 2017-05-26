@@ -13,7 +13,7 @@ export function ElementClientFactory($q, $http, DataService) {
       this.hostname = `${dashedMVIP}.ip.solidfire.net`;
     }
 
-    callAPI(method: string, params = {}, apiVersion = '2.0') {
+    callAPI(method: string, params = {}, apiVersion = '1.0') {
       return $http
         .post(
           `https://${this.hostname}/json-rpc/${apiVersion}`,

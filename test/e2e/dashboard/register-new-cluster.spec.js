@@ -33,7 +33,7 @@ describe('The register new cluster page', function() {
         clusterID: 12345,
       }
     }]);
-    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/2.0').respond( () => [200, {
+    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/1.0').respond( () => [200, {
       result: {
         clusterInfo: { name: 'testCluster', uuid: 'fake-cluster-uuid' },
       },
@@ -85,7 +85,7 @@ describe('The register new cluster page', function() {
         },
       }
     }]);
-    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/2.0')
+    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/1.0')
       .respond( () => [500, 'random error']);
     browser.get('#/dashboard/registerCluster');
 
@@ -109,7 +109,7 @@ describe('The register new cluster page', function() {
         },
       }
     }]);
-    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/2.0')
+    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/1.0')
       .respond( () => [401, 'not authenticated']);
     browser.get('#/dashboard/registerCluster');
 
@@ -144,7 +144,7 @@ describe('The register new cluster page', function() {
         customerID: 234,
       }
     }]);
-    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/2.0').respond( () => [200, {
+    mockBackend.http.whenPOST('https://1-2-3-4.ip.solidfire.net/json-rpc/1.0').respond( () => [200, {
       result: {
         clusterInfo: { name: 'testCluster', uuid: 'fake-cluster-uuid' },
       },
