@@ -26,13 +26,9 @@ export class UnregisteredClustersService {
         );
     }
 
-    const refreshTable = () => {
-      this.$rootScope.$broadcast('refresh-unregistered-clusters', true);
-    }
-
     const service = new SFTableService(listUnregisteredClusters, columns, false);
 
-    service.register = function(rowData) {
+    service.register = (rowData) => {
       return $uibModal
         .open({
           animation: false,
@@ -45,7 +41,10 @@ export class UnregisteredClustersService {
           backdropClass: 'aiq-modal-backdrop',
         })
         .result
-        .then( () => refreshTable() );
+        .then( () => {
+          this.$rootScope.$broadcast('refresh-unregistered-clusters', true);
+          this.$rootScope.$broadcast('refresh-cluster-select');
+        });
     };
 
     return service;
