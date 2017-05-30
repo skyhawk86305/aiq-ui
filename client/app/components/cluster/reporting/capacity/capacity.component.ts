@@ -377,7 +377,7 @@
     }
 
     function yAxisFormat(bytes) {
-      return $filter('bytes')(bytes, false, 0, false);
+      return $filter('bytes')(bytes, false, 2, false);
     }
   }
 })();
