@@ -110,7 +110,7 @@
           showAxisLabel: true,
           barSpacing: 80,
           data: {
-            x: 'timestamps',
+            x: 'timestampSec',
             y: 'activeSessions',
             color: '#0FAEE7'
           },
