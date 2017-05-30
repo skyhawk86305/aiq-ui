@@ -14,7 +14,7 @@ var columns = [
   {key: 'driveID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'nodeID', label: 'Node ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'slot', label: 'Slot', format: {filter: 'driveSlot'}},
-  {key: 'capacity', label: 'Capacity', format: {filter: 'bytes'}},
+  {key: 'capacity', label: 'Capacity', format: {filter: 'bytes', args: [false, 2]}},
   {key: 'version', label: 'Firmware Version', format: {filter: 'string'}},
   {key: 'serial', label: 'Serial', format: {filter: 'string'}},
   {key: 'lifeRemainingPercent', label: 'Wear Remaining', format: {filter: 'drivesTableBadge', args: ['wear']}, exclude: true},

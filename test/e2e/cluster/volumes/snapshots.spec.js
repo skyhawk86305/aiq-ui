@@ -13,10 +13,10 @@ var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'snapshotID', label: 'ID', width: 100, format: {filter: 'string'}},
   {key: 'snapshotUUID', label: 'UUID', format: {filter: 'string'}},
-  {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
+  {key: 'totalSize', label: 'Size', format: {filter: 'bytes', args: [false, 2]}},
   {key: 'volumeID', label: 'Volume ID', width: 100, format: {filter: 'string'}},
   {key: 'accountID', label: 'Account ID', width: 100, format: {filter: 'string'}},
-  {key: 'volumeSize', label: 'Volume Size', format: {filter: 'bytes'}},
+  {key: 'volumeSize', label: 'Volume Size', format: {filter: 'bytes', args: [false, 2]}},
   {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
   {key: 'retainUntil', label: 'Retain Until', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
   {key: 'groupID', label: 'Group SnapshotID', format: {filter: 'string'}},

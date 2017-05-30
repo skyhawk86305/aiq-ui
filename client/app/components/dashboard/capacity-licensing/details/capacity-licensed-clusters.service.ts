@@ -16,7 +16,7 @@
     const columns = [
       { label: 'Cluster ID', key: 'clusterID', filterComparators: SFFilterComparators.INTEGER_DEFAULT },
       { label: 'Cluster Name', key: 'clusterName', filterComparators: SFFilterComparators.STRING_DEFAULT },
-      { label: 'Provisioned Licensed Capacity', key: 'clusterProvisionedLicenseCapacity', format: { filter: 'bytes' } },
+      { label: 'Provisioned Licensed Capacity', key: 'clusterProvisionedLicenseCapacity', format: { filter: 'bytes', args: [false, 2] } },
       { label: '% of Total Provisioned Licensed Capacity', key: 'clusterCapacityUtilization', format: { filter: 'percent', args: [ 1, true ] } },
     ];
 
