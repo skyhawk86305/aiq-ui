@@ -13,7 +13,7 @@ var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'volumeID', label: 'ID', format: {filter: 'string'}},
   {key: 'accountID', label: 'Account ID', format: {filter: 'string'}},
-  {key: 'totalSize', label: 'Volume Size', format: {filter: 'bytes', args: [false, 2]}},
+  {key: 'totalSize', label: 'Volume Size', format: {filter: 'bytes'}},
   {key: 'enable512e', label: '512e', format: {filter: 'boolean', args: ['Yes', 'No']}},
   {key: 'access', label: 'Access', format: {filter: 'access'}},
   {key: 'minIOPS', label: 'Min IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},

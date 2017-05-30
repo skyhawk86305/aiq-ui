@@ -17,7 +17,7 @@
       { label: 'Cluster Name', key: 'clusterName', format: { filter: 'string' }, filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Service Tag', key: 'serviceTag', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Model', key: 'nodeType', format: { filter: 'string' }, filterComparators: SFFilterComparators.STRING_DEFAULT },
-      { label: 'Raw Capacity', key: 'rawCapacity', format: { filter: 'bytes', args: [false, 2] } },
+      { label: 'Raw Capacity', key: 'rawCapacity', format: { filter: 'bytes' } },
     ];
 
     function listLicensedNodes() {

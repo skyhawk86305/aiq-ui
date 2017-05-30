@@ -13,7 +13,7 @@ const customerID = 1234;
 const clusterColumns = [
   { label: 'Cluster ID', key: 'clusterID', format: { filter: 'string' } },
   { label: 'Cluster Name', key: 'clusterName' },
-  { label: 'Provisioned Licensed Capacity', key: 'clusterProvisionedLicenseCapacity', format: { filter: 'bytes', args: [false, 2] } },
+  { label: 'Provisioned Licensed Capacity', key: 'clusterProvisionedLicenseCapacity', format: { filter: 'bytes' } },
   { label: '% of Total Provisioned Licensed Capacity', key: 'clusterCapacityUtilization', format: { filter: 'percent', args: [ 1, true ] } },
 ];
 
@@ -21,7 +21,7 @@ const nodeColumns = [
   { label: 'Cluster Name', key: 'clusterName', format: { filter: 'string' } },
   { label: 'Service Tag', key: 'serviceTag' },
   { label: 'Model', key: 'nodeType', format: { filter: 'string' } },
-  { label: 'Raw Capacity', key: 'rawCapacity', format: { filter: 'bytes', args: [false, 2] } },
+  { label: 'Raw Capacity', key: 'rawCapacity', format: { filter: 'bytes' } },
 ];
 
 describe('The Capacity Licensing Details Page', function() {
