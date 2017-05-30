@@ -31,7 +31,8 @@
         <span ng-switch-when="ClusterAlreadyRegistered">
           The cluster is already registered with a customer account.
           <a href="#/cluster/{{ $ctrl.clusterID }}/reporting/overview"
-              ng-show="$ctrl.clusterID">
+              ng-show="$ctrl.clusterID"
+              class="sf-link-inline">
             View the cluster details.
           </a>
         </span>
