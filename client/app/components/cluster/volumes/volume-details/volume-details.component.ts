@@ -311,7 +311,7 @@
               x: {
                 tick: {
                   format:  (date)  => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -394,7 +394,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -477,7 +477,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -548,7 +548,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -622,7 +622,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -701,7 +701,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
