@@ -29,12 +29,12 @@
     }
 
     ctrl.items = [
-      {title: 'Nodes in Clusters', sumNum: 'totalNodes', description: 'Total Nodes in Field',
+      {title: 'Nodes in Clusters', sumNum: 'totalNodes', description: 'Total Nodes in Field', 
         clusterFields: [
-          {subTitle: 'Min Nodes Per Cluster', key: 'minNodes' },
-          {subTitle: 'Max Nodes Per Cluster', key: 'maxNodes'},
-          {subTitle: 'Avg Nodes Per Cluster', key: 'avgNodes'},
-          {subTitle: 'Standard Deviation', key: 'stdDev'}
+          {subTitle: 'Min Nodes Per Cluster', key: 'minNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
+          {subTitle: 'Max Nodes Per Cluster', key: 'maxNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
+          {subTitle: 'Avg Nodes Per Cluster', key: 'avgNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
           return ControlTowerNodeService.getData()
@@ -43,10 +43,10 @@
             })
         },
         nodeFields: [
-          {subTitle: 'Min Nodes Per Node', key: 'minNodes'},
-          {subTitle: 'Max Nodes Per Node', key: 'maxNodes'},
-          {subTitle: 'Avg Nodes Per Node', key: 'avgNodes'},
-          {subTitle: 'Standard Deviation', key: 'stdDev'}
+          {subTitle: 'Min Nodes Per Node', key: 'minNodesNode', perCluster: '/' , unitKey: 'unitNodesNode'},
+          {subTitle: 'Max Nodes Per Node', key: 'maxNodesNode', perCluster: '/' , unitKey: 'unitNodesNode'},
+          {subTitle: 'Avg Nodes Per Node', key: 'avgNodesNode', perCluster: '/' , unitKey: 'unitNodesNode'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
           return ControlTowerNodeService.getData()
@@ -55,12 +55,12 @@
             })
         },
       },
-      {title: 'Nodes in Clusters', sumNum: 'totalVolumes', description: 'Total Nodes in Field',
+      {title: 'Volumes in Clusters', sumNum: 'totalVolumes', description: 'Total Volumes in Field',
         clusterFields: [
-          {subTitle: 'Min Nodes Per Cluster', key: 'minVolumes' },
-          {subTitle: 'Max Nodes Per Cluster', key: 'maxVolumes'},
-          {subTitle: 'Avg Nodes Per Cluster', key: 'avgVolumes'},
-          {subTitle: 'Standard Deviation', key: 'stdDev'}
+          {subTitle: 'Min Volumes Per Cluster', key: 'minVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
+          {subTitle: 'Max Volumes Per Cluster', key: 'maxVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
+          {subTitle: 'Avg Volumes Per Cluster', key: 'avgVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
           return ControlTowerVolumeService.getData()
@@ -69,10 +69,10 @@
             })
         },
         nodeFields: [
-          {subTitle: 'Min Nodes Per Node', key: 'minVolumes'},
-          {subTitle: 'Max Nodes Per Node', key: 'maxVolumes'},
-          {subTitle: 'Avg Nodes Per Node', key: 'avgVolumes'},
-          {subTitle: 'Standard Deviation', key: 'stdDev'}
+          {subTitle: 'Min Volumes Per Node', key: 'minVolumesNode', perCluster: '/' , unitKey: 'unitVolumeNode'},
+          {subTitle: 'Max Volumes Per Node', key: 'maxVolumesNode', perCluster: '/' , unitKey: 'unitVolumeNode'},
+          {subTitle: 'Avg Volumes Per Node', key: 'avgVolumesNode', perCluster: '/' , unitKey: 'unitVolumeNode'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
           return ControlTowerVolumeService.getData()
@@ -81,12 +81,12 @@
             })
         },
       },
-      {title: 'Nodes in Clusters', sumNum: 'totalVolumeSize', description: 'Total Nodes in Field', numUnit: '',
+      {title: 'Volume Size', sumNum: 'totalVolumeSize', description: 'Current Average Volume Size',
         clusterFields: [
-          {subTitle: 'Min Nodes Per Cluster', key: 'minVolumeSize' },
-          {subTitle: 'Max Nodes Per Cluster', key: 'maxVolumeSize'},
-          {subTitle: 'Avg Nodes Per Cluster', key: 'avgVolumeSize'},
-          {subTitle: 'Standard Deviation', key: 'stdDev'}
+          {subTitle: 'Min Volume Size Per Cluster', key: 'minVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
+          {subTitle: 'Max Volume Size Per Cluster', key: 'maxVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
+          {subTitle: 'Avg Volume Size Per Cluster', key: 'avgVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
           return ControlTowerVolumeSizeService.getData()
@@ -95,10 +95,10 @@
             })
         },
         nodeFields: [
-          {subTitle: 'Min Nodes Per Node', key: 'minVolumeSize'},
-          {subTitle: 'Max Nodes Per Node', key: 'maxVolumeSize'},
-          {subTitle: 'Avg Nodes Per Node', key: 'avgVolumeSize'},
-          {subTitle: 'Standard Deviation', key: 'stdDev'}
+          {subTitle: 'Min Volume Size Per Node', key: 'minVolumeSizeNode', perCluster: '/' , unitKey: 'unitVolumeSizeNode'},
+          {subTitle: 'Max Volume Size Per Node', key: 'maxVolumeSizeNode', perCluster: '/' , unitKey: 'unitVolumeSizeNode'},
+          {subTitle: 'Avg Volume Size Per Node', key: 'avgVolumeSizeNode', perCluster: '/' , unitKey: 'unitVolumeSizeNode'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
           return ControlTowerVolumeSizeService.getData()

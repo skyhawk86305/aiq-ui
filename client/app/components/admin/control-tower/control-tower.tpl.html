@@ -27,11 +27,11 @@
                             <tbody>
                                 <tr ng-if="checkboxModel" ng-repeat="field in item.nodeFields">
                                     <td>{{ field.subTitle }}</td>
-                                    <th>{{ item.nodeData[field.key] }}</th>
+                                    <th>{{ item.nodeData[field.key] }} {{ field.perCluster }} {{ item.nodeData[field.unitKey] }}</th>
                                 </tr>
                                 <tr ng-if="!checkboxModel" ng-repeat="field in item.clusterFields">
                                     <td>{{ field.subTitle }}</td>
-                                    <th>{{ item.clusterData[field.key] }}</th>
+                                    <th>{{ item.clusterData[field.key] }} {{ field.perCluster }} {{ item.clusterData[field.unitKey] }} </th>
                                 </tr>
                             </tbody>
                         </table>

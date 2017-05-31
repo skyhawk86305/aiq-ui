@@ -1,9 +1,15 @@
 module.exports = {
     "result": {
-        "totalVolumeSize": 539,
-        "minVolumeSize": 2123,
-        "maxVolumeSize": 34324,
-        "avgVolumeSize": 5434,
-        "stdDev": 0.70
+        "totalVolumeSize": 25000000000000,
+        "minVolumeSizeCluster": 130000000,
+        "maxVolumeSizeCluster": 7000000000000,
+        "avgVolumeSizeCluster": 2500000000000,
+        "unitVolumeSizeCluster": 8000000000000,
+        "stdDevCluster": 0.52,
+        "minVolumeSizeNode": 120000000,
+        "maxVolumeSizeNode": 6000000000000,
+        "avgVolumeSizeNode": 2400000000000,
+        "unitVolumeSizeNode": 7000000000000,
+        "stdDevNode": 0.42
     }
 }
