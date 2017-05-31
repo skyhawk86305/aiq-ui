@@ -15,12 +15,14 @@
         'ControlTowerVolumeService',
         'ControlTowerVolumeSizeService',
         'ControlTowerVolumeAccessService',
+        'ControlTowerIOPService',
         '$filter',
         ControlTowerController
         ]
     });
 
-  function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, ControlTowerVolumeAccessService, $filter) {
+  function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, ControlTowerVolumeAccessService,
+    ControlTowerIOPService, $filter) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -43,7 +45,6 @@
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.totalNodes = numFormat(this.clusterData.totalNodes);
             })
         },
         nodeFields: [
@@ -57,7 +58,6 @@
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-              this.nodeData.totalNodes = numFormat(this.nodeData.totalNodes);
             })
         },
       },
@@ -162,6 +162,44 @@
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
+            })
+        },
+      },
+      {title: 'Cluster IOPs', sumNum: 'totalIOPs', description: 'Field Average: IOPs Per all clusters',
+        clusterFields: [
+          {subTitle: 'Min IOPs Per Cluster', key: 'minIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
+          {subTitle: 'Max IOPs Per Cluster', key: 'maxIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
+          {subTitle: 'Avg IOPs Per Cluster', key: 'avgIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
+        ],
+        loadClusterData() {
+          return ControlTowerIOPService.getData()
+            .then( response => {
+              this.clusterData = response;
+              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+              this.clusterData.minIOPsCluster = numFormat(this.clusterData.minIOPsCluster);
+              this.clusterData.maxIOPsCluster = numFormat(this.clusterData.maxIOPsCluster);
+              this.clusterData.avgIOPsCluster = numFormat(this.clusterData.avgIOPsCluster);
+              this.clusterData.unitIOPsCluster = numFormat(this.clusterData.unitIOPsCluster);
+              this.clusterData.totalIOPs = numFormat(this.clusterData.totalIOPs);
+            })
+        },
+        nodeFields: [
+          {subTitle: 'Min IOPs Per Node', key: 'minIOPsNode', perNode: '/' , unitKey: 'unitIOPsNode'},
+          {subTitle: 'Max IOPs Per Node', key: 'maxIOPsNode', perNode: '/' , unitKey: 'unitIOPsNode'},
+          {subTitle: 'Avg IOPs Per Node', key: 'avgIOPsNode', perNode: '/' , unitKey: 'unitIOPsNode'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
+        ],
+        loadNodeData() {
+          return ControlTowerIOPService.getData()
+            .then( response => {
+              this.nodeData = response;
+              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
+              this.nodeData.minIOPsNode = numFormat(this.nodeData.minIOPsNode);
+              this.nodeData.maxIOPsNode = numFormat(this.nodeData.maxIOPsNode);
+              this.nodeData.avgIOPsNode = numFormat(this.nodeData.avgIOPsNode);
+              this.nodeData.unitIOPsNode = numFormat(this.nodeData.unitIOPsNode);
+              this.nodeData.totalIOPs = numFormat(this.nodeData.totalIOPs);
             })
         },
       }
