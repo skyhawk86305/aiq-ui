@@ -5,11 +5,10 @@
     .module('aiqUi')
     .service('ControlTowerVolumeSizeService', [
       'DataService',
-      '$filter',
       ControlTowerVolumeSizeService
     ]);
 
-  function ControlTowerVolumeSizeService(DataService, $filter) {
+  function ControlTowerVolumeSizeService(DataService) {
     this.getData = function() {
       return DataService.callAPI('ControlTowerVolumeSize', {})
     };

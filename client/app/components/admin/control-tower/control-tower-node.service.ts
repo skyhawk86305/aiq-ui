@@ -5,13 +5,12 @@
     .module('aiqUi')
     .service('ControlTowerNodeService', [
       'DataService',
-      '$filter',
       ControlTowerNodeService
     ]);
 
-  function ControlTowerNodeService(DataService, $filter) {
+  function ControlTowerNodeService(DataService) {
     this.getData = function() {
       return DataService.callAPI('ControlTowerNode', {});
     }
-  }
+  };
 })();
