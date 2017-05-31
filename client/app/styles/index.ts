@@ -7,6 +7,7 @@ import './modal.less';
 import './prefixer.less';
 import './shared.less';
 import './sizes.less';
+import './sync-graphs.less';
 import './tables.less';
 import './table-badge.less';
 import './welcome-beta.less';

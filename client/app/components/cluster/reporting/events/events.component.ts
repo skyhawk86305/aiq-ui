@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('eventTable', {
-      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="event" control-bar="true" items-per-page="25" export="true" footer-row-count="true"></sf-table>',
+      template: require('./events.tpl.html'),
       controller: ['$routeParams', 'EventTableService', EventTableController]
     });
 
