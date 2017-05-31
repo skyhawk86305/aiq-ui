@@ -18,13 +18,14 @@
         'ControlTowerIOPService',
         'ControlTowerBandwidthService',
         'ControlTowerSessionService',
+        'ControlTowerSnapshotService',
         '$filter',
         ControlTowerController
         ]
     });
 
   function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, ControlTowerVolumeAccessService,
-    ControlTowerIOPService, ControlTowerBandwidthService, ControlTowerSessionService, $filter) {
+    ControlTowerIOPService, ControlTowerBandwidthService, ControlTowerSessionService, ControlTowerSnapshotService, $filter) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -265,6 +266,34 @@
         ],
         loadNodeData() {
           return ControlTowerSessionService.getData()
+            .then( response => {
+              this.nodeData = response;
+              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
+            })
+        },
+      },
+      {title: 'Total Snapshots', sumNum: 'totalSnapshots', description: 'Field Average: Snapshots per Volume',
+        clusterFields: [
+          {subTitle: 'Min Snapshots Per Cluster', key: 'minSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
+          {subTitle: 'Max Snapshots Per Cluster', key: 'maxSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
+          {subTitle: 'Avg Snapshots Per Cluster', key: 'avgSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
+        ],
+        loadClusterData() {
+          return ControlTowerSnapshotService.getData()
+            .then( response => {
+              this.clusterData = response;
+              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+            })
+        },
+        nodeFields: [
+          {subTitle: 'Min Snapshots Per Volume', key: 'minSnapshotsVolume', perNode: '/' , unitKey: 'unitSnapshotsVolume'},
+          {subTitle: 'Max Snapshots Per Volume', key: 'maxSnapshotsVolume', perNode: '/' , unitKey: 'unitSnapshotsVolume'},
+          {subTitle: 'Avg Snapshots Per Volume', key: 'avgSnapshotsVolume', perNode: '/' , unitKey: 'unitSnapshotsVolume'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
+        ],
+        loadNodeData() {
+          return ControlTowerSnapshotService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
