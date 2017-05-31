@@ -16,13 +16,14 @@
         'ControlTowerVolumeSizeService',
         'ControlTowerVolumeAccessService',
         'ControlTowerIOPService',
+        'ControlTowerBandwidthService',
         '$filter',
         ControlTowerController
         ]
     });
 
   function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, ControlTowerVolumeAccessService,
-    ControlTowerIOPService, $filter) {
+    ControlTowerIOPService, ControlTowerBandwidthService, $filter) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -202,6 +203,44 @@
               this.nodeData.totalIOPs = numFormat(this.nodeData.totalIOPs);
             })
         },
+      },
+      {title: 'Cluster Bandwidth', sumNum: 'totalBandwidth', description: 'Field Average: Bandwidth in Field',
+        clusterFields: [
+          {subTitle: 'Min Bandwidth Per Cluster', key: 'minBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
+          {subTitle: 'Max Bandwidth Per Cluster', key: 'maxBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
+          {subTitle: 'Avg Bandwidth Per Cluster', key: 'avgBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
+        ],
+        loadClusterData() {
+          return ControlTowerBandwidthService.getData()
+            .then( response => {
+              this.clusterData = response;
+              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+              this.clusterData.minBandwidthCluster = bytesPerSecondFormat(this.clusterData.minBandwidthCluster);
+              this.clusterData.maxBandwidthCluster = bytesPerSecondFormat(this.clusterData.maxBandwidthCluster);
+              this.clusterData.avgBandwidthCluster = bytesPerSecondFormat(this.clusterData.avgBandwidthCluster);
+              this.clusterData.unitBandwidthCluster = bytesPerSecondFormat(this.clusterData.unitBandwidthCluster);
+              this.clusterData.totalBandwidth = bytesPerSecondFormat(this.clusterData.totalBandwidth);
+            })
+        },
+        nodeFields: [
+          {subTitle: 'Min Bandwidth Per Node', key: 'minBandwidthNode', perNode: '/' , unitKey: 'unitBandwidthNode'},
+          {subTitle: 'Max Bandwidth Per Node', key: 'maxBandwidthNode', perNode: '/' , unitKey: 'unitBandwidthNode'},
+          {subTitle: 'Avg Bandwidth Per Node', key: 'avgBandwidthNode', perNode: '/' , unitKey: 'unitBandwidthNode'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
+        ],
+        loadNodeData() {
+          return ControlTowerBandwidthService.getData()
+            .then( response => {
+              this.nodeData = response;
+              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
+              this.nodeData.minBandwidthNode = bytesPerSecondFormat(this.nodeData.minBandwidthNode);
+              this.nodeData.maxBandwidthNode = bytesPerSecondFormat(this.nodeData.maxBandwidthNode);
+              this.nodeData.avgBandwidthNode = bytesPerSecondFormat(this.nodeData.avgBandwidthNode);
+              this.nodeData.unitBandwidthNode = bytesPerSecondFormat(this.nodeData.unitBandwidthNode);
+              this.nodeData.totalBandwidth = bytesPerSecondFormat(this.nodeData.totalBandwidth);
+            })
+        },
       }
     ]
 
@@ -210,6 +249,9 @@
     }
     function bytesFormat(bytes) {
       return $filter('bytes')(bytes, false, 0, false, false);
+    }
+    function bytesPerSecondFormat(bytesPerSecond) {
+      return $filter('bytes')(bytesPerSecond, false, 0, true, false);
     }
     function numFormat(num) {
       if(num >= 1000) num = num/1000 + 'k';
