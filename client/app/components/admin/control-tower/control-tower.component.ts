@@ -14,12 +14,13 @@
         'ControlTowerNodeService',
         'ControlTowerVolumeService',
         'ControlTowerVolumeSizeService',
+        'ControlTowerVolumeAccessService',
         '$filter',
         ControlTowerController
         ]
     });
 
-  function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, $filter) {
+  function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, ControlTowerVolumeAccessService, $filter) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -133,6 +134,34 @@
               this.nodeData.avgVolumeSizeNode = bytesFormat(this.nodeData.avgVolumeSizeNode);
               this.nodeData.totalVolumeSize = bytesFormat(this.nodeData.totalVolumeSize);
               this.nodeData.unitVolumeSizeNode = bytesFormat(this.nodeData.unitVolumeSizeNode);
+            })
+        },
+      },
+      {title: 'Volume Access Groups', sumNum: 'totalVolumeAccess', description: 'Total Volume Access Groups in Field',
+        clusterFields: [
+          {subTitle: 'Min Vags Per Cluster', key: 'minVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
+          {subTitle: 'Max Vags Per Cluster', key: 'maxVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
+          {subTitle: 'Avg Vags Per Cluster', key: 'avgVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
+        ],
+        loadClusterData() {
+          return ControlTowerVolumeAccessService.getData()
+            .then( response => {
+              this.clusterData = response;
+              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+            })
+        },
+        nodeFields: [
+          {subTitle: 'Min Vags Per Node', key: 'minVolumeAccessNode', perNode: '/' , unitKey: 'unitVolumeAccessNode'},
+          {subTitle: 'Max Vags Per Node', key: 'maxVolumeAccessNode', perNode: '/' , unitKey: 'unitVolumeAccessNode'},
+          {subTitle: 'Avg Vags Per Node', key: 'avgVolumeAccessNode', perNode: '/' , unitKey: 'unitVolumeAccessNode'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
+        ],
+        loadNodeData() {
+          return ControlTowerVolumeAccessService.getData()
+            .then( response => {
+              this.nodeData = response;
+              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
             })
         },
       }
