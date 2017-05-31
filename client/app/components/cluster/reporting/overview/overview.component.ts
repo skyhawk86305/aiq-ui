@@ -284,7 +284,7 @@
       return $filter('iops')(iops, true, 1);
     }
     function bytesFormat(bytes) {
-      return $filter('bytes')(bytes, false, 0, true);
+      return $filter('bytes')(bytes, false, 2, true);
     }
 
     function getNodeCounts(nodes) {
