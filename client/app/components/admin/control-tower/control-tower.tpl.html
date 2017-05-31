@@ -14,7 +14,7 @@
             <div class="row control-tower-sum-data">
                 <div class="info-box col-md-6">
                     <div class="info-box-content">
-                        <span><span class="value -medium">{{ item.sumNum }}</span>{{ item.numUnit }}</span>
+                        <span class="value -medium">{{ item.clusterData[item.sumNum] }}</span>
                         <span class="title">{{ item.description }}</span>
                     </div>
                 </div>
@@ -25,13 +25,13 @@
                                 <td>View Plotted Data</td>
                             </thead>
                             <tbody>
-                                <tr ng-if="checkboxModel" ng-repeat="data in item.nodeData">
-                                    <td>{{ data.subTitle }}</td>
-                                    <th>{{ data.dataDisplay }}</th>
+                                <tr ng-if="checkboxModel" ng-repeat="field in item.nodeFields">
+                                    <td>{{ field.subTitle }}</td>
+                                    <th>{{ item.nodeData[field.key] }}</th>
                                 </tr>
-                                <tr ng-if="!checkboxModel" ng-repeat="data in item.clusterData">
-                                    <td>{{ data.subTitle }}</td>
-                                    <th>{{ data.dataDisplay }}</th>
+                                <tr ng-if="!checkboxModel" ng-repeat="field in item.clusterFields">
+                                    <td>{{ field.subTitle }}</td>
+                                    <th>{{ item.clusterData[field.key] }}</th>
                                 </tr>
                             </tbody>
                         </table>
