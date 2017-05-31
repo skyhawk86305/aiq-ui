@@ -1,6 +1,6 @@
 module.exports = {
     "result": {
-        "totalBandwidth": 21200000000,
+        "totalBandwidth": 212000000,
         "minBandwidthCluster": 28000000,
         "maxBandwidthCluster": 356000000,
         "avgBandwidthCluster": 212000000,

@@ -17,13 +17,14 @@
         'ControlTowerVolumeAccessService',
         'ControlTowerIOPService',
         'ControlTowerBandwidthService',
+        'ControlTowerSessionService',
         '$filter',
         ControlTowerController
         ]
     });
 
   function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, ControlTowerVolumeAccessService,
-    ControlTowerIOPService, ControlTowerBandwidthService, $filter) {
+    ControlTowerIOPService, ControlTowerBandwidthService, ControlTowerSessionService, $filter) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -239,6 +240,34 @@
               this.nodeData.avgBandwidthNode = bytesPerSecondFormat(this.nodeData.avgBandwidthNode);
               this.nodeData.unitBandwidthNode = bytesPerSecondFormat(this.nodeData.unitBandwidthNode);
               this.nodeData.totalBandwidth = bytesPerSecondFormat(this.nodeData.totalBandwidth);
+            })
+        },
+      },
+      {title: 'iSCSI Sessions', sumNum: 'totalSessions', description: 'iSCSI Sessions per Node',
+        clusterFields: [
+          {subTitle: 'Min iSCSI Sessions Per Cluster', key: 'minSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
+          {subTitle: 'Max iSCSI Sessions Per Cluster', key: 'maxSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
+          {subTitle: 'Avg iSCSI Sessions Per Cluster', key: 'avgSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
+          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
+        ],
+        loadClusterData() {
+          return ControlTowerSessionService.getData()
+            .then( response => {
+              this.clusterData = response;
+              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+            })
+        },
+        nodeFields: [
+          {subTitle: 'Min iSCSI Sessions Per Node', key: 'minSessionsNode', perNode: '/' , unitKey: 'unitSessionsNode'},
+          {subTitle: 'Max iSCSI Sessions Per Node', key: 'maxSessionsNode', perNode: '/' , unitKey: 'unitSessionsNode'},
+          {subTitle: 'Avg iSCSI Sessions Per Node', key: 'avgSessionsNode', perNode: '/' , unitKey: 'unitSessionsNode'},
+          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
+        ],
+        loadNodeData() {
+          return ControlTowerSessionService.getData()
+            .then( response => {
+              this.nodeData = response;
+              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
             })
         },
       }
