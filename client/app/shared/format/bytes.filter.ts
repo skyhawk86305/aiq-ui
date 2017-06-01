@@ -2,7 +2,7 @@ export function BytesFilter() {
   return function (data, binary, decimalPlaces, throughput, forHtml) {
     if (typeof data === 'number' || typeof data === 'string') {
       let number = typeof data === 'number' ? Math.floor(data) : parseInt(data, 10),
-        places = typeof decimalPlaces === 'number' ? decimalPlaces : 0,
+        places = typeof decimalPlaces === 'number' ? decimalPlaces : 2,
         absNumber = Math.abs(number),
         isNegative = number < 0,
         isZero = number === 0,
