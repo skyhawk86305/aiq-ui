@@ -2,29 +2,29 @@
   'use strict';
 
   const moduleName = 'aiqUi';
-  const componentName = 'controlTower';
-  const template = require('./control-tower.tpl.html');
+  const componentName = 'dashberg';
+  const template = require('./dashberg.tpl.html');
 
   angular
     .module(moduleName)
     .component(componentName, {
       template,
       controller: [
-        'ControlTowerNodeService',
-        'ControlTowerVolumeService',
-        'ControlTowerVolumeSizeService',
-        'ControlTowerVolumeAccessService',
-        'ControlTowerIOPService',
-        'ControlTowerBandwidthService',
-        'ControlTowerSessionService',
-        'ControlTowerSnapshotService',
+        'DashbergNodeService',
+        'DashbergVolumeService',
+        'DashbergVolumeSizeService',
+        'DashbergVolumeAccessService',
+        'DashbergIOPService',
+        'DashbergBandwidthService',
+        'DashbergSessionService',
+        'DashbergSnapshotService',
         '$filter',
-        ControlTowerController
+        DashbergController
         ]
     });
 
-  function ControlTowerController(ControlTowerNodeService, ControlTowerVolumeService, ControlTowerVolumeSizeService, ControlTowerVolumeAccessService,
-    ControlTowerIOPService, ControlTowerBandwidthService, ControlTowerSessionService, ControlTowerSnapshotService, $filter) {
+  function DashbergController(DashbergNodeService, DashbergVolumeService, DashbergVolumeSizeService, DashbergVolumeAccessService,
+    DashbergIOPService, DashbergBandwidthService, DashbergSessionService, DashbergSnapshotService, $filter) {
     let ctrl = this;
 
     ctrl.$onInit = function() {
@@ -43,7 +43,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerNodeService.getData()
+          return DashbergNodeService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -57,7 +57,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerNodeService.getData()
+          return DashbergNodeService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
@@ -72,7 +72,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerVolumeService.getData()
+          return DashbergVolumeService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -91,7 +91,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerVolumeService.getData()
+          return DashbergVolumeService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
@@ -111,7 +111,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerVolumeSizeService.getData()
+          return DashbergVolumeSizeService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -130,7 +130,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerVolumeSizeService.getData()
+          return DashbergVolumeSizeService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
@@ -150,7 +150,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerVolumeAccessService.getData()
+          return DashbergVolumeAccessService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -164,7 +164,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerVolumeAccessService.getData()
+          return DashbergVolumeAccessService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
@@ -179,7 +179,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerIOPService.getData()
+          return DashbergIOPService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -198,7 +198,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerIOPService.getData()
+          return DashbergIOPService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
@@ -218,7 +218,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerBandwidthService.getData()
+          return DashbergBandwidthService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -237,7 +237,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerBandwidthService.getData()
+          return DashbergBandwidthService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
@@ -257,7 +257,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerSessionService.getData()
+          return DashbergSessionService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -271,7 +271,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerSessionService.getData()
+          return DashbergSessionService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
@@ -286,7 +286,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
         ],
         loadClusterData() {
-          return ControlTowerSnapshotService.getData()
+          return DashbergSnapshotService.getData()
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
@@ -300,7 +300,7 @@
           {subTitle: 'Standard Deviation', key: 'stdDevNode'}
         ],
         loadNodeData() {
-          return ControlTowerSnapshotService.getData()
+          return DashbergSnapshotService.getData()
             .then( response => {
               this.nodeData = response;
               this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
