@@ -1,0 +1,196 @@
+<div class="register-cluster-page">
+
+  <div class="wizard-container">
+    <div class="wizard-header">
+      Register New Cluster with Customer Account
+    </div>
+
+    <div class="wizard-steps">
+      <div ng-repeat="step in $ctrl.steps">
+        <div class="wizard-step"
+          ng-class="{
+            active: $ctrl.currentStep === $index,
+            complete: $ctrl.currentStep > $index,
+          }">
+          <span ng-show="$ctrl.currentStep <= $index"> {{ $index + 1 }} </span>
+          <span ng-show="$ctrl.currentStep > $index" class="fa fa-check"></span>
+        </div>
+        <div class="wizard-step-divider" ng-show="$index < $ctrl.steps.length - 1"></div>
+      </div>
+    </div>
+
+    <div class="wizard-message">
+      <div class="success-message" ng-show="$ctrl.currentStep === $ctrl.steps.length">
+        <i class="fa fa-check-circle"></i>
+        Cluster <strong>{{ $ctrl.clusterName }}</strong>
+        was registered with the customer account <strong>{{ $ctrl.customerName }}</strong>.
+      </div>
+
+      <div class="error-message" ng-show="$ctrl.error" ng-switch="$ctrl.error" >
+        <i class="fa fa-times-circle"></i>
+        <span ng-switch-when="ClusterAlreadyRegistered">
+          The cluster is already registered with a customer account.
+          <a href="#/cluster/{{ $ctrl.clusterID }}/reporting/overview"
+              ng-show="$ctrl.clusterID"
+              class="sf-link-inline">
+            View the cluster details.
+          </a>
+        </span>
+        <span ng-switch-when="ClusterInfoNotRetrievable">
+          The cluster information was not retrievable. Ensure you have access to the cluster MVIP.
+        </span>
+        <span ng-switch-when="ClusterAuthError">
+          The cluster information was not retrievable. Ensure you have entered the correct credentials.
+        </span>
+        <span ng-switch-when="RegistrationCheckError">
+          Unexpected error occurred while attempting to check cluster registration. Please contact a technical support engineer.
+        </span>
+        <span ng-switch-when="RegisteredClusterPermissionError">
+          This cluster is already registered with a customer account, and you do not have permission to view it.
+        </span>
+        <span ng-switch-when="CustomerNotFoundError">
+          The customer was not found, or you do not have permission to view it. Ensure you have entered the correct UUID.
+        </span>
+        <span ng-switch-when="CustomerCheckError">
+          Unexpected error occurred while attempting to find customer account. Please contact a technical support engineer.
+        </span>
+        <span ng-switch-when="CustomerAccessError ">
+          You do not have permission to access this customer account.
+        </span>
+        <span ng-switch-when="RegistrationError">
+          Unexpected error occurred while attempting to register the cluster. Please contact a technical support engineer.
+        </span>
+
+        <span ng-switch-default>
+          {{ $ctrl.error }}
+        </span>
+      </div>
+
+    </div>
+
+    <form name="wizardForm"
+        class="wizard-body"
+        ng-switch="$ctrl.currentStep"
+        ng-submit="$ctrl.next()"
+        novalidate>
+
+      <div ng-switch-when="0">
+        <div class="wizard-step-description">
+          Step 1: Enter cluster MVIP
+        </div>
+
+        <div class="form-group">
+          <label class="control-label"> Cluster MVIP: </label>
+          <div class="control-container">
+            <input type="text"
+                name="clusterMVIP"
+                class="form-control input-sm"
+                ng-model="$ctrl.clusterMVIP"
+                ng-pattern="/\d+\.\d+\.\d+\.\d+/"
+                required>
+          </div>
+        </div>
+      </div>
+
+      <div ng-switch-when="1">
+        <div class="wizard-step-description">
+          Step 2: Enter reporting level cluster credentials
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">
+            Cluster User Name:
+            <i class="fa fa-info-circle"
+                title="{{
+                  'Use the same credentials that you use to set up the NetApp Monitoring Agent. ' +
+                  'Note that these credentials will not be saved in Active IQ.'
+                }}"></i>
+          </label>
+          <div class="control-container">
+            <input type="text"
+                name="clusterUsername"
+                class="form-control input-sm"
+                ng-model="$ctrl.clusterUsername"
+                required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label"> Cluster Password: </label>
+          <div class="control-container">
+            <input type="password"
+                name="clusterPassword"
+                class="form-control input-sm"
+                ng-model="$ctrl.clusterPassword"
+                autocomplete="new-password"
+                required>
+          </div>
+        </div>
+      </div>
+
+      <div ng-switch-when="2">
+        <div class="wizard-info-box">
+          <table>
+            <tbody>
+              <tr> <td> Cluster MVIP: </td> <td>{{ $ctrl.clusterMVIP }}</td> </tr>
+              <tr> <td> Cluster Name: </td> <td>{{ $ctrl.clusterName }}</td> </tr>
+              <tr> <td> Cluster UUID: </td> <td>{{ $ctrl.clusterUUID }}</td> </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="wizard-step-description">
+          Step 3: Enter the Customer UUID of the customer account to register this cluster
+        </div>
+
+        <div class="form-group">
+          <label class="control-label"> Customer UUID: </label>
+          <div class="control-container">
+            <input type="text"
+                name="customerUID"
+                class="form-control input-sm"
+                ng-model="$ctrl.customerUID"
+                required>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <div class="left">
+          <button type="button"
+              class="button button-back"
+              ng-click="$ctrl.back()"
+              ng-disabled="$ctrl.loading"
+              ng-show="$ctrl.currentStep > 0 && $ctrl.currentStep < $ctrl.steps.length ">
+            Back
+          </button>
+        </div>
+        <div class="right">
+          <button type="submit"
+              class="button button-next"
+              ng-disabled="!wizardForm.$valid || $ctrl.loading"
+              ng-show="$ctrl.currentStep < $ctrl.steps.length">
+            {{ $ctrl.currentStep === $ctrl.steps.length - 1
+              ? 'Finish'
+              : 'Next' }}
+          </button>
+
+          <div class="spinner" ng-show="$ctrl.loading">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+          </div>
+        </div>
+
+        <button type="button"
+          class="button button-view-cluster"
+          ng-click="$ctrl.viewCluster()"
+          ng-show="$ctrl.currentStep === $ctrl.steps.length">
+          View Cluster
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

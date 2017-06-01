@@ -311,7 +311,7 @@
               x: {
                 tick: {
                   format:  (date)  => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -394,7 +394,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -477,7 +477,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -548,7 +548,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -622,7 +622,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -701,7 +701,7 @@
               x: {
                 tick: {
                   format:  (date) => { return this.xAxisFormat(date); },
-                  spacing: 150
+                  spacing: 220
                 }
               },
               y0: {
@@ -726,13 +726,13 @@
     private iopsFormat(iops) {
       return this.$filter('iops')(iops, true, 1);
     }
-    private bytesFormat(bytes, decimalPlaces = 0) {
+    private bytesFormat(bytes, decimalPlaces = 2) {
       return this.$filter('bytes')(bytes, false, decimalPlaces, true);
     }
     private latencyFormat(number) {
       return this.$filter('aiqNumber')(number, 2);
     }
-    private capacityFormat(bytes, decimalPlaces = 0) {
+    private capacityFormat(bytes, decimalPlaces = 2) {
       return this.$filter('bytes')(bytes, false, decimalPlaces, false);
     }
   }

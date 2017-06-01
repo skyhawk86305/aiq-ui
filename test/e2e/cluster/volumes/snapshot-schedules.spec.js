@@ -44,7 +44,7 @@ describe('The Snapshot Schedules Page', function() {
   });
 
   beforeEach(function() {
-    browser.get('#/cluster/' + clusterId + '/volumes/snapshot-schedules');
+    browser.get('#/cluster/' + clusterId + '/volumes/snapshotSchedules');
   });
 
   afterAll(function() {

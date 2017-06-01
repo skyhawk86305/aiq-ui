@@ -2,36 +2,3 @@
 @import 'sizes.less';
 @import 'mixins.less';
 @import 'prefixer.less';
-
-.table-badge {
-  display: block;
-  color: @basic-white;
-  border-radius: 3px;
-  max-height: 30px;
-  width: 150px;
-  box-sizing: border-box;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 30px;
-  text-align: center;
-  background-color: @badge-empty;
-
-  &.-critical {
-    background-color: @badge-critical-red;
-  }
-  &.-error {
-    background-color: @badge-error-orange;
-  }
-  &.-warning {
-    color: @text-primary-color;
-    background-color: @badge-warning-yellow;
-  }
-  &.-normal {
-    background-color: @badge-no-alert-green;
-  }
-  &.-info, &.-bestPractice {
-    background-color: @badge-tasks-blue;
-  }
-}

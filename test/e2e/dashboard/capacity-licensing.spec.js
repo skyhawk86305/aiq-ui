@@ -30,7 +30,7 @@ describe('The Capacity Licensing Page', function () {
   });
 
   beforeEach(function() {
-    browser.get('#/dashboard/capacity-licensing');
+    browser.get('#/dashboard/capacityLicensing');
   });
 
   afterAll(function() {

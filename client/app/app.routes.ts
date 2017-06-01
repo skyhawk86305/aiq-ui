@@ -33,17 +33,17 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<reset-password></reset-password>'
       })
       .when('/admin/unregisteredClusters', {
-        template: '<unregistered-clusters class="sf-layout-block"></unregistered-clusters>',
+        template: '<unregistered-clusters></unregistered-clusters>',
         reloadOnSearch: false,
         data: {
           permissions: { only: ['registerCluster'], redirectTo: '/dashboard/overview' },
         },
       })
-      .when('/admin/controlTower', {
-        template: '<control-tower class="sf-layout-block"></control-tower>',
+      .when('/admin/dashberg', {
+        template: '<dashberg></dashberg>',
         reloadOnSearch: false,
         data: {
-          permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
+          permissions: { only: ['dashberg'], redirectTo: '/dashboard/overview' },
         },
       })
       .when('/dashboard/overview', {
@@ -62,125 +62,132 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         redirectTo: '/dashboard/alerts/history'
       })
       .when('/dashboard/alerts/history', {
-        template: '<alert-history-table class="sf-layout-block"></alert-history-table>',
+        template: '<alert-history-table></alert-history-table>',
         reloadOnSearch: false
       })
       .when('/dashboard/alerts/policies', {
-        template: '<alert-policy-table class="sf-layout-block"></alert-policy-table>',
+        template: '<alert-policy-table></alert-policy-table>',
         reloadOnSearch: false
       })
       .when('/dashboard/alerts/policies/add', {
-        template: '<add-alert-policy class="sf-layout-block"></add-alert-policy>',
+        template: '<add-alert-policy></add-alert-policy>',
         reloadOnSearch: false
       })
       .when('/dashboard/alerts/suppressedClusters', {
-        template: '<suppressed-clusters class="sf-layout-block"></suppressed-clusters>',
+        template: '<suppressed-clusters></suppressed-clusters>',
         reloadOnSearch: false
       })
-      .when('/dashboard/capacity-licensing', {
-        template: '<capacity-licensing class="sf-layout-block"></capacity-licensing>',
+      .when('/dashboard/capacityLicensing', {
+        template: '<capacity-licensing></capacity-licensing>',
         reloadOnSearch: false
       })
-      .when('/dashboard/capacity-licensing/:customerID', {
-        template: '<capacity-licensing-details class="sf-layout-block"></capacity-licensing-details>',
+      .when('/dashboard/capacityLicensing/:customerID', {
+        template: '<capacity-licensing-details></capacity-licensing-details>',
         reloadOnSearch: false
+      })
+      .when('/dashboard/registerCluster', {
+        template: '<register-cluster></register-cluster>',
+        reloadOnSearch: false,
+        data: {
+          permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
+        },
       })
       .when('/cluster/:clusterID/reporting/overview', {
-        template: '<overview-dashboard class="sf-layout-block"></overview-dashboard>',
+        template: '<overview-dashboard></overview-dashboard>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/capacity', {
-        template: '<capacity-graphs class="sf-layout-block"></capacity-graphs>',
+        template: '<capacity-graphs></capacity-graphs>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/efficiency', {
-        template: '<efficiency-graphs class="sf-layout-block"></efficiency-graphs>',
+        template: '<efficiency-graphs></efficiency-graphs>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/performance', {
-        template: '<performance-graphs class="sf-layout-block"></performance-graphs>',
+        template: '<performance-graphs></performance-graphs>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/errorLog', {
-        template: '<error-log-table class="sf-layout-block"></error-log-table>',
+        template: '<error-log-table></error-log-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/events', {
-        template: '<event-table class="sf-layout-block"></event-table>',
+        template: '<event-table></event-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/alerts', {
-        template: '<cluster-alert-table class="sf-layout-block"></cluster-alert-table>',
+        template: '<cluster-alert-table></cluster-alert-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/iscsiSessions', {
-        template: '<iscsi-sessions class="sf-layout-block"></iscsi-sessions>',
+        template: '<iscsi-sessions></iscsi-sessions>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/virtualNetworks', {
-        template: '<virtual-network-table class="sf-layout-block"></virtual-network-table>',
+        template: '<virtual-network-table></virtual-network-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/reporting/forecasting', {
         template: require('./coming-soon.tpl.html')
       })
       .when('/cluster/:clusterID/reporting/apiCollection', {
-        template: '<api-collection-table class="sf-layout-block"></api-collection-table>',
+        template: '<api-collection-table></api-collection-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/nodes', {
-        template: '<node-table class="sf-layout-block"></node-table>',
+        template: '<node-table></node-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/drives', {
-        template: '<drive-table class="sf-layout-block"></drive-table>',
+        template: '<drive-table></drive-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/volumes/snapshots', {
-        template: '<snapshot-table class="sf-layout-block"></snapshot-table>',
+        template: '<snapshot-table></snapshot-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/volumes/active-volumes', {
-        template: '<volume-table class="sf-layout-block"></volume-table>',
+      .when('/cluster/:clusterID/volumes/activeVolumes', {
+        template: '<volume-table></volume-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/volumes/snapshot-schedules', {
-        template: '<snapshot-schedules-table class="sf-layout-block"></snapshot-schedules-table>',
+      .when('/cluster/:clusterID/volumes/snapshotSchedules', {
+        template: '<snapshot-schedules-table></snapshot-schedules-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/volume/:volumeID', {
-        template: '<volume-details class="sf-layout-block"></volume-details>',
+        template: '<volume-details></volume-details>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/replication/clusterPairs', {
-        template: '<cluster-pairs class="sf-layout-block"></cluster-pairs>',
+        template: '<cluster-pairs></cluster-pairs>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/replication/volumePairs', {
-        template: '<volume-pairs class="sf-layout-block"></volume-pairs>',
+        template: '<volume-pairs></volume-pairs>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vvols/virtual-volumes', {
-        template: '<virtual-volume-table class="sf-layout-block"></virtual-volume-table>',
+      .when('/cluster/:clusterID/vvols/virtualVolumes', {
+        template: '<virtual-volume-table></virtual-volume-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vvols/protocol-endpoints', {
-        template: '<protocol-endpoint-table class="sf-layout-block"></protocol-endpoint-table>',
+      .when('/cluster/:clusterID/vvols/protocolEndpoints', {
+        template: '<protocol-endpoint-table></protocol-endpoint-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/vvols/hosts', {
-        template: '<host-table class="sf-layout-block"></host-table>',
+        template: '<host-table></host-table>',
         reloadOnSearch: false
       })
       .when('/cluster/:clusterID/vvols/bindings', {
-        template: '<binding-table class="sf-layout-block"></binding-table>',
+        template: '<binding-table></binding-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vvols/storage-containers', {
-        template: '<storage-container-table class="sf-layout-block"></storage-container-table>',
+      .when('/cluster/:clusterID/vvols/storageContainers', {
+        template: '<storage-container-table></storage-container-table>',
         reloadOnSearch: false
       })
-      .when('/cluster/:clusterID/vmware-alarms', {
+      .when('/cluster/:clusterID/vmwareAlarms', {
         template: '<vmware-alarms></vmware-alarms>',
         reloadOnSearch: false,
         data: {
@@ -191,7 +198,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: require('./coming-soon.tpl.html')
       })
       .when('/account', {
-        template: '<account class="sf-layout-block"></account>',
+        template: '<account></account>',
       })
       /* Legacy UI URLs */
       .when('/Admin/Nodes', defaultRedirect)
@@ -271,11 +278,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       })
       .when('/Licensing/Capacity/Adjust', defaultRedirect)
       .when('/Licensing/Capacity/List', {
-        redirectTo: '/dashboard/capacity-licensing',
+        redirectTo: '/dashboard/capacityLicensing',
       })
       .when('/Licensing/Capacity/View', {
         redirectTo(params, path, search) {
-          return `/dashboard/capacity-licensing/${search.customerID}`;
+          return `/dashboard/capacityLicensing/${search.customerID}`;
         }
       })
       .when('/Nodes/Active', {
@@ -300,12 +307,12 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       })
       .when('/Volumes/Active/List', {
         redirectTo: function (params, path, search) {
-          return '/cluster/' + search.clusterID + '/volumes/active-volumes';
+          return '/cluster/' + search.clusterID + '/volumes/activeVolumes';
         }
       })
       .when('/Volumes/Snapshots/Schedules/List', {
         redirectTo: function (params, path, search) {
-          return '/cluster/' + search.clusterID + '/volumes/snapshot-schedules';
+          return '/cluster/' + search.clusterID + '/volumes/snapshotSchedules';
         }
       })
       .when('/Volumes/Snapshots/List', {

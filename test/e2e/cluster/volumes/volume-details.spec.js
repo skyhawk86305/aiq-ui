@@ -77,7 +77,7 @@ describe('Volume Details Page', function () {
           'enable-512e', 'min-iops', 'max-iops', 'burst-iops', 'volumes-paired', 'create-time', 'block-size',
           'unaligned-writes', 'unaligned-reads', 'iqn', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'attributes'],
         boxTitles = ['Access', 'Access Groups', 'Non-Zero Blocks', 'Zero Blocks', 'Snapshot Count',
-          'Enable 512e', 'Min IOPS', 'Max IOPS', 'Burst IOPS', 'Volumes Paired', 'Create Time', 'Block Size',
+          '512e Enabled', 'Min IOPS', 'Max IOPS', 'Burst IOPS', 'Volumes Paired', 'Create Time', 'Block Size',
           'Unaligned Writes', 'Unaligned Reads', 'IQN', 'scsiEUIDeviceID', 'scsiNAADeviceID', 'Attributes'],
         boxData = [ 'Read / Write', '1, 2, 3', '646', '122069882', '3', 'Yes', '1000', '15000', '15000', 'No',
           '2014-12-02 12:52:37', '4096', '0', '0', 'iqn.2010-01.com.solidfire:ddjt.staging-mango-data-01.31',

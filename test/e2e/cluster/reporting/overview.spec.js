@@ -137,7 +137,7 @@ describe('Cluster Overview Page', function () {
       it('@any @smoke volume count should redirect to the volumes page', function() {
         const box = clusterOverviewPage.infoBar.infoBox('volume-count');
         box.title.click();
-        expect(browser.getCurrentUrl()).to.eventually.include('/volumes/active-volumes');
+        expect(browser.getCurrentUrl()).to.eventually.include('/volumes/activeVolumes');
       });
 
       it('@any @smoke efficiency info should redirect to the efficiency page', function() {

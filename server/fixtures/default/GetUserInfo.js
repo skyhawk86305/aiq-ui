@@ -5,13 +5,11 @@ module.exports = {
       customerID: 1,
       customerName: 'SolidFire Internal',
       groups: [
-        'internalUser'
+        'root',
       ],
       lastActionTime: null,
       permissions: [
-        'internalUser',
-        'internalAdmin',
-        'registerCluster',
+        'root',
       ],
       userDisplayName: 'John Doe',
       userID: 12345,

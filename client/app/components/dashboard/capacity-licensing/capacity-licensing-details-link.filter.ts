@@ -7,7 +7,7 @@
       return function(customerID) {
         if (!customerID) return;
 
-        const url = `#/dashboard/capacity-licensing/${customerID}`;
+        const url = `#/dashboard/capacityLicensing/${customerID}`;
         return `
           <a class="view-details-link"
               href="${url}"
