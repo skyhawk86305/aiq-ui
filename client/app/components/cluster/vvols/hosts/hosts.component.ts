@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('hostTable', {
-      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="host" control-bar="true" column-selection="true" items-per-page="25" export="true" footer-row-count="true"></sf-table>',
+      template: require('./hosts.tpl.html'),
       controller: ['$routeParams', 'HostTableService', HostTableController]
     });
 

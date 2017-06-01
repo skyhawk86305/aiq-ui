@@ -4,7 +4,7 @@
   angular
     .module('aiqUi')
     .component('storageContainerTable', {
-      template: '<sf-table class="sf-layout-block" service="$ctrl.service" table-id="storage-container" control-bar="true" column-selection="true" items-per-page="25" export="true" footer-row-count="true"></sf-table>',
+      template: require('./storage-containers.tpl.html'),
       controller: ['$routeParams', 'StorageContainerTableService', StorageContainerTableController]
     });
 
