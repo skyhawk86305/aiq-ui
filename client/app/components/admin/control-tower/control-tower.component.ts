@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  const d3 = require('d3');
   const moduleName = 'aiqUi';
   const componentName = 'controlTower';
   const template = require('./control-tower.tpl.html');
@@ -312,7 +311,7 @@
       return $filter('bytes')(bytesPerSecond, false, 0, true, false);
     }
     function numFormat(num) {
-      if(num >= 1000) num = num/1000 + 'k';
+      if (num >= 1000) num = num / 1000 + 'k';
       return num;
     }
   }

@@ -10,6 +10,7 @@ module.exports = {
       lastActionTime: null,
       permissions: [
         'internalUser',
+        'internalAdmin',
         'registerCluster',
       ],
       userDisplayName: 'John Doe',

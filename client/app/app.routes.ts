@@ -43,7 +43,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<control-tower class="sf-layout-block"></control-tower>',
         reloadOnSearch: false,
         data: {
-          permissions: { only: ['internalUser'], redirectTo: '/dashboard/overview' },
+          permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
         },
       })
       .when('/dashboard/overview', {
