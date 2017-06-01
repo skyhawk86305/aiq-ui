@@ -10,6 +10,7 @@ module.exports = {
         "maxNodesNode": 0,
         "avgNodesNode": 0,
         "unitNodesNode": 0,
-        "stdDevNode": 0
+        "stdDevNode": 0,
+        "changeRate": -0.032
     }
 }

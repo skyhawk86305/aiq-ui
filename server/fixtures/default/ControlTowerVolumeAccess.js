@@ -10,6 +10,7 @@ module.exports = {
         "maxVolumeAccessNode": 882,
         "avgVolumeAccessNode": 382,
         "unitVolumeAccessNode": 1000,
-        "stdDevNode": 0.71
+        "stdDevNode": 0.71,
+        "changeRate": 0.032
     }
 }

@@ -15,6 +15,8 @@
                 <div class="info-box col-md-6">
                     <div class="info-box-content">
                         <span class="value -medium">{{ item.clusterData[item.sumNum] }}</span>
+                        <span class="triangle-bottom-icon" ng-if="item.clusterData[item.changeRate] < 0">&#9660; {{ item.clusterData[item.changeRatePer] }} </span>
+                        <span class="triangle-top-icon" ng-if="item.clusterData[item.changeRate] > 0">&#9650; {{ item.clusterData[item.changeRatePer] }}</span>
                         <span class="title">{{ item.description }}</span>
                     </div>
                 </div>

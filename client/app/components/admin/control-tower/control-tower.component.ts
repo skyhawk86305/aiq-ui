@@ -35,7 +35,7 @@
     }
 
     ctrl.items = [
-      {title: 'Nodes in Clusters', sumNum: 'totalNodes', description: 'Total Nodes in Field',
+      {title: 'Nodes in Clusters', sumNum: 'totalNodes', description: 'Total Nodes in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min Nodes Per Cluster', key: 'minNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
           {subTitle: 'Max Nodes Per Cluster', key: 'maxNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
@@ -47,6 +47,7 @@
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -63,7 +64,7 @@
             })
         },
       },
-      {title: 'Volumes in Clusters', sumNum: 'totalVolumes', description: 'Total Volumes in Field',
+      {title: 'Volumes in Clusters', sumNum: 'totalVolumes', description: 'Total Volumes in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min Volumes Per Cluster', key: 'minVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
           {subTitle: 'Max Volumes Per Cluster', key: 'maxVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
@@ -80,6 +81,7 @@
               this.clusterData.avgVolumesCluster = numFormat(this.clusterData.avgVolumesCluster);
               this.clusterData.unitVolumeCluster = numFormat(this.clusterData.unitVolumeCluster);
               this.clusterData.totalVolumes = numFormat(this.clusterData.totalVolumes);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -101,7 +103,7 @@
             })
         },
       },
-      {title: 'Volume Size', sumNum: 'totalVolumeSize', description: 'Current Average Volume Size',
+      {title: 'Volume Size', sumNum: 'totalVolumeSize', description: 'Current Average Volume Size', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min Volume Size Per Cluster', key: 'minVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
           {subTitle: 'Max Volume Size Per Cluster', key: 'maxVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
@@ -118,6 +120,7 @@
               this.clusterData.avgVolumeSizeCluster = bytesFormat(this.clusterData.avgVolumeSizeCluster);
               this.clusterData.totalVolumeSize = bytesFormat(this.clusterData.totalVolumeSize);
               this.clusterData.unitVolumeSizeCluster = bytesFormat(this.clusterData.unitVolumeSizeCluster);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -139,7 +142,7 @@
             })
         },
       },
-      {title: 'Volume Access Groups', sumNum: 'totalVolumeAccess', description: 'Total Volume Access Groups in Field',
+      {title: 'Volume Access Groups', sumNum: 'totalVolumeAccess', description: 'Total Volume Access Groups in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min Vags Per Cluster', key: 'minVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
           {subTitle: 'Max Vags Per Cluster', key: 'maxVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
@@ -151,6 +154,7 @@
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -167,7 +171,7 @@
             })
         },
       },
-      {title: 'Cluster IOPs', sumNum: 'totalIOPs', description: 'Field Average: IOPs Per all clusters',
+      {title: 'Cluster IOPs', sumNum: 'totalIOPs', description: 'Field Average: IOPs Per all clusters', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min IOPs Per Cluster', key: 'minIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
           {subTitle: 'Max IOPs Per Cluster', key: 'maxIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
@@ -184,6 +188,7 @@
               this.clusterData.avgIOPsCluster = numFormat(this.clusterData.avgIOPsCluster);
               this.clusterData.unitIOPsCluster = numFormat(this.clusterData.unitIOPsCluster);
               this.clusterData.totalIOPs = numFormat(this.clusterData.totalIOPs);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -205,7 +210,7 @@
             })
         },
       },
-      {title: 'Cluster Bandwidth', sumNum: 'totalBandwidth', description: 'Field Average: Bandwidth in Field',
+      {title: 'Cluster Bandwidth', sumNum: 'totalBandwidth', description: 'Field Average: Bandwidth in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min Bandwidth Per Cluster', key: 'minBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
           {subTitle: 'Max Bandwidth Per Cluster', key: 'maxBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
@@ -222,6 +227,7 @@
               this.clusterData.avgBandwidthCluster = bytesPerSecondFormat(this.clusterData.avgBandwidthCluster);
               this.clusterData.unitBandwidthCluster = bytesPerSecondFormat(this.clusterData.unitBandwidthCluster);
               this.clusterData.totalBandwidth = bytesPerSecondFormat(this.clusterData.totalBandwidth);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -243,7 +249,7 @@
             })
         },
       },
-      {title: 'iSCSI Sessions', sumNum: 'totalSessions', description: 'iSCSI Sessions per Node',
+      {title: 'iSCSI Sessions', sumNum: 'totalSessions', description: 'iSCSI Sessions per Node', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min iSCSI Sessions Per Cluster', key: 'minSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
           {subTitle: 'Max iSCSI Sessions Per Cluster', key: 'maxSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
@@ -255,6 +261,7 @@
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -271,7 +278,7 @@
             })
         },
       },
-      {title: 'Total Snapshots', sumNum: 'totalSnapshots', description: 'Field Average: Snapshots per Volume',
+      {title: 'Total Snapshots', sumNum: 'totalSnapshots', description: 'Field Average: Snapshots per Volume', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
         clusterFields: [
           {subTitle: 'Min Snapshots Per Cluster', key: 'minSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
           {subTitle: 'Max Snapshots Per Cluster', key: 'maxSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
@@ -283,6 +290,7 @@
             .then( response => {
               this.clusterData = response;
               this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
+              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
             })
         },
         nodeFields: [
@@ -303,6 +311,9 @@
 
     function percentFormat(percent) {
       return $filter('percent')(percent, 0, true, false, false, null, null);
+    }
+    function percentDecFormat(percentDec) {
+      return $filter('percent')(percentDec, 1, true, false, false, null, null);
     }
     function bytesFormat(bytes) {
       return $filter('bytes')(bytes, false, 0, false, false);

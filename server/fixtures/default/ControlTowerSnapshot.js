@@ -10,6 +10,7 @@ module.exports = {
         "maxSnapshotsVolume": 44,
         "avgSnapshotsVolume": 33,
         "unitSnapshotsVolume": 32,
-        "stdDevNode": 0.21
+        "stdDevNode": 0.21,
+        "changeRate": 0.132
     }
 }

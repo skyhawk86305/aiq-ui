@@ -10,6 +10,7 @@ module.exports = {
         "maxBandwidthNode": 246000000,
         "avgBandwidthNode": 213000000,
         "unitBandwidthNode": 356000000,
-        "stdDevNode": 0.21
+        "stdDevNode": 0.21,
+        "changeRate": 0.132
     }
 }

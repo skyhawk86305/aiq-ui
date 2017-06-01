@@ -10,6 +10,7 @@ module.exports = {
         "maxSessionsNode": 700,
         "avgSessionsNode": 500,
         "unitSessionsNode": 700,
-        "stdDevNode": 0.62
+        "stdDevNode": 0.62,
+        "changeRate": 0.132
     }
 }

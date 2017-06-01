@@ -10,6 +10,7 @@ module.exports = {
         "maxIOPsNode": 3800,
         "avgIOPsNode": 14500,
         "unitIOPsNode": 50000,
-        "stdDevNode": 0.21
+        "stdDevNode": 0.21,
+        "changeRate": 0.132
     }
 }
