@@ -1,6 +1,6 @@
 'use strict';
 
-describe('DashbergBandwidthService', function() {
+describe('DashbergNodeService', function() {
     let dataService,
         rootScope,
         deferred,
@@ -12,9 +12,9 @@ describe('DashbergBandwidthService', function() {
         });
     }));
 
-    beforeEach(inject(function ($q, $rootScope, DashbergBandwidthService, DataService) {
+    beforeEach(inject(function ($q, $rootScope, DashbergNodeService, DataService) {
     rootScope = $rootScope.$new();
-    service = DashbergBandwidthService;
+    service = DashbergNodeService;
     dataService = DataService;
 
     deferred = $q.defer();
@@ -22,20 +22,20 @@ describe('DashbergBandwidthService', function() {
   }));
 
   describe('.getData', function() {
-    it('should call API and get data from DashbergBandwidth', function() {
+    it('should call API and get data from DashbergNode', function() {
       const apiResponse = {
-        'totalBandwidth': 212000000,
-        'minBandwidthCluster': 28000000,
-        'maxBandwidthCluster': 356000000,
-        'avgBandwidthCluster': 212000000,
-        'unitBandwidthCluster': 356000000,
-        'stdDevCluster': 0.11,
-        'minBandwidthNode': 27000000,
-        'maxBandwidthNode': 246000000,
-        'avgBandwidthNode': 213000000,
-        'unitBandwidthNode': 356000000,
-        'stdDevNode': 0.21,
-        'changeRate': 0.132
+        'totalNodes': 539,
+        'minNodesCluster': 4,
+        'maxNodesCluster': 82,
+        'avgNodesCluster': 24,
+        'unitNodesCluster': 100,
+        'stdDevCluster': 0.62,
+        'minNodesNode': 0,
+        'maxNodesNode': 0,
+        'avgNodesNode': 0,
+        'unitNodesNode': 0,
+        'stdDevNodeaaaa': 0,
+        'changeRate': -0.032
       };
       deferred.resolve(apiResponse);
       service.getData()
@@ -48,7 +48,7 @@ describe('DashbergBandwidthService', function() {
       rootScope.$apply();
     });
 
-    it('should reject an error if DashbergBandwidth fails', function() {
+    it('should reject an error if DashbergNode fails', function() {
       deferred.reject('test error');
       service.getData()
         .then(function() {

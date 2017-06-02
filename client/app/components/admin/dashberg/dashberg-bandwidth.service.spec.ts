@@ -12,9 +12,9 @@ describe('DashbergBandwidthService', function() {
         });
     }));
 
-    beforeEach(inject(function ($q, $rootScope, DashbergNodeService, DataService) {
+    beforeEach(inject(function ($q, $rootScope, DashbergBandwidthService, DataService) {
     rootScope = $rootScope.$new();
-    service = DashbergNodeService;
+    service = DashbergBandwidthService;
     dataService = DataService;
 
     deferred = $q.defer();
@@ -22,7 +22,7 @@ describe('DashbergBandwidthService', function() {
   }));
 
   describe('.getData', function() {
-    it('should call API and get data from DashbergNode', function() {
+    it('should call API and get data from DashbergBandwidth', function() {
       const apiResponse = {
         'totalBandwidth': 212000000,
         'minBandwidthCluster': 28000000,
@@ -48,7 +48,7 @@ describe('DashbergBandwidthService', function() {
       rootScope.$apply();
     });
 
-    it('should reject an error if DashbergNode fails', function() {
+    it('should reject an error if DashbergBandwidth fails', function() {
       deferred.reject('test error');
       service.getData()
         .then(function() {
