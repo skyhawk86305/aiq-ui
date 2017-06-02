@@ -14,15 +14,16 @@
   strong {
     font-weight: 600;
   }
+}
 
-  &-success {
-    background: @event-success-bg-color;
-    color: @event-success-text-color;
-    border-color: @event-success-text-color;
-  }
-  &-error {
-    background: @event-critical-bg-color;
-    color: @event-critical-text-color;
-    border-color: @event-critical-text-color;
-  }
+.banner-message-success:extend(.banner-message all) {
+  background: @event-success-bg-color;
+  color: @event-success-text-color;
+  border-color: @event-success-text-color;
+}
+
+.banner-message-error:extend(.banner-message all) {
+  background: @event-critical-bg-color;
+  color: @event-critical-text-color;
+  border-color: @event-critical-text-color;
 }
