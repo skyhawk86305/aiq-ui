@@ -1,6 +1,6 @@
 'use strict';
 
-describe('DashbergNodeService', function() {
+describe('DashbergVolumeService', function() {
     let dataService,
         rootScope,
         deferred,
@@ -12,9 +12,9 @@ describe('DashbergNodeService', function() {
         });
     }));
 
-    beforeEach(inject(function ($q, $rootScope, DashbergNodeService, DataService) {
+    beforeEach(inject(function ($q, $rootScope, DashbergVolumeService, DataService) {
     rootScope = $rootScope.$new();
-    service = DashbergNodeService;
+    service = DashbergVolumeService;
     dataService = DataService;
 
     deferred = $q.defer();
@@ -22,14 +22,14 @@ describe('DashbergNodeService', function() {
   }));
 
   describe('.getData', function() {
-    it('should call API and get data from DashbergNode', function() {
+    it('should call API and get data from DashbergVolume', function() {
       const apiResponse = {
-        'totalNodes': 539,
-        'minNodesCluster': 4
+        'totalVolumes': 16500,
+        'minVolumesCluster': 2500
       };
       const expectedResponse = {
-        'totalNodes': 539,
-        'minNodesCluster': 4
+        'totalVolumes': 16500,
+        'minVolumesCluster': 2500
       };
       deferred.resolve(apiResponse);
       service.getData()
@@ -42,7 +42,7 @@ describe('DashbergNodeService', function() {
       rootScope.$apply();
     });
 
-    it('should reject an error if DashbergNode fails', function() {
+    it('should reject an error if DashbergVolume fails', function() {
       deferred.reject('test error');
       service.getData()
         .then(function() {

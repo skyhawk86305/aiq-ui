@@ -25,26 +25,20 @@ describe('DashbergBandwidthService', function() {
     it('should call API and get data from DashbergBandwidth', function() {
       const apiResponse = {
         'totalBandwidth': 212000000,
-        'minBandwidthCluster': 28000000,
-        'maxBandwidthCluster': 356000000,
-        'avgBandwidthCluster': 212000000,
-        'unitBandwidthCluster': 356000000,
-        'stdDevCluster': 0.11,
-        'minBandwidthNode': 27000000,
-        'maxBandwidthNode': 246000000,
-        'avgBandwidthNode': 213000000,
-        'unitBandwidthNode': 356000000,
-        'stdDevNode': 0.21,
-        'changeRate': 0.132
+        'minBandwidthCluster': 28000000
       };
-      deferred.resolve(apiResponse);
+      const expectedResponse = {
+        'totalBandwidth': 212000000,
+        'minBandwidthCluster': 28000000
+      };
       service.getData()
         .then(function(response) {
-        expect(response).toEqual(apiResponse);
+        expect(response).toEqual(expectedResponse);
       })
         .catch(function() {
-          fail('unexpected rejection');
+          fail('promise was unexpectedly rejected');
       });
+      deferred.resolve(apiResponse);
       rootScope.$apply();
     });
 
@@ -52,7 +46,7 @@ describe('DashbergBandwidthService', function() {
       deferred.reject('test error');
       service.getData()
         .then(function() {
-          fail('unexpected rejection');
+          fail('promise was unexpectedly rejected');
         })
         .catch(function(err) {
           expect(err).toEqual('test error');
