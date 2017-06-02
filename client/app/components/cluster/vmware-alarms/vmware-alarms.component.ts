@@ -1,14 +1,14 @@
-(function () {
-  'use strict';
+class VmwareAlarmsController {
+  public service;
 
-  class VmwareAlarmsController {
-    constructor() {}
+  static $inject = [ '$routeParams', 'VmwareAlarmsService' ];
+  constructor(private $routeParams, private VmwareAlarmsService) {
+    this.service = this.VmwareAlarmsService;
+    this.service.update($routeParams.clusterID);
   }
+}
 
-  angular
-    .module('aiqUi')
-    .component('vmwareAlarms', {
-      template: require('./vmware-alarms.tpl.html'),
-      controller: [ VmwareAlarmsController ],
-    });
-})();
+export const VmwareAlarmsComponent = {
+  template: require('./vmware-alarms.tpl.html'),
+  controller: VmwareAlarmsController,
+};
