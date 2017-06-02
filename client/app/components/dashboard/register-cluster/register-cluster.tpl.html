@@ -80,7 +80,14 @@
         </div>
 
         <div class="form-group">
-          <label class="control-label"> Cluster MVIP: </label>
+          <label class="control-label">
+            Cluster MVIP:
+            <span class="fa fa-info-circle"
+                uib-tooltip="{{
+                  'The Management Virtual IP (MVIP) enables cluster management via a 1 GbE connection.'
+                }}">
+            </span>
+          </label>
           <div class="control-container">
             <input type="text"
                 name="clusterMVIP"
@@ -100,11 +107,12 @@
         <div class="form-group">
           <label class="control-label">
             Cluster User Name:
-            <i class="fa fa-info-circle"
-                title="{{
+            <span class="fa fa-info-circle"
+                uib-tooltip="{{
                   'Use the same credentials that you use to set up the NetApp Monitoring Agent. ' +
                   'Note that these credentials will not be saved in Active IQ.'
-                }}"></i>
+                }}">
+            </span>
           </label>
           <div class="control-container">
             <input type="text"

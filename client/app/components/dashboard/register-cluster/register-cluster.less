@@ -138,6 +138,19 @@
             vertical-align: text-bottom;
             margin-left: 5px;
           }
+          .tooltip {
+            background: none;
+            .tooltip-inner {
+              background-color: @brand-secondary-color;
+              padding: 15px;
+              box-shadow: 0 1px 4px 0 fade(black, 41%);
+              max-width: 200px;
+              text-align: left;
+            }
+            .tooltip-arrow {
+              border-top-color: @brand-secondary-color;
+            }
+          }
         }
 
         .control-container {
