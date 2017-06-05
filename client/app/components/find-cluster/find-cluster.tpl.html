@@ -1,0 +1,27 @@
+<div class="find-cluster-page">
+
+  <div class="loading-message" ng-show="$ctrl.loading">
+    Finding cluster...
+  </div>
+
+  <div class="banner-message-error" ng-show="$ctrl.error" ng-switch="$ctrl.error" >
+    <i class="fa fa-times-circle"></i>
+
+    <span ng-switch-when="NoUUIDProvided">
+      You do not have permission to view this cluster.
+    </span>
+    <span ng-switch-when="ClusterPermissionDenied">
+      You do not have permission to view this cluster.
+    </span>
+    <span ng-switch-when="ClusterNotFound">
+      No cluster was found with the requested UUID.
+    </span>
+    <span ng-switch-when="FindClusterFailed">
+      Unexpected error occurred while attempting to find the cluster.
+    </span>
+    <span ng-switch-default>
+      Unexpected error occurred.
+    </span>
+  </div>
+
+</div>
