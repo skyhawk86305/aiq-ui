@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
     .module('aiqUi')
     .service('DriveTableService', [
@@ -36,50 +38,21 @@
     return service;
 
     function listDrives() {
-      const methods = [
-        DataService.callGuzzleAPI(service.selectedClusterID, 'ListDrives'),
-        DataService.callGuzzleAPI(service.selectedClusterID, 'GetDriveStats'),
-        DataService.callGuzzleAPI(service.selectedClusterID, 'GetClusterHardwareInfo')
-      ];
-      let driveStatsLookup, drives, driveInfo;
+      return DataService
+        .callGuzzleAPIs(service.selectedClusterID, 'ListDrives', 'GetDriveStats', 'GetClusterHardwareInfo')
+        .then( ({ drives = [], driveStats = [], clusterHardwareInfo = {} }) =>
+          drives.map( drive => {
+            const stats = _.find(driveStats, ['driveID', drive.driveID]) || {};
+            const hardwareInfo = _.get(clusterHardwareInfo, `drives[${drive.driveID}]`, {});
 
-      return callGuzzleAPIs(methods).then( responseObj => {
-        drives = responseObj.drives;
-        driveStatsLookup = createLookup(responseObj['driveStats'], 'driveID');
-        driveInfo = responseObj.clusterHardwareInfo.drives;
-
-        if (drives) {
-          return drives.map( drive => {
-            const driveStats = driveStatsLookup ? driveStatsLookup[drive.driveID] : null;
-            if (driveStats) {
-              drive.lifeRemainingPercent = !isNaN(parseFloat(driveStats.lifeRemainingPercent)) ? driveStats.lifeRemainingPercent : '';
-              drive.reserveCapacityPercent  = !isNaN(parseFloat(driveStats.reserveCapacityPercent)) ? driveStats.reserveCapacityPercent : '';
-            }
-            drive.version = driveInfo[drive.driveID] ? driveInfo[drive.driveID].version : null;
-
-            return drive;
-          });
-        }
-
-        function createLookup(data, uniqueKey) {
-          if (data) {
-            return data.reduce( (lookup, currentObj) => {
-              lookup[currentObj[uniqueKey]] = currentObj;
-              return lookup;
-            }, {});
-          }
-        }
-      });
-
-      function callGuzzleAPIs(methods) {
-        return $q.all(methods).then( responses => {
-          let responseObj = {};
-          responses.forEach(response => {
-            Object.keys(response).forEach(key => responseObj[key] = response[key]);
-          });
-          return responseObj;
-        });
-      }
+            return Object.assign({}, drive, {
+              lifeRemainingPercent: !isNaN(parseFloat(stats.lifeRemainingPercent)) ? stats.lifeRemainingPercent : '',
+              reserveCapacityPercent: !isNaN(parseFloat(stats.reserveCapacityPercent)) ? stats.reserveCapacityPercent : '',
+              type: drive.type === 'volume' ? 'metadata' : drive.type,
+              version: hardwareInfo.version,
+            });
+          })
+        );
     }
   }
 })();
