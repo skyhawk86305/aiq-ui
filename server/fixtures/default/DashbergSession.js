@@ -11,6 +11,8 @@ module.exports = {
         "avgSessionsNode": 500,
         "unitSessionsNode": 700,
         "stdDevNode": 0.62,
-        "changeRate": 0.132
+        "changeRate": 0.132,
+        "avgSessionNodeCluster": 2850,
+        "unitSessionNodeCluster": 3500
     }
 }

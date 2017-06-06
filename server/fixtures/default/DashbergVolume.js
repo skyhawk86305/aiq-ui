@@ -4,12 +4,12 @@ module.exports = {
         "minVolumesCluster": 2500,
         "maxVolumesCluster": 17000,
         "avgVolumesCluster": 5500,
-        "unitVolumeCluster": 17500,
+        "unitVolumesCluster": 17500,
         "stdDevCluster": 0.71,
         "minVolumesNode": 1500,
         "maxVolumesNode": 16000,
         "avgVolumesNode": 4500,
-        "unitVolumeNode": 16500,
+        "unitVolumesNode": 16500,
         "stdDevNode": 0.61,
         "changeRate": 0.032
     }
