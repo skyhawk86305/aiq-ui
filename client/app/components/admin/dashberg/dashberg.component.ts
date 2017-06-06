@@ -1,329 +1,184 @@
-(function () {
-  'use strict';
+class DashbergController {
+  private nodeData;
+  private volumeData;
+  private volumeSizeData;
+  private volumeAccessData;
+  private IOPData;
+  private bandwidthData;
+  private sessionData;
+  private snapshotData;
 
-  const moduleName = 'aiqUi';
-  const componentName = 'dashberg';
-  const template = require('./dashberg.tpl.html');
+  static $inject = [
+    'DashbergNodeService',
+    'DashbergVolumeService',
+    'DashbergVolumeSizeService',
+    'DashbergVolumeAccessService',
+    'DashbergIOPService',
+    'DashbergBandwidthService',
+    'DashbergSessionService',
+    'DashbergSnapshotService',
+    '$filter'
+  ];
 
-  angular
-    .module(moduleName)
-    .component(componentName, {
-      template,
-      controller: [
-        'DashbergNodeService',
-        'DashbergVolumeService',
-        'DashbergVolumeSizeService',
-        'DashbergVolumeAccessService',
-        'DashbergIOPService',
-        'DashbergBandwidthService',
-        'DashbergSessionService',
-        'DashbergSnapshotService',
-        '$filter',
-        DashbergController
-        ]
-    });
-
-  function DashbergController(DashbergNodeService, DashbergVolumeService, DashbergVolumeSizeService, DashbergVolumeAccessService,
-    DashbergIOPService, DashbergBandwidthService, DashbergSessionService, DashbergSnapshotService, $filter) {
-    let ctrl = this;
-
-    ctrl.$onInit = function() {
-      ctrl.items.forEach( item => {
-        item.loadClusterData();
-        item.loadNodeData();
-      })
+  constructor(
+    private DashbergNodeService,
+    private DashbergVolumeService,
+    private DashbergVolumeSizeService,
+    private DashbergVolumeAccessService,
+    private DashbergIOPService,
+    private DashbergBandwidthService,
+    private DashbergSessionService,
+    private DashbergSnapshotService,
+    private $filter
+    ) {
+    }
+    $onInit() {
+      this.getNodeData();
+      this.getVolumeData();
+      this.getVolumeSizeData();
+      this.getVolumeAccessData();
+      this.getIOPData();
+      this.getBandwidthData();
+      this.getSessionData();
+      this.getSnapshotData();
     }
 
-    ctrl.items = [
-      {title: 'Nodes in Clusters', sumNum: 'totalNodes', description: 'Total Nodes in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min Nodes Per Cluster', key: 'minNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
-          {subTitle: 'Max Nodes Per Cluster', key: 'maxNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
-          {subTitle: 'Avg Nodes Per Cluster', key: 'avgNodesCluster', perCluster: '/', unitKey: 'unitNodesCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergNodeService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min Nodes Per Node', key: 'minNodesNode', perNode: '/' , unitKey: 'unitNodesNode'},
-          {subTitle: 'Max Nodes Per Node', key: 'maxNodesNode', perNode: '/' , unitKey: 'unitNodesNode'},
-          {subTitle: 'Avg Nodes Per Node', key: 'avgNodesNode', perNode: '/' , unitKey: 'unitNodesNode'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergNodeService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-            })
-        },
-      },
-      {title: 'Volumes in Clusters', sumNum: 'totalVolumes', description: 'Total Volumes in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min Volumes Per Cluster', key: 'minVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
-          {subTitle: 'Max Volumes Per Cluster', key: 'maxVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
-          {subTitle: 'Avg Volumes Per Cluster', key: 'avgVolumesCluster', perCluster: '/' , unitKey: 'unitVolumeCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergVolumeService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.minVolumesCluster = numFormat(this.clusterData.minVolumesCluster);
-              this.clusterData.maxVolumesCluster = numFormat(this.clusterData.maxVolumesCluster);
-              this.clusterData.avgVolumesCluster = numFormat(this.clusterData.avgVolumesCluster);
-              this.clusterData.unitVolumeCluster = numFormat(this.clusterData.unitVolumeCluster);
-              this.clusterData.totalVolumes = numFormat(this.clusterData.totalVolumes);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min Volumes Per Node', key: 'minVolumesNode', perNode: '/' , unitKey: 'unitVolumeNode'},
-          {subTitle: 'Max Volumes Per Node', key: 'maxVolumesNode', perNode: '/' , unitKey: 'unitVolumeNode'},
-          {subTitle: 'Avg Volumes Per Node', key: 'avgVolumesNode', perNode: '/' , unitKey: 'unitVolumeNode'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergVolumeService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-              this.nodeData.minVolumesNode = numFormat(this.nodeData.minVolumesNode);
-              this.nodeData.maxVolumesNode = numFormat(this.nodeData.maxVolumesNode);
-              this.nodeData.avgVolumesNode = numFormat(this.nodeData.avgVolumesNode);
-              this.nodeData.unitVolumeNode = numFormat(this.nodeData.unitVolumeNode);
-              this.nodeData.totalVolumes = numFormat(this.nodeData.totalVolumes);
-            })
-        },
-      },
-      {title: 'Volume Size', sumNum: 'totalVolumeSize', description: 'Current Average Volume Size', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min Volume Size Per Cluster', key: 'minVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
-          {subTitle: 'Max Volume Size Per Cluster', key: 'maxVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
-          {subTitle: 'Avg Volume Size Per Cluster', key: 'avgVolumeSizeCluster', perCluster: '/' , unitKey: 'unitVolumeSizeCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergVolumeSizeService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.minVolumeSizeCluster = bytesFormat(this.clusterData.minVolumeSizeCluster);
-              this.clusterData.maxVolumeSizeCluster = bytesFormat(this.clusterData.maxVolumeSizeCluster);
-              this.clusterData.avgVolumeSizeCluster = bytesFormat(this.clusterData.avgVolumeSizeCluster);
-              this.clusterData.totalVolumeSize = bytesFormat(this.clusterData.totalVolumeSize);
-              this.clusterData.unitVolumeSizeCluster = bytesFormat(this.clusterData.unitVolumeSizeCluster);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min Volume Size Per Node', key: 'minVolumeSizeNode', perNode: '/' , unitKey: 'unitVolumeSizeNode'},
-          {subTitle: 'Max Volume Size Per Node', key: 'maxVolumeSizeNode', perNode: '/' , unitKey: 'unitVolumeSizeNode'},
-          {subTitle: 'Avg Volume Size Per Node', key: 'avgVolumeSizeNode', perNode: '/' , unitKey: 'unitVolumeSizeNode'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergVolumeSizeService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-              this.nodeData.minVolumeSizeNode = bytesFormat(this.nodeData.minVolumeSizeNode);
-              this.nodeData.maxVolumeSizeNode = bytesFormat(this.nodeData.maxVolumeSizeNode);
-              this.nodeData.avgVolumeSizeNode = bytesFormat(this.nodeData.avgVolumeSizeNode);
-              this.nodeData.totalVolumeSize = bytesFormat(this.nodeData.totalVolumeSize);
-              this.nodeData.unitVolumeSizeNode = bytesFormat(this.nodeData.unitVolumeSizeNode);
-            })
-        },
-      },
-      {title: 'Volume Access Groups', sumNum: 'totalVolumeAccess', description: 'Total Volume Access Groups in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min Vags Per Cluster', key: 'minVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
-          {subTitle: 'Max Vags Per Cluster', key: 'maxVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
-          {subTitle: 'Avg Vags Per Cluster', key: 'avgVolumeAccessCluster', perCluster: '/' , unitKey: 'unitVolumeAccessCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergVolumeAccessService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min Vags Per Node', key: 'minVolumeAccessNode', perNode: '/' , unitKey: 'unitVolumeAccessNode'},
-          {subTitle: 'Max Vags Per Node', key: 'maxVolumeAccessNode', perNode: '/' , unitKey: 'unitVolumeAccessNode'},
-          {subTitle: 'Avg Vags Per Node', key: 'avgVolumeAccessNode', perNode: '/' , unitKey: 'unitVolumeAccessNode'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergVolumeAccessService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-            })
-        },
-      },
-      {title: 'Cluster IOPs', sumNum: 'totalIOPs', description: 'Field Average: IOPs Per all clusters', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min IOPs Per Cluster', key: 'minIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
-          {subTitle: 'Max IOPs Per Cluster', key: 'maxIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
-          {subTitle: 'Avg IOPs Per Cluster', key: 'avgIOPsCluster', perCluster: '/' , unitKey: 'unitIOPsCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergIOPService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.minIOPsCluster = numFormat(this.clusterData.minIOPsCluster);
-              this.clusterData.maxIOPsCluster = numFormat(this.clusterData.maxIOPsCluster);
-              this.clusterData.avgIOPsCluster = numFormat(this.clusterData.avgIOPsCluster);
-              this.clusterData.unitIOPsCluster = numFormat(this.clusterData.unitIOPsCluster);
-              this.clusterData.totalIOPs = numFormat(this.clusterData.totalIOPs);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min IOPs Per Node', key: 'minIOPsNode', perNode: '/' , unitKey: 'unitIOPsNode'},
-          {subTitle: 'Max IOPs Per Node', key: 'maxIOPsNode', perNode: '/' , unitKey: 'unitIOPsNode'},
-          {subTitle: 'Avg IOPs Per Node', key: 'avgIOPsNode', perNode: '/' , unitKey: 'unitIOPsNode'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergIOPService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-              this.nodeData.minIOPsNode = numFormat(this.nodeData.minIOPsNode);
-              this.nodeData.maxIOPsNode = numFormat(this.nodeData.maxIOPsNode);
-              this.nodeData.avgIOPsNode = numFormat(this.nodeData.avgIOPsNode);
-              this.nodeData.unitIOPsNode = numFormat(this.nodeData.unitIOPsNode);
-              this.nodeData.totalIOPs = numFormat(this.nodeData.totalIOPs);
-            })
-        },
-      },
-      {title: 'Cluster Bandwidth', sumNum: 'totalBandwidth', description: 'Field Average: Bandwidth in Field', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min Bandwidth Per Cluster', key: 'minBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
-          {subTitle: 'Max Bandwidth Per Cluster', key: 'maxBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
-          {subTitle: 'Avg Bandwidth Per Cluster', key: 'avgBandwidthCluster', perCluster: '/' , unitKey: 'unitBandwidthCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergBandwidthService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.minBandwidthCluster = bytesPerSecondFormat(this.clusterData.minBandwidthCluster);
-              this.clusterData.maxBandwidthCluster = bytesPerSecondFormat(this.clusterData.maxBandwidthCluster);
-              this.clusterData.avgBandwidthCluster = bytesPerSecondFormat(this.clusterData.avgBandwidthCluster);
-              this.clusterData.unitBandwidthCluster = bytesPerSecondFormat(this.clusterData.unitBandwidthCluster);
-              this.clusterData.totalBandwidth = bytesPerSecondFormat(this.clusterData.totalBandwidth);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min Bandwidth Per Node', key: 'minBandwidthNode', perNode: '/' , unitKey: 'unitBandwidthNode'},
-          {subTitle: 'Max Bandwidth Per Node', key: 'maxBandwidthNode', perNode: '/' , unitKey: 'unitBandwidthNode'},
-          {subTitle: 'Avg Bandwidth Per Node', key: 'avgBandwidthNode', perNode: '/' , unitKey: 'unitBandwidthNode'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergBandwidthService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-              this.nodeData.minBandwidthNode = bytesPerSecondFormat(this.nodeData.minBandwidthNode);
-              this.nodeData.maxBandwidthNode = bytesPerSecondFormat(this.nodeData.maxBandwidthNode);
-              this.nodeData.avgBandwidthNode = bytesPerSecondFormat(this.nodeData.avgBandwidthNode);
-              this.nodeData.unitBandwidthNode = bytesPerSecondFormat(this.nodeData.unitBandwidthNode);
-              this.nodeData.totalBandwidth = bytesPerSecondFormat(this.nodeData.totalBandwidth);
-            })
-        },
-      },
-      {title: 'iSCSI Sessions', sumNum: 'totalSessions', description: 'iSCSI Sessions per Node', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min iSCSI Sessions Per Cluster', key: 'minSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
-          {subTitle: 'Max iSCSI Sessions Per Cluster', key: 'maxSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
-          {subTitle: 'Avg iSCSI Sessions Per Cluster', key: 'avgSessionsCluster', perCluster: '/' , unitKey: 'unitSessionsCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergSessionService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min iSCSI Sessions Per Node', key: 'minSessionsNode', perNode: '/' , unitKey: 'unitSessionsNode'},
-          {subTitle: 'Max iSCSI Sessions Per Node', key: 'maxSessionsNode', perNode: '/' , unitKey: 'unitSessionsNode'},
-          {subTitle: 'Avg iSCSI Sessions Per Node', key: 'avgSessionsNode', perNode: '/' , unitKey: 'unitSessionsNode'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergSessionService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-            })
-        },
-      },
-      {title: 'Total Snapshots', sumNum: 'totalSnapshots', description: 'Field Average: Snapshots per Volume', changeRate: 'changeRate', changeRatePer: 'changeRatePer',
-        clusterFields: [
-          {subTitle: 'Min Snapshots Per Cluster', key: 'minSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
-          {subTitle: 'Max Snapshots Per Cluster', key: 'maxSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
-          {subTitle: 'Avg Snapshots Per Cluster', key: 'avgSnapshotsCluster', perCluster: '/' , unitKey: 'unitSnapshotsCluster'},
-          {subTitle: 'Standard Deviation', key: 'stdDevCluster'}
-        ],
-        loadClusterData() {
-          return DashbergSnapshotService.getData()
-            .then( response => {
-              this.clusterData = response;
-              this.clusterData.stdDevCluster = percentFormat(this.clusterData.stdDevCluster);
-              this.clusterData.changeRatePer = percentDecFormat(Math.abs(this.clusterData.changeRate));
-            })
-        },
-        nodeFields: [
-          {subTitle: 'Min Snapshots Per Volume', key: 'minSnapshotsVolume', perNode: '/' , unitKey: 'unitSnapshotsVolume'},
-          {subTitle: 'Max Snapshots Per Volume', key: 'maxSnapshotsVolume', perNode: '/' , unitKey: 'unitSnapshotsVolume'},
-          {subTitle: 'Avg Snapshots Per Volume', key: 'avgSnapshotsVolume', perNode: '/' , unitKey: 'unitSnapshotsVolume'},
-          {subTitle: 'Standard Deviation', key: 'stdDevNode'}
-        ],
-        loadNodeData() {
-          return DashbergSnapshotService.getData()
-            .then( response => {
-              this.nodeData = response;
-              this.nodeData.stdDevNode = percentFormat(this.nodeData.stdDevNode);
-            })
-        },
-      }
-    ]
+    getNodeData() {
+      return this.DashbergNodeService.getData()
+        .then( response => {
+          this.nodeData = response;
+          this.nodeData.stdDevCluster = this.percentFormat(this.nodeData.stdDevCluster);
+          this.nodeData.stdDevNode = this.percentFormat(this.nodeData.stdDevNode);
+          this.nodeData.changeRateAbs = this.percentDecFormat(Math.abs(this.nodeData.changeRate));
+        })
+    }
 
-    function percentFormat(percent) {
-      return $filter('percent')(percent, 0, true, false, false, null, null);
+    getVolumeData() {
+      return this.DashbergVolumeService.getData()
+        .then( response => {
+          this.volumeData = response;
+          this.volumeData.stdDevCluster = this.percentFormat(this.volumeData.stdDevCluster);
+          this.volumeData.stdDevNode = this.percentFormat(this.volumeData.stdDevNode);
+          this.volumeData.totalVolumes = this.numFormat(this.volumeData.totalVolumes);
+          this.volumeData.minVolumesCluster = this.numFormat(this.volumeData.minVolumesCluster);
+          this.volumeData.maxVolumesCluster = this.numFormat(this.volumeData.maxVolumesCluster);
+          this.volumeData.avgVolumesCluster = this.numFormat(this.volumeData.avgVolumesCluster);
+          this.volumeData.unitVolumesCluster = this.numFormat(this.volumeData.unitVolumesCluster);
+          this.volumeData.minVolumesNode = this.numFormat(this.volumeData.minVolumesNode);
+          this.volumeData.maxVolumesNode = this.numFormat(this.volumeData.maxVolumesNode);
+          this.volumeData.unitVolumesNode = this.numFormat(this.volumeData.unitVolumesNode);
+          this.volumeData.avgVolumesNode = this.numFormat(this.volumeData.avgVolumesNode);
+          this.volumeData.changeRateAbs = this.percentDecFormat(Math.abs(this.volumeData.changeRate));
+        })
     }
-    function percentDecFormat(percentDec) {
-      return $filter('percent')(percentDec, 1, true, false, false, null, null);
+
+    getVolumeSizeData() {
+      return this.DashbergVolumeSizeService.getData()
+        .then( response => {
+          this.volumeSizeData = response;
+          this.volumeSizeData.stdDevCluster = this.percentFormat(this.volumeSizeData.stdDevCluster);
+          this.volumeSizeData.stdDevNode = this.percentFormat(this.volumeSizeData.stdDevNode);
+          this.volumeSizeData.totalVolumeSize = this.bytesFormat(this.volumeSizeData.totalVolumeSize);
+          this.volumeSizeData.minVolumeSizeCluster = this.bytesFormat(this.volumeSizeData.minVolumeSizeCluster);
+          this.volumeSizeData.maxVolumeSizeCluster = this.bytesFormat(this.volumeSizeData.maxVolumeSizeCluster);
+          this.volumeSizeData.avgVolumeSizeCluster = this.bytesFormat(this.volumeSizeData.avgVolumeSizeCluster);
+          this.volumeSizeData.unitVolumeSizeCluster = this.bytesFormat(this.volumeSizeData.unitVolumeSizeCluster);
+          this.volumeSizeData.minVolumeSizeNode = this.bytesFormat(this.volumeSizeData.minVolumeSizeNode);
+          this.volumeSizeData.maxVolumeSizeNode = this.bytesFormat(this.volumeSizeData.maxVolumeSizeNode);
+          this.volumeSizeData.avgVolumeSizeNode = this.bytesFormat(this.volumeSizeData.avgVolumeSizeNode);
+          this.volumeSizeData.unitVolumeSizeNode = this.bytesFormat(this.volumeSizeData.unitVolumeSizeNode);
+          this.volumeSizeData.changeRateAbs = this.percentDecFormat(Math.abs(this.volumeSizeData.changeRate));
+        })
     }
-    function bytesFormat(bytes) {
-      return $filter('bytes')(bytes, false, 0, false, false);
+
+    getVolumeAccessData() {
+      return this.DashbergVolumeAccessService.getData()
+        .then( response => {
+          this.volumeAccessData = response;
+          this.volumeAccessData.stdDevCluster = this.percentFormat(this.volumeAccessData.stdDevCluster);
+          this.volumeAccessData.stdDevNode = this.percentFormat(this.volumeAccessData.stdDevNode);
+          this.volumeAccessData.changeRateAbs = this.percentDecFormat(Math.abs(this.volumeAccessData.changeRate));
+        })
     }
-    function bytesPerSecondFormat(bytesPerSecond) {
-      return $filter('bytes')(bytesPerSecond, false, 0, true, false);
+
+    getIOPData() {
+      return this.DashbergIOPService.getData()
+        .then( response => {
+          this.IOPData = response;
+          this.IOPData.stdDevCluster = this.percentFormat(this.IOPData.stdDevCluster);
+          this.IOPData.stdDevNode = this.percentFormat(this.IOPData.stdDevNode);
+          this.IOPData.totalIOPs = this.numFormat(this.IOPData.totalIOPs);
+          this.IOPData.minIOPsCluster = this.numFormat(this.IOPData.minIOPsCluster);
+          this.IOPData.maxIOPsCluster = this.numFormat(this.IOPData.maxIOPsCluster);
+          this.IOPData.avgIOPsCluster = this.numFormat(this.IOPData.avgIOPsCluster);
+          this.IOPData.unitIOPsCluster = this.numFormat(this.IOPData.unitIOPsCluster);
+          this.IOPData.minIOPsNode = this.numFormat(this.IOPData.minIOPsNode);
+          this.IOPData.maxIOPsNode = this.numFormat(this.IOPData.maxIOPsNode);
+          this.IOPData.avgIOPsNode = this.numFormat(this.IOPData.avgIOPsNode);
+          this.IOPData.unitIOPsNode = this.numFormat(this.IOPData.unitIOPsNode);
+          this.IOPData.changeRateAbs = this.percentDecFormat(Math.abs(this.IOPData.changeRate));
+        })
     }
-    function numFormat(num) {
+
+    getBandwidthData() {
+      return this.DashbergBandwidthService.getData()
+        .then( response => {
+          this.bandwidthData = response;
+          this.bandwidthData.stdDevCluster = this.percentFormat(this.bandwidthData.stdDevCluster);
+          this.bandwidthData.stdDevNode = this.percentFormat(this.bandwidthData.stdDevNode);
+          this.bandwidthData.totalBandwidth = this.bytesPerSecondFormat(this.bandwidthData.totalBandwidth);
+          this.bandwidthData.minBandwidthCluster = this.bytesPerSecondFormat(this.bandwidthData.minBandwidthCluster);
+          this.bandwidthData.maxBandwidthCluster = this.bytesPerSecondFormat(this.bandwidthData.maxBandwidthCluster);
+          this.bandwidthData.avgBandwidthCluster = this.bytesPerSecondFormat(this.bandwidthData.avgBandwidthCluster);
+          this.bandwidthData.unitBandwidthCluster = this.bytesPerSecondFormat(this.bandwidthData.unitBandwidthCluster);
+          this.bandwidthData.minBandwidthNode = this.bytesPerSecondFormat(this.bandwidthData.minBandwidthNode);
+          this.bandwidthData.maxBandwidthNode = this.bytesPerSecondFormat(this.bandwidthData.maxBandwidthNode);
+          this.bandwidthData.avgBandwidthNode = this.bytesPerSecondFormat(this.bandwidthData.avgBandwidthNode);
+          this.bandwidthData.unitBandwidthNode = this.bytesPerSecondFormat(this.bandwidthData.unitBandwidthNode);
+          this.bandwidthData.changeRateAbs = this.percentDecFormat(Math.abs(this.bandwidthData.changeRate));
+        })
+    }
+
+    getSessionData() {
+      return this.DashbergSessionService.getData()
+        .then( response => {
+          this.sessionData = response;
+          this.sessionData.stdDevCluster = this.percentFormat(this.sessionData.stdDevCluster);
+          this.sessionData.stdDevNode = this.percentFormat(this.sessionData.stdDevNode);
+          this.sessionData.changeRateAbs = this.percentDecFormat(Math.abs(this.sessionData.changeRate));
+        })
+    }
+
+    getSnapshotData() {
+      return this.DashbergSnapshotService.getData()
+        .then( response => {
+          this.snapshotData = response;
+          this.snapshotData.stdDevCluster = this.percentFormat(this.snapshotData.stdDevCluster);
+          this.snapshotData.stdDevVolume = this.percentFormat(this.snapshotData.stdDevVolume);
+          this.snapshotData.changeRateAbs = this.percentDecFormat(Math.abs(this.snapshotData.changeRate));
+        })
+    }
+
+    percentFormat(percent) {
+      return this.$filter('percent')(percent, 0, true, false, false, null, null);
+    }
+    percentDecFormat(percentDec) {
+      return this.$filter('percent')(percentDec, 1, true, false, false, null, null);
+    }
+    bytesFormat(bytes) {
+      return this.$filter('bytes')(bytes, false, 0, false, false);
+    }
+    bytesPerSecondFormat(bytesPerSecond) {
+      return this.$filter('bytes')(bytesPerSecond, false, 0, true, false);
+    }
+    numFormat(num) {
       if (num >= 1000) num = num / 1000 + 'k';
       return num;
     }
-  }
-})();
+
+}
+
+export const DashbergComponent = {
+  template: require('./dashberg.tpl.html'),
+  controller: DashbergController
+};
