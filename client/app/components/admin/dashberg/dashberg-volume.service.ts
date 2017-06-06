@@ -1,16 +1,8 @@
-(function () {
-  'use strict';
+export class DashbergVolumeService {
+  static $inject = [ 'DataService' ];
+  constructor( private DataService ) {}
 
-  angular
-    .module('aiqUi')
-    .service('DashbergVolumeService', [
-      'DataService',
-      DashbergVolumeService
-    ]);
-
-  function DashbergVolumeService(DataService) {
-    this.getData = function() {
-      return DataService.callAPI('DashbergVolume', {})
-    }
+  getData() {
+    return this.DataService.callAPI('DashbergVolume', {});
   }
-})();
+}
