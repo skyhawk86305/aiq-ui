@@ -1,5 +1,5 @@
 <div class="nodes-page">
-  <div class="sf-widget container-fluid info-bar vlan-tags-widget">
+  <div class="sf-widget container-fluid info-bar vlan-ids-widget">
     <div class="info-bar-row col-lg-6 col-sm-12">
       <div sf-state state="$ctrl.getClusterInfoState" class="info-box -mvip col-lg-8 col-sm-8">
         <div class="info-box-content">
@@ -7,9 +7,9 @@
           <span class="value">{{$ctrl.clusterInfo.mvip}}</span>
         </div>
       </div>
-      <div sf-state state="$ctrl.getClusterInfoState" class="info-box -mvip-tag col-lg-4 col-sm-4">
+      <div sf-state state="$ctrl.getClusterInfoState" class="info-box -mvip-vlan-id col-lg-4 col-sm-4">
         <div class="info-box-content">
-          <span class="title">MVIP VLAN Tag</span>
+          <span class="title">MVIP VLAN ID</span>
           <span class="value">{{$ctrl.clusterInfo.mvipVlanTag | aiqNumber:0:true:false}}</span>
         </div>
       </div>
@@ -21,9 +21,9 @@
           <span class="value">{{$ctrl.clusterInfo.svip}}</span>
         </div>
       </div>
-      <div sf-state state="$ctrl.getClusterInfoState" class="info-box -svip-tag col-lg-4 col-sm-4">
+      <div sf-state state="$ctrl.getClusterInfoState" class="info-box -svip-vlan-id col-lg-4 col-sm-4">
         <div class="info-box-content">
-          <span class="title">SVIP VLAN Tag</span>
+          <span class="title">SVIP VLAN ID</span>
           <span class="value">{{$ctrl.clusterInfo.svipVlanTag | aiqNumber:0:true:false}}</span>
         </div>
       </div>

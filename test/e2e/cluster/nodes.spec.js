@@ -64,19 +64,19 @@ describe('The Cluster Nodes Page', function () {
     expect(nodesPage.table.controlBar.export.button.isPresent()).to.eventually.be.true;
   });
 
-  it('@any @smoke should display VLAN tag info', function() {
+  it('@any @smoke should display VLAN ID info', function() {
     expect(nodesPage.infoBar.infoBox('mvip').el.isDisplayed()).to.eventually.be.true;
-    expect(nodesPage.infoBar.infoBox('mvip-tag').el.isDisplayed()).to.eventually.be.true;
+    expect(nodesPage.infoBar.infoBox('mvip-vlan-id').el.isDisplayed()).to.eventually.be.true;
     expect(nodesPage.infoBar.infoBox('svip').el.isDisplayed()).to.eventually.be.true;
-    expect(nodesPage.infoBar.infoBox('svip-tag').el.isDisplayed()).to.eventually.be.true;
+    expect(nodesPage.infoBar.infoBox('svip-vlan-id').el.isDisplayed()).to.eventually.be.true;
   });
 
   // TODO: Test is flaky -- fails sometimes
   // Tech debt card: https://solidfire.atlassian.net/browse/CLOUD-4243
   xit('@any @smoke the info-boxes must be wider than its value text', function(){
     support.infoBoxSizeCheck(nodesPage.infoBar,'mvip');
-    support.infoBoxSizeCheck(nodesPage.infoBar,'mvip-tag');
+    support.infoBoxSizeCheck(nodesPage.infoBar,'mvip-vlan-id');
     support.infoBoxSizeCheck(nodesPage.infoBar,'svip');
-    support.infoBoxSizeCheck(nodesPage.infoBar,'svip-tag');
+    support.infoBoxSizeCheck(nodesPage.infoBar,'svip-vlan-id');
   });
 });
