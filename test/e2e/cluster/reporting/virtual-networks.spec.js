@@ -13,7 +13,7 @@ var clusterId;
 var columns = [
   {key: 'virtualNetworkID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'name', label: 'Name', format: {filter: 'string'}},
-  {key: 'virtualNetworkTag', label: 'VLAN Tag', format: {filter: 'aiqNumber', args: [0, true]}},
+  {key: 'virtualNetworkTag', label: 'VLAN ID', format: {filter: 'aiqNumber', args: [0, true]}},
   {key: 'svip', label: 'SVIP', format: {filter: 'string'}},
   {key: 'netmask', label: 'Netmask', format: {filter: 'string'}},
   {key: 'gateway', label: 'Gateway', format: {filter: 'string'}},
