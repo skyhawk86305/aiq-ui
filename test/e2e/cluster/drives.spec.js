@@ -31,6 +31,7 @@ function mergeFixtures(fixture1, fixture2) {
               drive.reserveCapacityPercent = drive2.reserveCapacityPercent;
           }
       });
+      drive.type = drive.type === 'volume' ? 'metadata' : drive.type;
       return drive;
     });
 }

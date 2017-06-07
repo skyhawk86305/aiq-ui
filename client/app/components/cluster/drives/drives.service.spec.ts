@@ -1,27 +1,23 @@
 'use strict';
 
 describe('DriveTableService', function () {
-  let rootScope,
-    deferred,
-    apiResponse,
-    deserializedResponse,
-    apiFailure,
+  let $q,
+    rootScope,
     service,
     dataService,
     parentService;
 
   beforeEach(angular.mock.module('aiqUi', function ($provide) {
-    $provide.value('DataService', {callGuzzleAPI: function(){}});
+    $provide.value('DataService', {callGuzzleAPIs: function(){}});
   }));
 
-  beforeEach(inject(function ($q, $rootScope, DriveTableService, DataService, SFTableService) {
+  beforeEach(inject(function (_$q_, $rootScope, DriveTableService, DataService, SFTableService) {
+    $q = _$q_;
     rootScope = $rootScope;
-    deferred = $q.defer();
     service = DriveTableService;
     service.page = {start: 0, limit:25};
     dataService = DataService;
     parentService = SFTableService;
-    spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
   }));
 
   describe('initialization', function() {
@@ -43,45 +39,84 @@ describe('DriveTableService', function () {
 
   describe('.getData (inherited from SFTableService)', function() {
     it('should call the appropriate API method with the selectedClusterID', function() {
+      spyOn(dataService, 'callGuzzleAPIs').and.returnValue($q.resolve());
       service.selectedClusterID = 'foobar';
       service.getData(true);
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'ListDrives');
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'GetDriveStats');
-      expect(dataService.callGuzzleAPI).toHaveBeenCalledWith('foobar', 'GetClusterHardwareInfo');
+      expect(dataService.callGuzzleAPIs)
+        .toHaveBeenCalledWith('foobar', 'ListDrives', 'GetDriveStats', 'GetClusterHardwareInfo');
     });
 
     it('should deserialize the response and resolve an array of data', function() {
-      apiResponse = {drives: [{driveID:1}], driveStats: [{driveID: 1, lifeRemainingPercent: 5, reserveCapacityPercent: 8}], clusterHardwareInfo: {drives: {1: {version: 'D2010350'}}}};
-      deserializedResponse = [
+      spyOn(dataService, 'callGuzzleAPIs').and.returnValue($q.resolve({
+        drives: [
+          { driveID: 1, type: 'volume' },
+          { driveID: 2, type: 'block' },
+        ],
+        driveStats: [
+          { driveID: 1, lifeRemainingPercent: 5, reserveCapacityPercent: 8 },
+          { driveID: 2, lifeRemainingPercent: 2, reserveCapacityPercent: 7 },
+        ],
+        clusterHardwareInfo: {
+          drives: {
+            1: { version: '515ABBF0' },
+            2: { version: 'D2010350' },
+          },
+        },
+      }));
+      const deserializedResponse = [
         {
           driveID: 1,
+          type: 'metadata',
           lifeRemainingPercent: 5,
           reserveCapacityPercent: 8,
-          version: 'D2010350'
+          version: '515ABBF0',
+        },
+        {
+          driveID: 2,
+          type: 'block',
+          lifeRemainingPercent: 2,
+          reserveCapacityPercent: 7,
+          version: 'D2010350',
         }
       ];
-      service.getData(true).then(function(response) {
-         expect(response).toEqual(deserializedResponse);
-      });
-      deferred.resolve(apiResponse);
+      service.getData(true)
+        .then( response => {
+           expect(response).toEqual(deserializedResponse);
+        })
+        .catch( err => {
+          fail('Promise was unexpectedly rejected');
+        });
       rootScope.$apply();
     });
 
     it('should populate empty strings in the event of a missing driveStats object', function() {
-      apiResponse = {drives: [{}], clusterHardwareInfo: {drives: {}}};
-      service.getData(true).then(function(response) {
-         expect(response).toEqual([{version: null}]);
-      });
-      deferred.resolve(apiResponse);
+      spyOn(dataService, 'callGuzzleAPIs').and.returnValue($q.resolve({
+        drives: [{}],
+        clusterHardwareInfo: {drives: {}}
+      }));
+      const expectedData = [
+        { lifeRemainingPercent: '', reserveCapacityPercent: '', type: undefined, version: undefined }
+      ];
+      service.getData(true)
+        .then( response => {
+           expect(response).toEqual(expectedData);
+        })
+        .catch( err => {
+          fail('Promise was unexpectedly rejected');
+        });
       rootScope.$apply();
     });
 
     it('should reject the error message if the call fails', function() {
-      apiFailure = 'FooError';
-      service.getData(true).catch(function(err) {
-        expect(err).toEqual(apiFailure);
-      });
-      deferred.reject(apiFailure);
+      const apiFailure = 'FooError';
+      spyOn(dataService, 'callGuzzleAPIs').and.returnValue($q.reject(apiFailure));
+      service.getData(true)
+        .then( () => {
+          fail('Promise was expected to be rejected, but was resolved');
+        })
+        .catch( err => {
+          expect(err).toEqual(apiFailure);
+        });
       rootScope.$apply();
     });
   });
