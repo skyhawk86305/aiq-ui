@@ -2,7 +2,9 @@
   <img class='netapp-logo' src='images/na_logo_hrz_1c-rev_rgb_lrg.png'>
   <form class='login-form'
         name='login-form'
-        ng-submit='$ctrl.login(credentials)' novalidate>
+        ng-submit='$ctrl.login(credentials)'
+        method="post"
+        novalidate>
     <span class='pull-left login-label'>Sign in to Active IQ</span>
     <div class='form-group'>
       <input type='text' id='username-input'
