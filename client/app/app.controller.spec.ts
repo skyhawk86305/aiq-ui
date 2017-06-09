@@ -22,7 +22,6 @@ describe('AppController', function () {
       timestamp: '0'
     };
     http.when('GET', '/sessions').respond('success');
-    http.when('GET', 'welcome-beta.tpl.html').respond(200);
     http.when('POST', '/json-rpc/2.0').respond(200);
     http.when('GET', '/banner-message').respond(messageBanner);
   }));
@@ -242,7 +241,7 @@ describe('AppController', function () {
     });
 
     describe('unimplemented legacy UI pages', function() {
-      it('should route to the welcome page', function() {
+      it('should route to the dashboard overview', function() {
         location.path('/Admin/Nodes');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
