@@ -1,4 +1,4 @@
-<div class="dashberg-page">
+<div class="dashberg-page"> 
     <div class="container-fluid">
 
         <div class="sf-widget">
@@ -12,15 +12,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <span class="value -medium">{{ $ctrl.nodeData.totalNodes }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.nodeData.changeRate < 0">&#9660; {{ $ctrl.nodeData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.nodeData.changeRate > 0">&#9650; {{ $ctrl.nodeData.changeRateAbs }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.nodeData.changeRate < 0">&#9660; {{ $ctrl.nodeData.changeRate | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.nodeData.changeRate > 0">&#9650; {{ $ctrl.nodeData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">Total Nodes in Field</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -41,7 +41,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.nodeData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.nodeData.stdDevCluster | percent:0:true:false:false  }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxNodeModel">
@@ -59,7 +59,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.nodeData.stdDevNode }}</th>
+                                    <th>{{ $ctrl.nodeData.stdDevNode | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -79,15 +79,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <span class="value -medium">{{ $ctrl.volumeData.totalVolumes }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.volumeData.changeRate < 0">&#9660; {{ $ctrl.volumeData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.volumeData.changeRate > 0">&#9650; {{ $ctrl.volumeData.changeRateAbs }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.volumeData.changeRate < 0">&#9660; {{ $ctrl.volumeData.changeRate | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.volumeData.changeRate > 0">&#9650; {{ $ctrl.volumeData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">Total Volumes in Field</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -108,7 +108,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.volumeData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.volumeData.stdDevCluster | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxVolumeModel">
@@ -126,7 +126,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.volumeData.stdDevNode }}</th>
+                                    <th>{{ $ctrl.volumeData.stdDevNode | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -146,15 +146,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-sm-12">
                     <div class="info-box-content">
-                        <span class="value -medium">{{ $ctrl.volumeSizeData.totalVolumeSize }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.volumeSizeData.changeRate < 0">&#9660; {{ $ctrl.volumeSizeData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.volumeSizeData.changeRate > 0">&#9650; {{ $ctrl.volumeSizeData.changeRateAbs }}</span>
+                        <span class="value -medium">{{ $ctrl.volumeSizeData.totalVolumeSize | bytes:false:0:false:false }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.volumeSizeData.changeRate < 0">&#9660; {{ $ctrl.volumeSizeData.changeRate | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.volumeSizeData.changeRate > 0">&#9650; {{ $ctrl.volumeSizeData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">Current Average Volume Size</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -163,37 +163,37 @@
                             <tbody ng-if="!checkboxVolumeSizeModel">
                                 <tr>
                                     <td>Min Volume Size Per Cluster</td>
-                                    <th>{{ $ctrl.volumeSizeData.minVolumeSizeCluster }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.minVolumeSizeCluster | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster | bytes:false:0:false:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Max Volume Size Per Cluster</td>
-                                    <th>{{ $ctrl.volumeSizeData.maxVolumeSizeCluster }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.maxVolumeSizeCluster | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster | bytes:false:0:false:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Avg Volume Size Per Cluster</td>
-                                    <th>{{ $ctrl.volumeSizeData.avgVolumeSizeCluster }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.avgVolumeSizeCluster | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster| bytes:false:0:false:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.volumeSizeData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.stdDevCluster | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxVolumeSizeModel">
                                 <tr>
                                     <td>Min Volume Size Per Node</td>
-                                    <th>{{ $ctrl.volumeSizeData.minVolumeSizeNode }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.minVolumeSizeNode | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode | bytes:false:0:false:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Max Volume Size Per Node</td>
-                                    <th>{{ $ctrl.volumeSizeData.maxVolumeSizeNode }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.maxVolumeSizeNode | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode | bytes:false:0:false:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Avg Volume Size Per Node</td>
-                                    <th>{{ $ctrl.volumeSizeData.avgVolumeSizeNode }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.avgVolumeSizeNode | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode | bytes:false:0:false:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.volumeSizeData.stdDevNode }}</th>
+                                    <th>{{ $ctrl.volumeSizeData.stdDevNode | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -213,15 +213,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <span class="value -medium">{{ $ctrl.volumeAccessData.totalVolumeAccess }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.volumeAccessData.changeRate < 0">&#9660; {{ $ctrl.volumeAccessData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.volumeAccessData.changeRate > 0">&#9650; {{ $ctrl.volumeAccessData.changeRateAbs }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.volumeAccessData.changeRate < 0">&#9660; {{ $ctrl.volumeAccessData.changeRate  | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.volumeAccessData.changeRate > 0">&#9650; {{ $ctrl.volumeAccessData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">Total Volume Access Groups in Field</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -242,7 +242,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.volumeAccessData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.volumeAccessData.stdDevCluster | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxVolumeAccessModel">
@@ -260,7 +260,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.volumeAccessData.stdDevNode }}</th>
+                                    <th>{{ $ctrl.volumeAccessData.stdDevNode | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -280,15 +280,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <span class="value -medium">{{ $ctrl.IOPData.totalIOPs }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.IOPData.changeRate < 0">&#9660; {{ $ctrl.IOPData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.IOPData.changeRate > 0">&#9650; {{ $ctrl.IOPData.changeRateAbs }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.IOPData.changeRate < 0">&#9660; {{ $ctrl.IOPData.changeRate | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.IOPData.changeRate > 0">&#9650; {{ $ctrl.IOPData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">Field Average: IOPs Per all clusters</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -309,7 +309,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.IOPData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.IOPData.stdDevCluster | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxIOPModel">
@@ -327,7 +327,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.IOPData.stdDevNode }}</th>
+                                    <th>{{ $ctrl.IOPData.stdDevNode | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -347,15 +347,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
-                        <span class="value -medium">{{ $ctrl.bandwidthData.totalBandwidth }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.bandwidthData.changeRate < 0">&#9660; {{ $ctrl.bandwidthData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.bandwidthData.changeRate > 0">&#9650; {{ $ctrl.bandwidthData.changeRateAbs }}</span>
+                        <span class="value -medium">{{ $ctrl.bandwidthData.totalBandwidth | bytes:false:0:true:false }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.bandwidthData.changeRate < 0">&#9660; {{ $ctrl.bandwidthData.changeRate | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.bandwidthData.changeRate > 0">&#9650; {{ $ctrl.bandwidthData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">Field Average: Bandwidth in Field</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -364,37 +364,37 @@
                             <tbody ng-if="!checkboxBandwidthModel">
                                 <tr>
                                     <td>Min Bandwidth Per Cluster</td>
-                                    <th>{{ $ctrl.bandwidthData.minBandwidthCluster }}/{{ $ctrl.bandwidthData.unitBandwidthCluster }}</th>
+                                    <th>{{ $ctrl.bandwidthData.minBandwidthCluster | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthCluster | bytes:false:0:true:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Max Bandwidth Per Cluster</td>
-                                    <th>{{ $ctrl.bandwidthData.maxBandwidthCluster }}/{{ $ctrl.bandwidthData.unitBandwidthCluster }}</th>
+                                    <th>{{ $ctrl.bandwidthData.maxBandwidthCluster | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthCluster | bytes:false:0:true:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Avg Bandwidth Per Cluster</td>
-                                    <th>{{ $ctrl.bandwidthData.avgBandwidthCluster }}/{{ $ctrl.bandwidthData.unitBandwidthCluster }}</th>
+                                    <th>{{ $ctrl.bandwidthData.avgBandwidthCluster | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthCluster | bytes:false:0:true:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.bandwidthData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.bandwidthData.stdDevCluster | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxBandwidthModel">
                                 <tr>
                                     <td>Min Bandwidth Per Node</td>
-                                    <th>{{ $ctrl.bandwidthData.minBandwidthNode }}/{{ $ctrl.bandwidthData.unitBandwidthNode }}</th>
+                                    <th>{{ $ctrl.bandwidthData.minBandwidthNode | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthNode | bytes:false:0:true:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Max Bandwidth Per Node</td>
-                                    <th>{{ $ctrl.bandwidthData.maxBandwidthNode }}/{{ $ctrl.bandwidthData.unitBandwidthNode }}</th>
+                                    <th>{{ $ctrl.bandwidthData.maxBandwidthNode | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthNode | bytes:false:0:true:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Avg Bandwidth Per Node</td>
-                                    <th>{{ $ctrl.bandwidthData.avgBandwidthNode }}/{{ $ctrl.bandwidthData.unitBandwidthNode }}</th>
+                                    <th>{{ $ctrl.bandwidthData.avgBandwidthNode | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthNode | bytes:false:0:true:false }}</th>
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.bandwidthData.stdDevNode }}</th>
+                                    <th>{{ $ctrl.bandwidthData.stdDevNode | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -414,15 +414,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <span class="value -medium">{{ $ctrl.sessionData.totalSessions }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.sessionData.changeRate < 0">&#9660; {{ $ctrl.sessionData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.sessionData.changeRate > 0">&#9650; {{ $ctrl.sessionData.changeRateAbs }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.sessionData.changeRate < 0">&#9660; {{ $ctrl.sessionData.changeRate | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.sessionData.changeRate > 0">&#9650; {{ $ctrl.sessionData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">iSCSI Sessions per Node</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -447,7 +447,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.sessionData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.sessionData.stdDevCluster | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxiSCSIModel">
@@ -469,7 +469,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.sessionData.stdDevNode }}</th>
+                                    <th>{{ $ctrl.sessionData.stdDevNode | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -489,15 +489,15 @@
                 </div>
             </div>
             <div class="row dashberg-sum-data">
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <span class="value -medium">{{ $ctrl.snapshotData.totalSnapshots }}</span>
-                        <span class="triangle-bottom-icon" ng-if="$ctrl.snapshotData.changeRate < 0">&#9660; {{ $ctrl.snapshotData.changeRateAbs }} </span>
-                        <span class="triangle-top-icon" ng-if="$ctrl.snapshotData.changeRate > 0">&#9650; {{ $ctrl.snapshotData.changeRateAbs }}</span>
+                        <span class="triangle-bottom-icon" ng-if="$ctrl.snapshotData.changeRate < 0">&#9660; {{ $ctrl.snapshotData.changeRate | abs | percent:1:true:false:false }} </span>
+                        <span class="triangle-top-icon" ng-if="$ctrl.snapshotData.changeRate > 0">&#9650; {{ $ctrl.snapshotData.changeRate | abs | percent:1:true:false:false }}</span>
                         <span class="title">Field Average: Snapshots per Volume</span>
                     </div>
                 </div>
-                <div class="info-box col-md-6">
+                <div class="info-box col-md-6 col-xs-12 col-sm-12">
                     <div class="info-box-content">
                         <table class="table">
                             <thead>
@@ -518,7 +518,7 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.snapshotData.stdDevCluster }}</th>
+                                    <th>{{ $ctrl.snapshotData.stdDevCluster | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                             <tbody ng-if="checkboxSnapshotModel">
@@ -536,36 +536,13 @@
                                 </tr>
                                 <tr>
                                     <td>Standard Deviation</td>
-                                    <th>{{ $ctrl.snapshotData.stdDevVolume }}</th>
+                                    <th>{{ $ctrl.snapshotData.stdDevVolume | percent:0:true:false:false }}</th>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
-        
-    </div>
-    <div class="dashberg-graph-row">
-        <div class="graph-container col-md-6">
-            <div class="node-type-count-graph sf-widget">
-                <div class="info-bar-timestamp">
-                    <span>Node Type - Count</span>
-                </div>
-                <div class="info-box-content">
-                    Node Type - Count
-                </div>
-            </div>
-        </div>
-        <div class="graph-container col-md-6">
-            <div class="os-distribution-node-graph sf-widget">
-                <div class="info-bar-timestamp">
-                    <span>OS Distribution - Node</span>
-                </div>
-                <div class="info-box-content">
-                    OS Distribution Node
-                </div>
-            </div>
-        </div>
+        </div>  
     </div>
 </div>
