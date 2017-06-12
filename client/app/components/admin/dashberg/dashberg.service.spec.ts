@@ -1,23 +1,23 @@
 'use strict';
 
 describe('DashbergService', function() {
-    let $q,
-        service,
-        DataService;
+  let $q,
+    service,
+    DataService;
 
-    beforeEach(angular.mock.module('aiqUi', function($provide) {
-        $provide.value('DataService', {
-            callAPI: function() {}
-        });
-    }));
+  beforeEach(angular.mock.module('aiqUi', function($provide) {
+    $provide.value('DataService', {
+      callAPI: function() {}
+    });
+  }));
 
-    beforeEach(inject(function(_$q_, DashbergService, _DataService_) {
-        $q = _$q_;
-        service = DashbergService;
-        DataService = _DataService_;
-    }));
+  beforeEach(inject(function(_$q_, DashbergService, _DataService_) {
+    $q = _$q_;
+    service = DashbergService;
+    DataService = _DataService_;
+  }));
 
-    describe('.getBandwidthData', function() {
+  describe('.getBandwidthData', function() {
     it('should call the DashbergBandwidth API via DataService', function() {
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve());
       service.getBandwidthData();
@@ -25,7 +25,7 @@ describe('DashbergService', function() {
     })
   })
 
-    describe('.getVolumeData', function() {
+  describe('.getVolumeData', function() {
     it('should call the DashbergVolume API via DataService', function() {
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve());
       service.getVolumeData();

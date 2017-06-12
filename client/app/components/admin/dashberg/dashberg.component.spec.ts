@@ -4,17 +4,15 @@ describe('Component: dashberg', function() {
   let controller,
     dashbergService,
     $q,
-    $scope,
-    dataService;
+    $scope;
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function(_$q_, $rootScope, $componentController, DashbergService, DataService) {
-      controller = $componentController('dashberg');
-      dashbergService = DashbergService;
-      $q = _$q_;
-      $scope = $rootScope.$new();
-      dataService = DataService;
+  beforeEach(inject(function(_$q_, $rootScope, $componentController, DashbergService) {
+    controller = $componentController('dashberg');
+    dashbergService = DashbergService;
+    $q = _$q_;
+    $scope = $rootScope.$new();
   }));
 
   describe('.onInit()', function() {
@@ -62,16 +60,16 @@ describe('Component: dashberg', function() {
 
   describe('.getNodeData', function() {
     it('should call DashbergService and get nodeData from API', function() {
-        const apiResponse = {
-          totalNodes: 539,
-          minNodesCluster: 4
-        }
-        const expectedResponse = {
-          totalNodes: 539,
-          minNodesCluster: 4
-        }
-        spyOn(dashbergService, 'getNodeData').and.returnValue($q.resolve(apiResponse));
-        controller.getNodeData()
+      const apiResponse = {
+        totalNodes: 539,
+        minNodesCluster: 4
+      }
+      const expectedResponse = {
+        totalNodes: 539,
+        minNodesCluster: 4
+      }
+      spyOn(dashbergService, 'getNodeData').and.returnValue($q.resolve(apiResponse));
+      controller.getNodeData()
         .then(() => {
           expect(controller.nodeData).toEqual(expectedResponse);
         })
@@ -84,16 +82,16 @@ describe('Component: dashberg', function() {
 
   describe('.getVolumeData', function() {
     it('should call DashbergService and get volumeData from API', function() {
-        const apiResponse = {
-          totalVolumes: 16500,
-          minVolumesCluster: 2500
-        }
-        const expectedResponse = {
-          totalVolumes: 16500,
-          minVolumesCluster: 2500
-        }
-        spyOn(dashbergService, 'getVolumeData').and.returnValue($q.resolve(apiResponse));
-        controller.getVolumeData()
+      const apiResponse = {
+        totalVolumes: 16500,
+        minVolumesCluster: 2500
+      }
+      const expectedResponse = {
+        totalVolumes: 16500,
+        minVolumesCluster: 2500
+      }
+      spyOn(dashbergService, 'getVolumeData').and.returnValue($q.resolve(apiResponse));
+      controller.getVolumeData()
         .then(() => {
           expect(controller.volumeData).toEqual(expectedResponse);
         })
@@ -106,16 +104,16 @@ describe('Component: dashberg', function() {
 
   describe('.getVolumeSizeData', function() {
     it('should call DashbergService and get volumeSizeData from API', function() {
-        const apiResponse = {
-          totalVolumeSize: 25000000000000,
-          minVolumeSizeCluster: 130000000
-        }
-        const expectedResponse = {
-          totalVolumeSize: 25000000000000,
-          minVolumeSizeCluster: 130000000
-        }
-        spyOn(dashbergService, 'getVolumeSizeData').and.returnValue($q.resolve(apiResponse));
-        controller.getVolumeSizeData()
+      const apiResponse = {
+        totalVolumeSize: 25000000000000,
+        minVolumeSizeCluster: 130000000
+      }
+      const expectedResponse = {
+        totalVolumeSize: 25000000000000,
+        minVolumeSizeCluster: 130000000
+      }
+      spyOn(dashbergService, 'getVolumeSizeData').and.returnValue($q.resolve(apiResponse));
+      controller.getVolumeSizeData()
         .then(() => {
           expect(controller.volumeSizeData).toEqual(expectedResponse);
         })
@@ -128,16 +126,16 @@ describe('Component: dashberg', function() {
 
   describe('.getVolumeAccessData', function() {
     it('should call DashbergService and get volumeAccessData from API', function() {
-        const apiResponse = {
-          totalVolumeAccess: 911,
-          minVolumeAccessCluster: 3
-        }
-        const expectedResponse = {
-          totalVolumeAccess: 911,
-          minVolumeAccessCluster: 3
-        }
-        spyOn(dashbergService, 'getVolumeAccessData').and.returnValue($q.resolve(apiResponse));
-        controller.getVolumeAccessData()
+      const apiResponse = {
+        totalVolumeAccess: 911,
+        minVolumeAccessCluster: 3
+      }
+      const expectedResponse = {
+        totalVolumeAccess: 911,
+        minVolumeAccessCluster: 3
+      }
+      spyOn(dashbergService, 'getVolumeAccessData').and.returnValue($q.resolve(apiResponse));
+      controller.getVolumeAccessData()
         .then(() => {
           expect(controller.volumeAccessData).toEqual(expectedResponse);
         })
@@ -150,16 +148,16 @@ describe('Component: dashberg', function() {
 
   describe('.getIOPData', function() {
     it('should call DashbergService and get IOPData from API', function() {
-        const apiResponse = {
-          totalIOPs: 15500,
-          minIOPsCluster: 1000
-        }
-        const expectedResponse = {
-          totalIOPs: 15500,
-          minIOPsCluster: 1000
-        }
-        spyOn(dashbergService, 'getIOPData').and.returnValue($q.resolve(apiResponse));
-        controller.getIOPData()
+      const apiResponse = {
+        totalIOPs: 15500,
+        minIOPsCluster: 1000
+      }
+      const expectedResponse = {
+        totalIOPs: 15500,
+        minIOPsCluster: 1000
+      }
+      spyOn(dashbergService, 'getIOPData').and.returnValue($q.resolve(apiResponse));
+      controller.getIOPData()
         .then(() => {
           expect(controller.IOPData).toEqual(expectedResponse);
         })
@@ -172,16 +170,16 @@ describe('Component: dashberg', function() {
 
   describe('.getBandwidthData', function() {
     it('should call DashbergService and get bandwidthData from API', function() {
-        const apiResponse = {
-          totalBandwidth: 212000000,
-          minBandwidthCluster: 28000000
-        }
-        const expectedResponse = {
-          totalBandwidth: 212000000,
-          minBandwidthCluster: 28000000
-        }
-        spyOn(dashbergService, 'getBandwidthData').and.returnValue($q.resolve(apiResponse));
-        controller.getBandwidthData()
+      const apiResponse = {
+        totalBandwidth: 212000000,
+        minBandwidthCluster: 28000000
+      }
+      const expectedResponse = {
+        totalBandwidth: 212000000,
+        minBandwidthCluster: 28000000
+      }
+      spyOn(dashbergService, 'getBandwidthData').and.returnValue($q.resolve(apiResponse));
+      controller.getBandwidthData()
         .then(() => {
           expect(controller.bandwidthData).toEqual(expectedResponse);
         })
@@ -194,16 +192,16 @@ describe('Component: dashberg', function() {
 
   describe('.getSessionData', function() {
     it('should call DashbergService and get sessionData from API', function() {
-        const apiResponse = {
-          totalSessions: 613,
-          minSessionsCluster: 25
-        }
-        const expectedResponse = {
-          totalSessions: 613,
-          minSessionsCluster: 25
-        }
-        spyOn(dashbergService, 'getSessionData').and.returnValue($q.resolve(apiResponse));
-        controller.getSessionData()
+      const apiResponse = {
+        totalSessions: 613,
+        minSessionsCluster: 25
+      }
+      const expectedResponse = {
+        totalSessions: 613,
+        minSessionsCluster: 25
+      }
+      spyOn(dashbergService, 'getSessionData').and.returnValue($q.resolve(apiResponse));
+      controller.getSessionData()
         .then(() => {
           expect(controller.sessionData).toEqual(expectedResponse);
         })
@@ -216,16 +214,16 @@ describe('Component: dashberg', function() {
 
   describe('.getSnapshotData', function() {
     it('should call DashbergService and get snapshotData from API', function() {
-        const apiResponse = {
-          totalSnapshots: 28,
-          minSnapshotsCluster: 1
-        }
-        const expectedResponse = {
-          totalSnapshots: 28,
-          minSnapshotsCluster: 1
-        }
-        spyOn(dashbergService, 'getSnapshotData').and.returnValue($q.resolve(apiResponse));
-        controller.getSnapshotData()
+      const apiResponse = {
+        totalSnapshots: 28,
+        minSnapshotsCluster: 1
+      }
+      const expectedResponse = {
+        totalSnapshots: 28,
+        minSnapshotsCluster: 1
+      }
+      spyOn(dashbergService, 'getSnapshotData').and.returnValue($q.resolve(apiResponse));
+      controller.getSnapshotData()
         .then(() => {
           expect(controller.snapshotData).toEqual(expectedResponse);
         })

@@ -2,7 +2,7 @@
 
 .dashberg-page {
   overflow-y: scroll;
-  display: d;height: 100%;
+  height: 100%;
 }
 
 .dashberg-sum-data {
@@ -26,8 +26,7 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  .transition(.4s);
 }
 
 .slider:before {
@@ -38,8 +37,7 @@
   left: 2px;
   bottom: 3px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  .transition(.4s);
 }
 
 input:checked + .slider {
@@ -51,9 +49,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  .transform(translateX(26px));
 }
 
 .slider.round {
@@ -70,4 +66,8 @@ input:checked + .slider:before {
 
 .triangle-top-icon {
   color: green;
+}
+
+.data-bold {
+  font-weight: bold;
 }
