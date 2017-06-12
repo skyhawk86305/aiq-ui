@@ -14,6 +14,9 @@ import { FindClusterComponent } from './find-cluster/find-cluster.component';
 import { VmwareAlarmsComponent } from './cluster/vmware-alarms/vmware-alarms.component';
 import { VmwareAlarmsService } from './cluster/vmware-alarms/vmware-alarms.service';
 
+import { DashbergComponent } from './admin/dashberg/dashberg.component';
+import { DashbergService } from './admin/dashberg/dashberg.service';
+
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
   .component('registerCluster', RegisterClusterComponent)
@@ -28,6 +31,9 @@ export const ComponentsModule = angular
 
   .component('vmwareAlarms', VmwareAlarmsComponent)
   .service('VmwareAlarmsService', VmwareAlarmsService)
+
+  .component('dashberg', DashbergComponent)
+  .service('DashbergService', DashbergService)
 
   .name;
 
