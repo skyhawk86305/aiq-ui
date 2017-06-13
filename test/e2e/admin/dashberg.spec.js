@@ -17,7 +17,7 @@ function mapFixture(rowFixture) {
   return rowFixture.result;
 };
 
-fdescribe('The Dashberg Page', function() {
+describe('The Dashberg Page', function() {
   beforeAll(function() {
     support.login();
     expect(browser.getCurrentUrl()).to.eventually.contain('/dashboard/overview');
