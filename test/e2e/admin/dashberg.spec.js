@@ -67,4 +67,59 @@ describe('The Dashberg Page', function() {
     expect(dashberg.snapshotBox.isDisplayed()).to.eventually.be.true;
   })
 
+  it('should be checked when clicked nodeDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.nodeDataCheckbox).click().perform();
+    expect( dashberg.nodeCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.nodeDataCheckbox).click().perform();
+    expect( dashberg.nodeCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
+
+  it('should be checked when clicked volumeDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.volumeDataCheckbox).click().perform();
+    expect( dashberg.volumeCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.volumeDataCheckbox).click().perform();
+    expect( dashberg.volumeCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
+
+  it('should be checked when clicked volumeSizeDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.volumeSizeDataCheckbox).click().perform();
+    expect( dashberg.volumeSizeCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.volumeSizeDataCheckbox).click().perform();
+    expect( dashberg.volumeSizeCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
+
+  it('should be checked when clicked volumeAccessDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.volumeAccessDataCheckbox).click().perform();
+    expect( dashberg.volumeAccessCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.volumeAccessDataCheckbox).click().perform();
+    expect( dashberg.volumeAccessCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
+
+  it('should be checked when clicked bandwidthDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.bandwidthDataCheckbox).click().perform();
+    expect( dashberg.bandwidthCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.bandwidthDataCheckbox).click().perform();
+    expect( dashberg.bandwidthCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
+
+  it('should be checked when clicked IOPDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.IOPDataCheckbox).click().perform();
+    expect( dashberg.IOPCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.IOPDataCheckbox).click().perform();
+    expect( dashberg.IOPCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
+
+  it('should be checked when clicked sessionDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.sessionDataCheckbox).click().perform();
+    expect( dashberg.sessionCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.sessionDataCheckbox).click().perform();
+    expect( dashberg.sessionCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
+
+  it('should be checked when clicked snapshotDataCheckbox, and be unchecked when clicked again', function() {
+    browser.actions().mouseMove(dashberg.snapshotDataCheckbox).click().perform();
+    expect( dashberg.snapshotCheckboxModel.isSelected() ).to.eventually.be.true;
+    browser.actions().mouseMove(dashberg.snapshotDataCheckbox).click().perform();
+    expect( dashberg.snapshotCheckboxModel.isSelected() ).to.eventually.be.false;
+  })
 });

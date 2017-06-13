@@ -7,7 +7,7 @@
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxNodeModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="node-data-checkbox"></div>
           </label>
         </div>
       </div>
@@ -74,7 +74,7 @@
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxVolumeModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="volume-data-checkbox"></div>
           </label>
         </div>
       </div>
@@ -141,7 +141,7 @@
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxVolumeSizeModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="volume-size-data-checkbox"></div>
           </label>
         </div>
       </div>
@@ -208,7 +208,7 @@
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxVolumeAccessModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="volume-access-data-checkbox"></div>
           </label>
         </div>
       </div>
@@ -275,7 +275,7 @@
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxIOPModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="IOP-data-checkbox"></div>
           </label>
         </div>
       </div>
@@ -342,7 +342,7 @@
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxBandwidthModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="bandwidth-data-checkbox"></div>
           </label>
         </div>
       </div>
@@ -408,8 +408,8 @@
         <span>iSCSI Sessions</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
-            <input type="checkbox" ng-model="checkboxiSCSIModel">
-            <div class="slider round"></div>
+            <input type="checkbox" ng-model="checkboxSessionModel">
+            <div class="slider round" id="session-data-checkbox"></div>
           </label>
         </div>
       </div>
@@ -428,7 +428,7 @@
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxiSCSIModel">
+              <tbody ng-if="!checkboxSessionModel">
                 <tr>
                   <td>Min iSCSI Sessions Per Cluster</td>
                   <td class="data-bold">{{ $ctrl.sessionData.minSessionsCluster }}/{{ $ctrl.sessionData.unitSessionsCluster }}</td>
@@ -450,7 +450,7 @@
                   <td class="data-bold">{{ $ctrl.sessionData.stdDevCluster | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
-              <tbody ng-if="checkboxiSCSIModel">
+              <tbody ng-if="checkboxSessionModel">
                 <tr>
                   <td>Min iSCSI Sessions Per Node</td>
                   <td class="data-bold">{{ $ctrl.sessionData.minSessionsNode }}/{{ $ctrl.sessionData.unitSessionsNode }}</td>
@@ -484,7 +484,7 @@
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxSnapshotModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="snapshot-data-checkbox"></div>
           </label>
         </div>
       </div>
