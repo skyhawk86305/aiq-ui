@@ -122,4 +122,52 @@ describe('The Dashberg Page', function() {
     browser.actions().mouseMove(dashberg.snapshotDataCheckbox).click().perform();
     expect( dashberg.snapshotCheckboxModel.isSelected() ).to.eventually.be.false;
   })
+
+  it('should contain node data title, description and data table', function() {
+    expect(dashberg.nodeDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.nodeDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.nodeDataTable.isPresent()).to.eventually.be.true;
+  })
+
+  it('should contain volume data title, description and data table', function() {
+    expect(dashberg.volumeDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.volumeDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.volumeDataTable.isPresent()).to.eventually.be.true;
+  })
+
+  it('should contain volume size data title, description and data table', function() {
+    expect(dashberg.volumeSizeDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.volumeSizeDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.volumeSizeDataTable.isPresent()).to.eventually.be.true;
+  })
+
+  it('should contain volume access data title, description and data table', function() {
+    expect(dashberg.volumeAccessDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.volumeAccessDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.volumeAccessDataTable.isPresent()).to.eventually.be.true;
+  })
+
+  it('should contain IOP data title, description and data table', function() {
+    expect(dashberg.IOPDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.IOPDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.IOPDataTable.isPresent()).to.eventually.be.true;
+  })
+
+  it('should contain bandwidth data title, description and data table', function() {
+    expect(dashberg.bandwidthDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.bandwidthDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.bandwidthDataTable.isPresent()).to.eventually.be.true;
+  })
+
+  it('should contain session data title, description and data table', function() {
+    expect(dashberg.sessionDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.sessionDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.sessionDataTable.isPresent()).to.eventually.be.true;
+  })
+
+  it('should contain snapshot data title, description and data table', function() {
+    expect(dashberg.snapshotDataTitle.isPresent()).to.eventually.be.true;
+    expect(dashberg.snapshotDataDescription.isPresent()).to.eventually.be.true;
+    expect(dashberg.snapshotDataTable.isPresent()).to.eventually.be.true;
+  })
 });
