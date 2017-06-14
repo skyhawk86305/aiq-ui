@@ -26,10 +26,10 @@
 
     let columns = [
       {key: 'id', label: 'Alert ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
-      {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
-      {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+      {key: 'created', label: 'Alert Triggered', format: {filter: 'aiqDate'}},
+      {key: 'lastNotified', label: 'Last Notification', format: {filter: 'aiqDate'}},
       {key: 'isResolved', label: 'Resolved', format: {filter: 'tableBadgeBoolean'}},
-      {key: 'resolved', label: 'Resolution Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+      {key: 'resolved', label: 'Resolution Time', format: {filter: 'aiqDate'}},
       {key: 'notificationName', label: 'Alert Policy Name', filterComparators: SFFilterComparators.STRING_DEFAULT},
       {key: 'severity', label: 'Alert Severity', format: {filter: 'tableBadgeAlertSeverity'}},
       {key: 'value', label: 'Alert Value', filterComparators: SFFilterComparators.STRING_DEFAULT},

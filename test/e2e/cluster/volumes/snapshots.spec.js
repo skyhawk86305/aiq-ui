@@ -17,8 +17,8 @@ var columns = [
   {key: 'volumeID', label: 'Volume ID', width: 100, format: {filter: 'string'}},
   {key: 'accountID', label: 'Account ID', width: 100, format: {filter: 'string'}},
   {key: 'volumeSize', label: 'Volume Size', format: {filter: 'bytes'}},
-  {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
-  {key: 'retainUntil', label: 'Retain Until', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate'}},
+  {key: 'retainUntil', label: 'Retain Until', format: {filter: 'aiqDate'}},
   {key: 'groupID', label: 'Group SnapshotID', format: {filter: 'string'}},
   {key: 'enableRemoteReplication', label: 'Remote Replication', format: {filter: 'boolean', args: ['Yes', 'No']}},
   {key: 'replicated', label: 'Replicated'}

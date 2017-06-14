@@ -11,7 +11,7 @@ const itemsPerPage = 25;
 const maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 const columns = [
   {key: 'source', label: 'Element API Method', format: {filter: 'apiCollectionLink', args:['26']}},
-  {key: 'ingestedTime', label: 'Last Updated', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}}
+  {key: 'ingestedTime', label: 'Last Updated', format: {filter: 'aiqDate'}}
 ];
 let clusterId;
 

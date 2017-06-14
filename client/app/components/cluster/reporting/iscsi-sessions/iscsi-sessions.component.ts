@@ -139,7 +139,7 @@
     }
 
     private xAxisFormat(seconds) {
-      return this.$filter('date')(new Date(seconds * 1000), 'yyyy-MM-dd HH:mm:ss');
+      return this.$filter('aiqDate')(new Date(seconds * 1000));
     }
   }
 

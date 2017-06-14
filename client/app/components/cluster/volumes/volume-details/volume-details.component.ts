@@ -234,7 +234,7 @@
         }).catch(err => {
           this.getAverageVolumePerformanceStatus = 'error';
         });
-      this.infoBarLastUpdated = this.$filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+      this.infoBarLastUpdated = this.$filter('aiqDate')(new Date());
     }
 
     private getGraphConfig(graph, context = false, sparkLine = false) {
@@ -721,7 +721,7 @@
     /***********************  Axis Format Functions  ************************/
 
     private xAxisFormat(milliseconds) {
-      return this.$filter('date')(new Date(milliseconds), 'yyyy-MM-dd HH:mm:ss');
+      return this.$filter('aiqDate')(new Date(milliseconds));
     }
     private iopsFormat(iops) {
       return this.$filter('iops')(iops, true, 1);

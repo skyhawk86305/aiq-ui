@@ -345,7 +345,7 @@
     /***********************  Helper Functions  ************************/
 
     function xAxisFormat(milliseconds) {
-      return $filter('date')(new Date(milliseconds), 'yyyy-MM-dd HH:mm:ss');
+      return $filter('aiqDate')(new Date(milliseconds));
     }
     function utilizationFormat(utilization) {
       return $filter('percent')(utilization, 0, true, false, true, null, null);

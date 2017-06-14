@@ -17,7 +17,7 @@ const columns = [
   {key: 'scheduleFrequency', label: 'Frequency', format: {filter: 'string'}},
   {key: 'recurring', label: 'Recurring', format: {filter: 'boolean', args: ['Yes', 'No']}},
   {key: 'scheduleVolumeIDs', label: 'Volume IDs', format: {filter: 'string'}},
-  {key: 'lastRunTimeStarted', label: 'Last Run', format: {filter: 'aiqDate', args: ['yyyy-MM-dd HH:mm:ss'] }},
+  {key: 'lastRunTimeStarted', label: 'Last Run', format: {filter: 'aiqDate'}},
   {key: 'lastRunStatus', label: 'Last Run Status', format: {filter: 'string'}},
   {key: 'paused', label: 'Manually Paused', format: {filter: 'boolean', args: ['Yes', 'No']}}
 ];

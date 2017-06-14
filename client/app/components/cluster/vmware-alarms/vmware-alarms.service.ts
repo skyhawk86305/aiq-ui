@@ -16,7 +16,7 @@ export class VmwareAlarmsService {
       { label: 'Alarm ID', key: 'alarmId', width: 100, filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Alarm Name', key: 'name', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Description', key: 'description', filterComparators: SFFilterComparators.STRING_DEFAULT },
-      { label: 'Last Modified Time', key: 'lastModifiedTime', width: 200, format: { filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss'] }, filterComparators: SFFilterComparators.STRING_DEFAULT },
+      { label: 'Last Modified Time', key: 'lastModifiedTime', width: 200, format: { filter: 'aiqDate' }, filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Last Modified User', key: 'lastModifiedUser', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Entity ID', key: 'entityId', filterComparators: SFFilterComparators.STRING_DEFAULT }
     ];

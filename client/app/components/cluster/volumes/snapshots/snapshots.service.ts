@@ -20,8 +20,8 @@
       {key: 'snapshotUUID', label: 'UUID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
       {key: 'volumeSize', label: 'Volume Size', format: {filter: 'bytes'}},
-      {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
-      {key: 'retainUntil', label: 'Retain Until', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+      {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate'}},
+      {key: 'retainUntil', label: 'Retain Until', format: {filter: 'aiqDate'}},
       {key: 'groupID', label: 'Group SnapshotID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'enableRemoteReplication', label: 'Remote Replication', format: {filter: 'boolean', args: ['Yes', 'No']}},
       {key: 'replicated', label: 'Replicated'}

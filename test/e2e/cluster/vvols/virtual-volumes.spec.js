@@ -25,7 +25,7 @@ var columns = [
   {key: 'maxIOPS', label: 'Max IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'burstIOPS', label: 'Burst IOPS',  format: {filter: 'aiqNumber', args: [0, false, true]}},
   {key: 'VMW_VmID', label: 'VMW_VmId', format: {filter: 'string'}},
-  {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}}
+  {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate'}}
   ];
 
 function mapFixture(rawFixture) {
