@@ -28,6 +28,7 @@ var child,
   isRemoteE2ETask = isE2ETask && argv.env;
 
 gulp.task('build', function(done) {
+  gulp.src('./client/404.html').pipe(gulp.dest('./build'));
   webpack(configs.webpack, done);
 });
 
