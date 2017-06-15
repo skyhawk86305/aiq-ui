@@ -1,18 +1,18 @@
 <div class="dashberg-page">
   <div class="container-fluid">
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget node-info-box">
+      <div class="info-bar-timestamp node-data-title">
         <span>Nodes in Clusters</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxNodeModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="node-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 node-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.nodeData.totalNodes }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.nodeData.changeRate < 0">&#9660; {{ $ctrl.nodeData.changeRate | abs | percent:1:true:false:false }} </span>
@@ -20,7 +20,7 @@
             <span class="title">Total Nodes in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 node-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
@@ -68,18 +68,18 @@
       </div>
     </div>
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget volume-info-box">
+      <div class="info-bar-timestamp volume-data-title">
         <span>Volumes in Clusters</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxVolumeModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="volume-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.volumeData.totalVolumes }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.volumeData.changeRate < 0">&#9660; {{ $ctrl.volumeData.changeRate | abs | percent:1:true:false:false }} </span>
@@ -87,7 +87,7 @@
             <span class="title">Total Volumes in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
@@ -135,18 +135,18 @@
       </div>
     </div>
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget volume-size-info-box">
+      <div class="info-bar-timestamp volume-size-data-title">
         <span>Volume Size</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxVolumeSizeModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="volume-size-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-sm-12">
+        <div class="info-box col-md-6 col-sm-12 volume-size-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.volumeSizeData.totalVolumeSize | bytes:false:0:false:false }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.volumeSizeData.changeRate < 0">&#9660; {{ $ctrl.volumeSizeData.changeRate | abs | percent:1:true:false:false }} </span>
@@ -154,7 +154,7 @@
             <span class="title">Current Average Volume Size</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-size-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
@@ -202,18 +202,18 @@
       </div>
     </div>
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget volume-access-info-box">
+      <div class="info-bar-timestamp volume-access-data-title">
         <span>Volume Access Groups</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxVolumeAccessModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="volume-access-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-access-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.volumeAccessData.totalVolumeAccess }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.volumeAccessData.changeRate < 0">&#9660; {{ $ctrl.volumeAccessData.changeRate  | abs | percent:1:true:false:false }} </span>
@@ -221,7 +221,7 @@
             <span class="title">Total Volume Access Groups in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-access-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
@@ -269,18 +269,18 @@
       </div>
     </div>
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget IOP-info-box">
+      <div class="info-bar-timestamp IOP-data-title">
         <span>Cluster IOPs</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxIOPModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="IOP-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 IOP-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.IOPData.totalIOPs }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.IOPData.changeRate < 0">&#9660; {{ $ctrl.IOPData.changeRate | abs | percent:1:true:false:false }} </span>
@@ -288,7 +288,7 @@
             <span class="title">Field Average: IOPs Per all clusters</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 IOP-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
@@ -336,18 +336,18 @@
       </div>
     </div>
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget bandwidth-info-box">
+      <div class="info-bar-timestamp bandwidth-data-title">
         <span>Cluster Bandwidth</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxBandwidthModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="bandwidth-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 bandwidth-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.bandwidthData.totalBandwidth | bytes:false:0:true:false }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.bandwidthData.changeRate < 0">&#9660; {{ $ctrl.bandwidthData.changeRate | abs | percent:1:true:false:false }} </span>
@@ -355,7 +355,7 @@
             <span class="title">Field Average: Bandwidth in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 bandwidth-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
@@ -403,18 +403,18 @@
       </div>
     </div>
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget session-info-box">
+      <div class="info-bar-timestamp session-data-title">
         <span>iSCSI Sessions</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
-            <input type="checkbox" ng-model="checkboxiSCSIModel">
-            <div class="slider round"></div>
+            <input type="checkbox" ng-model="checkboxSessionModel">
+            <div class="slider round" id="session-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 session-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.sessionData.totalSessions }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.sessionData.changeRate < 0">&#9660; {{ $ctrl.sessionData.changeRate | abs | percent:1:true:false:false }} </span>
@@ -422,13 +422,13 @@
             <span class="title">iSCSI Sessions per Node</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 session-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxiSCSIModel">
+              <tbody ng-if="!checkboxSessionModel">
                 <tr>
                   <td>Min iSCSI Sessions Per Cluster</td>
                   <td class="data-bold">{{ $ctrl.sessionData.minSessionsCluster }}/{{ $ctrl.sessionData.unitSessionsCluster }}</td>
@@ -450,7 +450,7 @@
                   <td class="data-bold">{{ $ctrl.sessionData.stdDevCluster | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
-              <tbody ng-if="checkboxiSCSIModel">
+              <tbody ng-if="checkboxSessionModel">
                 <tr>
                   <td>Min iSCSI Sessions Per Node</td>
                   <td class="data-bold">{{ $ctrl.sessionData.minSessionsNode }}/{{ $ctrl.sessionData.unitSessionsNode }}</td>
@@ -478,18 +478,18 @@
       </div>
     </div>
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
+    <div class="sf-widget snapshot-info-box">
+      <div class="info-bar-timestamp snapshot-data-title">
         <span>Total Snapshots</span>
         <div class="info-bar-refresh-button">
           <label class="switch">
             <input type="checkbox" ng-model="checkboxSnapshotModel">
-            <div class="slider round"></div>
+            <div class="slider round" id="snapshot-data-checkbox"></div>
           </label>
         </div>
       </div>
       <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 snapshot-data-description">
           <div class="info-box-content">
             <span class="value -medium">{{ $ctrl.snapshotData.totalSnapshots }}</span>
             <span class="triangle-bottom-icon" ng-if="$ctrl.snapshotData.changeRate < 0">&#9660; {{ $ctrl.snapshotData.changeRate | abs | percent:1:true:false:false }} </span>
@@ -497,7 +497,7 @@
             <span class="title">Field Average: Snapshots per Volume</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12">
+        <div class="info-box col-md-6 col-xs-12 col-sm-12 snapshot-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
