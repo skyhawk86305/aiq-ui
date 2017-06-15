@@ -14,7 +14,6 @@ import { AppController } from './app.controller';
 import { AppRoutes } from './app.routes';
 import { AppPermissions } from './app.permissions';
 import './styles';
-import './images';
 
 objectAssignPolyfill.polyfill();
 
