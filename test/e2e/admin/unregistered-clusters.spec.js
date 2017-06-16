@@ -13,7 +13,7 @@ const columns = [
   { label: 'Cluster Name', key: 'clusterName' },
   { label: 'Cluster UUID', key: 'clusterUUID' },
   { label: 'Version', key: 'clusterVersion' },
-  { label: 'Last Updated', key: 'lastUpdateTime', format: { filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss'] } },
+  { label: 'Last Updated', key: 'lastUpdateTime', format: { filter: 'aiqDate' } },
   { label: 'Register with Customer', key: 'register', exclude: true },
 ];
 

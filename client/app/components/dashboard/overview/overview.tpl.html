@@ -1,0 +1,17 @@
+<div class="dashboard-overview-page container-fluid">
+
+  <h1>All Cluster Dashboard View</h1>
+
+  <div class="sf-table-widget">
+    <sf-table id="clusters-table"
+        class="sf-layout-block"
+        service="$ctrl.ClusterService"
+        column-groups="['Overview', 'Performance Details', 'Capacity Details', 'Cluster Stats']"
+        table-id="clusters"
+        control-bar="true"
+        items-per-page="25"
+        export="true"
+        footer-row-count="true">
+    </sf-table>
+  </div>
+</div>

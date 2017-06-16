@@ -12,8 +12,8 @@ var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var clusterId;
 var columns = [
   {key: 'id', label: 'Alert ID', width: 100, format: {filter: 'aiqNumber', args: [0, true]}},
-  {key: 'created', label: 'Alert Triggered', width: 190, format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
-  {key: 'lastNotified', label: 'Last Notified', width: 190, format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'created', label: 'Alert Triggered', width: 190, format: {filter: 'aiqDate'}},
+  {key: 'lastNotified', label: 'Last Notified', width: 190, format: {filter: 'aiqDate'}},
   {key: 'isResolved', label: 'Resolved', width: 160, format: {filter: 'tableBadgeBoolean'}, exclude: true},
   {key: 'severity', label: 'Severity', width: 160, format: {filter: 'tableBadgeAlertSeverity'}, exclude: true},
   {key: 'notificationName', label: 'Policy Name'},

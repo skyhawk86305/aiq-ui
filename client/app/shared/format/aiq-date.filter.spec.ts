@@ -2,8 +2,8 @@
 
 describe('AIQ Date Filter', function () {
   let aiqFilter,
-      angularFilter,
-      dateFormat = 'yyyy-MM-dd HH:mm:ss';
+      angularFilter;
+
   beforeEach(angular.mock.module('aiqUi'));
   beforeEach(inject(function($filter) {
     aiqFilter = $filter('aiqDate');
@@ -11,12 +11,12 @@ describe('AIQ Date Filter', function () {
   }));
 
   it('should return - for falsy values', function() {
-    expect(aiqFilter(null, dateFormat)).toEqual('-');
-    expect(aiqFilter(undefined, dateFormat)).toEqual('-');
+    expect(aiqFilter(null)).toEqual('-');
+    expect(aiqFilter(undefined)).toEqual('-');
   });
 
   it('should return a formatted string for valid values', function() {
     let currentDate = new Date();
-    expect(aiqFilter(currentDate.getTime(), dateFormat)).toEqual(angularFilter(currentDate.getTime(), dateFormat));
+    expect(aiqFilter(currentDate.getTime())).toEqual(angularFilter(currentDate.getTime(), 'yyyy-MM-dd HH:mm:ss'));
   });
 });

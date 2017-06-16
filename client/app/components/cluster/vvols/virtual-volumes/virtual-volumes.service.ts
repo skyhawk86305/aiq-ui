@@ -36,7 +36,7 @@
         {key: 'maxIOPS', label: 'Max IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'burstIOPS', label: 'Burst IOPS',  filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
         {key: 'VMW_VmID', label: 'VMW_VmId', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-        {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}}
+        {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate'}}
       ];
     }
 

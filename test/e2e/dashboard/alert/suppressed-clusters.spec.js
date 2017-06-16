@@ -13,8 +13,8 @@ const columns = [
   { label: 'Customer Name', key: 'customerName' },
   { label: 'Cluster ID', key: 'clusterID', format: { filter: 'string' } },
   { label: 'Cluster Name', key: 'clusterName' },
-  { label: 'Start Time', key: 'start', format: { filter: 'aiqDate', args: ['yyyy-MM-dd HH:mm:ss'] } },
-  { label: 'End Time', key: 'end', format: { filter: 'aiqDate', args: ['yyyy-MM-dd HH:mm:ss'] } },
+  { label: 'Start Time', key: 'start', format: { filter: 'aiqDate' } },
+  { label: 'End Time', key: 'end', format: { filter: 'aiqDate' } },
 ];
 
 function mapFixture(rawFixture) {

@@ -16,7 +16,7 @@ const columns = [
   { label: 'Alarm ID', key: 'alarmId', width: 100 },
   { label: 'Alarm Name', key: 'name' },
   { label: 'Description', key: 'description', exclude: true }, // Some descriptions include HTML formatting
-  { label: 'Last Modified Time', key: 'lastModifiedTime', format: { filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss'] } },
+  { label: 'Last Modified Time', key: 'lastModifiedTime', format: { filter: 'aiqDate' } },
   { label: 'Last Modified User', key: 'lastModifiedUser' },
   { label: 'Entity ID', key: 'entityId' }
 ];

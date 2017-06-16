@@ -13,8 +13,8 @@
       { label: 'Customer Name', key: 'customerName', filterComparators: this.SFFilterComparators.STRING_DEFAULT },
       { label: 'Cluster ID', key: 'clusterID', filterComparators: this.SFFilterComparators.INTEGER_DEFAULT },
       { label: 'Cluster Name', key: 'clusterName', filterComparators: this.SFFilterComparators.STRING_DEFAULT },
-      { label: 'Start Time', key: 'start', format: { filter: 'aiqDate', args: ['yyyy-MM-dd HH:mm:ss'] } },
-      { label: 'End Time', key: 'end', format: { filter: 'aiqDate', args: ['yyyy-MM-dd HH:mm:ss'] } },
+      { label: 'Start Time', key: 'start', format: { filter: 'aiqDate' } },
+      { label: 'End Time', key: 'end', format: { filter: 'aiqDate' } },
     ];
 
     constructor (private SFTableService, private SFFilterComparators, private DataService) {
