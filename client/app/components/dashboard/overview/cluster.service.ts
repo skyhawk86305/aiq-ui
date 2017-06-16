@@ -191,13 +191,15 @@ export class ClusterService {
       }
     ];
 
+    const groupColumns = _.flatMap(groups, group =>
+      group.columns.map( column => Object.assign({}, column, { groups: [ group.name ] }) )
+    );
+
     const columns = [
       columnDefs.customerName,
       columnDefs.clusterName,
       columnDefs.clusterID,
-      ... _.flatMap(groups, group =>
-        group.columns.map( column => Object.assign({}, column, { groups: [ group.name ] }) )
-      ),
+      ...groupColumns,
     ];
 
     function listClusters() {
