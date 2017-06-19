@@ -66,10 +66,13 @@ describe('Component: dashberg', function() {
   });
 
   describe('.updateID', function() {
-    it('should update Data when change customer name', function() {
-      if(controller.selectedCustomerID === 'Customer Name')
-        expect(controller.selectedID).toEqual(null);
-      else expect(controller.selectedID.toEqual(parseInt(controller.selectedCustomerID), 10));
+    it('should update Data when change customer id', function() {
+      controller.selectedCustomerID = 'Customer Name';
+      controller.updateID();
+      expect(controller.selectedID).toEqual(null);
+      controller.selectedCustomerID = '123';
+      controller.updateID();
+      expect(controller.selectedID).toEqual(parseInt(controller.selectedCustomerID, 10));
     })
     it('should call getPerformData function and get return promise', function() {
       spyOn(controller, 'getPerformData').and.returnValue($q.defer().promise);
