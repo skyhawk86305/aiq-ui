@@ -11,7 +11,7 @@ var itemsPerPage = 25;
 var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
-  {key: 'clusterFaultID', label: 'Cluster Fault ID', format: {filter:'aiqNumber', args: [0, true]}},
+  {key: 'clusterFaultID', label: 'ID', format: {filter:'aiqNumber', args: [0, true]}},
   {key: 'date', label: 'Date', format: {filter: 'aiqDate'}},
   {key: 'severity', label: 'Severity', format: {filter: 'tableBadgeAlertSeverity'}, exclude: true},
   {key: 'type', label: 'Type', format: {filter:'string'}},
