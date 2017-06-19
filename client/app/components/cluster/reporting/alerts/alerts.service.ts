@@ -24,8 +24,8 @@
     function getColumns() {
       return [
         {key: 'id', label: 'Alert ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
-        {key: 'created', label: 'Alert Triggered', width: 190, format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
-        {key: 'lastNotified', label: 'Last Notified', width: 190, format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+        {key: 'created', label: 'Alert Triggered', width: 190, format: {filter: 'aiqDate'}},
+        {key: 'lastNotified', label: 'Last Notified', width: 190, format: {filter: 'aiqDate'}},
         {key: 'isResolved', label: 'Resolved', width: 160, filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'tableBadgeBoolean'}},
         {key: 'severity', label: 'Severity', width: 160, filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'tableBadgeAlertSeverity'}},
         {key: 'notificationName', label: 'Policy Name', filterComparators: SFFilterComparators.STRING_DEFAULT},

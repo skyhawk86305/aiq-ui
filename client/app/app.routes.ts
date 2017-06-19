@@ -47,7 +47,8 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         },
       })
       .when('/dashboard/overview', {
-        template: require('./welcome-beta.tpl.html')
+        template: '<dashboard-overview></dashboard-overview>',
+        reloadOnSearch: false,
       })
       .when('/dashboard/health', {
         template: require('./coming-soon.tpl.html')

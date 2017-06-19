@@ -1,6 +1,10 @@
 import * as angular from 'angular';
 import 'jspolyfill-array.prototype.findIndex';
 
+import { DashboardOverviewComponent } from './dashboard/overview/overview.component';
+import { ClusterService } from './dashboard/overview/cluster.service';
+import { TimestampWithWarningFilter } from './dashboard/overview/timestamp-with-warning.filter';
+
 import { RegisterClusterComponent } from './dashboard/register-cluster/register-cluster.component';
 import { RegisterClusterConfirmationComponent } from './dashboard/register-cluster/register-cluster-confirmation.component';
 
@@ -19,6 +23,10 @@ import { DashbergService } from './admin/dashberg/dashberg.service';
 
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
+  .component('dashboardOverview', DashboardOverviewComponent)
+  .service('ClusterService', ClusterService)
+  .filter('timestampWithWarning', TimestampWithWarningFilter)
+
   .component('registerCluster', RegisterClusterComponent)
   .component('registerClusterConfirmation', RegisterClusterConfirmationComponent)
 

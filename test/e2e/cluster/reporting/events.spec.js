@@ -12,7 +12,7 @@ var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
   {key: 'eventID', label: 'ID', format: {filter: 'aiqNumber', args: [0, true]}},
-  {key: 'timeOfReport', label: 'Event Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'timeOfReport', label: 'Event Time', format: {filter: 'aiqDate'}},
   {key: 'eventInfoType', label: 'Type', format: {filter: 'string'}},
   {key: 'message', label: 'Message', format: {filter: 'string'}},
   {key: 'serviceID', label: 'Service ID', format: {filter: 'string'}},

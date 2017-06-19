@@ -19,7 +19,7 @@
       {key: 'scheduleFrequency', label: 'Frequency', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'recurring', label: 'Recurring', width: '100px', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'boolean', args: ['Yes', 'No']}},
       {key: 'scheduleVolumeIDs', label: 'Volume IDs', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-      {key: 'lastRunTimeStarted', label: 'Last Run', width: '150px', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqDate', args: ['yyyy-MM-dd HH:mm:ss'] }},
+      {key: 'lastRunTimeStarted', label: 'Last Run', width: '150px', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'aiqDate'}},
       {key: 'lastRunStatus', label: 'Last Run Status', width: '120px', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'paused', label: 'Manually Paused', width: '100px', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'boolean', args: ['Yes', 'No']}}
     ];

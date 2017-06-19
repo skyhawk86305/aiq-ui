@@ -32,7 +32,7 @@
     // Used to dynamically build the sub navbar and sub nav menu
     self.subNavbarItems = {
       dashboard: [
-        {key:'overview', href:'#/dashboard/overview', label: 'Overview', disabled: true},
+        {key:'overview', href:'#/dashboard/overview', label: 'Overview'},
         {key:'health', href:'#/dashboard/health', label: 'Health', disabled: true},
         {key:'capacity', href:'#/dashboard/capacity', label: 'Capacity', disabled: true},
         {key:'performance', href:'#/dashboard/performance', label: 'Performance', disabled: true},

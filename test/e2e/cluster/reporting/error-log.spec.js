@@ -11,14 +11,14 @@ var itemsPerPage = 25;
 var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
-  {key: 'clusterFaultID', label: 'Cluster Fault ID', format: {filter:'aiqNumber', args: [0, true]}},
-  {key: 'date', label: 'Date', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'clusterFaultID', label: 'ID', format: {filter:'aiqNumber', args: [0, true]}},
+  {key: 'date', label: 'Date', format: {filter: 'aiqDate'}},
   {key: 'severity', label: 'Severity', format: {filter: 'tableBadgeAlertSeverity'}, exclude: true},
   {key: 'type', label: 'Type', format: {filter:'string'}},
   {key: 'nodeID', label: 'Node ID', format: {filter:'aiqNumber', args: [0, true, true]}},
   {key: 'driveID', label: 'Drive ID', format: {filter:'aiqNumber', args: [0, true, true]}},
   {key: 'resolved', label: 'Resolved', format: {filter: 'tableBadgeBoolean'}, exclude: true},
-  {key: 'resolvedDate', label: 'Resolution Time', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}},
+  {key: 'resolvedDate', label: 'Resolution Time', format: {filter: 'aiqDate'}},
   {key: 'code', label: 'Error Code', format: {filter:'string'}},
   {key: 'details', label: 'Details', format: {filter:'string'}, exclude: true} // EXCLUDE: DOM selector strips trailing white space
 ];

@@ -10,4 +10,3 @@ import './sizes.less';
 import './sync-graphs.less';
 import './tables.less';
 import './table-badge.less';
-import './welcome-beta.less';

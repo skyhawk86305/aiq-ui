@@ -28,7 +28,7 @@
 
     let columns = [
       {key: 'source', label: 'Element API Method', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'apiCollectionLink'}},
-      {key: 'ingestedTime', label: 'Last Updated', format: {filter: 'aiqDate', args:['yyyy-MM-dd HH:mm:ss']}}
+      {key: 'ingestedTime', label: 'Last Updated', format: {filter: 'aiqDate'}}
     ];
 
     let apiCollectionTableService = new SFTableService(listAPICollections, columns, false);
