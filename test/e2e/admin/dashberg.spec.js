@@ -19,10 +19,6 @@ describe('The Dashberg Page', function() {
     support.logout();
   });
 
-  it('should load dashberg page correctly', function() {
-    expect(dashberg.el.isDisplayed()).to.eventually.be.true;
-  })
-
   describe('node info box', function() {
     it('should load node info box correctly', function() {
       expect(dashberg.nodeInfoBox.nodeBox.isDisplayed()).to.eventually.be.true;

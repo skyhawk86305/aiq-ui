@@ -2,8 +2,6 @@
 
 module.exports = class DashbergPage {
   constructor() {
-    this.el = element(by.css('.dashberg-page')),
-
     this.nodeInfoBox = {
       nodeBox: element(by.css('.node-info-box')),
       nodeDataTitle: element(by.css('.node-data-title')),
