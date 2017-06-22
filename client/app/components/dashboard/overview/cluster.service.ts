@@ -125,7 +125,7 @@ export class ClusterService {
         label: 'Last Update Time',
         format: {
           filter: 'timestampWithWarning',
-          args: [ 60 * 1000, 'Last collector update was over one hour ago' ],
+          args: [ 60 * 60, 'Last collector update was over one hour ago' ],
         },
         titleValue: 'Timestamp of last update from the collector',
       },
