@@ -15,7 +15,7 @@
   function ErrorLogTableService(SFTableService, SFFilterComparators, DataService) {
     let listClusterFaults = function() {
       return DataService.callAPI('ListClusterFaults', {clusterID: this.selectedClusterID})
-        .then(response => _.orderBy(response.faults, ['date'], ['desc']));
+        .then(response => _.orderBy(response.faults, ['resolved', 'severity', 'date'], ['asc', 'asc', 'desc']));
     };
 
     let columns = [
