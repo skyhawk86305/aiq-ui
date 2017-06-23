@@ -16,15 +16,20 @@ describe('Component: dashberg', function() {
   }));
 
   describe('.onInit()', function() {
-    it('should call getPerformData function and get return promise', function() {
-      spyOn(controller, 'getPerformData').and.returnValue($q.defer().promise);
+    it('should call getPerformanceData function and get return promise', function() {
+      spyOn(controller, 'getPerformanceData').and.returnValue($q.defer().promise);
       controller.$onInit();
-      expect(controller.getPerformData).toHaveBeenCalled();
+      expect(controller.getPerformanceData).toHaveBeenCalled();
+    })
+    it('should call getCustomers function and get return promise', function() {
+      spyOn(controller, 'getCustomers').and.returnValue($q.defer().promise);
+      controller.$onInit();
+      expect(controller.getCustomers).toHaveBeenCalled();
     })
   })
 
-  describe('.getPerformData', function() {
-    it('should call DashbergService and get performData from API', function() {
+  describe('.getPerformanceData', function() {
+    it('should call DashbergService and get performanceData from API', function() {
       const apiResponse = {
         nodes: {},
         volumes: {
@@ -53,31 +58,74 @@ describe('Component: dashberg', function() {
         sessions: {},
         snapshots: {}
       }
-      spyOn(dashbergService, 'getPerformData').and.returnValue($q.resolve(apiResponse));
-      controller.getPerformData()
+      spyOn(dashbergService, 'getPerformanceData').and.returnValue($q.resolve(apiResponse));
+      controller.getPerformanceData()
         .then(() => {
-          expect(controller.performData).toEqual(expectedResponse);
+          expect(controller.performanceData).toEqual(expectedResponse);
         })
         .catch( err => {
           fail('Promise was unexpectedly rejected');
         })
       $scope.$apply();
-    });
-  });
+    })
+  })
 
   describe('.updateID', function() {
-    it('should update Data when change customer id', function() {
-      controller.selectedCustomerID = 'Customer Name';
+    it('should call getPerformanceData function and get return promise', function() {
+      spyOn(controller, 'getPerformanceData').and.returnValue($q.defer().promise);
       controller.updateID();
-      expect(controller.selectedID).toEqual(null);
-      controller.selectedCustomerID = '123';
-      controller.updateID();
-      expect(controller.selectedID).toEqual(parseInt(controller.selectedCustomerID, 10));
+      expect(controller.getPerformanceData).toHaveBeenCalled();
     })
-    it('should call getPerformData function and get return promise', function() {
-      spyOn(controller, 'getPerformData').and.returnValue($q.defer().promise);
-      controller.updateID();
-      expect(controller.getPerformData).toHaveBeenCalled();
+  })
+
+  describe('.getCustomers', function() {
+    it('should call DashbergService and get customers from API', function() {
+      const apiResponse = {
+        customers: [
+          {
+            customerID: 1,
+            customerName: 'SolidFire Internal'
+          },
+          {
+            customerID: 49,
+            customerName: 'SolidFire'
+          }
+        ]
+      }
+      const expectedCustomerList = [
+        {
+          id: 1,
+          name: 'SolidFire Internal'
+        },
+        {
+          id: 49,
+          name: 'SolidFire'
+        }
+      ]
+      spyOn(dashbergService, 'getCustomerInfo').and.returnValue($q.resolve(apiResponse));
+      controller.getCustomers()
+        .then(() => {
+          expect(controller.customers).toEqual(expectedCustomerList);
+        })
+        .catch( err => {
+          fail('Promise was unexpectedly rejected');
+        })
+      $scope.$apply();
     })
+
+    it('should handle a response with no customers', function() {
+      const apiResponse = {};
+      const expectedCustomerList = [];
+      spyOn(dashbergService, 'getCustomerInfo').and.returnValue($q.resolve(apiResponse));
+      controller.getCustomers()
+        .then(() => {
+          expect(controller.customers).toEqual(expectedCustomerList);
+        })
+        .catch( err => {
+          fail('Promise was unexpectedly rejected');
+        })
+      $scope.$apply();
+    })
+
   })
 });

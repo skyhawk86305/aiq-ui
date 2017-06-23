@@ -30,19 +30,19 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
         });
     },
 
-    callPerformAPI(customerID, method) {
-      let performAPI;
+    callPerformanceAPI(customerID, method) {
+      let performanceAPI;
       if (!customerID) {
-        performAPI = `/customers`;
+        performanceAPI = `/customers`;
       }
       else {
-        performAPI = `/customers/${customerID}`;
+        performanceAPI = `/customers/${customerID}`;
       }
       if (method) {
-        performAPI += `/${method}`
+        performanceAPI += `/${method}`
       }
 
-      return $http.get(performAPI, {cache: true})
+      return $http.get(performanceAPI, {cache: true})
         .then( response => response.data )
         .catch( error => {
           if (error.status === 401) {

@@ -5,11 +5,7 @@ describe('DashbergService', function() {
     service,
     DataService;
 
-  beforeEach(angular.mock.module('aiqUi', function($provide) {
-    $provide.value('DataService', {
-      callPerformAPI: function() {}
-    });
-  }));
+  beforeEach(angular.mock.module('aiqUi'));
 
   beforeEach(inject(function(_$q_, DashbergService, _DataService_) {
     $q = _$q_;
@@ -17,11 +13,19 @@ describe('DashbergService', function() {
     DataService = _DataService_;
   }));
 
-  describe('.callPerformAPI', function() {
+  describe('.getPerformanceData', function() {
     it('should call the Performance API via DataService', function() {
-      spyOn(DataService, 'callPerformAPI').and.returnValue($q.resolve());
-      service.getPerformData();
-      expect(DataService.callPerformAPI).toHaveBeenCalledWith(service.customerID, 'Performance');
+      spyOn(DataService, 'callPerformanceAPI').and.returnValue($q.resolve());
+      service.getPerformanceData();
+      expect(DataService.callPerformanceAPI).toHaveBeenCalledWith(service.customerID, 'Performance');
+    })
+  })
+
+  describe('.getCustomerInfo', function() {
+    it('should call the ListCustomers API via DataService', function() {
+      spyOn(DataService, 'callAPI').and.returnValue($q.resolve());
+      service.getCustomerInfo();
+      expect(DataService.callAPI).toHaveBeenCalledWith('ListCustomers');
     })
   })
 });

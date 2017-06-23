@@ -1,8 +1,7 @@
 class DashbergController {
   private customers = [];
-  public selectedCustomerID = 'Customer Name';
-  public selectedID = null;
-  private performData = null;
+  public selectedCustomerID: number = null;
+  private performanceData = null;
 
   static $inject = [
     'DashbergService'
@@ -14,28 +13,28 @@ class DashbergController {
 
   $onInit() {
     this.getCustomers();
-    this.getPerformData();
+    this.getPerformanceData();
   }
 
   getCustomers() {
-    this.customers = [
-      {'name': 'Sara', id: 123},
-      {'name': 'Alex', id: 456}
-    ]
+    return this.DashbergService.getCustomerInfo()
+      .then( ({ customers = [] }) => {
+        this.customers = customers.map( customer => ({
+          id: customer.customerID,
+          name: customer.customerName,
+        }));
+      })
   }
 
-  getPerformData() {
-    return this.DashbergService.getPerformData()
+  getPerformanceData() {
+    return this.DashbergService.getPerformanceData(this.selectedCustomerID)
       .then( response => {
-        this.performData = response;
+        this.performanceData = response;
       })
   }
 
   updateID() {
-    if (this.selectedCustomerID === 'Customer Name') this.selectedID =  null;
-    else this.selectedID = parseInt(this.selectedCustomerID, 10);
-    this.DashbergService.updateID(this.selectedID);
-    this.getPerformData();
+    this.getPerformanceData();
   }
 }
 
