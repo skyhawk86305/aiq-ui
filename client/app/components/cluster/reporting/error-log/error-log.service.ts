@@ -13,12 +13,17 @@
     ]);
 
   function ErrorLogTableService(SFTableService, SFFilterComparators, DataService) {
-    let listClusterFaults = function() {
+    const severityOrder = [ 'critical', 'error', 'warning', 'bestPractice', 'info' ];
+    const listClusterFaults = function() {
       return DataService.callAPI('ListClusterFaults', {clusterID: this.selectedClusterID})
-        .then(response => _.orderBy(response.faults, ['resolved', 'severity', 'date'], ['asc', 'asc', 'desc']));
+        .then(response => _.orderBy(
+          response.faults,
+          ['resolved', v => severityOrder.indexOf(v.severity), 'date'],
+          ['asc', 'asc', 'desc'])
+        );
     };
 
-    let columns = [
+    const columns = [
       {key: 'clusterFaultID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true]}, width: 80},
       {key: 'date', label: 'Date', format: {filter: 'aiqDate'}, width: 150},
       {key: 'severity', label: 'Severity', format: {filter: 'tableBadgeAlertSeverity'}, width: 140},
@@ -31,7 +36,7 @@
       {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter:'string'}}
     ];
 
-    let errorLogTableService = new SFTableService(listClusterFaults, columns, false);
+    const errorLogTableService = new SFTableService(listClusterFaults, columns, false);
 
     errorLogTableService.selectedClusterID = null;
 
