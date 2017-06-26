@@ -1,12 +1,7 @@
 class DashbergController {
-  private nodeData = null;
-  private volumeData = null;
-  private volumeSizeData = null;
-  private volumeAccessData = null;
-  private IOPData = null;
-  private bandwidthData = null;
-  private sessionData = null;
-  private snapshotData = null;
+  private customers = [];
+  public selectedCustomerID: number = null;
+  private performanceData = null;
 
   static $inject = [
     'DashbergService'
@@ -17,70 +12,29 @@ class DashbergController {
   ) {}
 
   $onInit() {
-    this.getNodeData();
-    this.getVolumeData();
-    this.getVolumeSizeData();
-    this.getVolumeAccessData();
-    this.getSessionData();
-    this.getIOPData();
-    this.getSnapshotData();
-    this.getBandwidthData();
+    this.getCustomers();
+    this.getPerformanceData();
   }
 
-  getNodeData() {
-    return this.DashbergService.getNodeData()
-      .then( response => {
-        this.nodeData = response;
+  getCustomers() {
+    return this.DashbergService.getCustomerInfo()
+      .then( ({ customers = [] }) => {
+        this.customers = customers.map( customer => ({
+          id: customer.customerID,
+          name: customer.customerName,
+        }));
       })
   }
 
-  getVolumeData() {
-    return this.DashbergService.getVolumeData()
+  getPerformanceData() {
+    return this.DashbergService.getPerformanceData(this.selectedCustomerID)
       .then( response => {
-        this.volumeData = response;
+        this.performanceData = response;
       })
   }
 
-  getVolumeSizeData() {
-    return this.DashbergService.getVolumeSizeData()
-      .then( response => {
-        this.volumeSizeData = response;
-      })
-  }
-
-  getVolumeAccessData() {
-    return this.DashbergService.getVolumeAccessData()
-      .then( response => {
-        this.volumeAccessData = response;
-      })
-  }
-
-  getIOPData() {
-    return this.DashbergService.getIOPData()
-      .then( response => {
-        this.IOPData = response;
-      })
-  }
-
-  getBandwidthData() {
-    return this.DashbergService.getBandwidthData()
-      .then( response => {
-        this.bandwidthData = response;
-      })
-  }
-
-  getSessionData() {
-    return this.DashbergService.getSessionData()
-      .then( response => {
-        this.sessionData = response;
-      })
-  }
-
-  getSnapshotData() {
-    return this.DashbergService.getSnapshotData()
-      .then( response => {
-        this.snapshotData = response;
-      })
+  updateID() {
+    this.getPerformanceData();
   }
 }
 

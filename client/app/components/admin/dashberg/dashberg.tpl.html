@@ -1,65 +1,55 @@
 <div class="dashberg-page">
   <div class="container-fluid">
 
+    <div class="sf-widget">
+      <div class="info-bar-timestamp">
+        <span class="dashberg-title">Dashberg</span>
+        <div class="info-bar-refresh-button">
+          <span>Filter By:&nbsp</span>
+          <select ng-model="$ctrl.selectedCustomerID"
+              ng-change="$ctrl.updateID()"
+              ng-options="customer.id as customer.name for customer in $ctrl.customers">
+            <option value="">Customer Name</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
     <div class="sf-widget node-info-box">
       <div class="info-bar-timestamp node-data-title">
         <span>Nodes in Clusters</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxNodeModel">
-            <div class="slider round" id="node-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 node-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.nodeData.totalNodes }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.nodeData.changeRate < 0">&#9660; {{ $ctrl.nodeData.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.nodeData.changeRate > 0">&#9650; {{ $ctrl.nodeData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 node-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.nodes.total }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.nodes.changeRate < 0">&#9660; {{ $ctrl.performanceData.nodes.changeRate | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.nodes.changeRate > 0">&#9650; {{ $ctrl.performanceData.nodes.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">Total Nodes in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 node-data-table">
+        <div class="info-box col-md-6 node-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxNodeModel">
+              <tbody>
                 <tr>
                   <td>Min Nodes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.minNodesCluster }}/{{ $ctrl.nodeData.unitNodesCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.nodes.min }}/{{ $ctrl.performanceData.nodes.unit }}</td>
                 </tr>
                 <tr>
                   <td>Max Nodes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.maxNodesCluster }}/{{ $ctrl.nodeData.unitNodesCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.nodes.max }}/{{ $ctrl.performanceData.nodes.unit }}</td>
                 </tr>
                 <tr>
                   <td>Avg Nodes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.avgNodesCluster }}/{{ $ctrl.nodeData.unitNodesCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.nodes.avg }}/{{ $ctrl.performanceData.nodes.unit }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.stdDevCluster | percent:0:true:false:false  }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxNodeModel">
-                <tr>
-                  <td>Min Nodes Per Node</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.minNodesNode }}/{{ $ctrl.nodeData.unitNodesNode }}</td>
-                </tr>
-                <tr>
-                  <td>Max Nodes Per Node</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.maxNodesNode }}/{{ $ctrl.nodeData.unitNodesNode }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Nodes Per Node</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.avgNodesNode }}/{{ $ctrl.nodeData.unitNodesNode }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.nodeData.stdDevNode | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.nodes.stddev | percent:0:true:false:false  }}</td>
                 </tr>
               </tbody>
             </table>
@@ -71,62 +61,38 @@
     <div class="sf-widget volume-info-box">
       <div class="info-bar-timestamp volume-data-title">
         <span>Volumes in Clusters</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxVolumeModel">
-            <div class="slider round" id="volume-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.volumeData.totalVolumes }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.volumeData.changeRate < 0">&#9660; {{ $ctrl.volumeData.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.volumeData.changeRate > 0">&#9650; {{ $ctrl.volumeData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 volume-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.volumes.total }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.volumes.changeRate < 0">&#9660; {{ $ctrl.performanceData.volumes.changeRate | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.volumes.changeRate > 0">&#9650; {{ $ctrl.performanceData.volumes.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">Total Volumes in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-data-table">
+        <div class="info-box col-md-6 volume-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxVolumeModel">
+              <tbody>
                 <tr>
                   <td>Min Volumes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.minVolumesCluster }}/{{ $ctrl.volumeData.unitVolumesCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.min }}/{{ $ctrl.performanceData.volumes.unit }}</td>
                 </tr>
                 <tr>
                   <td>Max Volumes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.maxVolumesCluster }}/{{ $ctrl.volumeData.unitVolumesCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.max }}/{{ $ctrl.performanceData.volumes.unit }}</td>
                 </tr>
                 <tr>
                   <td>Avg Volumes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.avgVolumesCluster }}/{{ $ctrl.volumeData.unitVolumesCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.avg }}/{{ $ctrl.performanceData.volumes.unit }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.stdDevCluster | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxVolumeModel">
-                <tr>
-                  <td>Min Volumes Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.minVolumesNode }}/{{ $ctrl.volumeData.unitVolumesNode }}</td>
-                </tr>
-                <tr>
-                  <td>Max Volumes Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.maxVolumesNode }}/{{ $ctrl.volumeData.unitVolumesNode }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Volumes Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.avgVolumesNode }}/{{ $ctrl.volumeData.unitVolumesNode }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.volumeData.stdDevNode | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.stdDev | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
             </table>
@@ -138,62 +104,38 @@
     <div class="sf-widget volume-size-info-box">
       <div class="info-bar-timestamp volume-size-data-title">
         <span>Volume Size</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxVolumeSizeModel">
-            <div class="slider round" id="volume-size-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-sm-12 volume-size-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.volumeSizeData.totalVolumeSize | bytes:false:0:false:false }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.volumeSizeData.changeRate < 0">&#9660; {{ $ctrl.volumeSizeData.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.volumeSizeData.changeRate > 0">&#9650; {{ $ctrl.volumeSizeData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 volume-size-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.volumes.size.total | bytes:false:0:false:false }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.volumes.size.changeRate < 0">&#9660; {{ $ctrl.performanceData.volumes.size.changeRate | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.volumes.size.changeRate > 0">&#9650; {{ $ctrl.performanceData.volumes.size.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">Current Average Volume Size</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-size-data-table">
+        <div class="info-box col-md-6 volume-size-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxVolumeSizeModel">
+              <tbody>
                 <tr>
                   <td>Min Volume Size Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.minVolumeSizeCluster | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster | bytes:false:0:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.min | bytes:false:0:false:false }}/{{ $ctrl.performanceData.volumes.size.unit | bytes:false:0:false:false }}</td>
                 </tr>
                 <tr>
                   <td>Max Volume Size Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.maxVolumeSizeCluster | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster | bytes:false:0:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.max | bytes:false:0:false:false }}/{{ $ctrl.performanceData.volumes.size.unit | bytes:false:0:false:false }}</td>
                 </tr>
                 <tr>
                   <td>Avg Volume Size Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.avgVolumeSizeCluster | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeCluster| bytes:false:0:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.avg | bytes:false:0:false:false }}/{{ $ctrl.performanceData.volumes.size.unit | bytes:false:0:false:false }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.stdDevCluster | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxVolumeSizeModel">
-                <tr>
-                  <td>Min Volume Size Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.minVolumeSizeNode | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode | bytes:false:0:false:false }}</td>
-                </tr>
-                <tr>
-                  <td>Max Volume Size Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.maxVolumeSizeNode | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode | bytes:false:0:false:false }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Volume Size Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.avgVolumeSizeNode | bytes:false:0:false:false }}/{{ $ctrl.volumeSizeData.unitVolumeSizeNode | bytes:false:0:false:false }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.volumeSizeData.stdDevNode | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.stdDev | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
             </table>
@@ -205,62 +147,38 @@
     <div class="sf-widget volume-access-info-box">
       <div class="info-bar-timestamp volume-access-data-title">
         <span>Volume Access Groups</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxVolumeAccessModel">
-            <div class="slider round" id="volume-access-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-access-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.volumeAccessData.totalVolumeAccess }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.volumeAccessData.changeRate < 0">&#9660; {{ $ctrl.volumeAccessData.changeRate  | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.volumeAccessData.changeRate > 0">&#9650; {{ $ctrl.volumeAccessData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 volume-access-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.volumeAccessGroups.total }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.volumeAccessGroups.changeRate < 0">&#9660; {{ $ctrl.performanceData.volumeAccessGroups.changeRate  | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.volumeAccessGroups.changeRate > 0">&#9650; {{ $ctrl.performanceData.volumeAccessGroups.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">Total Volume Access Groups in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 volume-access-data-table">
+        <div class="info-box col-md-6 volume-access-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxVolumeAccessModel">
+              <tbody>
                 <tr>
                   <td>Min Vags Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.minVolumeAccessCluster }}/{{ $ctrl.volumeAccessData.unitVolumeAccessCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.min }}/{{ $ctrl.performanceData.volumeAccessGroups.unit }}</td>
                 </tr>
                 <tr>
                   <td>Max Vags Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.maxVolumeAccessCluster }}/{{ $ctrl.volumeAccessData.unitVolumeAccessCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.max }}/{{ $ctrl.performanceData.volumeAccessGroups.unit }}</td>
                 </tr>
                 <tr>
                   <td>Avg Vags Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.avgVolumeAccessCluster }}/{{ $ctrl.volumeAccessData.unitVolumeAccessCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.avg }}/{{ $ctrl.performanceData.volumeAccessGroups.unit }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.stdDevCluster | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxVolumeAccessModel">
-                <tr>
-                  <td>Min Vags Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.minVolumeAccessNode }}/{{ $ctrl.volumeAccessData.unitVolumeAccessNode }}</td>
-                </tr>
-                <tr>
-                  <td>Max Vags Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.maxVolumeAccessNode }}/{{ $ctrl.volumeAccessData.unitVolumeAccessNode }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Vags Per Node</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.avgVolumeAccessNode }}/{{ $ctrl.volumeAccessData.unitVolumeAccessNode }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.volumeAccessData.stdDevNode | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.stdDev | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
             </table>
@@ -272,62 +190,38 @@
     <div class="sf-widget IOP-info-box">
       <div class="info-bar-timestamp IOP-data-title">
         <span>Cluster IOPs</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxIOPModel">
-            <div class="slider round" id="IOP-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 IOP-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.IOPData.totalIOPs }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.IOPData.changeRate < 0">&#9660; {{ $ctrl.IOPData.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.IOPData.changeRate > 0">&#9650; {{ $ctrl.IOPData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 IOP-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.iops.total }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.iops.changeRate < 0">&#9660; {{ $ctrl.performanceData.iops.changeRate | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.iops.changeRate > 0">&#9650; {{ $ctrl.performanceData.iops.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">Field Average: IOPs Per all clusters</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 IOP-data-table">
+        <div class="info-box col-md-6 IOP-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxIOPModel">
+              <tbody>
                 <tr>
                   <td>Min IOPs Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.minIOPsCluster }}/{{ $ctrl.IOPData.unitIOPsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.iops.min }}/{{ $ctrl.performanceData.iops.unit }}</td>
                 </tr>
                 <tr>
                   <td>Max IOPs Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.maxIOPsCluster }}/{{ $ctrl.IOPData.unitIOPsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.iops.max }}/{{ $ctrl.performanceData.iops.unit }}</td>
                 </tr>
                 <tr>
                   <td>Avg IOPs Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.avgIOPsCluster }}/{{ $ctrl.IOPData.unitIOPsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.iops.avg }}/{{ $ctrl.performanceData.iops.unit }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.stdDevCluster | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxIOPModel">
-                <tr>
-                  <td>Min IOPs Per Node</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.minIOPsNode }}/{{ $ctrl.IOPData.unitIOPsNode }}</td>
-                </tr>
-                <tr>
-                  <td>Max IOPs Per Node</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.maxIOPsNode }}/{{ $ctrl.IOPData.unitIOPsNode }}</td>
-                </tr>
-                <tr>
-                  <td>Avg IOPs Per Node</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.avgIOPsNode }}/{{ $ctrl.IOPData.unitIOPsNode }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.IOPData.stdDevNode | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.iops.stdDev | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
             </table>
@@ -339,62 +233,38 @@
     <div class="sf-widget bandwidth-info-box">
       <div class="info-bar-timestamp bandwidth-data-title">
         <span>Cluster Bandwidth</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxBandwidthModel">
-            <div class="slider round" id="bandwidth-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 bandwidth-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.bandwidthData.totalBandwidth | bytes:false:0:true:false }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.bandwidthData.changeRate < 0">&#9660; {{ $ctrl.bandwidthData.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.bandwidthData.changeRate > 0">&#9650; {{ $ctrl.bandwidthData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 bandwidth-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.bandwidth.total | bytes:false:0:true:false }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.bandwidth.changeRate < 0">&#9660; {{ $ctrl.performanceData.bandwidth.changeRate | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.bandwidth.changeRate > 0">&#9650; {{ $ctrl.performanceData.bandwidth.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">Field Average: Bandwidth in Field</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 bandwidth-data-table">
+        <div class="info-box col-md-6 bandwidth-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxBandwidthModel">
+              <tbody>
                 <tr>
                   <td>Min Bandwidth Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.minBandwidthCluster | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthCluster | bytes:false:0:true:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.min | bytes:false:0:true:false }}/{{ $ctrl.performanceData.bandwidth.unit | bytes:false:0:true:false }}</td>
                 </tr>
                 <tr>
                   <td>Max Bandwidth Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.maxBandwidthCluster | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthCluster | bytes:false:0:true:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.max | bytes:false:0:true:false }}/{{ $ctrl.performanceData.bandwidth.unit | bytes:false:0:true:false }}</td>
                 </tr>
                 <tr>
                   <td>Avg Bandwidth Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.avgBandwidthCluster | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthCluster | bytes:false:0:true:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.avg | bytes:false:0:true:false }}/{{ $ctrl.performanceData.bandwidth.unit | bytes:false:0:true:false }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.stdDevCluster | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxBandwidthModel">
-                <tr>
-                  <td>Min Bandwidth Per Node</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.minBandwidthNode | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthNode | bytes:false:0:true:false }}</td>
-                </tr>
-                <tr>
-                  <td>Max Bandwidth Per Node</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.maxBandwidthNode | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthNode | bytes:false:0:true:false }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Bandwidth Per Node</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.avgBandwidthNode | bytes:false:0:true:false }}/{{ $ctrl.bandwidthData.unitBandwidthNode | bytes:false:0:true:false }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.bandwidthData.stdDevNode | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.stdDev | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
             </table>
@@ -406,70 +276,38 @@
     <div class="sf-widget session-info-box">
       <div class="info-bar-timestamp session-data-title">
         <span>iSCSI Sessions</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxSessionModel">
-            <div class="slider round" id="session-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 session-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.sessionData.totalSessions }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.sessionData.changeRate < 0">&#9660; {{ $ctrl.sessionData.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.sessionData.changeRate > 0">&#9650; {{ $ctrl.sessionData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 session-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.sessions.iscsi.total }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.sessions.iscsi.changeRate < 0">&#9660; {{ $ctrl.performanceData.sessions.iscsi.changeRate | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.sessions.iscsi.changeRate > 0">&#9650; {{ $ctrl.performanceData.sessions.iscsi.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">iSCSI Sessions per Node</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 session-data-table">
+        <div class="info-box col-md-6 session-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxSessionModel">
+              <tbody>
                 <tr>
                   <td>Min iSCSI Sessions Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.minSessionsCluster }}/{{ $ctrl.sessionData.unitSessionsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.min }}/{{ $ctrl.performanceData.sessions.iscsi.unit }}</td>
                 </tr>
                 <tr>
                   <td>Max iSCSI Sessions Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.maxSessionsCluster }}/{{ $ctrl.sessionData.unitSessionsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.max }}/{{ $ctrl.performanceData.sessions.iscsi.unit }}</td>
                 </tr>
                 <tr>
                   <td>Avg iSCSI Sessions Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.avgSessionsCluster }}/{{ $ctrl.sessionData.unitSessionsCluster }}</td>
-                </tr>
-                <tr>
-                  <td>Avg iSCSI Sessions Per 5 Node Cluster</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.avgSessionNodeCluster }}/{{ $ctrl.sessionData.unitSessionNodeCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.avg }}/{{ $ctrl.performanceData.sessions.iscsi.unit }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.stdDevCluster | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxSessionModel">
-                <tr>
-                  <td>Min iSCSI Sessions Per Node</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.minSessionsNode }}/{{ $ctrl.sessionData.unitSessionsNode }}</td>
-                </tr>
-                <tr>
-                  <td>Max iSCSI Sessions Per Node</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.maxSessionsNode }}/{{ $ctrl.sessionData.unitSessionsNode }}</td>
-                </tr>
-                <tr>
-                  <td>Avg iSCSI Sessions Per Node</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.avgSessionsNode }}/{{ $ctrl.sessionData.unitSessionsNode }}</td>
-                </tr>
-                <tr>
-                  <td>Avg iSCSI Sessions Per 5 Node Cluster</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.avgSessionNodeCluster }}/{{ $ctrl.sessionData.unitSessionNodeCluster }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.sessionData.stdDevNode | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.stdDev | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
             </table>
@@ -481,62 +319,38 @@
     <div class="sf-widget snapshot-info-box">
       <div class="info-bar-timestamp snapshot-data-title">
         <span>Total Snapshots</span>
-        <div class="info-bar-refresh-button">
-          <label class="switch">
-            <input type="checkbox" ng-model="checkboxSnapshotModel">
-            <div class="slider round" id="snapshot-data-checkbox"></div>
-          </label>
-        </div>
       </div>
-      <div class="row dashberg-sum-data">
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 snapshot-data-description">
-          <div class="info-box-content">
-            <span class="value -medium">{{ $ctrl.snapshotData.totalSnapshots }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.snapshotData.changeRate < 0">&#9660; {{ $ctrl.snapshotData.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.snapshotData.changeRate > 0">&#9650; {{ $ctrl.snapshotData.changeRate | abs | percent:1:true:false:false }}</span>
+      <div class="row dashberg-data-display">
+        <div class="info-box col-md-6 snapshot-data-description">
+          <div class="info-box-content dashberg-sum-data">
+            <span class="value -medium">{{ $ctrl.performanceData.snapshots.total }}</span>
+            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.snapshots.changeRate < 0">&#9660; {{ $ctrl.performanceData.snapshots.changeRate | abs | percent:1:true:false:false }} </span>
+            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.snapshots.changeRate > 0">&#9650; {{ $ctrl.performanceData.snapshots.changeRate | abs | percent:1:true:false:false }}</span>
             <span class="title">Field Average: Snapshots per Volume</span>
           </div>
         </div>
-        <div class="info-box col-md-6 col-xs-12 col-sm-12 snapshot-data-table">
+        <div class="info-box col-md-6 snapshot-data-table">
           <div class="info-box-content">
             <table class="table">
               <thead>
                 <td>View Plotted Data</td>
               </thead>
-              <tbody ng-if="!checkboxSnapshotModel">
+              <tbody>
                 <tr>
                   <td>Min Snapshots Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.minSnapshotsCluster }}/{{ $ctrl.snapshotData.unitSnapshotsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.min }}/{{ $ctrl.performanceData.snapshots.unit }}</td>
                 </tr>
                 <tr>
                   <td>Max Snapshots Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.maxSnapshotsCluster }}/{{ $ctrl.snapshotData.unitSnapshotsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.max }}/{{ $ctrl.performanceData.snapshots.unit }}</td>
                 </tr>
                 <tr>
                   <td>Avg Snapshots Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.avgSnapshotsCluster }}/{{ $ctrl.snapshotData.unitSnapshotsCluster }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.avg }}/{{ $ctrl.performanceData.snapshots.unit }}</td>
                 </tr>
                 <tr>
                   <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.stdDevCluster | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-              <tbody ng-if="checkboxSnapshotModel">
-                <tr>
-                  <td>Min Snapshots Per Volume</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.minSnapshotsVolume }}/{{ $ctrl.snapshotData.unitSnapshotsVolume }}</td>
-                </tr>
-                <tr>
-                  <td>Max Snapshots Per Volume</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.maxSnapshotsVolume }}/{{ $ctrl.snapshotData.unitSnapshotsVolume }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Snapshots Per Volume</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.avgSnapshotsVolume }}/{{ $ctrl.snapshotData.unitSnapshotsVolume }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.snapshotData.stdDevVolume | percent:0:true:false:false }}</td>
+                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.stdDev | percent:0:true:false:false }}</td>
                 </tr>
               </tbody>
             </table>

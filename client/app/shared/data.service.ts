@@ -30,6 +30,30 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
         });
     },
 
+    callPerformanceAPI(customerID, method) {
+      let performanceAPI;
+      if (!customerID) {
+        performanceAPI = `/customers`;
+      }
+      else {
+        performanceAPI = `/customers/${customerID}`;
+      }
+      if (method) {
+        performanceAPI += `/${method}`
+      }
+
+      return $http.get(performanceAPI, {cache: true})
+        .then( response => response.data )
+        .catch( error => {
+          if (error.status === 401) {
+            redirectToLogin();
+          }
+          if (error.status === 404) {
+            return $q.reject(error);
+          }
+        })
+    },
+
     callGuzzleAPI(clusterID, method) {
       let guzzleAPI;
       if (!clusterID) {
