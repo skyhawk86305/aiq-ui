@@ -11,9 +11,9 @@ describe('Cluster Select Filter', function () {
   beforeEach(inject(function($filter) {
     filter = $filter('clusterSelect');
     clusters = [
-      {clusterName:'foo', clusterID:1, clusterUID:'ab', uuid:'12', apiVersion:'7', customerName:'customerFoo'},
-      {clusterName:'bar', clusterID:2, clusterUID:'bc', uuid:'34', apiVersion:'8.2', customerName:'customerBarFor'},
-      {clusterName:'baz', clusterID:3, clusterUID:'bd', uuid:'33', apiVersion:'8.9.1', customerName:'customerBaz'}
+      {name:'foo', id:1, version:'7', customerName:'customerFoo'},
+      {name:'bar', id:2, version:'8.2', customerName:'customerBarFor'},
+      {name:'baz', id:3, version:'8.9.1', customerName:'customerBaz'}
     ];
   }));
 
@@ -55,23 +55,4 @@ describe('Cluster Select Filter', function () {
     expect(filter(clusters, input)).toEqual(expectedClusters);
   });
 
-  it('should filter by clusterUID', function() {
-    input = 'uid:b';
-    expectedClusters = clusters.slice(1);
-    expect(filter(clusters, input)).toEqual(expectedClusters);
-
-    input = 'uid:bd';
-    expectedClusters = clusters.slice(2);
-    expect(filter(clusters, input)).toEqual(expectedClusters);
-  });
-
-  it('should filter by clusterUUID', function() {
-    input = 'uuid:3';
-    expectedClusters = clusters.slice(1);
-    expect(filter(clusters, input)).toEqual(expectedClusters);
-
-    input = 'uuid:33';
-    expectedClusters = clusters.slice(2);
-    expect(filter(clusters, input)).toEqual(expectedClusters);
-  });
 });

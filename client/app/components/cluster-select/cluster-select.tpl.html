@@ -1,6 +1,6 @@
 <div class="cluster-select" uib-dropdown is-open="$ctrl.isOpen" auto-close="outsideClick">
   <a id="cluster-select-anchor" uib-dropdown-toggle>
-    <span>{{$ctrl.clusterSelect.selectedCluster.clusterName || 'All Clusters'}}</span>
+    <span>{{$ctrl.clusterSelect.selectedCluster.name || 'All Clusters'}}</span>
     <i class="fa fa-chevron-down"></i>
   </a>
 
@@ -52,18 +52,18 @@
              ng-repeat="customer in $ctrl.clusters">
           <span title="{{customer.$key}}">{{customer.$key}}</span>
           <div class="cluster-select-list-item"
-                ng-repeat="cluster in customer | orderBy: 'clusterName'"
+                ng-repeat="cluster in customer | orderBy: 'name'"
                 ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;"
-                title="{{cluster.clusterName}}">
-              {{cluster.clusterName}}
+                title="{{cluster.name}}">
+              {{cluster.name}}
           </div>
         </div>
         <div ng-if="recentlyViewed"
              class="cluster-select-list-item"
              ng-repeat="cluster in $ctrl.recentlyViewed"
              ng-click="$ctrl.select(cluster); $ctrl.isOpen = false;"
-             title="{{cluster.clusterName}}">
-          {{cluster.clusterName}}
+             title="{{cluster.name}}">
+          {{cluster.name}}
         </div>
       </div>
     </div>

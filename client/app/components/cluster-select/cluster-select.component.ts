@@ -1,96 +1,110 @@
-(function () {
-  'use strict';
+import * as _ from 'lodash';
 
-  angular
-    .module('aiqUi')
-    .component('clusterSelect', {
-      template: require('./cluster-select.tpl.html'),
-      controller: [
-        '$rootScope',
-        '$filter',
-        '$location',
-        '$routeParams',
-        'ClusterSelectService',
-        ClusterSelectController
-      ]
+class ClusterSelectController {
+  rawClusters = [];
+  rawRecentlyViewed: Array<any> = [];
+  clusters = [];
+  recentlyViewed = [];
+  filterInput = '';
+  state: string = null;
+  errorMsg: string = null;
+  deregisterRouteChangeHandler: () => void;
+
+  static readonly $inject = [
+    '$rootScope',
+    '$filter',
+    '$location',
+    '$routeParams',
+    'ClusterSelectService',
+  ];
+  constructor(
+    private $rootScope,
+    private $filter,
+    private $location,
+    private $routeParams,
+    public clusterSelect
+  ) {
+    this.deregisterRouteChangeHandler = this.$rootScope.$on('$routeChangeSuccess', () => {
+      if (this.$location.path() !== '/login') this.init();
     });
-
-  function ClusterSelectController($rootScope, $filter, $location, $routeParams, ClusterSelectService) {
-    let self = this,
-        rawClusters = [],
-        rawRecentlyViewed: Array<any> = [];
-    self.clusters = [];
-    self.recentlyViewed = [];
-    self.filterInput = '';
-    self.clusterSelect = ClusterSelectService;
-
-    // Populate list of clusters and set the cached selected cluster using clusterID from route params
-    self.init = function() {
-      self.refresh().then(function() {
-        let clusterFromRoute = rawClusters.filter(function(cluster) {
-          return cluster.clusterID && cluster.clusterID.toString() === $routeParams.clusterID;
-        });
-        if (clusterFromRoute.length) {
-          updateSelectedCluster(clusterFromRoute[0]);
-        }
-      });
-    };
-
-    self.$onDestroy = $rootScope.$on('$routeChangeSuccess', () => {
-      if ($location.path() !== '/login') self.init();
+    this.$rootScope.$on('refresh-cluster-select', () => {
+      this.refresh();
     });
-
-    // Re-populate the list of clusters to select from
-    self.refresh = function() {
-      self.state = 'loading';
-      return self.clusterSelect.getClusters()
-        .then(function(clusters) {
-          self.state = 'loaded';
-          rawClusters = clusters;
-          self.filterClusters();
-        })
-        .catch(function(error) {
-          self.state = 'error';
-          self.errorMsg = error;
-        });
-    };
-
-    self.filterClusters = function() {
-      self.clusters = $filter('orderBy')($filter('toArray')($filter('groupBy')($filter('clusterSelect')(rawClusters, self.filterInput), 'customerName'), true), '$key');
-      self.recentlyViewed = $filter('clusterSelect')(rawRecentlyViewed, self.filterInput);
-    };
-
-    // Update the cached selected cluster and navigate to the new cluster-specific route
-    self.select = function(cluster) {
-      let currentPath = $location.path(),
-          defaultPath = '/reporting/overview',
-          onClusterPath = currentPath.indexOf('/cluster/') >= 0,
-          newPath = onClusterPath ? currentPath.replace(/\/cluster\/([0-9]*)/, '') : defaultPath;
-
-      updateSelectedCluster(cluster);
-      if (currentPath.indexOf('/volume/') >= 0) {
-        $location.path('/cluster/' + cluster.clusterID + '/volumes/');
-      } else {
-        $location.path('/cluster/' + cluster.clusterID + newPath);
-      }
-    };
-
-    function updateSelectedCluster(cluster) {
-      let index = rawRecentlyViewed.findIndex(function(aCluster) {
-        return aCluster.clusterID === cluster.clusterID;
-      });
-
-      // deduplicate and push to front of recently viewed array
-      if (index >= 0) { rawRecentlyViewed.splice(index, 1); }
-      rawRecentlyViewed.unshift(cluster);
-      // update the selected cluster in the display and navbar hrefs
-      self.clusterSelect.updateSelectedCluster(cluster);
-    }
-
-    $rootScope.$on('refresh-cluster-select', function() {
-      self.refresh();
-    });
-
-    self.init();
+    this.init();
   }
-})();
+
+  $onDestroy() {
+    this.deregisterRouteChangeHandler();
+  }
+
+  // Populate list of clusters and set the cached selected cluster using clusterID from route params
+  init() {
+    this.refresh().then( () => {
+      const clusterFromRoute = this.rawClusters.filter( cluster => {
+        return cluster.id && cluster.id.toString() === this.$routeParams.clusterID;
+      });
+      if (clusterFromRoute.length) {
+        this.updateSelectedCluster(clusterFromRoute[0]);
+      }
+    });
+  }
+
+  // Re-populate the list of clusters to select from
+  refresh() {
+    this.state = 'loading';
+    return this.clusterSelect.getClusters()
+      .then( clusters => {
+        this.state = 'loaded';
+        this.rawClusters = clusters;
+        this.filterClusters();
+      })
+      .catch( error => {
+        this.state = 'error';
+        this.errorMsg = error;
+      });
+  }
+
+  filterClusters() {
+    this.clusters =
+      this.$filter('orderBy')(
+        this.$filter('toArray')(
+          this.$filter('groupBy')(
+            this.$filter('clusterSelect')(
+              this.rawClusters,
+            this.filterInput),
+          'customerName'),
+        true),
+      '$key');
+    this.recentlyViewed = this.$filter('clusterSelect')(this.rawRecentlyViewed, this.filterInput);
+  };
+
+  // Update the cached selected cluster and navigate to the new cluster-specific route
+  select(cluster) {
+    const currentPath = this.$location.path();
+    const defaultPath = '/reporting/overview';
+    const onClusterPath = currentPath.indexOf('/cluster/') >= 0;
+    const newPath = onClusterPath ? currentPath.replace(/\/cluster\/([0-9]*)/, '') : defaultPath;
+
+    this.updateSelectedCluster(cluster);
+    if (currentPath.indexOf('/volume/') >= 0) {
+      this.$location.path('/cluster/' + cluster.id + '/volumes/');
+    } else {
+      this.$location.path('/cluster/' + cluster.id + newPath);
+    }
+  };
+
+  updateSelectedCluster(cluster) {
+    const index = _.findIndex(this.rawRecentlyViewed, ['id', cluster.id]);
+
+    // deduplicate and push to front of recently viewed array
+    if (index >= 0) { this.rawRecentlyViewed.splice(index, 1); }
+    this.rawRecentlyViewed.unshift(cluster);
+    // update the selected cluster in the display and navbar hrefs
+    this.clusterSelect.updateSelectedCluster(cluster);
+  }
+}
+
+export const ClusterSelectComponent = {
+  template: require('./cluster-select.tpl.html'),
+  controller: ClusterSelectController,
+}

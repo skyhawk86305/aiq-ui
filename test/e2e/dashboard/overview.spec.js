@@ -4,14 +4,14 @@ const support = require('../support.js');
 const expect = support.expect;
 const TableComponent = require('../page-objects/components/sf-components.po').table;
 const table = new TableComponent('clusters');
-const fixture = mapFixture(support.fixture('ListActiveClusters'));
-const uniqueKey = 'clusterID';
+const fixture = mapFixture(support.fixture('ListClusterDetails'));
+const uniqueKey = 'id';
 const itemsPerPage = 25;
 const maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 const columns = [
   { label: 'Customer', key: 'customerName' },
-  { label: 'Cluster Name', key: 'clusterName' },
-  { label: 'Cluster ID', key: 'clusterID', format: { filter: 'string' } },
+  { label: 'Cluster Name', key: 'name' },
+  { label: 'Cluster ID', key: 'id', format: { filter: 'string' } },
 ];
 
 function mapFixture(rawFixture) {

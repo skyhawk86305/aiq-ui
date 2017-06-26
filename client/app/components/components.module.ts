@@ -1,6 +1,10 @@
 import * as angular from 'angular';
 import 'jspolyfill-array.prototype.findIndex';
 
+import { ClusterSelectComponent } from './cluster-select/cluster-select.component';
+import { ClusterSelectFilter } from './cluster-select/cluster-select.filter';
+import { ClusterSelectService } from './cluster-select/cluster-select.service';
+
 import { DashboardOverviewComponent } from './dashboard/overview/overview.component';
 import { ClusterService } from './dashboard/overview/cluster.service';
 import { TimestampWithWarningFilter } from './dashboard/overview/timestamp-with-warning.filter';
@@ -23,6 +27,11 @@ import { DashbergService } from './admin/dashberg/dashberg.service';
 
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
+
+  .component('clusterSelect', ClusterSelectComponent)
+  .service('ClusterSelectService', ClusterSelectService)
+  .filter('clusterSelect', ClusterSelectFilter)
+
   .component('dashboardOverview', DashboardOverviewComponent)
   .service('ClusterService', ClusterService)
   .filter('timestampWithWarning', TimestampWithWarningFilter)

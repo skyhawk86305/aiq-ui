@@ -185,49 +185,6 @@ describe('The cluster select component', function() {
         });
       });
 
-      it('should filter by uid', function() {
-        dropDownMenu = clusterSelect.open();
-        dropDownMenu.filter('uid:b').then(function() {
-          var expectedClusters = [
-            { customer: 'ATSC (ABCD Technical Solutions Corporation)', clusters: ['ABCDEFGHIJKLMNOP95-00010'] },
-            { customer: 'Bill', clusters: ['barCluster'] }
-          ];
-
-          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
-
-          dropDownMenu.filter('uid:d').then(function() {
-            var expectedClusters = [
-              { customer: 'ACME', clusters: ['p-a-c_m+n&o-cluster-01'] },
-              { customer: 'John', clusters: ['fizCluster'] }
-            ];
-
-            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
-          });
-        });
-      });
-
-      it('should filter by uuid', function() {
-        dropDownMenu = clusterSelect.open();
-        dropDownMenu.filter('uuid:333').then(function() {
-          var expectedClusters = [
-            { customer: 'ABC-Cloud R&D_Americas.com', clusters: ['AB-DC1-Cluster01'] },
-            { customer: 'Jim', clusters: ['bazCluster'] }
-          ];
-
-          compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
-
-          dropDownMenu.filter('uuid:111').then(function() {
-            var expectedClusters = [
-              { customer: 'Bob', clusters: ['fooCluster'] },
-              { customer: 'SmithCorp (Yellow)', clusters: ['cdefg-sa05.cms.net'] },
-              { customer: 'Some Random State Federal Credit Union', clusters: ['PD4OiJ7fXxfKwo2000.snmp.acme.net'] }
-            ];
-
-            compareExpectedAllClustersList(dropDownMenu.allClustersList(), expectedClusters);
-          });
-        });
-      });
-
       it('should not have a scrollbar if the clusters fit on one page', function() {
         dropDownMenu = clusterSelect.open();
         dropDownMenu.filter('uuid:111');

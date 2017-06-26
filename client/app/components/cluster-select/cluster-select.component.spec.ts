@@ -31,10 +31,10 @@ describe('Component: clusterSelect', function() {
     };
     controller = $componentController('clusterSelect', locals, bindings);
     mockData = [
-      {clusterID: 13, foo: 1, bar: 2, baz: 3, customerName: 'SolidFire', clusterName: 'name1', findIndex: function() {return 0;}},
-      {clusterID: 14, foo: 4, bar: 5, baz: 6, customerName: 'SolidFire', clusterName: 'name2', findIndex: function() {return 1;}},
-      {clusterID: 15, foo: 7, bar: 8, baz: 9, customerName: 'NetApp', clusterName: 'name3', findIndex: function() {return 2;}},
-      {clusterID: 16, foo: 10, bar: 11, baz: 12, customerName: 'NetApp', clusterName: 'name4', findIndex: function() {return 3;}}
+      {id: 13, name: 'name1', foo: 1, bar: 2, baz: 3, customerName: 'SolidFire' },
+      {id: 14, name: 'name2', foo: 4, bar: 5, baz: 6, customerName: 'SolidFire' },
+      {id: 15, name: 'name3', foo: 7, bar: 8, baz: 9, customerName: 'NetApp' },
+      {id: 16, name: 'name4', foo: 10, bar: 11, baz: 12, customerName: 'NetApp' },
     ];
     mockDataFiltered = [
       [
@@ -180,19 +180,19 @@ describe('Component: clusterSelect', function() {
 
     it('should reroute the user by default to /cluster/<clusterID>/reporting/overview if not already on a cluster-specific route', function() {
       spyOn(location, 'path').and.returnValue('#/foo/bar');
-      controller.select({clusterID: 999});
+      controller.select({id: 999});
       expect(location.path).toHaveBeenCalledWith('/cluster/999/reporting/overview');
     });
 
     it('should reroute the user to /cluster/<new-clusterID>/<current-route> if the user is already on a cluster-specific route', function() {
       spyOn(location, 'path').and.returnValue('/cluster/999/foo/bar');
-      controller.select({clusterID: 12345});
+      controller.select({id: 12345});
       expect(location.path).toHaveBeenCalledWith('/cluster/12345/foo/bar');
     });
 
     it('should reroute the user to the volumes page if currently on a volume specific details page', function() {
       spyOn(location, 'path').and.returnValue('#/volume/bar');
-      controller.select({clusterID: 999});
+      controller.select({id: 999});
       expect(location.path).toHaveBeenCalledWith('/cluster/999/volumes/');
     });
   });

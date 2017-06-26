@@ -115,7 +115,7 @@
 
     // Build the href using the selectedCluster's clusterID for the navbar anchors to bind to
     self.getHref = function(subNavbarItem) {
-      let clusterID = self.clusterSelect.selectedCluster ? self.clusterSelect.selectedCluster.clusterID : '';
+      let clusterID = self.clusterSelect.selectedCluster ? self.clusterSelect.selectedCluster.id : '';
       return subNavbarItem.href.replace(':clusterID', clusterID);
     };
 
