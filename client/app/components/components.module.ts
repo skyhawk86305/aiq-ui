@@ -25,6 +25,8 @@ import { VmwareAlarmsService } from './cluster/vmware-alarms/vmware-alarms.servi
 import { DashbergComponent } from './admin/dashberg/dashberg.component';
 import { DashbergService } from './admin/dashberg/dashberg.service';
 
+import { CustomComparatorsService } from '../shared/comparators/custom-comparators.service';
+
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
 
@@ -51,6 +53,8 @@ export const ComponentsModule = angular
 
   .component('dashberg', DashbergComponent)
   .service('DashbergService', DashbergService)
+
+  .service('CustomComparatorsService', CustomComparatorsService)
 
   .name;
 
