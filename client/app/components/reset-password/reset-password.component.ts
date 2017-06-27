@@ -27,7 +27,6 @@
           this.emailSent = true;
         })
         .catch( err => {
-          console.log(err);
           if (err.status) this.error = 'Error: ' + err.status + ' ' + err.statusText;
           else this.error = err;
         });
