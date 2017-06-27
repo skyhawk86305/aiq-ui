@@ -66,7 +66,7 @@
           type: 'line',
           showAxisLabels: true,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             ids: [ 'activeSessions', 'peakActiveSessions' ],
             axes: {
               activeSessions: 'y0',
@@ -110,7 +110,7 @@
           showAxisLabel: true,
           barSpacing: 80,
           data: {
-            x: 'timestampSec',
+            x: 'timestamps',
             y: 'activeSessions',
             color: '#0FAEE7'
           },
@@ -138,8 +138,8 @@
       return graphConfigs[graph];
     }
 
-    private xAxisFormat(seconds) {
-      return this.$filter('aiqDate')(new Date(seconds * 1000));
+    private xAxisFormat(milliseconds) {
+      return this.$filter('aiqDate')(new Date(milliseconds));
     }
   }
 
