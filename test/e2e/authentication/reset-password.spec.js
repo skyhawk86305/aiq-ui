@@ -44,13 +44,13 @@ describe('Reset password', function() {
     });
 
     it('should show a message indicating an error occurred if the send email API request fails', function() {
-      mockBackend.http.whenPOST('/password-reset').respond(() => [500, 'Unexpected error occurred']);
+      mockBackend.http.whenPOST('/password-reset').respond(() => [500, null, null, 'Unexpected error occurred']);
       page.emailInput.enter('testUser@solidfire.com');
       expect(page.sendEmailButton.isEnabled()).to.eventually.be.true;
       page.sendEmailButton.click();
       expect(page.passwordResetEmailSentMessage.isDisplayed()).to.eventually.be.false;
       expect(page.passwordResetEmailErrorMessage.isDisplayed()).to.eventually.be.true;
-      expect(page.passwordResetEmailErrorMessage.getText()).to.eventually.equal('Unexpected error occurred');
+      expect(page.passwordResetEmailErrorMessage.getText()).to.eventually.equal('Error: 500 Unexpected error occurred');
     });
   });
 
@@ -135,10 +135,10 @@ describe('Reset password', function() {
       page.newPassword.enter('NewPassword123');
       page.reenterNewPassword.enter('NewPassword123');
       mockBackend.http.whenPOST('/password-reset/00000000-0000-0000-0000-000000000000')
-        .respond( () => [500, 'test error']);
+        .respond( () => [500, null, null, 'test error']);
       page.setNewPasswordButton.click();
       expect(page.setNewPasswordErrorMessage.isDisplayed()).to.eventually.be.true;
-      expect(page.setNewPasswordErrorMessage.getText()).to.eventually.equal('test error');
+      expect(page.setNewPasswordErrorMessage.getText()).to.eventually.equal('Error: 500 test error');
       expect(page.setNewPasswordButton.isEnabled()).to.eventually.be.true;
     });
 
