@@ -27,7 +27,8 @@
           this.emailSent = true;
         })
         .catch( err => {
-          if (err.status) this.error = 'Error Code: ' + err.status + ' ' + err.statusText;
+          console.log(err);
+          if (err.status) this.error = 'Error: ' + err.status + ' ' + err.statusText;
           else this.error = err;
         });
     };
@@ -38,7 +39,7 @@
           this.resetComplete = true;
         })
         .catch( err => {
-          if (err.status) this.error = 'Error Code: ' + err.status + ' ' + err.statusText;
+          if (err.status) this.error = 'Error: ' + err.status + ' ' + err.statusText;
           else this.error = err;
         });
     };
