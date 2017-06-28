@@ -1,5 +1,6 @@
 var webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin');
+  CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -24,6 +25,7 @@ module.exports = {
   plugins: [
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({ template: './client/index.html' }),
+    new CopyWebpackPlugin([{ from: './client/static' }]),
     new webpack.ProvidePlugin({ d3: 'd3' }) // ToDo: remove once sf-components is packaged correctly
   ]
 };
