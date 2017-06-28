@@ -11,22 +11,22 @@ export class ClusterService {
         filterComparators: SFFilterComparators.STRING_DEFAULT,
       },
       clusterName: {
-        key: 'clusterName',
+        key: 'name',
         label: 'Cluster Name',
         filterComparators: SFFilterComparators.STRING_DEFAULT,
       },
       clusterID: {
-        key: 'clusterID',
+        key: 'id',
         label: 'Cluster ID',
         filterComparators: SFFilterComparators.INTEGER_DEFAULT,
       },
       version: {
-        key: 'clusterVersion',
+        key: 'version',
         label: 'Version',
         filterComparators: SFFilterComparators.STRING_DEFAULT,
       },
       nodes: {
-        key: 'clusterInfo_ensemble_length',
+        key: 'nodes',
         label: 'Nodes',
         filterComparators: SFFilterComparators.INTEGER_DEFAULT,
       },
@@ -36,74 +36,74 @@ export class ClusterService {
         filterComparators: SFFilterComparators.INTEGER_DEFAULT,
       },
       usedBlockCapacityPercent: {
-        key: 'clusterCapacity_usedSpacePercent',
+        key: 'usedSpacePercent',
         label: 'Used Block Capacity',
         format: { filter: 'percent', args: [ 1, true, false, true ] },
       },
       totalBlockCapacity: {
-        key: 'clusterCapacity_maxUsedSpace',
+        key: 'maxUsedSpace',
         label: 'Total Block Capacity',
         format: { filter: 'bytes', args: [ false, 2 ] },
       },
       usedBlockCapacity: {
-        key: 'clusterCapacity_usedSpace',
+        key: 'usedSpace',
         label: 'Used Block Capacity',
         format: { filter: 'bytes', args: [ false, 2 ] },
       },
       totalMetadataCapacity: {
-        key: 'clusterCapacity_maxUsedMetadataSpace',
+        key: 'maxUsedMetadataSpace',
         label: 'Total Metadata Capacity',
         format: { filter: 'bytes', args: [ false, 2 ] },
       },
       usedMetadataCapacity: {
-        key: 'clusterCapacity_usedMetadataSpace',
+        key: 'usedMetadataSpace',
         label: 'Used Metadata Capacity',
         format: { filter: 'bytes', args: [ false, 2 ] },
       },
       provisionedSpace: {
-        key: 'clusterCapacity_provisionedSpace',
+        key: 'provisionedSpace',
         label: 'Provisioned Space',
         format: { filter: 'bytes', args: [ false, 2 ] },
       },
       currentIOPS: {
-        key: 'clusterCapacity_currentIOPS',
+        key: 'currentIOPS',
         label: 'Current IOPS',
       },
       averageIOPS: {
-        key: 'clusterCapacity_averageIOPS',
+        key: 'averageIOPS',
         label: 'Average IOPS',
       },
       peakIOPS: {
-        key: 'clusterCapacity_peakIOPS',
+        key: 'peakIOPS',
         label: 'Peak IOPS',
       },
       performanceUtilization: {
-        key: 'clusterStats_clusterUtilization',
+        key: 'utilization',
         label: 'Performance Utilization',
         format: { filter: 'percent', args: [ 2, true ] },
       },
       iscsiSessions: {
-        key: 'clusterCapacity_activeSessions',
+        key: 'activeSessions',
         label: 'iSCSI Sessions',
         filterComparators: SFFilterComparators.INTEGER_DEFAULT,
       },
       compression: {
-        key: 'clusterCapacity_compressionFactor',
+        key: 'compressionFactor',
         label: 'Compression',
         format: { filter: 'percent', args: [ 1, true, true ] },
       },
       deduplication: {
-        key: 'clusterCapacity_deDuplicationFactor',
+        key: 'deDuplicationFactor',
         label: 'Deduplication',
         format: { filter: 'percent', args: [ 1, true, true ] },
       },
       thinProvisioning: {
-        key: 'clusterCapacity_thinProvisioningFactor',
+        key: 'thinProvisioningFactor',
         label: 'Thin Provisioning',
         format: { filter: 'percent', args: [ 1, true, true ] },
       },
       efficiency: {
-        key: 'clusterCapacity_efficiencyFactor',
+        key: 'efficiencyFactor',
         label: 'Efficiency',
         format: { filter: 'percent', args: [ 1, true, true ] },
       },
@@ -113,11 +113,11 @@ export class ClusterService {
         filterComparators: SFFilterComparators.INTEGER_DEFAULT,
       },
       svip: {
-        key: 'clusterInfo_svip',
+        key: 'svip',
         label: 'SVIP',
       },
       mvip: {
-        key: 'clusterInfo_mvip',
+        key: 'mvip',
         label: 'MVIP',
       },
       lastUpdateTime: {
@@ -203,26 +203,11 @@ export class ClusterService {
     ];
 
     function listClusters() {
-      const components = [
-        'clusterInfo',
-        'clusterStats',
-        'clusterCapacity',
-        'volumesInfo',
-        'faultInfo',
-      ];
-      return DataService.callAPI('ListActiveClusters', { components }).then( ({ clusters = [] }) =>
+      return DataService.callAPI('ListClusterDetails').then( ({ clusters = [] }) =>
         clusters.map( cluster =>
-          Object.assign({}, cluster,
-            _.mapKeys(cluster.clusterCapacity, (val, key) => `clusterCapacity_${key}` ),
-            _.mapKeys(cluster.clusterInfo, (val, key) => `clusterInfo_${key}` ),
-            _.mapKeys(cluster.clusterStats, (val, key) => `clusterStats_${key}` ),
-            {
-              clusterInfo_ensemble_length: _.get(cluster, 'clusterInfo.ensemble.length'),
-              activeVolumes: cluster.activeVolumes || 0,
-              unresolvedFaults: cluster.unresolvedFaults || 0,
-              lastUpdateTime: new Date(cluster.lastUpdateTime * 1000),
-            }
-          )
+          Object.assign({}, cluster, {
+            lastUpdateTime: new Date(cluster.lastUpdateTime * 1000),
+          })
         )
       );
     }

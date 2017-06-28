@@ -61,7 +61,7 @@ describe('Component: navbar', function() {
 
     it('should replace the :clusterID route variable with the cached selectedCluster clusterID from the ClusterSelectService', function() {
       let subNavbarItem = controller.subNavbarItems.cluster[0];
-      service.selectedCluster = {clusterID: 999};
+      service.selectedCluster = {id: 999};
       expect(controller.getHref(subNavbarItem)).toEqual('#/cluster/999/reporting/overview');
     });
   });
@@ -164,7 +164,7 @@ describe('Component: navbar', function() {
     });
 
     it('should reset the cached selectedCluster in the service if navigating to a non cluster-specific route', function() {
-      service.selectedCluster = {clusterID: 999};
+      service.selectedCluster = {id: 999};
       spyOn(location, 'path').and.returnValue('/foo');
       rootScope.$broadcast('$routeChangeSuccess');
       expect(service.selectedCluster).toBeNull();

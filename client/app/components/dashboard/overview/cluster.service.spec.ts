@@ -32,66 +32,41 @@ describe('ClusterService', function () {
     it('should call the appropriate API method', function() {
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve());
       service.getData(true);
-      expect(DataService.callAPI).toHaveBeenCalledWith('ListActiveClusters', {
-        components: [ 'clusterInfo', 'clusterStats', 'clusterCapacity', 'volumesInfo', 'faultInfo' ],
-      });
+      expect(DataService.callAPI).toHaveBeenCalledWith('ListClusterDetails');
     });
 
     it('should deserialize the responses and resolve an array of data', function() {
       const apiResponse = {
         clusters: [{
-          clusterID: 2148796,
-          clusterName: 'Magneto',
+          id: 2148796,
+          name: 'Magneto',
           lastUpdateTime: 1497298152,
-          clusterVersion: '8.1.1.4',
-          clusterInfo: {
-            ensemble: [ '172.27.15.10', '172.27.15.11', '172.27.15.12' ],
-            mvip: '172.27.1.55',
-            svip: '172.27.15.55',
-          },
-          clusterStats: {
-            clusterUtilization: 0.007410860154777765,
-          },
-          clusterCapacity: {
-            activeSessions: 368,
-            maxUsedSpace: 20404327071744,
-            usedSpace: 7289735639346,
-            efficiencyFactor: 12.47749600986532,
-          },
+          version: '8.1.1.4',
+          mvip: '172.27.1.55',
+          svip: '172.27.15.55',
+          utilization: 0.007410860154777765,
+          activeSessions: 368,
+          maxUsedSpace: 20404327071744,
+          usedSpace: 7289735639346,
+          efficiencyFactor: 12.47749600986532,
           activeVolumes: 89,
           unresolvedFaults: 2,
         }],
       };
       const expectedResult = [{
-        clusterID: 2148796,
-        clusterName: 'Magneto',
-        lastUpdateTime: new Date(1497298152000),
-        clusterVersion: '8.1.1.4',
-        clusterInfo_ensemble: [ '172.27.15.10', '172.27.15.11', '172.27.15.12' ],
-        clusterInfo_ensemble_length: 3,
-        clusterInfo_mvip: '172.27.1.55',
-        clusterInfo_svip: '172.27.15.55',
-        clusterInfo: {
-          ensemble: [ '172.27.15.10', '172.27.15.11', '172.27.15.12' ],
-          mvip: '172.27.1.55',
-          svip: '172.27.15.55',
-        },
-        clusterStats_clusterUtilization: 0.007410860154777765,
-        clusterStats: {
-          clusterUtilization: 0.007410860154777765,
-        },
-        clusterCapacity_activeSessions: 368,
-        clusterCapacity_maxUsedSpace: 20404327071744,
-        clusterCapacity_usedSpace: 7289735639346,
-        clusterCapacity_efficiencyFactor: 12.47749600986532,
-        clusterCapacity: {
-          activeSessions: 368,
-          maxUsedSpace: 20404327071744,
-          usedSpace: 7289735639346,
-          efficiencyFactor: 12.47749600986532,
-        },
+        id: 2148796,
+        name: 'Magneto',
+        version: '8.1.1.4',
+        mvip: '172.27.1.55',
+        svip: '172.27.15.55',
+        utilization: 0.007410860154777765,
+        activeSessions: 368,
+        maxUsedSpace: 20404327071744,
+        usedSpace: 7289735639346,
+        efficiencyFactor: 12.47749600986532,
         activeVolumes: 89,
         unresolvedFaults: 2,
+        lastUpdateTime: new Date(1497298152000),
       }];
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
       service.getData(true)
