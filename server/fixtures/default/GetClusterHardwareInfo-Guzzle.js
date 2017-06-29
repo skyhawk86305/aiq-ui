@@ -625,7 +625,24 @@ module.exports = {
         "size": 300000739328,
         "driveSecurityAtMaximum": false
       },
-      "64": {
+      "8": null,
+      "11": {
+        "product": "VRFSD3400GNCVMTJS1",
+        "logicalname": "/dev/sda",
+        "description": "ATA      Drive",
+        "driveSecurityFrozen": true,
+        "devpath": "/dev/disk/by-id/scsi-SATA_VRFSD3400GNCVMT205044014-part4",
+        "uuid": "9ea09067-f44b-9b6b-cc21-7c5ec61f8e04",
+        "dev": "8:0",
+        "securityFeatureSupported": true,
+        "driveSecurityLocked": false,
+        "securityFeatureEnabled": false,
+        "version": "515ABBF0",
+        "serial": "205044014",
+        "size": 300000739328,
+        "driveSecurityAtMaximum": false
+      },
+      "12": {
         "product": "VRFSD3400GNCVMTJS1",
         "logicalname": "/dev/sda",
         "description": "ATA      Drive",
