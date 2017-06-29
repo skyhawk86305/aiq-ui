@@ -48,6 +48,23 @@ describe('Component: resetPassword', function() {
 
       $scope.$apply();
     });
+
+    it('should handle an error with error code from AuthService.requestPasswordReset', function(done) {
+      const email = 'testUser@solidfire.com';
+      controller.email = email;
+      reqResetDeferred.reject({
+        status: 404,
+        statusText: 'Not Found'});
+      controller.requestPasswordReset()
+        .then( () => {
+          expect(reqResetSpy).toHaveBeenCalledWith(email);
+          expect(controller.emailSent).toBe(false);
+          expect(controller.error).toBe('Error: 404 Not Found');
+        })
+        .finally(done);
+
+      $scope.$apply();
+    });
   });
 
   describe('.setNewPassword', function() {
@@ -79,6 +96,26 @@ describe('Component: resetPassword', function() {
           expect(setPasswordSpy).toHaveBeenCalledWith(token, newPassword);
           expect(controller.resetComplete).toBe(false);
           expect(controller.error).toBe('Server error');
+        })
+        .finally(done);
+
+      $scope.$apply();
+    });
+
+    it('should handle an error with error code from AuthService.setNewPassword', function(done) {
+      const token = '00000000-0000-0000-0000-000000000000';
+      const newPassword = 'Test password1';
+      controller.token = token;
+      controller.newPassword = newPassword;
+      setPasswordDeferred.reject({
+        status: 404,
+        statusText:'Not Found'
+      });
+      controller.setNewPassword()
+        .then( () => {
+          expect(setPasswordSpy).toHaveBeenCalledWith(token, newPassword);
+          expect(controller.resetComplete).toBe(false);
+          expect(controller.error).toBe('Error: 404 Not Found');
         })
         .finally(done);
 
