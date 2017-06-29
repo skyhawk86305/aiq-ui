@@ -95,11 +95,54 @@ describe('DriveTableService', function () {
         clusterHardwareInfo: {drives: {}}
       }));
       const expectedData = [
-        { lifeRemainingPercent: '', reserveCapacityPercent: '', type: undefined, version: undefined }
+        { lifeRemainingPercent: '', reserveCapacityPercent: '', type: undefined, version: '-' }
       ];
       service.getData(true)
         .then( response => {
            expect(response).toEqual(expectedData);
+        })
+        .catch( err => {
+          fail('Promise was unexpectedly rejected');
+        });
+      rootScope.$apply();
+    });
+
+    it('should populate in the event of a null drive in GetClusterHardwareInfo', function() {
+      spyOn(dataService, 'callGuzzleAPIs').and.returnValue($q.resolve({
+        drives: [
+          { driveID: 1, type: 'volume' },
+          { driveID: 2, type: 'block' },
+        ],
+        driveStats: [
+          { driveID: 1, lifeRemainingPercent: 5, reserveCapacityPercent: 8 },
+          { driveID: 2, lifeRemainingPercent: 2, reserveCapacityPercent: 7 },
+        ],
+        clusterHardwareInfo: {
+          drives: {
+            1: { version: '515ABBF0' },
+            2: null,
+          },
+        },
+      }));
+      const deserializedResponse = [
+        {
+          driveID: 1,
+          type: 'metadata',
+          lifeRemainingPercent: 5,
+          reserveCapacityPercent: 8,
+          version: '515ABBF0',
+        },
+        {
+          driveID: 2,
+          type: 'block',
+          lifeRemainingPercent: 2,
+          reserveCapacityPercent: 7,
+          version: '-',
+        }
+      ];
+      service.getData(true)
+        .then( response => {
+          expect(response).toEqual(deserializedResponse);
         })
         .catch( err => {
           fail('Promise was unexpectedly rejected');

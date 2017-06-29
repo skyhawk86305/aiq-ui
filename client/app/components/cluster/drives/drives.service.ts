@@ -45,10 +45,6 @@
             const stats = _.find(driveStats, ['driveID', drive.driveID]) || {};
             const hardwareInfo = _.get(clusterHardwareInfo, `drives[${drive.driveID}]`, {});
 
-            if (!hardwareInfo) {
-              console.log(`Drive ID is ${drive.driveID}`);
-            }
-
             return Object.assign({}, drive, {
               lifeRemainingPercent: !isNaN(parseFloat(stats.lifeRemainingPercent)) ? stats.lifeRemainingPercent : '',
               reserveCapacityPercent: !isNaN(parseFloat(stats.reserveCapacityPercent)) ? stats.reserveCapacityPercent : '',
