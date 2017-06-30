@@ -49,7 +49,7 @@
               lifeRemainingPercent: !isNaN(parseFloat(stats.lifeRemainingPercent)) ? stats.lifeRemainingPercent : '',
               reserveCapacityPercent: !isNaN(parseFloat(stats.reserveCapacityPercent)) ? stats.reserveCapacityPercent : '',
               type: drive.type === 'volume' ? 'metadata' : drive.type,
-              version: hardwareInfo.version,
+              version: (hardwareInfo && hardwareInfo.version) ? hardwareInfo.version : '-',
             });
           })
         );

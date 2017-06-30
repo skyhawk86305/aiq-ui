@@ -1,10 +1,11 @@
 'use strict';
 
+var _ = require('lodash');
 var support = require('../support.js');
 var expect = support.expect;
 var TableComponent = require('../page-objects/components/sf-components.po').table;
 var table = new TableComponent('drive');
-var fixture = mergeFixtures(support.fixture('ListDrives-Guzzle'), support.fixture('GetDriveStats-Guzzle'));
+var fixture = mergeFixtures(support.fixture('ListDrives-Guzzle'), support.fixture('GetDriveStats-Guzzle'), support.fixture('GetClusterHardwareInfo-Guzzle'));
 var uniqueKey = 'driveID';
 var itemsPerPage = 25;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
@@ -23,17 +24,18 @@ var columns = [
 ];
 
 
-function mergeFixtures(fixture1, fixture2) {
-    return fixture1.drives.map(function(drive) {
-      fixture2.driveStats.forEach(function(drive2) {
-          if (drive.driveID === drive2.driveID) {
-              drive.lifeRemainingPercent = drive2.lifeRemainingPercent;
-              drive.reserveCapacityPercent = drive2.reserveCapacityPercent;
-          }
-      });
-      drive.type = drive.type === 'volume' ? 'metadata' : drive.type;
-      return drive;
+function mergeFixtures(fixture1, fixture2, fixture3) {
+  return fixture1.drives.map( function(drive) {
+    const stats = _.find(fixture2.driveStats, ['driveID', drive.driveID]) || {};
+    const hardwareInfo = _.get(fixture3.clusterHardwareInfo, 'drives[' + drive.driveID + ']', {});
+
+    return Object.assign({}, drive, {
+      lifeRemainingPercent: !isNaN(parseFloat(stats.lifeRemainingPercent)) ? stats.lifeRemainingPercent : '',
+      reserveCapacityPercent: !isNaN(parseFloat(stats.reserveCapacityPercent)) ? stats.reserveCapacityPercent : '',
+      type: drive.type === 'volume' ? 'metadata' : drive.type,
+      version: (hardwareInfo && hardwareInfo.version) ? hardwareInfo.version : '-'
     });
+  });
 }
 
 describe('The Cluster Drives Page', function () {
