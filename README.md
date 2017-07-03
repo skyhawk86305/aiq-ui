@@ -41,6 +41,20 @@ An Angular.js application written in TypeScript for interacting with the AIQ bac
 
 `gulp serve --prod`
 
+ - Add a pre-commit git hook for running lint, so you don't accidentally check in code that fails lint.
+    - Create the file `.git/hooks/pre-commit` with the following contents:
+
+```
+#!/bin/bash
+set -e
+
+node_modules/.bin/tslint client/**/*.ts
+node_modules/.bin/tslint --config test/tslint.json test/**/*.js
+```
+
+If the hook doesn't work (you can test by adding an `fdescribe` and trying to commit), you may have to
+add "execute" permissions on the file with `chmod +x .git/hooks/pre-commit`
+
 ## Testing
 
 See <project-root>/test/README.md
