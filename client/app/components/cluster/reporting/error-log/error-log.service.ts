@@ -8,11 +8,12 @@
     .service('ErrorLogTableService', [
       'SFTableService',
       'SFFilterComparators',
+      'CustomComparatorsService',
       'DataService',
       ErrorLogTableService
     ]);
 
-  function ErrorLogTableService(SFTableService, SFFilterComparators, DataService) {
+  function ErrorLogTableService(SFTableService, SFFilterComparators, CustomComparatorsService, DataService) {
     const severityOrder = [ 'critical', 'error', 'warning', 'bestPractice', 'info' ];
     const listClusterFaults = function() {
       return DataService.callAPI('ListClusterFaults', {clusterID: this.selectedClusterID})
@@ -26,11 +27,11 @@
     const columns = [
       {key: 'clusterFaultID', label: 'ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true]}, width: 80},
       {key: 'date', label: 'Date', format: {filter: 'aiqDate'}, width: 150},
-      {key: 'severity', label: 'Severity', format: {filter: 'tableBadgeAlertSeverity'}, width: 140},
+      {key: 'severity', label: 'Severity', filterComparators: CustomComparatorsService.alertSeverityComparators, format: {filter: 'tableBadgeAlertSeverity'}, width: 140},
       {key: 'type', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter:'string'}, width: 80},
       {key: 'nodeID', label: 'Node ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true, true]}, width: 80},
       {key: 'driveID', label: 'Drive ID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter:'aiqNumber', args: [0, true, true]}, width: 80},
-      {key: 'resolved', label: 'Resolved', format: {filter: 'tableBadgeBoolean'}, width: 100},
+      {key: 'resolved', label: 'Resolved', filterComparators: CustomComparatorsService.resolvedComparators, format: {filter: 'tableBadgeBoolean'}, width: 100},
       {key: 'resolvedDate', label: 'Resolution Time', format: {filter: 'aiqDate'}, width: 150},
       {key: 'code', label: 'Error Code', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter:'string'}, width: 180},
       {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter:'string'}}

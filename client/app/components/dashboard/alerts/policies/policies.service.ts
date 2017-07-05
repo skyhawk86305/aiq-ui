@@ -6,15 +6,16 @@
     .service('AlertPolicyTableService', [
       'SFTableService',
       'SFFilterComparators',
+      'CustomComparatorsService',
       'DataService',
       AlertPolicyTableService
     ]);
 
-  function AlertPolicyTableService(SFTableService, SFFilterComparators, DataService) {
+  function AlertPolicyTableService(SFTableService, SFFilterComparators, CustomComparatorsService, DataService) {
     const columns = [
       {key: 'notificationName', label: 'Alert Policy Name', filterComparators: SFFilterComparators.STRING_DEFAULT, format: { filter: 'string' } },
       {key: 'destinationEmail', label: 'Destination', filterComparators: SFFilterComparators.STRING_DEFAULT, format: { filter:'string' } },
-      {key: 'notificationSeverity', label: 'Severity', filterComparators: SFFilterComparators.STRING_DEFAULT, format: { filter: 'tableBadgeAlertSeverity' } },
+      {key: 'notificationSeverity', label: 'Severity', filterComparators: CustomComparatorsService.alertSeverityComparators, format: { filter: 'tableBadgeAlertSeverity' } },
       {key: 'username', label: 'Creator', filterComparators: SFFilterComparators.STRING_DEFAULT, format: { filter:'string' } },
       {key: 'customerName', label: 'Customer', filterComparators: SFFilterComparators.STRING_DEFAULT, format: { filter:'string' } },
       {key: 'clusterName', label: 'Cluster', filterComparators: SFFilterComparators.STRING_DEFAULT, format: { filter: 'string' } },
