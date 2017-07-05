@@ -133,6 +133,32 @@ support = {
         });
       });
     });
+  },
+  checkBreadcrumb: function(nav, item, breadcrumb, cluster, main, sub, menu) {
+    nav.item(item).click();
+    support.expect(breadcrumb.el.isDisplayed()).to.eventually.be.true;
+
+    if (main) {
+      support.expect(breadcrumb.main.getText()).to.eventually.equal(main); 
+    } else {
+      if (cluster) {
+        support.expect(breadcrumb.main.isDisplayed()).to.eventually.be.true;
+      } else {
+        support.expect(breadcrumb.main.isPresent()).to.eventually.be.false;
+      }        
+    }
+
+    if (sub) {
+      support.expect(breadcrumb.sub.getText()).to.eventually.equal(sub);
+    } else {
+      support.expect(breadcrumb.sub.isPresent()).to.eventually.be.false;            
+    }
+
+    if (menu) {
+       support.expect(breadcrumb.menu.getText()).to.eventually.equal(menu);    
+    } else {
+      support.expect(breadcrumb.menu.isPresent()).to.eventually.be.false;            
+    }   
   }
 };
 

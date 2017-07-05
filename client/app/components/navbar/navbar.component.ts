@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  const _ = require('lodash');
+
   angular
     .module('aiqUi')
     .component('navbar', {
@@ -28,11 +30,12 @@
     });
     self.activeItems = {main: '', sub: '', menu: ''};
     self.host = $location.host();
+    self.breadcrumb = {};
 
     // Used to dynamically build the sub navbar and sub nav menu
     self.subNavbarItems = {
       dashboard: [
-        {key:'overview', href:'#/dashboard/overview', label: 'Overview'},
+        {key:'overview', href:'#/dashboard/overview', label: 'Dashboard', hidden: true},
         {key:'health', href:'#/dashboard/health', label: 'Health', disabled: true},
         {key:'capacity', href:'#/dashboard/capacity', label: 'Capacity', disabled: true},
         {key:'performance', href:'#/dashboard/performance', label: 'Performance', disabled: true},
@@ -135,6 +138,55 @@
       return self.subNavbarItem && self.subNavbarItem.menuItems && (self.hoveredSubNavMenu || self.clickedSubNavMenu);
     };
 
+    self.generateBreadcrumb = function() {
+      const clusterID = _.get(self.clusterSelect, 'selectedCluster.id', '');
+      const clusterName = _.get(self.clusterSelect, 'selectedCluster.name', '');
+      const customerName = _.get(self.clusterSelect, 'selectedCluster.customerName', '');
+
+      const subIndex = _.findIndex(self.subNavbarItems[self.activeItems.main], obj => obj.key === self.activeItems.sub);
+      const menuIndex = subIndex >= 0 ? _.findIndex(self.subNavbarItems[self.activeItems.main][subIndex].menuItems, obj => obj.key === self.activeItems.menu) : -1;
+
+      const main = self.subNavbarItems[self.activeItems.main];
+
+      const mainLabel = self.activeItems.main === 'cluster' ? customerName + ' / ' + clusterName : main[0].label;
+      const mainHref = main[0].href.replace(':clusterID', clusterID);
+
+      let subLabel = main[subIndex] ? main[subIndex].label : self.activeItems.sub;
+      subLabel = subLabel === 'Volume' ? subLabel : 'Active Volumes';
+
+      let subHref = '#/cluster/' + clusterID + '/volumes/activeVolumes';
+      if (subIndex >= 0) {
+        subHref = self.activeItems.main === 'cluster' ? main[subIndex].href.replace(':clusterID', clusterID) : main[subIndex].href;
+      }
+
+      const menuLabel = subIndex >= 0 && menuIndex >= 0 ? main[subIndex].menuItems[menuIndex].label : 'Volume ID: ' + self.activeItems.menu;
+      let menuHref = '';
+      if (subIndex >= 0 && menuIndex >= 0) {
+        menuHref = self.activeItems.main === 'cluster' ? main[subIndex].menuItems[menuIndex].href.replace(':clusterID', clusterID) : main[subIndex].menuItems[menuIndex].href;
+      }
+
+      self.breadcrumb = {
+        main : {
+          label : mainLabel,
+          href : mainHref
+        },
+        sub : {
+          label : subLabel,
+          href : subHref
+        },
+        menu : {
+          label : menuLabel,
+          href: menuHref
+        }
+      }
+
+      self.showSubBreadcrumb = !((mainHref === subHref) || menuHref);
+    }
+
+    self.showBreadcrumb = function() {
+      return self.activeItems.menu && self.activeItems.sub && !(self.activeItems.main === 'dashboard' && self.activeItems.sub === 'overview');
+    }
+
     self.updateActiveItems = function() {
       let path = $location.path().slice(1).replace(/cluster\/([0-9]*)/, 'cluster').split('/');
       self.activeItems.main = path[0];
@@ -193,7 +245,21 @@
       });
     };
 
-    $rootScope.$on('$routeChangeSuccess', self.updateActiveItems);
-    self.$onInit = self.updateActiveItems;
+    $rootScope.$on('$routeChangeSuccess', function() {
+      self.updateActiveItems();
+      $timeout(() => {
+        if (self.showBreadcrumb()) {
+          self.generateBreadcrumb();
+        }
+      });
+    });
+    self.$onInit = function() {
+      self.updateActiveItems();
+      $timeout(() => {
+        if (self.showBreadcrumb()) {
+          self.generateBreadcrumb();
+        }
+      });
+    };
   }
 })();

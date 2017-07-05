@@ -60,6 +60,14 @@ var NavbarComponent = function () {
       });
     }
   };
+  component.breadcrumb = {
+    el: element(by.id('sf-breadcrumb')),
+    main: element(by.css('#sf-breadcrumb .main-breadcrumb')),
+    mainLink: element(by.css('#sf-breadcrumb .main-breadcrumb a')),
+    sub: element(by.css('#sf-breadcrumb .sub-breadcrumb')),
+    subLink: element(by.css('#sf-breadcrumb .sub-breadcrumb a')),
+    menu: element(by.css('#sf-breadcrumb .menu-breadcrumb'))
+  }
 };
 
 module.exports = NavbarComponent;

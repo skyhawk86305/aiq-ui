@@ -26,10 +26,6 @@ describe('Volume Details Page', function () {
     support.logout();
   });
 
-  it('should have a page title with the cluster name and the volume id', function() {
-    expect(volumeDetailsPage.label.getText()).to.eventually.equal('cm-solidfire > Volume ID: 1');
-  });
-
   describe('the infobar', function() {
     var infoBoxTypes = ['account-id', 'volume-size', 'used-capacity','average-iops', 'average-throughput', 'average-latency'];
     var infoBoxTitles = ['Account ID', 'Volume Size', 'Used Capacity', 'Average IOPS', 'Average Throughput', 'Average Latency (µs)'];
