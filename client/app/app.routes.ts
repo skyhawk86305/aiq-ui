@@ -42,6 +42,13 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           permissions: { only: ['registerCluster'], redirectTo: '/dashboard/overview' },
         },
       })
+      .when('/admin/archivedClusters',{
+        template:'<archived-clusters></archived-clusters>',
+        reloadOnSearch:false,
+        data:{
+          permissions:{ only: ['internalAdmin'], redirectTo:'/dashboard/overview' },
+        },
+      })
       .when('/admin/dashberg', {
         template: '<dashberg></dashberg>',
         reloadOnSearch: false,
@@ -237,7 +244,9 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           return '/cluster/' + search.clusterID + '/reporting/efficiency';
         }
       })
-      .when('/Clusters/Archived', defaultRedirect)
+      .when('/Clusters/Archived', {
+        redirectTo: '/admin/archivedClusters'
+      })
       .when('/Clusters/Capacity/Forecast', defaultRedirect)
       .when('/Clusters/Details', defaultRedirect)
       .when('/Clusters/Stats', defaultRedirect)

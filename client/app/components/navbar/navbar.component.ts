@@ -112,6 +112,7 @@
       ],
       admin: [
         {key:'unregisteredClusters', href: '#/admin/unregisteredClusters', label: 'Unregistered Clusters', permissions: ['registerCluster']},
+        {key:'archivedClusters', href: '#/admin/archivedClusters', label:'Archived Clusters', permissions: ['internalAdmin']},
         {key:'dashberg', href: '#/admin/dashberg', label: 'Dashberg', permissions: ['dashberg']}
       ]
     };
