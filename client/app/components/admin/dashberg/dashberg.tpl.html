@@ -1,359 +1,339 @@
 <div class="dashberg-page">
   <div class="container-fluid">
 
-    <div class="sf-widget">
-      <div class="info-bar-timestamp">
-        <span class="dashberg-title">Dashberg</span>
-        <div class="info-bar-refresh-button">
-          <span>Filter By:&nbsp</span>
-          <select ng-model="$ctrl.selectedCustomerID"
-              ng-change="$ctrl.updateID()"
-              ng-options="customer.id as customer.name for customer in $ctrl.customers">
-            <option value="">Customer Name</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="sf-widget node-info-box">
-      <div class="info-bar-timestamp node-data-title">
-        <span>Nodes in Clusters</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 node-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.nodes.total }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.nodes.changeRate < 0">&#9660; {{ $ctrl.performanceData.nodes.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.nodes.changeRate > 0">&#9650; {{ $ctrl.performanceData.nodes.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">Total Nodes in Field</span>
-          </div>
-        </div>
-        <div class="info-box col-md-6 node-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min Nodes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.nodes.min }}/{{ $ctrl.performanceData.nodes.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Max Nodes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.nodes.max }}/{{ $ctrl.performanceData.nodes.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Nodes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.nodes.avg }}/{{ $ctrl.performanceData.nodes.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.nodes.stddev | percent:0:true:false:false  }}</td>
-                </tr>
-              </tbody>
-            </table>
+    <div class="col-md-12 ">
+      <div class="sf-widget info-box-margin">
+        <div class="info-bar-timestamp">
+          <span class="dashberg-title">Dashberg</span>
+          <div class="info-bar-refresh-button">
+            <span>Filter By:&nbsp</span>
+            <select ng-model="$ctrl.selectedCustomerID"
+                ng-change="$ctrl.updateID()"
+                ng-options="customer.id as customer.name for customer in $ctrl.customers">
+              <option value="">All Customers</option>
+            </select>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="sf-widget volume-info-box">
-      <div class="info-bar-timestamp volume-data-title">
-        <span>Volumes in Clusters</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 volume-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.volumes.total }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.volumes.changeRate < 0">&#9660; {{ $ctrl.performanceData.volumes.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.volumes.changeRate > 0">&#9650; {{ $ctrl.performanceData.volumes.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">Total Volumes in Field</span>
-          </div>
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget node-info-box info-box-margin">
+        <div class="info-bar-timestamp node-data-title">
+          <span>Nodes in Clusters</span>
         </div>
-        <div class="info-box col-md-6 volume-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min Volumes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.min }}/{{ $ctrl.performanceData.volumes.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Max Volumes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.max }}/{{ $ctrl.performanceData.volumes.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Volumes Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.avg }}/{{ $ctrl.performanceData.volumes.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.stdDev | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 node-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.nodes.total | aiqNumber }}</span>
+              <span class="title">Total Nodes in Field</span>
+            </div>
+          </div>
+          <div class="info-box col-md-6 node-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Min Nodes Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.nodes.min | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max Nodes Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.nodes.max | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg Nodes Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.nodes.avg | aiqNumber:2 }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.nodes.stdDev | aiqNumber:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="sf-widget volume-size-info-box">
-      <div class="info-bar-timestamp volume-size-data-title">
-        <span>Volume Size</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 volume-size-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.volumes.size.total | bytes:false:0:false:false }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.volumes.size.changeRate < 0">&#9660; {{ $ctrl.performanceData.volumes.size.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.volumes.size.changeRate > 0">&#9650; {{ $ctrl.performanceData.volumes.size.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">Current Average Volume Size</span>
-          </div>
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget volume-info-box info-box-margin">
+        <div class="info-bar-timestamp volume-data-title">
+          <span>Volumes in Clusters</span>
         </div>
-        <div class="info-box col-md-6 volume-size-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min Volume Size Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.min | bytes:false:0:false:false }}/{{ $ctrl.performanceData.volumes.size.unit | bytes:false:0:false:false }}</td>
-                </tr>
-                <tr>
-                  <td>Max Volume Size Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.max | bytes:false:0:false:false }}/{{ $ctrl.performanceData.volumes.size.unit | bytes:false:0:false:false }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Volume Size Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.avg | bytes:false:0:false:false }}/{{ $ctrl.performanceData.volumes.size.unit | bytes:false:0:false:false }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumes.size.stdDev | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 volume-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.volumes.total | aiqNumber }}</span>
+              <span class="title">Total Volumes in Field</span>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sf-widget volume-access-info-box">
-      <div class="info-bar-timestamp volume-access-data-title">
-        <span>Volume Access Groups</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 volume-access-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.volumeAccessGroups.total }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.volumeAccessGroups.changeRate < 0">&#9660; {{ $ctrl.performanceData.volumeAccessGroups.changeRate  | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.volumeAccessGroups.changeRate > 0">&#9650; {{ $ctrl.performanceData.volumeAccessGroups.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">Total Volume Access Groups in Field</span>
-          </div>
-        </div>
-        <div class="info-box col-md-6 volume-access-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min Vags Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.min }}/{{ $ctrl.performanceData.volumeAccessGroups.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Max Vags Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.max }}/{{ $ctrl.performanceData.volumeAccessGroups.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Vags Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.avg }}/{{ $ctrl.performanceData.volumeAccessGroups.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.stdDev | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="info-box col-md-6 volume-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <thead>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Min Volumes Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumes.min | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max Volumes Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumes.max | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg Volumes Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumes.avg | aiqNumber:2 }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumes.stdDev | aiqNumber:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="sf-widget IOP-info-box">
-      <div class="info-bar-timestamp IOP-data-title">
-        <span>Cluster IOPs</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 IOP-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.iops.total }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.iops.changeRate < 0">&#9660; {{ $ctrl.performanceData.iops.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.iops.changeRate > 0">&#9650; {{ $ctrl.performanceData.iops.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">Field Average: IOPs Per all clusters</span>
-          </div>
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget volume-size-info-box info-box-margin">
+        <div class="info-bar-timestamp volume-size-data-title">
+          <span>Volume Size</span>
         </div>
-        <div class="info-box col-md-6 IOP-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min IOPs Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.iops.min }}/{{ $ctrl.performanceData.iops.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Max IOPs Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.iops.max }}/{{ $ctrl.performanceData.iops.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Avg IOPs Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.iops.avg }}/{{ $ctrl.performanceData.iops.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.iops.stdDev | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 volume-size-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.volumeSize.total | bytes:false:0:false:false }}</span>
+              <span class="title">Current Total Volume Size</span>
+            </div>
+          </div>
+          <div class="info-box col-md-6 volume-size-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Min Volume Size</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.min | bytes:false:0:false:false }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max Volume Size</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.max | bytes:false:0:false:false }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg Volume Size</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.avg | bytes:false:0:false:false }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.stdDev | bytes:false:0:false:false }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="sf-widget bandwidth-info-box">
-      <div class="info-bar-timestamp bandwidth-data-title">
-        <span>Cluster Bandwidth</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 bandwidth-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.bandwidth.total | bytes:false:0:true:false }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.bandwidth.changeRate < 0">&#9660; {{ $ctrl.performanceData.bandwidth.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.bandwidth.changeRate > 0">&#9650; {{ $ctrl.performanceData.bandwidth.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">Field Average: Bandwidth in Field</span>
-          </div>
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget volume-access-info-box info-box-margin">
+        <div class="info-bar-timestamp volume-access-data-title">
+          <span>Volume Access Groups</span>
         </div>
-        <div class="info-box col-md-6 bandwidth-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min Bandwidth Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.min | bytes:false:0:true:false }}/{{ $ctrl.performanceData.bandwidth.unit | bytes:false:0:true:false }}</td>
-                </tr>
-                <tr>
-                  <td>Max Bandwidth Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.max | bytes:false:0:true:false }}/{{ $ctrl.performanceData.bandwidth.unit | bytes:false:0:true:false }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Bandwidth Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.avg | bytes:false:0:true:false }}/{{ $ctrl.performanceData.bandwidth.unit | bytes:false:0:true:false }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.bandwidth.stdDev | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 volume-access-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.volumeAccessGroups.total | aiqNumber }}</span>
+              <span class="title">Total Volume Access Groups in Field</span>
+            </div>
+          </div>
+          <div class="info-box col-md-6 volume-access-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Min Vags Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.min | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max Vags Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.max | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg Vags Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.avg | aiqNumber:2 }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.stdDev | aiqNumber:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="sf-widget session-info-box">
-      <div class="info-bar-timestamp session-data-title">
-        <span>iSCSI Sessions</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 session-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.sessions.iscsi.total }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.sessions.iscsi.changeRate < 0">&#9660; {{ $ctrl.performanceData.sessions.iscsi.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.sessions.iscsi.changeRate > 0">&#9650; {{ $ctrl.performanceData.sessions.iscsi.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">iSCSI Sessions per Node</span>
-          </div>
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget IOP-info-box info-box-margin">
+        <div class="info-bar-timestamp IOP-data-title">
+          <span>Cluster IOPs</span>
         </div>
-        <div class="info-box col-md-6 session-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min iSCSI Sessions Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.min }}/{{ $ctrl.performanceData.sessions.iscsi.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Max iSCSI Sessions Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.max }}/{{ $ctrl.performanceData.sessions.iscsi.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Avg iSCSI Sessions Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.avg }}/{{ $ctrl.performanceData.sessions.iscsi.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.sessions.iscsi.stdDev | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 IOP-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.iops.total | aiqNumber }}</span>
+              <span class="title">Total IOPs in Field</span>
+            </div>
+          </div>
+          <div class="info-box col-md-6 IOP-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Min IOPs Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.iops.min | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max IOPs Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.iops.max | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg IOPs Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.iops.avg | aiqNumber:2 }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.iops.stdDev| aiqNumber:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="sf-widget snapshot-info-box">
-      <div class="info-bar-timestamp snapshot-data-title">
-        <span>Total Snapshots</span>
-      </div>
-      <div class="row dashberg-data-display">
-        <div class="info-box col-md-6 snapshot-data-description">
-          <div class="info-box-content dashberg-sum-data">
-            <span class="value -medium">{{ $ctrl.performanceData.snapshots.total }}</span>
-            <span class="triangle-bottom-icon" ng-if="$ctrl.performanceData.snapshots.changeRate < 0">&#9660; {{ $ctrl.performanceData.snapshots.changeRate | abs | percent:1:true:false:false }} </span>
-            <span class="triangle-top-icon" ng-if="$ctrl.performanceData.snapshots.changeRate > 0">&#9650; {{ $ctrl.performanceData.snapshots.changeRate | abs | percent:1:true:false:false }}</span>
-            <span class="title">Field Average: Snapshots per Volume</span>
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget bandwidth-info-box info-box-margin">
+        <div class="info-bar-timestamp bandwidth-data-title">
+          <span>Cluster Bandwidth</span>
+        </div>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 bandwidth-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.bandwidth.total | bytes:false:0:true:false }}</span>
+              <span class="title">Total Bandwidth in Field</span>
+            </div>
+          </div>
+          <div class="info-box col-md-6 bandwidth-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Min Bandwidth Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.min | bytes:false:0:true:false }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max Bandwidth Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.max | bytes:false:0:true:false }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg Bandwidth Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.avg | bytes:false:0:true:false }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.stdDev | bytes:false:0:true:false }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <div class="info-box col-md-6 snapshot-data-table">
-          <div class="info-box-content">
-            <table class="table">
-              <thead>
-                <td>View Plotted Data</td>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Min Snapshots Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.min }}/{{ $ctrl.performanceData.snapshots.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Max Snapshots Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.max }}/{{ $ctrl.performanceData.snapshots.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Avg Snapshots Per Cluster</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.avg }}/{{ $ctrl.performanceData.snapshots.unit }}</td>
-                </tr>
-                <tr>
-                  <td>Standard Deviation</td>
-                  <td class="data-bold">{{ $ctrl.performanceData.snapshots.stdDev | percent:0:true:false:false }}</td>
-                </tr>
-              </tbody>
-            </table>
+      </div>
+    </div>
+
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget session-info-box info-box-margin">
+        <div class="info-bar-timestamp session-data-title">
+          <span>iSCSI Sessions</span>
+        </div>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 session-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.sessions.total | aiqNumber }}</span>
+              <span class="title">Total iSCSI Sessions in Field</span>
+            </div>
+          </div>
+          <div class="info-box col-md-6 session-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Min Sessions Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.sessions.min | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max Sessions Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.sessions.max | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg Sessions Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.sessions.avg | aiqNumber:2 }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.sessions.stdDev | aiqNumber:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class = "col-md-12 col-lg-6 col-xl-3">
+      <div class="sf-widget snapshot-info-box info-box-margin">
+        <div class="info-bar-timestamp snapshot-data-title">
+          <span>Total Snapshots</span>
+        </div>
+        <div class="row dashberg-data-display">
+          <div class="info-box col-md-6 snapshot-data-description">
+            <div class="info-box-content dashberg-sum-data">
+              <span class="value -medium">{{ $ctrl.performanceData.snapshots.total | aiqNumber }}</span>
+              <span class="title">Total Snapshots in Field</span>
+            </div>
+          </div>
+          <div class="info-box col-md-6 snapshot-data-table">
+            <div class="info-box-content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Min Snapshots Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.min | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Max Snapshots Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.max | aiqNumber }}</td>
+                  </tr>
+                  <tr>
+                    <td>Avg Snapshots Per Cluster</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.avg | aiqNumber:2 }}</td>
+                  </tr>
+                  <tr>
+                    <td>Standard Deviation</td>
+                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.stdDev | aiqNumber:2 }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

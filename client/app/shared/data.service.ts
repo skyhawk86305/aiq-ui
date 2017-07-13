@@ -30,19 +30,19 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
         });
     },
 
-    callPerformanceAPI(customerID, method) {
-      let performanceAPI;
+    callDashbergAPI(customerID, method) {
+      let url = '/dashberg';
       if (!customerID) {
-        performanceAPI = `/customers`;
+        url += `/customers`;
       }
       else {
-        performanceAPI = `/customers/${customerID}`;
+        url += `/customers/${customerID}`;
       }
       if (method) {
-        performanceAPI += `/${method}`
+        url += `/${method}`
       }
 
-      return $http.get(performanceAPI, {cache: true})
+      return $http.get(url, {cache: true})
         .then( response => response.data )
         .catch( error => {
           if (error.status === 401) {
