@@ -6,6 +6,10 @@ export class DashbergService {
     return this.DataService.callDashbergAPI(customerID, 'performance');
   }
 
+  getMetadata(customerID: number) {
+    return this.DataService.callDashbergAPI(customerID, 'metadata');
+  }
+
   getCustomerInfo() {
     return this.DataService.callAPI('ListCustomers');
   }

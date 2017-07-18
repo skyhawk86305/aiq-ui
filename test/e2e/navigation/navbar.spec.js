@@ -307,7 +307,7 @@ describe('The Navigation Bar', function() {
         it('@any @smoke the reporting alerts page', function() {
           support.checkBreadcrumb(navbar.subNavMenu, 'cluster-reporting-alerts', navbar.breadcrumb, clusterName, null, null, 'Alerts');
         });
-      
+
         it('@any @smoke the reporting iscsi sessions page', function() {
           support.checkBreadcrumb(navbar.subNavMenu, 'cluster-reporting-iscsiSessions', navbar.breadcrumb, clusterName, null, null, 'ISCSI Sessions');
         });

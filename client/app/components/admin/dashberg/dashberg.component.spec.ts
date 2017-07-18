@@ -70,6 +70,46 @@ describe('Component: dashberg', function() {
     })
   })
 
+  describe('.getMetadata', function() {
+    it('should call DashbergService and get metadata from API', function() {
+      const apiResponse = {
+        nodes: [
+          {
+            type: 'SF6010',
+            count: 2,
+            versions: [
+              {
+                name: '9.1.0.38',
+                count: 2
+              }
+            ]
+          }
+        ]
+      }
+      const expectedResponse = [
+        {
+          type: 'SF6010',
+          count: 2,
+          versions: [
+            {
+              name: '9.1.0.38',
+              count: 2
+            }
+          ]
+        }
+      ]
+      spyOn(dashbergService, 'getMetadata').and.returnValue($q.resolve(apiResponse));
+      controller.getMetadata()
+        .then(() => {
+          expect(controller.metadata).toEqual(expectedResponse);
+        })
+        .catch( err => {
+          fail('Promise was unexpectedly rejected');
+        })
+      $scope.$apply();
+    })
+  })
+
   describe('.updateID', function() {
     it('should call getPerformanceData function and get return promise', function() {
       spyOn(controller, 'getPerformanceData').and.returnValue($q.defer().promise);
@@ -127,5 +167,32 @@ describe('Component: dashberg', function() {
       $scope.$apply();
     })
 
+  })
+
+  describe('.showVersions', function() {
+    it('should add or remove element in nodeType', function() {
+      let type = null;
+      controller.showVersions(type);
+      expect(controller.nodeType).toEqual([]);
+      type = 'SF6010';
+      controller.showVersions(type);
+      expect(controller.nodeType).toEqual(['SF6010']);
+      controller.showVersions(type);
+      expect(controller.nodeType).toEqual([]);
+    })
+  })
+
+  describe('.versionInfo', function() {
+    it('should check NodeType include type or not', function() {
+      let type = null;
+      let res = controller.versionInfo(type);
+      expect(res).toBeFalsy;
+      type = 'SF6010';
+      res = controller.versionInfo(type);
+      expect(res).toBeFalsy;
+      controller.showVersions(type);
+      res = controller.versionInfo(type);
+      expect(res).toBeTruthy;
+    })
   })
 });
