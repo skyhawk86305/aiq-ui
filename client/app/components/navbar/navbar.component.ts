@@ -139,52 +139,60 @@
     };
 
     self.generateBreadcrumb = function() {
-      const clusterID = _.get(self.clusterSelect, 'selectedCluster.id', '');
-      const clusterName = _.get(self.clusterSelect, 'selectedCluster.name', '');
-      const customerName = _.get(self.clusterSelect, 'selectedCluster.customerName', '');
-
-      const subIndex = _.findIndex(self.subNavbarItems[self.activeItems.main], obj => obj.key === self.activeItems.sub);
-      const menuIndex = subIndex >= 0 ? _.findIndex(self.subNavbarItems[self.activeItems.main][subIndex].menuItems, obj => obj.key === self.activeItems.menu) : -1;
-
-      const main = self.subNavbarItems[self.activeItems.main];
-
-      const mainLabel = self.activeItems.main === 'cluster' ? customerName + ' / ' + clusterName : main[0].label;
-      const mainHref = main[0].href.replace(':clusterID', clusterID);
-
-      let subLabel = main[subIndex] ? main[subIndex].label : self.activeItems.sub;
-      subLabel = subLabel === 'Volume' ? subLabel : 'Active Volumes';
-
-      let subHref = '#/cluster/' + clusterID + '/volumes/activeVolumes';
-      if (subIndex >= 0) {
-        subHref = self.activeItems.main === 'cluster' ? main[subIndex].href.replace(':clusterID', clusterID) : main[subIndex].href;
+      self.breadcrumb.cluster = {
+        clusterId : _.get(self.clusterSelect, 'selectedCluster.id', ''),
+        clusterName : _.get(self.clusterSelect, 'selectedCluster.name', ''),
+        customerName : _.get(self.clusterSelect, 'selectedCluster.customerName', '')
       }
 
-      const menuLabel = subIndex >= 0 && menuIndex >= 0 ? main[subIndex].menuItems[menuIndex].label : 'Volume ID: ' + self.activeItems.menu;
-      let menuHref = '';
-      if (subIndex >= 0 && menuIndex >= 0) {
-        menuHref = self.activeItems.main === 'cluster' ? main[subIndex].menuItems[menuIndex].href.replace(':clusterID', clusterID) : main[subIndex].menuItems[menuIndex].href;
-      }
+      const main = self.subNavbarItems[self.activeItems.main][0];
+      self.breadcrumb.main = {
+        label : main.label,
+        href : main.href.replace(':clusterID', self.breadcrumb.cluster.clusterId)
+      };
+      self.breadcrumb.cluster.href = main.href.replace(':clusterID', self.breadcrumb.cluster.clusterId);
 
-      self.breadcrumb = {
-        main : {
-          label : mainLabel,
-          href : mainHref
-        },
-        sub : {
-          label : subLabel,
-          href : subHref
-        },
-        menu : {
-          label : menuLabel,
-          href: menuHref
+      const setSub = function(sub) {
+        if (sub) {
+          return {
+            label : sub.label,
+            href : sub.href.replace(':clusterID', self.breadcrumb.cluster.clusterId)
+          };
+        } else {
+          return {
+            label: self.activeItems.sub === 'Volume' ? self.activeItems.sub : 'Active Volumes',
+            href : '#/cluster/' + self.breadcrumb.cluster.clusterId + '/volumes/activeVolumes'
+          };
         }
       }
 
-      self.showSubBreadcrumb = !((mainHref === subHref) || menuHref);
+      const setMenu = function(sub) {
+        if (sub) {
+          const menu = _.find(sub.menuItems, obj => obj.key === self.activeItems.menu);
+          if (menu) {
+            return {
+              label : menu.label,
+              href : menu.href.replace(':clusterID', self.breadcrumb.cluster.clusterId)
+            };
+          } else {
+            return { label : self.breadcrumb.sub.label === 'Capacity Licensing' ? 'Customer ID: ' + self.activeItems.menu : self.activeItems.menu };
+          }
+        } else {
+          if (self.activeItems.menu) {
+            return { label : self.activeItems.sub === 'volume' ? 'Volume ID: ' + self.activeItems.menu : self.activeItems.menu };
+          }
+          return { label : '' }
+        }
+      }
+
+      const sub = _.find(self.subNavbarItems[self.activeItems.main], obj => obj.key === self.activeItems.sub);
+      self.breadcrumb.sub = setSub(sub);
+      self.breadcrumb.menu = setMenu(sub);
+      self.showSubBreadcrumb = !((self.breadcrumb.main.href === self.breadcrumb.sub.href) || self.breadcrumb.menu.href);
     }
 
     self.showBreadcrumb = function() {
-      return self.activeItems.menu && self.activeItems.sub && !(self.activeItems.main === 'dashboard' && self.activeItems.sub === 'overview');
+      return self.activeItems.menu && self.subNavbarItems[self.activeItems.main] && self.activeItems.sub && self.activeItems.main && !(self.activeItems.main === 'dashboard' && self.activeItems.sub === 'overview');
     }
 
     self.updateActiveItems = function() {
@@ -247,19 +255,18 @@
 
     $rootScope.$on('$routeChangeSuccess', function() {
       self.updateActiveItems();
-      $timeout(() => {
+      if (self.showBreadcrumb()) {
+        self.generateBreadcrumb();
+      }
+    });
+    self.$onInit = self.updateActiveItems();
+
+    $rootScope.$watch(function() {
+      $rootScope.$$postDigest(function() {
         if (self.showBreadcrumb()) {
           self.generateBreadcrumb();
         }
       });
     });
-    self.$onInit = function() {
-      self.updateActiveItems();
-      $timeout(() => {
-        if (self.showBreadcrumb()) {
-          self.generateBreadcrumb();
-        }
-      });
-    };
   }
 })();

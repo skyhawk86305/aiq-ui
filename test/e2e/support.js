@@ -142,7 +142,7 @@ support = {
       support.expect(breadcrumb.main.getText()).to.eventually.equal(main); 
     } else {
       if (cluster) {
-        support.expect(breadcrumb.main.isDisplayed()).to.eventually.be.true;
+        support.expect(breadcrumb.cluster.isDisplayed()).to.eventually.be.true;
       } else {
         support.expect(breadcrumb.main.isPresent()).to.eventually.be.false;
       }        

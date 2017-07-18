@@ -131,16 +131,24 @@
   </div>
 
   <div id="sf-breadcrumb" ng-if="$ctrl.showBreadcrumb()">
-    <div ng-if="$ctrl.activeItems.main" class="main-breadcrumb">
+
+    <div ng-if="$ctrl.breadcrumb.cluster.clusterId" class="cluster-breadcrumb">
+      <a ng-href="{{ $ctrl.breadcrumb.cluster.href }}">{{ $ctrl.breadcrumb.cluster.customerName }} / {{ $ctrl.breadcrumb.cluster.clusterName }}</a>
+    </div>
+
+    <div ng-if="$ctrl.activeItems.main && !$ctrl.breadcrumb.cluster.clusterId" class="main-breadcrumb">
       <a ng-href="{{ $ctrl.breadcrumb.main.href }}">{{ $ctrl.breadcrumb.main.label }}</a>
     </div>
+
     <div ng-if="$ctrl.activeItems.sub && $ctrl.showSubBreadcrumb" class="sub-breadcrumb">
       <a ng-if="$ctrl.activeItems.menu" href="{{ $ctrl.breadcrumb.sub.href }}">{{ $ctrl.breadcrumb.sub.label }}</a>
       <span ng-if="!$ctrl.activeItems.menu">{{ $ctrl.breadcrumb.sub.label }}</span>
     </div>
+
     <div ng-if="$ctrl.activeItems.menu" class="menu-breadcrumb">
       {{ $ctrl.breadcrumb.menu.label }}
     </div>
+
   </div>
 
   <div class="sf-sub-nav-menu -overlay"
