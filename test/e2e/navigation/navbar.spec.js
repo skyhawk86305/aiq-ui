@@ -420,14 +420,14 @@ describe('The Navigation Bar', function() {
       });
 
       it('should display the correct cluster switching between different cluster pages by pasting a url in the address bar', function() {
-        browser.get('http://localhost:3000/#/cluster/1849553/reporting/overview');
+        browser.get('/#/cluster/1849553/reporting/overview');
         expect(navbar.breadcrumb.cluster.isDisplayed()).to.eventually.be.true;
         expect(navbar.breadcrumb.clusterLink.getText()).to.eventually.equal('ABC-Cloud R&D_Americas.com / AB-DC1-Cluster01');
-        expect(navbar.breadcrumb.clusterLink.getAttribute('href')).to.eventually.equal('http://localhost:3000/#/cluster/1849553/reporting/overview');
-        browser.get('http://localhost:3000/#/cluster/1899306/reporting/overview');
+        expect(navbar.breadcrumb.clusterLink.getAttribute('href')).to.eventually.contain('/#/cluster/1849553/reporting/overview');
+        browser.get('/#/cluster/1899306/reporting/overview');
         expect(navbar.breadcrumb.cluster.isDisplayed()).to.eventually.be.true;
         expect(navbar.breadcrumb.clusterLink.getText()).to.eventually.equal('ATSC (ABCD Technical Solutions Corporation) / ABCDEFGHIJKLMNOP95-00010');
-        expect(navbar.breadcrumb.clusterLink.getAttribute('href')).to.eventually.equal('http://localhost:3000/#/cluster/1899306/reporting/overview');
+        expect(navbar.breadcrumb.clusterLink.getAttribute('href')).to.eventually.contain('/#/cluster/1899306/reporting/overview');
       });
 
     });
