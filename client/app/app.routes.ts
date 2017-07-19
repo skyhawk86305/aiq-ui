@@ -32,6 +32,9 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       .when('/reset-password', {
         template: '<reset-password></reset-password>'
       })
+      .when('/account/registerWithNetappSupport', {
+        template: require('./components/account/register-with-netapp-support/register-with-netapp-support-push-page.tpl.html')
+      })
       .when('/admin/unregisteredClusters', {
         template: '<unregistered-clusters></unregistered-clusters>',
         reloadOnSearch: false,
