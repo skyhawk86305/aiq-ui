@@ -25,9 +25,9 @@
         {key: 'virtualNetworkID', label: 'ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
         {key: 'name', label: 'Name', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
         {key: 'virtualNetworkTag', label: 'VLAN ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}},
-        {key: 'svip', label: 'SVIP', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-        {key: 'netmask', label: 'Netmask', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-        {key: 'gateway', label: 'Gateway', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
+        {key: 'svip', label: 'SVIP', filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT, format: {filter: 'string'}},
+        {key: 'netmask', label: 'Netmask', filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT, format: {filter: 'string'}},
+        {key: 'gateway', label: 'Gateway', filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT, format: {filter: 'string'}},
         {key: 'namespace', label: 'VRF Enabled', format: {filter: 'boolean', args:['Yes','No']}},
         {key: 'addressBlocks', label: 'IPs Used', format: {filter: 'ipsUsed'}},
       ];

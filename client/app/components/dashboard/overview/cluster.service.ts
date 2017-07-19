@@ -115,10 +115,12 @@ export class ClusterService {
       svip: {
         key: 'svip',
         label: 'SVIP',
+        filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT,
       },
       mvip: {
         key: 'mvip',
         label: 'MVIP',
+        filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT,
       },
       lastUpdateTime: {
         key: 'lastUpdateTime',

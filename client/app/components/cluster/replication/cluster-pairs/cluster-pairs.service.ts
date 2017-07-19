@@ -19,7 +19,7 @@
       { label: 'Remote MVIP', key: 'mvip', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Replicating Volumes', key: 'replicatingVolumes', filterComparators: SFFilterComparators.INTEGER_DEFAULT },
       { label: 'Status', key: 'status', filterComparators: SFFilterComparators.STRING_DEFAULT },
-      { label: 'UUID', key: 'clusterPairUUID', filterComparators: SFFilterComparators.STRING_DEFAULT },
+      { label: 'UUID', key: 'clusterPairUUID', filterComparators: SFFilterComparators.STRING_DEFAULT, clipboard: true },
     ];
 
     function listClusterPairs() {

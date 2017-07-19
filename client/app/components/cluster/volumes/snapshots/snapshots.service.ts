@@ -17,7 +17,7 @@
       {key: 'snapshotID', label: 'ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'volumeID', label: 'Volume ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'accountID', label: 'Account ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
-      {key: 'snapshotUUID', label: 'UUID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
+      {key: 'snapshotUUID', label: 'UUID', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}, clipboard: true},
       {key: 'totalSize', label: 'Size', format: {filter: 'bytes'}},
       {key: 'volumeSize', label: 'Volume Size', format: {filter: 'bytes'}},
       {key: 'createTime', label: 'Create Time', format: {filter: 'aiqDate'}},

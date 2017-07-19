@@ -24,9 +24,9 @@
       {key: 'nodeType', label: 'Type', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'softwareVersion', label: 'Version', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
       {key: 'serviceTag', label: 'Service Tag', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter: 'string'}},
-      {key: 'mip', label: 'Management IP', format: {filter: 'string'}},
-      {key: 'cip', label: 'Cluster IP', format: {filter: 'string'}},
-      {key: 'sip', label: 'Storage IP', format: {filter: 'string'}},
+      {key: 'mip', label: 'Management IP', filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT, format: {filter: 'string'}},
+      {key: 'cip', label: 'Cluster IP', filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT, format: {filter: 'string'}},
+      {key: 'sip', label: 'Storage IP', filterComparators: SFFilterComparators.IP_ADDRESS_DEFAULT, format: {filter: 'string'}},
       {key: 'ipcPort', label: 'Replication Port', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, true]}}
     ];
 

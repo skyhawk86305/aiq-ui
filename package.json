@@ -69,7 +69,7 @@
     "yargs": "^4.7.1"
   },
   "dependencies": {
-    "@sf-netapp/sf-components": "~3.2.11",
+    "@sf-netapp/sf-components": "~3.3.3",
     "angular": "1.5.8",
     "angular-cache": "^4.6.0",
     "angular-filter": "^0.5.15",
