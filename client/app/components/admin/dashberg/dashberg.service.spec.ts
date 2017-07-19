@@ -15,9 +15,9 @@ describe('DashbergService', function() {
 
   describe('.getPerformanceData', function() {
     it('should call the Performance API via DataService', function() {
-      spyOn(DataService, 'callPerformanceAPI').and.returnValue($q.resolve());
+      spyOn(DataService, 'callDashbergAPI').and.returnValue($q.resolve());
       service.getPerformanceData();
-      expect(DataService.callPerformanceAPI).toHaveBeenCalledWith(service.customerID, 'Performance');
+      expect(DataService.callDashbergAPI).toHaveBeenCalledWith(service.customerID, 'performance');
     })
   })
 

@@ -23,7 +23,7 @@ class DashbergController {
           id: customer.customerID,
           name: customer.customerName,
         }));
-      })
+      });
   }
 
   getPerformanceData() {

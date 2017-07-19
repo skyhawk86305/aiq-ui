@@ -3,7 +3,7 @@ export class DashbergService {
   constructor( private DataService ) {}
 
   getPerformanceData(customerID: number) {
-    return this.DataService.callPerformanceAPI(customerID, 'Performance');
+    return this.DataService.callDashbergAPI(customerID, 'performance');
   }
 
   getCustomerInfo() {
