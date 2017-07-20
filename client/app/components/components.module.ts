@@ -17,6 +17,9 @@ import { UnregisteredClustersService } from './admin/unregistered-clusters/unreg
 import { RegisterUnregisteredClusterComponent } from './admin/unregistered-clusters/register-cluster.component';
 import { RegisterUnregisteredClusterConfirmationComponent } from './admin/unregistered-clusters/register-cluster-confirmation.component';
 
+import { ArchivedClustersComponent } from './admin/archived-clusters/archived-clusters.component';
+import { ArchivedClustersService } from './admin/archived-clusters/archived-clusters.service';
+
 import { FindClusterComponent } from './find-cluster/find-cluster.component';
 
 import { VmwareAlarmsComponent } from './cluster/vmware-alarms/vmware-alarms.component';
@@ -45,6 +48,9 @@ export const ComponentsModule = angular
   .component('registerUnregisteredCluster', RegisterUnregisteredClusterComponent)
   .component('registerUnregisteredClusterConfirmation', RegisterUnregisteredClusterConfirmationComponent)
   .service('UnregisteredClustersService', UnregisteredClustersService)
+
+  .component('archivedClusters', ArchivedClustersComponent)
+  .service('ArchivedClustersService', ArchivedClustersService)
 
   .component('findCluster', FindClusterComponent)
 

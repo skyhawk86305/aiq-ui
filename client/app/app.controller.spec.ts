@@ -174,6 +174,9 @@ describe('AppController', function () {
         location.path('/Alerts/Add');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/alerts/policies/add');
+        location.path('/Clusters/Archived');
+        rootScope.$digest();
+        expect(location.path()).toEqual('/admin/archivedClusters');
         location.path('/Alerts/Suppress');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/alerts/suppressedClusters');
@@ -246,9 +249,6 @@ describe('AppController', function () {
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Admin/Nodes/Add');
-        rootScope.$digest();
-        expect(location.path()).toEqual('/dashboard/overview');
-        location.path('/Clusters/Archived');
         rootScope.$digest();
         expect(location.path()).toEqual('/dashboard/overview');
         location.path('/Clusters/Capacity/Forecast');
