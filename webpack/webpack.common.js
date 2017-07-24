@@ -26,6 +26,7 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({ template: './client/index.html' }),
     new CopyWebpackPlugin([{ from: './client/static' }]),
+    new CopyWebpackPlugin([{ from: './node_modules/@sf-netapp/sf-components/dist/images', to: './images'}]),
     new webpack.ProvidePlugin({ d3: 'd3' }) // ToDo: remove once sf-components is packaged correctly
   ]
 };

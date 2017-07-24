@@ -77,6 +77,8 @@
     "angular-permission": "^5.2.3",
     "angular-route": "~1.5.7",
     "angular-sanitize": "~1.5.0",
+    "angular-schema-form": "^0.8.13",
+    "angular-schema-form-bootstrap": "^0.2.0",
     "angular-ui-bootstrap": "^2.4.0",
     "bootstrap-css-only": "~3.3.6",
     "es6-object-assign": "^1.0.3",

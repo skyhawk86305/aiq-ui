@@ -5,6 +5,8 @@ import 'angular-filter';
 import 'angular-route';
 import 'angular-sanitize';
 import 'angular-ui-bootstrap';
+import 'angular-schema-form';
+import 'angular-schema-form-bootstrap';
 import 'angular-permission';
 import * as objectAssignPolyfill from 'es6-object-assign';
 import '../../node_modules/@sf-netapp/sf-components/dist/sf-components.js';
@@ -25,6 +27,7 @@ export const AppModule = angular
     'ngSanitize',
     'ngAnimate',
     'angular-cache',
+    'schemaForm',
     'permission',
     'permission.ng',
     'angular.filter',

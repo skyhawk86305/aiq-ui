@@ -12,6 +12,9 @@ import { TimestampWithWarningFilter } from './dashboard/overview/timestamp-with-
 import { RegisterClusterComponent } from './dashboard/register-cluster/register-cluster.component';
 import { RegisterClusterConfirmationComponent } from './dashboard/register-cluster/register-cluster-confirmation.component';
 
+import { SupportDashboardOverviewComponent } from './support-dashboard/overview/overview.component';
+import { AlertService } from './support-dashboard/overview/alert.service';
+
 import { UnregisteredClustersComponent } from './admin/unregistered-clusters/unregistered-clusters.component';
 import { UnregisteredClustersService } from './admin/unregistered-clusters/unregistered-clusters.service';
 import { RegisterUnregisteredClusterComponent } from './admin/unregistered-clusters/register-cluster.component';
@@ -54,6 +57,9 @@ export const ComponentsModule = angular
 
   .component('registerCluster', RegisterClusterComponent)
   .component('registerClusterConfirmation', RegisterClusterConfirmationComponent)
+
+  .component('supportOverview', SupportDashboardOverviewComponent)
+  .service('AlertService', AlertService)
 
   .component('unregisteredClusters', UnregisteredClustersComponent)
   .component('registerUnregisteredCluster', RegisterUnregisteredClusterComponent)
