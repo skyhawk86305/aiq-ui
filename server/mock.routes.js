@@ -18,13 +18,13 @@ mockRoutes.post('/json-rpc/2.0', function (req, res) {
   res.send(response);
 });
 
-mockRoutes.get('/customers/:customerID/:method', function(req, res) {
+mockRoutes.get('/dashberg/customers/:customerID/:method', function(req, res) {
   var fixture = require('./fixtures/' + fixtureDir + '/' + req.params.method),
     response = fixture || {};
   res.send(response);
 })
 
-mockRoutes.get('/customers/:method', function(req, res) {
+mockRoutes.get('/dashberg/customers/:method', function(req, res) {
   var fixture = require('./fixtures/' + fixtureDir + '/' + req.params.method),
     response = fixture || {};
   res.send(response);
