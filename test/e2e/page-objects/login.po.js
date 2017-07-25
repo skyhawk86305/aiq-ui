@@ -30,6 +30,13 @@ var LoginPage = function () {
     }
   };
   page.errorMessage = element(by.css('.login-error.error-message'));
+  page.modal = {
+    el: element(by.css('.modal.link-aiq-netapp-accounts-modal')),
+    backdrop: element(by.css('.modal-backdrop')),
+    closeButton: element(by.css('.aiq-modal-header .aiq-modal-close-button')),
+    yesButton: element(by.css('.button-submit')),
+    noButton: element(by.css('.button-cancel'))
+  }
 };
 
 module.exports = LoginPage;

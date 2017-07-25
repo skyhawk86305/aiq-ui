@@ -1,37 +1,53 @@
-(function () {
-  'use strict';
+import * as _ from 'lodash';
 
-  angular
-    .module('aiqUi')
-    .component('login', {
-      template: require('./login.tpl.html'),
-      controller: ['AuthService', '$location', '$rootScope', LoginController]
-    });
+class LoginController {
+  public linkedAiqWithNetapp: boolean;
+  private error;
+  private queryParams;
 
-  function LoginController(AuthService, $location, $rootScope) {
-    let self = this;
+  static $inject = [ 'AuthService', '$location', '$rootScope', '$uibModal' ];
+  constructor(
+    private AuthService,
+    private $location,
+    private $rootScope,
+    private $uibModal,
+  ) {}
 
-    // needs to check whether or not the user has linked
-    // their AIQ account with their NetApp Support Account
-    // let linkedAIQWithSSO = true;
+  login(credentials) {
+    const self = this;
+    self.AuthService.login(credentials)
+      .then( () => {
+        self.error = null;
+        self.$rootScope.queryParams = self.$location.search();
+        // commented out until account linking is implemented
+        /* if (!self.linkedAiqWithNetapp) {
+          self.openLinkingModal();
+        } else */ if (self.$rootScope.queryParams && self.$rootScope.queryParams.url) {
+          self.$location.url(self.$rootScope.queryParams.url);
+        } else {
+          self.$location.path('/');
+        }
+      }).catch( () => {
+        self.error = 'Invalid username or password';
+      });
+  };
 
-    self.login = function(credentials) {
-      AuthService.login(credentials)
-        .then(function() {
-          self.error = null;
-          let queryParams = $location.search();
-          if (queryParams && queryParams.url) {
-            $location.url(queryParams.url);
-          // disabled until new login page is finished
-          // } else if (!linkedAIQWithSSO) {
-          //   $rootScope.redirectUrl = queryParams.url;
-          //   $location.path('/account/register-with-netapp-support');
-          } else {
-            $location.path('/');
-          }
-        }).catch(function() {
-          self.error = 'Invalid username or password';
-        });
-    };
-  }
-})();
+  private openLinkingModal() {
+    return this.$uibModal
+      .open({
+        animation: false,
+        component: 'linkAiqNetappAccounts',
+        size: 'md',
+        windowClass: 'aiq-modal link-aiq-netapp-accounts-modal',
+        background: 'static',
+        backdropClass: 'aiq-modal-backdrop',
+      })
+      .result;
+  };
+
+}
+
+export const LoginComponent = {
+  template: require('./login.tpl.html'),
+  controller: LoginController,
+};

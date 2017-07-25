@@ -1,8 +1,16 @@
 @import './colors.less';
 
-.aiq-modal {
-  .modal-dialog {
-    margin: 250px auto;
+.aiq-modal, .modal.in {
+  height: 100%;
+  width: 100%;
+  display: block;
+
+  .modal-dialog{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
 
     .modal-content {
       border-radius: 0px;
