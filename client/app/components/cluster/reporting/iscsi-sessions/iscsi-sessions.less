@@ -1,0 +1,35 @@
+@import '../../../../styles/shared.less';
+
+.reporting-iscsi-sessions-page {
+  height: 100%;
+  .flex-block();
+  .flex-direction(column);
+  overflow-y: auto;
+
+  .sf-widget {
+    margin: 0 0 15px 0;
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+
+  .iscsi-sessions-sync-graphs-parent {
+    .flex(1);
+    .flex-block();
+    .flex-direction(column);
+    min-height: 600px;
+    position: relative;
+  }
+  .iscsi-sessions-sync-graphs {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    .expand-collapse-button {
+      border-left: none;
+      border-bottom: none;
+      border-top: none;
+    }
+  }
+}

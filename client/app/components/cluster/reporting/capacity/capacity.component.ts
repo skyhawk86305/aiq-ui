@@ -1,156 +1,169 @@
-(function () {
-  'use strict';
+import * as _ from 'lodash';
+import * as angular from 'angular';
 
-  const _ = require('lodash');
+export const CapacityGraphsComponent = {
+  controller: CapacityGraphsController,
+  template: require('./capacity.tpl.html')
+};
 
-  angular
-    .module('aiqUi')
-    .component('capacityGraphs', {
-      template: require('./capacity.tpl.html'),
-      controller: [
-        '$routeParams',
-        '$filter',
-        '$q',
-        'DataService',
-        'SFD3LineGraph',
-        'SFD3BarGraph',
-        'CapacityGraphsService',
-        CapacityGraphsController
-      ]
-    });
+function CapacityGraphsController($rootScope, $routeParams, $filter, $q, $timeout, DataService, SFD3LineGraph, SFD3BarGraph, CapacityGraphsService) {
+  const ctrl = this;
 
-  function CapacityGraphsController($routeParams, $filter, $q, DataService, SFD3LineGraph, SFD3BarGraph, CapacityGraphsService) {
-    let ctrl = this;
-
-    ctrl.$onInit = function() {
-      CapacityGraphsService.update($routeParams.clusterID);
-      ctrl.updateInfoBar();
-    };
-
-    ctrl.updateInfoBar = function() {
-      const clusterID = parseInt($routeParams.clusterID, 10);
-      return $q.all([
-        ctrl.getClusterFullThreshold(clusterID),
-        ctrl.getClusterFullPrediction(clusterID),
-      ]);
-    };
-
-    ctrl.getClusterFullThreshold = function(clusterID) {
-      ctrl.getClusterFullThresholdState = 'loading';
-      return DataService.callAPI('GetClusterFullThreshold', { clusterID })
-        .then( response => {
-          ctrl.getClusterFullThresholdState = 'loaded';
-          ctrl.clusterFullThreshold = _.get(response, 'clusterFullThreshold');
-        })
-        .catch( err => {
-          ctrl.getClusterFullThresholdState = 'error';
-        });
-    };
-
-    ctrl.getClusterFullPrediction = function(clusterID) {
-      ctrl.getClusterFullPredictionState = 'loading';
-      return DataService.callAPI('GetClusterFullPrediction', { clusterID })
-        .then( response => {
-          ctrl.getClusterFullPredictionState = 'loaded';
-          ctrl.clusterFullPrediction = _.get(response, 'clusterFullPrediction');
-        })
-        .catch( err => {
-          ctrl.getClusterFullPredictionState = 'error';
-        });
-    };
-
-    ctrl.staticDateRangeOptions = [
-      {milliseconds: 3600000,    label: 'Hour'},
-      {milliseconds: 86400000,   label: '24 Hours'},
-      {milliseconds: 604800000,  label: '7 Days', default: true},
+  ctrl.$onInit = () => {
+    CapacityGraphsService.update($routeParams.clusterID);
+    ctrl.updateInfoBar();
+    ctrl.staticDateRangeOptions = [{milliseconds: 3600000, label: 'Hour'},
+      {milliseconds: 86400000, label: '24 Hours'},
+      {milliseconds: 604800000, label: '7 Days', default: true},
       {milliseconds: 1209600000, label: '14 Days'},
-      {milliseconds: 2592000000, label: '30 Days'}
-    ];
+      {milliseconds: 2592000000, label: '30 Days'}];
 
     ctrl.syncGraphs = [
       {
         service: CapacityGraphsService,
         id: 'block-capacity',
-        child: {
+        selected: {
           title: 'Block Capacity',
-          id: 'block-capacity-child',
           export: true,
           legend: {
-            position: 'top',
             items: {
               maxUsedSpace: 'Max Used Space',
               usedSpace: 'Used Space'
             }
           },
           dataLimit: 750,
-          graph: new SFD3LineGraph(getGraphConfig('blockChild'))
+          graph: new SFD3LineGraph(ctrl.getGraphConfig('block'))
+        },
+        sparkLine: {
+          title: 'Block Capacity',
+          dataLimit: 175,
+          graph: new SFD3LineGraph(ctrl.getGraphConfig('block', false, true))
         },
         context: {
-          label: 'Block Capacity',
-          id: 'block-capacity-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('blockContext'))
+          graph: new SFD3BarGraph(ctrl.getGraphConfig('block', true))
         }
       },
       {
         service: CapacityGraphsService,
         id: 'metadata-capacity',
-        child: {
+        selected: {
           title: 'Metadata Capacity',
-          id: 'metadata-capacity-child',
           export: true,
           legend: {
-            position: 'top',
             items: {
               maxUsedMetadataSpace: 'Total Capacity',
               usedMetadataSpace: 'Used Metadata Space'
             }
           },
           dataLimit: 750,
-          graph: new SFD3LineGraph(getGraphConfig('metadataChild'))
+          graph: new SFD3LineGraph(ctrl.getGraphConfig('metadata'))
+        },
+        sparkLine: {
+          title: 'Metadata Capacity',
+          dataLimit: 175,
+          graph: new SFD3LineGraph(ctrl.getGraphConfig('metadata', false, true))
         },
         context: {
-          label: 'Metadata Capacity',
-          id: 'metadata-capacity-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('metadataContext'))
+          graph: new SFD3BarGraph(ctrl.getGraphConfig('metadata', true))
         }
       },
       {
         service: CapacityGraphsService,
         id: 'provisioned-space',
-        child: {
+        selected: {
           title: 'Provisioned Space',
-          id: 'provisioned-space-child',
           export: true,
           legend: {
-            position: 'top',
             items: {
               maxProvisionedSpace: 'Max Provisioned Space',
               provisionedSpace: 'Provisioned Space'
             }
           },
           dataLimit: 750,
-          graph: new SFD3LineGraph(getGraphConfig('provisionedChild'))
+          graph: new SFD3LineGraph(ctrl.getGraphConfig('provisioned'))
+        },
+        sparkLine: {
+          title: 'Provisioned Space',
+          dataLimit: 175,
+          graph: new SFD3LineGraph(ctrl.getGraphConfig('provisioned', false, true))
         },
         context: {
-          label: 'Provisioned Space',
-          id: 'provisioned-space-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('provisionedContext'))
+          graph: new SFD3BarGraph(ctrl.getGraphConfig('provisioned', true))
         }
       }
     ];
 
-    function getGraphConfig(graph) {
-      let graphConfigs = {
-        blockChild: {
-          bindTo: 'block-capacity-child-graph',
+    $timeout(function() {
+      ctrl.blockCapacitySelection = angular
+        .element(document.getElementById('block-capacity-selection'))
+        .on('click', function(){
+          ctrl.currentGraph = 'block-capacity';
+        });
+
+      ctrl.metadataCapacitySelection = angular
+        .element(document.getElementById('metadata-capacity-selection'))
+        .on('click', function(){
+          ctrl.currentGraph = 'metadata-capacity';
+        });
+
+      ctrl.provisionedSpaceSelection = angular
+        .element(document.getElementById('provisioned-space-selection'))
+        .on('click', function(){
+          ctrl.currentGraph = 'provisioned-space';
+        });
+
+      ctrl.currentGraph = document.getElementsByClassName('graph-selection-container active')[0].firstChild['id'];
+    });
+  };
+
+
+  ctrl.getClusterFullThreshold = function(clusterID) {
+    ctrl.getClusterFullThresholdState = 'loading';
+    return DataService.callAPI('GetClusterFullThreshold', {clusterID})
+      .then(response => {
+        ctrl.getClusterFullThresholdState = 'loaded';
+        ctrl.clusterFullThreshold = _.get(response, 'clusterFullThreshold');
+      })
+      .catch(err => {
+        ctrl.getClusterFullThresholdState = 'error';
+      });
+  };
+
+  ctrl.updateInfoBar = function() {
+    const clusterID = parseInt($routeParams.clusterID, 10);
+    return $q.all([
+      ctrl.getClusterFullThreshold(clusterID),
+      ctrl.getClusterFullPrediction(clusterID),
+    ]);
+  };
+
+  ctrl.getClusterFullPrediction = function(clusterID) {
+    ctrl.getClusterFullPredictionState = 'loading';
+    return DataService.callAPI('GetClusterFullPrediction', {clusterID})
+      .then(response => {
+        ctrl.getClusterFullPredictionState = 'loaded';
+        ctrl.clusterFullPrediction = _.get(response, 'clusterFullPrediction');
+      })
+      .catch(err => {
+        ctrl.getClusterFullPredictionState = 'error';
+      });
+  };
+
+  ctrl.getGraphConfig = function(graph, context = false, sparkLine = false) {
+    const graphType = context ? 'context' : 'child';
+    const graphConfigs = {
+      block: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
           showAxisLabels: true,
+          sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: ['maxUsedSpace', 'usedSpace'],
+            ids: sparkLine ? ['usedSpace'] : ['maxUsedSpace', 'usedSpace'],
             axes: {
               maxUsedSpace: 'y0',
               usedSpace: 'y0'
@@ -164,39 +177,40 @@
               usedSpace: ['#E16482', '#00A7C6', '#10E8A5']
             },
             textures: {
-              maxUsedSpace: ['dashed'],
-              usedSpace: ['solid']
+              maxUsedSpace: 'dashed',
+              usedSpace: 'solid'
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
-                spacing: 200
+                format: (milliseconds) => $filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
-                spacing: 30
+                format: (bytes) => $filter('bytes')(bytes, false),
+                spacing: 50
               }
             }
           }
         },
-        blockContext: {
-          bindTo: 'block-capacity-context-graph',
+        context: {
+          bindTo: graph + '-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'usedSpace',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -206,25 +220,28 @@
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
+                format: (milliseconds) => $filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
+                format: (bytes) => $filter('bytes')(bytes, false),
                 spacing: 30
               }
             }
           }
-        },
-        metadataChild: {
-          bindTo: 'metadata-capacity-child-graph',
+        }
+      },
+      metadata: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
+          sparkLine: sparkLine,
           showAxisLabels: true,
           data: {
             x: 'timestamps',
-            ids: ['maxUsedMetadataSpace', 'usedMetadataSpace'],
+            ids: sparkLine ? ['usedMetadataSpace'] : ['maxUsedMetadataSpace', 'usedMetadataSpace'],
             axes: {
               maxUsedMetadataSpace: 'y0',
               usedMetadataSpace: 'y0'
@@ -238,39 +255,40 @@
               usedMetadataSpace: ['#E16482', '#00A7C6', '#10E8A5']
             },
             textures: {
-              maxUsedMetadataSpace: ['dashed'],
-              usedMetadataSpace: ['solid']
+              maxUsedMetadataSpace: 'dashed',
+              usedMetadataSpace: 'solid'
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
-                spacing: 200
+                format: (milliseconds) => $filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
-                spacing: 30
+                format: (bytes) => $filter('bytes')(bytes, false),
+                spacing: 50
               }
             }
           }
         },
-        metadataContext: {
-          bindTo: 'metadata-capacity-context-graph',
+        context: {
+          bindTo: graph + '-capacity-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'usedMetadataSpace',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -280,25 +298,28 @@
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
+                format: (milliseconds) => $filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
+                format: (bytes) => $filter('bytes')(bytes, false),
                 spacing: 30
               }
             }
           }
-        },
-        provisionedChild: {
-          bindTo: 'provisioned-space-child-graph',
+        }
+      },
+      provisioned: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
           showAxisLabels: true,
+          sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: ['maxProvisionedSpace', 'provisionedSpace'],
+            ids: sparkLine ? ['provisionedSpace'] : ['maxProvisionedSpace', 'provisionedSpace'],
             axes: {
               maxProvisionedSpace: 'y0',
               provisionedSpace: 'y0'
@@ -312,39 +333,40 @@
               provisionedSpace: ['#E16482', '#00A7C6', '#10E8A5']
             },
             textures: {
-              maxProvisionedSpace: ['dashed'],
-              provisionedSpace: ['solid']
+              maxProvisionedSpace: 'dashed',
+              provisionedSpace: 'solid'
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
-                spacing: 200
+                format: (milliseconds) => $filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
-                spacing: 30
+                format: (bytes) => $filter('bytes')(bytes, false),
+                spacing: 50
               }
             }
           }
         },
-        provisionedContext: {
-          bindTo: 'provisioned-space-context-graph',
+        context: {
+          bindTo: graph + '-space-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'provisionedSpace',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -354,30 +376,23 @@
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
+                format: (milliseconds) => $filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
+                format: (bytes) => $filter('bytes')(bytes, false),
                 spacing: 30
               }
             }
           }
         }
-      };
+      }
+    };
 
-      return graphConfigs[graph];
-    }
-    /***********************  Helper Functions  ************************/
-
-    function xAxisFormat(milliseconds) {
-      return $filter('aiqDate')(new Date(milliseconds));
-    }
-
-    function yAxisFormat(bytes) {
-      return $filter('bytes')(bytes, false);
-    }
+    return graphConfigs[graph][graphType];
   }
-})();
+}
+
+CapacityGraphsController.$inject = ['$rootScope', '$routeParams', '$filter', '$q', '$timeout', 'DataService', 'SFD3LineGraph', 'SFD3BarGraph', 'CapacityGraphsService'];

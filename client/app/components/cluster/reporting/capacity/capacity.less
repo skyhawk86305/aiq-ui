@@ -1,60 +1,97 @@
 @import '../../../../styles/shared.less';
 
-#capacity-sync-graphs {
-  .info-box {
-    height: 150px;
-    .info-box-content {
-      .justify-content(flex-start);
+.reporting-capacity-page {
+  .flex-block();
+  .flex-direction(column);
+
+  height: 100%;
+  overflow-y: auto;
+
+  .sf-widget {
+    margin: 0 0 15px 0;
+
+    &:last-of-type {
+      margin: 0;
     }
 
-    .value {
-      font-size: 32px;
-      font-weight: normal;
-      margin: auto;
-      color: @text-primary-color;
-    }
+    &.info-bar {
+      .badge {
+        height: 90px;
+      }
 
-    .label {
-      font-size: 14px;
-      color: @text-secondary-color;
-    }
+      .info-bar-row {
+        .flex-block();
+        .flex-direction(row);
+        .align-items(stretch);
+        .align-content(stretch);
 
-    .forecast {
-      font-size: 14px;
-      color: @text-primary-color;
-    }
+        border-left: none;
 
-    .badge {
-      height: 90px;
-      .justify-content(center);
+        @media screen and (max-width: 1024px) {
+          display: block;
+        }
 
-      .title {
-        font-size: 20px;
-        margin: 0px;
-        color: @basic-white;
+        .info-box {
+          height: 150px;
+          min-width: 20%;
+
+          @media screen and (max-width: 1024px) {
+            width: 100%
+          }
+
+          .info-box-content {
+            .justify-content(flex-start);
+          }
+
+          .value {
+            font-size: 32px;
+            font-weight: normal;
+            margin: auto;
+            color: @text-primary-color;
+          }
+
+          .label {
+            font-size: 14px;
+            color: @text-secondary-color;
+          }
+
+          .forecast {
+            font-size: 14px;
+            color: @text-primary-color;
+          }
+
+          .badge {
+            height: 90px;
+            .justify-content(center);
+
+            .title {
+              font-size: 20px;
+              margin: 0px;
+              color: @basic-white;
+            }
+          }
+        }
       }
     }
+  }
 
-  }
-}
+  .capacity-sync-graphs-parent {
+    .flex(1);
+    .flex-block();
+    .flex-direction(column);
 
-#block-capacity {
-  @media (min-width: 768px) {
-    .info-box {
-      width: 100%;
-      float: left
-    }
+    min-height: 600px;
+    position: relative;
   }
-  @media (min-width: 992px) {
-    .info-box {
-      width: 20%;
-      float: left
-    }
-  }
-  @media (min-width: 1200px) {
-    .info-box {
-      width: 20%;
-      float: left
+  .capacity-sync-graphs {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    .expand-collapse-button {
+      border-left: none;
+      border-bottom: none;
+      border-top: none;
     }
   }
 }

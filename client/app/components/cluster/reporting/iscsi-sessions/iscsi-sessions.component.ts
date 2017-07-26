@@ -1,73 +1,62 @@
-(function () {
-  'use strict';
+class IscsiGraphsController {
+  public staticDateRangeOptions: Array<Object>;
+  public syncGraphs: Array<Object>;
+  public volumeID: number;
+  public clusterID: number;
 
-  const moduleName = 'aiqUi';
-  const componentName = 'iscsiSessions';
-  const template = require('./iscsi-sessions.tpl.html');
-  const deps = [ '$routeParams', '$filter', 'SFD3LineGraph', 'SFD3BarGraph', 'IscsiSessionsGraphService' ];
+  static $inject = ['$routeParams', '$filter', 'SFD3LineGraph', 'SFD3BarGraph', 'IscsiSessionsGraphService',];
 
-  class IscsiSessionsController {
-    public staticDateRangeOptions;
-    public syncGraphs;
+  constructor(private $routeParams, private $filter, private SFD3LineGraph, private SFD3BarGraph, private IscsiSessionsGraphService) {
+  }
 
-    constructor(
-      private $routeParams,
-      private $filter,
-      private SFD3LineGraph,
-      private SFD3BarGraph,
-      private IscsiSessionsGraphService
-    ) {
-
-      this.staticDateRangeOptions = [
-        {milliseconds: 3600000,    label: 'Hour'},
-        {milliseconds: 86400000,   label: '24 Hours'},
-        {milliseconds: 604800000,  label: '7 Days', default: true},
-        {milliseconds: 1209600000, label: '14 Days'},
-        {milliseconds: 2592000000, label: '30 Days'}
-      ];
-
-      this.syncGraphs = [
-        {
-          service: this.IscsiSessionsGraphService,
-          id: 'iscsi-sessions',
-          child: {
-            title: 'iSCSI Sessions',
-            id: 'iscsi-sessions-child',
-            export: true,
-            legend: {
-              position: 'top',
-              items: {
-                activeSessions: 'Active Sessions',
-                peakActiveSessions: 'Peak Active Sessions',
-              }
-            },
-            dataLimit: 750,
-            graph: new SFD3LineGraph(this.getGraphConfig('iscsiSessionsChild'))
+  $onInit() {
+    this.IscsiSessionsGraphService.update(parseInt(this.$routeParams.clusterID, 10));
+    this.staticDateRangeOptions = [ {milliseconds: 3600000, label: 'Hour'},
+      {milliseconds: 86400000, label: '24 Hours'},
+      {milliseconds: 604800000, label: '7 Days', default: true},
+      {milliseconds: 1209600000, label: '14 Days'},
+      {milliseconds: 2592000000, label: '30 Days'} ];
+    this.syncGraphs = [
+      {
+        service: this.IscsiSessionsGraphService,
+        id: 'iscsi-sessions',
+        selected: {
+          title: 'iSCSI Sessions',
+          export: true,
+          legend: {
+            items: {
+              activeSessions: 'Active Sessions',
+              peakActiveSessions: 'Peak Active Sessions',
+            }
           },
-          context: {
-            label: 'iSCSI Sessions',
-            id: 'iscsi-sessions-context',
-            dataLimit: 200,
-            graph: new SFD3BarGraph(this.getGraphConfig('iscsiSessionsContext'))
-          }
+          dataLimit: 750,
+          graph: new this.SFD3LineGraph(this.getGraphConfig('iscsiSessions'))
+        },
+        sparkLine: {
+          title: 'iSCSI Sessions',
+          dataLimit: 175,
+          graph: new this.SFD3LineGraph(this.getGraphConfig('iscsiSessions', false, true))
+        },
+        context: {
+          dataLimit: 200,
+          graph: new this.SFD3BarGraph(this.getGraphConfig('iscsiSessions', true))
         }
-      ];
+      }
+    ];
+  }
 
-    }
-
-    $onInit() {
-      this.IscsiSessionsGraphService.update(this.$routeParams.clusterID);
-    }
-
-    private getGraphConfig(graph) {
-      let graphConfigs = {
-        iscsiSessionsChild: {
-          bindTo: 'iscsi-sessions-child-graph',
+  getGraphConfig(graph, context = false, sparkLine = false) {
+    const graphType = context ? 'context' : 'child';
+    const graphConfigs = {
+      iscsiSessions: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
           showAxisLabels: true,
+          sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: [ 'activeSessions', 'peakActiveSessions' ],
+            ids: sparkLine ? ['activeSessions'] : ['activeSessions', 'peakActiveSessions'],
             axes: {
               activeSessions: 'y0',
               peakActiveSessions: 'y0',
@@ -81,38 +70,39 @@
               peakActiveSessions: ['#6A6E94'],
             },
             textures: {
-              activeSessions: ['solid'],
-              peakActiveSessions: ['solid'],
+              activeSessions: 'solid',
+              peakActiveSessions: 'solid',
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           axis: {
             x: {
               tick: {
-                format: (ts) => this.xAxisFormat(ts),
-                spacing: 200
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                spacing: 30
+                spacing: 50
               }
             }
           }
         },
-        iscsiSessionsContext: {
-          bindTo: 'iscsi-sessions-context-graph',
+        context: {
+          bindTo: graph + '-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'activeSessions',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -122,7 +112,7 @@
           axis: {
             x: {
               tick: {
-                format: (ts) => this.xAxisFormat(ts),
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
@@ -133,22 +123,13 @@
             }
           }
         }
-      };
-
-      return graphConfigs[graph];
-    }
-
-    private xAxisFormat(milliseconds) {
-      return this.$filter('aiqDate')(new Date(milliseconds));
-    }
+      }
+    };
+    return graphConfigs[graph][graphType];
   }
+}
 
-
-  angular
-    .module(moduleName)
-    .component(componentName, {
-      template,
-      controller: [ ...deps, IscsiSessionsController ]
-    });
-
-})();
+export const IscsiGraphsComponent = {
+  template: require('./iscsi-sessions.tpl.html'),
+  controller: IscsiGraphsController
+};

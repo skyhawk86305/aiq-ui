@@ -1,45 +1,29 @@
-(function () {
-  'use strict';
+class EfficiencyGraphsController {
+  public syncGraphs: Array<Object>;
+  public volumeID: number;
+  public clusterID: number;
+  public staticDateRangeOptions: Array<Object>;
 
-  angular
-    .module('aiqUi')
-    .component('efficiencyGraphs', {
-      template: require('./efficiency.tpl.html'),
-      controller: [
-        '$routeParams',
-        '$filter',
-        'SFD3LineGraph',
-        'SFD3BarGraph',
-        'EfficiencyGraphsService',
-        EfficiencyGraphsController
-      ]
-    });
+  static $inject = ['$routeParams', '$filter', 'SFD3LineGraph', 'SFD3BarGraph', 'EfficiencyGraphsService'];
 
-  function EfficiencyGraphsController($routeParams, $filter, SFD3LineGraph, SFD3BarGraph, EfficiencyGraphsService) {
-    let ctrl = this;
+  constructor(private $routeParams, private $filter, private SFD3LineGraph, private SFD3BarGraph, private EfficiencyGraphsService) {
+  }
 
-    ctrl.$onInit = function() {
-      EfficiencyGraphsService.update($routeParams.clusterID);
-    };
-
-    ctrl.staticDateRangeOptions = [
-      {milliseconds: 3600000,    label: 'Hour'},
-      {milliseconds: 86400000,   label: '24 Hours'},
-      {milliseconds: 604800000,  label: '7 Days', default: true},
+  $onInit() {
+    this.EfficiencyGraphsService.update(parseInt(this.$routeParams.clusterID, 10));
+    this.staticDateRangeOptions = [ {milliseconds: 3600000, label: 'Hour'},
+      {milliseconds: 86400000, label: '24 Hours'},
+      {milliseconds: 604800000, label: '7 Days', default: true},
       {milliseconds: 1209600000, label: '14 Days'},
-      {milliseconds: 2592000000, label: '30 Days'}
-    ];
-
-    ctrl.syncGraphs = [
+      {milliseconds: 2592000000, label: '30 Days'} ];
+    this.syncGraphs = [
       {
-        service: EfficiencyGraphsService,
+        service: this.EfficiencyGraphsService,
         id: 'efficiency',
-        child: {
+        selected: {
           title: 'Efficiency',
-          id: 'efficiency-child',
           export: true,
           legend: {
-            position: 'top',
             items: {
               thinProvisioningFactor: 'Thin Provisioning Efficiency',
               deDuplicationFactor: 'Deduplication Efficiency',
@@ -48,26 +32,33 @@
             }
           },
           dataLimit: 750,
-          graph: new SFD3LineGraph(getGraphConfig('efficiencyChild'))
+          graph: new this.SFD3LineGraph(this.getGraphConfig('efficiency'))
+        },
+        sparkLine: {
+          title: 'Efficiency',
+          dataLimit: 175,
+          graph: new this.SFD3LineGraph(this.getGraphConfig('efficiency', false, true))
         },
         context: {
-          label: 'Efficiency',
-          id: 'efficiency-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('efficiencyContext'))
+          graph: new this.SFD3BarGraph(this.getGraphConfig('efficiency', true))
         }
       }
     ];
+  }
 
-    function getGraphConfig(graph) {
-      let graphConfigs = {
-        efficiencyChild: {
-          bindTo: 'efficiency-child-graph',
+  getGraphConfig(graph, context = false, sparkLine = false) {
+    const graphType = context ? 'context' : 'child';
+    const graphConfigs = {
+      efficiency: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
           showAxisLabels: true,
+          sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor'],
+            ids: sparkLine ? ['efficiencyFactor'] : ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor'],
             axes: {
               thinProvisioningFactor: 'y0',
               deDuplicationFactor: 'y0',
@@ -81,47 +72,48 @@
               efficiencyFactor: 'Overall Efficiency'
             },
             colors: {
-              thinProvisioningFactor: ['#50E3C2'],
-              deDuplicationFactor: ['#FECD4D'],
-              compressionFactor: ['#6A6E94'],
+              thinProvisioningFactor: ['#00996B'],
+              deDuplicationFactor: ['#95ADAD'],
+              compressionFactor: ['#39426B'],
               efficiencyFactor: ['#00A7C6']
             },
             textures: {
-              thinProvisioningFactor: ['solid'],
-              deDuplicationFactor: ['solid'],
-              compressionFactor: ['solid'],
-              efficiencyFactor: ['solid']
+              thinProvisioningFactor: 'solid',
+              deDuplicationFactor: 'solid',
+              compressionFactor: 'solid',
+              efficiencyFactor: 'solid'
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
-                spacing: 200
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
-                spacing: 30
+                format: (factor) => this.$filter('percent')(factor, 2, true, true, false, null, null),
+                spacing: 50
               }
             }
           }
         },
-        efficiencyContext: {
-          bindTo: 'efficiency-context-graph',
+        context: {
+          bindTo: graph + '-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'efficiencyFactor',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -131,31 +123,25 @@
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
             y0: {
               tick: {
-                format: yAxisFormat,
+                format: (factor) => this.$filter('percent')(factor, 2, true, true, false, null, null),
                 spacing: 30
               }
             }
           }
         }
-      };
-
-      return graphConfigs[graph];
-    }
-
-    /***********************  Helper Functions  ************************/
-
-    function xAxisFormat(milliseconds) {
-      return $filter('aiqDate')(new Date(milliseconds));
-    }
-
-    function yAxisFormat(factor) {
-      return $filter('percent')(factor, 2, true, true, false, null, null);
-    }
+      }
+    };
+    return graphConfigs[graph][graphType];
   }
-})();
+}
+
+export const EfficiencyGraphsComponent = {
+  template: require('./efficiency.tpl.html'),
+  controller: EfficiencyGraphsController
+};

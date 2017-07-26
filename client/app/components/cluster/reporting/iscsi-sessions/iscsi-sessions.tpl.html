@@ -1,4 +1,11 @@
-<sf-sync-graphs component-id="iscsi-sessions-sync-graphs"
-                graphs="$ctrl.syncGraphs"
-                static-date-range-options="$ctrl.staticDateRangeOptions">
-</sf-sync-graphs>
+<div class="reporting-iscsi-sessions-page">
+  <div class="sf-widget iscsi-sessions-sync-graphs-parent">
+    <div class="iscsi-sessions-sync-graphs">
+      <sf-sync-graphs component-id="iscsi-sessions-sync-graphs"
+                      graphs="$ctrl.syncGraphs"
+                      static-date-range-options="$ctrl.staticDateRangeOptions"
+                      scroll="false">
+      </sf-sync-graphs>
+    </div>
+  </div>
+</div>

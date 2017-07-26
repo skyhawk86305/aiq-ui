@@ -1,45 +1,27 @@
-(function () {
-  'use strict';
+class PerformanceGraphsController {
+  public staticDateRangeOptions: Array<Object>;
+  public syncGraphs: Array<Object>;
 
-  angular
-    .module('aiqUi')
-    .component('performanceGraphs', {
-      template: require('./performance.tpl.html'),
-      controller: [
-        '$routeParams',
-        '$filter',
-        'SFD3LineGraph',
-        'SFD3BarGraph',
-        'PerformanceGraphsService',
-        PerformanceGraphsController
-      ]
-    });
+  static $inject = ['$routeParams', '$filter', 'SFD3LineGraph', 'SFD3BarGraph', 'PerformanceGraphsService',];
 
-  function PerformanceGraphsController($routeParams, $filter, SFD3LineGraph, SFD3BarGraph, PerformanceGraphsService) {
-    let ctrl = this;
+  constructor(private $routeParams, private $filter, private SFD3LineGraph, private SFD3BarGraph, private PerformanceGraphsService) {
+  }
 
-    ctrl.$onInit = function() {
-      PerformanceGraphsService.update($routeParams.clusterID);
-    };
-
-    ctrl.staticDateRangeOptions = [
-      {milliseconds: 3600000,    label: 'Hour'},
-      {milliseconds: 86400000,   label: '24 Hours'},
-      {milliseconds: 604800000,  label: '7 Days', default: true},
+  $onInit() {
+    this.PerformanceGraphsService.update(parseInt(this.$routeParams.clusterID, 10));
+    this.staticDateRangeOptions = [ {milliseconds: 3600000, label: 'Hour'},
+      {milliseconds: 86400000, label: '24 Hours'},
+      {milliseconds: 604800000, label: '7 Days', default: true},
       {milliseconds: 1209600000, label: '14 Days'},
-      {milliseconds: 2592000000, label: '30 Days'}
-    ];
-
-    ctrl.syncGraphs = [
+      {milliseconds: 2592000000, label: '30 Days'} ];
+    this.syncGraphs = [
       {
-        service: PerformanceGraphsService,
+        service: this.PerformanceGraphsService,
         id: 'iops',
-        child: {
+        selected: {
           title: 'IOPS',
-          id: 'iops-child',
           export: true,
           legend: {
-            position: 'top',
             items: {
               readOpsPerSec: 'Read IOPS',
               writeOpsPerSec: 'Write IOPS',
@@ -47,24 +29,25 @@
             }
           },
           dataLimit: 750,
-          graph: new SFD3LineGraph(getGraphConfig('iopsChild'))
+          graph: new this.SFD3LineGraph(this.getGraphConfig('iops'))
+        },
+        sparkLine: {
+          title: 'IOPS',
+          dataLimit: 175,
+          graph: new this.SFD3LineGraph(this.getGraphConfig('iops', false, true))
         },
         context: {
-          label: 'IOPS',
-          id: 'iops-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('iopsContext'))
+          graph: new this.SFD3BarGraph(this.getGraphConfig('iops', true))
         }
       },
       {
-        service: PerformanceGraphsService,
+        service: this.PerformanceGraphsService,
         id: 'throughput',
-        child: {
+        selected: {
           title: 'Throughput',
-          id: 'throughput-child',
           export: true,
           legend: {
-            position: 'top',
             items: {
               readBytesPerSec: 'Read Throughput',
               writeBytesPerSec: 'Write Throughput',
@@ -72,49 +55,57 @@
             }
           },
           dataLimit: 750,
-          graph: new SFD3LineGraph(getGraphConfig('throughputChild'))
+          graph: new this.SFD3LineGraph(this.getGraphConfig('throughput'))
+        },
+        sparkLine: {
+          title: 'Throughput',
+          dataLimit: 175,
+          graph: new this.SFD3LineGraph(this.getGraphConfig('throughput', false, true))
         },
         context: {
-          label: 'Throughput',
-          id: 'throughput-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('throughputContext'))
+          graph: new this.SFD3BarGraph(this.getGraphConfig('throughput', true))
         }
       },
       {
-        service: PerformanceGraphsService,
+        service: this.PerformanceGraphsService,
         id: 'utilization',
-        child: {
+        selected: {
           title: 'Utilization',
-          id: 'utilization-child',
           export: true,
           legend: {
-            position: 'top',
             items: {
               clusterUtilizationPct: 'Utilization'
             }
           },
           dataLimit: 750,
-          graph: new SFD3LineGraph(getGraphConfig('utilizationChild'))
+          graph: new this.SFD3LineGraph(this.getGraphConfig('utilization'))
+        },
+        sparkLine: {
+          title: 'Utilization',
+          dataLimit: 175,
+          graph: new this.SFD3LineGraph(this.getGraphConfig('utilization', false, true))
         },
         context: {
-          label: 'Utilization',
-          id: 'utilization-context',
           dataLimit: 200,
-          graph: new SFD3BarGraph(getGraphConfig('utilizationContext'))
+          graph: new this.SFD3BarGraph(this.getGraphConfig('utilization', true))
         }
       }
     ];
+  }
 
-    function getGraphConfig(graph) {
-      let graphConfigs = {
-        iopsChild: {
-          bindTo: 'iops-child-graph',
+  getGraphConfig(graph, context = false, sparkLine = false) {
+    const graphType = context ? 'context' : 'child';
+    const graphConfigs = {
+      iops: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
           showAxisLabels: true,
+          sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec'],
+            ids: sparkLine ? ['totalOpsPerSec'] : ['readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec'],
             axes: {
               readOpsPerSec: 'y0',
               writeOpsPerSec: 'y0',
@@ -131,43 +122,46 @@
               totalOpsPerSec: ['#00A7C6']
             },
             textures: {
-              readOpsPerSec: ['solid'],
-              writeOpsPerSec: ['solid'],
-              totalOpsPerSec: ['solid']
+              readOpsPerSec: 'solid',
+              writeOpsPerSec: 'solid',
+              totalOpsPerSec: 'solid'
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           tooltipFormat: {
-            y0: (d) => { return d; }
+            y0: (d) => {
+              return d;
+            }
           },
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
-                spacing: 200
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                format: iopsFormat,
-                spacing: 30
+                format: (iops) => this.$filter('iops')(iops, true, 1),
+                spacing: 50
               }
             }
           }
         },
-        iopsContext: {
-          bindTo: 'iops-context-graph',
+        context: {
+          bindTo: graph + '-context-graph',
           type: 'bar',
           showAxisLabel: true,
           barSpacing: 80,
           data: {
             x: 'timestamps',
             y: 'totalOpsPerSec',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -177,25 +171,28 @@
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
             y0: {
               tick: {
-                format: iopsFormat,
+                format: (iops) => this.$filter('iops')(iops, true, 1),
                 spacing: 30
               }
             }
           }
-        },
-        throughputChild: {
-          bindTo: 'throughput-child-graph',
+        }
+      },
+      throughput: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
           showAxisLabels: true,
+          sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: ['readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec'],
+            ids: sparkLine ? ['totalBytesPerSec'] : ['readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec'],
             axes: {
               readBytesPerSec: 'y0',
               writeBytesPerSec: 'y0',
@@ -212,33 +209,33 @@
               totalBytesPerSec: ['#00A7C6']
             },
             textures: {
-              readBytesPerSec: ['solid'],
-              writeBytesPerSec: ['solid'],
-              totalBytesPerSec: ['solid']
+              readBytesPerSec: 'solid',
+              writeBytesPerSec: 'solid',
+              totalBytesPerSec: 'solid'
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30,
-            left: 70
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
-                spacing: 200
+                format:(milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                format: bytesFormat,
-                spacing: 30
+                format: (bytes) => this.$filter('bytes')(bytes, false, 0, true),
+                spacing: 50
               }
             }
           }
         },
-        throughputContext: {
+        context: {
           bindTo: 'throughput-context-graph',
           type: 'bar',
           showAxisLabel: true,
@@ -246,7 +243,7 @@
           data: {
             x: 'timestamps',
             y: 'totalBytesPerSec',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -256,25 +253,28 @@
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
             y0: {
               tick: {
-                format: bytesFormat,
+                format: (bytes) => this.$filter('bytes')(bytes, false, 0, true),
                 spacing: 30
               }
             }
           }
-        },
-        utilizationChild: {
-          bindTo: 'utilization-child-graph',
+        }
+      },
+      utilization: {
+        child: {
+          bindTo: graph + (sparkLine ? '-spark-line' : '-child'),
           type: 'line',
           showAxisLabels: true,
+          sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: ['clusterUtilizationPct'],
+            ids: sparkLine ? ['clusterUtilizationPct'] : ['clusterUtilizationPct'],
             axes: {
               clusterUtilizationPct: 'y0'
             },
@@ -285,31 +285,31 @@
               clusterUtilizationPct: ['#50E3C2']
             },
             textures: {
-              clusterUtilizationPct: ['solid']
+              clusterUtilizationPct: 'solid'
             }
           },
           margin: {
-            top: 20,
-            right: 20,
-            bottom: 30,
-            left: 70
+            top: sparkLine ? 10 : 20,
+            right: sparkLine ? 10 : 75,
+            bottom: sparkLine ? 10 : 30,
+            left: sparkLine ? 10 : 75
           },
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
-                spacing: 200
+                format:(milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
+                spacing: 300
               }
             },
             y0: {
               tick: {
-                format: utilizationFormat,
-                spacing: 30
+                format: (utilization) => this.$filter('percent')(utilization, 0, true, false, true, null, null),
+                spacing: 50
               }
             }
           }
         },
-        utilizationContext: {
+        context: {
           bindTo: 'utilization-context-graph',
           type: 'bar',
           showAxisLabel: true,
@@ -317,7 +317,7 @@
           data: {
             x: 'timestamps',
             y: 'clusterUtilizationPct',
-            color: '#0FAEE7'
+            color: '#6F7D9A'
           },
           margin: {
             top: 15,
@@ -327,34 +327,25 @@
           axis: {
             x: {
               tick: {
-                format: xAxisFormat,
+                format: (milliseconds) => this.$filter('aiqDate')(new Date(milliseconds)),
                 spacing: 200
               }
             },
             y0: {
               tick: {
-                format: utilizationFormat,
+                format: (utilization) => this.$filter('percent')(utilization, 0, true, false, true, null, null),
                 spacing: 30
               }
             }
           }
         }
-      };
-      return graphConfigs[graph];
-    }
-    /***********************  Helper Functions  ************************/
-
-    function xAxisFormat(milliseconds) {
-      return $filter('aiqDate')(new Date(milliseconds));
-    }
-    function utilizationFormat(utilization) {
-      return $filter('percent')(utilization, 0, true, false, true, null, null);
-    }
-    function iopsFormat(iops) {
-      return $filter('iops')(iops, true, 1);
-    }
-    function bytesFormat(bytes) {
-      return $filter('bytes')(bytes, false, 0, true);
-    }
+      }
+    };
+    return graphConfigs[graph][graphType];
   }
-})();
+}
+
+export const PerformanceGraphsComponent = {
+  template: require('./performance.tpl.html'),
+  controller: PerformanceGraphsController
+};

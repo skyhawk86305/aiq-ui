@@ -19,7 +19,7 @@ describe('Component: performanceGraphs', function() {
     scope = $rootScope;
     deferred = $q.defer();
     routeParams = $routeParams;
-    routeParams.clusterID = '1';
+    routeParams.clusterID = 1;
     performanceService = PerformanceGraphsService;
     filter = $filter;
     locals = {
@@ -33,6 +33,7 @@ describe('Component: performanceGraphs', function() {
 
   describe('initialization', function () {
     it('should expose date range options and sync graphs', function () {
+      controller.$onInit();
       expect(controller.staticDateRangeOptions).toBeDefined();
       expect(controller.syncGraphs).toBeDefined();
     });

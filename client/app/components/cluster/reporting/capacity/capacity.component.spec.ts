@@ -33,6 +33,7 @@ describe('Component: capacityGraphs', function() {
 
   describe('initialization', function () {
     it('should expose date range options and sync graphs', function () {
+      controller.$onInit();
       expect(controller.staticDateRangeOptions).toBeDefined();
       expect(controller.syncGraphs).toBeDefined();
     });

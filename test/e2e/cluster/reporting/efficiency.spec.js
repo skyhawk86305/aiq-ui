@@ -9,20 +9,20 @@ var clusterSelect = new support.clusterSelectComponent();
 var clusterId;
 
 describe('The Cluster Efficiency Page', function () {
-  beforeAll(function(done) {
+  beforeAll(function (done) {
     support.login();
     var openedClusterSelect = clusterSelect.open();
-    support.getFirstClusterId(openedClusterSelect).then(function(firstClusterId) {
+    support.getFirstClusterId(openedClusterSelect).then(function (firstClusterId) {
       clusterId = firstClusterId;
       done();
     });
   });
 
-  beforeEach(function(done) {
+  beforeEach(function (done) {
     browser.get('#/cluster/' + clusterId + '/reporting/efficiency').then(done);
   });
 
-  afterAll(function() {
+  afterAll(function () {
     support.logout();
   });
 
@@ -44,31 +44,20 @@ describe('The Cluster Efficiency Page', function () {
     expect(efficiencyGraphs.dateRangeSelectors.static.activeDateRangeOption.getText()).to.eventually.equal('Last 7 Days');
   });
 
-  it('@any @smoke should have 1 child graph', function () {
-    expect(efficiencyGraphs.childGraph('efficiency-child').el.isDisplayed()).to.eventually.be.true;
-    expect(efficiencyGraphs.childGraphTitle('efficiency').getText()).to.eventually.equal('Efficiency');
-    expect(efficiencyGraphs.childrenGraphs.count()).to.eventually.equal(1);
-  });
-
-  it('@any should have a specific graph selected as the initial context', function () {
-    expect(efficiencyGraphs.contextGraph.el.getAttribute('component-id')).to.eventually.equal('efficiency-context');
-  });
-
   describe('Efficiency Graph', function () {
-    it('@any @smoke should have the correct data series plotted, with the correct legends', function () {
-      var graph = efficiencyGraphs.childGraph('efficiency-child');
-      expect(graph.svg.lines.count()).to.eventually.equal(4);
-      var expectedSeries = ['thinProvisioningFactor','deDuplicationFactor','compressionFactor','efficiencyFactor'];
-      var expectedLabels = ['Thin Provisioning Efficiency','Deduplication Efficiency','Compression Efficiency','Overall Efficiency'];
-      for (var i = 0; i < expectedSeries.length; i++) {
-        expect(graph.svg.line(expectedSeries[i]).isDisplayed()).to.eventually.be.true;
-        expect(graph.legend.legendItem(expectedSeries[i]).label.getText()).to.eventually.equal(expectedLabels[i]);
-      }
-    });
+    var graphs = {
+        efficiency: {
+          id: 'efficiency',
+          label: 'Efficiency',
+          seriesIds: ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor'],
+          seriesLabels: ['Thin Provisioning Efficiency', 'Deduplication Efficiency', 'Compression Efficiency', 'Overall Efficiency']
+        }
+      },
+      graphKeys = Object.keys(graphs);
 
 
-    it('@any should have an export button for the Efficiency Graph', function() {
-      expect(efficiencyGraphs.childGraph('efficiency-child').exportButton.isDisplayed()).to.eventually.be.true;
+    it('@any @smoke should have 0 graph selections with the expected labels', function () {
+      expect(efficiencyGraphs.graphSelectorPanel.graphSelections.count()).to.eventually.equal(0);
     });
   });
 });

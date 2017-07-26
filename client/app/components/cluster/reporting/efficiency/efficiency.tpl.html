@@ -1,4 +1,12 @@
-<sf-sync-graphs component-id="efficiency-sync-graphs"
-                graphs="$ctrl.syncGraphs"
-                static-date-range-options="$ctrl.staticDateRangeOptions">
-</sf-sync-graphs>
+<div class="reporting-efficiency-page">
+  <div class="sf-widget efficiency-sync-graphs-parent">
+    <div class="efficiency-sync-graphs">
+      <sf-sync-graphs component-id="efficiency-sync-graphs"
+                      graphs="$ctrl.syncGraphs"
+                      static-date-range-options="$ctrl.staticDateRangeOptions"
+                      scroll="false"
+                      resize="isDetailCollapsed">
+      </sf-sync-graphs>
+    </div>
+  </div>
+</div>

@@ -33,6 +33,11 @@ import { LinkAiqNetappAccountsComponent } from './login/link-aiq-netapp-accounts
 
 import { CustomComparatorsService } from '../shared/comparators/custom-comparators.service';
 
+import { EfficiencyGraphsComponent } from './cluster/reporting/efficiency/efficiency.component';
+import { CapacityGraphsComponent } from './cluster/reporting/capacity/capacity.component';
+import { PerformanceGraphsComponent } from './cluster/reporting/performance/performance.component';
+import { IscsiGraphsComponent } from './cluster/reporting/iscsi-sessions/iscsi-sessions.component';
+
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
 
@@ -63,11 +68,15 @@ export const ComponentsModule = angular
   .component('dashberg', DashbergComponent)
   .service('DashbergService', DashbergService)
 
+  .component('efficiencyGraphs', EfficiencyGraphsComponent)
+  .component('capacityGraphs', CapacityGraphsComponent)
+  .component('performanceGraphs', PerformanceGraphsComponent)
+  .component('iscsiSessions', IscsiGraphsComponent)
+  
   .component('login', LoginComponent)
   .component('linkAiqNetappAccounts', LinkAiqNetappAccountsComponent)
 
   .service('CustomComparatorsService', CustomComparatorsService)
-
   .name;
 
 // ToDo: import modules, components, filters and services similar to SharedModule
