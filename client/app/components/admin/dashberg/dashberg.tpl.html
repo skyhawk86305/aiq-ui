@@ -2,373 +2,186 @@
   <div class="container-fluid">
 
     <div class="col-md-12">
-      <div class="sf-widget">
-        <div class="info-bar-timestamp">
-          <span class="dashberg-title">Dashberg</span>
-          <div class="info-bar-refresh-button">
-            <select class="select-button" ng-model="$ctrl.selectedCustomerID"
-                ng-change="$ctrl.updateID()"
-                ng-options="customer.id as customer.name for customer in $ctrl.customers">
-              <option value="">All Customers</option>
-            </select>
-            <button class="button refresh-btn"
-              ng-click="$ctrl.updateID()">
-              <i class="fa fa-refresh"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-12">
-      <div class="sf-widget">
-        <div class="info-bar-timestamp">
-          <span>Metadata</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-12">
-            <div class="info-box-content">
-              <table class="table">
-                <thead>
-                  <td class="data-bold">Node Type</td>
-                  <td class="data-bold">Count</td>
-                  <td class="button-right data-bold">Versions</td>
-                </thead>
-                <tbody ng-repeat="item in $ctrl.metadata">
-                  <tr>
-                    <td>{{ item.type }}</td>
-                    <td>{{ item.count }}</td>
-                    <td class="button-right"><button class="hide-button" ng-click="$ctrl.showVersions(item.type)"><i class="fa fa-chevron-down"></i></button></td>
-                  </tr>
-                  <tr ng-repeat="version in item.versions" ng-if="$ctrl.versionInfo(item.type)">
-                    <td>{{ item.type }}</td>
-                    <td>{{ version.count }}</td>
-                    <td class="button-right">{{ version.name }}</td>
-                  </tr>
-                </tbody>
-              </table>
+      <div class="col-md-12">
+        <div class="sf-widget">
+          <div class="info-bar-timestamp">
+            <span class="dashberg-title">Dashberg</span>
+            <div class="info-bar-refresh-button">
+              <select class="select-button" ng-model="$ctrl.selectedCustomerID"
+                  ng-change="$ctrl.updateID()"
+                  ng-options="customer.id as customer.name for customer in $ctrl.customers">
+                <option value="">All Customers</option>
+              </select>
+              <button class="button refresh-btn"
+                ng-click="$ctrl.updateID()">
+                <i class="fa fa-refresh"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-md-12 col-lg-6">
-      <div class="sf-widget node-info-box">
-        <div class="info-bar-timestamp node-data-title">
-          <span>Nodes</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 node-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.nodes.total | aiqNumber }}</span>
-              <span class="title">Total Nodes in Field</span>
+    <div class="col-lg-8 col-lg-heihgt">
+      <div class="col-md-12 col-lg-6" ng-repeat="item in $ctrl.items">
+        <div class="sf-widget performance-info-box">
+          <div class="info-bar-timestamp performance-title">
+            <span>{{ item.title }}</span>
+            <div class="info-bar-refresh-button">
+              <span>Per Cluster</span>
             </div>
           </div>
-          <div class="info-box col-md-6 node-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <tbody>
-                  <tr>
-                    <td>Min Nodes Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.nodes.min | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max Nodes Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.nodes.max | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg Nodes Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.nodes.avg | aiqNumber:2 }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.nodes.stdDev | aiqNumber:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="row">
+            <div class="info-box col-md-6 performance-description">
+              <div class="info-box-content dashberg-sum-data">
+                <span class="value -medium">{{ $ctrl.performanceData[item.name].total | aiqNumber }}</span>
+                <span class="title">Total in Field</span>
+              </div>
+            </div>
+            <div class="info-box col-md-6 performance-table">
+              <div class="info-box-content">
+                <table class="table table-performance">
+                  <tbody>
+                    <tr>
+                      <td>Min</td>
+                      <td class="data-bold">{{ $ctrl.performanceData[item.name].min | aiqNumber }}</td>
+                    </tr>
+                    <tr>
+                      <td>Max</td>
+                      <td class="data-bold">{{ $ctrl.performanceData[item.name].max | aiqNumber }}</td>
+                    </tr>
+                    <tr>
+                      <td>Avg</td>
+                      <td class="data-bold">{{ $ctrl.performanceData[item.name].avg | aiqNumber:2 }}</td>
+                    </tr>
+                    <tr>
+                      <td>StdDev</td>
+                      <td class="data-bold">{{ $ctrl.performanceData[item.name].stdDev | aiqNumber:2 }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class = "col-md-12 col-lg-6">
+        <div class="sf-widget volume-size-info-box">
+          <div class="info-bar-timestamp volume-size-title">
+            <span>Volume Size</span>
+            <div class="info-bar-refresh-button">
+              <span>Per Cluster</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="info-box col-md-6 volume-size-description">
+              <div class="info-box-content dashberg-sum-data">
+                <span class="value -medium">{{ $ctrl.performanceData.volumeSize.total | bytes:false:0:false:false }}</span>
+                <span class="title">Total in Field</span>
+              </div>
+            </div>
+            <div class="info-box col-md-6 volume-size-table">
+              <div class="info-box-content">
+                <table class="table table-performance">
+                  <tbody>
+                    <tr>
+                      <td>Min</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.volumeSize.min | bytes:false:0:false:false }}</td>
+                    </tr>
+                    <tr>
+                      <td>Max</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.volumeSize.max | bytes:false:0:false:false }}</td>
+                    </tr>
+                    <tr>
+                      <td>Avg</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.volumeSize.avg | bytes:false:0:false:false }}</td>
+                    </tr>
+                    <tr>
+                      <td>StdDev</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.volumeSize.stdDev | bytes:false:0:false:false }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class = "col-md-12 col-lg-6">
+        <div class="sf-widget bandwidth-info-box">
+          <div class="info-bar-timestamp bandwidth-title">
+            <span>Bandwidth</span>
+            <div class="info-bar-refresh-button">
+              <span>Per Cluster</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="info-box col-md-6 bandwidth-description">
+              <div class="info-box-content dashberg-sum-data">
+                <span class="value -medium">{{ $ctrl.performanceData.bandwidth.total | bytes:false:0:true:false }}</span>
+                <span class="title">Total in Field</span>
+              </div>
+            </div>
+            <div class="info-box col-md-6 bandwidth-table">
+              <div class="info-box-content">
+                <table class="table table-performance">
+                  <tbody>
+                    <tr>
+                      <td>Min</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.bandwidth.min | bytes:false:0:true:false }}</td>
+                    </tr>
+                    <tr>
+                      <td>Max</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.bandwidth.max | bytes:false:0:true:false }}</td>
+                    </tr>
+                    <tr>
+                      <td>Avg</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.bandwidth.avg | bytes:false:0:true:false }}</td>
+                    </tr>
+                    <tr>
+                      <td>StdDev</td>
+                      <td class="data-bold">{{ $ctrl.performanceData.bandwidth.stdDev | bytes:false:0:true:false }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class = "col-md-12 col-lg-6">
-      <div class="sf-widget volume-info-box">
-        <div class="info-bar-timestamp volume-data-title">
-          <span>Volumes</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 volume-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.volumes.total | aiqNumber }}</span>
-              <span class="title">Total Volumes in Field</span>
-            </div>
+    <div class="col-lg-4 col-lg-height">
+      <div class="col-md-12">
+        <div class="sf-widget metadata-info-box">
+          <div class="info-bar-timestamp metadata-title">
+            <span>Metadata</span>
           </div>
-          <div class="info-box col-md-6 volume-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <thead>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Min Volumes Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumes.min | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max Volumes Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumes.max | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg Volumes Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumes.avg | aiqNumber:2 }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumes.stdDev | aiqNumber:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class = "col-md-12 col-lg-6">
-      <div class="sf-widget volume-size-info-box">
-        <div class="info-bar-timestamp volume-size-data-title">
-          <span>Volume Size</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 volume-size-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.volumeSize.total | bytes:false:0:false:false }}</span>
-              <span class="title">Current Total Volume Size</span>
-            </div>
-          </div>
-          <div class="info-box col-md-6 volume-size-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <tbody>
-                  <tr>
-                    <td>Min Volume Size</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.min | bytes:false:0:false:false }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max Volume Size</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.max | bytes:false:0:false:false }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg Volume Size</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.avg | bytes:false:0:false:false }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeSize.stdDev | bytes:false:0:false:false }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class = "col-md-12 col-lg-6">
-      <div class="sf-widget volume-access-info-box">
-        <div class="info-bar-timestamp volume-access-data-title">
-          <span>Volume Access Groups</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 volume-access-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.volumeAccessGroups.total | aiqNumber }}</span>
-              <span class="title">Total Volume Access Groups in Field</span>
-            </div>
-          </div>
-          <div class="info-box col-md-6 volume-access-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <tbody>
-                  <tr>
-                    <td>Min Vags Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.min | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max Vags Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.max | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg Vags Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.avg | aiqNumber:2 }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.volumeAccessGroups.stdDev | aiqNumber:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class = "col-md-12 col-lg-6">
-      <div class="sf-widget IOP-info-box">
-        <div class="info-bar-timestamp IOP-data-title">
-          <span>IOPs</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 IOP-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.iops.total | aiqNumber }}</span>
-              <span class="title">Total IOPs in Field</span>
-            </div>
-          </div>
-          <div class="info-box col-md-6 IOP-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <tbody>
-                  <tr>
-                    <td>Min IOPs Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.iops.min | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max IOPs Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.iops.max | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg IOPs Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.iops.avg | aiqNumber:2 }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.iops.stdDev| aiqNumber:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class = "col-md-12 col-lg-6">
-      <div class="sf-widget bandwidth-info-box">
-        <div class="info-bar-timestamp bandwidth-data-title">
-          <span>Bandwidth</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 bandwidth-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.bandwidth.total | bytes:false:0:true:false }}</span>
-              <span class="title">Total Bandwidth in Field</span>
-            </div>
-          </div>
-          <div class="info-box col-md-6 bandwidth-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <tbody>
-                  <tr>
-                    <td>Min Bandwidth</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.min | bytes:false:0:true:false }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max Bandwidth</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.max | bytes:false:0:true:false }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg Bandwidth</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.avg | bytes:false:0:true:false }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.bandwidth.stdDev | bytes:false:0:true:false }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class = "col-md-12 col-lg-6">
-      <div class="sf-widget session-info-box">
-        <div class="info-bar-timestamp session-data-title">
-          <span>iSCSI Sessions</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 session-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.sessions.total | aiqNumber }}</span>
-              <span class="title">Total iSCSI Sessions in Field</span>
-            </div>
-          </div>
-          <div class="info-box col-md-6 session-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <tbody>
-                  <tr>
-                    <td>Min Sessions Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.sessions.min | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max Sessions Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.sessions.max | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg Sessions Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.sessions.avg | aiqNumber:2 }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.sessions.stdDev | aiqNumber:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class = "col-md-12 col-lg-6">
-      <div class="sf-widget snapshot-info-box">
-        <div class="info-bar-timestamp snapshot-data-title">
-          <span>Snapshots</span>
-        </div>
-        <div class="row">
-          <div class="info-box col-md-6 snapshot-data-description">
-            <div class="info-box-content dashberg-sum-data">
-              <span class="value -medium">{{ $ctrl.performanceData.snapshots.total | aiqNumber }}</span>
-              <span class="title">Total Snapshots in Field</span>
-            </div>
-          </div>
-          <div class="info-box col-md-6 snapshot-data-table">
-            <div class="info-box-content">
-              <table class="table table-performance">
-                <tbody>
-                  <tr>
-                    <td>Min Snapshots Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.min | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Max Snapshots Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.max | aiqNumber }}</td>
-                  </tr>
-                  <tr>
-                    <td>Avg Snapshots Per Cluster</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.avg | aiqNumber:2 }}</td>
-                  </tr>
-                  <tr>
-                    <td>Standard Deviation</td>
-                    <td class="data-bold">{{ $ctrl.performanceData.snapshots.stdDev | aiqNumber:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="row">
+            <div class="info-box col-md-12 metadata-table">
+              <div class="info-box-content">
+                <table class="table">
+                  <thead>
+                    <td class="data-bold table-6">Node Type</td>
+                    <td class="data-bold table-1">Count</td>
+                    <td class="button-right data-bold table-3">Versions</td>
+                  </thead>
+                  <tbody ng-repeat="item in $ctrl.metadata">
+                    <tr>
+                      <td class="table-6">{{ item.type }}</td>
+                      <td class="table-1">{{ item.count }}</td>
+                      <td class="button-right table-3"><button class="hide-button" ng-click="$ctrl.showVersions(item.type)"><i class="fa fa-chevron-down"></i></button></td>
+                    </tr>
+                    <tr ng-repeat="version in item.versions" ng-if="$ctrl.versionInfo(item.type)">
+                      <td class="table-6">{{ item.type }}</td>
+                      <td class="table-1">{{ version.count }}</td>
+                      <td class="button-right table-3">{{ version.name }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
