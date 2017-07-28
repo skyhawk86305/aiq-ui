@@ -93,7 +93,7 @@ describe('The Cluster Capacity Page', function () {
           expect(infoBar.infoBoxes.count()).to.eventually.equal(5);
           const expectedBoxes = ['used-capacity', 'warning-threshold', 'error-threshold', 'total-capacity', 'current-state'];
           const expectedLabels = ['Used Capacity', 'Warning Threshold', 'Error Threshold', 'Total Capacity', 'Current State'];
-          const expectedForecasts = [null, '1 Month 3 Days' || '1 month 4 days', '2 Months 8 Days', '3 Months 7 Days', null];
+          const expectedForecasts = [null, '1 Month 4 Days', '2 Months 9 Days', '3 Months 8 Days', null];
           for (let i = 0; i < expectedBoxes.length; i++) {
             expect(infoBar.infoBox(expectedBoxes[i]).el.isDisplayed()).to.eventually.be.true;
             expect(infoBar.infoBox(expectedBoxes[i]).title.getText()).to.eventually.equal(expectedLabels[i]);

@@ -29,6 +29,7 @@ import { DashbergComponent } from './admin/dashberg/dashberg.component';
 import { DashbergService } from './admin/dashberg/dashberg.service';
 
 import { LoginComponent } from './login/login.component';
+import { AiqLoginComponent } from './login/aiq-login.component';
 import { LinkAiqNetappAccountsComponent } from './login/link-aiq-netapp-accounts.component';
 
 import { CustomComparatorsService } from '../shared/comparators/custom-comparators.service';
@@ -72,8 +73,9 @@ export const ComponentsModule = angular
   .component('capacityGraphs', CapacityGraphsComponent)
   .component('performanceGraphs', PerformanceGraphsComponent)
   .component('iscsiSessions', IscsiGraphsComponent)
-  
+
   .component('login', LoginComponent)
+  .component('aiqLogin', AiqLoginComponent)
   .component('linkAiqNetappAccounts', LinkAiqNetappAccountsComponent)
 
   .service('CustomComparatorsService', CustomComparatorsService)

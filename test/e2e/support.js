@@ -38,7 +38,8 @@ support = {
   login: function() {
     var LoginPage = require('./page-objects/login.po'),
       loginPage = new LoginPage;
-    browser.get('#/login');
+    browser.get('#/aiq-login');
+    // loginPage.modal.closeButton.click();
     loginPage.usernameInput.enter(serverConfig[argv.env].username);
     loginPage.passwordInput.enter(serverConfig[argv.env].password);
     loginPage.loginButton.click();

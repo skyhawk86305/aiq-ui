@@ -7,7 +7,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
    */
   let routeProvider = angular.extend({}, $routeProvider, {
     when: function(path, route) {
-      if (path !== '/login' && path !== '/reset-password') {
+      if (path !== '/login' && path !== '/aiq-login' && path !== '/sso-login' && path !== '/reset-password') {
         route.resolve = (route.resolve) ? route.resolve : {};
         angular.extend(route.resolve, {
           isAuthenticated: function() {
@@ -27,6 +27,13 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
 
     routeProvider
       .when('/login', {
+        // template: '<login></login>'
+        template: '<aiq-login></aiq-login>'
+      })
+      .when('/aiq-login', {
+        template: '<aiq-login></aiq-login>'
+      })
+      .when('/sso-login', {
         template: '<login></login>'
       })
       .when('/reset-password', {

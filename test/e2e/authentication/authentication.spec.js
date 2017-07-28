@@ -9,7 +9,7 @@ var loginPage = new LoginPage();
 var navbar = new support.navbarComponent();
 
 describe('Authentication', function() {
-  describe('Login Page', function() {
+  describe('Aiq Login Page', function() {
     beforeEach(function() {
       mockBackend.enable(browser);
       mockBackend.http.whenGET('/sessions').respond(function() {
@@ -21,6 +21,7 @@ describe('Authentication', function() {
         // of the problem.
         browser.driver.sleep(400);
       });
+      // loginPage.loginAiqButton.click();
     });
 
     afterEach(function() {
@@ -88,7 +89,7 @@ describe('Authentication', function() {
     });
   });
 
-  describe('Logging In', function() {
+  describe('Logging In with AIQ Account', function() {
     beforeEach(function(done) {
       browser.get('#/dashboard/overview').then(function() {
         browser.getCurrentUrl().then(function(url){
@@ -96,62 +97,57 @@ describe('Authentication', function() {
             var navBar = new support.navbarComponent;
             navBar.menu.expand().select('Logout');
           }
+          // loginPage.loginAiqButton.click();
           done();
         });
       });
     });
 
-    it('should get focus when selected', function () {
-      console.log("starting test");
-      loginPage.usernameInput.click();
-      expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('username-input');
-      loginPage.passwordInput.click();
-      expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('password-input');
+    xit('should display the modal', function () {
+      expect(loginPage.modal.el.isDisplayed()).to.eventually.be.true;
+      expect(loginPage.modal.backdrop.isDisplayed()).to.eventually.be.true;
+      expect(loginPage.modal.closeButton.isDisplayed()).to.eventually.be.true;
+      expect(loginPage.modal.yesButton.isDisplayed()).to.eventually.be.true;
+      expect(loginPage.modal.noButton.isDisplayed()).to.eventually.be.true;
     });
 
-    xdescribe('with an AIQ account NOT linked to a NetApp support account', function() {
+    xit('clicking the close button should close the modal', function () {
+      loginPage.modal.closeButton.click();
+      expect(loginPage.modal.el.isPresent()).to.eventually.be.false;
+    });
+
+    xit(`clicking the 'Yes, I have an account' button should go to the NetApp login page`, function () {
+      loginPage.modal.yesButton.click();
+      // goes to NetApp login page
+    });
+
+    xit(`clicking the 'No, I want to register' button should redirect to the correct page and open the NetApp register in a new tab`, function () {
+      loginPage.modal.noButton.click();
+
+      browser.getAllWindowHandles().then(function (handles) {
+        browser.driver.switchTo().window(handles[1]);
+        browser.ignoreSynchronization = true;
+        expect(browser.getCurrentUrl()).to.eventually.equal("https://mysupport.netapp.com/eservice/public/now.do");
+        browser.ignoreSynchronization = false;
+        browser.driver.close();
+        browser.driver.switchTo().window(handles[0]);
+      });
+      expect(loginPage.modal.el.isPresent()).to.eventually.be.false;      
+    });
+
+    describe('logging in', function() {
 
       beforeEach(function() {
-        loginPage.passwordInput.enter('password123');
-        loginPage.usernameInput.enter('testuser@solidfire.com');
-        loginPage.el.submit();       
+        // loginPage.modal.closeButton.click();
       });
 
-      it('should display the modal', function () {
-        expect(loginPage.modal.el.isDisplayed()).to.eventually.be.true;
-        expect(loginPage.modal.backdrop.isDisplayed()).to.eventually.be.true;
-        expect(loginPage.modal.closeButton.isDisplayed()).to.eventually.be.true;
-        expect(loginPage.modal.yesButton.isDisplayed()).to.eventually.be.true;
-        expect(loginPage.modal.noButton.isDisplayed()).to.eventually.be.true;
+      it('should get focus when selected', function () {
+        loginPage.usernameInput.click();
+        expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('username-input');
+        loginPage.passwordInput.click();
+        expect(support.getActiveElement().getAttribute('id')).to.eventually.equal('password-input');
       });
 
-      it('clicking the close button should close the modal and redirect to the corrrect page', function () {
-        loginPage.modal.closeButton.click();
-        expect(navbar.el.isPresent()).to.eventually.be.true;       
-      });
-
-      it(`clicking the 'Yes, I have an account' button should go to the NetApp login page`, function () {
-        loginPage.modal.yesButton.click();
-        // goes to NetApp login page
-      });
-
-      it(`clicking the 'No, I want to register' button should redirect to the correct page and open the NetApp register in a new tab`, function () {
-        loginPage.modal.noButton.click();
-
-        browser.getAllWindowHandles().then(function (handles) {
-          browser.driver.switchTo().window(handles[1]);
-          browser.ignoreSynchronization = true;
-          expect(browser.getCurrentUrl()).to.eventually.equal("https://mysupport.netapp.com/eservice/public/now.do");
-          browser.ignoreSynchronization = false;
-          browser.driver.close();
-          browser.driver.switchTo().window(handles[0]);
-        });
-        expect(navbar.el.isPresent()).to.eventually.be.true;
-      });
-
-    });
-
-    describe('with an AIQ account linked to a NetApp support account', function() {
       it('should take me to the home page if valid credentials', function () {
         loginPage.passwordInput.enter('password123');
         loginPage.usernameInput.enter('testuser@solidfire.com');
@@ -165,20 +161,20 @@ describe('Authentication', function() {
         support.pressEnterKey();
         expect(navbar.el.isPresent()).to.eventually.be.true;
       });
-    })
 
-    it('should display an error if invalid username', function () {
-      loginPage.passwordInput.enter('password123');
-      loginPage.usernameInput.enter('testInvalidUser@solidfire.com');
-      loginPage.el.submit();
-      expect(loginPage.errorMessage.getText()).to.eventually.contain('Invalid username or password');
-    });
+      it('should display an error if invalid username', function () {
+        loginPage.passwordInput.enter('password123');
+        loginPage.usernameInput.enter('testInvalidUser@solidfire.com');
+        loginPage.el.submit();
+        expect(loginPage.errorMessage.getText()).to.eventually.contain('Invalid username or password');
+      });
 
-    it('should display an error if invalid password', function () {
-      loginPage.passwordInput.enter('wrongPassword');
-      loginPage.usernameInput.enter('testuser@solidfire.com');
-      loginPage.el.submit();
-      expect(loginPage.errorMessage.getText()).to.eventually.contain('Invalid username or password');
+      it('should display an error if invalid password', function () {
+        loginPage.passwordInput.enter('wrongPassword');
+        loginPage.usernameInput.enter('testuser@solidfire.com');
+        loginPage.el.submit();
+        expect(loginPage.errorMessage.getText()).to.eventually.contain('Invalid username or password');
+      });
     });
   });
 

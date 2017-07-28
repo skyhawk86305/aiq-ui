@@ -1,53 +1,32 @@
-import * as _ from 'lodash';
-
 class LoginController {
-  public linkedAiqWithNetapp: boolean;
-  private error;
   private queryParams;
+  public redirectUrl;
 
-  static $inject = [ 'AuthService', '$location', '$rootScope', '$uibModal' ];
+  static $inject = [ 'AuthService', '$location', '$rootScope', '$uibModal', '$window', '$httpParamSerializer' ];
   constructor(
     private AuthService,
     private $location,
     private $rootScope,
     private $uibModal,
-  ) {}
+    private $window,
+    private $httpParamSerializer,
+  ) {
+    $rootScope.queryParams = $location.search();
+    this.redirectUrl = $rootScope.queryParams && $rootScope.queryParams.url ? $rootScope.queryParams.url : '/';
+  }
 
-  login(credentials) {
-    const self = this;
-    self.AuthService.login(credentials)
-      .then( () => {
-        self.error = null;
-        self.$rootScope.queryParams = self.$location.search();
-        // commented out until account linking is implemented
-        /* if (!self.linkedAiqWithNetapp) {
-          self.openLinkingModal();
-        } else */ if (self.$rootScope.queryParams && self.$rootScope.queryParams.url) {
-          self.$location.url(self.$rootScope.queryParams.url);
-        } else {
-          self.$location.path('/');
-        }
-      }).catch( () => {
-        self.error = 'Invalid username or password';
-      });
-  };
-
-  private openLinkingModal() {
-    return this.$uibModal
-      .open({
-        animation: false,
-        component: 'linkAiqNetappAccounts',
-        size: 'md',
-        windowClass: 'aiq-modal link-aiq-netapp-accounts-modal',
-        background: 'static',
-        backdropClass: 'aiq-modal-backdrop',
-      })
-      .result;
-  };
-
-}
+  loginWithSSO() {
+    // we need to prepend the redirectURL with the pathname to make feature branch deploys work
+    const target = this.$window.location.pathname + '#' + this.redirectUrl;
+    const params = this.$httpParamSerializer({ target });
+    const loginURL = `/sso/login?${params}`;
+    this.$window.location.href = loginURL;
+  }
+};
 
 export const LoginComponent = {
   template: require('./login.tpl.html'),
   controller: LoginController,
 };
+
+

@@ -4,6 +4,9 @@ var LoginPage = function () {
   var page = this;
   
   page.el = element(by.css('.login-form'));
+
+  page.loginAiqButton = element(by.css('.login-aiq-btn'));
+
   page.usernameInput = {
     enter: function(input) {
       var usernameInput = element(by.id('username-input'));

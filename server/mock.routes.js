@@ -7,7 +7,8 @@ var _ = require('lodash'),
   serverConfig = require('./server.config.js'),
   argv = require('yargs').alias('m', 'mock').argv,
   fixtureDir = typeof argv.mock === 'string' ? argv.mock : serverConfig.local.fixture,
-  authenticated = true;
+  authenticated = true,
+  ssoLoginTarget = '/';
 
 /**
  * Catch API requests and respond with the matching fixture data
@@ -73,6 +74,23 @@ mockRoutes.put('/sessions', function (req, res) {
 mockRoutes.delete('/sessions', function (req, res) {
   authenticated = false;
   res.status(200).send();
+});
+
+
+/**
+ * SSO mock
+ */
+mockRoutes.get('/sso/login', function (req, res) {
+  ssoLoginTarget = req.query.target;
+  res.send(`
+    <h1>SSO Login</h1>
+    <p>This is a fake SSO login page. Click the link below to fake a successful login.</p>
+    <a href="/sso/callback">Login</a>
+  `);
+});
+mockRoutes.get('/sso/callback', function (req, res) {
+  res.header('Location', ssoLoginTarget);
+  res.status(302).send();
 });
 
 /**
