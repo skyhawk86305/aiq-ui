@@ -85,24 +85,24 @@ describe('Auth Service', function () {
   });
 
   describe('.logout', function() {
-    it('should make an $http DELETE request to /sessions', function () {
-      apiHandler = http.when('DELETE', '/sessions').respond('success');
+
+    it('should make an $http GET request to /sso/logout', function () {
+      http.expectGET('/sso/logout').respond(200, 'success');
       service.logout();
-      http.expectDELETE('/sessions').respond('success');
       http.flush();
       expect(userInfoService.clearUserInfo).toHaveBeenCalled();
     });
 
     describe('when logout fails', function () {
       it('should return an error', function () {
-        apiHandler = http.when('GET', '/sessions').respond(404);
+        http.expectGET('/sso/logout').respond(500);
         service.logout().then(function() {
           fail('expected promise to be rejected');
         });
-        http.expectDELETE('/sessions').respond(404);
         http.flush();
       });
     });
+
   });
 
   describe('.changePassword', function() {
