@@ -36,7 +36,7 @@ support = {
     return browser.driver.switchTo().activeElement();
   },
   login: function() {
-    var LoginPage = require('./page-objects/login.po'),
+    var LoginPage = require('./page-objects/aiq-login.po'),
       loginPage = new LoginPage;
     browser.get('#/aiq-login');
     // loginPage.modal.closeButton.click();
@@ -140,26 +140,26 @@ support = {
     support.expect(breadcrumb.el.isDisplayed()).to.eventually.be.true;
 
     if (main) {
-      support.expect(breadcrumb.main.getText()).to.eventually.equal(main); 
+      support.expect(breadcrumb.main.getText()).to.eventually.equal(main);
     } else {
       if (cluster) {
         support.expect(breadcrumb.cluster.isDisplayed()).to.eventually.be.true;
       } else {
         support.expect(breadcrumb.main.isPresent()).to.eventually.be.false;
-      }        
+      }
     }
 
     if (sub) {
       support.expect(breadcrumb.sub.getText()).to.eventually.equal(sub);
     } else {
-      support.expect(breadcrumb.sub.isPresent()).to.eventually.be.false;            
+      support.expect(breadcrumb.sub.isPresent()).to.eventually.be.false;
     }
 
     if (menu) {
-       support.expect(breadcrumb.menu.getText()).to.eventually.equal(menu);    
+       support.expect(breadcrumb.menu.getText()).to.eventually.equal(menu);
     } else {
-      support.expect(breadcrumb.menu.isPresent()).to.eventually.be.false;            
-    }   
+      support.expect(breadcrumb.menu.isPresent()).to.eventually.be.false;
+    }
   }
 };
 

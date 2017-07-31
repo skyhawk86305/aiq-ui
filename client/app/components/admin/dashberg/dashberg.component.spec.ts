@@ -186,13 +186,13 @@ describe('Component: dashberg', function() {
     it('should check NodeType include type or not', function() {
       let type = null;
       let res = controller.versionInfo(type);
-      expect(res).toBeFalsy;
+      expect(res).toBeFalsy();
       type = 'SF6010';
       res = controller.versionInfo(type);
-      expect(res).toBeFalsy;
+      expect(res).toBeFalsy();
       controller.showVersions(type);
       res = controller.versionInfo(type);
-      expect(res).toBeTruthy;
+      expect(res).toBeTruthy();
     })
   })
 });

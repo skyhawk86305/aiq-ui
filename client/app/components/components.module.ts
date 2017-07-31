@@ -29,8 +29,10 @@ import { DashbergComponent } from './admin/dashberg/dashberg.component';
 import { DashbergService } from './admin/dashberg/dashberg.service';
 
 import { LoginComponent } from './login/login.component';
-import { AiqLoginComponent } from './login/aiq-login.component';
-import { LinkAiqNetappAccountsComponent } from './login/link-aiq-netapp-accounts.component';
+import { AiqLoginComponent } from './login/aiq-login/aiq-login.component';
+import { SSOPushComponent } from './login/sso-push/sso-push.component';
+import { LinkSSOComponent } from './login/link-sso/link-sso.component';
+import { LinkSSOResultComponent } from './login/link-sso/link-sso-result.component';
 
 import { CustomComparatorsService } from '../shared/comparators/custom-comparators.service';
 
@@ -76,7 +78,9 @@ export const ComponentsModule = angular
 
   .component('login', LoginComponent)
   .component('aiqLogin', AiqLoginComponent)
-  .component('linkAiqNetappAccounts', LinkAiqNetappAccountsComponent)
+  .component('ssoPush', SSOPushComponent)
+  .component('linkSSO', LinkSSOComponent)
+  .component('linkSSOResult', LinkSSOResultComponent)
 
   .service('CustomComparatorsService', CustomComparatorsService)
   .name;

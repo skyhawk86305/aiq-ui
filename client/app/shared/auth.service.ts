@@ -27,6 +27,14 @@ export function AuthService($q, $http, UserInfoService) {
       });
     },
 
+    getSSOSession() {
+      return $http.get('/sso/session', { cache: false });
+    },
+
+    linkSSO() {
+      return $http.post('/sso/link');
+    },
+
     changePassword(oldPassword, newPassword) {
       const method = 'ChangeUserPassword';
       const params = { oldPassword, newPassword };

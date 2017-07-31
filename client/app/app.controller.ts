@@ -10,8 +10,24 @@ export class AppController {
   public messageDate: string;
   public displayBanner: boolean;
 
-  static $inject = ['$rootScope', 'ApiLogService', '$location', '$interval', '$http'];
-  constructor(private $rootScope, private apiLogService, private $location, private $interval, private $http) {
+  static $inject = [
+    '$rootScope',
+    'ApiLogService',
+    '$location',
+    '$interval',
+    '$http',
+    'AuthService',
+    '$uibModal',
+  ];
+  constructor(
+    private $rootScope,
+    private apiLogService,
+    private $location,
+    private $interval,
+    private $http,
+    private AuthService,
+    private $uibModal,
+  ) {
     this.host = $location.host();
     this.messageText = '';
     this.messageType = 'info';
@@ -27,13 +43,46 @@ export class AppController {
       // permission errors are already handled by route config
       if ( error instanceof PermissionError ) return;
 
-      const oldUrl = $location.url();
-      this.showNavbar = false;
-      $location.path('/login').search({url: oldUrl});
+      // if user is missing an AIQ session, it might be because they signed in with SSO but haven't yet linked their account
+      if ( _.get(error, 'status') === 404 ) {
+        this.AuthService.getSSOSession()
+          .then( () => {
+            this.promptUserToLinkSSO();
+          })
+          .catch( err => {
+            // they don't have an SSO session either, so send them to the login page
+            this.showLoginPage();
+          });
+        return;
+      }
+
+      this.showLoginPage();
     });
   }
 
+  private promptUserToLinkSSO() {
+    return this.$uibModal
+      .open({
+        animation: false,
+        component: 'linkSSO',
+        size: 'md',
+        windowClass: 'aiq-modal link-sso-modal',
+        backdrop: 'static',
+        backdropClass: 'link-sso-modal-backdrop',
+      })
+      .result;
+  }
+
+  private showLoginPage() {
+    const oldUrl = this.$location.url();
+    this.showNavbar = false;
+    this.$location.path('/login').search({url: oldUrl});
+  }
+
   $onInit() {
+    if ( this.$location.search().linkSSO === true ) {
+      console.log('Call linkSSO API');
+    }
     this.$interval( () => this.updateBanner(), 5 * 60 * 1000 );
     return this.updateBanner();
   }
