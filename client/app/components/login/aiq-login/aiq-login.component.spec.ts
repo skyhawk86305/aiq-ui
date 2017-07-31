@@ -4,7 +4,6 @@ describe('Component: aiq login', function() {
   let $q,
       deferred,
       $rootScope,
-      $uibModal,
       $location,
       AuthService,
       locals,
@@ -13,11 +12,10 @@ describe('Component: aiq login', function() {
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function(_$rootScope_, _$location_, _$q_, _$uibModal_, $componentController, _AuthService_) {
+  beforeEach(inject(function( _$q_, _$rootScope_, _$location_, _AuthService_, $componentController) {
     $q = _$q_;
     deferred = $q.defer();
     $rootScope = _$rootScope_.$new();
-    $uibModal = _$uibModal_;
     $location = _$location_;
     AuthService = _AuthService_;
     spyOn(AuthService, 'login').and.returnValue(deferred.promise);
@@ -28,7 +26,6 @@ describe('Component: aiq login', function() {
     bindings = {
       AuthService: AuthService,
       $location: $location,
-      $uibMoal: $uibModal,
       modalInstance: {
         close() {},
         dismiss() {},
@@ -43,12 +40,6 @@ describe('Component: aiq login', function() {
       deferred.resolve();
       controller.login(credentials);
       expect(AuthService.login).toHaveBeenCalledWith(credentials);
-    });
-
-    xit('should call open uib', function() {
-      spyOn(controller.$uibModal, 'open').and.returnValue($q.resolve());
-      controller.openLinkingModal();
-      expect(controller.$uibModal.open).toHaveBeenCalled();
     });
 
     it(`should set the error to null and set the location path to '/' on login success`, function() {
