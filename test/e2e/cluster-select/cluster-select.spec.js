@@ -259,7 +259,7 @@ describe('selecting clusters', function() {
     return list.customer('Bill').then( customer => customer.selectCluster('barCluster') );
   };
 
-  it('should close the drop down and update the selected cluster', function(done) {
+  xit('should close the drop down and update the selected cluster', function(done) {
     selectClusterSequence().then(function () {
       expect(dropDownMenu.el.isDisplayed()).to.eventually.be.false;
       expect(clusterSelect.selectedCluster.getText()).to.eventually.equal('barCluster');

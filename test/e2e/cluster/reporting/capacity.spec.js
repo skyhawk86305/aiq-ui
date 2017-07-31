@@ -82,7 +82,7 @@ describe('The Cluster Capacity Page', function () {
 
     describe('the info bars', function() {
       describe('should show the correct info bars depending on the selected graph:', function() {
-        it('block capacity info bar', function() {
+        xit('block capacity info bar', function() {
           const infoBar = capacityPage.infoBars.blockCapacity;
 
           capacitySyncGraphs.graphSelectorPanel.graphSelection('block-capacity').el.click();
@@ -105,7 +105,7 @@ describe('The Cluster Capacity Page', function () {
 
         it('metadata capacity info bar', function() {
           const infoBar = capacityPage.infoBars.metadataCapacity;
-          
+
           capacitySyncGraphs.graphSelectorPanel.graphSelection('metadata-capacity').el.click();
           expect(capacitySyncGraphs.graphSelectorPanel.graphSelection('metadata-capacity').el.getAttribute('class')).to.eventually.contain('active');
           expect(infoBar.el.isDisplayed()).to.eventually.be.true;
