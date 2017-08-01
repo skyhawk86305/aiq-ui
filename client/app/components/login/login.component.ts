@@ -1,51 +1,41 @@
-import * as _ from 'lodash';
-
 class LoginController {
-  public linkedAiqWithNetapp: boolean;
-  private error;
-  private queryParams;
 
-  static $inject = [ 'AuthService', '$location', '$rootScope', '$uibModal' ];
+  static $inject = [ '$location', '$uibModal', '$window', '$httpParamSerializer' ];
   constructor(
-    private AuthService,
     private $location,
-    private $rootScope,
     private $uibModal,
+    private $window,
+    private $httpParamSerializer,
   ) {}
 
-  login(credentials) {
-    const self = this;
-    self.AuthService.login(credentials)
-      .then( () => {
-        self.error = null;
-        self.$rootScope.queryParams = self.$location.search();
-        // commented out until account linking is implemented
-        /* if (!self.linkedAiqWithNetapp) {
-          self.openLinkingModal();
-        } else */ if (self.$rootScope.queryParams && self.$rootScope.queryParams.url) {
-          self.$location.url(self.$rootScope.queryParams.url);
-        } else {
-          self.$location.path('/');
-        }
-      }).catch( () => {
-        self.error = 'Invalid username or password';
-      });
-  };
+  loginWithSSO() {
+    const redirectURL = this.$location.search().url || '/';
+    // we need to prepend the redirectURL with the pathname to make feature branch deploys work
+    const target = this.$window.location.pathname + '#' + redirectURL;
+    const params = this.$httpParamSerializer({ target });
+    const loginURL = `/sso/login?${params}`;
+    this.$window.location.href = loginURL;
+  }
 
-  private openLinkingModal() {
+  openSSOPushModal() {
     return this.$uibModal
       .open({
         animation: false,
-        component: 'linkAiqNetappAccounts',
+        component: 'ssoPush',
         size: 'md',
-        windowClass: 'aiq-modal link-aiq-netapp-accounts-modal',
-        background: 'static',
+        windowClass: 'aiq-modal sso-push-modal',
+        backdrop: 'static',
         backdropClass: 'aiq-modal-backdrop',
+        resolve: {
+          initiateSSOLogin: () => {
+            return () => this.loginWithSSO();
+          }
+        },
       })
       .result;
-  };
+  }
 
-}
+};
 
 export const LoginComponent = {
   template: require('./login.tpl.html'),

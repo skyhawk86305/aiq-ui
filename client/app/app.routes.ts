@@ -5,12 +5,12 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
    * Customized route provider that adds a resolve to all routes (except for login).
    * The resolve checks if user is authenticated.
    */
-  let routeProvider = angular.extend({}, $routeProvider, {
+  const routeProvider = angular.extend({}, $routeProvider, {
     when: function(path, route) {
-      if (path !== '/login' && path !== '/reset-password') {
+      if (path !== '/login' && path !== '/aiq-login' && path !== '/sso-login' && path !== '/reset-password') {
         route.resolve = (route.resolve) ? route.resolve : {};
         angular.extend(route.resolve, {
-          isAuthenticated: function() {
+          isAuthenticated() {
             return AuthServiceProvider.$get().isAuthenticated();
           }
         });
@@ -19,6 +19,7 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
       return this;
     }
   });
+
   const defaultRedirect = {
     redirectTo: function () {
       return '/dashboard/overview';
@@ -27,6 +28,13 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
 
     routeProvider
       .when('/login', {
+        // template: '<login></login>'
+        template: '<aiq-login></aiq-login>'
+      })
+      .when('/aiq-login', {
+        template: '<aiq-login></aiq-login>'
+      })
+      .when('/sso-login', {
         template: '<login></login>'
       })
       .when('/reset-password', {

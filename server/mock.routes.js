@@ -7,7 +7,9 @@ var _ = require('lodash'),
   serverConfig = require('./server.config.js'),
   argv = require('yargs').alias('m', 'mock').argv,
   fixtureDir = typeof argv.mock === 'string' ? argv.mock : serverConfig.local.fixture,
-  authenticated = true;
+  authenticated = true,
+  ssoAuthenticated = false,
+  ssoLoginTarget = '/';
 
 /**
  * Catch API requests and respond with the matching fixture data
@@ -49,7 +51,7 @@ mockRoutes.get('/sessions', function (req, res) {
   if (authenticated) {
     res.status(200).send();
   } else {
-    res.status(400).send();
+    res.status(404).send();
   }
 });
 
@@ -73,6 +75,54 @@ mockRoutes.put('/sessions', function (req, res) {
 mockRoutes.delete('/sessions', function (req, res) {
   authenticated = false;
   res.status(200).send();
+});
+
+
+/**
+ * SSO mocks
+ */
+mockRoutes.get('/sso/login', function (req, res) {
+  if (req.query.target) {
+    ssoLoginTarget = req.query.target;
+  } else {
+    ssoLoginTarget = '/';
+  }
+  res.send(`
+    <h1>SSO Login</h1>
+    <p>This is a fake SSO login page. Click the link below to fake a successful login.</p>
+    <a href="/sso/callback">Login</a>
+  `);
+});
+
+mockRoutes.get('/sso/callback', function (req, res) {
+  ssoAuthenticated = true;
+  res.header('Location', ssoLoginTarget);
+  res.status(302).send();
+});
+
+mockRoutes.get('/sso/session', function (req, res) {
+  if (ssoAuthenticated) {
+    res.send({ userID: 'fakeUser' });
+  } else {
+    res.status(404).send();
+  }
+});
+
+mockRoutes.post('/sso/link', function (req, res) {
+  if (!ssoAuthenticated) {
+    res.status(401).send('SSO session is required');
+    return
+  }
+  if (!authenticated) {
+    res.status(401).send('AIQ session is required');
+    return
+  }
+  res.status(200).send('Accounts were successfully linked');
+});
+
+mockRoutes.post('/sso/logout', function (req, res) {
+  ssoAuthenticated = false;
+  res.status(200).send()
 });
 
 /**

@@ -1,36 +1,13 @@
 <div class='login-container'>
   <img class='netapp-logo' src='images/na_logo_hrz_1c-rev_rgb_lrg.png'>
-  <form class='login-form'
-        name='login-form'
-        ng-submit='$ctrl.login(credentials)'
-        method="post"
-        novalidate>
-    <span class='pull-left login-label'>Sign in to Active IQ</span>
-    <div class='form-group'>
-      <input type='text' id='username-input'
-             class='form-control'
-             placeholder='User name'
-             required
-             ng-model='credentials.username'>
-    </div>
-    <div class='form-group'>
-      <input type='password' id='password-input'
-             class='form-control'
-             placeholder='Password'
-             required
-             ng-model='credentials.password'>
-    </div>
-    <div class="pull-left">
-      <span class='login-error error-message'
-            ng-bind='$ctrl.error'></span>
-      <a class="reset-password-link sf-link" href="#/reset-password">
-        Forget your password?
-      </a>
-    </div>
-    <button ng-disabled='!(credentials.username && credentials.password)'
-            class='pull-right login-btn button'
-            type='submit'>
-      Sign in
-    </button>
-  </form>
+  <div class="login-form">
+    <h3>Welcome to Active IQ</h3>
+    <p>Use your exsiting NetApp Support credentials to sign in to Active IQ</p>
+    <button class='login-btn button login-netapp-btn' ng-click="$ctrl.loginWithSSO()">Sign in with NetApp</button>
+    <p>New to NetApp? <a href="https://mysupport.netapp.com/eservice/public/now.do" target="_BLANK">Register for your NetApp Support account now!</a></p>
+
+    <hr />
+    <p>Don't have a Netapp Support Account, but have an Active IQ account?</p>
+    <button class='login-btn button login-aiq-btn' ng-click="$ctrl.openSSOPushModal()">Sign in with Active IQ</button>
+  </div>
 </div>
