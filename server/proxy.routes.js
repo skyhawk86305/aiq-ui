@@ -50,10 +50,10 @@ proxyRoutes.use('/graph', function (req, res) {
   })).pipe(res);
 });
 
-proxyRoutes.use('/dashberg*', function (req, res) {
+proxyRoutes.use('/dashberg', function (req, res) {
   req.pipe(request({
     method: req.method,
-    uri: proxyConfig.dashbergEndPoint + req.originalUrl.replace(/^\/dashberg/, '')
+    uri: proxyConfig.endPoint + req.originalUrl
   })).pipe(res);
 });
 

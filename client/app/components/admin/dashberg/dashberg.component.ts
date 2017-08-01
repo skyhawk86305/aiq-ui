@@ -4,6 +4,13 @@ class DashbergController {
   private performanceData = null;
   private metadata = null;
   private nodeType = [];
+  private items = [
+    { name: 'nodes', title: 'Nodes' },
+    { name: 'volumes', title: 'Volumes' },
+    { name: 'volumeAccessGroups', title: 'Volume Access Groups' },
+    { name: 'iops', title: 'IOPs' },
+    { name: 'sessions', title: 'iSCSI Sessions' },
+    { name: 'snapshots', title: 'SnapshotsNodes' }];
 
   static $inject = [
     'DashbergService'
