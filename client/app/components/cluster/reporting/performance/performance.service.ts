@@ -23,6 +23,9 @@
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('performance', params)
         .then( ({ data }) => Object.assign({}, data,
+          data.timestamps.forEach((val,i) => {
+            data.timestamps[i] = new Date(val);
+          }),
           _(data)
             .pick([
               'readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec',

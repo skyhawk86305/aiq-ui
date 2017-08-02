@@ -16,7 +16,12 @@
     function getIscsiSessions(params) {
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('capacity', params)
-        .then( response => _.get(response, 'data') );
+        .then( ({data}) => Object.assign({}, data,
+          data.timestamps.forEach((val,i) => {
+            data.timestamps[i] = new Date(val);
+          }),
+           _.get(data, 'data'))
+        )
     }
 
     function update(clusterID) {
