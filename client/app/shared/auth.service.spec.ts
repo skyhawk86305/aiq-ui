@@ -86,8 +86,8 @@ describe('Auth Service', function () {
 
   describe('.logout', function() {
 
-    it('should make an $http GET request to /sso/logout', function () {
-      http.expectGET('/sso/logout').respond(200, 'success');
+    it('should make an $http GET request to /logout', function () {
+      http.expectGET('/logout').respond(200, 'success');
       service.logout();
       http.flush();
       expect(userInfoService.clearUserInfo).toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe('Auth Service', function () {
 
     describe('when logout fails', function () {
       it('should return an error', function () {
-        http.expectGET('/sso/logout').respond(500);
+        http.expectGET('/logout').respond(500);
         service.logout().then(function() {
           fail('expected promise to be rejected');
         });
