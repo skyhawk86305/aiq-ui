@@ -22,10 +22,8 @@
     function getClusterEfficiency(params) {
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('capacity', params)
-        .then( ({ data }) => Object.assign({}, data,
-          data.timestamps.forEach((val,i) => {
-            data.timestamps[i] = new Date(val);
-          }),
+        .then( ({ data }) => Object.assign({},data,
+          { timestamps: data.timestamps.map( value => new Date(value).toISOString()) },
           _(data)
             .pick([
               'thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor',
