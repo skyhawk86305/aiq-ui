@@ -8,7 +8,9 @@
 </div>
 
 <div class="aiq-modal-content" ng-show="$ctrl.resolve.err">
-  <p>Error: {{ $ctrl.resolve.err.body || $ctrl.resolve.err }}</p>
+  <p>Associating your Active IQ account with your NetApp Support account failed.</p>
+  <p>{{ $ctrl.resolve.err.body || $ctrl.resolve.err }}</p>
+  <p>Please try again.</p>
 </div>
 
 <div class="aiq-modal-footer">
