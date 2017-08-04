@@ -8,7 +8,7 @@ Running the Tests
   - Output coverage reports to /report/coverage/PhantomJS/lcov-report/index.html
   - Fail if coverage for any of the categories drop below 75
   - Watermark thresholds are initially set at red: <80%, yellow: <90%, green: >90%
-  - Coverage goals: TBD
+  - Coverage goals: 75% (unit test run will fail if any overall metric falls below that threshold)
 
 `gulp test:unit`
 
@@ -24,7 +24,7 @@ Running the Tests
   - Require you to first install and update selenium-standalone server
   - Run in an actual browser (configurable)
   - Run against the current build served locally via express
-  - Use a mock backend to respond to API calls with text fixtures found at /server/fixtures/<fixture-name>
+  - Use a mock backend to respond to API calls with text fixtures found at /server/fixtures/<set>/<fixture-name>
   - Output coverage reports TBD
   - Specific suites are indicated with @tags at the beginning of the title of the test (see testing guidelines):
    DEV should use the following tags:
@@ -82,6 +82,16 @@ reports that are output to /report/e2e/htmlReport.html
   * NOT test what has already been unit tested
   * Run independently at file level to allow them to be run in parallel
   * NOT have selectors (these belong in page objects)
+  
+## Fixtures
+
+Fixtures are sets of known data that we can return in APIs when performing UI testing. We currently have two different
+sets of fixture data: `default` and `other`. While currently not used in testing, the idea of having different sets
+of fixture data is to provide different API results for different tests, if needed. For example, most tests might
+be fine with a user with 'internalUser' privileges. But another tests might check to see if a user with 'customerUser'
+privileges can see a certain page.
+
+When creating a new set of fixture data for an API, please create files in all of the fixture sets. 
 
 ## Page Objects
 
