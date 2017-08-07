@@ -17,9 +17,8 @@
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('capacity', params)
        .then( ({ data }) => Object.assign({}, data,
-        { timestamps: data.timestamps.map( value => new Date(value).toISOString()) },
-           _.get(data, 'data'))
-        )
+        { timestamps: data.timestamps.map( value => new Date(value).toISOString()) }
+        ))
     }
 
     function update(clusterID) {

@@ -12,8 +12,8 @@ export class ArchivedClustersService {
       { label: 'ClusterID', key: 'clusterID', width: 100, format: { filter: 'aiqNumber', args: [0, true] }, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
       { label: 'Customer', key: 'customerName', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Cluster Name', key: 'clusterName', filterComparators: SFFilterComparators.STRING_DEFAULT },
-      { label: 'Last Update', key: 'lastUpdateTime', width: 175, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
-      { label: 'Archive Time', key: 'archiveTime', width: 175, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
+      { label: 'Last Update', key: 'lastUpdateTime', format: { filter: 'aiqDate' }, width: 175, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
+      { label: 'Archive Time', key: 'archiveTime', format: { filter: 'aiqDate' }, width: 175, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
     ];
 
     function listArchivedClusters() {
