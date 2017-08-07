@@ -48,7 +48,7 @@ describe('IscsiSessionsGraphService', function () {
     });
 
     it('should deserialize the response and resolve an array of data', function () {
-      let date = new Date().toISOString();
+      let date = new Date();
       apiResponse = {data: {timestamps: [ date, date, date], activeSessions: [1, 2, 3], peakActiveSessions: [4, 5, 6]}};
       service.getData(currentDate, currentDate, 300).then(function(response) {
         expect(response).toEqual(apiResponse.data);

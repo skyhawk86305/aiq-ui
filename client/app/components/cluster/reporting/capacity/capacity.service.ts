@@ -21,7 +21,7 @@
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('capacity', params)
         .then( ({ data }) => Object.assign({}, data,
-         { timestamps: data.timestamps.map( value => new Date(value).toISOString()) },
+         { timestamps: data.timestamps.map( value => new Date(value)) },
           _(data)
             .pick([
               'maxUsedSpace', 'usedSpace',
