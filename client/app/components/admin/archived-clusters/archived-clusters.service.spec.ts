@@ -50,14 +50,14 @@ describe('ArchivedClustersService', function() {
         clusterID: 2147039,
           customer: 'AT2 Clusters',
           clusterName: 'Test cluster 1',
-          lastUpdateTime: 1492450284000,
-          archiveTime: 1466075000
+          lastUpdateTime: new Date(1492450284000),
+          archiveTime: new Date(1466075000)
       }, {
          clusterID: 2147040,
           customer: 'HCI Testing',
           clusterName: 'Test cluster 2',
-          lastUpdateTime: 1492450284000,
-          archiveTime: 1466075000
+          lastUpdateTime: new Date(1492450284000),
+          archiveTime: new Date(1466075000)
       }];
 
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
