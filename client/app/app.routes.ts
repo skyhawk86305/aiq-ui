@@ -115,6 +115,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         template: '<overview-dashboard></overview-dashboard>',
         reloadOnSearch: false
       })
+      .when('/cluster/:clusterID',  {
+        redirectTo(params, path) {
+          return `/cluster/${params.clusterID}/reporting/overview`;
+        }
+      })
       .when('/cluster/:clusterID/reporting/capacity', {
         template: '<capacity-graphs></capacity-graphs>',
         reloadOnSearch: false
