@@ -13,6 +13,7 @@
 
 /* Scripts */
 import 'angular';
+import 'angular-animate';
 import 'angular-cache';
 import 'angular-filter';
 import 'angular-route';

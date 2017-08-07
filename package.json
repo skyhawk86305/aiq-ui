@@ -71,6 +71,7 @@
   "dependencies": {
     "@sf-netapp/sf-components": "~3.4.1",
     "angular": "1.5.8",
+    "angular-animate": "~1.5.7",
     "angular-cache": "^4.6.0",
     "angular-filter": "^0.5.15",
     "angular-permission": "^5.2.3",

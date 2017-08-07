@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import 'angular-animate';
 import 'angular-cache';
 import 'angular-filter';
 import 'angular-route';
@@ -22,6 +23,7 @@ export const AppModule = angular
     'ui.bootstrap',
     'ngRoute',
     'ngSanitize',
+    'ngAnimate',
     'angular-cache',
     'permission',
     'permission.ng',
