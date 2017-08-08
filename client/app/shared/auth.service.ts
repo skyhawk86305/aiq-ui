@@ -64,7 +64,7 @@ export function AuthService($q, $http, UserInfoService) {
     },
 
     logout() {
-      return $http.get('/logout', { cache: false })
+      return $http.get('/sessions/logout', { cache: false })
         .then( response => {
           UserInfoService.clearUserInfo();
           return response;
