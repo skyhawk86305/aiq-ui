@@ -22,6 +22,13 @@
             permission permission-only="['registerCluster']">
           <a href="#/admin/unregisteredClusters">Admin</a>
         </li>
+        <li class="navbar-item -main"
+            id="sf-main-navbar-item-supportDashboard"
+            ng-class="{'active':$ctrl.activeItems.main === 'supportDashboard'}"
+            ng-hide="true"
+            permission permission-only="['support-dashboard.view']">
+          <a href="#/supportDashboard/overview">Support Dashboard</a>
+        </li>
 
         <!--<li class="navbar-item -main"
             id="sf-main-navbar-item-users"

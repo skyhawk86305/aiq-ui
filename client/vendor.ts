@@ -13,11 +13,14 @@
 
 /* Scripts */
 import 'angular';
+import 'angular-animate';
 import 'angular-cache';
 import 'angular-filter';
 import 'angular-route';
 import 'angular-sanitize';
 import 'angular-ui-bootstrap';
+import 'angular-schema-form';
+import 'angular-schema-form-bootstrap';
 import 'jspolyfill-array.prototype.find';
 import 'jspolyfill-array.prototype.findIndex';
 import 'es6-object-assign';

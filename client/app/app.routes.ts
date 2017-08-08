@@ -108,12 +108,24 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
           permissions: { only: ['internalAdmin'], redirectTo: '/dashboard/overview' },
         },
       })
+      .when('/supportDashboard/overview',{
+        template:'<support-overview></support-overview>',
+        reloadOnSearch:false,
+        data: {
+          permissions: { only: ['support-dashboard.view'], redirectTo: '/dashboard/overview' },
+        },
+      })
       .when('/clusterByUUID/:clusterUUID/:requestedRoute*', {
         template: '<find-cluster class="sf-layout-block"></find-cluster>',
       })
       .when('/cluster/:clusterID/reporting/overview', {
         template: '<overview-dashboard></overview-dashboard>',
         reloadOnSearch: false
+      })
+      .when('/cluster/:clusterID',  {
+        redirectTo(params, path) {
+          return `/cluster/${params.clusterID}/reporting/overview`;
+        }
       })
       .when('/cluster/:clusterID/reporting/capacity', {
         template: '<capacity-graphs></capacity-graphs>',

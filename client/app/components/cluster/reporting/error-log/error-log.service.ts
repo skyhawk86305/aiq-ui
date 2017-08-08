@@ -34,7 +34,7 @@
       {key: 'resolved', label: 'Resolved', filterComparators: CustomComparatorsService.resolvedComparators, format: {filter: 'tableBadgeBoolean'}, width: 100},
       {key: 'resolvedDate', label: 'Resolution Time', format: {filter: 'aiqDate'}, width: 175},
       {key: 'code', label: 'Error Code', filterComparators: SFFilterComparators.STRING_DEFAULT, format: {filter:'string'}, width: 180},
-      {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter:'string'}}
+      {key: 'details', label: 'Details', filterComparators: [SFFilterComparators.CONTAINS], format: {filter:'string'}, minWidth: 200, wrap: true, isWrapped: true}
     ];
 
     const errorLogTableService = new SFTableService(listClusterFaults, columns, false);

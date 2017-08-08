@@ -1,0 +1,14 @@
+<div class="sf-table-widget">
+   <sf-table class="sf-layout-block"
+          service="$ctrl.service"
+          table-id="support-overview"
+          control-bar="true"
+          items-per-page="100"
+          multi-column-sort="true"
+          export="true"
+          row-selection="true"
+          on-selection-change="$ctrl.getSelectedRows(rows)"
+          edit-type="row"
+          footer-row-count="true">
+  </sf-table>
+</div>

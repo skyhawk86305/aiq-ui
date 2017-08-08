@@ -24,7 +24,7 @@ describe('The Navigation Bar', function() {
 
     it('@any @smoke should display on initial page load', function() {
       expect(navbar.mainNavbar.el.isPresent()).to.eventually.be.true;
-      expect(navbar.mainNavbar.items.count()).to.eventually.equal(7);
+      expect(navbar.mainNavbar.items.count()).to.eventually.equal(8);
     });
 
     it('@any @smoke should contain a menu with options', function() {
