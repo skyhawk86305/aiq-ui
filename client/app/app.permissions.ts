@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 export class PermissionError {}
 
 export function AppPermissions($q, PermPermissionStore, UserInfoService) {
-  const permissions = [ 'root', 'internalAdmin', 'internalUser', 'customerUser', 'registerCluster', 'dashberg' ];
+  const permissions = [ 'root', 'internalAdmin', 'internalUser', 'customerUser', 'registerCluster', 'dashberg', 'support-dashboard.view', 'alert.triage' ];
 
   permissions.forEach( perm => {
     PermPermissionStore.definePermission(
