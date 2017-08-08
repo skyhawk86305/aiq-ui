@@ -120,7 +120,7 @@ mockRoutes.post('/sso/link', function (req, res) {
   res.status(200).send('Accounts were successfully linked');
 });
 
-mockRoutes.post('/sessions/logout', function (req, res) {
+mockRoutes.get('/sessions/logout', function (req, res) {
   ssoAuthenticated = false;
   authenticated = false;
   res.status(200).send()
