@@ -1,0 +1,75 @@
+<div class="aiq-modal-header">
+  Suppress Cluster {{ $ctrl.clusterName || '' }}
+</div>
+
+<div class="aiq-modal-content">
+  <div ng-if="!$ctrl.clusterProvided">
+    <p>Enter the ID of the cluster you want to suppress:</p>
+    <form name="clusterIDForm" ng-submit="$ctrl.next()" method="post" novalidate>
+      <div class="form-group">
+        <div class="control-container">
+          <input name="clusterID"
+                 class="form-control input-sm"
+                 ng-model="$ctrl.clusterID"
+                 autocomplete="off"
+                 required
+                 autofocus>
+          <div class="validation-help"
+               ng-show="$ctrl.error">
+            {{ $ctrl.error }}
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <form name="durationForm" ng-if="$ctrl.clusterProvided" ng-submit="$ctrl.suppress()" method="post" novalidate>
+    <p>Suppress cluster <strong>{{ $ctrl.clusterName }}</strong> for:</p>
+    <div class="form-group">
+      <div class="control-container">
+        <select class="form-control"
+                name="duration"
+                ng-model="$ctrl.selectedDurationOption"
+                ng-options="d as d.name for d in $ctrl.durationOptions"
+                autofocus>
+        </select>
+      </div>
+    </div>
+
+    <div ng-if="$ctrl.selectedDurationOption.name === 'Custom'">
+      <p>Select a custom end date and time:</p>
+      <div class="form-group">
+        <div class="control-container">
+          <sf-date-time-selector format="'yyyy-MM-dd HH:mm:ss'"
+                                 min-date="$ctrl.now"
+                                 on-change="$ctrl.customEndDate = date">
+          </sf-date-time-selector>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<div class="aiq-modal-footer">
+  <button type="button"
+          class="button button-submit"
+          ng-if="!$ctrl.clusterProvided"
+          ng-disabled="!$ctrl.clusterID"
+          ng-click="$ctrl.next()">
+    Next
+  </button>
+  <button type="button"
+          class="button button-submit"
+          ng-if="$ctrl.clusterProvided"
+          ng-disabled="$ctrl.getDurationMillis() === null"
+          ng-click="$ctrl.suppress()">
+    Suppress
+  </button>
+
+  <button type="button"
+          class="button button-cancel"
+          ng-click="$ctrl.cancel()">
+    Cancel
+  </button>
+</div>

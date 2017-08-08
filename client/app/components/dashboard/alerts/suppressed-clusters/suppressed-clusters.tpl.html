@@ -1,11 +1,37 @@
-<div class="sf-table-widget">
-  <sf-table id="suppressed-clusters-page"
-      class="sf-layout-block"
-      service="$ctrl.service"
-      table-id="suppressed-clusters"
-      control-bar="true"
-      items-per-page="25"
-      export="true"
-      footer-row-count="true">
-  </sf-table>
+<div class="sf-table-page">
+
+  <sf-table-message-banner ng-if="$ctrl.newSuppressionResult"
+      message-type="success"
+      disappear-delay="5000">
+    Cluster <strong>{{ $ctrl.newSuppressionResult.clusterName }}</strong>
+    has been successfully suppressed until <strong>{{ $ctrl.newSuppressionResult.endDate | aiqDate }}</strong>.
+  </sf-table-message-banner>
+
+  <sf-table-message-banner ng-if="$ctrl.newSuppressionError" message-type="error">
+    Unable to suppress cluster: {{ $ctrl.newSuppressionError }}
+  </sf-table-message-banner>
+
+  <div class="sf-table-widget">
+
+    <sf-table id="suppressed-clusters-page"
+        class="sf-layout-block"
+        service="$ctrl.SuppressedClustersService"
+        table-id="suppressed-clusters"
+        control-bar="true"
+        items-per-page="25"
+        export="true"
+        footer-row-count="true">
+
+      <control-bar-right>
+        <button class="button"
+                id="suppress-cluster-button"
+                ng-click="$ctrl.suppressCluster()"
+                ng-hide="true"
+                permission permission-only="['internalAdmin']">
+          Suppress Cluster
+        </button>
+      </control-bar-right>
+
+    </sf-table>
+  </div>
 </div>
