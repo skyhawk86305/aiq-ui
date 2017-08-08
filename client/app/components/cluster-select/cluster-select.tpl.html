@@ -10,7 +10,8 @@
       <input id="cluster-select-filter"
              placeholder="type a cluster name to filter"
              ng-model="$ctrl.filterInput"
-             ng-change="$ctrl.filterClusters()">
+             ng-change="$ctrl.filterClusters()"
+             autofocus>
     </div>
     <span class="cluster-select-hints"
           uib-tooltip-template="'cluster-select-hints-template'"
