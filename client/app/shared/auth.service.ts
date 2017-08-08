@@ -64,12 +64,11 @@ export function AuthService($q, $http, UserInfoService) {
     },
 
     logout() {
-      return $http.delete('/sessions').then(function(response) {
-        UserInfoService.clearUserInfo();
-        return response;
-      }).catch(function(error) {
-        return $q.reject(error);
-      });
+      return $http.get('/sessions/logout', { cache: false })
+        .then( response => {
+          UserInfoService.clearUserInfo();
+          return response;
+        });
     }
   };
 }
