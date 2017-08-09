@@ -25,7 +25,7 @@ proxyRoutes.use('/banner-message', function (req, res) {
 proxyRoutes.use('/sessions', function (req, res) {
   req.pipe(request({
     method: req.method,
-    uri: proxyConfig.endPoint + '/sessions'
+    uri: proxyConfig.endPoint + req.originalUrl
   })).pipe(res);
 });
 
