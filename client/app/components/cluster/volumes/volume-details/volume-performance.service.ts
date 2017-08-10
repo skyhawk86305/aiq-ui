@@ -25,6 +25,7 @@
       params.volumeID  = service.selectedVolumeID;
       return DataService.callGraphAPI('performance', params)
         .then( ({ data }) => Object.assign({}, data,
+          { timestamps: data.timestamps.map(val => new Date(val)) },
           _(data)
             .pick([
               'readBytesPerSec', 'writeBytesPerSec', 'totalBytesPerSec',
