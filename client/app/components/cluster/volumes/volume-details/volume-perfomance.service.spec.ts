@@ -63,8 +63,11 @@ describe('VolumePerformanceGraphsService', function () {
           totalBytesPerSec: [7000000000000, 8000000000000, 9000000000000]
         }
       };
+      const expectedData = Object.assign({}, apiResponse.data, {
+        timestamps: [ new Date(1000), new Date(2000), new Date(3000) ],
+      });
       service.getData(currentDate, currentDate, 300).then(function(response) {
-        expect(response).toEqual(apiResponse.data);
+        expect(response).toEqual(expectedData);
       });
       deferred.resolve(apiResponse);
       rootScope.$apply();
