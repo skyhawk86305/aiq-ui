@@ -23,6 +23,7 @@
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('performance', params)
         .then( ({ data }) => Object.assign({}, data,
+          { timestamps: data.timestamps.map( value => new Date(value)) },
           _(data)
             .pick([
               'readOpsPerSec', 'writeOpsPerSec', 'totalOpsPerSec',
