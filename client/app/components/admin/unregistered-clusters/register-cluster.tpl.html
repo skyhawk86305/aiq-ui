@@ -25,12 +25,13 @@
         Customer Name:
       </label>
       <div class="control-container">
-        <input type="text"
-            name="customerName"
-            class="form-control input-sm"
-            ng-model="$ctrl.customer"
-            uib-typeahead="c as c.customerName for c in $ctrl.customers"
-            required>
+        <input name="customerName"
+               class="form-control input-sm"
+               ng-model="$ctrl.customer"
+               uib-typeahead="c as c.customerName for c in $ctrl.customers | filter:{customerName:$viewValue}"
+               required
+               autocomplete="off"
+               autofocus>
       </div>
     </div>
   </form>
