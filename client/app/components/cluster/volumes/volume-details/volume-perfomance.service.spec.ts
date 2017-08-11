@@ -50,7 +50,19 @@ describe('VolumePerformanceGraphsService', function () {
     });
 
     it('should deserialize the response and resolve an array of data', function () {
-      apiResponse = {data: {timestampSec: [1, 2, 3], clusterUtilizationPct: [10, 20, 30], readOpsPerSec: [100, 200, 300], writeOpsPerSec: [400, 500, 600], totalOpsPerSec: [700, 800, 900], readBytesPerSec: [1000000000000, 2000000000000, 3000000000000], writeBytesPerSec: [4000000000000, 5000000000000, 6000000000000], totalBytesPerSec: [7000000000000, 8000000000000, 9000000000000]}};
+      apiResponse = {
+        data: {
+          timestamps: [1000, 2000, 3000],
+          timestampSec: [1, 2, 3],
+          clusterUtilizationPct: [10, 20, 30],
+          readOpsPerSec: [100, 200, 300],
+          writeOpsPerSec: [400, 500, 600],
+          totalOpsPerSec: [700, 800, 900],
+          readBytesPerSec: [1000000000000, 2000000000000, 3000000000000],
+          writeBytesPerSec: [4000000000000, 5000000000000, 6000000000000],
+          totalBytesPerSec: [7000000000000, 8000000000000, 9000000000000]
+        }
+      };
       service.getData(currentDate, currentDate, 300).then(function(response) {
         expect(response).toEqual(apiResponse.data);
       });

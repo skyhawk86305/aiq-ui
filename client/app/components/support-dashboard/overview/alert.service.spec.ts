@@ -42,8 +42,8 @@ describe('AlertService', function () {
           lastUpdateTime: '2017-4-14 15:31:33',
           lastModifiedBy: 'N/A',
           id:3602647,
-          severity:'warning',
-          resolved:false,
+          severity: 'warning',
+          resolved: false,
           notes: 'test1'
         }],
       };
