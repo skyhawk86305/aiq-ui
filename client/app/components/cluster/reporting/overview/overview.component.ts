@@ -24,7 +24,6 @@
       PerformanceGraphsService.update($routeParams.clusterID);
       ctrl.getClusterSummaryState = 'loading';
       ctrl.getCapacitySnapshotState = 'loading';
-      ctrl.getPerformanceSnapshotState = 'loading';
       ctrl.getClusterInfoState = 'loading';
       ctrl.getISCSISessionsState = 'loading';
       ctrl.getFibreChannelSessionsState = 'loading';
@@ -103,14 +102,6 @@
           ctrl.getISCSISessionsState = 'error';
         });
 
-      /*DataService.callGuzzleAPI($routeParams.clusterID, 'ListFibreChannelSessions')
-        .then(function (response) {
-          ctrl.fibreChannelSessionsCount = response && response.sessions ? response.sessions.length : 0;
-          ctrl.getFibreChannelSessionsState = 'loaded';
-        }).catch(function() {
-        ctrl.getFibreChannelSessionsState = 'error';
-      });*/
-
       DataService.callGuzzleAPI($routeParams.clusterID, 'ListActiveVolumes')
         .then(function (response) {
           ctrl.volumesCount = response && response.volumes ? response.volumes.length : 0;
@@ -118,14 +109,6 @@
         }).catch(function() {
           ctrl.getActiveVolumesState = 'error';
         });
-
-      /*DataService.callGuzzleAPI($routeParams.clusterID, 'GetLdapConfiguration')
-        .then(function (response) {
-          ctrl.ldap = response && response.config ? response.config.toUpperCase() : '-';
-          ctrl.getLDAPState = 'loaded';
-        }).catch(function() {
-        ctrl.getLDAPState = 'error';
-      });*/
 
       DataService.callGuzzleAPI($routeParams.clusterID, 'ListActiveNodes')
         .then(function (response) {
@@ -153,13 +136,6 @@
           ctrl.getCapacitySnapshotState = 'error';
         });
 
-      DataService.callGraphAPI('performance', {clusterID: parseInt($routeParams.clusterID, 10), snapshot: true})
-        .then(function(response) {
-          ctrl.performanceSnapshot = response.data;
-          ctrl.getPerformanceSnapshotState = 'loaded';
-        }).catch(function() {
-          ctrl.getPerformanceSnapshotState = 'error';
-        });
       ctrl.infoBarLastUpdated = $filter('aiqDate')(new Date());
     }
 
