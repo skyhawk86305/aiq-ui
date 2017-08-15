@@ -21,6 +21,9 @@
               <span ng-show="$ctrl.clusterFullPrediction.stage3Code.code !== 'OK'">
                 {{ $ctrl.clusterFullPrediction.stage3Code.description }}
               </span>
+              <span class="forecast-error" ng-show="!$ctrl.clusterFullPrediction">
+                Prediction not yet available
+              </span>
             </span>
             <span class="forecast-error" ng-show="$ctrl.getClusterFullPredictionState === 'error'">
               Error loading forecast
@@ -40,6 +43,9 @@
               <span ng-show="$ctrl.clusterFullPrediction.stage4Code.code !== 'OK'">
                 {{ $ctrl.clusterFullPrediction.stage4Code.description }}
               </span>
+              <span class="forecast-error" ng-show="!$ctrl.clusterFullPrediction">
+                Prediction not yet available
+              </span>
             </span>
             <span class="forecast-error" ng-show="$ctrl.getClusterFullPredictionState === 'error'">
               Error loading forecast
@@ -58,6 +64,9 @@
               </span>
               <span ng-show="$ctrl.clusterFullPrediction.stage5Code.code !== 'OK'">
                 {{ $ctrl.clusterFullPrediction.stage5Code.description }}
+              </span>
+              <span class="forecast-error" ng-show="!$ctrl.clusterFullPrediction">
+                Prediction not yet available
               </span>
             </span>
             <span class="forecast-error" ng-show="$ctrl.getClusterFullPredictionState === 'error'">
