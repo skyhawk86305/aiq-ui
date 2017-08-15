@@ -60,7 +60,6 @@ describe('Component: overviewDashboard', function() {
         scope.$apply();
         expect(controller.clusterSummary).toEqual({name: 'bar', clusterVersion: 'baz'});
         expect(controller.capacitySnapshot).toEqual('foo');
-        expect(controller.performanceSnapshot).toEqual('foo');
         expect(controller.encryptionAtRestState).toEqual('ENABLED');
         expect(controller.iSCSISessionsCount).toEqual(5);
         expect(controller.volumesCount).toEqual(8);
@@ -75,7 +74,6 @@ describe('Component: overviewDashboard', function() {
         scope.$apply();
         expect(controller.clusterSummary).toBeUndefined();
         expect(controller.capacitySnapshot).toBeUndefined();
-        expect(controller.performanceSnapshot).toBeUndefined();
         expect(controller.encryptionAtRestState).toEqual('-');
         expect(controller.iSCSISessionsCount).toEqual(0);
         expect(controller.volumesCount).toEqual(0);
@@ -90,7 +88,6 @@ describe('Component: overviewDashboard', function() {
         scope.$apply();
         expect(controller.getClusterSummaryState).toEqual('error');
         expect(controller.getCapacitySnapshotState).toEqual('error');
-        expect(controller.getPerformanceSnapshotState).toEqual('error');
         expect(controller.getActiveVolumesState).toEqual('error');
         expect(controller.getActiveNodesState).toEqual('error');
         expect(controller.getClusterInfoState).toEqual('error');
