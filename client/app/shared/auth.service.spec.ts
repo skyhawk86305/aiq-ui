@@ -2,23 +2,27 @@
 'use strict';
 
 describe('Auth Service', function () {
-  let rootScope,
+  let $rootScope,
+      $q,
       service,
       http,
       userInfoService,
       apiHandler,
       getSpy,
-      clearSpy;
+      clearSpy,
+      dataService;
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function ($rootScope, AuthService, UserInfoService, $httpBackend) {
-    rootScope = $rootScope;
+  beforeEach(inject(function (_$rootScope_, _$q_, AuthService, UserInfoService, $httpBackend, DataService) {
+    $rootScope = _$rootScope_;
+    $q = _$q_;
     service = AuthService;
     http = $httpBackend;
     userInfoService = UserInfoService;
     getSpy = spyOn(userInfoService, 'getUserInfo');
     clearSpy = spyOn(userInfoService, 'clearUserInfo');
+    dataService = DataService;
   }));
 
   afterEach(function() {
@@ -186,4 +190,47 @@ describe('Auth Service', function () {
     });
   });
 
+  describe('.hasPermission', function() {
+    let getDeferred;
+
+    beforeEach(function() {
+      getDeferred = $q.defer();
+      getSpy.and.returnValue(getDeferred.promise);
+      userInfoService.currentUser = {
+        permissions: []
+      };
+    });
+
+    it('should return true if the user has root permission', function() {
+      userInfoService.currentUser.permissions = ['root'];
+      getDeferred.resolve();
+      service.hasPermission('test1').then((response) => {
+        expect(response).toEqual(true);
+      });
+    });
+
+    it('should return true if the user has the specified permission', function() {
+      userInfoService.currentUser.permissions = ['test2', 'test3', 'test1'];
+      getDeferred.resolve();
+      service.hasPermission('test1').then((response) => {
+        expect(response).toEqual(true);
+      });
+    });
+
+    it('should return false if the user does not have the specified permission', function() {
+      userInfoService.currentUser.permissions = ['test2', 'test3', 'test4'];
+      getDeferred.resolve();
+      service.hasPermission('test1').then((response) => {
+        expect(response).toEqual(false);
+      });
+    });
+
+    it('should return false if there is a problem getting the user information', function() {
+      userInfoService.currentUser.permissions = ['root'];
+      getDeferred.reject();
+      service.hasPermission('test1').then((response) => {
+        expect(response).toEqual(false);
+      });
+    });
+  })
 });

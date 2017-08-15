@@ -69,6 +69,16 @@ export function AuthService($q, $http, UserInfoService) {
           UserInfoService.clearUserInfo();
           return response;
         });
+    },
+
+    hasPermission(permission) {
+      return UserInfoService.getUserInfo()
+        .then(() => {
+          return _(UserInfoService.currentUser.permissions).includes(permission) || _(UserInfoService.currentUser.permissions).includes('root')
+        })
+        .catch(() => {
+          return false;
+        });
     }
   };
 }

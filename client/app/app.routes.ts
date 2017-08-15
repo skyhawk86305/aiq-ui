@@ -109,11 +109,16 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         },
       })
       .when('/supportDashboard/overview',{
-        template:'<support-overview></support-overview>',
-        reloadOnSearch:false,
+        template: '<support-overview edit-authorization="$resolve.editAuth"></support-overview>',
+        reloadOnSearch: false,
         data: {
           permissions: { only: ['support-dashboard.view'], redirectTo: '/dashboard/overview' },
         },
+        resolve: {
+          editAuth: ['AuthService', function (AuthService) {
+            return AuthService.hasPermission('alert.triage');
+          }]
+        }
       })
       .when('/clusterByUUID/:clusterUUID/:requestedRoute*', {
         template: '<find-cluster class="sf-layout-block"></find-cluster>',
