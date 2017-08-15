@@ -4,6 +4,7 @@ import 'jspolyfill-array.prototype.findIndex';
 import { ClusterSelectComponent } from './cluster-select/cluster-select.component';
 import { ClusterSelectFilter } from './cluster-select/cluster-select.filter';
 import { ClusterSelectService } from './cluster-select/cluster-select.service';
+import { ClusterSelectInputFocus } from './cluster-select/input-focus.directive';
 
 import { DashboardOverviewComponent } from './dashboard/overview/overview.component';
 import { ClusterService } from './dashboard/overview/cluster.service';
@@ -43,12 +44,15 @@ import { CapacityGraphsComponent } from './cluster/reporting/capacity/capacity.c
 import { PerformanceGraphsComponent } from './cluster/reporting/performance/performance.component';
 import { IscsiGraphsComponent } from './cluster/reporting/iscsi-sessions/iscsi-sessions.component';
 
+
+
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
 
   .component('clusterSelect', ClusterSelectComponent)
   .service('ClusterSelectService', ClusterSelectService)
   .filter('clusterSelect', ClusterSelectFilter)
+  .directive('clusterSelectInputFocus', ClusterSelectInputFocus)
 
   .component('dashboardOverview', DashboardOverviewComponent)
   .service('ClusterService', ClusterService)
