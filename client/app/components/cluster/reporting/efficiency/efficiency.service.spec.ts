@@ -49,7 +49,7 @@ describe('EfficiencyGraphsService', function () {
 
     it('should deserialize the response and resolve an array of data', function () {
       let date = new Date();
-      apiResponse = {data: {timestamps: [ date, date, date], thinProvisioningFactor: [1, 2, 3], deDuplicationFactor: [4, 5, 6], compressionFactor: [7, 8, 9], efficiencyFactor: [10, 11, 12]}};
+      apiResponse = {data: {timestamps: [ date, date, date], thinProvisioningFactor: [1, 2, 3], deDuplicationFactor: [4, 5, 6], compressionFactor: [7, 8, 9], thinTimesDeDupFactor: [4, 10, 18], thinTimesCompressionFactor: [7, 16, 27], deDupTimesCompressionFactor: [28, 40, 54], efficiencyFactor: [10, 11, 12]}};
       service.getData(currentDate, currentDate, 300).then(function(response) {
         expect(response).toEqual(apiResponse.data);
       });

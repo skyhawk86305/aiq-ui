@@ -28,6 +28,9 @@ class EfficiencyGraphsController {
               thinProvisioningFactor: 'Thin Provisioning Efficiency',
               deDuplicationFactor: 'Deduplication Efficiency',
               compressionFactor: 'Compression Efficiency',
+              thinTimesDeDupFactor: 'Thin + Deduplication Efficiency',
+              thinTimesCompressionFactor: 'Thin + Compression Efficiency',
+              deDupTimesCompressionFactor: 'Deduplication + Compression Efficiency',
               efficiencyFactor: 'Overall Efficiency'
             }
           },
@@ -58,29 +61,41 @@ class EfficiencyGraphsController {
           sparkLine: sparkLine,
           data: {
             x: 'timestamps',
-            ids: sparkLine ? ['efficiencyFactor'] : ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor'],
+            ids: sparkLine ? ['efficiencyFactor'] : ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'thinTimesDeDupFactor', 'thinTimesCompressionFactor', 'deDupTimesCompressionFactor', 'efficiencyFactor'],
             axes: {
               thinProvisioningFactor: 'y0',
               deDuplicationFactor: 'y0',
               compressionFactor: 'y0',
+              thinTimesDeDupFactor: 'y0',
+              thinTimesCompressionFactor: 'y0',
+              deDupTimesCompressionFactor: 'y0',
               efficiencyFactor: 'y0'
             },
             labels: {
               thinProvisioningFactor: 'Thin Provisioning Efficiency',
               deDuplicationFactor: 'Deduplication Efficiency',
               compressionFactor: 'Compression Efficiency',
+              thinTimesDeDupFactor: 'Thin + Deduplication Efficiency',
+              thinTimesCompressionFactor: 'Thin + Compression Efficiency',
+              deDupTimesCompressionFactor: 'Deduplication + Compression Efficiency',
               efficiencyFactor: 'Overall Efficiency'
             },
             colors: {
               thinProvisioningFactor: ['#00996B'],
               deDuplicationFactor: ['#95ADAD'],
               compressionFactor: ['#39426B'],
+              thinTimesDeDupFactor: ['#FF9900'],
+              thinTimesCompressionFactor: ['#993333'],
+              deDupTimesCompressionFactor: ['#9C5BAD'],
               efficiencyFactor: ['#00A7C6']
             },
             textures: {
               thinProvisioningFactor: 'solid',
               deDuplicationFactor: 'solid',
               compressionFactor: 'solid',
+              thinTimesDeDupFactor: 'solid',
+              thinTimesCompressionFactor: 'solid',
+              deDupTimesCompressionFactor: 'solid',
               efficiencyFactor: 'solid'
             }
           },

@@ -22,15 +22,25 @@
     function getClusterEfficiency(params) {
       params.clusterID = service.selectedClusterID;
       return DataService.callGraphAPI('capacity', params)
-        .then( ({ data }) => Object.assign({},data,
-          { timestamps: data.timestamps.map( value => new Date(value)) },
-          _(data)
-            .pick([
-              'thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor',
-            ])
-            .mapValues( vals => vals.map( v => v < 0 ? null : v ) ) // remove negatives
-            .value()
-        ));
+        .then( ({ data }) => {
+          const newObj = Object.assign({}, data,
+            {
+              timestamps: data.timestamps.map( value => new Date(value)),
+              thinTimesDeDupFactor: data.thinProvisioningFactor.map((value, idx) => value * data.deDuplicationFactor[idx]),
+              thinTimesCompressionFactor: data.thinProvisioningFactor.map((value, idx) => value * data.compressionFactor[idx]),
+              deDupTimesCompressionFactor: data.deDuplicationFactor.map((value, idx) => value * data.compressionFactor[idx]),
+            }
+          );
+          return Object.assign({}, newObj,
+            _(newObj)
+              .pick([
+                'thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor',
+                'thinTimesDeDupFactor', 'thinTimesCompressionFactor', 'deDupTimesCompressionFactor',
+              ])
+              .mapValues( vals => vals.map( v => v < 0 ? null : v ) ) // remove negatives
+              .value(),
+          )
+        });
     }
 
     function update(clusterID) {
