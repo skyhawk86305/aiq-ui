@@ -1,3 +1,5 @@
+import { SFDataTableColumn } from '../../../shared/sf-components-types';
+
 class SupportDashboardOverviewController {
   public service;
   public selectedRows;
@@ -49,15 +51,6 @@ class SupportDashboardOverviewController {
       acknowledgedState: alert.notes ? 'acknowledged' : 'unacknowledged'
     })));
   }
-}
-
-interface SFDataTableColumn {
-  label: string,
-  key: string,
-  filterComparators?: any,
-  visible?: boolean,
-  format?: any,
-  editable?: any
 }
 
 export const SupportDashboardOverviewComponent = {

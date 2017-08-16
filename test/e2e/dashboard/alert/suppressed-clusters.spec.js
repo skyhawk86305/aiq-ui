@@ -15,6 +15,7 @@ const columns = [
   { label: 'Cluster Name', key: 'clusterName' },
   { label: 'Start Time', key: 'start', format: { filter: 'aiqDate' } },
   { label: 'End Time', key: 'end', format: { filter: 'aiqDate' } },
+  { label: 'Resume', key: 'resume', exclude: true },
 ];
 
 function mapFixture(rawFixture) {

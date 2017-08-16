@@ -7,11 +7,19 @@ const page = new SuppressClusterForm();
 
 describe('The suppress cluster form', function() {
 
+  beforeAll(function() {
+    support.login();
+  });
+
   beforeEach(function() {
     browser.get('#/dashboard/alerts/suppressedClusters');
     browser.refresh();
     page.suppressClusterButton.click();
     expect(page.clusterIDInput.el.isDisplayed()).to.eventually.equal(true);
+  });
+
+  afterAll(function() {
+    support.logout();
   });
 
   it('@any @smoke should handle the happy path of suppressing a cluster with the default duration', function() {

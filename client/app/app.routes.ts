@@ -90,8 +90,11 @@ export function AppRoutes($routeProvider, AuthServiceProvider) {
         reloadOnSearch: false
       })
       .when('/dashboard/alerts/suppressedClusters', {
-        template: '<suppressed-clusters></suppressed-clusters>',
-        reloadOnSearch: false
+        template: '<suppressed-clusters suppress-authorization="$resolve.suppressAuth"></suppressed-clusters>',
+        reloadOnSearch: false,
+        resolve: {
+          suppressAuth: ['AuthService', AuthService => AuthService.hasPermission('internalAdmin') ],
+        }
       })
       .when('/dashboard/capacityLicensing', {
         template: '<capacity-licensing></capacity-licensing>',

@@ -11,11 +11,21 @@
     Unable to suppress cluster: {{ $ctrl.newSuppressionError }}
   </sf-table-message-banner>
 
+  <sf-table-message-banner ng-if="$ctrl.resumeNotificationsResult"
+                           message-type="success"
+                           disappear-delay="5000">
+    Notifications successfully resumed for cluster <strong>{{ $ctrl.resumeNotificationsResult.clusterName }}</strong>.
+  </sf-table-message-banner>
+
+  <sf-table-message-banner ng-if="$ctrl.resumeNotificationsError" message-type="error">
+    Unable to suppress cluster: {{ $ctrl.resumeNotificationsError }}
+  </sf-table-message-banner>
+
   <div class="sf-table-widget">
 
     <sf-table id="suppressed-clusters-page"
         class="sf-layout-block"
-        service="$ctrl.SuppressedClustersService"
+        service="$ctrl.service"
         table-id="suppressed-clusters"
         control-bar="true"
         items-per-page="25"

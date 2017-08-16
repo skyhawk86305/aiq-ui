@@ -46,6 +46,7 @@ import { IscsiGraphsComponent } from './cluster/reporting/iscsi-sessions/iscsi-s
 
 import { SuppressClusterComponent } from './dashboard/alerts/suppressed-clusters/suppress-cluster/suppress-cluster.component';
 import { SuppressedClustersComponent } from './dashboard/alerts/suppressed-clusters/suppressed-clusters.component';
+import { ResumeNotificationsComponent } from './dashboard/alerts/suppressed-clusters/resume-notifications/resume-notifications.component';
 
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
@@ -93,6 +94,7 @@ export const ComponentsModule = angular
 
   .component('suppressedClusters', SuppressedClustersComponent)
   .component('suppressCluster', SuppressClusterComponent)
+  .component('resumeNotifications', ResumeNotificationsComponent)
 
   .service('CustomComparatorsService', CustomComparatorsService)
   .name;
