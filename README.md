@@ -5,6 +5,10 @@ An Angular.js application written in TypeScript for interacting with the AIQ bac
 
 ## Getting Started
  - Install NodeJS v6.11.x (Latest LTS release)
+ 
+ - Install NPM v5.3.0
+ 
+ `npm install npm@5.3.0 -g`
 
  - Install Gulp
  
