@@ -49,8 +49,8 @@ describe('The Cluster Efficiency Page', function () {
         efficiency: {
           id: 'efficiency',
           label: 'Efficiency',
-          seriesIds: ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'efficiencyFactor'],
-          seriesLabels: ['Thin Provisioning Efficiency', 'Deduplication Efficiency', 'Compression Efficiency', 'Overall Efficiency']
+          seriesIds: ['thinProvisioningFactor', 'deDuplicationFactor', 'compressionFactor', 'thinTimesDeDupFactor', 'thinTimesCompressionFactor', 'deDupTimesCompressionFactor', 'efficiencyFactor'],
+          seriesLabels: ['Thin Provisioning Efficiency', 'Deduplication Efficiency', 'Compression Efficiency', 'Thin + Deduplication Efficiency', 'Thin + Compression Efficiency', 'Deduplication + Compression Efficiency', 'Overall Efficiency']
         }
       },
       graphKeys = Object.keys(graphs);
