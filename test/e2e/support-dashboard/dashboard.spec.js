@@ -4,14 +4,12 @@ var support = require('../support.js');
 var expect = support.expect;
 var TableComponent = require('../page-objects/components/sf-components.po').table;
 var table = new TableComponent('support-overview');
-var clusterSelect = new support.clusterSelectComponent();
 var fixture = mapFixture(support.fixture('SupportDashboard'));
 var uniqueKey = 'id';
 var itemsPerPage = 100;
-var clusterId;
 var maxRows = fixture.length > itemsPerPage ? itemsPerPage : fixture.length;
 var columns = [
-  { label: 'ID', key:'id', visible:false },
+  { label: 'ID', key:'id', visible: false },
   { label: 'Include' },
   { label: 'Edit' },
   { label: 'Date', key: 'date' },
@@ -25,7 +23,8 @@ var columns = [
   { label: 'Last Modified By', key: 'lastModifiedBy' },
   { label: 'Resolved', key: 'resolved', format: {filter: 'tableBadgeBoolean'}},
   { label: 'Notes', key: 'notes' },
-  { label: 'Actions' }
+  { label: 'Actions' },
+  { label: 'Acknowledged State', key: 'acknowledgedState', visible: false }
 ];
 
 function mapFixture(rawFixture) {
@@ -41,7 +40,7 @@ describe('The Support Dashboard Page', function () {
 
   beforeEach(function(){
     browser.get('#/supportDashboard/overview');
-  })
+  });
 
 
   afterAll(function() {
@@ -53,7 +52,13 @@ describe('The Support Dashboard Page', function () {
   });
 
   it('@any @smoke should have the correct columns and headers', function () {
-    expect(table.content.columns.count()).to.eventually.equal(columns.length-1);
+    expect(table.content.columns.count()).to.eventually.equal(columns.length-2);
+  });
+
+  it('@any @smoke should display the Quick Filter buttons', function () {
+    expect(table.controlBar.el.isPresent()).to.eventually.be.true;
+    expect(table.controlBar.quickFilter.el.isPresent()).to.eventually.be.true;
+    expect(table.controlBar.quickFilter.buttons.count()).to.eventually.equal(2);
   });
 
   it('should display data from the correct API and properly format it in the table', function () {

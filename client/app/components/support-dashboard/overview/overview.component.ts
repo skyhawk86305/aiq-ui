@@ -2,6 +2,7 @@ class SupportDashboardOverviewController {
   public service;
   public selectedRows;
   public editAuthorization;
+  private quickFilter;
   private data = require('../../../../../server/fixtures/default/SupportDashboard');
   private columns: SFDataTableColumn[] = [
     { label: 'ID', key: 'id', visible: false },
@@ -14,7 +15,8 @@ class SupportDashboardOverviewController {
     { label: 'Cluster', filterComparators: this.SFFilterComparators.STRING_DEFAULT, key: 'clusterName' },
     { label: 'Last Updated', key: 'lastUpdateTime' },
     { label: 'Last Modified By', filterComparators: this.SFFilterComparators.STRING_DEFAULT, key: 'lastModifiedBy' },
-    { label: 'Resolved', filterComparators: this.CustomComparatorsService.resolvedComparators, key: 'resolved', format: { filter: 'tableBadgeBoolean' } }
+    { label: 'Resolved', filterComparators: this.CustomComparatorsService.resolvedComparators, key: 'resolved', format: { filter: 'tableBadgeBoolean' } },
+    { label: 'Acknowledged State', key: 'acknowledgedState', visible: false }
   ];
 
   static $inject = [ 'SFTableService', '$q', 'SFFilterComparators', 'CustomComparatorsService' ];
@@ -25,6 +27,16 @@ class SupportDashboardOverviewController {
       this.columns.push({ label: 'Actions', key: 'actions' });
     }
     this.service = new SFTableService(() => this.getAlerts(), this.columns, false, 'id');
+
+    this.quickFilter = {
+      column: 'acknowledgedState',
+      values: ['unacknowledged', 'acknowledged'],
+      labels: {
+        unacknowledged: 'Unacknowledged Alerts',
+        acknowledged: 'Acknowledged Alerts'
+      },
+      default: 'unacknowledged'
+    };
   };
 
   getSelectedRows(rows){
@@ -32,7 +44,10 @@ class SupportDashboardOverviewController {
   }
 
   getAlerts() {
-    return this.$q.resolve(this.data.result.alerts);
+    return this.$q.resolve(this.data.result.alerts.map(alert => ({
+      ...alert,
+      acknowledgedState: alert.notes ? 'acknowledged' : 'unacknowledged'
+    })));
   }
 }
 

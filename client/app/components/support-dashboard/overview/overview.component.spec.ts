@@ -20,7 +20,7 @@ describe('Component: SupportDashboardOverviewComponent', function() {
     });
 
     it('should have the correct number of columns when not authorized for triaging alerts', function() {
-      expect(controller.columns.length).toEqual(11);
+      expect(controller.columns.length).toEqual(12);
     });
 
     it('should have the correct number of columns when authorized for triaging alerts', function() {
@@ -28,7 +28,7 @@ describe('Component: SupportDashboardOverviewComponent', function() {
         editAuthorization: true,
       };
       controller = $componentController('supportOverview', null, bindings);
-      expect(controller.columns.length).toEqual(13);
+      expect(controller.columns.length).toEqual(14);
     });
   });
 
