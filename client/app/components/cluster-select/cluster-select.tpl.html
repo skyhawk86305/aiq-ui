@@ -1,5 +1,5 @@
 <div class="cluster-select" uib-dropdown is-open="$ctrl.isOpen" auto-close="outsideClick">
-  <a id="cluster-select-anchor" uib-dropdown-toggle>
+  <a cluster-select-input-focus id="cluster-select-anchor" uib-dropdown-toggle>
     <span>{{$ctrl.clusterSelect.selectedCluster.name || 'All Clusters'}}</span>
     <i class="fa fa-chevron-down"></i>
   </a>
@@ -11,7 +11,7 @@
              placeholder="type a cluster name to filter"
              ng-model="$ctrl.filterInput"
              ng-change="$ctrl.filterClusters()"
-             autofocus>
+             >
     </div>
     <span class="cluster-select-hints"
           uib-tooltip-template="'cluster-select-hints-template'"
