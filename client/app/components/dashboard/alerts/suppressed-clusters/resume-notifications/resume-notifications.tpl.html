@@ -1,0 +1,12 @@
+<div class="aiq-modal-header">
+  Resume notifications
+</div>
+
+<div class="aiq-modal-content">
+  Are you sure you want to resume notifications for cluster <strong>{{ $ctrl.resolve.suppression.clusterName }}</strong>?
+</div>
+
+<div class="aiq-modal-footer">
+  <button type="button" class="button button-submit" ng-click="$ctrl.resumeNotifications()" >Resume</button>
+  <button type="button" class="button button-cancel" ng-click="$ctrl.cancel()">Cancel</button>
+</div>

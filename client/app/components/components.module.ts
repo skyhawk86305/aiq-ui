@@ -44,7 +44,9 @@ import { CapacityGraphsComponent } from './cluster/reporting/capacity/capacity.c
 import { PerformanceGraphsComponent } from './cluster/reporting/performance/performance.component';
 import { IscsiGraphsComponent } from './cluster/reporting/iscsi-sessions/iscsi-sessions.component';
 
-
+import { SuppressClusterComponent } from './dashboard/alerts/suppressed-clusters/suppress-cluster/suppress-cluster.component';
+import { SuppressedClustersComponent } from './dashboard/alerts/suppressed-clusters/suppressed-clusters.component';
+import { ResumeNotificationsComponent } from './dashboard/alerts/suppressed-clusters/resume-notifications/resume-notifications.component';
 
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
@@ -89,6 +91,10 @@ export const ComponentsModule = angular
   .component('ssoPush', SSOPushComponent)
   .component('linkSSO', LinkSSOComponent)
   .component('linkSSOResult', LinkSSOResultComponent)
+
+  .component('suppressedClusters', SuppressedClustersComponent)
+  .component('suppressCluster', SuppressClusterComponent)
+  .component('resumeNotifications', ResumeNotificationsComponent)
 
   .service('CustomComparatorsService', CustomComparatorsService)
   .name;
