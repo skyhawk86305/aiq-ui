@@ -111,13 +111,22 @@ mockRoutes.get('/sso/session', function (req, res) {
 mockRoutes.post('/sso/link', function (req, res) {
   if (!ssoAuthenticated) {
     res.status(401).send('SSO session is required');
-    return
+    return;
   }
   if (!authenticated) {
     res.status(401).send('AIQ session is required');
-    return
+    return;
   }
   res.status(200).send('Accounts were successfully linked');
+});
+
+mockRoutes.post('/sso/create-aiq-user', function (req, res) {
+  if (!ssoAuthenticated) {
+    res.status(401).send('SSO session is required');
+    return;
+  }
+  authenticated = true;
+  res.status(200).send('Account created');
 });
 
 mockRoutes.get('/sessions/logout', function (req, res) {

@@ -35,6 +35,10 @@ export function AuthService($q, $http, UserInfoService) {
       return $http.post('/sso/link');
     },
 
+    createAIQAccountFromSSO() {
+      return $http.post('/sso/create-aiq-user');
+    },
+
     changePassword(oldPassword, newPassword) {
       const method = 'ChangeUserPassword';
       const params = { oldPassword, newPassword };
