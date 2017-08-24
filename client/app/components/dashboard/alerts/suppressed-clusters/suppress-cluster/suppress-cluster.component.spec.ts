@@ -77,7 +77,10 @@ describe('suppressCluster component', function() {
         const result = modalInstance.close.calls.first().args[0];
         expect(result.clusterID).toBe(123);
         expect(result.clusterName).toBe('testCluster');
-        expect(result.endDate.getTime()).toBeCloseTo(new Date(new Date().getTime() + duration).getTime(), 3);
+        const now = new Date();
+        const expectedEndDate = new Date(now.getTime() + duration);
+        const difference = Math.abs(result.endDate.getTime() - expectedEndDate.getTime());
+        expect(difference).toBeLessThan(1000);
       });
     });
 
