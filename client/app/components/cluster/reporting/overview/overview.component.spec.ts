@@ -36,7 +36,6 @@ describe('Component: overviewDashboard', function() {
     spyOn(performanceService, 'update');
     spyOn(clusterAlertTableService, 'update');
     spyOn(dataService, 'callAPI').and.returnValue(deferred.promise);
-    spyOn(dataService, 'callGraphAPI').and.returnValue(deferred.promise);
     spyOn(dataService, 'callGuzzleAPI').and.returnValue(deferred.promise);
     spyOn(location, 'path');
     controller = $componentController('overviewDashboard', locals);
@@ -59,7 +58,6 @@ describe('Component: overviewDashboard', function() {
         deferred.resolve({data: 'foo', cluster: { name: 'bar', clusterVersion: 'baz'}, clusterInfo: {encryptionAtRestState: 'enabled'}, sessions: [1,2,3,4,5], volumes: [1,2,3,4,5,6,7,8], nodes: [{platformInfo: {nodeType: 'ABC'}}, {platformInfo: {nodeType: 'ABC'}}]});
         scope.$apply();
         expect(controller.clusterSummary).toEqual({name: 'bar', clusterVersion: 'baz'});
-        expect(controller.capacitySnapshot).toEqual('foo');
         expect(controller.encryptionAtRestState).toEqual('ENABLED');
         expect(controller.iSCSISessionsCount).toEqual(5);
         expect(controller.volumesCount).toEqual(8);
@@ -73,7 +71,6 @@ describe('Component: overviewDashboard', function() {
         deferred.resolve({});
         scope.$apply();
         expect(controller.clusterSummary).toBeUndefined();
-        expect(controller.capacitySnapshot).toBeUndefined();
         expect(controller.encryptionAtRestState).toEqual('-');
         expect(controller.iSCSISessionsCount).toEqual(0);
         expect(controller.volumesCount).toEqual(0);
@@ -87,7 +84,6 @@ describe('Component: overviewDashboard', function() {
         deferred.reject();
         scope.$apply();
         expect(controller.getClusterSummaryState).toEqual('error');
-        expect(controller.getCapacitySnapshotState).toEqual('error');
         expect(controller.getActiveVolumesState).toEqual('error');
         expect(controller.getActiveNodesState).toEqual('error');
         expect(controller.getClusterInfoState).toEqual('error');
@@ -100,7 +96,6 @@ describe('Component: overviewDashboard', function() {
     it('should call .setInfoBarData', function () {
       controller.refreshInfoBarData();
       expect(dataService.callAPI).toHaveBeenCalled();
-      expect(dataService.callGraphAPI).toHaveBeenCalled();
     });
   });
 

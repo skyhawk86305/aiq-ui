@@ -23,12 +23,9 @@
     ctrl.$onInit = function() {
       PerformanceGraphsService.update($routeParams.clusterID);
       ctrl.getClusterSummaryState = 'loading';
-      ctrl.getCapacitySnapshotState = 'loading';
       ctrl.getClusterInfoState = 'loading';
       ctrl.getISCSISessionsState = 'loading';
-      ctrl.getFibreChannelSessionsState = 'loading';
       ctrl.getActiveVolumesState = 'loading';
-      ctrl.getLDAPState = 'loading';
       ctrl.getActiveNodesState = 'loading';
       setInfoBarData();
     };
@@ -126,14 +123,6 @@
           ctrl.getActiveNodesState = 'loaded';
         }).catch(function() {
           ctrl.getActiveNodesState = 'error';
-        });
-
-      DataService.callGraphAPI('capacity', {clusterID: parseInt($routeParams.clusterID, 10), snapshot: true})
-        .then(function(response) {
-          ctrl.capacitySnapshot = response.data;
-          ctrl.getCapacitySnapshotState = 'loaded';
-        }).catch(function() {
-          ctrl.getCapacitySnapshotState = 'error';
         });
 
       ctrl.infoBarLastUpdated = $filter('aiqDate')(new Date());

@@ -94,19 +94,13 @@ export function DataService($q, $http, $filter, $location, CacheFactory) {
       }
       graphAPI += `/${graph}`;
 
-      if (params.snapshot) {
-        graphAPI += '/snapshot';
-      } else {
-        graphAPI += '?startTime=' + params.start.toISOString() +
-          '&endTime=' + params.end.toISOString() +
-          '&resolution=' + $filter('graphResolution')(params.resolution, graph);
-      }
+      graphAPI += '?startTime=' + params.start.toISOString() +
+        '&endTime=' + params.end.toISOString() +
+        '&resolution=' + $filter('graphResolution')(params.resolution, graph);
 
       return $http.get(graphAPI, {cache: true})
         .then( response => {
-          if (!params.snapshot) {
-            response.data.timestamps = response.data.timestampSec.map( timestamp => timestamp * 1000 );
-          }
+          response.data.timestamps = response.data.timestampSec.map( timestamp => timestamp * 1000 );
           return response;
         })
         .catch( error => {

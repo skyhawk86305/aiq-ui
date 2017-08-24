@@ -144,12 +144,6 @@ describe('Data Service', function () {
   });
 
   describe('.callGraphAPI', function () {
-    it('should make an $http request to the API with the provided graph name and snapshot', function () {
-      service.callGraphAPI('foobar', {clusterID: 123, snapshot: true});
-      http.expect('GET', '/graph/cluster/123/foobar/snapshot').respond({});
-      http.flush();
-    });
-
     it('should make an $http request to the API with the provided graph name and cluster graph params', function () {
       const params = {
         clusterID: 123,
@@ -179,15 +173,6 @@ describe('Data Service', function () {
       http.flush();
     });
 
-    it('should simply return the api call response for a snapshot', function () {
-      http.when('GET', '/graph/cluster/456/foobar/snapshot').respond('foobar');
-      service.callGraphAPI('foobar', {clusterID: 456, snapshot: true})
-        .then( response => {
-          expect(response.data).toEqual('foobar');
-        });
-      http.flush();
-    });
-
     it('should return a response with timestamps that are converted to milliseconds', function () {
       const params = {
           clusterID: 456,
@@ -205,27 +190,6 @@ describe('Data Service', function () {
       http.flush();
     });
 
-    it('should execute the error callback function and route to the login page if the call is unauthenticated', function () {
-      response = {message: 'bar'};
-      http.when('GET', '/graph/cluster/789/foobar/snapshot').respond(401, response);
-      service.callGraphAPI('foobar', {clusterID: 789, snapshot: true});
-      http.flush();
-      expect(location.path).toHaveBeenCalledWith('/login');
-      expect(pathSpy.search).toHaveBeenCalledWith({url: '/foo/bar?baz=fuz'});
-    });
-
-    it('should return a rejected promise with the error message if the call fails and is not a 401 error', function () {
-      response = {message: 'bar'};
-      http.when('GET', '/graph/cluster/789/foobar/snapshot').respond(400, response);
-      service.callGraphAPI('foobar', {clusterID: 789, snapshot: true})
-        .then( () => {
-          fail('Expected promise to be rejected');
-        })
-        .catch( err => {
-          expect(err.data).toEqual(response);
-        });
-      http.flush();
-    });
   });
 
 });

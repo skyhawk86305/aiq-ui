@@ -219,39 +219,6 @@ mockRoutes.get('/graph/cluster/:clusterId/volume/:volumeId/performance', functio
   res.send(data);
 });
 
-mockRoutes.get('/graph/cluster/:clusterId/capacity/snapshot', function (req, res) {
-  const response = {
-    "timestampSec": 1479401909,
-    "usedSpace": 2935990947150,
-    "maxUsedSpace": 42805052899328,
-    "usedMetadataSpace": 180152187904,
-    "maxUsedMetadataSpace": 2080115870926,
-    "provisionedSpace": 59728017932288,
-    "maxProvisionedSpace": 138254831476736,
-    "thinProvisioningFactor": 7.833951255671171,
-    "deDuplicationFactor": 1.808344330383057,
-    "compressionFactor": 2.819420403551671,
-    "efficiencyFactor": 25.25773144525874,
-    "activeSessions": 80,
-    "peakActiveSessions": 100,
-  };
-  res.send(response);
-});
-
-mockRoutes.get('/graph/cluster/:clusterId/performance/snapshot', function (req, res) {
-  const response = {
-    "timestampSec": 1479495910,
-    "readOpsPerSec": 2020,
-    "writeOpsPerSec": 7890,
-    "totalOpsPerSec": 8765,
-    "readBytesPerSec": 22973537,
-    "writeBytesPerSec": 153109641,
-    "totalBytesPerSec": 178083178,
-    "clusterUtilizationPct": 10.747204393148422,
-  };
-  res.send(response);
-});
-
 mockRoutes.get('/banner-message', function(req, res) {
   const response = {
     "message": "This is a mock message.",
