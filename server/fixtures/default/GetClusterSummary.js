@@ -45,10 +45,22 @@ module.exports = {
         "sumUsedMetadataClusterBytes": 109948264448,
         "created": "2016-04-20T20:04:12Z",
         "updated": "2016-11-15T17:07:17Z"
+      },
+      "clusterCapacity": {
+        "activeSessions": 0,
+        "compressionFactor": 1,
+        "deduplicationFactor": 1,
+        "efficiencyFactor": 25.3,
+        "maxProvisionedSpace": 55309227155456,
+        "maxUsedMetadataSpace": 432103337164,
+        "maxUsedSpace": 8642066743296,
+        "peakActiveSessions": 0,
+        "provisionedSpace": 10000269312,
+        "thinProvisioningFactor": 1,
+        "usedMetadataSpace": 0,
+        "usedSpace": 0,
       }
     }
   },
   "id": null
-
 }
-

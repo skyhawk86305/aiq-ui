@@ -60,13 +60,13 @@
       </div>
     </div>
     <div class="info-bar-row col-lg-6 col-md-12">
-      <div sf-state state= "$ctrl.getCapacitySnapshotState" class="info-box -efficiency-info col-lg-4 col-md-4 col-sm-12">
+      <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -efficiency-info col-lg-4 col-md-4 col-sm-12">
         <div class="info-box-content -efficiency">
           <a href="{{$ctrl.getHref('/reporting/efficiency')}}" class="title sf-link">
             Efficiency (x)
             <i class="fa fa-arrow-right"></i>
           </a>
-          <span ng-bind-html="$ctrl.capacitySnapshot.efficiencyFactor | percent:1:false:true:false:true:999" class="value"></span>
+          <span ng-bind-html="$ctrl.clusterSummary.clusterCapacity.efficiencyFactor | percent:1:false:true:false:true:999" class="value"></span>
         </div>
       </div>
       <div sf-state state= "$ctrl.getClusterSummaryState" class="info-box -block-capacity col-lg-4 col-md-4 col-sm-6">
