@@ -131,6 +131,14 @@ export class ClusterService {
         },
         titleValue: 'Timestamp of last update from the collector',
       },
+      details: {
+        key: 'details',
+        label: 'View Details',
+        width: 100,
+        sortable: false,
+        nonData: true,
+        titleValue: 'Click to View Volume Details',
+      },
     };
 
     const groups = [
@@ -147,6 +155,7 @@ export class ClusterService {
           columnDefs.svip,
           columnDefs.mvip,
           columnDefs.lastUpdateTime,
+          columnDefs.details,
         ],
       },
       {
