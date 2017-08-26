@@ -208,6 +208,7 @@ export class ClusterService {
       return DataService.callAPI('ListClusterDetails').then( ({ clusters = [] }) =>
         clusters.map( cluster =>
           Object.assign({}, cluster, {
+            name: $filter('clusterDetailsLink')(cluster.name, cluster.id),
             lastUpdateTime: new Date(cluster.lastUpdateTime * 1000),
           })
         )
