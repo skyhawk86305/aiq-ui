@@ -50,7 +50,6 @@ module.exports = {
         "activeSessions": 0,
         "compressionFactor": 1,
         "deduplicationFactor": 1,
-        "efficiencyFactor": 25.3,
         "maxProvisionedSpace": 55309227155456,
         "maxUsedMetadataSpace": 432103337164,
         "maxUsedSpace": 8642066743296,
@@ -59,8 +58,9 @@ module.exports = {
         "thinProvisioningFactor": 1,
         "usedMetadataSpace": 0,
         "usedSpace": 0,
-      }
+      },
+      "efficiencyFactor": 25.3
     }
   },
   "id": null
-}
+};
