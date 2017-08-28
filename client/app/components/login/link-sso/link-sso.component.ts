@@ -12,13 +12,17 @@ class LinkSSOController {
   }
 
   createAndLinkAIQAccount() {
+    this.error = null;
     return this.AuthService.createAIQAccountFromSSO()
       .then( () => {
         this.modalInstance.close();
         this.$window.location.reload();
       })
       .catch( err => {
-        // TODO: show error on this window?
+        if (err.data) {
+          this.error = err.data;
+          return;
+        }
         this.error = err;
       });
   }

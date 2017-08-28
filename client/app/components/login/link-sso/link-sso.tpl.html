@@ -3,13 +3,34 @@
 </div>
 
 <div class="aiq-modal-content">
+  <div class="banner-message-error" ng-show="$ctrl.error" ng-switch="$ctrl.error.name">
+    <i class="fa fa-times-circle"></i>
+
+    <span ng-switch-default>
+      Creating an Active IQ account to associate with your NetApp Support account
+      failed. Please contact a technical support engineer.
+    </span>
+  </div>
+
   <p>Hi there! One question before we log you in:</p>
-  <p class="-center">Do you have an exsiting NetApp Active IQ account?</p>
-  <p>If "Yes", we will prompt  you for your Active IQ account credentials, associate your NetApp Support account with your Active IQ account, and get you on your way.</p>
-  <p>If "No", we will create an account for you, associate it with your NetApp Support account, and log you in.</p>
+  <p class="-center">
+    Do you have an exsiting NetApp Active IQ account?
+  </p>
+  <p>
+    If "Yes", we will prompt you for your Active IQ account credentials, associate your
+    NetApp Support account with your Active IQ account, and get you on your way.
+  </p>
+  <p>
+    If "No", we will create an account for you, associate it with your NetApp Support
+    account, and log you in.
+  </p>
 </div>
 
 <div class="aiq-modal-footer">
-  <button type="button" class="button button-submit" ng-click="$ctrl.goToAIQLogin()" >Yes, I have an account</button>
-  <button type="button" class="button button-cancel" ng-click="$ctrl.createAndLinkAIQAccount()">No, create an account</button>
+  <button type="button" class="button button-submit" ng-click="$ctrl.goToAIQLogin()" ng-disabled="$ctrl.error">
+    Yes, I have an account
+  </button>
+  <button type="button" class="button button-cancel" ng-click="$ctrl.createAndLinkAIQAccount()" ng-disabled="$ctrl.error">
+    No, create an account
+  </button>
 </div>
