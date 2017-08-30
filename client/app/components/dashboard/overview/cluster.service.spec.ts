@@ -40,7 +40,7 @@ describe('ClusterService', function () {
       const apiResponse = {
         clusters: [{
           id: 2148796,
-          name: testname,
+          name: 'Magneto',
           lastUpdateTime: 1497298152,
           version: '8.1.1.4',
           mvip: '172.27.1.55',
@@ -56,7 +56,7 @@ describe('ClusterService', function () {
       };
       const expectedResult = [{
         id: 2148796,
-        name: '<a class=\"cluster-details-link\" href =\"#\/cluster\/2148796\/\">Magneto</a>',
+        name: 'Magneto',
         version: '8.1.1.4',
         mvip: '172.27.1.55',
         svip: '172.27.15.55',
@@ -72,7 +72,18 @@ describe('ClusterService', function () {
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
       service.getData(true)
         .then( response => {
-       /*   expect(response.toEqual(expectedResult);  */
+            expect(response[0].id).toEqual(expectedResult[0].id);
+            expect(response[0].lastUpdateTime).toEqual(expectedResult[0].lastUpdateTime);
+            expect(response[0].version).toEqual(expectedResult[0].version);
+            expect(response[0].mvip).toEqual(expectedResult[0].mvip);
+            expect(response[0].svip).toEqual(expectedResult[0].svip);
+            expect(response[0].utilization).toEqual(expectedResult[0].utilization);
+            expect(response[0].activeSessions).toEqual(expectedResult[0].activeSessions);
+            expect(response[0].maxUsedSpace).toEqual(expectedResult[0].maxUsedSpace);
+            expect(response[0].usedSpace).toEqual(expectedResult[0].usedSpace);
+            expect(response[0].efficiencyFactor).toEqual(expectedResult[0].efficiencyFactor);
+            expect(response[0].activeVolumes).toEqual(expectedResult[0].activeVolumes);
+            expect(response[0].unresolvedFaults).toEqual(expectedResult[0].unresolvedFaults);
         })
         .catch( err => {
           fail('promise was unexpectedly rejected');
