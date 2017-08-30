@@ -1,6 +1,14 @@
 @import '../../../styles/shared.less';
 
-.link-sso-modal-backdrop.modal-backdrop.in {
-  background-color: @brand-primary-color;
-  opacity: 1;
+.link-sso-modal-backdrop {
+  &.modal-backdrop.in {
+    background-color: @brand-primary-color;
+    opacity: 1;
+  }
+}
+
+.link-sso-modal {
+  .banner-message-error {
+    margin-bottom: 25px;
+  }
 }

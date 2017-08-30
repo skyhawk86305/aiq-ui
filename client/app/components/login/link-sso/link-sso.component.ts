@@ -1,11 +1,9 @@
 class LinkSSOController {
   modalInstance;
+  error: string;
 
-  static $inject = [ '$window', '$location' ];
-  constructor(
-    private $window,
-    private $location,
-  ) {}
+  static $inject = [ '$location', '$window', 'AuthService' ];
+  constructor(private $location, private $window, private AuthService) {}
 
   goToAIQLogin() {
     const url = this.$location.path();
@@ -14,7 +12,19 @@ class LinkSSOController {
   }
 
   createAndLinkAIQAccount() {
-    this.$window.alert('Not yet implemented');
+    this.error = null;
+    return this.AuthService.createAIQAccountFromSSO()
+      .then( () => {
+        this.modalInstance.close();
+        this.$window.location.reload();
+      })
+      .catch( err => {
+        if (err.data) {
+          this.error = err.data;
+          return;
+        }
+        this.error = err;
+      });
   }
 }
 

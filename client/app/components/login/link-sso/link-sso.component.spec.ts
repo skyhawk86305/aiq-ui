@@ -1,21 +1,30 @@
 'use strict';
 
 describe('Component: Link SSO modal', function() {
-  let $window,
+  let $q,
+    $rootScope,
+    $window,
     $location,
-    controller;
+    controller,
+    AuthService;
 
   beforeEach(angular.mock.module('aiqUi'));
 
-  beforeEach(inject(function(_$window_, _$location_, $componentController) {
+  beforeEach(inject(function(_$q_, _$rootScope_, _$window_, _$location_, $componentController) {
+    $q = _$q_;
+    $rootScope = _$rootScope_;
     $window = _$window_;
     $location = _$location_;
+    AuthService = {
+      createAIQAccountFromSSO() {},
+    };
     const modalInstance = {
       close() {},
       dismiss() {},
     };
-    const bindings = { $window, $location, modalInstance };
-    controller = $componentController('linkSSO', null, bindings);
+    const locals = { $window, $location, AuthService };
+    const bindings = { modalInstance };
+    controller = $componentController('linkSSO', locals, bindings);
   }));
 
   describe('.goToAIQLogin', function() {
@@ -31,10 +40,13 @@ describe('Component: Link SSO modal', function() {
   });
 
   describe('.createAndLinkAIQAccount', function() {
-    it(`should show a message saying it isn't implemented yet`, function() {
-      spyOn($window, 'alert');
+    it(`should call the AuthService function to create the account, then reload the page`, function() {
+      spyOn($window.location, 'reload');
+      spyOn(AuthService, 'createAIQAccountFromSSO').and.returnValue($q.resolve());
       controller.createAndLinkAIQAccount();
-      expect($window.alert).toHaveBeenCalledWith('Not yet implemented');
+      $rootScope.$apply();
+      expect(AuthService.createAIQAccountFromSSO).toHaveBeenCalled();
+      expect($window.location.reload).toHaveBeenCalled();
     });
   });
 
