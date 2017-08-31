@@ -71,7 +71,7 @@ describe('ClusterService', function () {
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
       service.getData(true)
         .then( response => {
-            expect(response).toEqual(expectedResult)
+          expect(response).toEqual(expectedResult);
         })
         .catch( err => {
           fail('promise was unexpectedly rejected');
