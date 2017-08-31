@@ -47,7 +47,7 @@
         ])
         .then( ([{ volumes = [] }, { snapshots = [] }]) =>
           volumes.map( volume => {
-            volume.usedCapacity = volume.blockSize * volume.volumeStats.nonZeroBlocks / volume.totalSize;
+            volume.usedCapacity = Math.round((volume.blockSize * volume.volumeStats.nonZeroBlocks / volume.totalSize) * 100) + '%';
             const snapshotCount = _(snapshots).filter(['volumeID', volume.volumeID]).size();
             return Object.assign({}, volume, {
               minIOPS: volume.qos.minIOPS,
