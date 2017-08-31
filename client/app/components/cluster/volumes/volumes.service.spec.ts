@@ -54,8 +54,8 @@ describe('VolumeTableService', function () {
     it('should deserialize the responses and resolve an array of data', inject(function($routeParams, $filter) {
       const listActiveVolumesResponse = {
         volumes: [
-          {volumeID: 10, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]},
-          {volumeID: 33, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3]},
+          {volumeID: 10, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3], volumeStats: {nonZeroBlocks: 23232}},
+          {volumeID: 33, qos: {minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz'}, volumePairs: [1,2,3], volumeStats: {nonZeroBlocks: 432}},
         ],
       };
       const listSnapshotsResponse = {
@@ -71,6 +71,8 @@ describe('VolumeTableService', function () {
           volumeID: 10,
           qos: { minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz' },
           volumePairs: [1,2,3],
+          volumeStats: {nonZeroBlocks: 23232},
+          usedCapacity: NaN,
           minIOPS: 'foo',
           maxIOPS: 'bar',
           burstIOPS: 'baz',
@@ -82,6 +84,8 @@ describe('VolumeTableService', function () {
           volumeID: 33,
           qos: { minIOPS: 'foo', maxIOPS: 'bar', burstIOPS: 'baz' },
           volumePairs: [1,2,3],
+          volumeStats: {nonZeroBlocks: 432},
+          usedCapacity: NaN,
           minIOPS: 'foo',
           maxIOPS: 'bar',
           burstIOPS: 'baz',
