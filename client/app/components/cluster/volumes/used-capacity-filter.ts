@@ -1,6 +1,6 @@
 export function UsedCapacityFilter() {
   return function (data, column) {
-    let type = 'warning';
+    let type = 'normal';
 
     if (isNaN(parseFloat(data))) {
       return '<div class="table-badge -empty">-</div>';
