@@ -14,6 +14,7 @@ var columns = [
   {key: 'volumeID', label: 'ID', format: {filter: 'string'}},
   {key: 'accountID', label: 'Account ID', format: {filter: 'string'}},
   {key: 'totalSize', label: 'Volume Size', format: {filter: 'bytes'}},
+  {key: 'usedCapacity', label: 'Used Capacity', format: {filter: 'usedCapacity'}, exclude: true},
   {key: 'enable512e', label: '512e', format: {filter: 'boolean', args: ['Yes', 'No']}},
   {key: 'access', label: 'Access', format: {filter: 'access'}},
   {key: 'minIOPS', label: 'Min IOPS', format: {filter: 'aiqNumber', args: [0, false, true]}},
@@ -30,6 +31,7 @@ function mapFixture(rawFixture) {
     volume.minIOPS = volume.qos.minIOPS;
     volume.maxIOPS = volume.qos.maxIOPS;
     volume.burstIOPS = volume.qos.burstIOPS;
+    volume.usedCapacity = Math.round((volume.blockSize * volume.volumeStats.nonZeroBlocks / volume.totalSize) * 100);
     volume.paired = volume.volumePairs.length ? true : false;
     return volume;
   });

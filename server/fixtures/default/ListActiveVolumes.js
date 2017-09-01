@@ -6,6 +6,9 @@ module.exports = {
         volumeID: 1,
         accountID: 2,
         totalSize: 10000000,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: true,
         access: 'readWrite',
         qos: {
@@ -27,6 +30,9 @@ module.exports = {
         volumeID: 2,
         accountID: 2,
         totalSize: 20000000,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: false,
         access: 'readWrite',
         qos: {
@@ -48,6 +54,9 @@ module.exports = {
         volumeID: 3,
         accountID: 4,
         totalSize: 10000000,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: true,
         access: 'readWrite',
         qos: {
@@ -69,6 +78,9 @@ module.exports = {
         volumeID: 4,
         accountID: 4,
         totalSize: 150000000,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: true,
         access: 'readOnly',
         qos: {
@@ -90,6 +102,9 @@ module.exports = {
         volumeID: 5,
         accountID: 2,
         totalSize: 20480000000,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: false,
         access: 'readWrite',
         qos: {
@@ -111,6 +126,9 @@ module.exports = {
         volumeID: 26,
         accountID: 3,
         totalSize: 160000114688,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: true,
         access: 'readWrite',
         qos: {
@@ -132,6 +150,9 @@ module.exports = {
         volumeID: 25,
         accountID: 4,
         totalSize: 20000000,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: true,
         access: 'readWrite',
         qos: {
@@ -153,6 +174,9 @@ module.exports = {
         volumeID: 30,
         accountID: 1,
         totalSize: 8000000491520,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: false,
         access: 'readOnly',
         qos: {
@@ -174,6 +198,9 @@ module.exports = {
         volumeID: 32,
         accountID: 2,
         totalSize: 3072000524288,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: true,
         access: 'readWrite',
         qos: {
@@ -195,6 +222,9 @@ module.exports = {
         volumeID: 4000,
         accountID: 2,
         totalSize: 500000882688,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         enable512e: true,
         access: 'readWrite',
         qos: {
@@ -228,6 +258,9 @@ module.exports = {
         sliceCount: 1,
         status: 'active',
         totalSize: 500000882688,
+        volumeStats: {
+          nonZeroBlocks: 1020
+        },
         volumeStats: {
           clusterID: 1898714,
           volumeID: 31,
