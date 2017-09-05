@@ -14,24 +14,24 @@ describe('Used Capacity Filter', function() {
     }));
   });
 
-  describe('for used capacity less than 50 percent', function() {
+  describe('for used capacity less than 80 percent', function() {
     it('should return a normal badge', inject(function($filter) {
-      const result = filter(49);
-      expect(result).toEqual('<div class="table-badge -normal">49%</div>');
+      const result = filter(79);
+      expect(result).toEqual('<div class="table-badge -normal">79%</div>');
     }));
   });
 
-  describe('for used capacity between 50 and 75 percent', function() {
+  describe('for used capacity between 80 and 95 percent', function() {
     it('should return a warning badge', inject(function($filter) {
-      const result = filter(60);
-      expect(result).toEqual('<div class="table-badge -warning">60%</div>');
+      const result = filter(90);
+      expect(result).toEqual('<div class="table-badge -warning">90%</div>');
     }));
   });
 
-  describe('for used capacity over 75 percent', function() {
+  describe('for used capacity over 95 percent', function() {
     it('should return a critical badge', inject(function($filter) {
-      const result = filter(76);
-      expect(result).toEqual('<div class="table-badge -critical">76%</div>');
+      const result = filter(96);
+      expect(result).toEqual('<div class="table-badge -critical">96%</div>');
     }));
   });
 

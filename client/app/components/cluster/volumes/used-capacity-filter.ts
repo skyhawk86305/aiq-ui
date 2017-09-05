@@ -8,7 +8,7 @@ export function UsedCapacityFilter() {
 
 function getBadgeType(percentUsed) {
   if (isNaN(percentUsed)) return 'empty';
-  if (percentUsed > 75) return 'critical';
-  if (percentUsed > 50) return 'warning';
+  if (percentUsed > 95) return 'critical';
+  if (percentUsed > 80) return 'warning';
   return 'normal';
 }
