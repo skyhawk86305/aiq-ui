@@ -48,6 +48,8 @@ import { SuppressClusterComponent } from './dashboard/alerts/suppressed-clusters
 import { SuppressedClustersComponent } from './dashboard/alerts/suppressed-clusters/suppressed-clusters.component';
 import { ResumeNotificationsComponent } from './dashboard/alerts/suppressed-clusters/resume-notifications/resume-notifications.component';
 
+import { UsedCapacityFilter } from './cluster/volumes/used-capacity-filter';
+
 export const ComponentsModule = angular
   .module('aiqUi.components', [])
 
@@ -97,6 +99,8 @@ export const ComponentsModule = angular
   .component('resumeNotifications', ResumeNotificationsComponent)
 
   .service('CustomComparatorsService', CustomComparatorsService)
+
+  .filter('usedCapacity', UsedCapacityFilter)
   .name;
 
 // ToDo: import modules, components, filters and services similar to SharedModule

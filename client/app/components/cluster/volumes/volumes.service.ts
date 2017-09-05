@@ -20,6 +20,7 @@
       {key: 'volumeID', label: 'ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'accountID', label: 'Account ID', width: 100, filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'string'}},
       {key: 'totalSize', label: 'Volume Size', format: {filter: 'bytes'}},
+      {key: 'usedCapacity', label: 'Used Capacity', format: {filter: 'usedCapacity'}},
       {key: 'enable512e', label: '512e', width: 100, format: {filter: 'boolean', args: ['Yes', 'No']}},
       {key: 'access', label: 'Access', format: {filter: 'access'}},
       {key: 'minIOPS', label: 'Min IOPS', filterComparators: SFFilterComparators.INTEGER_DEFAULT, format: {filter: 'aiqNumber', args: [0, false, true]}},
@@ -46,6 +47,7 @@
         ])
         .then( ([{ volumes = [] }, { snapshots = [] }]) =>
           volumes.map( volume => {
+            volume.usedCapacity = Math.round((volume.blockSize * volume.volumeStats.nonZeroBlocks / volume.totalSize) * 100);
             const snapshotCount = _(snapshots).filter(['volumeID', volume.volumeID]).size();
             return Object.assign({}, volume, {
               minIOPS: volume.qos.minIOPS,
