@@ -55,7 +55,7 @@ describe('ClusterService', function () {
       };
       const expectedResult = [{
         id: 2148796,
-        name: '<a class="cluster-details-link" href="#/cluster/2148796/">Magneto</a>',
+        name: '<a class="cluster-details-link" title="Magneto" href="#/cluster/2148796/">Magneto</a>',
         version: '8.1.1.4',
         mvip: '172.27.1.55',
         svip: '172.27.15.55',
