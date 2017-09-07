@@ -55,7 +55,7 @@ describe('ClusterService', function () {
       };
       const expectedResult = [{
         id: 2148796,
-        name: 'Magneto',
+        name: '<a class="cluster-details-link" title="Magneto" href="#/cluster/2148796/">Magneto</a>',
         version: '8.1.1.4',
         mvip: '172.27.1.55',
         svip: '172.27.15.55',
@@ -71,7 +71,7 @@ describe('ClusterService', function () {
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));
       service.getData(true)
         .then( response => {
-           expect(response).toEqual(expectedResult);
+          expect(response).toEqual(expectedResult);
         })
         .catch( err => {
           fail('promise was unexpectedly rejected');
