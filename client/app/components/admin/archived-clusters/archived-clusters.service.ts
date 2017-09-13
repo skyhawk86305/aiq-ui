@@ -14,6 +14,7 @@ export class ArchivedClustersService {
       { label: 'Cluster Name', key: 'clusterName', filterComparators: SFFilterComparators.STRING_DEFAULT },
       { label: 'Last Update', key: 'lastUpdateTime', format: { filter: 'aiqDate' }, width: 175, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
       { label: 'Archive Time', key: 'archiveTime', format: { filter: 'aiqDate' }, width: 175, filterComparators: SFFilterComparators.INTEGER_DEFAULT },
+      { label: 'Restore with Customer', key: 'restore', width: 200, titleValue: 'Restore with Customer'},
     ];
 
     function listArchivedClusters() {
@@ -21,12 +22,33 @@ export class ArchivedClustersService {
         .then( ({ clusters = [] }) =>
           clusters.map(cluster => Object.assign({},cluster,{
             lastUpdateTime : new Date(cluster.lastUpdateTime * 1000),
-            archiveTime : new Date(cluster.archiveTime * 1000)
+            archiveTime : new Date(cluster.archiveTime * 1000),
+            restore: require('./restore-cluster-button.tpl.html'),
           }))
         );
     };
 
-    return new SFTableService(listArchivedClusters, columns, false);
+    const service = new SFTableService(listArchivedClusters, columns, false);
+
+    service.restore = (rowData) => {
+      return $uibModal
+        .open({
+          animation: false,
+          component: 'restoreCluster',
+          size: 'md',
+          resolve: {
+            cluster: () => rowData,
+          },
+          windowClass: 'aiq-modal restore-cluster-modal',
+          backdropClass: 'aiq-modal-backdrop',
+        })
+        .result
+        .then( () => {
+          this.$rootScope.$broadcast('refresh-archived-clusters', true);
+          this.$rootScope.$broadcast('refresh-cluster-select');
+        });
+    };
+    return service;
   }
 
 }
