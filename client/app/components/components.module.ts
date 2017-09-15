@@ -20,6 +20,9 @@ import { UnregisteredClustersService } from './admin/unregistered-clusters/unreg
 import { RegisterUnregisteredClusterComponent } from './admin/unregistered-clusters/register-cluster.component';
 import { RegisterUnregisteredClusterConfirmationComponent } from './admin/unregistered-clusters/register-cluster-confirmation.component';
 
+import { RestoreClusterComponent } from './admin/archived-clusters/restore-cluster.component';
+import { RestoreClusterConfirmationComponent } from './admin/archived-clusters/restore-cluster-confirmation.component';
+
 import { ArchivedClustersComponent } from './admin/archived-clusters/archived-clusters.component';
 import { ArchivedClustersService } from './admin/archived-clusters/archived-clusters.service';
 
@@ -74,6 +77,9 @@ export const ComponentsModule = angular
 
   .component('archivedClusters', ArchivedClustersComponent)
   .service('ArchivedClustersService', ArchivedClustersService)
+
+  .component('restoreCluster', RestoreClusterComponent)
+  .component('restoreClusterConfirmation', RestoreClusterConfirmationComponent)
 
   .component('findCluster', FindClusterComponent)
 
