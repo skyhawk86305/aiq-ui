@@ -8,6 +8,9 @@ class ArchivedClustersController {
 }
 
 export const ArchivedClustersComponent = {
-  template: require('./archived-clusters.tpl.html'),
+  bindings: {
+     restoreAuthorization: '<',
+   },
+ template: require('./archived-clusters.tpl.html'),
   controller: ArchivedClustersController,
 };
