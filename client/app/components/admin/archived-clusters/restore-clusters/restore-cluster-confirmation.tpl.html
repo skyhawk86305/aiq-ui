@@ -1,0 +1,22 @@
+<div class="aiq-modal-header">
+  <div class="aiq-modal-close-button" ng-click="$ctrl.no()">
+    <i class="fa fa-times"></i>
+  </div>
+
+  Restore Cluster {{ $ctrl.resolve.clusterName }} to Customer Account
+</div>
+
+<div class="aiq-modal-content">
+  <p>
+    Cluster <strong>{{ $ctrl.resolve.clusterName }}</strong>
+    will be restored to customer <strong>{{ $ctrl.resolve.customerName }}.</strong>
+  </p>
+  <p>
+    Are you sure you want to continue?
+  </p>
+</div>
+
+<div class="aiq-modal-footer">
+  <button class="button button-submit" ng-click="$ctrl.yes()"> Yes </button>
+  <button class="button button-cancel" ng-click="$ctrl.no()"> No </button>
+</div>
