@@ -1,5 +1,4 @@
 /* Restore Clusters Component   */
-
 import * as _ from 'lodash';
 
 class Customer {
@@ -64,7 +63,6 @@ class RestoreClusterController {
       return this.$q.reject({ message: 'Customer not found' });
     }
 
-
   private openConfirmationModal() {
     return this.$uibModal
       .open({
@@ -73,7 +71,7 @@ class RestoreClusterController {
         size: 'md',
         resolve: {
           clusterName: () => this.resolve.cluster.clusterName,
-          customerName: () => this.resolve.cluster.customerName,
+          customerName: () => this.customer.customerName,
         },
         windowClass: 'aiq-modal restore-cluster-modal-cluster-confirmation-modal',
         backdropClass: 'aiq-modal-backdrop',

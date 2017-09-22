@@ -37,13 +37,15 @@ describe('ArchivedClustersService', function() {
           customer: 'AT2 Clusters',
           clusterName: 'Test cluster 1',
           lastUpdateTime: '1492450284',
-          archiveTime: '1466075'
+          archiveTime: '1466075',
+
         }, {
           clusterID: 2147040,
           customer: 'HCI Testing',
           clusterName: 'Test cluster 2',
           lastUpdateTime: '1492450284',
-          archiveTime: '1466075'
+          archiveTime: '1466075',
+
         }]
       };
       const expectedResult = [{
@@ -51,13 +53,15 @@ describe('ArchivedClustersService', function() {
           customer: 'AT2 Clusters',
           clusterName: 'Test cluster 1',
           lastUpdateTime: new Date(1492450284000),
-          archiveTime: new Date(1466075000)
-      }, {
+          archiveTime: new Date(1466075000),
+          restore: require('./restore-clusters/restore-cluster-button.tpl.html'),
+        }, {
          clusterID: 2147040,
           customer: 'HCI Testing',
           clusterName: 'Test cluster 2',
           lastUpdateTime: new Date(1492450284000),
-          archiveTime: new Date(1466075000)
+          archiveTime: new Date(1466075000),
+          restore: require('./restore-clusters/restore-cluster-button.tpl.html'),
       }];
 
       spyOn(DataService, 'callAPI').and.returnValue($q.resolve(apiResponse));

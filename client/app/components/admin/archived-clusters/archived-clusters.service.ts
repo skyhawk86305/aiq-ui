@@ -29,10 +29,10 @@ export class ArchivedClustersService {
         );
     };
 
-      const service = new SFTableService(listArchivedClusters, columns, false);
+    const service = new SFTableService(listArchivedClusters, columns, false);
 
-      service.restore = (rowData) => {
-          return $uibModal
+    service.restore = (rowData) => {
+        return $uibModal
             .open({
               animation: false,
               component: 'restoreCluster',
@@ -51,5 +51,5 @@ export class ArchivedClustersService {
         };
 
         return service;
-      }
     }
+}
